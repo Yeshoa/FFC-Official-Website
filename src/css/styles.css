@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.disabled {
+  pointer-events: none;
+  color: gray;
+  cursor: default;
+}
