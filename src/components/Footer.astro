@@ -1,0 +1,70 @@
+---
+import { Image } from 'astro:assets';
+import FooterImage from '../assets/images/Footer.png';
+import Sponsor1 from '../assets/images/sponsors/bersa.png';
+import Sponsor2 from '../assets/images/sponsors/ecoking.png';
+import Sponsor3 from '../assets/images/sponsors/einsair.png';
+import Sponsor4 from '../assets/images/sponsors/einset royal.png';
+import Sponsor5 from '../assets/images/sponsors/ESN.png';
+import Sponsor6 from '../assets/images/sponsors/frey.png';
+import Sponsor7 from '../assets/images/sponsors/northern wings.png';
+import Sponsor8 from '../assets/images/sponsors/startex.png';
+import Sponsor9 from '../assets/images/sponsors/white island stadium.png';
+---
+<footer class="bg-white dark:bg-green-950 border-t border-green-200 dark:border-green-600">
+  <div class="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
+      <div class="md:flex md:justify-between">
+        <div class="mb-6 md:mb-0">
+            <a href="https://www.nationstates.net/page=dispatch/id=2525675" class="flex items-center">
+              <Image src={FooterImage} width="800" alt="Forestian Football Confederation">
+            </a>
+        </div>
+        <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3 mb-6">
+            <div>
+                <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Community</h2>
+                <ul class="text-gray-500 dark:text-gray-400 font-medium">
+                    <li class="mb-4">
+                        <a href="https://www.nationstates.net/region=forest" class="hover:underline">Forest</a>
+                    </li>
+                    <li class="mb-4">
+                      <a href="https://discord.gg/c2Uw6MN" class="hover:underline">Forest Discord Server</a>
+                    </li>
+                    <li>
+                      <a href="https://discord.com/invite/EX4sGhjbgU" class="hover:underline">FFC Discord Server</a>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Follow us</h2>
+                <ul class="text-gray-500 dark:text-gray-400 font-medium">
+                    <li class="mb-4">
+                      <a href="https://www.youtube.com/@Bolbon" class="hover:underline">Youtube</a>
+                    </li>
+                    <li class="mb-4">
+                      <a href="https://www.twitch.tv/bolbon_" class="hover:underline">Twitch</a>
+                    </li>
+                    <li>
+                      <a href="https://kick.com/bolbon" class="hover:underline">Kick</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+  </div>
+  <div class="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8 border-t border-green-200 dark:border-green-600">
+    <div class="flex justify-center ">
+      <h1>Sponsors</h1>
+    </div>
+    <div class="grid grid-cols-3 gap-4 sm:gap-5 sm:grid-cols-9 mt-8">
+      <div class="flex justify-center items-center"><Image src={Sponsor1} class="w-24 invert" alt="Bersa"></div>
+      <div class="flex justify-center items-center"><Image src={Sponsor2} class="w-24" alt="Ecoking"></div>
+      <div class="flex justify-center items-center"><Image src={Sponsor3} class="w-24 invert" alt="Einsair"></div>
+      <div class="flex justify-center items-center"><Image src={Sponsor4} class="w-24 invert" alt="Einset Royal"></div>
+      <div class="flex justify-center items-center"><Image src={Sponsor5} class="w-24" alt="ESN"></div>
+      <div class="flex justify-center items-center"><Image src={Sponsor6} class="w-24 invert" alt="Frey"></div>
+      <div class="flex justify-center items-center"><Image src={Sponsor7} class="w-24 invert" alt="Northern Wings"></div>
+      <div class="flex justify-center items-center"><Image src={Sponsor8} class="w-24 invert" alt="Startex"></div>
+      <div class="flex justify-center items-center"><Image src={Sponsor9} class="w-24 invert" alt="White Island Stadium"></div>
+    </div>
+  </div>
+</footer>

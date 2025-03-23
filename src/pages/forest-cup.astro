@@ -1,0 +1,37 @@
+---
+
+import FCCard from '../components/FCCard.astro';
+import App from '../layouts/App.astro';
+import { tournaments } from '../content/tournaments';
+
+import { Image } from 'astro:assets';
+
+// Importar todas las imágenes desde el directorio
+const images = import.meta.glob('../assets/images/*.png', { eager: true });
+
+
+// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
+// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+---
+
+<App title="FFC - Forest Cup">
+  <main class="p-6">
+    <div class="flex justify-center">
+      <div class="container flex flex-col items-center justify-center">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {tournaments.slice().reverse().map(tournament => {
+            const { name, winner, runner_up, image, route } = tournament;
+            return (
+              <FCCard
+                  title={name}
+                  description={`🏆 ${winner} vs ${runner_up}`}
+                  imagePath={image}
+                  route={route}
+                />
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  </main>
+</App>

@@ -1,0 +1,12 @@
+@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@theme {
+  --color-mint-500: oklch(0.72 0.11 178);
+  --color-forest: oklch(58.35% 0.1686 143.03);
+  --color-forest-light: oklch(74.36% 0.1656 143.69);
+  --color-forest-dark: oklch(43.47% 0.1419 142.64);
+} 
+ 
