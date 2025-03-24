@@ -5,7 +5,7 @@ import App from '../layouts/App.astro';
 import { tournaments } from '../content/tournaments';
 
 import { Image } from 'astro:assets';
-
+import FCLogo from '../assets/images/forest-cup/forest-cup.png';
 // Importar todas las imágenes desde el directorio
 const images = import.meta.glob('../assets/images/*.png', { eager: true });
 
@@ -15,8 +15,11 @@ const images = import.meta.glob('../assets/images/*.png', { eager: true });
 ---
 
 <App title="FFC - Forest Cup">
-  <main class="p-6">
-    <div class="flex justify-center">
+  <main class="flex flex-col items-center">
+    <div class="container flex flex-col justify-center items-center p-6">
+        <Image src={FCLogo} alt="Forest Cup" class="w-1/2" loading={"eager"}/>
+    </div>
+    <div class="flex justify-center p-6">
       <div class="container flex flex-col items-center justify-center">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {tournaments.slice().reverse().map(tournament => {
@@ -24,7 +27,6 @@ const images = import.meta.glob('../assets/images/*.png', { eager: true });
             return (
               <FCCard
                   title={name}
-                  description={`🏆 ${winner} vs ${runner_up}`}
                   imagePath={image}
                   route={route}
                 />

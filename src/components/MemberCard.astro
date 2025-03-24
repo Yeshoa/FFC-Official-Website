@@ -1,0 +1,22 @@
+---
+import type { ImageMetadata } from 'astro';
+import { Image } from 'astro:assets';
+interface MemberCardProps {
+  name: string;
+  flagPath: ImageMetadata;
+  logoPath: ImageMetadata;
+}
+const { name, flagPath, logoPath } = Astro.props;
+
+const images = import.meta.glob<{ default: ImageMetadata }>("/src/assets/images/members/*.{jpeg,jpg,png,gif}");
+
+if (!images[flagPath]) throw new Error(`"${flagPath}" does not exist in glob: "src/assets/*.{jpeg,jpg,png,gif}"`);
+if (!images[logoPath]) throw new Error(`"${logoPath}" does not exist in glob: "src/assets/*.{jpeg,jpg,png,gif}"`);
+---
+<div>
+  <a href="" class="max-w-sm rounded overflow-hidden shadow-2xl hover:shadow-sm hover:shadow-green-800 transition duration-300
+  flex">
+    <Image src={images[logoPath]()} class="w-full" alt={name}/>
+  </a>
+  <p class="text-sm my-2">{name}</p>
+</div>

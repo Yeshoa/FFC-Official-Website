@@ -1,1 +1,22 @@
-<p>a</p>
+---
+import Home from '../components/Home.astro';
+import App from '../layouts/App.astro';
+import { members } from '../content/members';
+import MemberCard from '../components/MemberCard.astro';
+
+// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
+// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+---
+
+<App title="FFC - Members">
+  {members.map(member => {
+    const { name, flagPath, logoPath } = member;
+    return (
+      <MemberCard
+        name={name}
+        flagPath={flagPath}
+        logoPath={logoPath}
+        />
+    );
+  })}
+</App>
