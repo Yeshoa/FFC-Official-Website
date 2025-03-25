@@ -1,5 +1,6 @@
 ---
 
+import HistoricalTable from '../components/HistoricalTable.astro';
 import FCCard from '../components/FCCard.astro';
 import App from '../layouts/App.astro';
 import { tournaments } from '../content/tournaments';
@@ -16,12 +17,14 @@ const images = import.meta.glob('../assets/images/*.png', { eager: true });
 
 <App title="FFC - Forest Cup">
   <main class="flex flex-col items-center">
+    <!-- Banner -->
     <div class="container flex flex-col justify-center items-center p-6">
         <Image src={FCLogo} alt="Forest Cup" class="w-1/2" loading={"eager"}/>
     </div>
+    <!-- Tournaments -->
     <div class="flex justify-center p-6">
-      <div class="container flex flex-col items-center justify-center">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="container">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {tournaments.slice().reverse().map(tournament => {
             const { name, winner, runner_up, image, route } = tournament;
             return (
@@ -35,5 +38,7 @@ const images = import.meta.glob('../assets/images/*.png', { eager: true });
         </div>
       </div>
     </div>
+    <!-- Table -->
+    <HistoricalTable />
   </main>
 </App>

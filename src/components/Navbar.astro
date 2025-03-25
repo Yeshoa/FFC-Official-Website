@@ -5,7 +5,7 @@ const currentPath = Astro.url.pathname;
   <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
     <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
         <img src="https://i.ibb.co/Rjf5DpJ/IMG-3057.png" class="h-8" alt="FFC Logo" loading="eager">
-        <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Forestian Football Confederation</span>
+        <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white hover:text-green-300">Forestian Football Confederation</span>
     </a>
     <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
         
@@ -19,22 +19,22 @@ const currentPath = Astro.url.pathname;
     <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
       <ul class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 dark:border-gray-700">
         <li>
-          <a href="/" class={`block py-2 px-3 rounded-sm ${currentPath === "/" ? "text-green-600 font-bold" : "text-white"}`}>
+          <a href="/" class={`block py-2 px-3 rounded-sm ${currentPath === "/" ? "text-green-600 font-bold" : "text-white hover:text-green-300"}`}>
             Home
           </a>
         </li>
         <li>
-          <a href="/forest-cup" class={`block py-2 px-3 rounded-sm ${currentPath === "/forest-cup" ? "text-green-600 font-bold" : "text-white"}`}>
+          <a href="/forest-cup" class={`block py-2 px-3 rounded-sm ${currentPath === "/forest-cup" ? "text-green-600 font-bold" : "text-white hover:text-green-300"}`}>
             Forest Cup
           </a>
         </li>
         <li>
-          <a href="/members" class={`block py-2 px-3 rounded-sm ${currentPath === "/members" ? "text-green-600 font-bold" : "text-white"}`}>
+          <a href="/members" class={`block py-2 px-3 rounded-sm ${currentPath === "/members" ? "text-green-600 font-bold" : "text-white hover:text-green-300"}`}>
             Members
           </a>
         </li>
         <li>
-          <a href="https://forms.gle/Qn2d5kFwCg8pndnK9" target="_blank" class={`block py-2 px-3 rounded-sm text-white`}>
+          <a href="https://forms.gle/Qn2d5kFwCg8pndnK9" target="_blank" class={`block py-2 px-3 rounded-sm text-white hover:text-green-300`}>
             Join FFC
           </a>
         </li>

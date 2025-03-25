@@ -12,10 +12,11 @@ const images = import.meta.glob<{ default: ImageMetadata }>("/src/assets/images/
 
 if (!images[imagePath]) throw new Error(`"${imagePath}" does not exist in glob: "src/assets/*.{jpeg,jpg,png,gif}"`);
 ---
-<div>
-  <a href={route} class="max-w-sm rounded overflow-hidden bg-green-950 shadow-2xl hover:bg-green-900 hover:shadow-sm hover:shadow-green-800 transition duration-300
-  flex">
-    <Image src={images[imagePath]()} class="w-full" alt={title} loading={"eager"}/>
-  </a>
-  <p class="font-bold text-xl my-2">{title}</p>
-</div>
+<a href={route} class="flex flex-col justify-center items-center overflow-hidden 
+border ring-0 hover:ring-2 hover:ring-green-300 border-green-800 
+p-4 rounded-4xl w-auto">
+  <div class="flex h-full items-center">
+    <Image src={images[imagePath]()} class="h-full w-auto" alt={title} loading={"eager"}/>
+  </div>
+  <p class="font-bold text-xl">{title}</p>
+</a>

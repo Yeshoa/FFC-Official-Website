@@ -1,5 +1,4 @@
-export const members= [
-
+export const members = [
   {
     "id": 1,
     "code": "BIL",
@@ -13,7 +12,7 @@ export const members= [
     "founded": 2012,
     "affiliation": 2024,
     "score": 0,
-    "records": [{
+    "records": {
       "tournamentsPlayed": 3,
       "tournamentsWon": 0,
       "totalPoints": 15,
@@ -24,7 +23,6 @@ export const members= [
       "goalsFor": 6,
       "goalsAgainst": 4
     }
-    ]
   },
   {
     "id": 2,
@@ -39,19 +37,19 @@ export const members= [
     "founded": 2020,
     "affiliation": 2024,
     "score": 0,
-    "records": [{
-    "tournamentsPlayed": 0,
-    "tournamentsWon": 0,
-    "totalPoints": 0,
-    "matches": 0,
-    "wins": 0,
-    "draws": 0,
-    "losses": 0,
-    "goalsFor": 0,
-    "goalsAgainst": 0
-    }]
-    },
-    {
+    "records": {
+      "tournamentsPlayed": 2,
+      "tournamentsWon": 0,
+      "totalPoints": 3,
+      "matches": 6,
+      "wins": 1,
+      "draws": 0,
+      "losses": 5,
+      "goalsFor": 1,
+      "goalsAgainst": 12
+    }
+  },
+  {
     "id": 3,
     "code": "JUT",
     "name": "Jutsa",
@@ -64,19 +62,19 @@ export const members= [
     "founded": 2022,
     "affiliation": 2024,
     "score": 0,
-    "records": [{
-    "tournamentsPlayed": 0,
-    "tournamentsWon": 0,
-    "totalPoints": 0,
-    "matches": 0,
-    "wins": 0,
-    "draws": 0,
-    "losses": 0,
-    "goalsFor": 0,
-    "goalsAgainst": 0
-    }]
-    },
-    {
+    "records": {
+      "tournamentsPlayed": 1,
+      "tournamentsWon": 0,
+      "totalPoints": 20,
+      "matches": 11,
+      "wins": 6,
+      "draws": 2,
+      "losses": 3,
+      "goalsFor": 18,
+      "goalsAgainst": 11
+    }
+  },
+  {
     "id": 4,
     "code": "ZPH",
     "name": "Zerphen",
@@ -89,19 +87,19 @@ export const members= [
     "founded": 2024,
     "affiliation": 2024,
     "score": 0,
-    "records": [{
-    "tournamentsPlayed": 0,
-    "tournamentsWon": 0,
-    "totalPoints": 0,
-    "matches": 0,
-    "wins": 0,
-    "draws": 0,
-    "losses": 0,
-    "goalsFor": 0,
-    "goalsAgainst": 0
-    }]
-    },
-    {
+    "records": {
+      "tournamentsPlayed": 1,
+      "tournamentsWon": 0,
+      "totalPoints": 3,
+      "matches": 3,
+      "wins": 1,
+      "draws": 0,
+      "losses": 2,
+      "goalsFor": 3,
+      "goalsAgainst": 6
+    }
+  },
+  {
     "id": 5,
     "code": "CAC",
     "name": "Cacusia",
@@ -114,19 +112,19 @@ export const members= [
     "founded": 1877,
     "affiliation": 2024,
     "score": 0,
-    "records": [{
-    "tournamentsPlayed": 0,
-    "tournamentsWon": 0,
-    "totalPoints": 0,
-    "matches": 0,
-    "wins": 0,
-    "draws": 0,
-    "losses": 0,
-    "goalsFor": 0,
-    "goalsAgainst": 0
-    }]
-    },
-    {
+    "records": {
+      "tournamentsPlayed": 2,
+      "tournamentsWon": 0,
+      "totalPoints": 27,
+      "matches": 12,
+      "wins": 9,
+      "draws": 0,
+      "losses": 3,
+      "goalsFor": 16,
+      "goalsAgainst": 9
+    }
+  },
+  {
     "id": 6,
     "code": "REA",
     "name": "Reannia",
@@ -139,19 +137,19 @@ export const members= [
     "founded": 1556,
     "affiliation": 2024,
     "score": 0,
-    "records": [{
-    "tournamentsPlayed": 0,
-    "tournamentsWon": 0,
-    "totalPoints": 0,
-    "matches": 0,
-    "wins": 0,
-    "draws": 0,
-    "losses": 0,
-    "goalsFor": 0,
-    "goalsAgainst": 0
-    }]
-    },
-    {
+    "records": {
+      "tournamentsPlayed": 1,
+      "tournamentsWon": 0,
+      "totalPoints": 12,
+      "matches": 5,
+      "wins": 4,
+      "draws": 0,
+      "losses": 1,
+      "goalsFor": 12,
+      "goalsAgainst": 3
+    }
+  },
+  {
     "id": 7,
     "code": "ATS",
     "name": "Atsvea",
@@ -164,19 +162,19 @@ export const members= [
     "founded": 2020,
     "affiliation": 2024,
     "score": 0,
-    "records": [{
-    "tournamentsPlayed": 0,
-    "tournamentsWon": 0,
-    "totalPoints": 0,
-    "matches": 0,
-    "wins": 0,
-    "draws": 0,
-    "losses": 0,
-    "goalsFor": 0,
-    "goalsAgainst": 0
-    }]
-    },
-    {
+    "records": {
+      "tournamentsPlayed": 2,
+      "tournamentsWon": 1,
+      "totalPoints": 27,
+      "matches": 11,
+      "wins": 9,
+      "draws": 0,
+      "losses": 2,
+      "goalsFor": 26,
+      "goalsAgainst": 8
+    }
+  },
+  {
     "id": 8,
     "code": "RLS",
     "name": "Roless",
@@ -189,19 +187,19 @@ export const members= [
     "founded": 1986,
     "affiliation": 2024,
     "score": 0,
-    "records": [{
-    "tournamentsPlayed": 0,
-    "tournamentsWon": 0,
-    "totalPoints": 0,
-    "matches": 0,
-    "wins": 0,
-    "draws": 0,
-    "losses": 0,
-    "goalsFor": 0,
-    "goalsAgainst": 0
-    }]
-    },
-    {
+    "records": {
+      "tournamentsPlayed": 2,
+      "tournamentsWon": 0,
+      "totalPoints": 16,
+      "matches": 9,
+      "wins": 5,
+      "draws": 1,
+      "losses": 3,
+      "goalsFor": 14,
+      "goalsAgainst": 10
+    }
+  },
+  {
     "id": 9,
     "code": "EIN",
     "name": "Einswenn",
@@ -214,19 +212,19 @@ export const members= [
     "founded": null,
     "affiliation": 2024,
     "score": 0,
-    "records": [{
-    "tournamentsPlayed": 0,
-    "tournamentsWon": 0,
-    "totalPoints": 0,
-    "matches": 0,
-    "wins": 0,
-    "draws": 0,
-    "losses": 0,
-    "goalsFor": 0,
-    "goalsAgainst": 0
-    }]
-    },
-    {
+    "records": {
+      "tournamentsPlayed": 2,
+      "tournamentsWon": 0,
+      "totalPoints": 18,
+      "matches": 9,
+      "wins": 5,
+      "draws": 3,
+      "losses": 2,
+      "goalsFor": 14,
+      "goalsAgainst": 10
+    }
+  },
+  {
     "id": 10,
     "code": "TRZ",
     "name": "The Realizer",
@@ -239,19 +237,19 @@ export const members= [
     "founded": null,
     "affiliation": 2024,
     "score": 0,
-    "records": [{
-    "tournamentsPlayed": 0,
-    "tournamentsWon": 0,
-    "totalPoints": 0,
-    "matches": 0,
-    "wins": 0,
-    "draws": 0,
-    "losses": 0,
-    "goalsFor": 0,
-    "goalsAgainst": 0
-    }]
-    },
-    {
+    "records": {
+      "tournamentsPlayed": 1,
+      "tournamentsWon": 0,
+      "totalPoints": 4,
+      "matches": 3,
+      "wins": 1,
+      "draws": 1,
+      "losses": 1,
+      "goalsFor": 3,
+      "goalsAgainst": 3
+    }
+  },
+  {
     "id": 11,
     "code": "AKE",
     "name": "Anxious and Kevin",
@@ -264,19 +262,19 @@ export const members= [
     "founded": 2002,
     "affiliation": 2024,
     "score": 0,
-    "records": [{
-    "tournamentsPlayed": 0,
-    "tournamentsWon": 0,
-    "totalPoints": 0,
-    "matches": 0,
-    "wins": 0,
-    "draws": 0,
-    "losses": 0,
-    "goalsFor": 0,
-    "goalsAgainst": 0
-    }]
-    },
-    {
+    "records": {
+      "tournamentsPlayed": 1,
+      "tournamentsWon": 0,
+      "totalPoints": 4,
+      "matches": 4,
+      "wins": 1,
+      "draws": 1,
+      "losses": 2,
+      "goalsFor": 2,
+      "goalsAgainst": 3
+    }
+  },
+  {
     "id": 12,
     "code": "ORC",
     "name": "Orcuo",
@@ -289,19 +287,19 @@ export const members= [
     "founded": 2024,
     "affiliation": 2024,
     "score": 0,
-    "records": [{
-    "tournamentsPlayed": 0,
-    "tournamentsWon": 0,
-    "totalPoints": 0,
-    "matches": 0,
-    "wins": 0,
-    "draws": 0,
-    "losses": 0,
-    "goalsFor": 0,
-    "goalsAgainst": 0
-    }]
-    },
-    {
+    "records": {
+      "tournamentsPlayed": 1,
+      "tournamentsWon": 0,
+      "totalPoints": 2,
+      "matches": 3,
+      "wins": 0,
+      "draws": 2,
+      "losses": 1,
+      "goalsFor": 1,
+      "goalsAgainst": 3
+    }
+  },
+  {
     "id": 13,
     "code": "CQ",
     "name": "Columbiqash",
@@ -314,19 +312,19 @@ export const members= [
     "founded": 2024,
     "affiliation": 2024,
     "score": 0,
-    "records": [{
-    "tournamentsPlayed": 0,
-    "tournamentsWon": 0,
-    "totalPoints": 0,
-    "matches": 0,
-    "wins": 0,
-    "draws": 0,
-    "losses": 0,
-    "goalsFor": 0,
-    "goalsAgainst": 0
-    }]
-    },
-    {
+    "records": {
+      "tournamentsPlayed": 1,
+      "tournamentsWon": 0,
+      "totalPoints": 0,
+      "matches": 3,
+      "wins": 0,
+      "draws": 0,
+      "losses": 3,
+      "goalsFor": 0,
+      "goalsAgainst": 8
+    }
+  },
+  {
     "id": 14,
     "code": "TYL",
     "name": "Tylvana",
@@ -339,19 +337,19 @@ export const members= [
     "founded": 2024,
     "affiliation": 2024,
     "score": 0,
-    "records": [{
-    "tournamentsPlayed": 0,
-    "tournamentsWon": 0,
-    "totalPoints": 0,
-    "matches": 0,
-    "wins": 0,
-    "draws": 0,
-    "losses": 0,
-    "goalsFor": 0,
-    "goalsAgainst": 0
-    }]
-    },
-    {
+    "records": {
+      "tournamentsPlayed": 1,
+      "tournamentsWon": 0,
+      "totalPoints": 1,
+      "matches": 3,
+      "wins": 0,
+      "draws": 1,
+      "losses": 2,
+      "goalsFor": 0,
+      "goalsAgainst": 4
+    }
+  },
+  {
     "id": 15,
     "code": "UMF",
     "name": "United Malay Federation",
@@ -364,19 +362,19 @@ export const members= [
     "founded": null,
     "affiliation": 2024,
     "score": 0,
-    "records": [{
-    "tournamentsPlayed": 0,
-    "tournamentsWon": 0,
-    "totalPoints": 0,
-    "matches": 0,
-    "wins": 0,
-    "draws": 0,
-    "losses": 0,
-    "goalsFor": 0,
-    "goalsAgainst": 0
-    }]
-    },
-    {
+    "records": {
+      "tournamentsPlayed": 1,
+      "tournamentsWon": 0,
+      "totalPoints": 12,
+      "matches": 5,
+      "wins": 4,
+      "draws": 0,
+      "losses": 1,
+      "goalsFor": 12,
+      "goalsAgainst": 3
+    }
+  },
+  {
     "id": 16,
     "code": "VH",
     "name": "Verdant Haven",
@@ -389,19 +387,19 @@ export const members= [
     "founded": null,
     "affiliation": 2024,
     "score": 0,
-    "records": [{
-    "tournamentsPlayed": 0,
-    "tournamentsWon": 0,
-    "totalPoints": 0,
-    "matches": 0,
-    "wins": 0,
-    "draws": 0,
-    "losses": 0,
-    "goalsFor": 0,
-    "goalsAgainst": 0
-    }]
-    },
-    {
+    "records": {
+      "tournamentsPlayed": 1,
+      "tournamentsWon": 0,
+      "totalPoints": 3,
+      "matches": 3,
+      "wins": 1,
+      "draws": 0,
+      "losses": 2,
+      "goalsFor": 5,
+      "goalsAgainst": 3
+    }
+  },
+  {
     "id": 17,
     "code": "LUM",
     "name": "Lumiose",
@@ -414,19 +412,19 @@ export const members= [
     "founded": 1881,
     "affiliation": 2024,
     "score": 0,
-    "records": [{
-    "tournamentsPlayed": 0,
-    "tournamentsWon": 0,
-    "totalPoints": 0,
-    "matches": 0,
-    "wins": 0,
-    "draws": 0,
-    "losses": 0,
-    "goalsFor": 0,
-    "goalsAgainst": 0
-    }]
-    },
-    {
+    "records": {
+      "tournamentsPlayed": 1,
+      "tournamentsWon": 0,
+      "totalPoints": 8,
+      "matches": 5,
+      "wins": 2,
+      "draws": 2,
+      "losses": 1,
+      "goalsFor": 6,
+      "goalsAgainst": 5
+    }
+  },
+  {
     "id": 18,
     "code": "RUI",
     "name": "Ruinenlust",
@@ -439,19 +437,19 @@ export const members= [
     "founded": 2020,
     "affiliation": 2024,
     "score": 0,
-    "records": [{
-    "tournamentsPlayed": 0,
-    "tournamentsWon": 0,
-    "totalPoints": 0,
-    "matches": 0,
-    "wins": 0,
-    "draws": 0,
-    "losses": 0,
-    "goalsFor": 0,
-    "goalsAgainst": 0
-    }]
-    },
-    {
+    "records": {
+      "tournamentsPlayed": 2,
+      "tournamentsWon": 0,
+      "totalPoints": 30,
+      "matches": 12,
+      "wins": 10,
+      "draws": 0,
+      "losses": 2,
+      "goalsFor": 26,
+      "goalsAgainst": 7
+    }
+  },
+  {
     "id": 19,
     "code": "EPR",
     "name": "Freistaat Ostpreussen",
@@ -464,19 +462,19 @@ export const members= [
     "founded": 2024,
     "affiliation": 2024,
     "score": 0,
-    "records": [{
-    "tournamentsPlayed": 0,
-    "tournamentsWon": 0,
-    "totalPoints": 0,
-    "matches": 0,
-    "wins": 0,
-    "draws": 0,
-    "losses": 0,
-    "goalsFor": 0,
-    "goalsAgainst": 0
-    }]
-    },
-    {
+    "records": {
+      "tournamentsPlayed": 1,
+      "tournamentsWon": 0,
+      "totalPoints": 3,
+      "matches": 3,
+      "wins": 1,
+      "draws": 0,
+      "losses": 2,
+      "goalsFor": 3,
+      "goalsAgainst": 6
+    }
+  },
+  {
     "id": 20,
     "code": "BSF",
     "name": "Bisofeyr",
@@ -489,19 +487,19 @@ export const members= [
     "founded": 2024,
     "affiliation": 2024,
     "score": 0,
-    "records": [{
-    "tournamentsPlayed": 0,
-    "tournamentsWon": 0,
-    "totalPoints": 0,
-    "matches": 0,
-    "wins": 0,
-    "draws": 0,
-    "losses": 0,
-    "goalsFor": 0,
-    "goalsAgainst": 0
-    }]
-    },
-    {
+    "records": {
+      "tournamentsPlayed": 0,
+      "tournamentsWon": 0,
+      "totalPoints": 0,
+      "matches": 0,
+      "wins": 0,
+      "draws": 0,
+      "losses": 0,
+      "goalsFor": 0,
+      "goalsAgainst": 0
+    }
+  },
+  {
     "id": 21,
     "code": "FUR",
     "name": "Furilisca",
@@ -514,19 +512,19 @@ export const members= [
     "founded": null,
     "affiliation": 2024,
     "score": 0,
-    "records": [{
-    "tournamentsPlayed": 0,
-    "tournamentsWon": 0,
-    "totalPoints": 0,
-    "matches": 0,
-    "wins": 0,
-    "draws": 0,
-    "losses": 0,
-    "goalsFor": 0,
-    "goalsAgainst": 0
-    }]
-    },
-    {
+    "records": {
+      "tournamentsPlayed": 1,
+      "tournamentsWon": 0,
+      "totalPoints": 6,
+      "matches": 4,
+      "wins": 2,
+      "draws": 0,
+      "losses": 2,
+      "goalsFor": 5,
+      "goalsAgainst": 5
+    }
+  },
+  {
     "id": 22,
     "code": "NLK",
     "name": "New Libertalia Kingdom",
@@ -539,19 +537,19 @@ export const members= [
     "founded": null,
     "affiliation": 2024,
     "score": 0,
-    "records": [{
-    "tournamentsPlayed": 0,
-    "tournamentsWon": 0,
-    "totalPoints": 0,
-    "matches": 0,
-    "wins": 0,
-    "draws": 0,
-    "losses": 0,
-    "goalsFor": 0,
-    "goalsAgainst": 0
-    }]
-    },
-    {
+    "records": {
+      "tournamentsPlayed": 1,
+      "tournamentsWon": 0,
+      "totalPoints": 4,
+      "matches": 4,
+      "wins": 1,
+      "draws": 1,
+      "losses": 2,
+      "goalsFor": 4,
+      "goalsAgainst": 7
+    }
+  },
+  {
     "id": 23,
     "code": "SCH",
     "name": "Schachland",
@@ -564,19 +562,19 @@ export const members= [
     "founded": null,
     "affiliation": 2024,
     "score": 0,
-    "records": [{
-    "tournamentsPlayed": 0,
-    "tournamentsWon": 0,
-    "totalPoints": 0,
-    "matches": 0,
-    "wins": 0,
-    "draws": 0,
-    "losses": 0,
-    "goalsFor": 0,
-    "goalsAgainst": 0
-    }]
-    },
-    {
+    "records": {
+      "tournamentsPlayed": 1,
+      "tournamentsWon": 0,
+      "totalPoints": 3,
+      "matches": 3,
+      "wins": 1,
+      "draws": 0,
+      "losses": 2,
+      "goalsFor": 2,
+      "goalsAgainst": 3
+    }
+  },
+  {
     "id": 24,
     "code": "YUC",
     "name": "Republic of Yucatan",
@@ -589,19 +587,19 @@ export const members= [
     "founded": 1920,
     "affiliation": 2024,
     "score": 0,
-    "records": [{
-    "tournamentsPlayed": 0,
-    "tournamentsWon": 0,
-    "totalPoints": 0,
-    "matches": 0,
-    "wins": 0,
-    "draws": 0,
-    "losses": 0,
-    "goalsFor": 0,
-    "goalsAgainst": 0
-    }]
-    },
-    {
+    "records": {
+      "tournamentsPlayed": 1,
+      "tournamentsWon": 0,
+      "totalPoints": 9,
+      "matches": 5,
+      "wins": 3,
+      "draws": 0,
+      "losses": 2,
+      "goalsFor": 8,
+      "goalsAgainst": 9
+    }
+  },
+  {
     "id": 25,
     "code": "WAS",
     "name": "Washeyye",
@@ -614,19 +612,19 @@ export const members= [
     "founded": 2020,
     "affiliation": 2024,
     "score": 0,
-    "records": [{
-    "tournamentsPlayed": 0,
-    "tournamentsWon": 0,
-    "totalPoints": 0,
-    "matches": 0,
-    "wins": 0,
-    "draws": 0,
-    "losses": 0,
-    "goalsFor": 0,
-    "goalsAgainst": 0
-    }]
-    },
-    {
+    "records": {
+      "tournamentsPlayed": 1,
+      "tournamentsWon": 0,
+      "totalPoints": 3,
+      "matches": 3,
+      "wins": 1,
+      "draws": 0,
+      "losses": 2,
+      "goalsFor": 3,
+      "goalsAgainst": 7
+    }
+  },
+  {
     "id": 26,
     "code": "CAT",
     "name": "Cat Army",
@@ -639,19 +637,19 @@ export const members= [
     "founded": null,
     "affiliation": 2024,
     "score": 0,
-    "records": [{
-    "tournamentsPlayed": 0,
-    "tournamentsWon": 0,
-    "totalPoints": 0,
-    "matches": 0,
-    "wins": 0,
-    "draws": 0,
-    "losses": 0,
-    "goalsFor": 0,
-    "goalsAgainst": 0
-    }]
-    },
-    {
+    "records": {
+      "tournamentsPlayed": 1,
+      "tournamentsWon": 0,
+      "totalPoints": 4,
+      "matches": 4,
+      "wins": 1,
+      "draws": 1,
+      "losses": 2,
+      "goalsFor": 5,
+      "goalsAgainst": 7
+    }
+  },
+  {
     "id": 27,
     "code": "RKD",
     "name": "RKD",
@@ -664,19 +662,19 @@ export const members= [
     "founded": 2024,
     "affiliation": 2024,
     "score": 0,
-    "records": [{
-    "tournamentsPlayed": 0,
-    "tournamentsWon": 0,
-    "totalPoints": 0,
-    "matches": 0,
-    "wins": 0,
-    "draws": 0,
-    "losses": 0,
-    "goalsFor": 0,
-    "goalsAgainst": 0
-    }]
-    },
-    {
+    "records": {
+      "tournamentsPlayed": 1,
+      "tournamentsWon": 0,
+      "totalPoints": 4,
+      "matches": 3,
+      "wins": 1,
+      "draws": 1,
+      "losses": 1,
+      "goalsFor": 3,
+      "goalsAgainst": 6
+    }
+  },
+  {
     "id": 28,
     "code": "NAR",
     "name": "Nardin",
@@ -689,19 +687,19 @@ export const members= [
     "founded": 2024,
     "affiliation": 2024,
     "score": 0,
-    "records": [{
-    "tournamentsPlayed": 0,
-    "tournamentsWon": 0,
-    "totalPoints": 0,
-    "matches": 0,
-    "wins": 0,
-    "draws": 0,
-    "losses": 0,
-    "goalsFor": 0,
-    "goalsAgainst": 0
-    }]
-    },
-    {
+    "records": {
+      "tournamentsPlayed": 1,
+      "tournamentsWon": 0,
+      "totalPoints": 20,
+      "matches": 11,
+      "wins": 6,
+      "draws": 2,
+      "losses": 3,
+      "goalsFor": 18,
+      "goalsAgainst": 11
+    }
+  },
+  {
     "id": 29,
     "code": "OTL",
     "name": "Ottterland",
@@ -714,19 +712,19 @@ export const members= [
     "founded": 2024,
     "affiliation": 2024,
     "score": 0,
-    "records": [{
-    "tournamentsPlayed": 0,
-    "tournamentsWon": 0,
-    "totalPoints": 0,
-    "matches": 0,
-    "wins": 0,
-    "draws": 0,
-    "losses": 0,
-    "goalsFor": 0,
-    "goalsAgainst": 0
-    }]
-    },
-    {
+    "records": {
+      "tournamentsPlayed": 1,
+      "tournamentsWon": 0,
+      "totalPoints": 4,
+      "matches": 3,
+      "wins": 1,
+      "draws": 1,
+      "losses": 1,
+      "goalsFor": 3,
+      "goalsAgainst": 6
+    }
+  },
+  {
     "id": 30,
     "code": "ARE",
     "name": "Aresetia",
@@ -739,19 +737,19 @@ export const members= [
     "founded": null,
     "affiliation": 2024,
     "score": 0,
-    "records": [{
-    "tournamentsPlayed": 0,
-    "tournamentsWon": 0,
-    "totalPoints": 0,
-    "matches": 0,
-    "wins": 0,
-    "draws": 0,
-    "losses": 0,
-    "goalsFor": 0,
-    "goalsAgainst": 0
-    }]
-    },
-    {
+    "records": {
+      "tournamentsPlayed": 1,
+      "tournamentsWon": 0,
+      "totalPoints": 3,
+      "matches": 3,
+      "wins": 1,
+      "draws": 0,
+      "losses": 2,
+      "goalsFor": 2,
+      "goalsAgainst": 2
+    }
+  },
+  {
     "id": 31,
     "code": "SEH",
     "name": "Sehir",
@@ -764,19 +762,19 @@ export const members= [
     "founded": null,
     "affiliation": 2024,
     "score": 0,
-    "records": [{
-    "tournamentsPlayed": 0,
-    "tournamentsWon": 0,
-    "totalPoints": 0,
-    "matches": 0,
-    "wins": 0,
-    "draws": 0,
-    "losses": 0,
-    "goalsFor": 0,
-    "goalsAgainst": 0
-    }]
-    },
-    {
+    "records": {
+      "tournamentsPlayed": 1,
+      "tournamentsWon": 0,
+      "totalPoints": 3,
+      "matches": 3,
+      "wins": 1,
+      "draws": 0,
+      "losses": 2,
+      "goalsFor": 3,
+      "goalsAgainst": 7
+    }
+  },
+  {
     "id": 32,
     "code": "MOZ",
     "name": "Mozolephies",
@@ -789,19 +787,19 @@ export const members= [
     "founded": null,
     "affiliation": 2024,
     "score": 0,
-    "records": [{
-    "tournamentsPlayed": 0,
-    "tournamentsWon": 0,
-    "totalPoints": 0,
-    "matches": 0,
-    "wins": 0,
-    "draws": 0,
-    "losses": 0,
-    "goalsFor": 0,
-    "goalsAgainst": 0
-    }]
-    },
-    {
+    "records": {
+      "tournamentsPlayed": 1,
+      "tournamentsWon": 0,
+      "totalPoints": 0,
+      "matches": 3,
+      "wins": 0,
+      "draws": 0,
+      "losses": 3,
+      "goalsFor": 0,
+      "goalsAgainst": 8
+    }
+  },
+  {
     "id": 33,
     "code": "CTC",
     "name": "Clown Town City",
@@ -814,16 +812,16 @@ export const members= [
     "founded": null,
     "affiliation": 2024,
     "score": 0,
-    "records": [{
-    "tournamentsPlayed": 0,
-    "tournamentsWon": 0,
-    "totalPoints": 0,
-    "matches": 0,
-    "wins": 0,
-    "draws": 0,
-    "losses": 0,
-    "goalsFor": 0,
-    "goalsAgainst": 0
-    }]
+    "records": {
+      "tournamentsPlayed": 1,
+      "tournamentsWon": 0,
+      "totalPoints": 2,
+      "matches": 3,
+      "wins": 0,
+      "draws": 2,
+      "losses": 1,
+      "goalsFor": 1,
+      "goalsAgainst": 3
     }
+  }
 ];
