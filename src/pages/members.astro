@@ -11,7 +11,7 @@ import MemberCard from '../components/MemberCard.astro';
 <App title="FFC - Members">
   <main class="flex flex-col items-center">
     <div class="container flex flex-col items-center justify-center p-6">
-    <h1 class="text-7xl font-bold p-6 mb-6">Official Members</h1>
+    <h1 class="text-7xl font-bold p-6 mb-12">Official Members</h1>
       <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4">
       {members.map(member => {
         const { name, code, flagPath, logoPath, nslink } = member;

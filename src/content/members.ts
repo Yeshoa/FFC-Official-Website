@@ -63,7 +63,7 @@ export const members = [
     "affiliation": 2024,
     "score": 0,
     "records": {
-      "tournamentsPlayed": 1,
+      "tournamentsPlayed": 2,
       "tournamentsWon": 0,
       "totalPoints": 20,
       "matches": 11,
@@ -690,13 +690,13 @@ export const members = [
     "records": {
       "tournamentsPlayed": 1,
       "tournamentsWon": 0,
-      "totalPoints": 20,
-      "matches": 11,
+      "totalPoints": 19,
+      "matches": 7,
       "wins": 6,
-      "draws": 2,
-      "losses": 3,
-      "goalsFor": 18,
-      "goalsAgainst": 11
+      "draws": 1,
+      "losses": 0,
+      "goalsFor": 14,
+      "goalsAgainst": 5
     }
   },
   {

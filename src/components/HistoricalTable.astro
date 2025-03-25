@@ -12,9 +12,9 @@ const imageMap = Object.fromEntries(
 <div class="container mx-auto p-6 flex flex-col justify-center items-center border-t border-green-600">
   <h1 class="text-7xl font-bold mb-6">Historical Table</h1>
   <table class="min-w-full w-full table-auto border-collapse">
-    <thead class="bg-green-800 text-white">
+    <thead class="bg-green-800 text-white ">
       <tr>
-        <th class="px-4 py-2 text-center">Pos</th>
+        <th class="px-4 py-2 text-center rounded-tl-2xl">Pos</th>
         <th class="px-4 py-2 text-center"></th>
         <th class="px-4 py-2 text-center">Team</th>
         <th class="px-4 py-2 text-center">TP</th>
@@ -26,7 +26,7 @@ const imageMap = Object.fromEntries(
         <th class="px-4 py-2 text-center">GF</th>
         <th class="px-4 py-2 text-center">GA</th>
         <th class="px-4 py-2 text-center">GD</th>
-        <th class="px-4 py-2 text-center">PR</th>
+        <th class="px-4 py-2 text-center rounded-tr-2xl">PR</th>
       </tr>
     </thead>
     <!-- Members -->
@@ -40,6 +40,11 @@ const imageMap = Object.fromEntries(
         const performanceA = a.records.totalPoints / a.records.matches;
         const performanceB = b.records.totalPoints / b.records.matches;
         if (performanceA !== performanceB) return performanceB - performanceA;
+
+        // Ordena por torneos jugados (descendente)
+        const qualA = a.records.tournamentsPlayed;
+        const qualB = b.records.tournamentsPlayed;
+        if (qualA !== qualB) return qualB - qualA;
 
         // Si las performance son iguales, ordena por diferencia de goles (descendente)
         const goalDiffA = a.records.goalsFor - a.records.goalsAgainst;

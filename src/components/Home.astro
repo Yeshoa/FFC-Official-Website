@@ -2,63 +2,79 @@
 import { Image } from 'astro:assets';
 import Hero1 from '../assets/images/hero1.png';
 import Hero2 from '../assets/images/hero2.png';
-import Hero3 from '../assets/images/logo.png';
+import Logo from '../assets/images/logo.png';
+import FC24 from '../assets/images/forest-cup/forest-cup-2024.png';
 ---
 
 <main class="p-6">
-  <!-- Contenedor central para el carrusel -->
-  <div class="flex justify-center">
-    <div id="astro-carousel" class="relative w-full h-full max-w-7xl">
-      <!-- Wrapper del carrusel -->
-      <div class="relative h-56 overflow-hidden rounded-lg md:h-[500px] max-h-full">
-          <!-- Item 1 -->
-          <div class="carousel-item absolute w-full h-full opacity-100 transition-opacity duration-700 ease-in-out">
-              <Image src={Hero1} class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="Recap all goals of the Forest Cup Anxious & Kevin 2024" />
-              <div class="absolute inset-0 bg-gradient-to-r from-green-950 to-transparent from-15%"></div>
-              <p class="absolute top-1/3 left-20 text-white text-5xl font-bold">Recap All Goals<br>Forest Cup <br>Anxious & Kevin <br>2024</p>
-              <a type="button" href="https://www.youtube.com/watch?v=iddBpQbe7ak" target="_blank" class="absolute bottom-20 left-20 text-white bg-green-200/20 hover:bg-green-200/30 font-medium rounded-lg text-lg px-4 py-2 text-center">Watch Now</a>
-          </div>
-          <!-- Item 3 -->
-          <div class="carousel-item absolute w-full h-full opacity-0 transition-opacity duration-700 ease-in-out bg-green-950">
-            <div class="absolute inset-0 bg-gradient-to-r from-green-950 to-transparent to-45%"></div>
-            <Image src={Hero3} class="absolute block w-64 -translate-x-1/2 -translate-y-1/2 top-1/2 left-2/3" alt="Join the Forestian Football Confederation" />
-            <p class="absolute top-1/3 left-20 text-white text-5xl font-bold">Join the<br>Forestian<br>Football<br>Confederation</p>
-            <a type="button" href="https://forms.gle/Qn2d5kFwCg8pndnK9" target="_blank" class="absolute bottom-20 left-20 text-white bg-green-200/20 hover:bg-green-200/30 font-medium rounded-lg text-lg px-4 py-2 text-center">Join Here</a>
-          </div>
-          <!-- Item 2 -->
-          <div class="carousel-item absolute w-full h-full opacity-0 transition-opacity duration-700 ease-in-out">
-              <Image src={Hero2} class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="Atsvea, Forest Cup 2022 Winners" />
-              <div class="absolute inset-0 bg-gradient-to-r from-green-950 to-transparent from-15%"></div>
-              <p class="absolute top-1/3 left-20 text-white text-5xl font-bold">Atsvea <br>Forest Cup<br>Bilsa 2022<br>Champions</p>
-              <a type="button" href="./forest-cup/forest-cup-2022.astro" class="absolute bottom-20 left-20 text-white bg-green-200/20 hover:bg-green-200/30 font-medium rounded-lg text-lg px-4 py-2 text-center">Learn More</a>
-          </div>
+  <div class="max-w-screen-xl mx-auto grid grid-cols-3 gap-6 mb-12">
+    <!-- Hero 1 -->
+    <a href="https://www.youtube.com/watch?v=iddBpQbe7ak" target="_blank"
+     class="col-span-2 row-span-2 relative rounded-lg overflow-hidden min-h-[600px] 
+    ring ring-green-900 hover:ring-2 hover:ring-green-800 
+    shadow hover:shadow-lg shadow-green-900
+    transition-all duration-300">
+      <Image 
+        src={Hero1} 
+        class="absolute w-full h-full object-cover translate-x-12" 
+        alt="Recap all goals of the Forest Cup Anxious & Kevin 2024"
+        loading={"eager"}
+      />
+      <div class="absolute inset-0 bg-gradient-to-r from-green-950 to-transparent from-25%"></div>
+      <Image 
+          src={FC24} 
+          class="absolute w-auto h-96 top-22 -left-1" 
+          alt="Recap all goals of the Forest Cup Anxious & Kevin 2024"
+          loading={"eager"}
+        />
+      <div class="absolute bottom-6 left-10 text-white">
+        <h2 class="text-5xl font-bold mb-4">
+          Recap All Goals<br>
+        </h2>
       </div>
-      <!-- Indicadores del slider -->
-      <div class="absolute z-30 flex -translate-x-1/2 bottom-5 left-1/2 space-x-3 rtl:space-x-reverse">
-          <button type="button" class="carousel-indicator w-3 h-3 rounded-full bg-green-400/70 hover:bg-white dark:hover:bg-green-200/70 active" aria-current="true" aria-label="Slide 1" data-slide-to="0"></button>
-          <button type="button" class="carousel-indicator w-3 h-3 rounded-full bg-green-400/70 hover:bg-white dark:hover:bg-green-200/70" aria-current="false" aria-label="Slide 2" data-slide-to="1"></button>
-          <button type="button" class="carousel-indicator w-3 h-3 rounded-full bg-green-400/70 hover:bg-white dark:hover:bg-green-200/70" aria-current="false" aria-label="Slide 3" data-slide-to="2"></button>
+    </a>
+
+    <!-- Join -->
+    <a href="https://forms.gle/Qn2d5kFwCg8pndnK9" target="_blank"
+     class="relative rounded-lg overflow-hidden min-h-[300px] 
+    ring ring-green-900 hover:ring-2 hover:ring-green-800 
+    shadow hover:shadow-lg shadow-green-900
+    transition-all duration-300">
+      <Image 
+        src={Logo} 
+        class="absolute w-auto h-48 object-cover top-1/6 right-10" 
+        alt="Join the Forestian Football Confederation" 
+        loading={"eager"}
+      />
+      <div class="absolute inset-0 bg-gradient-to-r from-green-950 to-transparent to-45%"></div>
+      <div class="absolute bottom-2 left-10 text-white">
+        <h2 class="text-3xl font-bold mb-4">
+          Join us
+        </h2>
       </div>
-      <!-- Controles del slider -->
-      <button type="button" id="carousel-prev" class="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none">
-          <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-green-800 group-hover:bg-white/50 dark:group-hover:bg-green-800/60 group-focus:ring-4 group-focus:ring-white group-focus:ring-green-800/70 group-focus:outline-none">
-              <svg class="w-4 h-4 text-white rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
-              </svg>
-              <span class="sr-only">Previous</span>
-          </span>
-      </button>
-      <button type="button" id="carousel-next" class="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none">
-          <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-green-800 group-hover:bg-white/50 dark:group-hover:bg-green-800/60 group-focus:ring-4 group-focus:ring-white group-focus:ring-green-800/70 group-focus:outline-none">
-              <svg class="w-4 h-4 text-white rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
-              </svg>
-              <span class="sr-only">Next</span>
-          </span>
-      </button>
-    </div>
+    </a>
+
+    <!-- Hero 2 -->
+    <a href="./forest-cup/forest-cup-2022.astro" class="relative rounded-lg overflow-hidden min-h-[300px] 
+    ring ring-green-900 hover:ring-2 hover:ring-green-800 
+    shadow hover:shadow-lg shadow-green-900
+    transition-all duration-300">
+      <Image 
+        src={Hero2} 
+        class="absolute w-full h-full object-cover" 
+        alt="Atsvea, Forest Cup 2022 Winners" 
+        loading={"eager"}
+      />
+      <div class="absolute inset-0 bg-gradient-to-tr from-green-950 to-transparent from-15%"></div>
+      <div class="absolute bottom-2 left-7 text-white">
+        <h2 class="text-3xl font-bold mb-4">
+          Forest Cup <br> Bilsa 2022
+        </h2>
+      </div>
+    </a>
   </div>
-  <div class="max-w-screen-xl flex flex-wrap items-start justify-between mx-auto p-6">
+
+  <div class="max-w-screen-xl mx-auto p-6">
     <h1 class="text-4xl font-bold mb-6">Welcome to the FFC</h1>
     <p class="text-lg mb-8">
       The FFC is the governing body of football in the Forest region. It organizes events like the Forest Cup and the Forestian Champions League, promoting football and regional unity.
@@ -79,78 +95,3 @@ import Hero3 from '../assets/images/logo.png';
     </a>
   </div>
 </main>
-
-<script>
-  // Código JavaScript para el carrusel
-  document.addEventListener('DOMContentLoaded', () => {
-    const items = document.querySelectorAll('.carousel-item');
-    const indicators = document.querySelectorAll('.carousel-indicator');
-    const prevButton = document.getElementById('carousel-prev');
-    const nextButton = document.getElementById('carousel-next');
-    
-    let currentIndex = 0;
-    const totalItems = items.length;
-    
-    function showSlide(index) {
-      // Ocultar todos los slides
-      items.forEach(item => {
-        item.style.opacity = '0';
-        item.style.pointerEvents = 'none';
-      });
-      
-      // Mostrar el slide actual
-      items[index].style.opacity = '1';
-      items[index].style.pointerEvents = 'auto';
-      
-      // Actualizar indicadores
-      indicators.forEach((indicator, i) => {
-        indicator.classList.toggle('active', i === index);
-        indicator.style.opacity = i === index ? '1' : '0.5';
-      });
-    }
-    
-    function nextSlide() {
-      currentIndex = (currentIndex + 1) % totalItems;
-      showSlide(currentIndex);
-    }
-    
-    function prevSlide() {
-      currentIndex = (currentIndex - 1 + totalItems) % totalItems;
-      showSlide(currentIndex);
-    }
-    
-    // Configurar botones de navegación
-    nextButton.addEventListener('click', nextSlide);
-    prevButton.addEventListener('click', prevSlide);
-    
-    // Configurar indicadores
-    indicators.forEach((indicator, index) => {
-      indicator.addEventListener('click', () => {
-        currentIndex = index;
-        showSlide(currentIndex);
-      });
-    });
-    
-    // Autoplay (opcional)
-    let interval = setInterval(nextSlide, 5000);
-    
-    // Pausar autoplay al pasar el mouse sobre el carrusel
-    const carousel = document.getElementById('astro-carousel');
-    carousel.addEventListener('mouseenter', () => {
-      clearInterval(interval);
-    });
-    
-    carousel.addEventListener('mouseleave', () => {
-      interval = setInterval(nextSlide, 5000);
-    });
-    
-    // Mostrar el primer slide al cargar
-    showSlide(currentIndex);
-  });
-</script>
-
-<style>
-  .carousel-indicator.active {
-    background-color: rgb(74 222 128 / 1); /* Equivalente a bg-green-400 */
-  }
-</style>

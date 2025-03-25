@@ -23,7 +23,7 @@ const images = import.meta.glob<{ default: ImageMetadata }>("/src/assets/images/
 if (!images[flagPath]) throw new Error(`"${flagPath}" does not exist in glob: "src/assets/*.{jpeg,jpg,png,gif}"`);
 /* if (!images[logoPath]) throw new Error(`"${logoPath}" does not exist in glob: "src/assets/*.{jpeg,jpg,png,gif}"`); */
 ---
-<a href={nslink} target="_blank" class="flex flex-col p-4 border ring-0 hover:ring-2 hover:ring-green-300 border-green-800 items-center rounded-4xl">
+<a href={nslink} target="_blank" class="flex flex-col p-4 border ring-0 hover:ring-2 hover:ring-green-300 transition-all duration-300 border-green-800 items-center rounded-4xl">
   <div class="flex h-full items-center">
     {logoPath && <Image src={images[logoPath]()} class={logoClass} alt={name} loading={"eager"}/>}
   </div>
