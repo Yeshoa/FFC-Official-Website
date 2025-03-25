@@ -12,6 +12,7 @@
     "@astrojs/netlify": "^6.2.3",
     "@tailwindcss/vite": "^4.0.15",
     "astro": "^5.5.4",
+    "fast-xml-parser": "^5.0.9",
     "tailwindcss": "^4.0.15"
   }
 }

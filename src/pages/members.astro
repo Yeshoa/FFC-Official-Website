@@ -9,14 +9,22 @@ import MemberCard from '../components/MemberCard.astro';
 ---
 
 <App title="FFC - Members">
-  {members.map(member => {
-    const { name, flagPath, logoPath } = member;
-    return (
-      <MemberCard
-        name={name}
-        flagPath={flagPath}
-        logoPath={logoPath}
-        />
-    );
-  })}
+  <main class="flex flex-col items-center">
+    <div class="container flex flex-col items-center justify-center p-6">
+      <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4">
+      {members.map(member => {
+        const { name, code, flagPath, logoPath, nslink } = member;
+        return (
+          <MemberCard
+            name={name}
+            code={code}
+            flagPath={flagPath}
+            logoPath={logoPath}
+            nslink={nslink}
+            />
+        );
+      })}
+      </div>
+    </div>
+  </main>
 </App>
