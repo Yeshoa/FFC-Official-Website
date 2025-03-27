@@ -1,0 +1,98 @@
+---
+import App from '../../layouts/App.astro';
+import Carousel from '../../components/react/Carousel';
+
+import { members } from '../../content/members';
+import { tournaments } from '../../content/tournaments';
+
+import { Image } from 'astro:assets';
+import FC22Logo from '../../assets/images/forest-cup/forest-cup-2022.png';
+import FCLogo from '../../assets/images/forest-cup/forest-cup.png';
+import AtsveaFlag from '../../assets/images/forest-cup/2022-winner.png'; 
+
+const FC2022 = tournaments.find(tournament => tournament.id === 2);
+
+
+const slides = [
+  {
+    src: "/src/assets/images/hero2.png",
+    alt: "All Goals",
+    videoId: "HQJcfs5rKrs",
+  },
+  {
+    src: "/src/assets/images/forest-cup/2022-final.png",
+    alt: "Final",
+    videoId: "dxx2pF9TOR4",
+  },
+  {
+    src: "/src/assets/images/hero2.png",
+    alt: "Semifinals",
+    videoId: "rc8UYbxFyRw",
+  },
+  {
+    src: "/src/assets/images/hero2.png",
+    alt: "Quarter Finals",
+    videoId: "vZ7o6dRT740",
+  },
+  {
+    src: "/src/assets/images/hero2.png",
+    alt: "Day 3",
+    videoId: "aP8APqz4n0U",
+  },
+  {
+    src: "/src/assets/images/hero2.png",
+    alt: "Day 2",
+    videoId: "uhSVoz-2miE",
+  },
+  {
+    src: "/src/assets/images/hero2.png",
+    alt: "Day 1",
+    videoId: "F_3ckioqvnU",
+  },
+];
+
+// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
+// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+---
+
+<App title="FFC - Forest Cup Bilsa 2022">
+  <main class="flex flex-col items-center">
+    <!-- Banner para el fondo oscuro-->
+    <div class="flex flex-col justify-center items-center pb-6 bg-gradient-to-r from-transparent to-transparent via-black/20 w-full">
+      <!-- Container -->
+      <Image src={FC22Logo} alt="Forest Cup 2020 Logo" class="max-w-7xl  lg:w-4xl md:w-2xl xl:w-auto sm:w-lg w-sm" loading={"eager"}/>
+      <div class="flex justify-between items-start h-full p-6 gap-6">
+        <div class="flex flex-col gap-6 items-center">
+          <div class="flex items-center gap-6">
+            <Image src={AtsveaFlag} alt="Winner Flag" class="h-24 w-auto rounded-xl object-cover ring-1 ring-green-700" loading={"eager"}/>
+            <h1 class="text-5xl font-bold">{FC2022?.winner}</h1>
+          </div>
+          <div class="flex items-center">
+            <h1 class="text-2xl">Champions</h1>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+    <!-- Carosel -->
+    <div class="w-full p-6">
+      <Carousel client:load slides={slides} />
+    </div>
+    <!-- Tournaments -->
+    <div class="flex justify-center p-6">
+      <div class="container">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {FC2022 && (
+            <div class="container flex flex-col justify-center items-center pt-6">
+              <div class="mt-6">
+                <h2 class="text-2xl font-bold">{FC2022.name}</h2>
+                <p>Winner: {FC2022.winner}</p>
+                <p>Runner-up: {FC2022.runner_up}</p>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  </main>
+</App>

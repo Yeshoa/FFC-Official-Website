@@ -16,7 +16,7 @@ if (!images[imagePath]) throw new Error(`"${imagePath}" does not exist in glob: 
 border ring-0 hover:ring-2 hover:ring-green-300 border-green-800 
 p-4 rounded-4xl w-auto">
   <div class="flex h-full items-center">
-    <Image src={images[imagePath]()} class="h-full w-auto" alt={title} loading={"eager"}/>
+    <Image src={images[imagePath]()} class="h-auto w-full" alt={title} loading={"eager"}/>
   </div>
   <p class="font-bold text-xl">{title}</p>
 </a>

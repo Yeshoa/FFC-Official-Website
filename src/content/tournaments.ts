@@ -2,6 +2,7 @@ export const tournaments = [
   {
     "id": 1,
     "name": "Bilsa 2020",
+    "host": "Bilsa",
     "image": "/src/assets/images/forest-cup/forest-cup-2020.png",
     "year": 2020,
     "winner": "Ruinenlust",
@@ -11,6 +12,7 @@ export const tournaments = [
   {
     "id": 2,
     "name": "Bilsa 2022",
+    "host": "Bilsa",
     "image": "/src/assets/images/forest-cup/forest-cup-2022.png",
     "year": 2022,
     "winner": "Atsvea",
@@ -20,6 +22,7 @@ export const tournaments = [
   {
     "id": 3,
     "name": "Anxious & Kevin 2024",
+    "host": "Anxious & Kevin",
     "image": "/src/assets/images/forest-cup/forest-cup-2024.png",
     "year": 2024,
     "winner": "Nardin",
@@ -29,6 +32,7 @@ export const tournaments = [
   {
     "id": 4,
     "name": "Forest Cup 2026",
+    "host": "TBA",
     "image": "/src/assets/images/forest-cup/forest-cup-2026.png",
     "year": 2026,
     "winner": "-",
