@@ -9,9 +9,10 @@ import { Image } from 'astro:assets';
 import FC22Logo from '../../assets/images/forest-cup/forest-cup-2022.png';
 import FCLogo from '../../assets/images/forest-cup/forest-cup.png';
 import AtsveaFlag from '../../assets/images/forest-cup/2022-winner.png'; 
+import AllGoals from '../../assets/images/hero2.png'; 
 
 const FC2022 = tournaments.find(tournament => tournament.id === 2);
-
+const Participants = members.filter(member => FC2022?.participants.includes(member.name));
 
 const slides = [
   {
@@ -74,10 +75,155 @@ const slides = [
       </div>
       
     </div>
-    <!-- Carosel -->
-    <div class="w-full p-6">
-      <Carousel client:load slides={slides} />
+    <!-- Headlines -->
+    <div class="w-full bg-white items-center flex justify-center p-6">
+      <div class="max-w-10/12 grid grid-cols-4 justify-center items-center">
+        <a href="https://youtu.be/HQJcfs5rKrs" target="_blank" class="relative overflow-hidden rounded-2xl col-span-3 w-11/12">
+          <Image src={AllGoals} alt="All Goals" class="rounded-xl object-cover hover:scale-105 transition duration-300" loading={"eager"}/>
+          <div class="absolute bottom-7 left-7 text-white">
+            <h2 class="text-6xl font-bold">
+              All Goals
+            </h2>
+          </div>
+        </a>
+        <div class="grid grid-rows-6 gap-1 justify-center items-center bg-green-950 rounded-2xl w-max mx-0 px-4">
+          <div class="row-span-1 flex items-center justify-center py-2 border-b-2 border-white w-full">
+            <a href="https://youtu.be/HQJcfs5rKrs" target="_blank" 
+              class="flex items-center justify-between w-full group">
+              <div class="h-20 w-36 rounded-2xl overflow-hidden">
+                <Image src={AllGoals} alt="All Goals" class="h-full w-full object-cover group-hover:scale-105 transition duration-300" loading={"eager"}/>
+              </div>
+              <h2 class="text-lg ms-4">
+                Final - Cacusia vs Atsvea
+              </h2>
+            </a>
+          </div>
+          <div class="row-span-1 flex items-center justify-center py-2 border-b-2 border-white w-full">
+            <a href="https://youtu.be/HQJcfs5rKrs" target="_blank" 
+              class="flex items-center justify-between w-full group">
+              <div class="h-20 w-36 rounded-2xl overflow-hidden">
+                <Image src={AllGoals} alt="All Goals" class="h-full w-full object-cover group-hover:scale-105 transition duration-300" loading={"eager"}/>
+              </div>
+              <h2 class="text-lg ms-4">
+                Final - Cacusia vs Atsvea
+              </h2>
+            </a>
+          </div>
+          <div class="row-span-1 flex items-center justify-center py-2 border-b-2 border-white w-full">
+            <a href="https://youtu.be/HQJcfs5rKrs" target="_blank" 
+              class="flex items-center justify-between w-full group">
+              <div class="h-20 w-36 rounded-2xl overflow-hidden">
+                <Image src={AllGoals} alt="All Goals" class="h-full w-full object-cover group-hover:scale-105 transition duration-300" loading={"eager"}/>
+              </div>
+              <h2 class="text-lg ms-4">
+                Final - Cacusia vs Atsvea
+              </h2>
+            </a>
+          </div>
+          <div class="row-span-1 flex items-center justify-center py-2 border-b-2 border-white w-full">
+            <a href="https://youtu.be/HQJcfs5rKrs" target="_blank" 
+              class="flex items-center justify-between w-full group">
+              <div class="h-20 w-36 rounded-2xl overflow-hidden">
+                <Image src={AllGoals} alt="All Goals" class="h-full w-full object-cover group-hover:scale-105 transition duration-300" loading={"eager"}/>
+              </div>
+              <h2 class="text-lg ms-4">
+                Final - Cacusia vs Atsvea
+              </h2>
+            </a>
+          </div>
+          <div class="row-span-1 flex items-center justify-center py-2 border-b-2 border-white w-full">
+            <a href="https://youtu.be/HQJcfs5rKrs" target="_blank" 
+              class="flex items-center justify-between w-full group">
+              <div class="h-20 w-36 rounded-2xl overflow-hidden">
+                <Image src={AllGoals} alt="All Goals" class="h-full w-full object-cover group-hover:scale-105 transition duration-300" loading={"eager"}/>
+              </div>
+              <h2 class="text-lg ms-4">
+                Final - Cacusia vs Atsvea
+              </h2>
+            </a>
+          </div>
+          <div class="row-span-1 flex items-center justify-center py-2 w-full">
+            <a href="https://youtu.be/HQJcfs5rKrs" target="_blank" 
+              class="flex items-center justify-between w-full group">
+              <div class="h-20 w-36 rounded-2xl overflow-hidden">
+                <Image src={AllGoals} alt="All Goals" class="h-full w-full object-cover group-hover:scale-105 transition duration-300" loading={"eager"}/>
+              </div>
+              <h2 class="text-lg ms-4">
+                Final - Cacusia vs Atsvea
+              </h2>
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
+    <!-- Carosel -->
+    <!-- Participants -->
+    <div class="flex flex-col justify-center w-full max-w-7xl">
+      <h1 class="text-5xl font-bold p-6 text-left">Participants</h1>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 border-1 border-green-600 rounded-md w-full">
+        <!-- Pot 1 -->
+        <div class="flex flex-col items-center p-4 rounded-2xl">
+          
+          <h3 class="text-xl font-bold mb-4">Pot 1</h3>
+        {Participants.forEach(participant => {
+          console.log(`Id: ${participant.id}`);
+          console.log(`Code: ${participant.code}`);
+          console.log(`Equipo: ${participant.name}`);
+          console.log(`Flag: ${participant.flagPath}`);
+        })}
+          <ul class="space-y-2">
+            <li></li>
+            <li class="w-full flex gap-2 items-center justify-center"> 
+              <!-- {flagPath && <Image src={images[flagPath]()} class="h-6 w-auto rounded-xl object-cover ring-1 ring-green-700" alt={name} loading={"eager"}/>}
+              <p class="text-sm my-2">{code}</p> -->
+            </li>
+            <li>Team 2</li>
+            <li>Team 3</li>
+            <li>Team 4</li>
+          </ul>
+        </div>
+        <!-- Pot 2 -->
+        <div class="flex flex-col items-center p-4 rounded-2xl">
+          <h3 class="text-xl font-bold mb-4">Pot 2</h3>
+          <ul class="space-y-2">
+            <li>Team 5</li>
+            <li>Team 6</li>
+            <li>Team 7</li>
+            <li>Team 8</li>
+          </ul>
+        </div>
+        <!-- Pot 3 -->
+        <div class="flex flex-col items-center p-4 rounded-2xl">
+          <h3 class="text-xl font-bold mb-4">Pot 3</h3>
+          <ul class="space-y-2">
+            <li>Team 9</li>
+            <li>Team 10</li>
+            <li>Team 11</li>
+            <li>Team 12</li>
+          </ul>
+        </div>
+        <!-- Pot 4 -->
+        <div class="flex flex-col items-center p-4 rounded-2xl">
+          <h3 class="text-xl font-bold mb-4">Pot 4</h3>
+          <ul class="space-y-2">
+            <li>Team 13</li>
+            <li>Team 14</li>
+            <li>Team 15</li>
+            <li>Team 16</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Groups -->
+    <!-- Group A -->
+    <!-- Group B -->
+    <!-- Group C -->
+    <!-- Group D -->
+    <!-- Bracket -->
+    <!-- Individual Results -->
+    <!-- Overall Standings -->
+    <!-- Other -->
     <!-- Tournaments -->
     <div class="flex justify-center p-6">
       <div class="container">

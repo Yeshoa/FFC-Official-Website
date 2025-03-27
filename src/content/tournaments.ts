@@ -17,7 +17,43 @@ export const tournaments = [
     "year": 2022,
     "winner": "Atsvea",
     "runner_up": "Cacusia",
-    "route": "/forest-cup/forest-cup-2022"
+    "route": "/forest-cup/forest-cup-2022",
+    "participants": [
+      "Atsvea",
+      "Cacusia",
+      "Einswenn",
+      "Roless",
+      "Bilsa",
+      "Reannia",
+      "Kase",
+      "Cat-Herders United",
+      "Daarwyrth",
+      "Terrawynn",
+      "Bunkaiia",
+      "Trebenia",
+      "Stralla",
+      "Novian Republics",
+      "Turbeaux",
+      "Jutsa"
+    ],
+    "matches": [
+    {
+      "match_id": 1,
+      "stage": "Group A",
+      "team1": "Einswenn",
+      "team2": "Bilsa",
+      "score": {
+        "team1_goals": 2,
+        "team2_goals": 2
+      },
+      "goals": [
+        { "team": "Bilsa", "player": "John Smith", "minute": 12 },
+        { "team": "Einswenn", "player": "Liam Daniels", "minute": 68 },
+        { "team": "Einswenn", "player": "Mark Perez", "minute": 77 },
+        { "team": "Bilsa", "player": "Mark Perez", "minute": 77 },
+      ]
+    }
+  ]
   },
   {
     "id": 3,

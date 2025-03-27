@@ -17,8 +17,38 @@ const Carousel = ({ slides }) => {
   };
 
   return (
-    <div className="relative w-full max-w-7xl max-h-1/2 mx-auto">
-      <div className="flex overflow-hidden space-x-6">
+    <div className="relative w-full mx-auto flex items-center justify-center p-6 bg-green-800">
+      {/* Botón de anterior */}
+      <div className="absolute top-1/2 left-0 transform -translate-y-1/2">
+        <button
+          className={`p-2 bg-green-700 text-white rounded-full hover:bg-green-500 ${
+            currentIndex === 0 && "opacity-50 cursor-not-allowed"
+          }`}
+          onClick={handlePrev}
+          disabled={currentIndex === 0}
+        >
+          <svg class="w-4 h-4 text-white rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
+          </svg>
+        </button>
+      </div>
+
+      {/* Botón de siguiente */}
+      <div className="absolute top-1/2 right-0 transform -translate-y-1/2 z-1">
+        <button
+          className={`p-2 bg-green-700 text-white rounded-full hover:bg-green-500 ${
+            currentIndex >= slides.length - visibleSlides && "opacity-50 cursor-not-allowed"
+          }`}
+          onClick={handleNext}
+          disabled={currentIndex >= slides.length - visibleSlides}
+        >
+          <svg class="w-4 h-4 text-white rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+          </svg>
+        </button>
+      </div>
+
+      <div className="flex space-x-4 max-w-10/12 justify-center">
         {slides.slice(currentIndex, currentIndex + visibleSlides).map((slide, index) => (
           <div key={index} className="w-1/4 flex-shrink-0">
             {
@@ -29,50 +59,11 @@ const Carousel = ({ slides }) => {
                 <img
                   src={slide.src}
                   alt={slide.alt}
-                  className="w-full h-64 object-cover rounded-2xl"
+                  className="w-72 h-auto object-center rounded-2xl hover:brightness-120 hover:scale-105 transition duration-300"
                 />
               </a>
             }
           </div>
-        ))}
-      </div>
-
-      {/* Botón de anterior */}
-      <div className="absolute top-1/2 left-0 transform -translate-y-1/2">
-        <button
-          className={`p-2 bg-gray-700 text-white rounded-full hover:bg-gray-500 ${
-            currentIndex === 0 && "opacity-50 cursor-not-allowed"
-          }`}
-          onClick={handlePrev}
-          disabled={currentIndex === 0}
-        >
-          &#8249;
-        </button>
-      </div>
-
-      {/* Botón de siguiente */}
-      <div className="absolute top-1/2 right-0 transform -translate-y-1/2">
-        <button
-          className={`p-2 bg-gray-700 text-white rounded-full hover:bg-gray-500 ${
-            currentIndex >= slides.length - visibleSlides && "opacity-50 cursor-not-allowed"
-          }`}
-          onClick={handleNext}
-          disabled={currentIndex >= slides.length - visibleSlides}
-        >
-          &#8250;
-        </button>
-      </div>
-
-      {/* Indicadores de paginación */}
-      <div className="flex justify-center mt-2">
-        {slides.slice(0, slides.length - visibleSlides + 1).map((_, index) => (
-          <div
-            key={index}
-            onClick={() => setCurrentIndex(index)}
-            className={`w-2 h-2 mx-1 rounded-full cursor-pointer ${
-              currentIndex === index ? "bg-green-500" : "bg-green-300"
-            }`}
-          ></div>
         ))}
       </div>
     </div>
