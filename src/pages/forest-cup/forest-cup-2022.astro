@@ -1,7 +1,7 @@
 ---
 import App from '../../layouts/App.astro';
 import Carousel from '../../components/react/Carousel';
-import MatchCard from '../../components/MatchCard.astro';
+import MatchCard from '../../components/MatchCard2022.astro';
 
 import { members } from '../../content/members';
 import { tournaments } from '../../content/tournaments';
@@ -181,7 +181,6 @@ const slides = [
                           {fixture.matches?.map((match) => (
                             <MatchCard 
                               match={match} 
-                              participants={FC2022.participants}
                             />
                           ))}
                         </div>
@@ -199,7 +198,6 @@ const slides = [
                   {fixture.matches?.map((match) => (
                     <MatchCard 
                       match={match} 
-                      participants={FC2022.participants}
                       fullWidth
                     />
                   ))}

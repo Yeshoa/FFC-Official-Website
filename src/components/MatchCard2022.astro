@@ -2,9 +2,24 @@
 import { Image } from 'astro:assets';
 import Goal from '../assets/images/goal.png';
 
-interface Participants {
-  [teamName: string]: ImageMetadata;
-}
+const teamLogos = {
+  'Atsvea': await import('../assets/images/forest-cup/2022/atsvea.png'),
+  'Cacusia': await import('../assets/images/forest-cup/2022/cacusia.png'),
+  'Einswenn': await import('../assets/images/forest-cup/2022/einswenn.png'),
+  'Roless': await import('../assets/images/forest-cup/2022/roless.png'),
+  'Bilsa': await import('../assets/images/forest-cup/2022/bilsa.png'),
+  'Reannia': await import('../assets/images/forest-cup/2022/reannia.png'),
+  'Kase': await import('../assets/images/forest-cup/2022/kase.png'),
+  'Cat-Herders United': await import('../assets/images/forest-cup/2022/cat-herders-united.png'),
+  'Daarwyrth': await import('../assets/images/forest-cup/2022/daarwyrth.png'),
+  'Terrawynn': await import('../assets/images/forest-cup/2022/terrawynn.png'),
+  'Bunkaiia': await import('../assets/images/forest-cup/2022/bunkaiia.png'),
+  'Trebenia': await import('../assets/images/forest-cup/2022/trebenia.png'),
+  'Stralla': await import('../assets/images/forest-cup/2022/stralla.png'),
+  'Novian Republics': await import('../assets/images/forest-cup/2022/novian-republics.png'),
+  'Turbeaux': await import('../assets/images/forest-cup/2022/turbeaux.png'),
+  'Jutsa': await import('../assets/images/forest-cup/2022/jutsa.png')
+};
 
 interface Match {
   match_id: number;
@@ -25,11 +40,10 @@ interface Match {
 
 interface FCCardProps {
   match: Match;
-  participants: Participants;
   fullWidth?: boolean;
 }
 
-const { match, participants, fullWidth = false } = Astro.props;
+const { match, fullWidth = false } = Astro.props;
 
 ---
 <div class={`flex flex-col justify-center items-center ${fullWidth ? 'w-full' : 'w-full'}`}>
@@ -39,7 +53,7 @@ const { match, participants, fullWidth = false } = Astro.props;
         {match.team1}
       </p>
       <Image 
-        src={participants[match.team1]} 
+        src={teamLogos[match.team1].default} 
         alt={match.team1} 
         height={1080}
         width={720}
@@ -50,7 +64,7 @@ const { match, participants, fullWidth = false } = Astro.props;
     <p class="text-center text-xl font-bold">{match.score.team1_goals + " - " + match.score.team2_goals}</p>
     <div class="flex items-center col-span-3 gap-3">
       <Image 
-        src={participants[match.team2]} 
+        src={teamLogos[match.team2].default} 
         alt={match.team2} 
         height={1080}
         width={720}
