@@ -10,7 +10,6 @@ import FCLogo from '../assets/images/forest-cup/forest-cup.png';
 // Importar todas las imágenes desde el directorio
 const images = import.meta.glob('../assets/images/*.png', { eager: true });
 
-
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
@@ -26,7 +25,7 @@ const images = import.meta.glob('../assets/images/*.png', { eager: true });
       <div class="container">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {tournaments.slice().reverse().map(tournament => {
-            const { name, winner, runner_up, image, route } = tournament;
+            const { name, image, route } = tournament;
             return (
               <FCCard
                   title={name}

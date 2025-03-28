@@ -1,15 +1,14 @@
 ---
-
 import App from '../../layouts/App.astro';
 import { tournaments } from '../../content/tournaments';
 
 import { Image } from 'astro:assets';
-import FC20Logo from '../../assets/images/forest-cup/forest-cup-2020.png';
+import FC20Logo from '../../assets/images/forest-cup/2020/logo.png';
 import FCLogo from '../../assets/images/forest-cup/forest-cup.png';
 import Trophy from '../../assets/images/forest-cup/trophy.png';
 import { members } from '../../content/members';
-import RuinenlustFlag from '../../assets/images/forest-cup/2020-winner.png'; 
-import CannibalandFlag from '../../assets/images/forest-cup/2020-runner-up.svg'; 
+import RuinenlustFlag from '../../assets/images/forest-cup/2020/ruinenlust.png'; 
+import CannibalandFlag from '../../assets/images/forest-cup/2020/cannibaland.svg'; 
 
 const FC2020 = tournaments.find(tournament => tournament.id === 1);
 const Winner = members.find(member => member.name === FC2020?.winner);

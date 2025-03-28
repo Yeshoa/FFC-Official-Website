@@ -1,18 +1,19 @@
 ---
 import App from '../../layouts/App.astro';
 import Carousel from '../../components/react/Carousel';
+import MatchCard from '../../components/MatchCard.astro';
 
 import { members } from '../../content/members';
 import { tournaments } from '../../content/tournaments';
 
 import { Image } from 'astro:assets';
-import FC22Logo from '../../assets/images/forest-cup/forest-cup-2022.png';
+import FC22Logo from '../../assets/images/forest-cup/2022/logo.png';
 import FCLogo from '../../assets/images/forest-cup/forest-cup.png';
-import AtsveaFlag from '../../assets/images/forest-cup/2022-winner.png'; 
+import AtsveaFlag from '../../assets/images/forest-cup/2022/atsvea.png'; 
 import AllGoals from '../../assets/images/hero2.png'; 
 
 const FC2022 = tournaments.find(tournament => tournament.id === 2);
-const Participants = members.filter(member => FC2022?.participants.includes(member.name));
+// const Participants = members.filter(member => FC2022?.participants.includes(member.name));
 
 const slides = [
   {
@@ -157,70 +158,41 @@ const slides = [
       </div>
     </div>
     <!-- Carosel -->
-    <!-- Participants -->
-    <div class="flex flex-col justify-center w-full max-w-7xl">
-      <h1 class="text-5xl font-bold p-6 text-left">Participants</h1>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 border-1 border-green-600 rounded-md w-full">
-        <!-- Pot 1 -->
-        <div class="flex flex-col items-center p-4 rounded-2xl">
-          
-          <h3 class="text-xl font-bold mb-4">Pot 1</h3>
-        {Participants.forEach(participant => {
-          console.log(`Id: ${participant.id}`);
-          console.log(`Code: ${participant.code}`);
-          console.log(`Equipo: ${participant.name}`);
-          console.log(`Flag: ${participant.flagPath}`);
-        })}
-          <ul class="space-y-2">
-            <li></li>
-            <li class="w-full flex gap-2 items-center justify-center"> 
-              <!-- {flagPath && <Image src={images[flagPath]()} class="h-6 w-auto rounded-xl object-cover ring-1 ring-green-700" alt={name} loading={"eager"}/>}
-              <p class="text-sm my-2">{code}</p> -->
-            </li>
-            <li>Team 2</li>
-            <li>Team 3</li>
-            <li>Team 4</li>
-          </ul>
-        </div>
-        <!-- Pot 2 -->
-        <div class="flex flex-col items-center p-4 rounded-2xl">
-          <h3 class="text-xl font-bold mb-4">Pot 2</h3>
-          <ul class="space-y-2">
-            <li>Team 5</li>
-            <li>Team 6</li>
-            <li>Team 7</li>
-            <li>Team 8</li>
-          </ul>
-        </div>
-        <!-- Pot 3 -->
-        <div class="flex flex-col items-center p-4 rounded-2xl">
-          <h3 class="text-xl font-bold mb-4">Pot 3</h3>
-          <ul class="space-y-2">
-            <li>Team 9</li>
-            <li>Team 10</li>
-            <li>Team 11</li>
-            <li>Team 12</li>
-          </ul>
-        </div>
-        <!-- Pot 4 -->
-        <div class="flex flex-col items-center p-4 rounded-2xl">
-          <h3 class="text-xl font-bold mb-4">Pot 4</h3>
-          <ul class="space-y-2">
-            <li>Team 13</li>
-            <li>Team 14</li>
-            <li>Team 15</li>
-            <li>Team 16</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Groups -->
-    <!-- Group A -->
-    <!-- Group B -->
-    <!-- Group C -->
-    <!-- Group D -->
     <!-- Bracket -->
+    <!-- Groups -->
+    <!-- All Matches (Despegable) -->
+    <div class="flex flex-col justify-center items-center p-6">
+      {FC2022?.stages && FC2022.stages.map((stage) => (
+        <div class="container mb-12">
+          <h2 class="text-3xl text-center font-bold mb-6">{stage.name}</h2>
+          
+          {stage.type === 'group' ? (
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {stage.matches.map((match) => {
+                return (
+                <MatchCard 
+                  match={match} 
+                  participants={FC2022.participants}
+                />
+              )
+            })}
+            </div>
+          ) : (
+            <div class="flex flex-col space-y-6">
+              {stage.matches.map((match) => {
+                return (
+                <MatchCard 
+                  match={match} 
+                  participants={FC2022.participants}
+                  fullWidth
+                />
+              )})}
+            </div>
+          )}
+        </div>
+      ))
+      }
+    </div>
     <!-- Individual Results -->
     <!-- Overall Standings -->
     <!-- Other -->

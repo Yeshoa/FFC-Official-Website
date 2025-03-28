@@ -1,0 +1,59 @@
+---
+import { Image } from 'astro:assets';
+
+interface Participants {
+  [teamName: string]: ImageMetadata;
+}
+
+interface Match {
+  match_id: number;
+  team1: string;
+  team2: string;
+  score: {
+    team1_goals: number;
+    team2_goals: number;
+  };
+  goals: {
+    team: string;
+    player: string;
+    minute: number;
+    penalty: boolean;
+  }[];
+}
+
+interface FCCardProps {
+  match: Match;
+  participants: Participants;
+  fullWidth?: boolean;
+}
+
+const { match, participants, fullWidth = false } = Astro.props;
+
+---
+<div class={`flex flex-col justify-center items-center pt-6 ${fullWidth ? 'w-full' : ''}`}>
+  <div class="mt-6 grid grid-cols-3 items-center p-1 bg-green-900">
+    <div class="flex items-center">
+      <Image 
+        src={participants[match.team1]} 
+        alt={match.team1} 
+        height={1080}
+        width={720}
+        class="h-6 w-10 rounded-sm object-cover ring-1 ring-green-700 mr-2" 
+        loading={"lazy"}
+      />
+      {match.team1}
+    </div>
+    <p class="text-center text-xl font-bold">{match.score.team1_goals + " - " + match.score.team2_goals}</p>
+    <div class="flex items-center justify-end">
+      {match.team2}
+      <Image 
+        src={participants[match.team2]} 
+        alt={match.team2} 
+        height={1080}
+        width={720}
+        class="h-6 w-10 rounded-sm object-cover ring-1 ring-green-700 ml-2" 
+        loading={"lazy"}
+      />
+    </div>
+  </div>
+</div>

@@ -8,8 +8,9 @@ interface FCCardProps {
 }
 const { title, imagePath, route } = Astro.props;
 
-const images = import.meta.glob<{ default: ImageMetadata }>("/src/assets/images/forest-cup/*.{jpeg,jpg,png,gif}");
+const images = import.meta.glob<{ default: ImageMetadata }>("/src/assets/images/forest-cup/**/*.{jpeg,jpg,png,gif}");
 
+console.log(images);
 if (!images[imagePath]) throw new Error(`"${imagePath}" does not exist in glob: "src/assets/*.{jpeg,jpg,png,gif}"`);
 ---
 <a href={route} class="flex flex-col justify-center items-center overflow-hidden 
