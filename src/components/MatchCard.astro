@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets';
+import Goal from '../assets/images/goal.png';
 
 interface Participants {
   [teamName: string]: ImageMetadata;
@@ -7,6 +8,7 @@ interface Participants {
 
 interface Match {
   match_id: number;
+  link?: string;
   team1: string;
   team2: string;
   score: {
@@ -30,30 +32,61 @@ interface FCCardProps {
 const { match, participants, fullWidth = false } = Astro.props;
 
 ---
-<div class={`flex flex-col justify-center items-center pt-6 ${fullWidth ? 'w-full' : ''}`}>
-  <div class="mt-6 grid grid-cols-3 items-center p-1 bg-green-900">
-    <div class="flex items-center">
+<div class={`flex flex-col justify-center items-center ${fullWidth ? 'w-full' : 'w-full'}`}>
+  <div class="grid grid-cols-7 items-center p-3 w-full gap-4">
+    <div class="flex items-center justify-end col-span-3 gap-3">
+      <p>
+        {match.team1}
+      </p>
       <Image 
         src={participants[match.team1]} 
         alt={match.team1} 
         height={1080}
         width={720}
-        class="h-6 w-10 rounded-sm object-cover ring-1 ring-green-700 mr-2" 
+        class="h-7 w-10 rounded-sm object-cover ring-2 ring-green-700" 
         loading={"lazy"}
       />
-      {match.team1}
     </div>
     <p class="text-center text-xl font-bold">{match.score.team1_goals + " - " + match.score.team2_goals}</p>
-    <div class="flex items-center justify-end">
-      {match.team2}
+    <div class="flex items-center col-span-3 gap-3">
       <Image 
         src={participants[match.team2]} 
         alt={match.team2} 
         height={1080}
         width={720}
-        class="h-6 w-10 rounded-sm object-cover ring-1 ring-green-700 ml-2" 
+        class="h-7 w-10 rounded-sm object-cover ring-2 ring-green-700" 
         loading={"lazy"}
       />
+      <p>
+        {match.team2}
+      </p>
+    </div>
+    <div class="flex flex-col w-full col-span-3 items-end justify-start h-full">
+      {match.goals
+        .filter((goal) => goal.team === match.team1) // Filtra goles del equipo específico
+        .map((goal) => (
+        <div key={goal.minute} class="flex items-center gap-2">
+            <p>{goal.player}</p>
+            {<Image src={Goal} alt="Goal" class="w-3 h-3" loading={"lazy"}/>}
+            <p>{goal.minute}' {goal.penalty ? "(pen)" : ""}</p>
+          </div>
+        ))
+      }
+    </div>
+    <div class="flex justify-center w-full h-full col-span-1">
+      {match?.link && <a href={match.link}>Video</a>}
+    </div>
+    <div class="flex flex-col w-full col-span-3 justify-start h-full">
+      {match.goals
+        .filter((goal) => goal.team === match.team2) // Filtra goles del equipo específico
+        .map((goal) => (
+          <div key={goal.minute} class="flex items-center gap-2">
+            <p>{goal.player}</p>
+            {<Image src={Goal} alt="Goal" class="w-3 h-3" loading={"lazy"}/>}
+            <p>{goal.minute}' {goal.penalty ? "(pen)" : ""}</p>
+          </div>
+        ))
+      }
     </div>
   </div>
 </div>
