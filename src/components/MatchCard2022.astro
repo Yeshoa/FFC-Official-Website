@@ -40,16 +40,14 @@ interface Match {
 
 interface FCCardProps {
   match: Match;
-  fullWidth?: boolean;
 }
 
-const { match, fullWidth = false } = Astro.props;
-
+const { match } = Astro.props;
 ---
-<div class={`flex flex-col justify-center items-center ${fullWidth ? 'w-full' : 'w-full'}`}>
+<div class={`flex flex-col justify-center items-center w-full`}>
   <div class="grid grid-cols-7 items-center p-3 w-full gap-4">
     <div class="flex items-center justify-end col-span-3 gap-3">
-      <p>
+      <p class="font-semibold text-xl">
         {match.team1}
       </p>
       <Image 
@@ -57,7 +55,7 @@ const { match, fullWidth = false } = Astro.props;
         alt={match.team1} 
         height={1080}
         width={720}
-        class="h-7 w-10 rounded-sm object-cover ring-2 ring-green-700" 
+        class="h-4 w-6 rounded-sm object-cover ring-2 ring-green-700" 
         loading={"lazy"}
       />
     </div>
@@ -68,10 +66,10 @@ const { match, fullWidth = false } = Astro.props;
         alt={match.team2} 
         height={1080}
         width={720}
-        class="h-7 w-10 rounded-sm object-cover ring-2 ring-green-700" 
+        class="h-4 w-6 rounded-sm object-cover ring-2 ring-green-700" 
         loading={"lazy"}
       />
-      <p>
+      <p class="font-semibold text-xl">
         {match.team2}
       </p>
     </div>

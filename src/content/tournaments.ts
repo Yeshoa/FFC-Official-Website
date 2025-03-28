@@ -1,6 +1,3 @@
-export interface Participant {
-  [key: string]: string;
-}
 
 export interface Tournament {
   id: number;
@@ -11,7 +8,7 @@ export interface Tournament {
   winner: string;
   runner_up: string;
   route: string;
-  participants: Participant;
+  participants: string[];
   stages?: Stage[];
 }
 
@@ -69,24 +66,24 @@ export const tournaments = [
     "winner": "Atsvea",
     "runner_up": "Cacusia",
     "route": "/forest-cup/forest-cup-2022",
-    "participants": {
-      "Atsvea": "/src/assets/images/forest-cup/2022/atsvea.png",
-      "Cacusia": "/src/assets/images/forest-cup/2022/cacusia.png",
-      "Einswenn": "/src/assets/images/forest-cup/2022/einswenn.png",
-      "Roless": "/src/assets/images/forest-cup/2022/roless.png",
-      "Bilsa": "/src/assets/images/forest-cup/2022/bilsa.png",
-      "Reannia": "/src/assets/images/forest-cup/2022/reannia.png",
-      "Kase": "/src/assets/images/forest-cup/2022/kase.png",
-      "Cat-Herders United": "/src/assets/images/forest-cup/2022/cat-herders-united.png",
-      "Daarwyrth": "/src/assets/images/forest-cup/2022/daarwyrth.png",
-      "Terrawynn": "/src/assets/images/forest-cup/2022/terrawynn.png",
-      "Bunkaiia": "/src/assets/images/forest-cup/2022/bunkaiia.png",
-      "Trebenia": "/src/assets/images/forest-cup/2022/trebenia.png",
-      "Stralla": "/src/assets/images/forest-cup/2022/stralla.png",
-      "Novian Republics": "/src/assets/images/forest-cup/2022/novian-republics.png",
-      "Turbeaux": "/src/assets/images/forest-cup/2022/turbeaux.png",
-      "Jutsa": "/src/assets/images/forest-cup/2022/jutsa.png"
-    },
+    "participants": [
+      "Atsvea",
+      "Cacusia",
+      "Einswenn",
+      "Roless",
+      "Bilsa",
+      "Reannia",
+      "Kase",
+      "Cat-Herders United",
+      "Daarwyrth",
+      "Terrawynn",
+      "Bunkaiia",
+      "Trebenia",
+      "Stralla",
+      "Novian Republics",
+      "Turbeaux",
+      "Jutsa"
+    ],
     stages: [
       {
         type: 'group',
