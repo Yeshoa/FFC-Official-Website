@@ -1,8 +1,9 @@
 ---
 import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
 import Goal from '../assets/images/goal.png';
 
-const teamLogos = {
+/* const teamLogos = {
   'Atsvea': await import('../assets/images/forest-cup/2022/atsvea.png'),
   'Cacusia': await import('../assets/images/forest-cup/2022/cacusia.png'),
   'Einswenn': await import('../assets/images/forest-cup/2022/einswenn.png'),
@@ -19,7 +20,7 @@ const teamLogos = {
   'Novian Republics': await import('../assets/images/forest-cup/2022/novian-republics.png'),
   'Turbeaux': await import('../assets/images/forest-cup/2022/turbeaux.png'),
   'Jutsa': await import('../assets/images/forest-cup/2022/jutsa.png')
-};
+}; */
 
 interface Match {
   match_id: number;
@@ -40,12 +41,13 @@ interface Match {
 
 interface FCCardProps {
   match: Match;
+  teamLogos: ImageMetadata;
 }
 
-const { match } = Astro.props;
+const { match, teamLogos } = Astro.props;
 ---
 <div class={`flex flex-col justify-center items-center w-full`}>
-  <div class="grid grid-cols-7 items-center p-3 w-full gap-4">
+  <div class="grid grid-cols-7 items-center px-3 py-1 w-full gap-2">
     <div class="flex items-center justify-end col-span-3 gap-3">
       <p class="font-semibold text-xl">
         {match.team1}

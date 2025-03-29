@@ -12,6 +12,25 @@ import FCLogo from '../../assets/images/forest-cup/forest-cup.png';
 import AtsveaFlag from '../../assets/images/forest-cup/2022/atsvea.png'; 
 import AllGoals from '../../assets/images/hero2.png'; 
 
+const teamLogos = {
+  'Atsvea': await import('../../assets/images/forest-cup/2022/atsvea.png'),
+  'Cacusia': await import('../../assets/images/forest-cup/2022/cacusia.png'),
+  'Einswenn': await import('../../assets/images/forest-cup/2022/einswenn.png'),
+  'Roless': await import('../../assets/images/forest-cup/2022/roless.png'),
+  'Bilsa': await import('../../assets/images/forest-cup/2022/bilsa.png'),
+  'Reannia': await import('../../assets/images/forest-cup/2022/reannia.png'),
+  'Kase': await import('../../assets/images/forest-cup/2022/kase.png'),
+  'Cat-Herders United': await import('../../assets/images/forest-cup/2022/cat-herders-united.png'),
+  'Daarwyrth': await import('../../assets/images/forest-cup/2022/daarwyrth.png'),
+  'Terrawynn': await import('../../assets/images/forest-cup/2022/terrawynn.png'),
+  'Bunkaiia': await import('../../assets/images/forest-cup/2022/bunkaiia.png'),
+  'Trebenia': await import('../../assets/images/forest-cup/2022/trebenia.png'),
+  'Stralla': await import('../../assets/images/forest-cup/2022/stralla.png'),
+  'Novian Republics': await import('../../assets/images/forest-cup/2022/novian-republics.png'),
+  'Turbeaux': await import('../../assets/images/forest-cup/2022/turbeaux.png'),
+  'Jutsa': await import('../../assets/images/forest-cup/2022/jutsa.png')
+};
+
 const FC2022 = tournaments.find(tournament => tournament.id === 2);
 // const Participants = members.filter(member => FC2022?.participants.includes(member.name));
 
@@ -160,27 +179,75 @@ const slides = [
     <!-- Carosel -->
     <!-- Bracket -->
     <!-- Groups -->
+    <div class="flex flex-col justify-center items-center w-full gap-4">
+      {FC2022?.stages && FC2022.stages.filter((stage) => stage.type === 'group').map((stage) => ( /* Llama solo a los grupos */
+        <div class="mt-6">
+          {
+            <div class="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-4 gap-2 w-full">
+              {stage.groups?.map((group) => (
+                <div class="flex flex-col justify-center items-center text-center bg-green-900 p-2 rounded-2xl">
+                  <h4 class="text-4xl font-bold text-white">{group.name}</h4>
+                  <table class="w-full">
+                    <thead>
+                      <tr>
+                        <th class="px-1">Pos</th>
+                        <th class="px-1">Team</th>
+                        <th class="px-1">Pts</th>
+                        <th class="px-1">W</th>
+                        <th class="px-1">D</th>
+                        <th class="px-1">L</th>
+                        <th class="px-1">GF</th>
+                        <th class="px-1">GA</th>
+                        <th class="px-1">GD</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {group.table?.map((table) => (
+                        <tr>
+                          <td class="px-1">{table.position}</td>
+                          <td class="px-1 mb-2 flex items-center gap-1">
+                            <Image src={teamLogos[table.team].default} alt={table.team} class="h-8 w-8 rounded-full object-cover" loading={"eager"}/>
+                            {table.team}
+                            </td>
+                          <td class="px-1 mb-2 ">{table.wins * 3 + table.draws}</td>
+                          <td class="px-1 mb-2 ">{table.wins}</td>
+                          <td class="px-1 mb-2 ">{table.draws}</td>
+                          <td class="px-1 mb-2 ">{table.losses}</td>
+                          <td class="px-1 mb-2 ">{table.goals_for}</td>
+                          <td class="px-1 mb-2 ">{table.goals_against}</td>
+                          <td class="px-1 mb-2 ">{table.goals_for - table.goals_against}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              ))}
+            </div>
+          }
+        </div>
+      ))}
+    </div>
     <!-- All Matches (Despegable) -->
     <div class="flex flex-col justify-center items-center p-6 bg-green-950/10 w-full gap-4">
       {FC2022?.stages && FC2022.stages.map((stage) => (
-        <div class="container bg-green-800 rounded-2xl p-6">
-          <div class="text-center mb-8">
-            <h3 class="text-7xl font-black text-white">{stage.name}</h3>
-          </div>
-          
+        <div class="text-center">
+          <h3 class="text-7xl font-black text-white">{stage.name}</h3>
+        </div>
+        <div class="container bg-green-800 rounded-2xl">
           {stage.type === 'group' ? (
-            <div class="flex flex-col gap-1">
+            <div class="grid grid-cols-1 md:grid-cols-2 bg-green-950 rounded-2xl">
               {stage.groups?.map((group) => (
                 <div class="">
-                  <h4 class="text-4xl font-bold text-white">{group.name}</h4>
-                  <div class="grid grid-rows-1 md:grid-rows-2 lg:grid-rows-3 gap-1">
+                  <h4 class="text-4xl font-bold text-white text-center">{group.name}</h4>
+                  <div class="grid grid-rows-1 md:grid-rows-2 lg:grid-rows-3 py-2">
                     {group.fixture?.map((fixture) => (
                       <div class="">
-                        <h4 class="text-lg font-semibold text-center p-2">{fixture.name}</h4>
-                        <div class="flex flex-col gap-2">
+                        {/* <h4 class="text-lg font-semibold text-center">{fixture.name}</h4> */}
+                        <div class="flex flex-col">
                           {fixture.matches?.map((match) => (
                             <MatchCard 
-                              match={match} 
+                              match={match}
+                              teamLogos={teamLogos}
                             />
                           ))}
                         </div>
@@ -198,6 +265,7 @@ const slides = [
                   {fixture.matches?.map((match) => (
                     <MatchCard 
                       match={match} 
+                      teamLogos={teamLogos}
                     />
                   ))}
                 </div>

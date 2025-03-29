@@ -1,4 +1,7 @@
 
+export interface Participant {
+  [key: string]: string
+}
 export interface Tournament {
   id: number;
   name: string;
@@ -8,7 +11,7 @@ export interface Tournament {
   winner: string;
   runner_up: string;
   route: string;
-  participants: string[];
+  participants: Participant[];
   stages?: Stage[];
 }
 
@@ -22,6 +25,17 @@ export interface Stage {
 export interface Group {
   name: string; // Nombre del grupo
   fixture?: Fixture[];
+  table: Table[];
+}
+
+export interface Table {
+  position: number;
+  team: string;
+  wins: number;
+  draws: number;
+  losses: number;
+  goals_for: number;
+  goals_against: number;
 }
 
 export interface Fixture {
@@ -66,24 +80,24 @@ export const tournaments = [
     "winner": "Atsvea",
     "runner_up": "Cacusia",
     "route": "/forest-cup/forest-cup-2022",
-    "participants": [
-      "Atsvea",
-      "Cacusia",
-      "Einswenn",
-      "Roless",
-      "Bilsa",
-      "Reannia",
-      "Kase",
-      "Cat-Herders United",
-      "Daarwyrth",
-      "Terrawynn",
-      "Bunkaiia",
-      "Trebenia",
-      "Stralla",
-      "Novian Republics",
-      "Turbeaux",
-      "Jutsa"
-    ],
+    "participants": {
+      'Atsvea': await import('../assets/images/forest-cup/2022/atsvea.png'),
+      'Cacusia': await import('../assets/images/forest-cup/2022/cacusia.png'),
+      'Einswenn': await import('../assets/images/forest-cup/2022/einswenn.png'),
+      'Roless': await import('../assets/images/forest-cup/2022/roless.png'),
+      'Bilsa': await import('../assets/images/forest-cup/2022/bilsa.png'),
+      'Reannia': await import('../assets/images/forest-cup/2022/reannia.png'),
+      'Kase': await import('../assets/images/forest-cup/2022/kase.png'),
+      'Cat-Herders United': await import('../assets/images/forest-cup/2022/cat-herders-united.png'),
+      'Daarwyrth': await import('../assets/images/forest-cup/2022/daarwyrth.png'),
+      'Terrawynn': await import('../assets/images/forest-cup/2022/terrawynn.png'),
+      'Bunkaiia': await import('../assets/images/forest-cup/2022/bunkaiia.png'),
+      'Trebenia': await import('../assets/images/forest-cup/2022/trebenia.png'),
+      'Stralla': await import('../assets/images/forest-cup/2022/stralla.png'),
+      'Novian Republics': await import('../assets/images/forest-cup/2022/novian-republics.png'),
+      'Turbeaux': await import('../assets/images/forest-cup/2022/turbeaux.png'),
+      'Jutsa': await import('../assets/images/forest-cup/2022/jutsa.png')
+    },
     stages: [
       {
         type: 'group',
@@ -91,6 +105,12 @@ export const tournaments = [
         groups: [
           {
             name: 'Group A',
+            table: [
+              { position: 1, team: 'Daarwyrth', wins: 2, draws: 1, losses: 0, goals_for: 2, goals_against: 0 },
+              { position: 2, team: 'Einswenn', wins: 1, draws: 2, losses: 0, goals_for: 3, goals_against: 2 },
+              { position: 3, team: 'Bilsa', wins: 1, draws: 1, losses: 1, goals_for: 4, goals_against: 3 },
+              { position: 4, team: 'Stralla', wins: 0, draws: 0, losses: 3, goals_for: 0, goals_against: 4 }
+            ],
             fixture: [
               {
               name: 'Matchday 1',
@@ -190,6 +210,12 @@ export const tournaments = [
           },
           {
             name: 'Group B',
+            table: [
+              { position: 1, team: 'Atsvea', wins: 2, draws: 0, losses: 1, goals_for: 5, goals_against: 3 },
+              { position: 2, team: 'Bunkaiia', wins: 2, draws: 0, losses: 1, goals_for: 4, goals_against: 2 },
+              { position: 3, team: 'Cat-Herders United', wins: 2, draws: 0, losses: 1, goals_for: 3, goals_against: 2 },
+              { position: 4, team: 'Novian Republics', wins: 0, draws: 0, losses: 3, goals_for: 0, goals_against: 5 }
+            ],
             fixture: [
               {
               name: 'Matchday 1',
@@ -294,6 +320,12 @@ export const tournaments = [
           },
           {
             name: 'Group C',
+            table: [
+              { position: 1, team: 'Cacusia', wins: 3, draws: 0, losses: 0, goals_for: 6, goals_against: 0 },
+              { position: 2, team: 'Roless', wins: 2, draws: 0, losses: 1, goals_for: 4, goals_against: 5 },
+              { position: 3, team: 'Trebenia', wins: 1, draws: 0, losses: 2, goals_for: 3, goals_against: 4 },
+              { position: 4, team: 'Turbeaux', wins: 0, draws: 0, losses: 3, goals_for: 1, goals_against: 7 }
+            ],
             fixture: [
               {
               name: 'Matchday 1',
@@ -400,6 +432,12 @@ export const tournaments = [
           },
           {
             name: 'Group D',
+            table: [
+              { position: 1, team: 'Reannia', wins: 3, draws: 0, losses: 0, goals_for: 8, goals_against: 0 },
+              { position: 2, team: 'Jutsa', wins: 1, draws: 1, losses: 1, goals_for: 1, goals_against: 2 },
+              { position: 3, team: 'Kase', wins: 1, draws: 0, losses: 2, goals_for: 1, goals_against: 4 },
+              { position: 4, team: 'Terrawynn', wins: 0, draws: 1, losses: 2, goals_for: 0, goals_against: 4 }
+            ],
             fixture: [
               {
               name: 'Matchday 1',
