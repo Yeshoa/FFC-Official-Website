@@ -1,0 +1,111 @@
+---
+// TournamentBracket.astro
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import BracketMatchCard from './BracketMatchCard.astro';
+
+// No recreamos los datos, usamos los proporcionados
+interface Props {
+  tourney: any; // Usar el tipo existente que ya tienes definido
+  teamLogos: Record<string, ImageMetadata>;
+}
+
+const { tourney, teamLogos } = Astro.props;
+
+// Función para obtener los partidos de una fase específica
+const getMatchesByRound = (roundName: string) => {
+  if (!tourney?.stages) return [];
+  
+  const knockoutStage = tourney.stages.find((stage: any) => stage.type === 'knockout');
+  if (!knockoutStage) return [];
+  
+  const fixture = knockoutStage.fixtures?.find((fix: any) => fix.name === roundName);
+  if (!fixture) return [];
+  
+  return fixture.matches || [];
+};
+
+// Obtenemos partidos por fase
+const quarterFinalMatches = getMatchesByRound('Quarter Finals');
+const semiFinalMatches = getMatchesByRound('Semi Finals');
+const finalMatches = getMatchesByRound('Final');
+---
+
+<div class="w-full bg-gray-50 py-8 px-4 rounded-lg">
+  <h2 class="text-2xl font-bold text-center mb-8">Final Bracket</h2>
+  
+  <div class="flex flex-col justify-center items-center w-full">
+    <!-- Estructura del bracket -->
+    <div class="flex items-center w-full max-w-6xl">
+      <!-- Cuartos de final (izquierda) -->
+      <div class="w-1/5 flex flex-col gap-8">
+        {quarterFinalMatches.slice(0, 2).map((match: any) => (
+          <BracketMatchCard match={match} teamLogos={teamLogos} />
+        ))}
+      </div>
+      
+      <!-- Semifinal (izquierda) -->
+      <div class="w-1/5 flex justify-center items-center">
+        <div class="w-4/5">
+          {semiFinalMatches[0] && (
+            <BracketMatchCard match={semiFinalMatches[0]} teamLogos={teamLogos} />
+          )}
+        </div>
+      </div>
+      
+      <!-- Final (centro) -->
+      <div class="w-1/5 flex flex-col items-center justify-center">
+        <div class="w-full mb-4">
+          {finalMatches[0] && (
+            <BracketMatchCard match={finalMatches[0]} teamLogos={teamLogos} />
+          )}
+        </div>
+        
+        {finalMatches[0] && (
+          <div class="flex flex-col items-center mt-4">
+            <div class="text-yellow-500">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="drop-shadow-md">
+                <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
+                <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path>
+                <path d="M4 22h16"></path>
+                <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path>
+                <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path>
+                <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path>
+              </svg>
+            </div>
+            <div class="text-lg font-bold mt-2 text-center">
+              {(() => {
+                const match = finalMatches[0];
+                if (match.score.team1_penalty !== undefined && match.score.team2_penalty !== undefined) {
+                  return match.score.team1_penalty > match.score.team2_penalty ? match.team1 : match.team2;
+                } else if (match.score.team1_extra_time !== undefined && match.score.team2_extra_time !== undefined) {
+                  const team1Total = match.score.team1_goals + match.score.team1_extra_time;
+                  const team2Total = match.score.team2_goals + match.score.team2_extra_time;
+                  return team1Total > team2Total ? match.team1 : match.team2;
+                } else {
+                  return match.score.team1_goals > match.score.team2_goals ? match.team1 : match.team2;
+                }
+              })()}
+            </div>
+          </div>
+        )}
+      </div>
+      
+      <!-- Semifinal (derecha) -->
+      <div class="w-1/5 flex justify-center items-center">
+        <div class="w-4/5">
+          {semiFinalMatches[1] && (
+            <BracketMatchCard match={semiFinalMatches[1]} teamLogos={teamLogos} />
+          )}
+        </div>
+      </div>
+      
+      <!-- Cuartos de final (derecha) -->
+      <div class="w-1/5 flex flex-col gap-8">
+        {quarterFinalMatches.slice(2, 4).map((match: any) => (
+          <BracketMatchCard match={match} teamLogos={teamLogos} />
+        ))}
+      </div>
+    </div>
+  </div>
+</div>

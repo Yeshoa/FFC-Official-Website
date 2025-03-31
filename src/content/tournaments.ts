@@ -51,6 +51,10 @@ export interface Match {
   score: {
     team1_goals: number;
     team2_goals: number;
+    team1_extra_time?: number;
+    team2_extra_time?: number;
+    team1_penalty?: number;
+    team2_penalty?: number;
   };
   goals: {
     team: string;
