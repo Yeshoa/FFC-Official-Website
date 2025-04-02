@@ -1,7 +1,8 @@
 ---
 import App from '../../layouts/App.astro';
 import Carousel from '../../components/react/Carousel';
-import MatchCard from '../../components/MatchCard.astro';
+import MatchCard from '../../components/MatchCardCompact.astro';
+import MatchCardLg from '../../components/MatchCard.astro';
 import Bracket from '../../components/Bracket.astro';
 import BracketMatchCard from '../../components/BracketMatchCard.astro';
 
@@ -233,23 +234,24 @@ const slides = [
         </div>
       ))}
     </div>
+
     <!-- All Matches (Despegable) -->
     <div class="flex flex-col justify-center items-center p-6 w-full gap-4">
       {FC2022?.stages && FC2022.stages.map((stage) => (
-        <div class="text-center">
+        <!-- div class="text-center">
           <h3 class="text-7xl font-black text-white">{stage.name}</h3>
-        </div>
-        <div class="container bg-green-950/70 rounded-2xl p-4">
+        </div> -->
+        <div class="container bg-green-950/30 rounded-2xl p-4">
           {stage.type === 'group' ? (
-            <div class="grid grid-cols-1 md:grid-cols-2 rounded-2xl">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 rounded-2xl">
               {stage.groups?.map((group) => (
                 <div class="">
                   <h4 class="text-4xl font-bold text-white text-center">{group.name}</h4>
-                  <div class="grid grid-rows-1 md:grid-rows-2 lg:grid-rows-3 py-2">
+                  <div class="grid grid-rows-1 md:grid-rows-2 lg:grid-rows-3 py-2 gap-4">
                     {group.fixture?.map((fixture) => (
                       <div class="">
                         {/* <h4 class="text-lg font-semibold text-center">{fixture.name}</h4> */}
-                        <div class="flex flex-col">
+                        <div class="flex flex-col justify-center items-center gap-4">
                           {fixture.matches?.map((match) => (
                             <MatchCard 
                               match={match}
@@ -264,15 +266,17 @@ const slides = [
               ))}
             </div>
           ) : ( /* Knockouts */
-            <div class="flex flex-col gap-1">
+          <div class="flex flex-col">
               {stage.fixture?.map((fixture) => (
-                <div>
-                  <h4 class="text-2xl font-semibold text-center">{fixture.name}</h4>
+                <div class="flex flex-col justify-start items-center">
+                <h4 class="text-2xl font-semibold text-center">{fixture.name}</h4>
                   {fixture.matches?.map((match) => (
-                    <MatchCard 
-                      match={match} 
-                      teamLogos={teamLogos}
-                    />
+                    <div class="w-full my-2">
+                      <MatchCardLg 
+                        match={match} 
+                        teamLogos={teamLogos}
+                      />
+                    </div>
                   ))}
                 </div>
               ))}
@@ -285,20 +289,5 @@ const slides = [
     <!-- Overall Standings -->
     <!-- Other -->
     <!-- Tournaments -->
-    <div class="flex justify-center p-6">
-      <div class="container">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {FC2022 && (
-            <div class="container flex flex-col justify-center items-center pt-6">
-              <div class="mt-6">
-                <h2 class="text-2xl font-bold">{FC2022.name}</h2>
-                <p>Winner: {FC2022.winner}</p>
-                <p>Runner-up: {FC2022.runner_up}</p>
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
-    </div>
   </main>
 </App>
