@@ -79,8 +79,9 @@ const { match, teamLogos } = Astro.props;
         {match.team2}
       </p>
     </div>
+    <!-- Grid goals -->
     <div class="flex flex-col w-full col-span-3 items-end justify-start h-full">
-      {match.goals
+      {/* match.goals
         .filter((goal) => goal.team === match.team1) // Filtra goles del equipo específico
         .map((goal) => (
         <div key={goal.minute} class="flex items-center gap-2">
@@ -89,13 +90,13 @@ const { match, teamLogos } = Astro.props;
             <p>{goal.minute}' {goal.penalty ? "(pen)" : ""}</p>
           </div>
         ))
-      }
+       */}
     </div>
     <div class="flex justify-center w-full h-full col-span-1">
-      {match?.link && <a href={match.link}>Video</a>}
+      {<a href="">Details</a>}
     </div>
     <div class="flex flex-col w-full col-span-3 justify-start h-full">
-      {match.goals
+      {/* match.goals
         .filter((goal) => goal.team === match.team2) // Filtra goles del equipo específico
         .map((goal) => (
           <div key={goal.minute} class="flex items-center gap-2">
@@ -104,7 +105,7 @@ const { match, teamLogos } = Astro.props;
             <p>{goal.minute}' {goal.penalty ? "(pen)" : ""}</p>
           </div>
         ))
-      }
+       */}
     </div>
   </div>
 </div>
