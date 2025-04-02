@@ -196,16 +196,17 @@ const slides = [
         }
       </div>
     </div> -->
+    <!-- Bracket -->
+    <div class="flex flex-col justify-center items-center w-full gap-4 bg-green-300/10 py-4">
     <Bracket tourney={FC2022} teamLogos={teamLogos} />
-
+    
     <!-- Groups -->
-    <div class="flex flex-col justify-center items-center w-full gap-4">
       {FC2022?.stages && FC2022.stages.filter((stage) => stage.type === 'group').map((stage) => ( /* Llama solo a los grupos */
         <div class="mt-6">
           {
             <div class="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-4 gap-2 w-full">
               {stage.groups?.map((group) => (
-                <div class="flex flex-col justify-center items-center text-center bg-green-900 p-2 rounded-2xl">
+                <div class="flex flex-col justify-center items-center text-center bg-green-950/80 p-2 rounded-2xl">
                   <h4 class="text-4xl font-bold text-white">{group.name}</h4>
                   <table class="w-full">
                     <thead>
@@ -248,14 +249,14 @@ const slides = [
       ))}
     </div>
     <!-- All Matches (Despegable) -->
-    <div class="flex flex-col justify-center items-center p-6 bg-green-950/10 w-full gap-4">
+    <div class="flex flex-col justify-center items-center p-6 w-full gap-4">
       {FC2022?.stages && FC2022.stages.map((stage) => (
         <div class="text-center">
           <h3 class="text-7xl font-black text-white">{stage.name}</h3>
         </div>
-        <div class="container bg-green-800 rounded-2xl">
+        <div class="container bg-green-950/70 rounded-2xl">
           {stage.type === 'group' ? (
-            <div class="grid grid-cols-1 md:grid-cols-2 bg-green-950 rounded-2xl">
+            <div class="grid grid-cols-1 md:grid-cols-2 rounded-2xl">
               {stage.groups?.map((group) => (
                 <div class="">
                   <h4 class="text-4xl font-bold text-white text-center">{group.name}</h4>
@@ -277,8 +278,8 @@ const slides = [
                 </div>
               ))}
             </div>
-          ) : (
-            <div class="flex flex-col gap-1">
+          ) : ( /* Knockouts */
+            <div class="flex flex-col gap-1 bg-green-950/70">
               {stage.fixture?.map((fixture) => (
                 <div>
                   <h4 class="text-2xl font-semibold text-center">{fixture.name}</h4>
