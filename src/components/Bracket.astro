@@ -19,7 +19,7 @@ const getMatchesByRound = (roundName: string) => {
   const knockoutStage = tourney.stages.find((stage: any) => stage.type === 'knockout');
   if (!knockoutStage) return [];
   
-  const fixture = knockoutStage.fixtures?.find((fix: any) => fix.name === roundName);
+  const fixture = knockoutStage.fixture?.find((fix: any) => fix.name === roundName);
   if (!fixture) return [];
   
   return fixture.matches || [];
@@ -29,9 +29,10 @@ const getMatchesByRound = (roundName: string) => {
 const quarterFinalMatches = getMatchesByRound('Quarter Finals');
 const semiFinalMatches = getMatchesByRound('Semi Finals');
 const finalMatches = getMatchesByRound('Final');
+
 ---
 
-<div class="w-full bg-gray-50 py-8 px-4 rounded-lg">
+<div class="w-full bg-green-800 py-8 px-4 rounded-lg">
   <h2 class="text-2xl font-bold text-center mb-8">Final Bracket</h2>
   
   <div class="flex flex-col justify-center items-center w-full">
