@@ -1,0 +1,31 @@
+---
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+
+import App from '../../layouts/App.astro';
+const members = await getCollection('members');
+console.log(members);
+// Obtener el parámetro de la URL
+const { id } = Astro.params;
+console.log(id);
+// Buscar el miembro con ese nombre
+const member = members.find(m => m.slug === id);
+/* import Flag from member?.data.flagPath;
+import Logo from member?.data.logoPath; */
+
+if (!member) {
+  throw new Error("Member not found");
+}
+---
+<App title={"FFC - " + member.data.name}>
+  <head>
+    <title>{member.data.name} - Información</title>
+  </head>
+
+  <h1>{member.data.name}</h1>
+  <Image src={member.data.flagPath} alt={`${member.data.name}'s Flag`} />
+  <Image src={member.data.logoPath} alt={`${member.data.name}'s Logo`} />
+
+  <p>Federación: {member.data.federation}</p>
+  <p>Región: {member.data.region}</p>
+</App>
