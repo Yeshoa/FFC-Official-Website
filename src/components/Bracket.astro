@@ -53,7 +53,7 @@ const winnerTeam = (() => {
   
   <div class="flex flex-col justify-center items-center w-full">
     <!-- Estructura del bracket -->
-    <div class="flex items-center w-full max-w-6xl">
+    <div class="flex items-center w-full max-w-7xl gap-4">
       <!-- Cuartos de final (izquierda) -->
       <div class="w-1/5 flex flex-col gap-8">
         {quarterFinalMatches.slice(0, 2).map((match: any) => (
@@ -63,7 +63,7 @@ const winnerTeam = (() => {
       
       <!-- Semifinal (izquierda) -->
       <div class="w-1/5 flex justify-center items-center">
-        <div class="w-4/5">
+        <div class="w-full">
           {semiFinalMatches[0] && (
             <BracketMatchCard match={semiFinalMatches[0]} teamLogos={teamLogos} />
           )}
@@ -89,7 +89,7 @@ const winnerTeam = (() => {
       
       <!-- Semifinal (derecha) -->
       <div class="w-1/5 flex justify-center items-center">
-        <div class="w-4/5">
+        <div class="w-full">
           {semiFinalMatches[1] && (
             <BracketMatchCard match={semiFinalMatches[1]} teamLogos={teamLogos} />
           )}

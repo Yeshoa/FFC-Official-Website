@@ -6,6 +6,7 @@ export interface Tournament {
   name: string;
   host: string;
   image: string;
+  banner: string;
   year: number;
   winner: string;
   runner_up: string;
@@ -69,6 +70,7 @@ export const tournaments = [
     "name": "Bilsa 2020",
     "host": "Bilsa",
     "image": "/src/assets/images/forest-cup/2020/logo.png",
+    "banner": "/src/assets/images/forest-cup/2020/logo.png",
     "year": 2020,
     "winner": "Ruinenlust",
     "runner_up": "Cannibaland",
@@ -79,6 +81,7 @@ export const tournaments = [
     "name": "Bilsa 2022",
     "host": "Bilsa",
     "image": "/src/assets/images/forest-cup/2022/logo.png",
+    "banner": "/src/assets/images/forest-cup/2022/logo.png",
     "year": 2022,
     "winner": "Atsvea",
     "runner_up": "Cacusia",
@@ -681,6 +684,7 @@ export const tournaments = [
     "name": "Anxious & Kevin 2024",
     "host": "Anxious & Kevin",
     "image": "/src/assets/images/forest-cup/2024/logo.png",
+    "banner": "/src/assets/images/forest-cup/2024/banner.png",
     "year": 2024,
     "winner": "Nardin",
     "runner_up": "Jutsa",
@@ -725,6 +729,7 @@ export const tournaments = [
     "name": "Forest Cup 2026",
     "host": "TBA",
     "image": "/src/assets/images/forest-cup/2026/logo.png",
+    "banner": "/src/assets/images/forest-cup/2026/banner.png",
     "year": 2026,
     "winner": "-",
     "runner_up": "-",

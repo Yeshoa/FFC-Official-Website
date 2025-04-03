@@ -5,6 +5,7 @@ import MatchCard from '../../components/MatchCardCompact.astro';
 import MatchCardLg from '../../components/MatchCard.astro';
 import Bracket from '../../components/Bracket.astro';
 import BracketMatchCard from '../../components/BracketMatchCard.astro';
+import TournamentGrid from '../../components/TournamentGrid.astro';
 
 import { members } from '../../content/members';
 import { tournaments } from '../../content/tournaments';
@@ -85,6 +86,7 @@ const slides = [
     <!-- Banner para el fondo oscuro-->
     <div class="flex flex-col justify-center items-center pb-6 bg-gradient-to-r from-transparent to-transparent via-black/20 w-full">
       <!-- Carousel de Forest Cup -->
+      <TournamentGrid tournaments={tournaments} currentTournament={FC2022}/>
       <!-- Container -->
       <Image src={FC22Logo} alt="Forest Cup 2020 Logo" class="max-w-7xl  lg:w-4xl md:w-2xl xl:w-auto sm:w-lg w-sm" loading={"eager"}/>
       <div class="flex justify-between items-start h-full p-6 gap-6">
@@ -101,7 +103,7 @@ const slides = [
       
     </div>
     <!-- Headlines -->
-    <div class="w-full bg-gray-300/70 items-center flex justify-center p-6">
+    <div class="w-full bg-gradient-to-b from-white/10 to-transparent items-center flex justify-center p-6">
       <div class="max-w-10/12 grid grid-cols-4 justify-center items-center">
         <a href="https://youtu.be/HQJcfs5rKrs" target="_blank" class="relative overflow-hidden rounded-2xl col-span-3 w-11/12">
           <Image src={AllGoals} alt="All Goals" class="rounded-xl object-cover hover:scale-105 transition duration-300" loading={"eager"}/>
@@ -183,7 +185,7 @@ const slides = [
     </div>
     <!-- Carousel -->
     <!-- Bracket -->
-    <div class="flex flex-col justify-center items-center w-full gap-4 bg-green-300/10 py-4">
+    <div class="flex flex-col justify-center items-center w-full gap-4 py-4">
     <Bracket tourney={FC2022} teamLogos={teamLogos} />
     
     <!-- Groups -->
@@ -213,7 +215,7 @@ const slides = [
                         <tr>
                           <td class="px-1">{table.position}</td>
                           <td class="px-1 mb-2 flex items-center gap-1">
-                            <Image src={teamLogos[table.team].default} alt={table.team} class="h-8 w-8 rounded-full object-cover" loading={"eager"}/>
+                            <Image src={teamLogos[table.team].default} alt={table.team} class="h-8 w-8 rounded-full object-cover" loading={"lazy"}/>
                             {table.team}
                             </td>
                           <td class="px-1 mb-2 ">{table.wins * 3 + table.draws}</td>
@@ -269,7 +271,7 @@ const slides = [
           <div class="flex flex-col">
               {stage.fixture?.map((fixture) => (
                 <div class="flex flex-col justify-start items-center">
-                <h4 class="text-2xl font-semibold text-center">{fixture.name}</h4>
+                <h4 class={`text-2xl font-semibold text-center ${fixture.name === "Final" ? "font-bold text-7xl" : ""}`}>{fixture.name}</h4>
                   {fixture.matches?.map((match) => (
                     <div class="w-full my-2">
                       <MatchCardLg 

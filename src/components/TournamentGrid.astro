@@ -1,0 +1,32 @@
+---
+interface Tournament {
+  name: string;
+  banner: string;
+  route: string;
+}
+
+const { tournaments, currentTournament } = Astro.props;
+---
+
+<div class="flex justify-center items-center px-6 bg-white/10 w-full">
+  <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
+    {tournaments.slice().reverse().map((tournament) => {
+      const isActive = tournament.route === currentTournament.route;
+
+      return (
+        <a 
+          href={isActive ? "#" : tournament.route} 
+          key={tournament.name} 
+          class={`bg-gray-300 flex relative overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-shadow group hover:bg-green-950
+            justify-center items-center group ${isActive ? "bg-green-950 cursor-default pointer-events-none" : ""}`}
+        >
+          <img 
+            src={tournament.banner} 
+            alt={tournament.name} 
+            class={`w-auto h-16 object-cover rounded-lg transition-opacity invert group-hover:invert-0 ${isActive ? "invert-0" : ""}`}
+          />
+        </a>
+      );
+    })}
+  </div>
+</div>
