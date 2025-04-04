@@ -1,25 +1,44 @@
 # Forestian Foobtall Confederation (FFC) - Astro Project
 
-Welcome to the **Forestian Foobtall Confederation (FFC)** project! This is a web-based platform dedicated to showcasing the FFC tournaments, teams, and match statistics in an engaging and dynamic way.
+Website built with **Astro**. Showcases tournaments, match details, and national federations of the FFC.
 
-## About the Project
+---
 
-This project is designed to display:
-- A **general standings table** for tournaments.
-- **Individual tournament pages** featuring champions, groups, knockout rounds, and match details.
-- A **visual bracket system** for the final stages of tournaments.
-- **Dynamic match cards** showing results in chronological order.
-- **Team and federation pages** with logos, flags, and performance statistics.
-- A **~~*media section*~~** with highlighted videos and image galleries.
+## 🗃️ Backend
 
-## Features
+- [ ] **Migrate existing TypeScript collections to Markdown**  
+&nbsp;&nbsp;&nbsp;&nbsp;Use Astro’s Content Collections for better content organization and markdown-powered routing. _(High priority, in progress)_
 
-- **Performance** structure to handle large tournament datasets efficiently.
-- **Seamless integration** of images, videos, and match data.
-- **~~Responsive~~** for optimal viewing on all devices.
-- **~~Dynamic components~~** for an interactive user experience.
+- [ ] **Create dynamic pages for each tournament (by ID/slug)**  
+&nbsp;&nbsp;&nbsp;&nbsp;Needs collections in Markdown first. Each tournament should have its own route like `/tournament/fc-2022`.
 
-## Contributions & Feedback
+---
 
-Feel free to pull collaborate
+## 🧠 General Tasks
 
+- [ ] **Create "sign up" form**  
+&nbsp;&nbsp;&nbsp;&nbsp;A simple form to join the FFC (email submission only, not user login). Previously done with Google Forms. (Keep the google form as alternative)  
+
+- [ ] **Add "Sponsor Registration" page**  
+&nbsp;&nbsp;&nbsp;&nbsp;Link to this form from the navbar. Name, Logo and... what else?.
+
+- [ ] **Landing Page**  
+&nbsp;&nbsp;&nbsp;&nbsp;Add content to the landing page, maybe changing the "grid hero" with a full width React carousel.
+
+---
+
+## 🎨 Frontend Tasks
+
+- [ ] **Make Tailwind designs more responsive**  
+&nbsp;&nbsp;&nbsp;&nbsp;Improve layout for various screen sizes, mobile and tablets.
+
+- [ ] **Use `<Image />` component where possible**  
+&nbsp;&nbsp;&nbsp;&nbsp;Try to optimize image rendering. If issues arise, consider moving image directories to `public/`.
+
+- [ ] **Build reusable components for tournament pages**  
+&nbsp;&nbsp;&nbsp;&nbsp;Standings tables, brackets, match grids — all should be modular to simplify future tournament additions.
+
+- [ ] **Improve match cards**  
+&nbsp;&nbsp;&nbsp;&nbsp;Match card having a button to display goal scorers instead of hovering.
+
+---
