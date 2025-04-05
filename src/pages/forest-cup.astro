@@ -7,7 +7,6 @@ import App from '../layouts/App.astro';
 import { tournaments } from '../content/tournaments';
 import { getCollection } from 'astro:content';
 
-
 const memberEntries = await getCollection('members');
 const matchEntries = await getCollection('matches');
 

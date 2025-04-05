@@ -118,13 +118,13 @@ const HistoricalTable: FC<Props> = ({ members, matches }) => {
         </thead>
         <tbody>
           {sorted.map((team, index) => (
-            <tr key={team.name} className="text-center odd:bg-green-900 even:bg-green-800">
+            <tr key={team.name} className="text-center odd:bg-green-900/30 even:bg-green-950/30">
               <td className="px-4 py-2 font-bold">{index + 1}</td>
-              <td className="px-4 py-2">
+              <td className="py-2 w-fit">
                 <img
                   src={team.flagPath}
                   alt={team.name}
-                  className="w-6 h-6 rounded-full mx-auto"
+                  className="h-6 w-auto rounded-xl object-cover ring-1 ring-green-700 inline-block"
                 />
               </td>
               <td className="px-4 py-2">
