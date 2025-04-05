@@ -1,7 +1,9 @@
 ---
-import type { ImageMetadata } from 'astro';
-import { members } from '../content/members';
 import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import { getCollection } from 'astro:content';
+const members = await getCollection('members');
+
 
 const images = import.meta.glob<{ default: ImageMetadata }>("/src/assets/images/members/*.{jpeg,jpg,png,gif,svg}", { eager: true });
 // Convertimos el objeto de imágenes a un formato más fácil de usar (ruta -> ImageMetadata)

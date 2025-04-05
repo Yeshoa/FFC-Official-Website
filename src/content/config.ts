@@ -54,12 +54,14 @@ const forestCupCollection = defineCollection({
 const matchesCollection = defineCollection({
   type: 'content',
   schema: z.object({
-    match_id: z.number(),
     tournament_id: z.number(), // Referencia al torneo
-    stage: z.string(),
+    stage: z.string().optional(), // Group Stage, Knockout Stage, etc.
+    group: z.string().optional(), // Referencia al grupo
+    fixture: z.string(), // Fixture del partido (ej: "MatchDay 1" o "Semi-Final")
     team1: z.string(),
     team2: z.string(),
     played: z.boolean(),
+    link: z.string().url().optional(), // Enlace al video del partido
     score: z.object({
       team1_goals: z.number(),
       team2_goals: z.number(),
@@ -73,6 +75,7 @@ const matchesCollection = defineCollection({
         team: z.string(),
         player: z.string(),
         minute: z.number(),
+        aggregate: z.number().optional(),
         penalty: z.boolean(),
       })
     ).optional(),
