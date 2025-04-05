@@ -3,7 +3,12 @@ import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 // import { members } from '../content/members2.ts';
 import { getCollection } from 'astro:content';
-const members = await getCollection('members');
+const members = (await getCollection('members'))
+  .sort((a, b) => a.data.id - b.data.id)
+  .map((entry) => ({
+    ...entry.data,
+    slug: entry.slug,
+  }));
 
 
 const images = import.meta.glob<{ default: ImageMetadata }>("/src/assets/images/members/*.{jpeg,jpg,png,gif,svg}", { eager: true });
