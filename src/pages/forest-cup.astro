@@ -5,6 +5,18 @@ import HistoricalTable from '../components/react/HistoricalTable';
 import FCCard from '../components/FCCard.astro';
 import App from '../layouts/App.astro';
 import { tournaments } from '../content/tournaments';
+import { getCollection } from 'astro:content';
+
+
+const memberEntries = await getCollection('members');
+const matchEntries = await getCollection('matches');
+
+const members = memberEntries.map((entry) => ({
+  ...entry.data,       // <-- todos los campos como name, flagPath, etc.
+  slug: entry.slug,    // <-- lo añadís manualmente porque está fuera de .data
+}));
+
+const matches = matchEntries.map((entry) => entry.data);
 
 import { Image } from 'astro:assets';
 import FCLogo from '../assets/images/forest-cup/forest-cup.png';
@@ -39,6 +51,7 @@ const images = import.meta.glob('../assets/images/*.png', { eager: true });
       </div>
     </div>
     <!-- Table -->
-    <HistoricalTable />
+    <!-- <HistoricalTable /> -->
+    <HistoricalTable members={members} matches={matches}/>
   </main>
 </App>

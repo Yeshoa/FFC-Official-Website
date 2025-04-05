@@ -1,23 +1,14 @@
- "id": 2,
-    "code": "STR",
-    "name": "Stralla",
-    "nslink": "https://www.nationstates.net/nation=stralla",
-    "flagPath": "/src/assets/images/members/stralla_flag.png",
-    "federation": "Stralla Fuzbal",
-    "logoPath": "/src/assets/images/members/stralla_logo.png",
-    "feddispatch": null,
-    "region": "Forest",
-    "founded": 2020,
-    "affiliation": 2024,
-    "score": 0,
-    "records": {
-      "tournamentsPlayed": 2,
-      "tournamentsWon": 0,
-      "totalPoints": 3,
-      "matches": 6,
-      "wins": 1,
-      "draws": 0,
-      "losses": 5,
-      "goalsFor": 1,
-      "goalsAgainst": 12
-    }
+---
+id: 2
+code: "STR"
+name: "Stralla"
+nslink: "https://www.nationstates.net/nation=stralla"
+flagPath: "/src/assets/images/members/stralla_flag.png"
+federation: "Stralla Fuzbal"
+logoPath: "/src/assets/images/members/stralla_logo.png"
+region: "Forest"
+founded: 2020
+affiliation: 2024
+verified: true
+score: 0
+---

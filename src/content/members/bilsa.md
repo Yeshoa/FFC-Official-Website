@@ -12,14 +12,4 @@ founded: 2012
 affiliation: 2024
 verified: true
 score: 0
-records:
-  tournamentsPlayed: 3
-  tournamentsWon: 0
-  totalPoints: 15
-  matches: 11
-  wins: 4
-  draws: 3
-  losses: 4
-  goalsFor: 6
-  goalsAgainst: 4
 ---

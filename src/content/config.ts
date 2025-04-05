@@ -86,10 +86,10 @@ const membersCollection = defineCollection({
   type: 'content',
   schema: z.object({
     id: z.number(),
-    code: z.string(),
+    code: z.string().optional(),
     name: z.string(),
     nslink: z.string().url(),
-    flagPath: z.string(),
+    flagPath: z.string().optional(),
     federation: z.string().optional(),
     logoPath: z.string().optional(),
     feddispatch: z.string().url().optional(),
@@ -108,7 +108,7 @@ const membersCollection = defineCollection({
       losses: z.number(),
       goalsFor: z.number(),
       goalsAgainst: z.number(),
-    }),
+    }).optional(),
   }),
 });
 

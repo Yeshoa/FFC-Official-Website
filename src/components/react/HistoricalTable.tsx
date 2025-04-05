@@ -118,7 +118,7 @@ const HistoricalTable: FC<Props> = ({ members, matches }) => {
         </thead>
         <tbody>
           {sorted.map((team, index) => (
-            <tr key={team.name} className="text-center odd:bg-green-100 even:bg-white">
+            <tr key={team.name} className="text-center odd:bg-green-900 even:bg-green-800">
               <td className="px-4 py-2 font-bold">{index + 1}</td>
               <td className="px-4 py-2">
                 <img
@@ -128,7 +128,7 @@ const HistoricalTable: FC<Props> = ({ members, matches }) => {
                 />
               </td>
               <td className="px-4 py-2">
-                <a href={`/members/${team.slug}`} className="text-green-700 hover:underline">
+                <a href={`/members/${team.slug}`} className="text-white hover:underline">
                   {team.name}
                 </a>
               </td>

@@ -17,6 +17,7 @@ const logoClass = logoPath
   : "max-h-32 w-auto max-w-32 opacity-5";
 
 if (!logoPath) logoPath = "/src/assets/images/members/default_logo.png";
+if (!flagPath) flagPath = "/src/assets/images/members/default_logo.png";
 
 const images = import.meta.glob<{ default: ImageMetadata }>("/src/assets/images/members/*.{jpeg,jpg,png,gif,svg}");
 
