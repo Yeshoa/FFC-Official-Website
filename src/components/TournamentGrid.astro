@@ -1,20 +1,22 @@
 ---
 import { Image } from "astro:assets";
+import type { ImageMetadata } from 'astro';
+import { tournaments } from '../content/tournaments';
 
-interface Tournament {
-  name: string;
-  banner: string;
-  route: string;
-}
+const { currentTournament } = Astro.props;
 
-const { tournaments, currentTournament } = Astro.props;
+const images = import.meta.glob<{ default: ImageMetadata }>("/src/assets/images/forest-cup/**/*.{jpeg,jpg,png,gif,svg}", ({ eager: true }));
+
+const imageMap = Object.fromEntries(
+  Object.entries(images).map(([path, module]) => [path, module.default])
+);
 ---
 
 <div class="flex justify-center items-center px-6 bg-white/10 w-full">
   <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
     {tournaments.slice().reverse().map((tournament) => {
       const isActive = tournament.route === currentTournament.route;
-
+      console.log(images[tournament.banner].default);
       return (
         <a 
           href={isActive ? "#" : tournament.route} 
@@ -23,11 +25,9 @@ const { tournaments, currentTournament } = Astro.props;
             justify-center items-center group ${isActive ? "bg-green-950 cursor-default pointer-events-none" : ""}`}
         >
           <Image 
-            src={tournament.banner} 
+            src={images[tournament.banner].default} 
             alt={tournament.name} 
             class={`w-auto h-16 object-cover rounded-lg transition-opacity invert group-hover:invert-0 ${isActive ? "invert-0" : ""}`}
-            width={1}
-            height={16}
           />
         </a>
       );

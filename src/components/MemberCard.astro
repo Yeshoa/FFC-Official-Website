@@ -18,7 +18,7 @@ const logoClass = logoPath
 
 if (!logoPath) logoPath = "/src/assets/images/members/default_logo.png";
 if (!flagPath) flagPath = "/src/assets/images/members/default_logo.png";
-console.log(name, logoPath);
+
 const images = import.meta.glob<{ default: ImageMetadata }>("/src/assets/images/members/*.{jpeg,jpg,png,gif,svg}");
 
 if (!images[flagPath]) throw new Error(`"${flagPath}" does not exist in glob: "src/assets/*.{jpeg,jpg,png,gif}"`);
