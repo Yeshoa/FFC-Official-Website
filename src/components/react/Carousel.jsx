@@ -56,11 +56,15 @@ const Carousel = ({ slides }) => {
                 href={`https://www.youtube.com/embed/${slide.videoId}`}
                 target="_blank"
               >
-                <img
+                {/* <img
                   src={slide.src}
                   alt={slide.alt}
                   className="w-72 h-auto object-center rounded-2xl hover:brightness-120 hover:scale-105 transition duration-300"
-                />
+                /> */}
+                <Image 
+                  src={slide.src}
+                  alt={slide.alt}
+                  className="w-72 h-auto object-center rounded-2xl hover:brightness-120 hover:scale-105 transition duration-300"></Image>
               </a>
             }
           </div>
