@@ -125,6 +125,7 @@ const HistoricalTable: FC<Props> = ({ members, matches }) => {
                   src={team.flagPath}
                   alt={team.name}
                   className="h-6 w-auto rounded-xl object-cover ring-1 ring-green-700 inline-block"
+                  loading="lazy"
                 />
               </td>
               <td className="px-4 py-2">
