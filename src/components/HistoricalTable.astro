@@ -11,7 +11,7 @@ const members = (await getCollection('members'))
   }));
 
 
-const images = import.meta.glob<{ default: ImageMetadata }>("/src/assets/images/members/*.{jpeg,jpg,png,gif,svg}", { eager: true });
+const images = import.meta.glob<{ default: ImageMetadata }>("/src/assets/images/members/*.{jpeg,jpg,png,gif,svg}", { eager: false });
 // Convertimos el objeto de imágenes a un formato más fácil de usar (ruta -> ImageMetadata)
 const imageMap = Object.fromEntries(
   Object.entries(images).map(([path, module]) => [path, module.default])

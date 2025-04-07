@@ -2,11 +2,15 @@ import React from "react";
 import type { FC } from "react";
 
 type Match = {
-  teamA: string;
-  teamB: string;
-  scoreA: number;
-  scoreB: number;
+  team1: string;
+  team2: string;
+  score: Score;
   tournamentId: number;
+};
+
+type Score = {
+  team1_goals: number;
+  team2_goals: number;
 };
 
 type Member = {
@@ -19,9 +23,6 @@ type Props = {
   members: Member[];
   matches: Match[];
 };
-
-
-
 const HistoricalTable: FC<Props> = ({ members, matches }) => {
   // 1. Inicializamos el estado base de cada team
   const stats = Object.fromEntries(
@@ -44,34 +45,33 @@ const HistoricalTable: FC<Props> = ({ members, matches }) => {
 
   // 2. Recorremos los matches y actualizamos el estado
   matches.forEach((match) => {
-    const teamA = stats[match.teamA];
-    const teamB = stats[match.teamB];
-
-    if (!teamA || !teamB) return;
-
-    teamA.played++;
-    teamB.played++;
-
-    teamA.goalsFor += match.scoreA;
-    teamA.goalsAgainst += match.scoreB;
-    teamB.goalsFor += match.scoreB;
-    teamB.goalsAgainst += match.scoreA;
-
-    teamA.tournamentsPlayed.add(match.tournamentId);
-    teamB.tournamentsPlayed.add(match.tournamentId);
-
-    if (match.scoreA > match.scoreB) {
-      teamA.wins++;
-      teamB.losses++;
-    } else if (match.scoreA < match.scoreB) {
-      teamB.wins++;
-      teamA.losses++;
+    const team1 = stats[match.team1];
+    const team2 = stats[match.team2];
+    if (!team1 || !team2) return;
+    
+    team1.played++;
+    team2.played++;
+    
+    team1.goalsFor += match.score.team1_goals;
+    team1.goalsAgainst += match.score.team2_goals;
+    team2.goalsFor += match.score.team2_goals;
+    team2.goalsAgainst += match.score.team1_goals;
+    
+    team1.tournamentsPlayed.add(match.tournamentId);
+    team2.tournamentsPlayed.add(match.tournamentId);
+    
+    if (match.score.team1_goals > match.score.team2_goals) {
+      team1.wins++;
+      team2.losses++;
+    } else if (match.score.team1_goals < match.score.team2_goals) {
+      team2.wins++;
+      team1.losses++;
     } else {
-      teamA.draws++;
-      teamB.draws++;
+      team1.draws++;
+      team2.draws++;
     }
   });
-
+  
   // 3. Convertimos el objeto en array y calculamos stats adicionales
   const table = Object.values(stats).map((team) => {
     const points = team.wins * 3 + team.draws;

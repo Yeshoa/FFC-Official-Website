@@ -1,19 +1,15 @@
 ---
 import App from '../../layouts/App.astro';
-import Carousel from '../../components/react/Carousel';
-import MatchCard from '../../components/MatchCardCompact.astro';
-import MatchCardLg from '../../components/MatchCard.astro';
+import MatchCard from '../../components/MatchCard.astro';
+import MatchCardCompact from '../../components/MatchCardCompact.astro';
 import Bracket from '../../components/Bracket.astro';
-import BracketMatchCard from '../../components/BracketMatchCard.astro';
 import TournamentGrid from '../../components/TournamentGrid.astro';
 
-import { members } from '../../content/members';
 import { tournaments } from '../../content/tournaments';
 
 import { Image } from 'astro:assets';
+
 import FC22Logo from '../../assets/images/forest-cup/2022/logo.png';
-import FCLogo from '../../assets/images/forest-cup/forest-cup.png';
-import AtsveaFlag from '../../assets/images/forest-cup/2022/atsvea.png'; 
 import AllGoals from '../../assets/images/hero2.png'; 
 
 const teamLogos = {
@@ -36,8 +32,6 @@ const teamLogos = {
 };
 
 const FC2022 = tournaments.find(tournament => tournament.id === 2);
-// const Participants = members.filter(member => FC2022?.participants.includes(member.name));
-const knockoutStage = (FC2022?.stages.find(stage => stage.type === 'knockout'));
 
 const slides = [
   {
@@ -92,7 +86,7 @@ const slides = [
       <div class="flex justify-between items-start h-full p-6 gap-6">
         <div class="flex flex-col gap-6 items-center">
           <div class="flex items-center gap-6">
-            <Image src={AtsveaFlag} alt="Winner Flag" class="h-24 w-auto rounded-xl object-cover ring-1 ring-green-700" loading={"eager"}/>
+            <Image src={teamLogos[FC2022?.winner].default} alt="Winner Flag" class="h-24 w-auto rounded-xl object-cover ring-1 ring-green-700" loading={"eager"}/>
             <h1 class="text-5xl font-bold">{FC2022?.winner}</h1>
           </div>
           <div class="flex items-center">
@@ -215,9 +209,9 @@ const slides = [
                         <tr>
                           <td class="px-1">{table.position}</td>
                           <td class="px-1 mb-2 flex items-center gap-1">
-                            <Image src={teamLogos[table.team].default} alt={table.team} class="h-8 w-8 rounded-full object-cover" loading={"lazy"}/>
+                            <Image src={teamLogos[table.team].default} alt={table.team} class="h-8 w-8 rounded-full object-cover ring-1 ring-green-600" loading={"lazy"}/>
                             {table.team}
-                            </td>
+                          </td>
                           <td class="px-1 mb-2 ">{table.wins * 3 + table.draws}</td>
                           <td class="px-1 mb-2 ">{table.wins}</td>
                           <td class="px-1 mb-2 ">{table.draws}</td>
@@ -255,7 +249,7 @@ const slides = [
                         {/* <h4 class="text-lg font-semibold text-center">{fixture.name}</h4> */}
                         <div class="flex flex-col justify-center items-center gap-4">
                           {fixture.matches?.map((match) => (
-                            <MatchCard 
+                            <MatchCardCompact 
                               match={match}
                               teamLogos={teamLogos}
                             />
@@ -274,7 +268,7 @@ const slides = [
                 <h4 class={`text-2xl font-semibold text-center ${fixture.name === "Final" ? "font-bold text-7xl" : ""}`}>{fixture.name}</h4>
                   {fixture.matches?.map((match) => (
                     <div class="w-full my-2">
-                      <MatchCardLg 
+                      <MatchCard 
                         match={match} 
                         teamLogos={teamLogos}
                       />

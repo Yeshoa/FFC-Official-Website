@@ -5,8 +5,11 @@ import { tournaments } from '../content/tournaments';
 
 const { currentTournament } = Astro.props;
 
+// Importamos las imágenes de los banners de los torneos
+// Usamos import.meta.glob para cargar las imágenes de forma dinámica
 const images = import.meta.glob<{ default: ImageMetadata }>("/src/assets/images/forest-cup/**/*.{jpeg,jpg,png,gif,svg}", ({ eager: true }));
-
+// Convertimos el objeto de imágenes a un formato más fácil de usar (ruta -> ImageMetadata)
+// Esto nos permite acceder a las imágenes usando su ruta como clave
 const imageMap = Object.fromEntries(
   Object.entries(images).map(([path, module]) => [path, module.default])
 );
