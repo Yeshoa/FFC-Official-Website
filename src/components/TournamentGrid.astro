@@ -1,4 +1,6 @@
 ---
+import { Image } from "astro:assets";
+
 interface Tournament {
   name: string;
   banner: string;
@@ -20,10 +22,12 @@ const { tournaments, currentTournament } = Astro.props;
           class={`bg-gray-300 flex relative overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-shadow group hover:bg-green-950
             justify-center items-center group ${isActive ? "bg-green-950 cursor-default pointer-events-none" : ""}`}
         >
-          <img 
+          <Image 
             src={tournament.banner} 
             alt={tournament.name} 
             class={`w-auto h-16 object-cover rounded-lg transition-opacity invert group-hover:invert-0 ${isActive ? "invert-0" : ""}`}
+            width={1}
+            height={16}
           />
         </a>
       );
