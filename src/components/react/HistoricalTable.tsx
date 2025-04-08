@@ -17,6 +17,7 @@ type Member = {
   name: string;
   flagPath: string;
   slug: string;
+  additionalPoints: number;
 };
 
 type Props = {
@@ -32,6 +33,7 @@ const HistoricalTable: FC<Props> = ({ members, matches }) => {
         name: m.name,
         flagPath: m.flagPath,
         slug: m.slug,
+        additionalPoints: m.additionalPoints,
         played: 0,
         wins: 0,
         draws: 0,
@@ -74,7 +76,7 @@ const HistoricalTable: FC<Props> = ({ members, matches }) => {
   
   // 3. Convertimos el objeto en array y calculamos stats adicionales
   const table = Object.values(stats).map((team) => {
-    const points = team.wins * 3 + team.draws;
+    const points = team.wins * 3 + team.draws + team.additionalPoints;
     const goalDiff = team.goalsFor - team.goalsAgainst;
     const performance = team.played > 0 ? points / team.played : 0;
     return {
@@ -134,7 +136,7 @@ const HistoricalTable: FC<Props> = ({ members, matches }) => {
                 </a>
               </td>
               <td className="px-4 py-2">{team.tournamentsCount}</td>
-              <td className="px-4 py-2">{team.points}</td>
+              <td className="px-4 py-2">{team.points}{team.additionalPoints > 0 && '*'}</td>
               <td className="px-4 py-2">{team.played}</td>
               <td className="px-4 py-2">{team.wins}</td>
               <td className="px-4 py-2">{team.draws}</td>

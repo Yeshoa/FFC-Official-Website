@@ -96,19 +96,9 @@ const membersCollection = defineCollection({
     region: z.string(),
     founded: z.number().optional(),
     affiliation: z.number().optional(),
-    verified: z.boolean(),
-    score: z.number(),
-    records: z.object({
-      tournamentsPlayed: z.number(),
-      tournamentsWon: z.number(),
-      totalPoints: z.number(),
-      matches: z.number(),
-      wins: z.number(),
-      draws: z.number(),
-      losses: z.number(),
-      goalsFor: z.number(),
-      goalsAgainst: z.number(),
-    }).optional(),
+    verified: z.boolean().default(false),
+    score: z.number().default(0),
+    additionalPoints: z.number().optional().default(0),
   }),
 });
 
