@@ -56,9 +56,10 @@ for (const member of members) {
 }
 // Recorremos los partidos y actualizamos las estadísticas de cada equipo
 for (const match of matches) {
-  if (!match.played || !match.score) continue;
+  
+  if (match.status !== "played" || !match.goals) continue;
 
-  const { team1, team2, score } = match;
+  const { team1, team2, goals } = match;
 
   const team1Stats = teamStats[team1];
   const team2Stats = teamStats[team2];
@@ -67,24 +68,35 @@ for (const match of matches) {
   // Por cada partido jugado, sumamos 1 a los partidos jugados de cada equipo
   team1Stats.played++;
   team2Stats.played++;
-  // Sumamos los goles a favor y en contra de cada equipo
-  team1Stats.goalsFor += score.team1_goals;
-  team2Stats.goalsFor += score.team2_goals;
-  team1Stats.goalsAgainst += score.team2_goals;
-  team2Stats.goalsAgainst += score.team1_goals;
+  
+  // Calculamos los goles de cada equipo
+  let team1Goals = 0;
+  let team2Goals = 0;
+
+  for (const goal of goals) {
+    if (goal.team === team1) {
+      team1Goals++;
+      team1Stats.goalsFor++;
+      team2Stats.goalsAgainst++;
+    } else if (goal.team === team2) {
+      team2Goals++;
+      team2Stats.goalsFor++;
+      team1Stats.goalsAgainst++;
+    }
+  }
 
   // Añadimos el torneo a los torneos jugados de cada equipo
   team1Stats.tournamentsPlayed.add(match.tournament_id);
   team2Stats.tournamentsPlayed.add(match.tournament_id);
 
-  if (score.team1_goals > score.team2_goals) {
+  if (team1Goals > team2Goals) {
     team1Stats.won++;
-    team2Stats.lost++;
     team1Stats.points += 3;
-  } else if (score.team1_goals < score.team2_goals) {
+    team2Stats.lost++;
+  } else if (team2Goals > team1Goals) {
     team2Stats.won++;
-    team1Stats.lost++;
     team2Stats.points += 3;
+    team1Stats.lost++;
   } else {
     team1Stats.draw++;
     team2Stats.draw++;

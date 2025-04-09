@@ -60,16 +60,8 @@ const matchesCollection = defineCollection({
     fixture: z.string(), // Fixture del partido (ej: "MatchDay 1" o "Semi-Final")
     team1: z.string(),
     team2: z.string(),
-    played: z.boolean(),
+    status: z.enum(["scheduled", "played", "canceled"]).default("scheduled"),
     link: z.string().url().optional(), // Enlace al video del partido
-    score: z.object({
-      team1_goals: z.number(),
-      team2_goals: z.number(),
-      team1_extra_time: z.number().optional(),
-      team2_extra_time: z.number().optional(),
-      team1_penalty: z.number().optional(),
-      team2_penalty: z.number().optional(),
-    }).optional(),
     goals: z.array(
       z.object({
         team: z.string(),
@@ -77,6 +69,14 @@ const matchesCollection = defineCollection({
         minute: z.number(),
         aggregate: z.number().optional(),
         penalty: z.boolean(),
+      })
+    ).optional(),
+    penalties: z.array(
+      z.object({
+        order: z.number(), // Orden de ejecución
+        team: z.string(),
+        player: z.string(),
+        scored: z.boolean(), // true si convirtió
       })
     ).optional(),
   }),
