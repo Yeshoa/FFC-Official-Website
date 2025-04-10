@@ -3,7 +3,7 @@ import type { CollectionEntry } from "astro:content";
 type Match = CollectionEntry<'matches'>['data'];
 
 export function getMatchWinner(match: Match): string | null {
-  if (!match.played || !match.goals) return null;
+  if (match.status !== 'played' || !match.goals) return null;
   const goals = getGoalsByTeam(match);
   return goals.team1 > goals.team2
     ? match.team1
@@ -44,6 +44,17 @@ export function getGoalsByMinute(match: Match): { [minute: number]: string[] } {
   }
 
   return timeline;
+}
+
+export function getMatchResult(match: Match): { team1: number; team2: number } {
+  let t1 = 0, t2 = 0;
+
+  for (const goal of match.goals || []) {
+    if (goal.team === match.team1) t1++;
+    else if (goal.team === match.team2) t2++;
+  }
+
+  return { team1: t1, team2: t2 };
 }
 
 export function getMatchResult90(match: Match): { team1: number; team2: number } {

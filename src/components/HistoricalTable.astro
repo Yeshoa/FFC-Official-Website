@@ -1,7 +1,11 @@
 ---
 import type { CollectionEntry } from "astro:content";
-import type { ImageMetadata } from 'astro';
 import { Image } from 'astro:assets';
+
+import {
+  getMatchResult,
+  getGoalsByTeam,
+} from '../lib/matchUtils.ts';
 
 // Importamos las imágenes de los miembros
 const images = import.meta.glob<{ default: ImageMetadata }>("/src/assets/images/members/*.{jpeg,jpg,png,gif,svg}");
@@ -22,6 +26,7 @@ type TeamStats = {
   flagPath?: string;
   additionalPoints: number;
   tournamentsPlayed: Set<number>;
+  // tournamentsWon: number;
   played: number;
   won: number;
   draw: number;
@@ -43,6 +48,7 @@ for (const member of members) {
     flagPath: member.flagPath,
     additionalPoints: member.additionalPoints || 0,
     tournamentsPlayed: new Set<number>(),
+    // tournamentsWon: 0,
     played: 0,
     won: 0,
     draw: 0,
@@ -63,37 +69,30 @@ for (const match of matches) {
 
   const team1Stats = teamStats[team1];
   const team2Stats = teamStats[team2];
-
+  
   if (!team1Stats || !team2Stats) continue;
+  
   // Por cada partido jugado, sumamos 1 a los partidos jugados de cada equipo
   team1Stats.played++;
   team2Stats.played++;
   
-  // Calculamos los goles de cada equipo
-  let team1Goals = 0;
-  let team2Goals = 0;
+  // Por cada partido jugado, sumamos los goles de cada equipo
+  const { team1: goalsT1, team2: goalsT2 } = getMatchResult(match);
 
-  for (const goal of goals) {
-    if (goal.team === team1) {
-      team1Goals++;
-      team1Stats.goalsFor++;
-      team2Stats.goalsAgainst++;
-    } else if (goal.team === team2) {
-      team2Goals++;
-      team2Stats.goalsFor++;
-      team1Stats.goalsAgainst++;
-    }
-  }
+  team1Stats.goalsFor += goalsT1;
+  team2Stats.goalsFor += goalsT2;
+  team1Stats.goalsAgainst += goalsT2;
+  team2Stats.goalsAgainst += goalsT1;
 
   // Añadimos el torneo a los torneos jugados de cada equipo
   team1Stats.tournamentsPlayed.add(match.tournament_id);
   team2Stats.tournamentsPlayed.add(match.tournament_id);
 
-  if (team1Goals > team2Goals) {
+  if (goalsT1 > goalsT2) {
     team1Stats.won++;
     team1Stats.points += 3;
     team2Stats.lost++;
-  } else if (team2Goals > team1Goals) {
+  } else if (goalsT2 > goalsT1) {
     team2Stats.won++;
     team2Stats.points += 3;
     team1Stats.lost++;
@@ -150,6 +149,7 @@ const sortedStats = Object.values(teamStats).sort((a, b) => {
         <th class="px-2 py-2 text-center">GF</th>
         <th class="px-2 py-2 text-center">GA</th>
         <th class="px-2 py-2 text-center">GD</th>
+        <!-- <th class="px-2 py-2 text-center">TW</th> -->
         <th class="py-2 text-center rounded-tr-2xl">PR</th>
       </tr>
     </thead>
@@ -170,6 +170,7 @@ const sortedStats = Object.values(teamStats).sort((a, b) => {
           <td class="px-2 py-2">{team.goalsFor}</td>
           <td class="px-2 py-2">{team.goalsAgainst}</td>
           <td class="px-2 py-2">{team.goalsFor - team.goalsAgainst}</td>
+          {/* <td class="px-2 py-2">{team.tournamentsWon}</td> */}
           <td class="py-2">{team.performance.toFixed(2)}</td>
         </tr>
       ))}

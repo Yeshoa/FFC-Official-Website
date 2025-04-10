@@ -7,27 +7,27 @@ Website built with **Astro**. Showcases tournaments, match details, and national
 ## 🧠 General Tasks
 
 - [ ] **Elaborate the Members page (by slug)**  
-&nbsp;&nbsp;&nbsp;&nbsp;Collection by markdown DONE✅. Page should look like a profile with all this info:
-  - [ ] Display `code`
-  - [x] Display `name`
-  - [ ] Display `nslink` (NationStates link)
-  - [ ] Display `federation` as a link to the Federation Dispatch
-  - [ ] Display `flag` image
-  - [ ] Display `logo` image
-  - [x] Display `region`
-  - [ ] Display `founded date`
-  - [ ] Display `affiliation date`
-  - [ ] ~~Display score~~
-  - [ ] If `verification` is true, show a badge with a tick ✅
-  - [ ] Show a component for **last matches played**
+&nbsp;&nbsp;&nbsp;&nbsp;Collection by markdown DONE✅. ⚠ Components need to be in /components. Page should look like a profile with all this info:
+  - ✅ Display `code`
+  - ✅ Display `name`
+  - ✅ Display `nslink` (NationStates link)
+  - ✅ Display `federation` as a link to the Federation Dispatch
+  - ✅ Display `flag` image
+  - ✅ Display `logo` image
+  - ✅ Display `region`
+  - ✅ Display `founded date`
+  - ✅ Display `affiliation date`
+  - ✅ ~~Display score~~
+  - ✅ If `verification` is true, show a badge with a tick ✅
+  - ⚠ Show a component for **last matches played**
   - [ ] ~~Upcoming matches~~
   - [ ] Show **Forest Cup history** [Example](https://es.wikipedia.org/wiki/Selección_de_fútbol_de_Argentina#Estadísticas)
   - [ ] ~~Uniform image~~
   - [ ] ~~Sponsor list~~
-  - [ ] Component showing **head-to-head stats** against other national teams (only those they've played)
+  - ⚠ Component showing **head-to-head stats** against other national teams (only those they've played)
   - [ ] **Records section** [Example](https://es.wikipedia.org/wiki/Selección_de_fútbol_de_Argentina#Récords_y_notas)
   - [ ] **Achievements section** (only Forest Cup for now)
-  - [ ] Render custom **text content** from the Markdown file
+  - ✅ Render custom **text content** from the Markdown file
 
 - [ ] **Elaborate the Matches page (by slug)**  
 &nbsp;&nbsp;&nbsp;&nbsp;Collection by markdown DONE✅. Page should show all the match info: [Example](https://www.promiedos.com.ar/game/borussia-dortmund-vs-real-madrid/ebcejgh)
@@ -47,8 +47,8 @@ Website built with **Astro**. Showcases tournaments, match details, and national
 
 - [ ] **Migrate existing TypeScript collections to Markdown**  
 &nbsp;&nbsp;&nbsp;&nbsp;Use Astro’s Content Collections for better content organization and markdown-powered routing. _(High priority, in progress)_
-  - [x] Members
-  - [x] Matches
+  - ✅ Members
+  - ✅ Matches
   - [ ] Tournaments - Should have a type and edition (FC uses years: 2020, 2022, 2024, 2026)
   - [ ] ~~Flags~~
   

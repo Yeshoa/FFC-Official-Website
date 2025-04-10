@@ -1,0 +1,19 @@
+---
+import Home from '../components/Home.astro';
+import App from '../layouts/App.astro';
+---
+
+<App title="FFC - Page Not Found">
+    <div class="min-h-screen text-white flex items-center justify-center p-8">
+      <div class="text-center max-w-md">
+        <h1 class="text-7xl font-extrabold text-green-500 mb-4">404</h1>
+        <p class="text-xl mb-6">Oops! This page doesn't exist.</p>
+        <button
+          onclick="history.length > 1 ? history.back() : window.location.href = '/'"
+          class="bg-green-700 hover:bg-green-600 text-white font-semibold py-2 px-6 rounded-2xl transition-all duration-200 mb-4 hover:cursor-pointer"
+        >
+          Go back
+        </button>
+    </div>
+  </div>
+</App>

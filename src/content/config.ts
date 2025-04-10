@@ -61,6 +61,7 @@ const matchesCollection = defineCollection({
     team1: z.string(),
     team2: z.string(),
     status: z.enum(["scheduled", "played", "canceled"]).default("scheduled"),
+    date: z.date(),
     link: z.string().url().optional(), // Enlace al video del partido
     goals: z.array(
       z.object({

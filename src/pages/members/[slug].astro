@@ -1,27 +1,387 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, type CollectionEntry } from 'astro:content';
 import { Image } from 'astro:assets';
-
 import App from '../../layouts/App.astro';
+
+type Member = CollectionEntry<'members'>['data'];
+type Match = CollectionEntry<'matches'>['data'];
+
 const members = await getCollection('members');
+const matches = await getCollection('matches');
 
-// URL PARAMETER
+// --- Parámetro de URL y Miembro Actual ---
 const { slug } = Astro.params;
+const memberEntry = members.find(m => m.slug === slug);
 
-const member = members.find(m => m.slug === slug);
-/* import Flag from member?.data.flagPath;
-import Logo from member?.data.logoPath; */
-
-if (!member) {
-  throw new Error("Member not found");
+if (!memberEntry) {
+  return Astro.redirect('/404');
+  // throw new Error(`Miembro con slug "${slug}" no encontrado.`);
 }
----
-<App title={"FFC - " + member.data.name}>
-  <h1>{member.data.name}</h1>
-  <!-- <Image src={member.data.flagPath} alt={`${member.data.name}'s Flag`} />
-  <Image src={member.data.logoPath} alt={`${member.data.name}'s Logo`} /> -->
 
-  <p>ID: {member.data.id}</p>
-  <p>Federación: {member.data.federation}</p>
-  <p>Región: {member.data.region}</p>
+const member = memberEntry.data;
+const { Content } = await memberEntry.render(); // Obtener el componente para renderizar el Markdown
+
+// Importación Dinámica de Imágenes
+const images = import.meta.glob<{ default: ImageMetadata }>('/src/assets/images/members/*.{jpeg,jpg,png,gif,svg}');
+
+// Lógica para Últimos Partidos
+// Filtra partidos jugados donde el miembro actual es team1 o team2
+// Asume que 'member.name' es el identificador usado en 'matches.team1' y 'matches.team2'
+// NOTA: La colección 'matches' no tiene fecha. Se mostrarán todos los jugados.
+// Si añades una fecha a 'matches', puedes ordenar por fecha y limitar (ej: .slice(0, 5))
+const playedMatches = matches
+  .filter(match => match.data.status === 'played' && (match.data.team1 === member.name || match.data.team2 === member.name))
+  .map(match => {
+    // Calcula el marcador basado en los goles
+    const score1 = match.data.goals?.filter(g => g.team === match.data.team1).length ?? 0;
+    const score2 = match.data.goals?.filter(g => g.team === match.data.team2).length ?? 0;
+    // Determina si hubo penales y el resultado
+    let penaltyScore1 = 0;
+    let penaltyScore2 = 0;
+    let penaltiesInfo = '';
+    if (match.data.penalties && match.data.penalties.length > 0) {
+        penaltyScore1 = match.data.penalties.filter(p => p.team === match.data.team1 && p.scored).length;
+        penaltyScore2 = match.data.penalties.filter(p => p.team === match.data.team2 && p.scored).length;
+        penaltiesInfo = `(${penaltyScore1}-${penaltyScore2} p)`;
+    }
+
+    return {
+      ...match.data,
+      score1,
+      score2,
+      penaltiesInfo
+    };
+  });
+// Podrías ordenarlos por fecha o cualquier otro criterio si tuvieras esa información
+playedMatches.sort((a, b) => b.date.getTime() - a.date.getTime());
+
+// --- Lógica para Head-to-Head (H2H) ---
+interface H2HStats {
+  difference: number;
+  played: number;
+  wins: number;
+  draws: number;
+  losses: number;
+  goalsFor: number;
+  goalsAgainst: number;
+}
+
+const h2hStats: Record<string, H2HStats> = {};
+
+playedMatches.forEach(match => {
+  const opponentName = match.team1 === member.name ? match.team2 : match.team1;
+  if (!opponentName) return; // Saltar si falta un oponente
+
+  // Inicializar estadísticas si es el primer encuentro contra este oponente
+  if (!h2hStats[opponentName]) {
+    h2hStats[opponentName] = { difference: 0, played: 0, wins: 0, draws: 0, losses: 0, goalsFor: 0, goalsAgainst: 0 };
+  }
+
+  // Actualizar estadísticas
+  h2hStats[opponentName].played++;
+  let memberScore = 0;
+  let opponentScore = 0;
+
+  if (match.team1 === member.name) {
+    memberScore = match.score1;
+    opponentScore = match.score2;
+  } else {
+    memberScore = match.score2;
+    opponentScore = match.score1;
+  }
+
+  h2hStats[opponentName].goalsFor += memberScore;
+  h2hStats[opponentName].goalsAgainst += opponentScore;
+
+  if (memberScore > opponentScore) {
+    h2hStats[opponentName].wins++;
+    h2hStats[opponentName].difference++;
+  } else if (memberScore < opponentScore) {
+    h2hStats[opponentName].losses++;
+    h2hStats[opponentName].difference--;
+  } else {
+    // Considerar penales para desempate si existen
+    /* if (match.penaltiesInfo) {
+        let memberPenaltyScore = 0;
+        let opponentPenaltyScore = 0;
+         if (match.team1 === member.code) {
+            memberPenaltyScore = match.penalties?.filter(p => p.team === match.team1 && p.scored).length ?? 0;
+            opponentPenaltyScore = match.penalties?.filter(p => p.team === match.team2 && p.scored).length ?? 0;
+         } else {
+            memberPenaltyScore = match.penalties?.filter(p => p.team === match.team2 && p.scored).length ?? 0;
+            opponentPenaltyScore = match.penalties?.filter(p => p.team === match.team1 && p.scored).length ?? 0;
+         }
+         if(memberPenaltyScore > opponentPenaltyScore) {
+             h2hStats[opponentName].wins++;
+         } else if (memberPenaltyScore < opponentPenaltyScore) {
+             h2hStats[opponentName].losses++;
+         } else {
+             // Si los penales también empatan (raro pero posible), contar como empate
+             h2hStats[opponentName].draws++;
+         }
+    } else { */
+        // Empate sin penales
+        h2hStats[opponentName].draws++;
+    /* } */
+  }
+});
+
+// Helpers para Imágenes
+// Función para obtener la imagen o retornar null si la ruta no existe en `images`
+const getImage = (path: string | undefined) => {
+    if (!path || !images[path]) {
+        console.warn(`Advertencia: Imagen no encontrada en import.meta.glob para la ruta: ${path}`);
+        return null;
+    }
+    return images[path](); // Llama a la función para obtener la promesa/metadato
+}
+
+const flagImage = getImage(member.flagPath);
+const logoImage = getImage(member.logoPath);
+
+---
+<App title={`FFC - ${member.name}`}>
+  <div class="container mx-auto px-4 py-8">
+
+    {/* Profile*/}
+    <div class="bg-white dark:bg-green-900 shadow-lg rounded-lg p-6 mb-8 flex flex-col md:flex-row items-center gap-6">
+      {/* Logos and Info */}
+      <div class="flex flex-col items-center md:items-start gap-4">
+        <div class="flex gap-4 items-center">
+          {flagImage && (
+            <Image
+              src={flagImage}
+              alt={`${member.name}'s flag'`}
+              class="h-16 w-auto md:h-20 object-contain rounded border border-gray-200 dark:border-green-600"
+              loading="eager"
+            />
+          )}
+          {logoImage && (
+            <Image
+              src={logoImage}
+              alt={`${member.federation || member.name}'s Logo'`}
+              class="h-16 w-auto md:h-20 object-contain rounded"
+              loading="eager"
+            />
+          )}
+        </div>
+        <h1 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white text-center md:text-left">{member.name}</h1>
+        {member.code && <p class="text-lg text-gray-500 dark:text-gray-400 text-center md:text-left">({member.code})</p>}
+      </div>
+
+      {/* Details */}
+      <div class="flex-grow grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm md:text-base">
+        <div class="bg-gray-50 dark:bg-green-800 p-3 rounded-md">
+          {member.federation ? (
+            member.feddispatch ? (
+              <a href={member.feddispatch} target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-white hover:underline font-bold">
+                {member.federation}
+              </a>
+            ) : (
+              <span class="ml-1 text-gray-800 dark:text-gray-200">{member.federation}</span>
+            )
+          ) : <span class="ml-1 text-gray-400 italic">This nation doesn't have a federation</span>}
+        </div>
+        <div class="bg-gray-50 dark:bg-green-800 p-3 rounded-md">
+          <span class="font-semibold text-gray-600 dark:text-gray-300">Region:</span>
+          <span class="ml-1 text-gray-800 dark:text-white font-bold">{member.region || <span class="italic text-gray-400">N/A</span>}</span>
+        </div>
+         <div class="bg-gray-50 dark:bg-green-800 p-3 rounded-md">
+          <a href={member.nslink} target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-white hover:underline font-bold">
+            NationStates Profile 🔗
+          </a>
+        </div>
+        <div class="bg-gray-50 dark:bg-green-800 p-3 rounded-md">
+          <span class="font-semibold text-gray-600 dark:text-gray-300">Founded:</span>
+          <span class="ml-1 text-gray-800 dark:text-white font-bold">{member.founded || <span class="italic text-gray-400">N/A</span>}</span>
+        </div>
+        <div class="bg-gray-50 dark:bg-green-800 p-3 rounded-md">
+          <span class="font-semibold text-gray-600 dark:text-gray-300">FFC Affiliation:</span>
+          <span class="ml-1 text-gray-800 dark:text-white font-bold">{member.affiliation || <span class="italic text-gray-400">N/A</span>}</span>
+        </div>
+        <div class="bg-gray-50 dark:bg-green-800 p-3 rounded-md flex items-center gap-2">
+          <span class="font-semibold text-gray-600 dark:text-gray-300">Status:</span>
+          {member.verified ? (
+            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+              <svg class="-ml-0.5 mr-1.5 h-2 w-2 text-green-400" fill="currentColor" viewBox="0 0 8 8">
+                <circle cx="4" cy="4" r="3" />
+              </svg>
+              Verified ✅
+            </span>
+          ) : (
+             <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 dark:bg-red-900 dark:text-red-200">
+              <svg class="-ml-0.5 mr-1.5 h-2 w-2 text-red-400" fill="currentColor" viewBox="0 0 8 8">
+                <circle cx="4" cy="4" r="3" />
+              </svg>
+              Unverified ❌
+            </span>
+          )}
+        </div>
+         <div class="bg-gray-50 dark:bg-green-800 p-3 rounded-md">
+          <span class="font-semibold text-gray-600 dark:text-gray-300">FFC Score:</span>
+          <span class="ml-1 text-gray-800 dark:text-gray-200">{member.score ?? 0}</span>
+          {member.additionalPoints !== undefined && member.additionalPoints !== 0 && (
+             <span class="ml-1 text-sm text-gray-500 dark:text-gray-400">({member.additionalPoints > 0 ? '+' : ''}{member.additionalPoints} pts adicionales)</span>
+          )}
+        </div>
+         <div class="bg-gray-50 dark:bg-green-800 p-3 rounded-md">
+             <span class="font-semibold text-gray-600 dark:text-gray-300">FFC Rank:</span>
+             <span class="ml-1 text-gray-800 dark:text-gray-200">{member.id}</span>
+         </div>
+      </div>
+    </div>
+
+    {/* Markdown Content */}
+    <div class="prose dark:prose-invert max-w-none bg-white dark:bg-green-900 shadow-lg rounded-lg p-6 mb-8">
+       <h2 class="text-2xl font-semibold mb-4 text-gray-900 dark:text-white border-b pb-2 border-gray-200 dark:border-green-600">About {member.federation || member.name}</h2>
+      <Content />
+    </div>
+
+    {/* Matches and Stats*/}
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+      {/* Last Played */}
+      <div class="bg-white dark:bg-green-900 shadow-lg rounded-lg p-6">
+        <h2 class="text-2xl font-semibold mb-4 text-gray-900 dark:text-white border-b pb-2 border-gray-200 dark:border-green-600">Last Matches Played</h2>
+        {playedMatches.length > 0 ? (
+          <ul class="space-y-4">
+            {playedMatches.map((match) => (
+              <li class="border border-gray-200 dark:border-green-600 rounded-md p-4 hover:bg-gray-50 dark:hover:bg-green-800 transition duration-150 ease-in-out">
+                <div class="flex justify-between items-center mb-1">
+                  <span class="text-sm text-gray-500 dark:text-gray-300">
+                    {match.tournament_id ? `Tournament ${match.tournament_id}` : ''}{match.fixture ? ` - ${match.fixture}` : ''}
+                  </span>
+                   {match.link && (
+                      <a href={match.link} target="_blank" rel="noopener noreferrer" class="text-xs text-blue-400 hover:underline">Watch Match</a>
+                   )}
+                </div>
+                {/* DIVIDIR EN DIVS PARA QUE ESTÉ EL RESULTADO EN EL CENTRO */}
+                <div class="grid grid-cols-3 items-center font-medium text-gray-800 dark:text-gray-200">
+                  <div class="flex items-center justify-start">
+                    <Image
+                      src={getImage(members.find(m => m.data.name === match.team1)?.data.flagPath)}
+                      alt={match.team1}
+                      class="h-6 w-10 rounded-xl object-cover ring-1 ring-green-700 inline-block mr-2"
+                      loading="lazy"
+                    />
+                    <a href={`/members/${match.team1.toLowerCase()}`} class={`hover:underline ${match.team1 === member.name ? 'font-bold' : 'font-normal'}`}>{match.team1}</a>
+                  </div>
+
+                  <div class="flex items-center justify-center">
+                    <span class="text-lg font-bold mx-2">
+                      {match.score1} - {match.score2}
+                      {match.penaltiesInfo && <span class="text-sm font-normal ml-1">{match.penaltiesInfo}</span>}
+                    </span>
+                  </div>
+
+                  <div class="flex items-center justify-end">
+                    <a href={`/members/${match.team2.toLowerCase()}`} class={`hover:underline ${match.team2 === member.name ? 'font-bold' : 'font-normal'}`}>{match.team2}</a>
+                    <Image
+                      src={getImage(members.find(m => m.data.name === match.team2)?.data.flagPath)}
+                      alt={match.team2}
+                      class="h-6 w-9 rounded-xl object-cover ring-1 ring-green-700 inline-block ml-2"
+                      loading="lazy"
+                    />
+                  </div>
+                </div>
+                {/* Show scorers*/}
+                {match.goals && match.goals.length > 0 && (
+                  <details class="mt-2 text-xs text-gray-600 dark:text-gray-300">
+                      <summary class="cursor-pointer hover:text-gray-800 dark:hover:text-gray-200">Goals</summary>
+                      <ul class="list-disc list-inside pl-2 mt-1">
+                          {match.goals.map((goal, index) => (
+                              <li key={index}>
+                                  {goal.player} ({goal.minute}') {goal.penalty ? '(P)' : ''} [{goal.team}]
+                              </li>
+                          ))}
+                      </ul>
+                  </details>
+                )}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p class="text-gray-500 dark:text-gray-400 italic">This National Team hasn't played any matches yet.</p>
+        )}
+      </div>
+
+      {/* Head-to-Head */}
+      <div class="bg-white dark:bg-green-900 shadow-lg rounded-lg p-6">
+        <h2 class="text-2xl font-semibold mb-4 text-gray-900 dark:text-white border-b pb-2 border-gray-200 dark:border-green-600">Historic Head-to-Head</h2>
+        {Object.keys(h2hStats).length > 0 ? (
+          <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200 dark:divide-green-700">
+              <thead class="bg-gray-50 dark:bg-green-800">
+                <tr>
+                  <th scope="col" class="px-4 py-2 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider">Opponent</th>
+                  <th scope="col" class="px-2 py-2 text-center text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider" title="Goles en Contra">Dif</th>
+                  <th scope="col" class="px-2 py-2 text-center text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider" title="Partidos Jugados">Pld</th>
+                  <th scope="col" class="px-2 py-2 text-center text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider" title="Victorias">W</th>
+                  <th scope="col" class="px-2 py-2 text-center text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider" title="Empates">D</th>
+                  <th scope="col" class="px-2 py-2 text-center text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider" title="Derrotas">L</th>
+                  <th scope="col" class="px-2 py-2 text-center text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider" title="Goles a Favor">GF</th>
+                  <th scope="col" class="px-2 py-2 text-center text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider" title="Goles en Contra">GA</th>
+                  <th scope="col" class="px-2 py-2 text-center text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider" title="Goles en Contra">GD</th>
+                </tr>
+              </thead>
+              <tbody class="bg-white dark:bg-green-900 divide-y divide-gray-200 dark:divide-green-700">
+                {Object.entries(h2hStats)
+                .sort(([, a], [, b]) => {
+                  // partidos jugados
+                  if (b.played !== a.played) return b.played - a.played;
+
+                  // más victorias
+                  if (b.wins !== a.wins) return b.wins - a.wins;
+
+                  // diferencia de goles
+                  const diffA = a.goalsFor - a.goalsAgainst;
+                  const diffB = b.goalsFor - b.goalsAgainst;
+                  if (diffB !== diffA) return diffB - diffA;
+
+                  // goles a favor
+                  return b.goalsFor - a.goalsFor;
+                })
+                .map(([opponentName, stats]) => (
+                  <tr key={opponentName} 
+                  class="hover:bg-gray-50 dark:hover:bg-green-800">
+                    <td class="px-4 py-2 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
+                      <Image
+                        src={getImage(members.find(m => m.data.name === opponentName)?.data.flagPath)}
+                        alt={opponentName}
+                        class="h-6 w-10 rounded-xl object-cover ring-1 ring-green-700 inline-block mr-2"
+                        loading="lazy"
+                      />
+                      <a href={`/members/${opponentName.toLowerCase()}`} class="hover:underline">
+                        {opponentName}
+                      </a>
+                    </td>
+                    <td class={`}px-2 py-2 whitespace-nowrap text-sm text-center text-gray-500 dark:text-gray-300 font-bold
+                    ${
+                      stats.difference > 0
+                        ? 'bg-green-600 dark:bg-green-700'
+                        : stats.difference < 0
+                        ? 'bg-red-600 dark:bg-red-700'
+                        : 'bg-gray-500 dark:bg-gray-500 text-'
+                    }`}
+                    >{stats.difference}</td>
+                    <td class="px-2 py-2 whitespace-nowrap text-sm text-center text-gray-500 dark:text-gray-300">{stats.played}</td>
+                    <td class="px-2 py-2 whitespace-nowrap text-sm text-center text-green-600 dark:text-green-400">{stats.wins}</td>
+                    <td class="px-2 py-2 whitespace-nowrap text-sm text-center text-yellow-600 dark:text-yellow-400">{stats.draws}</td>
+                    <td class="px-2 py-2 whitespace-nowrap text-sm text-center text-red-600 dark:text-red-400">{stats.losses}</td>
+                    <td class="px-2 py-2 whitespace-nowrap text-sm text-center text-gray-500 dark:text-gray-300">{stats.goalsFor}</td>
+                    <td class="px-2 py-2 whitespace-nowrap text-sm text-center text-gray-500 dark:text-gray-300">{stats.goalsAgainst}</td>
+                    <td class="px-2 py-2 whitespace-nowrap text-sm text-center text-gray-500 dark:text-gray-300">{stats.goalsFor - stats.goalsAgainst}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <p class="text-gray-500 dark:text-gray-400 italic">There are no stats to show for this National Team</p>
+        )}
+      </div>
+
+    </div>
+
+  </div>
 </App>
