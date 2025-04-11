@@ -69,7 +69,9 @@ const matchesCollection = defineCollection({
         player: z.string(),
         minute: z.number(),
         aggregate: z.number().optional(),
-        penalty: z.boolean(),
+        penalty: z.boolean().default(false).optional(),
+        ownGoal: z.boolean().default(false).optional(),
+        assist: z.string().optional(),
       })
     ).optional(),
     penalties: z.array(
@@ -78,6 +80,13 @@ const matchesCollection = defineCollection({
         team: z.string(),
         player: z.string(),
         scored: z.boolean(), // true si convirtió
+      })
+    ).optional(),
+    redCards: z.array(
+      z.object({
+        team: z.string(),
+        player: z.string(),
+        minute: z.number()
       })
     ).optional(),
   }),

@@ -156,19 +156,20 @@ const logoImage = getImage(member.logoPath);
               loading="eager"
             />
           )}
-          {logoImage && (
-            <Image
-              src={logoImage}
-              alt={`${member.federation || member.name}'s Logo'`}
-              class="h-16 w-auto md:h-20 object-contain rounded"
-              loading="eager"
-            />
-          )}
         </div>
-        <h1 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white text-center md:text-left">{member.name}</h1>
+        <h1 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white text-center md:text-left break-words max-w-56">{member.name}</h1>
         {member.code && <p class="text-lg text-gray-500 dark:text-gray-400 text-center md:text-left">({member.code})</p>}
       </div>
-
+      <div class="flex flex-col items-center md:items-start gap-4">
+        {logoImage && (
+          <Image
+            src={logoImage}
+            alt={`${member.federation || member.name}'s Logo'`}
+            class="w-16 h-auto md:w-48 object-contain rounded"
+            loading="eager"
+          />
+        )}
+      </div>
       {/* Details */}
       <div class="flex-grow grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm md:text-base">
         <div class="bg-gray-50 dark:bg-green-800 p-3 rounded-md">
@@ -264,7 +265,7 @@ const logoImage = getImage(member.logoPath);
                       class="h-6 w-10 rounded-xl object-cover ring-1 ring-green-700 inline-block mr-2"
                       loading="lazy"
                     />
-                    <a href={`/members/${match.team1.toLowerCase()}`} class={`hover:underline ${match.team1 === member.name ? 'font-bold' : 'font-normal'}`}>{match.team1}</a>
+                    <a href={`/members/${members.find(m => m.data.name === match.team1)?.slug}`} class={`hover:underline ${match.team1 === member.name ? 'font-bold' : 'font-normal'}`}>{match.team1}</a>
                   </div>
 
                   <div class="flex items-center justify-center">
@@ -275,7 +276,7 @@ const logoImage = getImage(member.logoPath);
                   </div>
 
                   <div class="flex items-center justify-end">
-                    <a href={`/members/${match.team2.toLowerCase()}`} class={`hover:underline ${match.team2 === member.name ? 'font-bold' : 'font-normal'}`}>{match.team2}</a>
+                    <a href={`/members/${members.find(m => m.data.name === match.team2)?.slug}`} class={`hover:underline ${match.team2 === member.name ? 'font-bold' : 'font-normal'}`}>{match.team2}</a>
                     <Image
                       src={getImage(members.find(m => m.data.name === match.team2)?.data.flagPath)}
                       alt={match.team2}
@@ -351,7 +352,7 @@ const logoImage = getImage(member.logoPath);
                         class="h-6 w-10 rounded-xl object-cover ring-1 ring-green-700 inline-block mr-2"
                         loading="lazy"
                       />
-                      <a href={`/members/${opponentName.toLowerCase()}`} class="hover:underline">
+                      <a href={`/members/${members.find(m => m.data.name === opponentName)?.slug}`} class="hover:underline">
                         {opponentName}
                       </a>
                     </td>
