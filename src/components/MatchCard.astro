@@ -1,111 +1,197 @@
 ---
 import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
 import type { ImageMetadata } from 'astro';
-import Goal from '../assets/images/goal.png';
+import GoalIcon from '../assets/images/goal.png';
 
-/* const teamLogos = {
-  'Atsvea': await import('../assets/images/forest-cup/2022/atsvea.png'),
-  'Cacusia': await import('../assets/images/forest-cup/2022/cacusia.png'),
-  'Einswenn': await import('../assets/images/forest-cup/2022/einswenn.png'),
-  'Roless': await import('../assets/images/forest-cup/2022/roless.png'),
-  'Bilsa': await import('../assets/images/forest-cup/2022/bilsa.png'),
-  'Reannia': await import('../assets/images/forest-cup/2022/reannia.png'),
-  'Kase': await import('../assets/images/forest-cup/2022/kase.png'),
-  'Cat-Herders United': await import('../assets/images/forest-cup/2022/cat-herders-united.png'),
-  'Daarwyrth': await import('../assets/images/forest-cup/2022/daarwyrth.png'),
-  'Terrawynn': await import('../assets/images/forest-cup/2022/terrawynn.png'),
-  'Bunkaiia': await import('../assets/images/forest-cup/2022/bunkaiia.png'),
-  'Trebenia': await import('../assets/images/forest-cup/2022/trebenia.png'),
-  'Stralla': await import('../assets/images/forest-cup/2022/stralla.png'),
-  'Novian Republics': await import('../assets/images/forest-cup/2022/novian-republics.png'),
-  'Turbeaux': await import('../assets/images/forest-cup/2022/turbeaux.png'),
-  'Jutsa': await import('../assets/images/forest-cup/2022/jutsa.png')
-}; */
+type MatchData = CollectionEntry<'matches'>['data'];
 
-interface Match {
-  match_id: number;
-  link?: string;
-  team1: string;
-  team2: string;
-  score: {
-    team1_goals: number;
-    team2_goals: number;
-    team1_extra_time?: number;
-    team2_extra_time?: number;
-    team1_penalty?: number;
-    team2_penalty?: number;
-  };
-  goals: {
-    team: string;
-    player: string;
-    minute: number;
-    penalty: boolean;
-  }[];
+interface MatchCardProps { // Renombrado de FCCardProps
+  match: MatchData;
+  imageGetter: (teamName: string | undefined) => (() => Promise<{ default: ImageMetadata }>) | null;
+   // members?: CollectionEntry<'members'>[];
 }
 
-interface FCCardProps {
-  match: Match;
-  teamLogos: ImageMetadata;
+const { match, imageGetter } = Astro.props;
+
+const goals = match.goals ?? [];
+const score1 = goals.filter(g => g.team === match.team1).length;
+const score2 = goals.filter(g => g.team === match.team2).length;
+
+const penalties = match.penalties ?? [];
+const hasPenaltyShootout = penalties.length > 0 && match.status === 'played';
+let penaltyScore1 = 0;
+let penaltyScore2 = 0;
+let penaltyInfo = '';
+
+if (hasPenaltyShootout) {
+  penaltyScore1 = penalties.filter(p => p.team === match.team1 && p.scored).length;
+  penaltyScore2 = penalties.filter(p => p.team === match.team2 && p.scored).length;
+  penaltyInfo = `(${penaltyScore1}-${penaltyScore2} p)`;
 }
 
-const { match, teamLogos } = Astro.props;
+const team1ImagePromiseFn = imageGetter(match.team1);
+const team2ImagePromiseFn = imageGetter(match.team2);
+
 ---
-<div class="flex flex-col justify-center items-center w-full bg-green-950/70 py-2 rounded-2xl hover:bg-black/30">
-  <div class="grid grid-cols-7 items-center px-3 py-1 w-full gap-2">
-    <div class="flex items-center justify-end col-span-3 gap-3">
-      <p class="font-semibold text-xl">
-        {match.team1}
-      </p>
-      <Image 
-        src={teamLogos[match.team1].default} 
-        alt={match.team1} 
-        height={1080}
-        width={720}
-        class="h-4 w-6 rounded-sm object-cover ring-2 ring-green-700" 
-        loading={"lazy"}
-      />
+
+<div class="flex flex-col justify-center items-center w-full bg-gradient-to-br from-green-800 to-green-900 dark:from-green-900/80 dark:to-green-950/70 py-3 px-4 rounded-2xl shadow-md text-white hover:bg-green-700/90">
+  {/* Sección Superior: Equipos y Marcador */}
+  <div class="grid grid-cols-7 items-center w-full gap-2 mb-2">
+    {/* Equipo 1 */}
+    <div class="flex items-center justify-end col-span-3 gap-2 text-right overflow-hidden">
+      <span class="font-semibold md:text-lg truncate">{match.team1}</span>
+      {team1ImagePromiseFn ? (
+        <Image
+          src={team1ImagePromiseFn()}
+          alt={match.team1}
+          class="h-5 w-8 md:h-6 md:w-9 rounded-sm object-cover ring-1 ring-gray-500 flex-shrink-0"
+          loading={"lazy"}
+          inferSize={true}
+        />
+       ) : (
+         <div class="h-5 w-8 md:h-6 md:w-9 bg-gray-600 rounded-sm flex-shrink-0"></div>
+       )}
     </div>
-    <p class="text-center text-xl font-bold">{match.score.team1_goals + " - " + match.score.team2_goals}</p>
-    <div class="flex items-center col-span-3 gap-3">
-      <Image 
-        src={teamLogos[match.team2].default} 
-        alt={match.team2} 
-        height={1080}
-        width={720}
-        class="h-4 w-6 rounded-sm object-cover ring-2 ring-green-700" 
-        loading={"lazy"}
-      />
-      <p class="font-semibold text-xl">
-        {match.team2}
-      </p>
+    {/* Marcador */}
+    <div class="text-center">
+        {match.status === 'played' ? (
+            <span class="text-lg md:text-xl font-bold">{score1} - {score2}</span>
+        ) : match.status === 'scheduled' ? (
+            <span class="text-sm md:text-base font-light text-gray-300 block">vs</span>
+             <span class="text-xs text-gray-400 block mt-0.5">
+                 {match.date.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit'})}
+             </span>
+        ) : (
+            <span class="text-sm font-light text-red-400">N/A</span>
+        )}
+        {hasPenaltyShootout && penaltyInfo && (
+            <span class="block text-xs text-yellow-400 mt-0.5">{penaltyInfo}</span>
+        )}
     </div>
-    <!-- Grid goals -->
-    <div class="flex flex-col w-full col-span-3 items-end justify-start h-full">
-      {match.goals
-        .filter((goal) => goal.team === match.team1) // Filtra goles del equipo específico
-        .map((goal) => (
-        <div key={goal.minute} class="flex items-center gap-2">
-            <p>{goal.player}</p>
-            {<Image src={Goal} alt="Goal" class="w-3 h-3" loading={"lazy"}/>}
-            <p>{goal.minute}' {goal.penalty ? "(pen)" : ""}</p>
-          </div>
-        ))
-       }
-    </div>
-    <div class="flex justify-center w-full h-full col-span-1">
-      {<a href="">Details</a>}
-    </div>
-    <div class="flex flex-col w-full col-span-3 justify-start h-full">
-      { match.goals
-        .filter((goal) => goal.team === match.team2) // Filtra goles del equipo específico
-        .map((goal) => (
-          <div key={goal.minute} class="flex items-center gap-2 text-sm">
-            <p>{goal.player}</p>
-            {<Image src={Goal} alt="Goal" class="w-3 h-3" loading={"lazy"}/>}
-            <p>{goal.minute}' {goal.penalty ? "(pen)" : ""}</p>
-          </div>
-        ))
-       }
+    {/* Equipo 2 */}
+    <div class="flex items-center col-span-3 gap-2 text-left overflow-hidden">
+       {team2ImagePromiseFn ? (
+        <Image
+          src={team2ImagePromiseFn()}
+          alt={match.team2}
+          class="h-5 w-8 md:h-6 md:w-9 rounded-sm object-cover ring-1 ring-gray-500 flex-shrink-0"
+          loading={"lazy"}
+          inferSize={true}
+        />
+      ) : (
+        <div class="h-5 w-8 md:h-6 md:w-9 bg-gray-600 rounded-sm flex-shrink-0"></div>
+      )}
+      <span class="font-semibold md:text-lg truncate">{match.team2}</span>
     </div>
   </div>
+
+   {/* Separador Opcional */}
+   {/* <hr class="border-gray-700 w-3/4 my-1"/> */}
+
+  {/* Sección Inferior: Goles y Detalles - Solo si se jugó */}
+  {match.status === 'played' && (
+    <div class="grid grid-cols-7 items-start w-full gap-2 mt-1 text-xs md:text-sm">
+      {/* Goles Equipo 1 */}
+      <div class="flex flex-col w-full col-span-3 items-end justify-start h-full text-right pr-1">
+        {goals.filter(g => g.team === match.team1).length > 0 ? (
+          // Agrupamos los goles por jugador
+          Object.entries(
+            goals
+              .filter(g => g.team === match.team1)
+              .reduce((acc, g) => {
+                // Creamos una clave única que incluya si es penal o autogol
+                const key = `${g.player}${g.ownGoal ? "-og" : ""}${g.penalty ? "-p" : ""}`;
+                if (!acc[key]) {
+                  acc[key] = {
+                    player: g.player,
+                    minutes: [],
+                    penalty: g.penalty,
+                    ownGoal: g.ownGoal
+                  };
+                }
+                acc[key].minutes.push(g.minute);
+                return acc;
+              }, {})
+          ).map(([key, goalGroup]) => (
+            <div key={key} class="flex items-center gap-1.5 justify-end">
+              <span class="truncate" title={goalGroup.player}>{goalGroup.player}</span>
+              <Image src={GoalIcon} alt="Goal" class="w-3 h-3 flex-shrink-0" loading={"lazy"}/>
+              <span>
+                {goalGroup.minutes.map((minute, idx) => (
+                  <span key={minute}>
+                    {minute}'
+                    {idx < goalGroup.minutes.length - 1 ? ", " : ""}
+                  </span>
+                ))}
+                {goalGroup.penalty ? "(P)" : ""}
+                {goalGroup.ownGoal ? " (OG)" : ""}
+              </span>
+            </div>
+          ))
+        ) : (
+          <span class="text-gray-500 italic text-xs">No goals</span>
+        )}
+      </div>
+
+      {/* Enlace Detalles/Video */}
+      <div class="flex justify-center items-center w-full h-full col-span-1 pt-1">
+        {match.link ? (
+          <a href={match.link} target="_blank" rel="noopener noreferrer" title="Watch Match" class="text-blue-400 hover:text-blue-300 hover:underline text-xs md:text-sm transition-colors">
+            ▶️ Match
+          </a>
+        ) : (
+          <span class="text-gray-600 text-xs md:text-sm" title="No link available">Watch Match</span>
+        )}
+      </div>
+
+      {/* Goles Equipo 2 */}
+      <div class="flex flex-col w-full col-span-3 justify-start h-full text-left pl-1">
+        {goals.filter(g => g.team === match.team2).length > 0 ? (
+          // Agrupamos los goles por jugador
+          Object.entries(
+            goals
+              .filter(g => g.team === match.team2)
+              .reduce((acc, g) => {
+                // Creamos una clave única que incluya si es penal o autogol
+                const key = `${g.player}${g.ownGoal ? "-og" : ""}${g.penalty ? "-p" : ""}`;
+                if (!acc[key]) {
+                  acc[key] = {
+                    player: g.player,
+                    minutes: [],
+                    penalty: g.penalty,
+                    ownGoal: g.ownGoal
+                  };
+                }
+                acc[key].minutes.push(g.minute);
+                return acc;
+              }, {})
+          ).map(([key, goalGroup]) => (
+            <div key={key} class="flex items-center gap-1.5 justify-start">
+              <span>
+                {goalGroup.minutes.map((minute, idx) => (
+                  <span key={minute}>
+                    {minute}'
+                    {idx < goalGroup.minutes.length - 1 ? ", " : ""}
+                  </span>
+                ))}
+                {goalGroup.penalty ? "(P)" : ""}
+                {goalGroup.ownGoal ? " (OG)" : ""}
+              </span>
+              <Image src={GoalIcon} alt="Goal" class="w-3 h-3 flex-shrink-0" loading={"lazy"}/>
+              <span class="truncate" title={goalGroup.player}>{goalGroup.player}</span>
+            </div>
+          ))
+        ) : (
+          <span class="text-gray-500 italic text-xs">No goals</span>
+        )}
+      </div>
+    </div>
+  )}
+  {/* Mostrar Fecha si está programado */}
+  {match.status === 'scheduled' && (
+    <div class="text-center text-xs text-gray-400 mt-2">
+      {match.date.toLocaleDateString('es-ES', { day: 'numeric', month: 'short' })}
+    </div>
+  )}
 </div>

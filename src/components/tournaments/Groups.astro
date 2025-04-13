@@ -1,0 +1,130 @@
+---
+import { Image } from 'astro:assets';
+
+// Props:
+const { matches, participants, imageGetter } = Astro.props;
+// Filtrar partidos de fase de grupos
+const groupStageMatches = matches.filter(m => m.data.stage?.toLowerCase().includes('group'));
+
+// Agrupar por grupo
+const matchesByGroup = groupStageMatches.reduce((acc, match) => {
+  const group = match.data.group || 'Unknown Group';
+  if (!acc[group]) acc[group] = [];
+  acc[group].push(match);
+  return acc;
+}, {});
+
+// Calcular tabla de posiciones por grupo
+function generateGroupTable(matches) {
+  const table = {};
+
+  for (const match of matches) {
+    const { team1, team2, goals = [] } = match.data;
+
+    // Inicializar si no existe
+    for (const team of [team1, team2]) {
+      if (!table[team]) {
+        table[team] = {
+          team,
+          wins: 0,
+          draws: 0,
+          losses: 0,
+          goals_for: 0,
+          goals_against: 0,
+          points: 0,
+        };
+      }
+    }
+
+    const goals1 = goals.filter(g => g.team === team1).length;
+    const goals2 = goals.filter(g => g.team === team2).length;
+
+    table[team1].goals_for += goals1;
+    table[team1].goals_against += goals2;
+
+    table[team2].goals_for += goals2;
+    table[team2].goals_against += goals1;
+
+    if (goals1 > goals2) {
+      table[team1].wins += 1;
+      table[team2].losses += 1;
+      table[team1].points += 3;
+    } else if (goals2 > goals1) {
+      table[team2].wins += 1;
+      table[team1].losses += 1;
+      table[team2].points += 3;
+    } else {
+      table[team1].draws += 1;
+      table[team2].draws += 1;
+      table[team1].points += 1;
+      table[team2].points += 1;
+    }
+  }
+
+  // Convertir a array y calcular GD
+  return Object.values(table).map(team => ({
+    ...team,
+    goals_difference: team.goals_for - team.goals_against,
+  })).sort((a, b) =>
+    b.points - a.points ||
+    b.goals_difference - a.goals_difference ||
+    b.goals_for - a.goals_for
+  ).map((team, index) => ({
+    ...team,
+    position: index + 1,
+  }));
+}
+---
+{Object.entries(matchesByGroup).map(([groupName, groupMatches]) => {
+  const table = generateGroupTable(groupMatches);
+  return (
+    <div class="mt-6 w-full px-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-4 gap-4 w-full">
+        <div class="flex flex-col justify-start items-center text-center bg-green-950/80 p-4 rounded-2xl w-full">
+          <h4 class="text-4xl font-bold text-white mb-3">{groupName}</h4>
+          {table.length > 0 ? (
+            <table class="w-full text-sm">
+              <thead>
+                <tr class="border-b border-green-600">
+                  <th class="px-1 py-1 text-left">#</th>
+                  <th class="px-1 py-1 text-left">Team</th>
+                  <th class="px-1 py-1">Pts</th>
+                  <th class="px-1 py-1 hidden sm:table-cell">W</th>
+                  <th class="px-1 py-1 hidden sm:table-cell">D</th>
+                  <th class="px-1 py-1 hidden sm:table-cell">L</th>
+                  <th class="px-1 py-1 hidden md:table-cell">GF</th>
+                  <th class="px-1 py-1 hidden md:table-cell">GA</th>
+                  <th class="px-1 py-1">GD</th>
+                </tr>
+              </thead>
+              <tbody>
+                {table.map(team => (
+                  <tr class="border-b border-green-700 last:border-b-0">
+                    <td class="px-1 py-1.5 text-left">{team.position}</td>
+                    <td class="px-1 py-1.5 text-left flex items-center gap-2 whitespace-nowrap">
+                      {imageGetter(team.team) ? (
+                        <Image src={imageGetter(team.team)!()} alt={team.team} class="h-5 w-8 rounded-md object-cover ring-1 ring-green-600" loading="lazy" inferSize={true} />
+                      ) : (
+                        <span class="inline-block h-5 w-8 bg-green-600 rounded-md"></span>
+                      )}
+                      <a href={`/members/${participants.find(p => p.data.name === team.team)?.slug}`} class="hover:underline">{team.team}</a>
+                    </td>
+                    <td class="px-1 py-1.5 font-semibold">{team.points}</td>
+                    <td class="px-1 py-1.5 hidden sm:table-cell">{team.wins}</td>
+                    <td class="px-1 py-1.5 hidden sm:table-cell">{team.draws}</td>
+                    <td class="px-1 py-1.5 hidden sm:table-cell">{team.losses}</td>
+                    <td class="px-1 py-1.5 hidden md:table-cell">{team.goals_for}</td>
+                    <td class="px-1 py-1.5 hidden md:table-cell">{team.goals_against}</td>
+                    <td class="px-1 py-1.5">{team.goals_difference}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          ) : (
+            <p class="text-gray-400 italic">No data available.</p>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+})}

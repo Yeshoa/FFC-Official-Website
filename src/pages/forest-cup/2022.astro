@@ -1,0 +1,192 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+import App from '../../layouts/App.astro'; 
+import MatchCard from '../../components/MatchCard.astro'; 
+import MatchCardCompact from '../../components/MatchCardCompact.astro'; 
+import Bracket from '../../components/tournaments/Bracket.astro'; 
+import Groups from '../../components/tournaments/Groups.astro';
+import TournamentGrid from '../../components/tournaments/TournamentGrid.astro'; 
+import { getMatchWinner } from '../../lib/matchUtils.ts';
+
+type Tournament = CollectionEntry<'tournaments'>['data'];
+type Match = CollectionEntry<'matches'>['data'];
+type Member = CollectionEntry<'members'>['data'];
+
+const tournamentsCollection = await getCollection('tournaments');
+const matchesCollection = await getCollection('matches');
+const membersCollection = await getCollection('members');
+
+const TOURNAMENT_ID = 1;
+const tournamentEntry = tournamentsCollection.find(t => t.data.id === TOURNAMENT_ID);
+
+if (!tournamentEntry) {
+  // throw new Error(`Torneo con ID "${TOURNAMENT_ID}" no encontrado en la colección 'tournaments'.`);
+  return Astro.redirect('/404');
+}
+
+const FC2022Data = tournamentEntry.data;
+const { Content } = await tournamentEntry.render();
+
+// Matches
+const fc2022Matches = matchesCollection
+  .filter(match => match.data.tournament_id === TOURNAMENT_ID)
+  .sort((a, b) => a.data.date.getTime() - b.data.date.getTime()); // Ordenar por fecha
+
+import FC22Logo from '../../assets/images/tournaments/2022/logo.png'; 
+import AllGoalsHero from '../../assets/images/hero2.png';
+
+// Importación dinámica para banderas/logos de miembros
+const memberImages = import.meta.glob<{ default: ImageMetadata }>('/src/assets/images/members/*.{jpeg,jpg,png,gif,svg,webp}');
+
+// Image Helper
+const getMemberImage = (memberName: string | undefined) => {
+  if (!memberName) return null;
+  const member = membersCollection.find(m => m.data.name === memberName);
+  const imagePath = member?.data.flagPath; 
+  if (!imagePath || !memberImages[imagePath]) {
+    console.warn(`Imagen no encontrada para el miembro: ${memberName} en la ruta: ${imagePath}`);
+    return null;
+  }
+  return memberImages[imagePath]; // Función dinámica
+};
+
+// Para el Bracket y MatchCards, necesitamos pasar una forma de obtener las imágenes.
+// Podemos pasar la función `getMemberImage` o un objeto pre-procesado.
+// Pasemos la función por ahora, asumiendo que los componentes pueden manejarla.
+const imageGetter = getMemberImage;
+
+const slides = [
+  { src: "/src/assets/images/hero2.png", alt: "All Goals", videoId: "HQJcfs5rKrs" },
+  { src: "/src/assets/images/forest-cup/2022-final.png", alt: "Final", videoId: "dxx2pF9TOR4" },
+  // ... (resto de tus slides)
+  { src: "/src/assets/images/hero2.png", alt: "Day 1", videoId: "F_3ckioqvnU" },
+];
+
+// *** ¡IMPORTANTE! Adaptación de datos para Grupos y Partidos ***
+// El código original itera sobre `FC2022.stages` para mostrar tablas y listas de partidos.
+// Asumiremos que `FC2022Data` (de la colección) contiene la estructura de stages/groups/tables.
+// Para los *partidos específicos* dentro de cada grupo/fixture, usaremos `fc2022Matches` filtrados.
+
+// Función auxiliar para encontrar los partidos de una fixture específica (si es necesario)
+// Nota: Esto puede ser complejo si la estructura de `FC2022Data` no coincide perfectamente
+// con cómo quieres mostrar los partidos de `fc2022Matches`.
+const getMatchesForFixture = (stageName?: string, groupName?: string, fixtureName?: string) => {
+    return fc2022Matches.filter(m =>
+        (!stageName || m.data.stage === stageName) &&
+        (!groupName || m.data.group === groupName) &&
+        (!fixtureName || m.data.fixture === fixtureName)
+    );
+}
+
+const pageTitle = `FFC - ${FC2022Data.name || 'Forest Cup'}`;
+const winner = getMatchWinner(getMatchesForFixture('knockout', undefined, 'Final')[0].data); 
+---
+
+<App title={pageTitle}>
+  <main class="flex flex-col items-center">
+    <div class="flex flex-col justify-center items-center pb-6 bg-gradient-to-r from-transparent to-transparent via-black/20 w-full">
+      <TournamentGrid currentTournament={FC2022Data}/>
+       <Image src={FC22Logo} alt={`${FC2022Data.name} Logo`} class="max-w-7xl lg:w-4xl md:w-2xl xl:w-auto sm:w-lg w-sm" loading={"eager"}/>
+       <div class="flex justify-between items-start h-full p-6 gap-6">
+         <div class="flex flex-col gap-6 items-center">
+           {winner && (
+             <div class="flex items-center gap-6">
+               {imageGetter(winner) && (
+                 <Image src={imageGetter(winner)!()} alt={`${winner} Flag`} class="h-24 w-auto rounded-xl object-cover ring-1 ring-green-700" loading={"eager"} />
+               )}
+               <h1 class="text-5xl font-bold">{winner}</h1>
+             </div>
+             <div class="flex items-center">
+               <h1 class="text-2xl">Champions</h1>
+             </div>
+           )}
+           {/* Si no tienes 'champion', usa 'participants' o ajusta la lógica */}
+           {!winner && FC2022Data.participants && (
+              <p class="text-xl text-gray-400 italic">(Winner details not specified in prizes, showing participants)</p>
+              // Aquí podrías mostrar info del final si la tienes
+           )}
+         </div>
+       </div>
+    </div>
+
+    <div class="w-full bg-gradient-to-b from-white/10 to-transparent items-center flex justify-center p-6">
+       <div class="max-w-10/12 grid grid-cols-4 justify-center items-center">
+         <a href={`https://www.youtube.com/watch?v=${slides[0].videoId}`} target="_blank" class="relative overflow-hidden rounded-2xl col-span-3 w-11/12">
+           <Image src={AllGoalsHero} alt="All Goals" class="rounded-xl object-cover hover:scale-105 transition duration-300" loading={"eager"}/>
+           <div class="absolute bottom-7 left-7 text-white">
+             <h2 class="text-6xl font-bold">All Goals</h2>
+           </div>
+         </a>
+         <div class="grid grid-rows-6 gap-1 justify-center items-center bg-green-950 rounded-2xl w-max mx-0 px-4">
+            {slides.slice(1).map(slide => ( // Empezar desde el segundo slide (índice 1)
+                 <div class="row-span-1 flex items-center justify-center py-2 border-b-2 border-white w-full last:border-b-0">
+                    <a href={`https://www.youtube.com/watch?v=${slide.videoId}`} target="_blank" class="flex items-center justify-between w-full group">
+                        <div class="h-20 w-36 rounded-2xl overflow-hidden flex-shrink-0">
+                            {/* Idealmente, usar imágenes específicas del slide si las tienes */}
+                            <Image src={AllGoalsHero} alt={slide.alt} class="h-full w-full object-cover group-hover:scale-105 transition duration-300" loading={"lazy"}/>
+                        </div>
+                        <h2 class="text-lg ms-4">{slide.alt}</h2>
+                    </a>
+                 </div>
+            ))}
+         </div>
+       </div>
+     </div>
+
+     <div class="flex flex-col justify-center items-center w-full gap-4 py-4">
+        <Bracket matches={fc2022Matches} tournament={FC2022Data} imageGetter={imageGetter} />
+     </div>
+
+     <Groups
+        matches={fc2022Matches}
+        participants={membersCollection.filter(member => FC2022Data.participants.includes(member.data.name))}
+        imageGetter={imageGetter}
+      />
+
+      <div class="flex flex-col justify-center items-center p-6 w-full gap-8 mt-8">
+        {
+          [...new Set(fc2022Matches.map(m => m.data.stage || 'Unknown Stage'))]
+            .sort((a, b) => a.localeCompare(b)) // <-- Opcional: ordenar alfabéticamente
+            .map(stageName => (
+              <div class="w-full" key={stageName}>
+                <h3 class="text-4xl font-bold text-white text-center mb-6">{stageName}</h3>
+      
+                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+                  {fc2022Matches
+                    .filter(m => (m.data.stage || 'Unknown Stage') === stageName)
+                    .map(match => {
+                      const lowerStage = stageName.toLowerCase();
+                      const isKnockout = lowerStage.includes('knockout') || lowerStage.includes('final');
+      
+                      return isKnockout ? (
+                        <MatchCard
+                          match={match.data}
+                          imageGetter={imageGetter}
+                        />
+                      ) : (
+                        <MatchCardCompact
+                          match={match.data}
+                          imageGetter={imageGetter}
+                        />
+                      );
+                    })}
+                </div>
+              </div>
+            ))
+        }
+      
+        {fc2022Matches.length === 0 && (
+          <p class="text-gray-400 italic">No matches found for this tournament in the collection.</p>
+        )}
+      </div>
+      
+
+    <div class="prose dark:prose-invert bg-white dark:bg-green-900 shadow-lg rounded-lg p-6 my-8 w-full max-w-4xl mx-auto">
+       <h2 class="text-2xl font-semibold mb-4 text-gray-900 dark:text-white border-b pb-2 border-gray-200 dark:border-green-600">Tournament Notes</h2>
+       <Content /> {/* Renderiza el contenido del archivo .md asociado al torneo */}
+       {/* Si no hay Content, puedes poner un mensaje por defecto */}
+    </div>
+
+    </main>
+</App>

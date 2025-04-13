@@ -1,0 +1,115 @@
+---
+import { Image } from 'astro:assets';
+import BracketMatchCard from './BracketMatchCard.astro';
+import MatchCardCompact from '../MatchCardCompact.astro';
+import trophy from '/src/assets/images/tournaments/trophy.png';
+
+interface Props {
+  matches: any[]; // Lista de partidos del torneo
+  tournament: any; // Datos del torneo
+  imageGetter: (teamName: string) => ImageMetadata | null;
+}
+
+const { matches, tournament, imageGetter } = Astro.props;
+
+// Función para obtener los partidos de una fase específica
+const getMatchesByRound = (fixtureName: string) => {
+  if (!matches || matches.length === 0) return [];
+  // Filtrar partidos por fase (fixture)
+  return matches.filter((match: any) => 
+    match.data.stage === "knockout" && match.data.fixture === fixtureName
+  );
+};
+
+// Obtener los partidos por ronda
+const roundOf16Matches = getMatchesByRound('Round of 16');
+const quarterFinalMatches = getMatchesByRound('Quarter Finals');
+const semiFinalMatches = getMatchesByRound('Semi Finals');
+const finalMatches = getMatchesByRound('Final');
+
+const finalMatch = finalMatches.length > 0 ? finalMatches[0] : null;
+
+// Determinar el ganador del torneo
+const winnerTeam = (() => {
+  if (!finalMatch || finalMatch.status !== 'played' || !finalMatch.goals) return null;
+
+  const { team1, team2, goals } = finalMatch;
+  
+  // Contar goles por equipo
+  const team1Goals = goals.filter(g => g.team === team1).length;
+  const team2Goals = goals.filter(g => g.team === team2).length;
+  
+  // Comprobar penales
+  if (finalMatch.penalties && finalMatch.penalties.length > 0) {
+    const team1Penalties = finalMatch.penalties.filter(p => p.team === team1 && p.scored).length;
+    const team2Penalties = finalMatch.penalties.filter(p => p.team === team2 && p.scored).length;
+    
+    return team1Penalties > team2Penalties ? team1 : team2;
+  }
+  
+  // Determinar ganador por goles
+  return team1Goals > team2Goals ? team1 
+       : team2Goals > team1Goals ? team2 
+       : null; // Empate (no debería ocurrir en una final)
+})();
+---
+<div class="w-full py-8 px-4 rounded-lg">
+  <h2 class="text-2xl font-bold text-center mb-8">Final Bracket</h2>
+
+  <div class="flex flex-col justify-center items-center w-full">
+    <div class="flex items-center w-full max-w-7xl gap-4">
+      <!-- Cuartos de final (izquierda) -->
+      <div class="w-1/5 flex flex-col gap-8">
+        {quarterFinalMatches.slice(0, 2).map((match: any) => (
+          <BracketMatchCard match={match} imageGetter={imageGetter} />
+        ))}
+      </div>
+
+      <!-- Semifinal (izquierda) -->
+      <div class="w-1/5 flex justify-center items-center">
+        <div class="w-full">
+          {semiFinalMatches.length > 0 && (
+            <BracketMatchCard match={semiFinalMatches[0]} imageGetter={imageGetter} />
+          )}
+        </div>
+      </div>
+
+      <!-- Final (centro) -->
+      <div class="w-1/5 flex flex-col items-center justify-center">
+        <div class="w-full mb-4">
+          {finalMatch && (
+            <BracketMatchCard match={finalMatch} imageGetter={imageGetter} />
+          )}
+        </div>
+
+        {finalMatch && winnerTeam && (
+          <div class="flex flex-col items-center justify-center mt-4 bg-green-950/70 p-4 rounded-2xl text-2xl font-bold w-full">
+            <Image src={trophy} alt="Trophy" class="w-auto h-20" />
+            {imageGetter(winnerTeam) ? (
+              <Image src={imageGetter(winnerTeam)!} alt={winnerTeam} class="w-auto h-20" />
+            ) : (
+              <div class="w-20 h-20 bg-gray-600 rounded-lg" />
+            )}
+            {winnerTeam}
+          </div>
+        )}
+      </div>
+
+      <!-- Semifinal (derecha) -->
+      <div class="w-1/5 flex justify-center items-center">
+        <div class="w-full">
+          {semiFinalMatches.length > 1 && (
+            <BracketMatchCard match={semiFinalMatches[1]} imageGetter={imageGetter} />
+          )}
+        </div>
+      </div>
+
+      <!-- Cuartos de final (derecha) -->
+      <div class="w-1/5 flex flex-col gap-8">
+        {quarterFinalMatches.slice(2, 4).map((match: any) => (
+          <BracketMatchCard match={match} imageGetter={imageGetter} />
+        ))}
+      </div>
+    </div>
+  </div>
+</div>

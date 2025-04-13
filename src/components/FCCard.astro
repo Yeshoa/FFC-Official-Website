@@ -4,19 +4,17 @@ import { Image } from 'astro:assets';
 interface FCCardProps {
   title: string;
   imagePath: ImageMetadata;
-  route: string;
+  slug: string;
 }
-const { title, imagePath, route } = Astro.props;
+const { title, imagePath, slug } = Astro.props;
 
-const images = import.meta.glob<{ default: ImageMetadata }>("/src/assets/images/forest-cup/**/*.{jpeg,jpg,png,gif}");
-
-if (!images[imagePath]) throw new Error(`"${imagePath}" does not exist in glob: "src/assets/*.{jpeg,jpg,png,gif}"`);
+if (!imagePath) throw new Error(`"${imagePath}" does not exist in glob: "src/assets/images/tournaments/*.{jpeg,jpg,png,gif}"`);
 ---
-<a href={route} class="flex flex-col justify-center items-center overflow-hidden 
+<a href={`/forest-cup/${slug}`} class="flex flex-col justify-center items-center overflow-hidden 
 border ring-0 hover:ring-2 hover:ring-green-300 border-green-800 
 p-4 rounded-4xl w-auto">
   <div class="flex h-full items-center">
-    <Image src={images[imagePath]()} class="h-auto w-full" alt={title} loading={"eager"}/>
+    <Image src={imagePath} class="h-auto w-full" alt={title} loading={"eager"}/>
   </div>
   <p class="font-bold text-xl">{title}</p>
 </a>

@@ -1,0 +1,144 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Goal {
+  team: string;
+  player: string;
+  minute: number;
+  penalty?: boolean;
+  ownGoal?: boolean;
+  assist?: string;
+}
+
+interface Penalty {
+  order: number;
+  team: string;
+  player: string;
+  scored: boolean;
+}
+
+interface Match {
+  tournament_id: number;
+  stage?: string;
+  fixture: string;
+  team1: string;
+  team2: string;
+  status: "scheduled" | "played" | "canceled";
+  date: Date;
+  link?: string;
+  goals?: Goal[];
+  penalties?: Penalty[];
+  redCards?: {
+    team: string;
+    player: string;
+    minute: number;
+  }[];
+}
+
+interface Props {
+  match: Match;
+  imageGetter: (teamName: string) => ImageMetadata | null;
+}
+
+const { match, imageGetter } = Astro.props;
+// Verificar si el partido ya se jugó
+const isPlayed = match.data.status === 'played';
+
+// Contar goles por equipo (solo si el partido se jugó)
+const team1Goals = isPlayed && match.data.goals ? match.data.goals.filter(g => g.team === match.data.team1).length : 0;
+const team2Goals = isPlayed && match.data.goals ? match.data.goals.filter(g => g.team === match.data.team2).length : 0;
+
+// Verificar si hubo penales
+const hasPenalties = isPlayed && match.data.penalties && match.data.penalties.length > 0;
+
+// Contar penales convertidos por equipo
+const team1Penalties = hasPenalties ? match.data.penalties!.filter(p => p.team === match.data.team1 && p.scored).length : 0;
+const team2Penalties = hasPenalties ? match.data.penalties!.filter(p => p.team === match.data.team2 && p.scored).length : 0;
+
+// Determinar ganador
+const getWinner = () => {
+  if (!isPlayed) return null;
+  
+  if (hasPenalties) {
+    return team1Penalties > team2Penalties ? match.data.team1 : team2Penalties > team1Penalties ? match.data.team2 : 'Draw';
+  } else {
+    return team1Goals > team2Goals ? match.data.team1 
+         : team2Goals > team1Goals ? match.data.team2 
+         : 'Draw';
+  }
+};
+
+const winner = getWinner();
+
+// Formatear la fecha si el partido está programado
+const formattedDate = match.data.status === 'scheduled' 
+  ? match.data.date.toLocaleDateString('es-ES', { day: '2-digit', month: 'short' })
+  : null;
+---
+<div class="bg-green-950/70 rounded-lg p-4 w-full hover:bg-black/30">
+  <div class="flex flex-col space-y-3">
+    
+    <!-- Equipo 1 -->
+    <div class="flex items-center justify-between">
+      <div class="flex items-center space-x-2">
+        {imageGetter(match.data.team1) ? (
+          <Image src={imageGetter(match.data.team1)!()} alt={match.data.team1} class="w-6 h-6 object-contain" />
+        ) : (
+          <div class="w-6 h-6 bg-gray-600 rounded-md"></div>
+        )}
+        <span class={`${winner === match.data.team1 ? 'font-bold' : 'font-medium'}`}>
+          {match.data.team1}
+        </span>
+      </div>
+      {isPlayed ? (
+        <div class="flex items-center">
+          <span class="font-medium">{team1Goals}</span>
+          {hasPenalties && (
+            <span class="text-gray-500 text-xs ml-1">({team1Penalties})</span>
+          )}
+        </div>
+      ) : (
+        <div class="text-xs text-gray-400">TBD</div>
+      )}
+    </div>
+
+    <!-- Equipo 2 -->
+    <div class="flex items-center justify-between">
+      <div class="flex items-center space-x-2">
+        {imageGetter(match.data.team2) ? (
+          <Image src={imageGetter(match.data.team2)!()} alt={match.data.team2} class="w-6 h-6 object-contain" />
+        ) : (
+          <div class="w-6 h-6 bg-gray-600 rounded-md"></div>
+        )}
+        <span class={`${winner === match.data.team2 ? 'font-bold' : 'font-medium'}`}>
+          {match.data.team2}
+        </span>
+      </div>
+      {isPlayed ? (
+        <div class="flex items-center">
+          <span class="font-medium">{team2Goals}</span>
+          {hasPenalties && (
+            <span class="text-gray-500 text-xs ml-1">({team2Penalties})</span>
+          )}
+        </div>
+      ) : (
+        <div class="text-xs text-gray-400">TBD</div>
+      )}
+    </div>
+
+    {/* Mostrar fecha si el partido está programado */}
+    {match.data.status === 'scheduled' && formattedDate && (
+      <div class="text-center text-xs text-gray-400 mt-1">
+        {formattedDate}
+      </div>
+    )}
+
+    {/* Enlace al video si existe */}
+    {match.data.link && (
+      <a href={match.data.link} class="text-white text-sm hover:underline mt-2 inline-block" target="_blank" rel="noopener noreferrer">
+        Video
+      </a>
+    )}
+  </div>
+</div>

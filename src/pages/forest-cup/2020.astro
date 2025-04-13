@@ -1,0 +1,122 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+import App from '../../layouts/App.astro'; 
+import MatchCard from '../../components/MatchCard.astro'; 
+import MatchCardCompact from '../../components/MatchCardCompact.astro'; 
+import Bracket from '../../components/tournaments/Bracket.astro'; 
+import Groups from '../../components/tournaments/Groups.astro';
+import TournamentGrid from '../../components/tournaments/TournamentGrid.astro'; 
+import { getMatchWinner } from '../../lib/matchUtils.ts';
+
+type Tournament = CollectionEntry<'tournaments'>['data'];
+type Match = CollectionEntry<'matches'>['data'];
+type Member = CollectionEntry<'members'>['data'];
+
+const tournamentsCollection = await getCollection('tournaments');
+const matchesCollection = await getCollection('matches');
+const membersCollection = await getCollection('members');
+
+const TOURNAMENT_ID = 0;
+const tournamentEntry = tournamentsCollection.find(t => t.data.id === TOURNAMENT_ID);
+
+if (!tournamentEntry) {
+  // throw new Error(`Torneo con ID "${TOURNAMENT_ID}" no encontrado en la colección 'tournaments'.`);
+  return Astro.redirect('/404');
+}
+
+const FC2020Data = tournamentEntry.data;
+const { Content } = await tournamentEntry.render();
+
+// Matches
+const fc2020Matches = matchesCollection
+  .filter(match => match.data.tournament_id === TOURNAMENT_ID)
+  .sort((a, b) => a.data.date.getTime() - b.data.date.getTime()); // Ordenar por fecha
+
+import FC20Logo from '../../assets/images/tournaments/2020/logo.png'; 
+
+// Importación dinámica para banderas/logos de miembros
+const memberImages = import.meta.glob<{ default: ImageMetadata }>('/src/assets/images/members/*.{jpeg,jpg,png,gif,svg,webp}');
+
+// Image Helper
+const getMemberImage = (memberName: string | undefined) => {
+  if (!memberName) return null;
+  const member = membersCollection.find(m => m.data.name === memberName);
+  const imagePath = member?.data.flagPath; 
+  if (!imagePath || !memberImages[imagePath]) {
+    console.warn(`Imagen no encontrada para el miembro: ${memberName} en la ruta: ${imagePath}`);
+    return null;
+  }
+  return memberImages[imagePath]; // Función dinámica
+};
+
+// Para el Bracket y MatchCards, necesitamos pasar una forma de obtener las imágenes.
+// Podemos pasar la función `getMemberImage` o un objeto pre-procesado.
+// Pasemos la función por ahora, asumiendo que los componentes pueden manejarla.
+const imageGetter = getMemberImage;
+
+/* const slides = [
+  { src: "/src/assets/images/hero2.png", alt: "All Goals", videoId: "HQJcfs5rKrs" },
+  { src: "/src/assets/images/forest-cup/2022-final.png", alt: "Final", videoId: "dxx2pF9TOR4" },
+  // ... (resto de tus slides)
+  { src: "/src/assets/images/hero2.png", alt: "Day 1", videoId: "F_3ckioqvnU" },
+]; */
+
+
+// Función auxiliar para encontrar los partidos de una fixture específica
+const getMatchesForFixture = (stageName?: string, groupName?: string, fixtureName?: string) => {
+    return fc2020Matches.filter(m =>
+        (!stageName || m.data.stage === stageName) &&
+        (!groupName || m.data.group === groupName) &&
+        (!fixtureName || m.data.fixture === fixtureName)
+    );
+}
+
+const pageTitle = `FFC - ${FC2020Data.name || 'Forest Cup'}`;
+const winner = getMatchWinner(getMatchesForFixture('knockout', undefined, 'Final')[0].data); 
+console.log(imageGetter(winner));
+---
+
+<App title="FFC - Forest Cup Bilsa 2020">
+  <main class="flex flex-col items-center">
+    <!-- Banner para el fondo oscuro-->
+     
+    <div class="flex justify-center items-center py-6 bg-gradient-to-r from-transparent to-transparent via-black/20 w-full">
+      <!-- Container -->
+      <div class="flex flex-col items-center">
+        <Image src={FC20Logo} alt="Forest Cup 2020 Logo" class="h-72 w-auto transform " loading={"eager"}/>
+      </div>
+      <div class="flex justify-between items-start h-full p-6 gap-6">
+        <div>
+          <div class="flex flex-col gap-6 items-center">
+            <div class="flex items-center gap-6">
+              {imageGetter(winner) && (
+                <Image src={imageGetter(winner)!()} alt={`${winner} Flag`} class="h-24 w-auto rounded-xl object-cover ring-1 ring-green-700" loading={"eager"} />
+              )}
+              <h1 class="text-5xl font-bold">{winner}</h1>
+            </div>
+            <div class="flex items-center">
+              <h1 class="text-2xl">Champions</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+    <!-- Tournaments -->
+    <div class="flex justify-center p-6">
+      <div class="container">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {FC2020Data && (
+            <div class="container flex flex-col justify-center items-center pt-6">
+              <div class="mt-6">
+                <h2 class="text-2xl font-bold">{FC2020Data.name}</h2>
+                <p>Winner: {winner}</p>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  </main>
+</App>

@@ -3,25 +3,47 @@
 import Table from '../components/HistoricalTable.astro';
 import FCCard from '../components/FCCard.astro';
 import App from '../layouts/App.astro';
-import { tournaments } from '../content/tournaments';
+import { Image } from 'astro:assets';
+import FCLogo from '../assets/images/tournaments/forest-cup.png';
+// import { tournaments } from '../content/tournaments';
 import { getCollection } from 'astro:content';
+
+// Importar todas las imágenes desde el directorio
+const images = import.meta.glob('/src/assets/images/**', { eager: true, import: 'default' });
 
 const memberEntries = await getCollection('members');
 const matchEntries = await getCollection('matches');
+const tournaments = (await getCollection('tournaments'))
+  .map(tournament => {
+    const { id, name, image, edition } = tournament.data;
+    
+    // Ruta absoluta esperada
+    const expectedPath = `/src/assets/images/${image}`;
+    const imageAsset = images[expectedPath];
+
+    if (!imageAsset) {
+      console.warn(`No se encontró imagen: ${expectedPath}`);
+      console.log('DISPONIBLES:', Object.keys(images));
+    }
+
+    return {
+      id,
+      name,
+      slug: edition,
+      image: imageAsset,
+    };
+  })
+  .filter(t => t.image); // Evitar torneos con imágenes rotas
+
+const sortedTournaments = tournaments.sort((a, b) => a.id - b.id); // Ordenar por ID
 
 const members = memberEntries.map((entry) => ({
   ...entry.data,       // <-- todos los campos como name, flagPath, etc.
   slug: entry.slug,    // <-- está fuera de .data
 }));
 
-
-
 const matches = matchEntries.map((entry) => entry.data);
 
-import { Image } from 'astro:assets';
-import FCLogo from '../assets/images/forest-cup/forest-cup.png';
-// Importar todas las imágenes desde el directorio
-const images = import.meta.glob('../assets/images/*.png', { eager: true });
 ---
 
 <App title="FFC - Forest Cup">
@@ -34,16 +56,13 @@ const images = import.meta.glob('../assets/images/*.png', { eager: true });
     <div class="flex justify-center p-6">
       <div class="container">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {tournaments.slice().reverse().map(tournament => {
-            const { name, image, route } = tournament;
-            return (
-              <FCCard
-                  title={name}
-                  imagePath={image}
-                  route={route}
-                />
-            );
-          })}
+          {sortedTournaments.slice().reverse().map(({ name, image, slug }) => (
+            <FCCard
+              title={name}
+              imagePath={image} // Esto es ahora un import válido de astro:assets
+              slug={slug}
+            />
+          ))}
         </div>
       </div>
     </div>

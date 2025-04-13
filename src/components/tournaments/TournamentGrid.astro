@@ -1,13 +1,14 @@
 ---
 import { Image } from "astro:assets";
 import type { ImageMetadata } from 'astro';
-import { tournaments } from '../content/tournaments';
-
+// import { tournaments } from '../content/tournaments';
+import { getCollection } from 'astro:content';
+const tournaments = await getCollection('tournaments');
+const sortedTournaments = tournaments.sort((a, b) => a.data.id - b.data.id); // Ordenar por ID
 const { currentTournament } = Astro.props;
-
 // Importamos las imágenes de los banners de los torneos
 // Usamos import.meta.glob para cargar las imágenes de forma dinámica
-const images = import.meta.glob<{ default: ImageMetadata }>("/src/assets/images/forest-cup/**/*.{jpeg,jpg,png,gif,svg}", ({ eager: true }));
+const images = import.meta.glob<{ default: ImageMetadata }>("/src/assets/images/tournaments/**/*.{jpeg,jpg,png,gif,svg}", ({ eager: true }));
 // Convertimos el objeto de imágenes a un formato más fácil de usar (ruta -> ImageMetadata)
 // Esto nos permite acceder a las imágenes usando su ruta como clave
 const imageMap = Object.fromEntries(
@@ -16,20 +17,19 @@ const imageMap = Object.fromEntries(
 ---
 
 <div class="flex justify-center items-center px-6 bg-white/10 w-full">
-  <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
-    {tournaments.slice().reverse().map((tournament) => {
-      const isActive = tournament.route === currentTournament.route;
-      console.log(images[tournament.banner].default);
+  <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-auto gap-4 p-4">
+    {sortedTournaments.slice().reverse().map((tournament) => {
+      const isActive = tournament.data.id === currentTournament.id;
       return (
         <a 
-          href={isActive ? "#" : tournament.route} 
-          key={tournament.name} 
+          href={isActive ? "#" : `/${tournament.data.type}/${tournament.data.edition}`} 
+          key={tournament.data.name} 
           class={`bg-gray-300 flex relative overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-shadow group hover:bg-green-950
             justify-center items-center group ${isActive ? "bg-green-950 cursor-default pointer-events-none" : ""}`}
         >
           <Image 
-            src={images[tournament.banner].default} 
-            alt={tournament.name} 
+            src={imageMap[`/src/assets/images/${tournament.data.banner}`]} 
+            alt={tournament.data.name} 
             class={`w-auto h-16 object-cover rounded-lg transition-opacity invert group-hover:invert-0 ${isActive ? "invert-0" : ""}`}
             loading="eager"
           />

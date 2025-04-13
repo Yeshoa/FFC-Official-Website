@@ -53,7 +53,7 @@ export function getMatchResult(match: Match): { team1: number; team2: number } {
     if (goal.team === match.team1) t1++;
     else if (goal.team === match.team2) t2++;
   }
-
+  
   return { team1: t1, team2: t2 };
 }
 

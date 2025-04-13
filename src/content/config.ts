@@ -12,24 +12,36 @@ import { defineCollection, z } from 'astro:content';
   }),
 }); */
 
-const forestCupCollection = defineCollection({
+const tournamentsCollection = defineCollection({
   type: 'content',
   schema: z.object({
     id: z.number(),
-    slug: z.string(),
+    type: z.enum(["forest-cup", "forestian-champions-league"]),
     name: z.string(),
-    host: z.string(),
+    host: z.string().optional(), // País anfitrión
+    final: z.string().optional(), // Sede de la final
     image: z.string(),
-    banner: z.string(),
-    year: z.number(),
+    banner: z.string().optional(), // Banner del torneo
+    edition: z.number(),
     participants: z.array(z.string()), // Referencia a members
-    winner: z.string().optional(),
-    runner_up: z.string().optional(),
     flags: z.array(z.string()).optional(), // Referencia a las imágenes de banderas de ese año
-    stages: z.array(
+    images: z.array(
+      z.object({
+        src: z.string(),
+        type: z.enum(['champion', 'gallery', 'video-thumbnail', 'match', 'other']),
+        title: z.string().optional(),
+        videoUrl: z.string().url().optional(),
+      })
+    ).optional(), // Imágenes del torneo
+    prizes: z.object({ // Estructura más detallada para premios
+      topScorer: z.array(z.object({ player: z.string(), team: z.string(), goals: z.number() })).optional(),
+      bestPlayer: z.object({ player: z.string(), team: z.string() }).optional(),
+      bestGoalkeeper: z.object({ player: z.string(), team: z.string() }).optional(),
+    }).optional(),
+    /* stages: z.array(
       z.object({
         type: z.enum(["group", "knockout"]),
-        name: z.string(),
+        name: z.string(), // "Group A", "Quarter Finals", etc.
         groups: z.array(
           z.object({
             name: z.string(),
@@ -47,7 +59,7 @@ const forestCupCollection = defineCollection({
           })
         ).optional(),
       })
-    ).optional(),
+    ).optional(), */
   }),
 });
 
@@ -123,7 +135,7 @@ const flagsCollection = defineCollection({
 });
 
 export const collections = {
-  /* 'tournaments': tournamentsCollection, */
+  'tournaments': tournamentsCollection,
   /* 'forest-cup': forestCupCollection, */
   'matches': matchesCollection,
   'members': membersCollection,

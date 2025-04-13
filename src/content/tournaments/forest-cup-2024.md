@@ -1,10 +1,11 @@
 ---
-id: 3
-slug: "forest-cup-2024"
-name: "Anxious & Kevin 2024"
+id: 2
+type: "forest-cup"
+name: "Forest Cup Anxious & Kevin 2024"
 host: "Anxious & Kevin"
-image: "/src/assets/images/forest-cup/forest-cup-2024.png"
-year: 2024
+image: "tournaments/2024/logo.png"
+banner: "tournaments/2024/banner.png"
+edition: 2024
 participants:
   - "Bilsa"
   - "Einswenn"
@@ -38,27 +39,19 @@ participants:
   - "The Realizer"
   - "Orcuo"
   - "Aresetia"
-matches:
-  - match_id: 1
-    stage: "Group A"
-    team1: "Einswenn"
-    team2: "Bilsa"
-    score:
-      team1_goals: 2
-      team2_goals: 2
-    goals:
-      - team: "Bilsa"
-        player: "John Smith"
-        minute: 12
-      - team: "Einswenn"
-        player: "Liam Daniels"
-        minute: 68
-      - team: "Einswenn"
-        player: "Mark Perez"
-        minute: 77
-      - team: "Bilsa"
-        player: "Mark Perez"
-        minute: 77
+prizes:
+  topScorer:
+    - player: "Nysnub"
+      team: "Atsvea"
+      goals: 9
+  bestPlayer:
+    player: "R. Tarasov"
+    team: "Nardin"
+  bestGoalkeeper:
+    player: "I. Hans"
+    team: "Einswenn"
+# flags: ["/flags/bilsa.png", "/flags/einswenn.png", ...] # Ejemplo si tuvieras las banderas (Opcional)
+# stages: [...] # Podrías añadir detalles de grupos y fases eliminatorias aquí (Opcional)
 ---
 
 # Resumen del Torneo Forest Cup 2022

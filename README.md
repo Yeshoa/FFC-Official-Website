@@ -49,7 +49,7 @@ Website built with **Astro**. Showcases tournaments, match details, and national
 &nbsp;&nbsp;&nbsp;&nbsp;Use Astro’s Content Collections for better content organization and markdown-powered routing. _(High priority, in progress)_
   - ✅ Members
   - ✅ Matches
-  - [ ] Tournaments - Should have a type and edition (FC uses years: 2020, 2022, 2024, 2026)
+  - 💬 Tournaments - Should have a type and edition (FC uses years: 2020, 2022, 2024, 2026)
   - [ ] ~~Flags~~
   
 - [ ] **Create dynamic pages for each tournament (by ID/slug)**  
