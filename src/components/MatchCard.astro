@@ -35,7 +35,7 @@ const team2ImagePromiseFn = imageGetter(match.team2);
 
 ---
 
-<div class="flex flex-col justify-center items-center w-full bg-gradient-to-br from-green-800 to-green-900 dark:from-green-900/80 dark:to-green-950/70 py-3 px-4 rounded-2xl shadow-md text-white hover:bg-green-700/90">
+<div class="flex flex-col justify-center items-center w-full max-w-5xl bg-gradient-to-br from-green-800 to-green-900 dark:from-green-900/80 dark:to-green-950/70 py-3 px-4 rounded-2xl shadow-md text-white hover:bg-green-700/90">
   {/* Sección Superior: Equipos y Marcador */}
   <div class="grid grid-cols-7 items-center w-full gap-2 mb-2">
     {/* Equipo 1 */}
@@ -101,16 +101,24 @@ const team2ImagePromiseFn = imageGetter(match.team2);
               .filter(g => g.team === match.team1)
               .reduce((acc, g) => {
                 // Creamos una clave única que incluya si es penal o autogol
-                const key = `${g.player}${g.ownGoal ? "-og" : ""}${g.penalty ? "-p" : ""}`;
+                const key = g.player; // solo agrupamos por nombre
+
                 if (!acc[key]) {
                   acc[key] = {
                     player: g.player,
                     minutes: [],
-                    penalty: g.penalty,
-                    ownGoal: g.ownGoal
+                    aggregates: [],
+                    penalty: false,
+                    ownGoal: false
                   };
                 }
+
                 acc[key].minutes.push(g.minute);
+                if (g.aggregate) acc[key].aggregates.push(g.aggregate);
+                // Marcar como penal/autogol si al menos un gol lo fue
+                acc[key].penalty = acc[key].penalty || g.penalty === true;
+                acc[key].ownGoal = acc[key].ownGoal || g.ownGoal === true;
+
                 return acc;
               }, {})
           ).map(([key, goalGroup]) => (
@@ -120,8 +128,7 @@ const team2ImagePromiseFn = imageGetter(match.team2);
               <span>
                 {goalGroup.minutes.map((minute, idx) => (
                   <span key={minute}>
-                    {minute}'
-                    {idx < goalGroup.minutes.length - 1 ? ", " : ""}
+                    {minute}{goalGroup.aggregates[idx] !== undefined ? `+${goalGroup.aggregates[idx]}` : ""}'{idx < goalGroup.minutes.length - 1 ? ", " : ""}
                   </span>
                 ))}
                 {goalGroup.penalty ? "(P)" : ""}
@@ -130,7 +137,7 @@ const team2ImagePromiseFn = imageGetter(match.team2);
             </div>
           ))
         ) : (
-          <span class="text-gray-500 italic text-xs">No goals</span>
+          <span class="text-gray-500 italic text-xs"></span>
         )}
       </div>
 
@@ -159,11 +166,13 @@ const team2ImagePromiseFn = imageGetter(match.team2);
                   acc[key] = {
                     player: g.player,
                     minutes: [],
+                    aggregates: [],
                     penalty: g.penalty,
                     ownGoal: g.ownGoal
                   };
                 }
                 acc[key].minutes.push(g.minute);
+                if (g.aggregate) acc[key].aggregates.push(g.aggregate);
                 return acc;
               }, {})
           ).map(([key, goalGroup]) => (
@@ -171,8 +180,7 @@ const team2ImagePromiseFn = imageGetter(match.team2);
               <span>
                 {goalGroup.minutes.map((minute, idx) => (
                   <span key={minute}>
-                    {minute}'
-                    {idx < goalGroup.minutes.length - 1 ? ", " : ""}
+                    {minute}{goalGroup.aggregates[idx] !== undefined ? `+${goalGroup.aggregates[idx]}` : ""}'{idx < goalGroup.minutes.length - 1 ? ", " : ""}
                   </span>
                 ))}
                 {goalGroup.penalty ? "(P)" : ""}
@@ -183,7 +191,7 @@ const team2ImagePromiseFn = imageGetter(match.team2);
             </div>
           ))
         ) : (
-          <span class="text-gray-500 italic text-xs">No goals</span>
+          <span class="text-gray-500 italic text-xs"></span>
         )}
       </div>
     </div>

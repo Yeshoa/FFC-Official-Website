@@ -6,7 +6,6 @@ import MatchCard from '../../components/MatchCard.astro';
 import MatchCardCompact from '../../components/MatchCardCompact.astro'; 
 import Bracket from '../../components/tournaments/Bracket.astro'; 
 import Groups from '../../components/tournaments/Groups.astro';
-import KnockoutMatches from '../../components/tournaments/KnockoutMatches.astro';
 import TournamentGrid from '../../components/tournaments/TournamentGrid.astro'; 
 import { getMatchWinner } from '../../lib/matchUtils.ts';
 
@@ -33,10 +32,8 @@ const { Content } = await tournamentEntry.render();
 const fc2020Matches = matchesCollection
   .filter(match => match.data.tournament_id === TOURNAMENT_ID)
   .sort((a, b) => a.data.date.getTime() - b.data.date.getTime()); // Ordenar por fecha
-const knockoutMatches = fc2020Matches.filter(match => match.data.stage === 'knockout');
 
 import FC20Logo from '../../assets/images/tournaments/2020/logo.png'; 
-import FCLogo from '../../assets/images/tournaments/forest-cup.png';
 
 // Importación dinámica para banderas/logos de miembros
 const memberImages = import.meta.glob<{ default: ImageMetadata }>('/src/assets/images/members/*.{jpeg,jpg,png,gif,svg,webp}');
@@ -58,9 +55,15 @@ const getMemberImage = (memberName: string | undefined) => {
 // Pasemos la función por ahora, asumiendo que los componentes pueden manejarla.
 const imageGetter = getMemberImage;
 
-// Función auxiliar para encontrar los partidos de una fixture específica (si es necesario)
-// Nota: Esto puede ser complejo si la estructura de `FC2020Data` no coincide perfectamente
-// con cómo quieres mostrar los partidos de `fc2020Matches`.
+/* const slides = [
+  { src: "/src/assets/images/hero2.png", alt: "All Goals", videoId: "HQJcfs5rKrs" },
+  { src: "/src/assets/images/forest-cup/2022-final.png", alt: "Final", videoId: "dxx2pF9TOR4" },
+  // ... (resto de tus slides)
+  { src: "/src/assets/images/hero2.png", alt: "Day 1", videoId: "F_3ckioqvnU" },
+]; */
+
+
+// Función auxiliar para encontrar los partidos de una fixture específica
 const getMatchesForFixture = (stageName?: string, groupName?: string, fixtureName?: string) => {
     return fc2020Matches.filter(m =>
         (!stageName || m.data.stage === stageName) &&
@@ -71,16 +74,21 @@ const getMatchesForFixture = (stageName?: string, groupName?: string, fixtureNam
 
 const pageTitle = `FFC - ${FC2020Data.name || 'Forest Cup'}`;
 const winner = getMatchWinner(getMatchesForFixture('knockout', undefined, 'Final')[0].data); 
+console.log(imageGetter(winner));
 ---
 
-<App title={pageTitle}>
+<App title="FFC - Forest Cup Bilsa 2020">
   <main class="flex flex-col items-center">
-    <div class="flex flex-col justify-center items-center pb-6 bg-gradient-to-r from-transparent to-transparent via-black/20 w-full">
-      <TournamentGrid currentTournament={FC2020Data}/>
-      <Image src={FCLogo} alt={`Forest Cup Logo`} class="max-w-7xl lg:w-4xl md:w-2xl xl:w-auto sm:w-lg w-sm" loading={"eager"}/>
+    <!-- Banner para el fondo oscuro-->
+     
+    <div class="flex justify-center items-center py-6 bg-gradient-to-r from-transparent to-transparent via-black/20 w-full">
+      <!-- Container -->
+      <div class="flex flex-col items-center">
+        <Image src={FC20Logo} alt="Forest Cup 2020 Logo" class="h-72 w-auto transform " loading={"eager"}/>
+      </div>
       <div class="flex justify-between items-start h-full p-6 gap-6">
-        <div class="flex flex-col gap-6 items-center">
-          {winner && (
+        <div>
+          <div class="flex flex-col gap-6 items-center">
             <div class="flex items-center gap-6">
               {imageGetter(winner) && (
                 <Image src={imageGetter(winner)!()} alt={`${winner} Flag`} class="h-24 w-auto rounded-xl object-cover ring-1 ring-green-700" loading={"eager"} />
@@ -90,35 +98,25 @@ const winner = getMatchWinner(getMatchesForFixture('knockout', undefined, 'Final
             <div class="flex items-center">
               <h1 class="text-2xl">Champions</h1>
             </div>
-          )}
-          {/* Si no tienes 'champion', usa 'participants' o ajusta la lógica */}
-          {!winner && FC2020Data.participants && (
-            <p class="text-xl text-gray-400 italic">(Winner details not specified in prizes, showing participants)</p>
-            // Aquí podrías mostrar info del final si la tienes
+          </div>
+        </div>
+      </div>
+      
+    </div>
+    <!-- Tournaments -->
+    <div class="flex justify-center p-6">
+      <div class="container">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {FC2020Data && (
+            <div class="container flex flex-col justify-center items-center pt-6">
+              <div class="mt-6">
+                <h2 class="text-2xl font-bold">{FC2020Data.name}</h2>
+                <p>Winner: {winner}</p>
+              </div>
+            </div>
           )}
         </div>
       </div>
     </div>
-
-    <div class="flex flex-col justify-center items-center w-full gap-4 py-4">
-      <Bracket matches={fc2020Matches} tournament={FC2020Data} imageGetter={imageGetter} />
-    </div>
-
-    <Groups
-      matches={fc2020Matches}
-      participants={membersCollection.filter(member => FC2020Data.participants.includes(member.data.name))}
-      imageGetter={imageGetter}
-    />
-      
-    <KnockoutMatches
-      knockoutMatches={knockoutMatches}
-      imageGetter={imageGetter}
-    />
-    <div class="prose dark:prose-invert bg-white dark:bg-green-900 shadow-lg rounded-lg p-6 my-8 w-full max-w-4xl mx-auto">
-       <h2 class="text-2xl font-semibold mb-4 text-gray-900 dark:text-white border-b pb-2 border-gray-200 dark:border-green-600">Tournament Notes</h2>
-       <Content /> {/* Renderiza el contenido del archivo .md asociado al torneo */}
-       {/* Si no hay Content, puedes poner un mensaje por defecto */}
-    </div>
-
-    </main>
+  </main>
 </App>

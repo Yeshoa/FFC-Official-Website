@@ -18,7 +18,7 @@ const tournamentsCollection = await getCollection('tournaments');
 const matchesCollection = await getCollection('matches');
 const membersCollection = await getCollection('members');
 
-const TOURNAMENT_ID = 1;
+const TOURNAMENT_ID = 2;
 const tournamentEntry = tournamentsCollection.find(t => t.data.id === TOURNAMENT_ID);
 
 if (!tournamentEntry) {
@@ -26,16 +26,16 @@ if (!tournamentEntry) {
   return Astro.redirect('/404');
 }
 
-const FC2022Data = tournamentEntry.data;
+const FC2024Data = tournamentEntry.data;
 const { Content } = await tournamentEntry.render();
 
 // Matches
-const fc2022Matches = matchesCollection
+const fc2024Matches = matchesCollection
   .filter(match => match.data.tournament_id === TOURNAMENT_ID)
   .sort((a, b) => a.data.date.getTime() - b.data.date.getTime()); // Ordenar por fecha
-const knockoutMatches = fc2022Matches.filter(match => match.data.stage === 'knockout');
+const knockoutMatches = fc2024Matches.filter(match => match.data.stage === 'knockout');
 
-import FC22Logo from '../../assets/images/tournaments/2022/logo.png'; 
+import FC24Logo from '../../assets/images/tournaments/2024/banner.png'; 
 import AllGoalsHero from '../../assets/images/hero2.png';
 
 // Importación dinámica para banderas/logos de miembros
@@ -69,30 +69,30 @@ const slides = [
 ];
 
 // *** ¡IMPORTANTE! Adaptación de datos para Grupos y Partidos ***
-// El código original itera sobre `FC2022.stages` para mostrar tablas y listas de partidos.
-// Asumiremos que `FC2022Data` (de la colección) contiene la estructura de stages/groups/tables.
-// Para los *partidos específicos* dentro de cada grupo/fixture, usaremos `fc2022Matches` filtrados.
+// El código original itera sobre `FC2024.stages` para mostrar tablas y listas de partidos.
+// Asumiremos que `FC2024Data` (de la colección) contiene la estructura de stages/groups/tables.
+// Para los *partidos específicos* dentro de cada grupo/fixture, usaremos `fc2024Matches` filtrados.
 
 // Función auxiliar para encontrar los partidos de una fixture específica (si es necesario)
-// Nota: Esto puede ser complejo si la estructura de `FC2022Data` no coincide perfectamente
-// con cómo quieres mostrar los partidos de `fc2022Matches`.
+// Nota: Esto puede ser complejo si la estructura de `FC2024Data` no coincide perfectamente
+// con cómo quieres mostrar los partidos de `fc2024Matches`.
 const getMatchesForFixture = (stageName?: string, groupName?: string, fixtureName?: string) => {
-    return fc2022Matches.filter(m =>
+    return fc2024Matches.filter(m =>
         (!stageName || m.data.stage === stageName) &&
         (!groupName || m.data.group === groupName) &&
         (!fixtureName || m.data.fixture === fixtureName)
     );
 }
 
-const pageTitle = `FFC - ${FC2022Data.name || 'Forest Cup'}`;
+const pageTitle = `FFC - ${FC2024Data.name || 'Forest Cup'}`;
 const winner = getMatchWinner(getMatchesForFixture('knockout', undefined, 'Final')[0].data); 
 ---
 
 <App title={pageTitle}>
   <main class="flex flex-col items-center">
     <div class="flex flex-col justify-center items-center pb-6 bg-gradient-to-r from-transparent to-transparent via-black/20 w-full">
-      <TournamentGrid currentTournament={FC2022Data}/>
-       <Image src={FC22Logo} alt={`${FC2022Data.name} Logo`} class="max-w-7xl lg:w-4xl md:w-2xl xl:w-auto sm:w-lg w-sm" loading={"eager"}/>
+      <TournamentGrid currentTournament={FC2024Data}/>
+       <Image src={FC24Logo} alt={`${FC2024Data.name} Logo`} class="max-w-7xl lg:w-4xl md:w-2xl xl:w-auto sm:w-lg w-sm" loading={"eager"}/>
        <div class="flex justify-between items-start h-full p-6 gap-6">
          <div class="flex flex-col gap-6 items-center">
            {winner && (
@@ -107,7 +107,7 @@ const winner = getMatchWinner(getMatchesForFixture('knockout', undefined, 'Final
              </div>
            )}
            {/* Si no tienes 'champion', usa 'participants' o ajusta la lógica */}
-           {!winner && FC2022Data.participants && (
+           {!winner && FC2024Data.participants && (
               <p class="text-xl text-gray-400 italic">(Winner details not specified in prizes, showing participants)</p>
               // Aquí podrías mostrar info del final si la tienes
            )}
@@ -140,12 +140,12 @@ const winner = getMatchWinner(getMatchesForFixture('knockout', undefined, 'Final
     </div>
 
     <div class="flex flex-col justify-center items-center w-full gap-4 py-4">
-      <Bracket matches={fc2022Matches} tournament={FC2022Data} imageGetter={imageGetter} />
+      <Bracket matches={fc2024Matches} tournament={FC2024Data} imageGetter={imageGetter} />
     </div>
 
     <Groups
-      matches={fc2022Matches}
-      participants={membersCollection.filter(member => FC2022Data.participants.includes(member.data.name))}
+      matches={fc2024Matches}
+      participants={membersCollection.filter(member => FC2024Data.participants.includes(member.data.name))}
       imageGetter={imageGetter}
     />
       

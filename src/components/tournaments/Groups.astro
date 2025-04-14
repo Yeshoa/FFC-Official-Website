@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets';
+import MatchCardCompact from '../MatchCard.astro'; // Asegúrate de importar el componente necesario
 
 // Props:
 const { matches, participants, imageGetter } = Astro.props;
@@ -75,15 +76,21 @@ function generateGroupTable(matches) {
   }));
 }
 ---
-{Object.entries(matchesByGroup).map(([groupName, groupMatches]) => {
-  const table = generateGroupTable(groupMatches);
-  return (
-    <div class="mt-6 w-full px-4">
-      <div class="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-4 gap-4 w-full">
-        <div class="flex flex-col justify-start items-center text-center bg-green-950/80 p-4 rounded-2xl w-full">
+
+{/* Contenedor principal con margen/padding - FUERA DEL MAP */}
+<div class="mt-6 w-full px-4">
+  {/* Contenedor de la CUADRÍCULA - FUERA DEL MAP */}
+  <div class="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-4 gap-4 w-full">
+    {/* AHORA el .map está DENTRO de la cuadrícula */}
+    {Object.entries(matchesByGroup).map(([groupName, groupMatches]) => {
+      const table = generateGroupTable(groupMatches);
+      return (
+        // ESTE div es el elemento individual de la cuadrícula (un grupo)
+        // Añadimos la 'key' aquí
+        <div key={groupName} class="flex flex-col justify-start items-center text-center bg-green-950/80 p-4 rounded-2xl w-full">
           <h4 class="text-4xl font-bold text-white mb-3">{groupName}</h4>
           {table.length > 0 ? (
-            <table class="w-full text-sm">
+            <table class="w-full text-sm mb-2">
               <thead>
                 <tr class="border-b border-green-600">
                   <th class="px-1 py-1 text-left">#</th>
@@ -99,7 +106,8 @@ function generateGroupTable(matches) {
               </thead>
               <tbody>
                 {table.map(team => (
-                  <tr class="border-b border-green-700 last:border-b-0">
+                  // Añadir key aquí también es buena práctica si 'team.team' es único
+                  <tr key={team.team} class="border-b border-green-700 last:border-b-0">
                     <td class="px-1 py-1.5 text-left">{team.position}</td>
                     <td class="px-1 py-1.5 text-left flex items-center gap-2 whitespace-nowrap">
                       {imageGetter(team.team) ? (
@@ -123,8 +131,24 @@ function generateGroupTable(matches) {
           ) : (
             <p class="text-gray-400 italic">No data available.</p>
           )}
-        </div>
-      </div>
-    </div>
-  );
-})}
+          {/* Matches */}
+          {groupMatches.length > 0 ? (
+            <div class="grid grid-rows-1 gap-2 w-full justify-center items-center">
+              {groupMatches
+                .map(match => (
+                <MatchCardCompact
+                  key={match.id} // Usa un ID único del partido si lo tienes
+                  match={match.data}
+                  imageGetter={imageGetter}
+                />
+              ))}
+            </div>
+          ) : (
+             <p class="text-gray-400 italic text-center w-full">No matches found for this group.</p>
+          )}
+          {/* --- FIN NUEVA SECCIÓN --- */}
+        </div> // Fin del div de un grupo
+      );
+    })} {/* Fin del .map */}
+  </div> {/* Fin del div de la cuadrícula */}
+</div> {/* Fin del div contenedor principal */}

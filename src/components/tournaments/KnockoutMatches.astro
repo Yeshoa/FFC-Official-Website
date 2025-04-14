@@ -1,0 +1,76 @@
+---
+import MatchCard from '../MatchCard.astro';
+import type { CollectionEntry } from 'astro:content'; // Asumo que usas Astro Content Collections
+
+interface MatchData {
+  tournament_id: number;
+  stage: string;
+  fixture: string;
+  team1: string;
+  team2: string;
+  status: string;
+  date: string;
+  link?: string;
+  goals?: Array<{
+    team: string;
+    player: string;
+    minute: number;
+  }>;
+}
+
+interface Props {
+  knockoutMatches: Array<{ id?: string; data: MatchData }>;
+  imageGetter: (teamName: string | undefined) => (() => Promise<{ default: any }>) | null;
+}
+
+const { knockoutMatches, imageGetter } = Astro.props as Props;
+
+// Agrupar partidos por fixture
+const matchesByFixture: Record<string, Array<{ id?: string; data: MatchData }>> = knockoutMatches.reduce((acc, match) => {
+  const fixture = match.data.fixture || 'Unknown';
+  if (!acc[fixture]) acc[fixture] = [];
+  acc[fixture].push(match);
+  return acc;
+}, {});
+
+// Ordenar fixtures
+const sortedFixtures: string[] = Object.keys(matchesByFixture).sort((a, b) => {
+  const order = ['Round of 16', 'Quarter Finals', 'Semi Finals', 'Final'];
+  return order.indexOf(a) - order.indexOf(b);
+});
+---
+
+<div class="flex flex-col justify-center items-center p-6 w-full lg:w-11/12 gap-8 mt-8">
+  {knockoutMatches.length > 0 ? (
+    sortedFixtures.map(fixture => {
+      const gridClasses = fixture.toLowerCase().includes('round of 16') || fixture.toLowerCase().includes('octavos')
+        ? 'grid grid-cols-1 md:grid-cols-2 gap-4'
+        : fixture.toLowerCase().includes('quarter') || fixture.toLowerCase().includes('cuartos')
+        ? 'grid grid-cols-1 md:grid-cols-2 gap-4'
+        : fixture.toLowerCase().includes('semi') || fixture.toLowerCase().includes('semifinales')
+        ? 'grid grid-cols-1 md:grid-cols-2 gap-4'
+        : fixture.toLowerCase().includes('final')
+        ? 'flex justify-center items-center'
+        : 'grid grid-cols-1 gap-4';
+
+      return (
+        <div class="w-full" key={fixture}>
+          <h3 class="text-4xl font-bold text-white text-center mb-6">{fixture}</h3>
+          <div class={gridClasses}>
+            {matchesByFixture[fixture]
+              .sort((a, b) => new Date(a.data.date).getTime() - new Date(b.data.date).getTime())
+              .map(match => (
+                <MatchCard
+                  key={match.id || `${match.data.team1}-${match.data.team2}`}
+                  match={match.data}
+                  imageGetter={imageGetter}
+                />
+              ))}
+          </div>
+        </div>
+      );
+    })
+  ) : (
+    <p class="text-gray-400 italic">No knockout matches found for this tournament.</p>
+  )}
+</div>
