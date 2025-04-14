@@ -111,7 +111,7 @@ function generateGroupTable(matches) {
                     <td class="px-1 py-1.5 text-left">{team.position}</td>
                     <td class="px-1 py-1.5 text-left flex items-center gap-2 whitespace-nowrap">
                       {imageGetter(team.team) ? (
-                        <Image src={imageGetter(team.team)!()} alt={team.team} class="h-5 w-8 rounded-md object-cover ring-1 ring-green-600" loading="lazy" inferSize={true} />
+                        <Image src={imageGetter(team.team)!()} alt={team.team} class="h-5 w-8 rounded-md object-cover ring-1 ring-green-600" width={48} height={48} loading="lazy" inferSize={true} />
                       ) : (
                         <span class="inline-block h-5 w-8 bg-green-600 rounded-md"></span>
                       )}

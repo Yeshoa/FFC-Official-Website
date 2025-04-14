@@ -15,7 +15,9 @@ type Match = CollectionEntry<'matches'>['data'];
 type Member = CollectionEntry<'members'>['data'];
 
 const tournamentsCollection = await getCollection('tournaments');
-const matchesCollection = await getCollection('matches');
+// const matchesCollection = await getCollection('matches');
+const matchesCollection = (await getCollection('matches'))
+  .filter(match => match.slug.startsWith('forest-cup-2024/'));
 const membersCollection = await getCollection('members');
 
 const TOURNAMENT_ID = 2;
@@ -31,7 +33,7 @@ const { Content } = await tournamentEntry.render();
 
 // Matches
 const fc2024Matches = matchesCollection
-  .filter(match => match.data.tournament_id === TOURNAMENT_ID)
+  /* .filter(match => match.data.tournament_id === TOURNAMENT_ID) */
   .sort((a, b) => a.data.date.getTime() - b.data.date.getTime()); // Ordenar por fecha
 const knockoutMatches = fc2024Matches.filter(match => match.data.stage === 'knockout');
 

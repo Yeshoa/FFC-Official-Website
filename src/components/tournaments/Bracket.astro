@@ -1,7 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import BracketMatchCard from './BracketMatchCard.astro';
-import MatchCardCompact from '../MatchCardCompact.astro';
+// import BracketMatchCard from '../MatchCardCompact.astro';
 import trophy from '/src/assets/images/tournaments/trophy.png';
 
 interface Props {
@@ -53,63 +53,71 @@ const winnerTeam = (() => {
        : null; // Empate (no debería ocurrir en una final)
 })();
 ---
-<div class="w-full py-8 px-4 rounded-lg">
+<div class="w-full py-8 px-4 rounded-lg bg-gradient-to-r from-green-950/80 via-green-900 to-green-950/80">
   <h2 class="text-2xl font-bold text-center mb-8">Final Bracket</h2>
 
   <div class="flex flex-col justify-center items-center w-full">
-    <div class="flex items-center w-full max-w-7xl gap-4">
-      <!-- Cuartos de final (izquierda) -->
+    <div class="flex items-center w-full max-w-[96rem] gap-4">
+      {roundOf16Matches.length >= 8 && (
+        <div class="w-1/5 flex flex-col gap-8">
+          {roundOf16Matches.slice(0, 4).map(match => (
+            <BracketMatchCard match={match} imageGetter={imageGetter} />
+          ))}
+        </div>
+      )}
+    
       <div class="w-1/5 flex flex-col gap-8">
-        {quarterFinalMatches.slice(0, 2).map((match: any) => (
+        {quarterFinalMatches.slice(0, 2).map(match => (
           <BracketMatchCard match={match} imageGetter={imageGetter} />
         ))}
       </div>
-
-      <!-- Semifinal (izquierda) -->
+    
       <div class="w-1/5 flex justify-center items-center">
-        <div class="w-full">
-          {semiFinalMatches.length > 0 && (
-            <BracketMatchCard match={semiFinalMatches[0]} imageGetter={imageGetter} />
-          )}
-        </div>
-      </div>
-
-      <!-- Final (centro) -->
-      <div class="w-1/5 flex flex-col items-center justify-center">
-        <div class="w-full mb-4">
-          {finalMatch && (
-            <BracketMatchCard match={finalMatch} imageGetter={imageGetter} />
-          )}
-        </div>
-
-        {finalMatch && winnerTeam && (
-          <div class="flex flex-col items-center justify-center mt-4 bg-green-950/70 p-4 rounded-2xl text-2xl font-bold w-full">
-            <Image src={trophy} alt="Trophy" class="w-auto h-20" />
-            {imageGetter(winnerTeam) ? (
-              <Image src={imageGetter(winnerTeam)!} alt={winnerTeam} class="w-auto h-20" />
-            ) : (
-              <div class="w-20 h-20 bg-gray-600 rounded-lg" />
-            )}
-            {winnerTeam}
-          </div>
+        {semiFinalMatches[0] && (
+          <BracketMatchCard match={semiFinalMatches[0]} imageGetter={imageGetter} />
         )}
       </div>
-
-      <!-- Semifinal (derecha) -->
-      <div class="w-1/5 flex justify-center items-center">
-        <div class="w-full">
-          {semiFinalMatches.length > 1 && (
-            <BracketMatchCard match={semiFinalMatches[1]} imageGetter={imageGetter} />
-          )}
-        </div>
+    
+      <!-- Final -->
+      <div class="w-1/5 flex flex-col items-center justify-center">
+        {finalMatch && (
+          <>
+            <BracketMatchCard match={finalMatch} imageGetter={imageGetter} />
+            {winnerTeam && (
+              <div class="flex flex-col items-center justify-center mt-4 bg-green-950/70 p-4 rounded-2xl text-2xl font-bold w-full">
+                <Image src={trophy} alt="Trophy" class="w-auto h-20" />
+                {imageGetter(winnerTeam) ? (
+                  <Image src={imageGetter(winnerTeam)!} alt={winnerTeam} class="w-auto h-20" />
+                ) : (
+                  <div class="w-20 h-20 bg-gray-600 rounded-lg" />
+                )}
+                {winnerTeam}
+              </div>
+            )}
+          </>
+        )}
       </div>
-
-      <!-- Cuartos de final (derecha) -->
+    
+      <div class="w-1/5 flex justify-center items-center">
+        {semiFinalMatches[1] && (
+          <BracketMatchCard match={semiFinalMatches[1]} imageGetter={imageGetter} />
+        )}
+      </div>
+    
       <div class="w-1/5 flex flex-col gap-8">
-        {quarterFinalMatches.slice(2, 4).map((match: any) => (
+        {quarterFinalMatches.slice(2, 4).map(match => (
           <BracketMatchCard match={match} imageGetter={imageGetter} />
         ))}
       </div>
+    
+      {roundOf16Matches.length >= 8 && (
+        <div class="w-1/5 flex flex-col gap-8">
+          {roundOf16Matches.slice(4, 8).map(match => (
+            <BracketMatchCard match={match} imageGetter={imageGetter} />
+          ))}
+        </div>
+      )}
     </div>
+    
   </div>
 </div>

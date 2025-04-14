@@ -83,7 +83,8 @@ const formattedDate = match.data.status === 'scheduled'
     <div class="flex items-center justify-between">
       <div class="flex items-center space-x-2">
         {imageGetter(match.data.team1) ? (
-          <Image src={imageGetter(match.data.team1)!()} alt={match.data.team1} class="w-6 h-6 object-contain" />
+          <Image src={imageGetter(match.data.team1)!()} alt={match.data.team1} class="w-6 h-6 object-contain" width={24} 
+          height={24}/>
         ) : (
           <div class="w-6 h-6 bg-gray-600 rounded-md"></div>
         )}
@@ -95,7 +96,7 @@ const formattedDate = match.data.status === 'scheduled'
         <div class="flex items-center">
           <span class="font-medium">{team1Goals}</span>
           {hasPenalties && (
-            <span class="text-gray-500 text-xs ml-1">({team1Penalties})</span>
+            <span class="text-gray-400 text-xs ml-1">({team1Penalties})</span>
           )}
         </div>
       ) : (
@@ -107,7 +108,8 @@ const formattedDate = match.data.status === 'scheduled'
     <div class="flex items-center justify-between">
       <div class="flex items-center space-x-2">
         {imageGetter(match.data.team2) ? (
-          <Image src={imageGetter(match.data.team2)!()} alt={match.data.team2} class="w-6 h-6 object-contain" />
+          <Image src={imageGetter(match.data.team2)!()} alt={match.data.team2} class="w-6 h-6 object-contain" width={24} 
+          height={24}/>
         ) : (
           <div class="w-6 h-6 bg-gray-600 rounded-md"></div>
         )}
@@ -119,7 +121,7 @@ const formattedDate = match.data.status === 'scheduled'
         <div class="flex items-center">
           <span class="font-medium">{team2Goals}</span>
           {hasPenalties && (
-            <span class="text-gray-500 text-xs ml-1">({team2Penalties})</span>
+            <span class="text-gray-400 text-xs ml-1">({team2Penalties})</span>
           )}
         </div>
       ) : (
@@ -135,10 +137,10 @@ const formattedDate = match.data.status === 'scheduled'
     )}
 
     {/* Enlace al video si existe */}
-    {match.data.link && (
+    <!-- {match.data.link && (
       <a href={match.data.link} class="text-white text-sm hover:underline mt-2 inline-block" target="_blank" rel="noopener noreferrer">
         Video
       </a>
-    )}
+    )} -->
   </div>
 </div>
