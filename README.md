@@ -30,6 +30,17 @@ Website built with **Astro**. Showcases tournaments, match details, and national
   - ✅ Render custom **text content** from the Markdown file
 
 - [ ] **Elaborate the Matches page (by slug)**  
+&nbsp;&nbsp;&nbsp;&nbsp;Improve Tournaments pages:
+  - [ ] `Banner`: An image of the champions, with their flag-name and maybe the trophy
+  - [ ] `Headlines`: A component with relevant media.
+  - ✅ `Brackets`: Missing the flag of the champions in the center.
+  - ✅ `Groups and Matches`
+  - ✅ `Knockout Matches`
+  - [ ] `Individual Prizes`
+  - [ ] `Overall Table`
+  - [ ] `Minor Stats or gallery`
+
+- [ ] **Elaborate the Matches page (by slug)**  
 &nbsp;&nbsp;&nbsp;&nbsp;Collection by markdown DONE✅. Page should show all the match info: [Example](https://www.promiedos.com.ar/game/borussia-dortmund-vs-real-madrid/ebcejgh)
 
 - [ ] **Create "sign up" form**  
@@ -43,19 +54,6 @@ Website built with **Astro**. Showcases tournaments, match details, and national
 
 ---
 
-## 🗃️ Backend
-
-- [ ] **Migrate existing TypeScript collections to Markdown**  
-&nbsp;&nbsp;&nbsp;&nbsp;Use Astro’s Content Collections for better content organization and markdown-powered routing. _(High priority, in progress)_
-  - ✅ Members
-  - ✅ Matches
-  - 💬 Tournaments - Should have a type and edition (FC uses years: 2020, 2022, 2024, 2026)
-  - [ ] ~~Flags~~
-  
-- [ ] **Create dynamic pages for each tournament (by ID/slug)**  
-&nbsp;&nbsp;&nbsp;&nbsp;Needs collections in Markdown first. Each tournament should have its own route like `/tournament/fc-2022`.
-
----
 
 ## 🎨 Frontend Tasks
 
@@ -70,5 +68,19 @@ Website built with **Astro**. Showcases tournaments, match details, and national
 
 - [ ] **Improve match cards**  
 &nbsp;&nbsp;&nbsp;&nbsp;Match card having a button to display goal scorers instead of hovering.
+
+---
+
+## 🗃️ Backend
+
+- ✅ **Migrate existing TypeScript collections to Markdown**  
+&nbsp;&nbsp;&nbsp;&nbsp;Use Astro’s Content Collections for better content organization and markdown-powered routing.
+  - ✅ Members
+  - ✅ Matches
+  - ✅ Tournaments - Should have a type and edition (FC uses years: 2020, 2022, 2024, 2026)
+  - ❌ ~~Flags~~ _Discarded_
+  
+- ❌ **Create dynamic pages for each tournament (by ID/slug)** _Discarded: Using static versions instead_ 
+&nbsp;&nbsp;&nbsp;&nbsp;Needs collections in Markdown first. Each tournament should have its own route like `/tournament/fc-2022`.
 
 ---
