@@ -1,0 +1,138 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  members: {
+    id: number;
+    name: string;
+    slug: string;
+    flagPath?: string;
+  }[];
+  matches: {
+    tournament_id: number;
+    team1: string;
+    team2: string;
+    goals?: {
+      team: string;
+      player: string;
+      minute: number;
+      penalty?: boolean;
+      ownGoal?: boolean;
+      assist?: string;
+    }[];
+  }[];
+  tournamentId?: number; // Para filtrar por torneo específico (opcional)
+}
+
+const { members, matches, tournamentId } = Astro.props;
+
+const filteredMatches = tournamentId
+  ? matches.filter(m => m.tournament_id === tournamentId)
+  : matches;
+
+const goalStats = new Map<string, { player: string; team: string; goals: number }>();
+const assistStats = new Map<string, { player: string; team: string; assists: number }>();
+
+const singleTeam = members.length === 1 ? members[0].data.name : null; // Si hay un solo miembro, filtrar por su nombre
+
+for (const match of filteredMatches) {
+  if (!match.goals) continue;
+
+  for (const goal of match.goals) {
+    if (singleTeam && goal.team !== singleTeam) continue; // Si hay un solo miembro, no mostrar goles de otros equipos
+    const key = `${goal.player}-${goal.team}`;
+
+    // Goleadores
+    if (!goal.ownGoal) {
+      if (!goalStats.has(key)) {
+        goalStats.set(key, { player: goal.player, team: goal.team, goals: 1 });
+      } else {
+        goalStats.get(key)!.goals++;
+      }
+    }
+
+    // Asistencias (si existe el campo)
+    if (goal.assist) {
+      const assistKey = `${goal.assist}-${goal.team}`;
+      if (!assistStats.has(assistKey)) {
+        assistStats.set(assistKey, { player: goal.assist, team: goal.team, assists: 1 });
+      } else {
+        assistStats.get(assistKey)!.assists++;
+      }
+    }
+  }
+}
+
+const topScorers = Array.from(goalStats.values()).sort((a, b) => b.goals - a.goals).slice(0, 10);
+const topAssisters = Array.from(assistStats.values()).sort((a, b) => b.assists - a.assists).slice(0, 10);
+
+const flagImages = import.meta.glob<{ default: ImageMetadata }>('/src/assets/images/members/*.{jpeg,jpg,png,gif,svg}');
+const getFlag = (memberName: string) => {
+  const member = members.find(m => m.name === memberName);
+  const flagPath = member?.flagPath;
+  return flagPath && flagImages[flagPath]();
+};
+---
+
+<section class="container px-4 pb-12 pt-6 flex justify-center items-center flex-col">
+  <div class="overflow-x-auto mb-12 w-full">
+    <h2 class="text-3xl font-bold text-center mb-6">Top Scorers</h2>
+    <table class="min-w-full text-sm border border-green-700 rounded-lg overflow-hidden">
+      <thead>
+        <tr class="bg-green-800 text-white">
+          <th class="px-4 py-2 text-left">Player</th>
+          {members.length !== 1 && <th class="px-4 py-2 text-left">Team</th>}
+          <th class="px-4 py-2 text-right">Goals</th>
+        </tr>
+      </thead>
+      <tbody>
+        {topScorers.map((entry, index) => (
+          <tr class="border-b border-green-700 hover:bg-green-900/30 transition duration-150" key={index}>
+            <td class="px-4 py-2 font-semibold">{entry.player}</td>
+            {members.length !== 1 && ( // Si hay más de un miembro, mostrar el equipo
+              <td class="px-4 py-2 flex items-center gap-2">
+                <a href={`/members/${members.find(m => m.name === entry.team)?.slug}`} class="flex items-center gap-2 hover:underline">
+                  {getFlag(entry.team) && (
+                    <Image src={getFlag(entry.team)} alt={entry.team} class="w-6 h-4 object-cover rounded" height={36} width={36} />
+                  )}{entry.team}
+                </a>
+              </td>
+            )}
+            <td class="px-4 py-2 text-right font-bold">{entry.goals}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="overflow-x-auto w-full">
+    <h2 class="text-3xl font-bold text-center mb-6">Top Assists</h2>
+    <table class="min-w-full text-sm border border-green-700 rounded-lg overflow-hidden">
+      <thead>
+        <tr class="bg-green-800 text-white">
+          <th class="px-4 py-2 text-left">Player</th>
+          {members.length !== 1 &&<th class="px-4 py-2 text-left">Team</th>}
+          <th class="px-4 py-2 text-right">Assists</th>
+        </tr>
+      </thead>
+      <tbody>
+        {topAssisters.map((entry, index) => (
+          <tr class="border-b border-green-700 hover:bg-green-900/30 transition duration-150" key={index}>
+            <td class="px-4 py-2 font-semibold">{entry.player}</td>
+            {members.length !== 1 && ( // Si hay más de un miembro, mostrar el equipo
+              <td class="px-4 py-2 flex items-center gap-2">
+                <a href={`/members/${members.find(m => m.name === entry.team)?.slug}`} class="flex items-center gap-2 hover:underline">
+                  {getFlag(entry.team) && (
+                    <Image src={getFlag(entry.team)} alt={entry.team} class="w-6 h-4 object-cover rounded" height={36} width={36} />
+                  )}{entry.team}
+                </a>
+              </td>
+            )}
+            <td class="px-4 py-2 text-right font-bold">{entry.assists}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</section>

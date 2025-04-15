@@ -1,6 +1,7 @@
 ---
 // import HistoricalTable from '../components/react/HistoricalTable';
-import Table from '../components/HistoricalTable.astro';
+import Table from '../components/tournaments/HistoricalTable.astro';
+import ScorersTable from '../components/tournaments/ScorersTable.astro';
 import FCCard from '../components/FCCard.astro';
 import App from '../layouts/App.astro';
 import { Image } from 'astro:assets';
@@ -67,8 +68,13 @@ const matches = matchEntries.map((entry) => entry.data);
       </div>
     </div>
     <!-- List tournaments -->
+    <!-- Stats and Top Scorers -->
+    <div class="container grid grid-cols-1 md:grid-cols-2 gap-6 mb-12 border-t border-green-600 items-start">
+      <Table members={members} matches={matches} />
+      <ScorersTable members={members} matches={matches} />
+
+    </div>
     <!-- Table -->
-    <Table members={members} matches={matches} />
     <!-- <HistoricalTable members={members} matches={matches}/> -->
   </main>
 </App>

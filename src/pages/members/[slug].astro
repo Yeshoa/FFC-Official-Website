@@ -2,12 +2,15 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
 import { Image } from 'astro:assets';
 import App from '../../layouts/App.astro';
+import ScorersTable from '../../components/tournaments/ScorersTable.astro';
 
 type Member = CollectionEntry<'members'>['data'];
 type Match = CollectionEntry<'matches'>['data'];
+type Tournament = CollectionEntry<'tournaments'>['data'];
 
 const members = await getCollection('members');
 const matches = await getCollection('matches');
+const tournaments = await getCollection('tournaments');
 
 // --- Parámetro de URL y Miembro Actual ---
 const { slug } = Astro.params;
@@ -144,7 +147,7 @@ const logoImage = getImage(member.logoPath);
   <div class="container mx-auto px-4 py-8">
 
     {/* Profile*/}
-    <div class="bg-white dark:bg-green-900 shadow-lg rounded-lg p-6 mb-8 flex flex-col md:flex-row items-center gap-6">
+    <div class="bg-white dark:bg-green-950/80 shadow-lg rounded-lg p-6 mb-8 flex flex-col md:flex-row items-center gap-6">
       {/* Logos and Info */}
       <div class="flex flex-col items-center md:items-start gap-4">
         <div class="flex gap-4 items-center">
@@ -237,16 +240,15 @@ const logoImage = getImage(member.logoPath);
     </div>
 
     {/* Markdown Content */}
-    <div class="prose dark:prose-invert max-w-none bg-white dark:bg-green-900 shadow-lg rounded-lg p-6 mb-8">
+    <div class="prose dark:prose-invert max-w-none bg-white dark:bg-green-950/80 shadow-lg rounded-lg p-6 mb-8">
        <h2 class="text-2xl font-semibold mb-4 text-gray-900 dark:text-white border-b pb-2 border-gray-200 dark:border-green-600">About {member.federation || member.name}</h2>
       <Content />
     </div>
 
     {/* Matches and Stats*/}
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-
       {/* Last Played */}
-      <div class="bg-white dark:bg-green-900 shadow-lg rounded-lg p-6">
+      <div class="bg-white dark:bg-green-950/80 shadow-lg rounded-lg p-6">
         <h2 class="text-2xl font-semibold mb-4 text-gray-900 dark:text-white border-b pb-2 border-gray-200 dark:border-green-600">Last Matches Played</h2>
         {playedMatches.length > 0 ? (
           <ul class="space-y-4">
@@ -254,7 +256,7 @@ const logoImage = getImage(member.logoPath);
               <li class="border border-gray-200 dark:border-green-600 rounded-md p-4 hover:bg-gray-50 dark:hover:bg-green-800 transition duration-150 ease-in-out">
                 <div class="flex justify-between items-center mb-1">
                   <span class="text-sm text-gray-500 dark:text-gray-300">
-                    {match.tournament_id ? `Tournament ${match.tournament_id}` : ''}{match.fixture ? ` - ${match.fixture}` : ''}
+                    {match.tournament_id ? `${tournaments.find(t => t.data.id === match.tournament_id)?.data.name}` : ''}{match.fixture ? ` - ${match.fixture}` : ''}
                   </span>
                    {match.link && (
                       <a href={match.link} target="_blank" rel="noopener noreferrer" class="text-xs text-blue-400 hover:underline">Watch Match</a>
@@ -314,26 +316,26 @@ const logoImage = getImage(member.logoPath);
         )}
       </div>
 
-      {/* Head-to-Head */}
-      <div class="bg-white dark:bg-green-900 shadow-lg rounded-lg p-6">
+      {/* Stats */}
+      <div class="bg-white dark:bg-green-950/80 shadow-lg rounded-lg p-6">
         <h2 class="text-2xl font-semibold mb-4 text-gray-900 dark:text-white border-b pb-2 border-gray-200 dark:border-green-600">Historic Head-to-Head</h2>
         {Object.keys(h2hStats).length > 0 ? (
           <div class="overflow-x-auto">
-            <table class="min-w-full divide-y divide-gray-200 dark:divide-green-700">
-              <thead class="bg-gray-50 dark:bg-green-800">
-                <tr>
-                  <th scope="col" class="px-4 py-2 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider">Opponent</th>
-                  <th scope="col" class="px-2 py-2 text-center text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider" title="Goles en Contra">Dif</th>
-                  <th scope="col" class="px-2 py-2 text-center text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider" title="Partidos Jugados">Pld</th>
-                  <th scope="col" class="px-2 py-2 text-center text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider" title="Victorias">W</th>
-                  <th scope="col" class="px-2 py-2 text-center text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider" title="Empates">D</th>
-                  <th scope="col" class="px-2 py-2 text-center text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider" title="Derrotas">L</th>
-                  <th scope="col" class="px-2 py-2 text-center text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider" title="Goles a Favor">GF</th>
-                  <th scope="col" class="px-2 py-2 text-center text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider" title="Goles en Contra">GA</th>
-                  <th scope="col" class="px-2 py-2 text-center text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider" title="Goles en Contra">GD</th>
+            <table class="min-w-full border border-green-700 overflow-hidden rounded-lg text-sm">
+              <thead>
+                <tr class="bg-green-800 text-white">
+                  <th scope="col" class="px-4 py-2 text-left tracking-wider">Opponent</th>
+                  <th scope="col" class="px-1 py-2 text-center tracking-wider" title="Goles en Contra">Dif</th>
+                  <th scope="col" class="px-1 py-2 text-center tracking-wider" title="Partidos Jugados">Pld</th>
+                  <th scope="col" class="px-1 py-2 text-center tracking-wider" title="Victorias">W</th>
+                  <th scope="col" class="px-1 py-2 text-center tracking-wider" title="Empates">D</th>
+                  <th scope="col" class="px-1 py-2 text-center tracking-wider" title="Derrotas">L</th>
+                  <th scope="col" class="px-1 py-2 text-center tracking-wider" title="Goles a Favor">GF</th>
+                  <th scope="col" class="px-1 py-2 text-center tracking-wider" title="Goles en Contra">GA</th>
+                  <th scope="col" class="px-1 py-2 text-center tracking-wider" title="Goles en Contra">GD</th>
                 </tr>
               </thead>
-              <tbody class="bg-white dark:bg-green-900 divide-y divide-gray-200 dark:divide-green-700">
+              <tbody>
                 {Object.entries(h2hStats)
                 .sort(([, a], [, b]) => {
                   // partidos jugados
@@ -352,36 +354,33 @@ const logoImage = getImage(member.logoPath);
                 })
                 .map(([opponentName, stats]) => (
                   <tr key={opponentName} 
-                  class="hover:bg-gray-50 dark:hover:bg-green-800">
-                    <td class="px-4 py-2 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
+                  class="border-b border-green-700 hover:bg-green-900/30 transition duration-150">
+                    <td class="px-4 py-2 whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                      <a href={`/members/${members.find(m => m.data.name === opponentName)?.slug}`} class="flex items-center gap-2 hover:underline">
                       <Image
                         src={getImage(members.find(m => m.data.name === opponentName)?.data.flagPath)}
                         alt={opponentName}
-                        class="h-6 w-10 rounded-xl object-cover ring-1 ring-green-700 inline-block mr-2"
-                        width={42}
-                        height={42}
+                        class="w-6 h-4 object-cover rounded" height={36} width={36}
                         loading="lazy"
-                      />
-                      <a href={`/members/${members.find(m => m.data.name === opponentName)?.slug}`} class="hover:underline">
-                        {opponentName}
+                      />{opponentName}
                       </a>
                     </td>
-                    <td class={`}px-2 py-2 whitespace-nowrap text-sm text-center text-gray-500 dark:text-gray-300 font-bold
+                    <td class={`px-1 py-2 whitespace-nowrap text-center text-gray-500 dark:text-green-200 font-bold
                     ${
                       stats.difference > 0
-                        ? 'bg-green-600 dark:bg-green-700'
+                        ? 'text-green-600 dark:text-green-400'
                         : stats.difference < 0
-                        ? 'bg-red-600 dark:bg-red-700'
-                        : 'bg-gray-500 dark:bg-gray-500 text-'
+                        ? 'text-red-600 dark:text-red-400'
+                        : 'text-gray-500 dark:text-gray-300'
                     }`}
-                    >{stats.difference}</td>
-                    <td class="px-2 py-2 whitespace-nowrap text-sm text-center text-gray-500 dark:text-gray-300">{stats.played}</td>
-                    <td class="px-2 py-2 whitespace-nowrap text-sm text-center text-green-600 dark:text-green-400">{stats.wins}</td>
-                    <td class="px-2 py-2 whitespace-nowrap text-sm text-center text-yellow-600 dark:text-yellow-400">{stats.draws}</td>
-                    <td class="px-2 py-2 whitespace-nowrap text-sm text-center text-red-600 dark:text-red-400">{stats.losses}</td>
-                    <td class="px-2 py-2 whitespace-nowrap text-sm text-center text-gray-500 dark:text-gray-300">{stats.goalsFor}</td>
-                    <td class="px-2 py-2 whitespace-nowrap text-sm text-center text-gray-500 dark:text-gray-300">{stats.goalsAgainst}</td>
-                    <td class="px-2 py-2 whitespace-nowrap text-sm text-center text-gray-500 dark:text-gray-300">{stats.goalsFor - stats.goalsAgainst}</td>
+                    >{stats.difference === 0 ? '-' : stats.difference > 0 ? `+${stats.difference}` : stats.difference}</td>
+                    <td class="px-1 py-2 whitespace-nowrap text-center text-gray-500 dark:text-green-200">{stats.played}</td>
+                    <td class="px-1 py-2 whitespace-nowrap text-center text-green-600 dark:text-green-400">{stats.wins}</td>
+                    <td class="px-1 py-2 whitespace-nowrap text-center text-yellow-600 dark:text-yellow-400">{stats.draws}</td>
+                    <td class="px-1 py-2 whitespace-nowrap text-center text-red-600 dark:text-red-400">{stats.losses}</td>
+                    <td class="px-1 py-2 whitespace-nowrap text-center text-gray-500 dark:text-green-200">{stats.goalsFor}</td>
+                    <td class="px-1 py-2 whitespace-nowrap text-center text-gray-500 dark:text-green-200">{stats.goalsAgainst}</td>
+                    <td class="px-1 py-2 whitespace-nowrap text-center text-gray-500 dark:text-green-200">{stats.goalsFor - stats.goalsAgainst}</td>
                   </tr>
                 ))}
               </tbody>
@@ -390,8 +389,9 @@ const logoImage = getImage(member.logoPath);
         ) : (
           <p class="text-gray-500 dark:text-gray-400 italic">There are no stats to show for this National Team</p>
         )}
+      <ScorersTable members={members.filter(m => m.slug === slug)} matches={playedMatches} />
       </div>
-
+      {/* Top Scorers and Top Assists */}
     </div>
 
   </div>

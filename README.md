@@ -25,6 +25,7 @@ Website built with **Astro**. Showcases tournaments, match details, and national
   - [ ] ~~Uniform image~~
   - [ ] ~~Sponsor list~~
   - ⚠ Component showing **head-to-head stats** against other national teams (only those they've played)
+  - ✅ Component showing **Top Scorers and Assists**
   - [ ] **Records section** [Example](https://es.wikipedia.org/wiki/Selección_de_fútbol_de_Argentina#Récords_y_notas)
   - [ ] **Achievements section** (only Forest Cup for now)
   - ✅ Render custom **text content** from the Markdown file
@@ -60,7 +61,7 @@ Website built with **Astro**. Showcases tournaments, match details, and national
 - [ ] **Make Tailwind designs more responsive**  
 &nbsp;&nbsp;&nbsp;&nbsp;Improve layout for various screen sizes, mobile and tablets.
 
-- [ ] **Use `<Image />` component where possible**  
+- [ ] **Use `<Image />` component where possible and optimize their size**  
 &nbsp;&nbsp;&nbsp;&nbsp;Try to optimize image rendering. If issues arise, consider moving image directories to `public/`.
 
 - [ ] **Build reusable components for tournament pages**  

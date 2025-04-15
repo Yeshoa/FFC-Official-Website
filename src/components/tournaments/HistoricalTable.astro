@@ -5,7 +5,7 @@ import { Image } from 'astro:assets';
 import {
   getMatchResult,
   getGoalsByTeam,
-} from '../lib/matchUtils.ts';
+} from '../../lib/matchUtils.ts';
 
 // Importamos las imágenes de los miembros
 const images = import.meta.glob<{ default: ImageMetadata }>("/src/assets/images/members/*.{jpeg,jpg,png,gif,svg}");
@@ -132,12 +132,12 @@ const sortedStats = Object.values(teamStats).sort((a, b) => {
 });
 ---
 
-<div class="container mx-auto p-6 flex flex-col justify-center items-center border-t border-green-600">
-  <h1 class="text-4xl font-bold mb-6">Historical Table</h1>
-  <table class="min-w-full w-full table-auto border-collapse text-sm sm:text-base">
-    <thead class="bg-green-900 text-white">
+<div class="container mx-auto p-6 flex flex-col justify-center items-center">
+  <h1 class="text-3xl font-bold mb-6">Historical Table</h1>
+  <table class="min-w-full w-full table-auto border-collapse text-sm">
+    <thead class="bg-green-800 text-white">
       <tr>
-        <th class="px-2 py-2 text-center rounded-tl-2xl">Pos</th>
+        <th class="px-4 py-2 text-center rounded-tl-lg">Pos</th>
         <th class="px-2 py-2 text-center"></th>
         <th class="px-2 py-2 text-left">Team</th>
         <th class="px-2 py-2 text-center">TP</th>
@@ -150,32 +150,31 @@ const sortedStats = Object.values(teamStats).sort((a, b) => {
         <th class="px-2 py-2 text-center">GA</th>
         <th class="px-2 py-2 text-center">GD</th>
         <!-- <th class="px-2 py-2 text-center">TW</th> -->
-        <th class="py-2 text-center rounded-tr-2xl">PR</th>
+        <th class="px-4 text-center rounded-tr-lg">PR</th>
       </tr>
     </thead>
     <tbody class=" text-center">
       {sortedStats.map((team, index) => (
-        <tr class="border-b border-gray-200 hover:bg-green-800/50">
+        <tr class="border-b border-green-700 hover:bg-green-900/30 transition duration-150">
           <td class="px-2 py-2">{index + 1}</td>
           <td class="px-2 py-2">
             {team.flagPath && <Image src={images[team.flagPath]()} alt={team.name} 
             width={32} 
             height={32}
-            class="h-6 w-auto rounded-xl object-cover ring-1 ring-green-700 inline-block" />}
+            class="h-6 w-auto object-cover rounded inline-block" />}
           </td>
-          <td class="px-2 py-2 text-left">
-            <a href={`/members/${members.find(m => m.name === team.name)?.slug}`} class="hover:underline">{team.name}</a></td>
-          <td class="px-2 py-2">{team.tournamentsPlayed.size}</td>
+          <td class="px-2 py-2 text-left"><a href={`/members/${members.find(m => m.name === team.name)?.slug}`} class="font-semibold hover:underline">{team.name}</a></td>
+          <td class="px-2 py-2 text-green-200">{team.tournamentsPlayed.size}</td>
           <td class="px-2 py-2 font-bold">{team.totalPoints}{team.additionalPoints > 0 && '*'}</td>
-          <td class="px-2 py-2">{team.played}</td>
-          <td class="px-2 py-2">{team.won}</td>
-          <td class="px-2 py-2">{team.draw}</td>
-          <td class="px-2 py-2">{team.lost}</td>
-          <td class="px-2 py-2">{team.goalsFor}</td>
-          <td class="px-2 py-2">{team.goalsAgainst}</td>
-          <td class="px-2 py-2">{team.goalsFor - team.goalsAgainst}</td>
+          <td class="px-2 py-2 text-green-200">{team.played}</td>
+          <td class="px-2 py-2 text-green-200">{team.won}</td>
+          <td class="px-2 py-2 text-green-200">{team.draw}</td>
+          <td class="px-2 py-2 text-green-200">{team.lost}</td>
+          <td class="px-2 py-2 text-green-200">{team.goalsFor}</td>
+          <td class="px-2 py-2 text-green-200">{team.goalsAgainst}</td>
+          <td class="px-2 py-2 text-green-200">{team.goalsFor - team.goalsAgainst}</td>
           {/* <td class="px-2 py-2">{team.tournamentsWon}</td> */}
-          <td class="py-2">{team.performance.toFixed(2)}</td>
+          <td class="px-2 py-2">{team.performance.toFixed(2)}</td>
         </tr>
       ))}
     </tbody>

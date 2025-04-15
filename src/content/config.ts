@@ -24,7 +24,6 @@ const tournamentsCollection = defineCollection({
     banner: z.string().optional(), // Banner del torneo
     edition: z.number(),
     participants: z.array(z.string()), // Referencia a members
-    flags: z.array(z.string()).optional(), // Referencia a las imágenes de banderas de ese año
     images: z.array(
       z.object({
         src: z.string(),
@@ -38,28 +37,6 @@ const tournamentsCollection = defineCollection({
       bestPlayer: z.object({ player: z.string(), team: z.string() }).optional(),
       bestGoalkeeper: z.object({ player: z.string(), team: z.string() }).optional(),
     }).optional(),
-    /* stages: z.array(
-      z.object({
-        type: z.enum(["group", "knockout"]),
-        name: z.string(), // "Group A", "Quarter Finals", etc.
-        groups: z.array(
-          z.object({
-            name: z.string(),
-            table: z.array(
-              z.object({
-                position: z.number(),
-                team: z.string(),
-                wins: z.number(),
-                draws: z.number(),
-                losses: z.number(),
-                goals_for: z.number(),
-                goals_against: z.number(),
-              })
-            ),
-          })
-        ).optional(),
-      })
-    ).optional(), */
   }),
 });
 
