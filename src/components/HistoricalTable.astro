@@ -158,7 +158,10 @@ const sortedStats = Object.values(teamStats).sort((a, b) => {
         <tr class="border-b border-gray-200 hover:bg-green-800/50">
           <td class="px-2 py-2">{index + 1}</td>
           <td class="px-2 py-2">
-            {team.flagPath && <Image src={images[team.flagPath]()} alt={team.name} class="h-6 w-auto rounded-xl object-cover ring-1 ring-green-700 inline-block" />}
+            {team.flagPath && <Image src={images[team.flagPath]()} alt={team.name} 
+            width={32} 
+            height={32}
+            class="h-6 w-auto rounded-xl object-cover ring-1 ring-green-700 inline-block" />}
           </td>
           <td class="px-2 py-2 text-left">
             <a href={`/members/${members.find(m => m.name === team.name)?.slug}`} class="hover:underline">{team.name}</a></td>

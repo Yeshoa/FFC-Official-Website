@@ -153,6 +153,8 @@ const logoImage = getImage(member.logoPath);
               src={flagImage}
               alt={`${member.name}'s flag'`}
               class="h-16 w-auto md:h-20 object-contain rounded border border-gray-200 dark:border-green-600"
+              width={128}
+              height={128}
               loading="eager"
             />
           )}
@@ -166,6 +168,8 @@ const logoImage = getImage(member.logoPath);
             src={logoImage}
             alt={`${member.federation || member.name}'s Logo'`}
             class="w-16 h-auto md:w-48 object-contain rounded"
+            width={256}
+            height={256}
             loading="eager"
           />
         )}
@@ -263,6 +267,8 @@ const logoImage = getImage(member.logoPath);
                       src={getImage(members.find(m => m.data.name === match.team1)?.data.flagPath)}
                       alt={match.team1}
                       class="h-6 w-10 rounded-xl object-cover ring-1 ring-green-700 inline-block mr-2"
+                      width={42}
+                      height={42}
                       loading="lazy"
                     />
                     <a href={`/members/${members.find(m => m.data.name === match.team1)?.slug}`} class={`hover:underline ${match.team1 === member.name ? 'font-bold' : 'font-normal'}`}>{match.team1}</a>
@@ -280,7 +286,9 @@ const logoImage = getImage(member.logoPath);
                     <Image
                       src={getImage(members.find(m => m.data.name === match.team2)?.data.flagPath)}
                       alt={match.team2}
-                      class="h-6 w-9 rounded-xl object-cover ring-1 ring-green-700 inline-block ml-2"
+                      class="h-6 w-10 rounded-xl object-cover ring-1 ring-green-700 inline-block ml-2"
+                      width={42}
+                      height={42}
                       loading="lazy"
                     />
                   </div>
@@ -350,6 +358,8 @@ const logoImage = getImage(member.logoPath);
                         src={getImage(members.find(m => m.data.name === opponentName)?.data.flagPath)}
                         alt={opponentName}
                         class="h-6 w-10 rounded-xl object-cover ring-1 ring-green-700 inline-block mr-2"
+                        width={42}
+                        height={42}
                         loading="lazy"
                       />
                       <a href={`/members/${members.find(m => m.data.name === opponentName)?.slug}`} class="hover:underline">
