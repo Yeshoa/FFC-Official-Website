@@ -1,6 +1,12 @@
 ---
 import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
+
+
+type Member = CollectionEntry<'members'>['data'];
+
+const members = await getCollection('members');
 
 interface Goal {
   team: string;
@@ -88,9 +94,9 @@ const formattedDate = match.data.status === 'scheduled'
         ) : (
           <div class="w-6 h-6 bg-gray-600 rounded-md"></div>
         )}
-        <span class={`${winner === match.data.team1 ? 'font-bold' : 'font-medium'}`}>
+        <a class={`${winner === match.data.team1 ? 'font-bold' : 'font-medium'} hover:underline`} href={`/members/${members.find(m => m.data.name === match.data.team1)?.slug}`}>
           {match.data.team1}
-        </span>
+        </a>
       </div>
       {isPlayed ? (
         <div class="flex items-center">
@@ -113,9 +119,9 @@ const formattedDate = match.data.status === 'scheduled'
         ) : (
           <div class="w-6 h-6 bg-gray-600 rounded-md"></div>
         )}
-        <span class={`${winner === match.data.team2 ? 'font-bold' : 'font-medium'}`}>
+        <a class={`${winner === match.data.team2 ? 'font-bold' : 'font-medium'} hover:underline` } href={`/members/${members.find(m => m.data.name === match.data.team2)?.slug}`}>
           {match.data.team2}
-        </span>
+        </a>
       </div>
       {isPlayed ? (
         <div class="flex items-center">

@@ -31,8 +31,8 @@ const filteredMatches = tournamentId
   ? matches.filter(m => m.tournament_id === tournamentId)
   : matches;
 
-const goalStats = new Map<string, { player: string; team: string; goals: number }>();
-const assistStats = new Map<string, { player: string; team: string; assists: number }>();
+const goalStats = new Map<string, { player: string; team: string; goals: number; assists: number }>();
+const assistStats = new Map<string, { player: string; team: string; assists: number; goals: number }>();
 
 const singleTeam = members.length === 1 ? members[0].data.name : null; // Si hay un solo miembro, filtrar por su nombre
 
@@ -42,30 +42,63 @@ for (const match of filteredMatches) {
   for (const goal of match.goals) {
     if (singleTeam && goal.team !== singleTeam) continue; // Si hay un solo miembro, no mostrar goles de otros equipos
     const key = `${goal.player}-${goal.team}`;
-
     // Goleadores
     if (!goal.ownGoal) {
       if (!goalStats.has(key)) {
-        goalStats.set(key, { player: goal.player, team: goal.team, goals: 1 });
+        goalStats.set(key, {
+          player: goal.player,
+          team: goal.team,
+          goals: 1,
+          assists: 0,
+        });
       } else {
-        goalStats.get(key)!.goals++;
+        const entry = goalStats.get(key)!;
+        entry.goals++;
       }
+    } else {
+      console.log('Own goal:', goal);
+    }
+    
+    if (assistStats.has(key)) {
+      assistStats.get(key)!.goals++;
     }
 
     // Asistencias (si existe el campo)
     if (goal.assist) {
       const assistKey = `${goal.assist}-${goal.team}`;
       if (!assistStats.has(assistKey)) {
-        assistStats.set(assistKey, { player: goal.assist, team: goal.team, assists: 1 });
+        assistStats.set(assistKey, {
+          player: goal.assist,
+          team: goal.team,
+          assists: 1,
+          goals: 0,
+        });
       } else {
-        assistStats.get(assistKey)!.assists++;
+        const entry = assistStats.get(assistKey)!;
+        entry.assists++;
+      }
+
+      // Actualizar goles del asistente
+      if (goalStats.has(assistKey)) {
+        goalStats.get(assistKey)!.assists++;
       }
     }
   }
-}
+}   
 
-const topScorers = Array.from(goalStats.values()).sort((a, b) => b.goals - a.goals).slice(0, 10);
-const topAssisters = Array.from(assistStats.values()).sort((a, b) => b.assists - a.assists).slice(0, 10);
+const topScorers = Array.from(goalStats.values())
+  .sort((a, b) =>
+    b.goals - a.goals ||
+    b.assists - a.assists
+  )
+  .slice(0, 10);
+
+const topAssisters = Array.from(assistStats.values())
+  .sort((a, b) =>
+    b.assists - a.assists ||
+    b.goals - a.goals
+  )
+  .slice(0, 10);
 
 const flagImages = import.meta.glob<{ default: ImageMetadata }>('/src/assets/images/members/*.{jpeg,jpg,png,gif,svg}');
 const getFlag = (memberName: string) => {

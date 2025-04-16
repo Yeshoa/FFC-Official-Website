@@ -1,10 +1,13 @@
 ---
 import { Image } from 'astro:assets';
-import type { CollectionEntry } from 'astro:content';
+import { getCollection, type CollectionEntry } from 'astro:content';
 import type { ImageMetadata } from 'astro';
 import GoalIcon from '../assets/images/goal.png';
 
 type MatchData = CollectionEntry<'matches'>['data'];
+type Member = CollectionEntry<'members'>['data'];
+
+const members = await getCollection('members');
 
 interface MatchCardProps { // Renombrado de FCCardProps
   match: MatchData;
@@ -40,7 +43,7 @@ const team2ImagePromiseFn = imageGetter(match.team2);
   <div class="grid grid-cols-7 items-center w-full gap-2 mb-2">
     {/* Equipo 1 */}
     <div class="flex items-center justify-end col-span-3 gap-2 text-right overflow-hidden">
-      <span class="font-semibold md:text-lg truncate">{match.team1}</span>
+      <a class="font-semibold md:text-lg truncate hover:underline" href={`/members/${members.find(m => m.data.name === match.team1)?.slug}`}>{match.team1}</a>
       {team1ImagePromiseFn ? (
         <Image
           src={team1ImagePromiseFn()}
@@ -86,7 +89,7 @@ const team2ImagePromiseFn = imageGetter(match.team2);
       ) : (
         <div class="h-5 w-8 md:h-6 md:w-9 bg-gray-600 rounded-sm flex-shrink-0"></div>
       )}
-      <span class="font-semibold md:text-lg truncate">{match.team2}</span>
+      <a class="font-semibold md:text-lg truncate hover:underline" href={`/members/${members.find(m => m.data.name === match.team2)?.slug}`}>{match.team2}</a>
     </div>
   </div>
 
