@@ -55,7 +55,7 @@ const matchesCollection = defineCollection({
     goals: z.array(
       z.object({
         team: z.string(),
-        player: z.string(),
+        player: z.string().optional(),
         minute: z.number(),
         aggregate: z.number().optional(),
         penalty: z.boolean().default(false).optional(),
@@ -101,20 +101,10 @@ const membersCollection = defineCollection({
   }),
 });
 
-const flagsCollection = defineCollection({
-  type: 'content',
-  schema: z.object({
-    id: z.number(),
-    team: z.string(), // Nombre del país
-    year: z.number(),
-    flagPath: z.string(), // Imagen de la bandera en ese año
-  }),
-});
 
 export const collections = {
   'tournaments': tournamentsCollection,
   /* 'forest-cup': forestCupCollection, */
   'matches': matchesCollection,
   'members': membersCollection,
-  'flags': flagsCollection,
 };

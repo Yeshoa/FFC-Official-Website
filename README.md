@@ -30,7 +30,7 @@ Website built with **Astro**. Showcases tournaments, match details, and national
   - [ ] **Achievements section** (only Forest Cup for now)
   - ✅ Render custom **text content** from the Markdown file
 
-- [ ] **Elaborate the Matches page (by slug)**  
+- [ ] **Elaborate the Tournaments page (by slug)**  
 &nbsp;&nbsp;&nbsp;&nbsp;Improve Tournaments pages:
   - [ ] `Banner`: An image of the champions, with their flag-name and maybe the trophy
   - [ ] `Headlines`: A component with relevant media.
