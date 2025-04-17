@@ -1,14 +1,11 @@
 ---
 import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
+import { getMemberImage } from '../../lib/memberUtils';
+import type { CollectionEntry } from 'astro:content';
 
 interface Props {
-  members: {
-    id: number;
-    name: string;
-    slug: string;
-    flagPath?: string;
-  }[];
+  members: CollectionEntry<'members'>[];
   matches: {
     tournament_id: number;
     team1: string;
@@ -55,8 +52,6 @@ for (const match of filteredMatches) {
         const entry = goalStats.get(key)!;
         entry.goals++;
       }
-    } else {
-      console.log('Own goal:', goal);
     }
     
     if (assistStats.has(key)) {
@@ -99,13 +94,6 @@ const topAssisters = Array.from(assistStats.values())
     b.goals - a.goals
   )
   .slice(0, 10);
-
-const flagImages = import.meta.glob<{ default: ImageMetadata }>('/src/assets/images/members/*.{jpeg,jpg,png,gif,svg}');
-const getFlag = (memberName: string) => {
-  const member = members.find(m => m.name === memberName);
-  const flagPath = member?.flagPath;
-  return flagPath && flagImages[flagPath]();
-};
 ---
 
 <section class="container px-4 pb-12 pt-6 flex justify-center items-center flex-col">
@@ -125,10 +113,9 @@ const getFlag = (memberName: string) => {
             <td class="px-4 py-2 font-semibold">{entry.player}</td>
             {members.length !== 1 && ( // Si hay más de un miembro, mostrar el equipo
               <td class="px-4 py-2 flex items-center gap-2">
-                <a href={`/members/${members.find(m => m.name === entry.team)?.slug}`} class="flex items-center gap-2 hover:underline">
-                  {getFlag(entry.team) && (
-                    <Image src={getFlag(entry.team)} alt={entry.team} class="w-6 h-4 object-cover rounded" height={36} width={36} />
-                  )}{entry.team}
+                <a href={`/members/${members.find(m => m.data.name === entry.team)?.slug}`} class="flex items-center gap-2 hover:underline">
+                  <Image src={getMemberImage(entry.team, members)} alt={entry.team} class="w-6 h-4 object-cover rounded" height={36} width={36} />
+                  {entry.team}
                 </a>
               </td>
             )}
@@ -155,10 +142,9 @@ const getFlag = (memberName: string) => {
             <td class="px-4 py-2 font-semibold">{entry.player}</td>
             {members.length !== 1 && ( // Si hay más de un miembro, mostrar el equipo
               <td class="px-4 py-2 flex items-center gap-2">
-                <a href={`/members/${members.find(m => m.name === entry.team)?.slug}`} class="flex items-center gap-2 hover:underline">
-                  {getFlag(entry.team) && (
-                    <Image src={getFlag(entry.team)} alt={entry.team} class="w-6 h-4 object-cover rounded" height={36} width={36} />
-                  )}{entry.team}
+                <a href={`/members/${members.find(m => m.data.name === entry.team)?.slug}`} class="flex items-center gap-2 hover:underline">
+                  <Image src={getMemberImage(entry.team, members)} alt={entry.team} class="w-6 h-4 object-cover rounded" height={36} width={36} />
+                  {entry.team}
                 </a>
               </td>
             )}

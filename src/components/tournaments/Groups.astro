@@ -1,9 +1,14 @@
 ---
 import { Image } from 'astro:assets';
-import MatchCardCompact from '../MatchCard.astro'; // Asegúrate de importar el componente necesario
+import MatchCard from '../MatchCard.astro'; // Asegúrate de importar el componente necesario
+import { getMemberImage } from '../../lib/memberUtils';
 
 // Props:
-const { matches, participants, imageGetter } = Astro.props;
+interface Props {
+  matches: any[]; // Lista de partidos del torneo
+  members: any[];
+}
+const { matches, members } = Astro.props;
 // Filtrar partidos de fase de grupos
 const groupStageMatches = matches.filter(m => m.data.stage?.toLowerCase().includes('group'));
 
@@ -20,7 +25,7 @@ function generateGroupTable(matches) {
   const table = {};
 
   for (const match of matches) {
-    const { team1, team2, goals = [] } = match.data;
+    const { team1, team2, goals = [], cards = [] } = match.data;
 
     // Inicializar si no existe
     for (const team of [team1, team2]) {
@@ -33,6 +38,8 @@ function generateGroupTable(matches) {
           goals_for: 0,
           goals_against: 0,
           points: 0,
+          yellow_cards: 0,
+          red_cards: 0
         };
       }
     }
@@ -60,6 +67,15 @@ function generateGroupTable(matches) {
       table[team1].points += 1;
       table[team2].points += 1;
     }
+
+    for (const card of cards) {
+      if (!table[card.team]) continue;
+      if (card.type === 'yellow') {
+        table[card.team].yellow_cards += 1;
+      } else if (card.type === 'red') {
+        table[card.team].red_cards += 1;
+      }
+    }
   }
 
   // Convertir a array y calcular GD
@@ -69,7 +85,9 @@ function generateGroupTable(matches) {
   })).sort((a, b) =>
     b.points - a.points ||
     b.goals_difference - a.goals_difference ||
-    b.goals_for - a.goals_for
+    b.goals_for - a.goals_for ||
+    a.red_cards - b.red_cards ||
+    a.yellow_cards - b.yellow_cards
   ).map((team, index) => ({
     ...team,
     position: index + 1,
@@ -110,12 +128,8 @@ function generateGroupTable(matches) {
                   <tr key={team.team} class="border-b border-green-700 last:border-b-0">
                     <td class="px-1 py-1.5 text-left">{team.position}</td>
                     <td class="px-1 py-1.5 text-left flex items-center gap-2 whitespace-nowrap">
-                      {imageGetter(team.team) ? (
-                        <Image src={imageGetter(team.team)!()} alt={team.team} class="h-5 w-8 rounded-md object-cover ring-1 ring-green-600" width={48} height={48} loading="lazy" inferSize={true} />
-                      ) : (
-                        <span class="inline-block h-5 w-8 bg-green-600 rounded-md"></span>
-                      )}
-                      <a href={`/members/${participants.find(p => p.data.name === team.team)?.slug}`} class="hover:underline">{team.team}</a>
+                    <Image src={getMemberImage(team.team, members)!} alt={team.team} class="h-5 w-8 rounded-md object-cover ring-1 ring-green-600" width={48} height={48} loading="lazy" inferSize={true} />
+                    <a href={`/members/${members.find(m => m.data.name === team.team)?.slug}`} class="hover:underline">{team.team}</a>
                     </td>
                     <td class="px-1 py-1.5 font-semibold">{team.points}</td>
                     <td class="px-1 py-1.5 hidden sm:table-cell">{team.wins}</td>
@@ -136,10 +150,10 @@ function generateGroupTable(matches) {
             <div class="grid grid-rows-1 gap-2 w-full justify-center items-center">
               {groupMatches
                 .map(match => (
-                <MatchCardCompact
+                <MatchCard
                   key={match.id} // Usa un ID único del partido si lo tienes
                   match={match.data}
-                  imageGetter={imageGetter}
+                  members={members}
                 />
               ))}
             </div>

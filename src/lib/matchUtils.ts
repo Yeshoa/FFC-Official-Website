@@ -6,9 +6,9 @@ export function getMatchWinner(match: Match): string | null {
   if (match.status !== 'played' || !match.goals) return null;
   const goals = getGoalsByTeam(match);
   return goals.team1 > goals.team2
-    ? match.team1
-    : goals.team2 > goals.team1
-    ? match.team2
+  ? match.team1
+  : goals.team2 > goals.team1
+  ? match.team2
     : null;
 }
 

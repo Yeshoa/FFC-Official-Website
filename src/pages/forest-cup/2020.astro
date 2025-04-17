@@ -9,6 +9,8 @@ import Groups from '../../components/tournaments/Groups.astro';
 import KnockoutMatches from '../../components/tournaments/KnockoutMatches.astro';
 import TournamentGrid from '../../components/tournaments/TournamentGrid.astro'; 
 import { getMatchWinner } from '../../lib/matchUtils.ts';
+import { getMemberImage } from '../../lib/memberUtils';
+
 
 type Tournament = CollectionEntry<'tournaments'>['data'];
 type Match = CollectionEntry<'matches'>['data'];
@@ -40,26 +42,6 @@ const knockoutMatches = fc2020Matches.filter(match => match.data.stage === 'knoc
 import FC20Logo from '../../assets/images/tournaments/2020/logo.png'; 
 import FCLogo from '../../assets/images/tournaments/forest-cup.png';
 
-// Importación dinámica para banderas/logos de miembros
-const memberImages = import.meta.glob<{ default: ImageMetadata }>('/src/assets/images/members/*.{jpeg,jpg,png,gif,svg,webp}');
-
-// Image Helper
-const getMemberImage = (memberName: string | undefined) => {
-  if (!memberName) return null;
-  const member = membersCollection.find(m => m.data.name === memberName);
-  const imagePath = member?.data.flagPath; 
-  if (!imagePath || !memberImages[imagePath]) {
-    console.warn(`Imagen no encontrada para el miembro: ${memberName} en la ruta: ${imagePath}`);
-    return null;
-  }
-  return memberImages[imagePath]; // Función dinámica
-};
-
-// Para el Bracket y MatchCards, necesitamos pasar una forma de obtener las imágenes.
-// Podemos pasar la función `getMemberImage` o un objeto pre-procesado.
-// Pasemos la función por ahora, asumiendo que los componentes pueden manejarla.
-const imageGetter = getMemberImage;
-
 // Función auxiliar para encontrar los partidos de una fixture específica (si es necesario)
 // Nota: Esto puede ser complejo si la estructura de `FC2020Data` no coincide perfectamente
 // con cómo quieres mostrar los partidos de `fc2020Matches`.
@@ -84,8 +66,8 @@ const winner = getMatchWinner(getMatchesForFixture('knockout', undefined, 'Final
         <div class="flex flex-col gap-6 items-center">
           {winner && (
             <div class="flex items-center gap-6">
-              {imageGetter(winner) && (
-                <Image src={imageGetter(winner)!()} alt={`${winner} Flag`} class="h-24 w-auto rounded-xl object-cover ring-1 ring-green-700" loading={"eager"} />
+              {getMemberImage(winner, membersCollection) && (
+                <Image src={getMemberImage(winner, membersCollection)!} alt={`${winner} Flag`} class="h-24 w-auto rounded-xl object-cover ring-1 ring-green-700" loading={"eager"} />
               )}
               <h1 class="text-5xl font-bold">{winner}</h1>
             </div>
@@ -103,18 +85,16 @@ const winner = getMatchWinner(getMatchesForFixture('knockout', undefined, 'Final
     </div>
 
     <div class="flex flex-col justify-center items-center w-full gap-4 py-4">
-      <Bracket matches={fc2020Matches} tournament={FC2020Data} imageGetter={imageGetter} />
+      <Bracket matches={fc2020Matches} members={membersCollection} />
     </div>
 
     <Groups
       matches={fc2020Matches}
-      participants={membersCollection.filter(member => FC2020Data.participants.includes(member.data.name))}
-      imageGetter={imageGetter}
+      members={membersCollection.filter(member => FC2020Data.participants.includes(member.data.name))}
     />
       
     <KnockoutMatches
-      knockoutMatches={knockoutMatches}
-      imageGetter={imageGetter}
+      knockoutMatches={knockoutMatches} members={membersCollection} 
     />
     <div class="prose dark:prose-invert bg-white dark:bg-green-900 shadow-lg rounded-lg p-6 my-8 w-full max-w-4xl mx-auto">
        <h2 class="text-2xl font-semibold mb-4 text-gray-900 dark:text-white border-b pb-2 border-gray-200 dark:border-green-600">Tournament Notes</h2>

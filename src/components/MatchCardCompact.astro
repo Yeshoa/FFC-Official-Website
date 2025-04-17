@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
+import { getMemberImage } from '../lib/memberUtils';
 import type { ImageMetadata } from 'astro';
 
 // Definir el tipo para los datos de un partido según el schema
@@ -8,13 +9,10 @@ type MatchData = CollectionEntry<'matches'>['data'];
 
 interface Props {
   match: MatchData; // Usar el tipo derivado del schema
-  // El imageGetter devuelve la función import() o null
-  imageGetter: (teamName: string | undefined) => (() => Promise<{ default: ImageMetadata }>) | null;
-  // Opcional: pasar miembros para enlaces, etc. (no usado en este ejemplo)
-  // members?: CollectionEntry<'members'>[];
+  members: CollectionEntry<'members'>[];
 }
 
-const { match, imageGetter } = Astro.props;
+const { match, members } = Astro.props;
 
 // --- Calcular Marcador Base (Goles en el partido) ---
 const goals = match.goals ?? [];
@@ -55,8 +53,8 @@ const getWinner = (): string | 'Draw' => {
 const winner = getWinner();
 
 // --- Obtener Imágenes (Llamar a la función que devuelve la promesa) ---
-const team1ImagePromiseFn = imageGetter(match.team1);
-const team2ImagePromiseFn = imageGetter(match.team2);
+const team1ImagePromiseFn = getMemberImage(match.team1, members);
+const team2ImagePromiseFn = getMemberImage(match.team2, members);
 
 ---
 
@@ -66,7 +64,7 @@ const team2ImagePromiseFn = imageGetter(match.team2);
       <div class="flex items-center space-x-2 overflow-hidden mr-2">
         {team1ImagePromiseFn ? (
           <Image
-            src={team1ImagePromiseFn()}
+            src={team1ImagePromiseFn}
             alt={match.team1}
             class="w-5 h-5 object-contain flex-shrink-0 rounded-sm"
             loading="lazy"
@@ -89,7 +87,7 @@ const team2ImagePromiseFn = imageGetter(match.team2);
        <div class="flex items-center space-x-2 overflow-hidden mr-2">
         {team2ImagePromiseFn ? (
           <Image
-            src={team2ImagePromiseFn()}
+            src={team2ImagePromiseFn}
             alt={match.team2}
             class="w-5 h-5 object-contain flex-shrink-0 rounded-sm"
             loading="lazy"

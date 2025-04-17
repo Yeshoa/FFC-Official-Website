@@ -1,10 +1,11 @@
 ---
 import { getCollection, type CollectionEntry } from 'astro:content';
 import { Image } from 'astro:assets';
+import { getMemberImage, getMemberLogo } from '../../lib/memberUtils';
 import App from '../../layouts/App.astro';
 import ScorersTable from '../../components/tournaments/ScorersTable.astro';
+import MatchCard from '../../components/MatchCard.astro';
 
-type Member = CollectionEntry<'members'>['data'];
 type Match = CollectionEntry<'matches'>['data'];
 type Tournament = CollectionEntry<'tournaments'>['data'];
 
@@ -139,9 +140,8 @@ const getImage = (path: string | undefined) => {
     return images[path](); // Llama a la función para obtener la promesa/metadato
 }
 
-const flagImage = getImage(member.flagPath);
-const logoImage = getImage(member.logoPath);
-
+const flagImage = getMemberImage(member.name, members);
+const logoImage = getMemberLogo(member.name, members);
 ---
 <App title={`FFC - ${member.name}`}>
   <div class="container mx-auto px-4 py-8">
@@ -251,66 +251,20 @@ const logoImage = getImage(member.logoPath);
       <div class="bg-white dark:bg-green-950/80 shadow-lg rounded-lg p-6">
         <h2 class="text-2xl font-semibold mb-4 text-gray-900 dark:text-white border-b pb-2 border-gray-200 dark:border-green-600">Last Matches Played</h2>
         {playedMatches.length > 0 ? (
-          <ul class="space-y-4">
-            {playedMatches.map((match) => (
-              <li class="border border-gray-200 dark:border-green-600 rounded-md p-4 hover:bg-gray-50 dark:hover:bg-green-800 transition duration-150 ease-in-out">
-                <div class="flex justify-between items-center mb-1">
-                  <span class="text-sm text-gray-500 dark:text-gray-300">
-                    {match.tournament_id ? `${tournaments.find(t => t.data.id === match.tournament_id)?.data.name}` : ''}{match.fixture ? ` - ${match.fixture}` : ''}
-                  </span>
-                   {match.link && (
-                      <a href={match.link} target="_blank" rel="noopener noreferrer" class="text-xs text-blue-400 hover:underline">Watch Match</a>
-                   )}
-                </div>
-                {/* DIVIDIR EN DIVS PARA QUE ESTÉ EL RESULTADO EN EL CENTRO */}
-                <div class="grid grid-cols-3 items-center font-medium text-gray-800 dark:text-gray-200">
-                  <div class="flex items-center justify-start">
-                    <Image
-                      src={getImage(members.find(m => m.data.name === match.team1)?.data.flagPath)}
-                      alt={match.team1}
-                      class="h-6 w-10 rounded-xl object-cover ring-1 ring-green-700 inline-block mr-2"
-                      width={42}
-                      height={42}
-                      loading="lazy"
-                    />
-                    <a href={`/members/${members.find(m => m.data.name === match.team1)?.slug}`} class={`hover:underline ${match.team1 === member.name ? 'font-bold' : 'font-normal'}`}>{match.team1}</a>
-                  </div>
-
-                  <div class="flex items-center justify-center">
-                    <span class="text-lg font-bold mx-2">
-                      {match.score1} - {match.score2}
-                      {match.penaltiesInfo && <span class="text-sm font-normal ml-1">{match.penaltiesInfo}</span>}
-                    </span>
-                  </div>
-
-                  <div class="flex items-center justify-end">
-                    <a href={`/members/${members.find(m => m.data.name === match.team2)?.slug}`} class={`hover:underline ${match.team2 === member.name ? 'font-bold' : 'font-normal'}`}>{match.team2}</a>
-                    <Image
-                      src={getImage(members.find(m => m.data.name === match.team2)?.data.flagPath)}
-                      alt={match.team2}
-                      class="h-6 w-10 rounded-xl object-cover ring-1 ring-green-700 inline-block ml-2"
-                      width={42}
-                      height={42}
-                      loading="lazy"
-                    />
-                  </div>
-                </div>
-                {/* Show scorers*/}
-                {match.goals && match.goals.length > 0 && (
-                  <details class="mt-2 text-xs text-gray-600 dark:text-gray-300">
-                      <summary class="cursor-pointer hover:text-gray-800 dark:hover:text-gray-200">Goals</summary>
-                      <ul class="list-disc list-inside pl-2 mt-1">
-                          {match.goals.map((goal, index) => (
-                              <li key={index}>
-                                  {goal.player} ({goal.minute}') {goal.penalty ? '(P)' : ''} [{goal.team}]
-                              </li>
-                          ))}
-                      </ul>
-                  </details>
-                )}
-              </li>
-            ))}
-          </ul>
+          <div class="space-y-4">
+            {playedMatches.map((match) => {
+              const tournament = tournaments.find(t => t.data.id === match.tournament_id);
+              const tournamentUrl = tournament ? `/${tournament.data.type}/${tournament.data.edition}` : '';
+              const tournamentName = tournament?.data.name ?? '';
+              return(
+              <span class="text-sm text-gray-500 dark:text-gray-300 ml-3">
+                <a href={tournamentUrl} class="hover:underline">{tournamentName}</a>
+                {match.group ? ` - Group ${match.group}` : ''}
+                {match.fixture ? ` - ${match.fixture}` : ''}
+              </span>
+              <MatchCard match={match} members={members} />
+            )})}
+          </div>
         ) : (
           <p class="text-gray-500 dark:text-gray-400 italic">This National Team hasn't played any matches yet.</p>
         )}
@@ -358,7 +312,7 @@ const logoImage = getImage(member.logoPath);
                     <td class="px-4 py-2 whitespace-nowrap font-medium text-gray-900 dark:text-white">
                       <a href={`/members/${members.find(m => m.data.name === opponentName)?.slug}`} class="flex items-center gap-2 hover:underline">
                       <Image
-                        src={getImage(members.find(m => m.data.name === opponentName)?.data.flagPath)}
+                        src={getMemberImage(opponentName, members)}
                         alt={opponentName}
                         class="w-6 h-4 object-cover rounded" height={36} width={36}
                         loading="lazy"

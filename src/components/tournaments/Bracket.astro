@@ -3,14 +3,17 @@ import { Image } from 'astro:assets';
 import BracketMatchCard from './BracketMatchCard.astro';
 // import BracketMatchCard from '../MatchCardCompact.astro';
 import trophy from '/src/assets/images/tournaments/trophy.png';
+import { getMemberImage } from '../../lib/memberUtils';
+import { getMatchWinner } from '../../lib/matchUtils';
 
 interface Props {
   matches: any[]; // Lista de partidos del torneo
-  tournament: any; // Datos del torneo
-  imageGetter: (teamName: string) => ImageMetadata | null;
+  members: any[];
+  // tournament: any; // Datos del torneo *YA NO LO USO PORQUE LOS MATCHES SE FILTRAN ANTES
+  // imageGetter: (teamName: string) => ImageMetadata | null;
 }
 
-const { matches, tournament, imageGetter } = Astro.props;
+const { matches, members } = Astro.props;
 
 // Función para obtener los partidos de una fase específica
 const getMatchesByRound = (fixtureName: string) => {
@@ -30,28 +33,7 @@ const finalMatches = getMatchesByRound('Final');
 const finalMatch = finalMatches.length > 0 ? finalMatches[0] : null;
 
 // Determinar el ganador del torneo
-const winnerTeam = (() => {
-  if (!finalMatch || finalMatch.status !== 'played' || !finalMatch.goals) return null;
-
-  const { team1, team2, goals } = finalMatch;
-  
-  // Contar goles por equipo
-  const team1Goals = goals.filter(g => g.team === team1).length;
-  const team2Goals = goals.filter(g => g.team === team2).length;
-  
-  // Comprobar penales
-  if (finalMatch.penalties && finalMatch.penalties.length > 0) {
-    const team1Penalties = finalMatch.penalties.filter(p => p.team === team1 && p.scored).length;
-    const team2Penalties = finalMatch.penalties.filter(p => p.team === team2 && p.scored).length;
-    
-    return team1Penalties > team2Penalties ? team1 : team2;
-  }
-  
-  // Determinar ganador por goles
-  return team1Goals > team2Goals ? team1 
-       : team2Goals > team1Goals ? team2 
-       : null; // Empate (no debería ocurrir en una final)
-})();
+const winnerTeam = getMatchWinner(finalMatch.data);
 ---
 <div class="w-full py-8 px-4 rounded-lg bg-gradient-to-r from-green-950/80 via-green-900 to-green-950/80">
   <h2 class="text-2xl font-bold text-center mb-8">Final Bracket</h2>
@@ -61,59 +43,55 @@ const winnerTeam = (() => {
       {roundOf16Matches.length >= 8 && (
         <div class="w-1/5 flex flex-col gap-8">
           {roundOf16Matches.slice(0, 4).map(match => (
-            <BracketMatchCard match={match} imageGetter={imageGetter} />
+            <BracketMatchCard match={match} members={members} />
           ))}
         </div>
       )}
     
       <div class="w-1/5 flex flex-col gap-8">
         {quarterFinalMatches.slice(0, 2).map(match => (
-          <BracketMatchCard match={match} imageGetter={imageGetter} />
+          <BracketMatchCard match={match} members={members} />
         ))}
       </div>
     
       <div class="w-1/5 flex justify-center items-center">
         {semiFinalMatches[0] && (
-          <BracketMatchCard match={semiFinalMatches[0]} imageGetter={imageGetter} />
+          <BracketMatchCard match={semiFinalMatches[0]} members={members} />
         )}
       </div>
     
       <!-- Final -->
       <div class="w-1/5 flex flex-col items-center justify-center">
         {finalMatch && (
-          <>
-            <BracketMatchCard match={finalMatch} imageGetter={imageGetter} />
-            {winnerTeam && (
-              <div class="flex flex-col items-center justify-center mt-4 bg-green-950/70 p-4 rounded-2xl text-2xl font-bold w-full">
-                <Image src={trophy} alt="Trophy" class="w-auto h-20" />
-                {imageGetter(winnerTeam) ? (
-                  <Image src={imageGetter(winnerTeam)!} alt={winnerTeam} class="w-auto h-20" />
-                ) : (
-                  <div class="w-20 h-20 bg-gray-600 rounded-lg" />
-                )}
-                {winnerTeam}
-              </div>
+          <div class="flex flex-col items-center justify-center mt-4 p-4 rounded-2xl text-2xl font-bold w-full">
+            {getMemberImage(winnerTeam, members) ? (
+              <Image src={getMemberImage(winnerTeam, members)} alt={winnerTeam} class="w-auto h-20" />
+            ) : (
+              <div class="w-20 h-20 bg-gray-600 rounded-lg" />
             )}
-          </>
+            {winnerTeam}
+            <Image src={trophy} alt="Trophy" class="w-auto h-20" />
+          </div>
+          <BracketMatchCard match={finalMatch} members={members} />
         )}
       </div>
     
       <div class="w-1/5 flex justify-center items-center">
         {semiFinalMatches[1] && (
-          <BracketMatchCard match={semiFinalMatches[1]} imageGetter={imageGetter} />
+          <BracketMatchCard match={semiFinalMatches[1]} members={members} />
         )}
       </div>
     
       <div class="w-1/5 flex flex-col gap-8">
         {quarterFinalMatches.slice(2, 4).map(match => (
-          <BracketMatchCard match={match} imageGetter={imageGetter} />
+          <BracketMatchCard match={match} members={members} />
         ))}
       </div>
     
       {roundOf16Matches.length >= 8 && (
         <div class="w-1/5 flex flex-col gap-8">
           {roundOf16Matches.slice(4, 8).map(match => (
-            <BracketMatchCard match={match} imageGetter={imageGetter} />
+            <BracketMatchCard match={match} members={members} />
           ))}
         </div>
       )}

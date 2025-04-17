@@ -12,7 +12,7 @@ import { getCollection } from 'astro:content';
 // Importar todas las imágenes desde el directorio
 const images = import.meta.glob('/src/assets/images/**', { eager: true, import: 'default' });
 
-const memberEntries = await getCollection('members');
+const members = await getCollection('members');
 const matchEntries = await getCollection('matches');
 const tournaments = (await getCollection('tournaments'))
   .map(tournament => {
@@ -37,11 +37,6 @@ const tournaments = (await getCollection('tournaments'))
   .filter(t => t.image); // Evitar torneos con imágenes rotas
 
 const sortedTournaments = tournaments.sort((a, b) => a.id - b.id); // Ordenar por ID
-
-const members = memberEntries.map((entry) => ({
-  ...entry.data,       // <-- todos los campos como name, flagPath, etc.
-  slug: entry.slug,    // <-- está fuera de .data
-}));
 
 const matches = matchEntries.map((entry) => entry.data);
 

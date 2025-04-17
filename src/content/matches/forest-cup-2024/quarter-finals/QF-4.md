@@ -26,8 +26,9 @@ goals:
   - team: "Jutsa"
     player: "M. Tepyet"
     minute: 96
-RedCards:
+cards:
   - team: "Lumiose"
     player: "T. Whitblossom"
     minute: 86
+    type: "red"
 ---

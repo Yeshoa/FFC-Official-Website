@@ -1,14 +1,11 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import { Image } from 'astro:assets';
-
+import { getMemberImage } from "../../lib/memberUtils";
 import {
   getMatchResult,
   getGoalsByTeam,
 } from '../../lib/matchUtils.ts';
-
-// Importamos las imágenes de los miembros
-const images = import.meta.glob<{ default: ImageMetadata }>("/src/assets/images/members/*.{jpeg,jpg,png,gif,svg}");
 
 interface Props {
   members: CollectionEntry<'members'>[];
@@ -41,12 +38,12 @@ type TeamStats = {
 const teamStats: Record<string, TeamStats> = {};
 // Recorremos los miembros y los inicializamos en el mapa de estadísticas
 for (const member of members) {
-  teamStats[member.name] = {
-    id: member.id,
-    name: member.name,
-    code: member.code,
-    flagPath: member.flagPath,
-    additionalPoints: member.additionalPoints || 0,
+  teamStats[member.data.name] = {
+    id: member.data.id,
+    name: member.data.name,
+    code: member.data.code,
+    flagPath: member.data.flagPath,
+    additionalPoints: member.data.additionalPoints || 0,
     tournamentsPlayed: new Set<number>(),
     // tournamentsWon: 0,
     played: 0,
@@ -158,12 +155,12 @@ const sortedStats = Object.values(teamStats).sort((a, b) => {
         <tr class="border-b border-green-700 hover:bg-green-900/30 transition duration-150">
           <td class="px-2 py-2">{index + 1}</td>
           <td class="px-2 py-2">
-            {team.flagPath && <Image src={images[team.flagPath]()} alt={team.name} 
+            {getMemberImage(team.name, members) && <Image src={getMemberImage(team.name, members)} alt={team.name} 
             width={32} 
             height={32}
             class="h-6 w-auto object-cover rounded inline-block" />}
           </td>
-          <td class="px-2 py-2 text-left"><a href={`/members/${members.find(m => m.name === team.name)?.slug}`} class="font-semibold hover:underline">{team.name}</a></td>
+          <td class="px-2 py-2 text-left"><a href={`/members/${members.find(m => m.data.name === team.name)?.slug}`} class="font-semibold hover:underline">{team.name}</a></td>
           <td class="px-2 py-2 text-green-200">{team.tournamentsPlayed.size}</td>
           <td class="px-2 py-2 font-bold">{team.totalPoints}{team.additionalPoints > 0 && '*'}</td>
           <td class="px-2 py-2 text-green-200">{team.played}</td>

@@ -1,12 +1,8 @@
 ---
 import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
-import { getCollection, type CollectionEntry } from 'astro:content';
-
-
-type Member = CollectionEntry<'members'>['data'];
-
-const members = await getCollection('members');
+import type { CollectionEntry } from 'astro:content';
+import { getMemberImage } from '../../lib/memberUtils';
 
 interface Goal {
   team: string;
@@ -44,10 +40,11 @@ interface Match {
 
 interface Props {
   match: Match;
-  imageGetter: (teamName: string) => ImageMetadata | null;
+  members: CollectionEntry<'members'>[];
+  // imageGetter: (teamName: string) => ImageMetadata | null;
 }
 
-const { match, imageGetter } = Astro.props;
+const { match, members } = Astro.props;
 // Verificar si el partido ya se jugó
 const isPlayed = match.data.status === 'played';
 
@@ -88,8 +85,8 @@ const formattedDate = match.data.status === 'scheduled'
     <!-- Equipo 1 -->
     <div class="flex items-center justify-between">
       <div class="flex items-center space-x-2">
-        {imageGetter(match.data.team1) ? (
-          <Image src={imageGetter(match.data.team1)!()} alt={match.data.team1} class="w-6 h-6 object-contain" width={24} 
+        {members.find(m => m.data.name === match.data.team1)?.data.flagPath ? (
+          <Image src={getMemberImage(match.data.team1, members)!} alt={match.data.team1} class="w-6 h-6 object-contain" width={24} 
           height={24}/>
         ) : (
           <div class="w-6 h-6 bg-gray-600 rounded-md"></div>
@@ -113,8 +110,8 @@ const formattedDate = match.data.status === 'scheduled'
     <!-- Equipo 2 -->
     <div class="flex items-center justify-between">
       <div class="flex items-center space-x-2">
-        {imageGetter(match.data.team2) ? (
-          <Image src={imageGetter(match.data.team2)!()} alt={match.data.team2} class="w-6 h-6 object-contain" width={24} 
+        {members.find(m => m.data.name === match.data.team2)?.data.flagPath ? (
+          <Image src={getMemberImage(match.data.team2, members)!} alt={match.data.team2} class="w-6 h-6 object-contain" width={24} 
           height={24}/>
         ) : (
           <div class="w-6 h-6 bg-gray-600 rounded-md"></div>

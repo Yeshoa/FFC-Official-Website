@@ -1,6 +1,7 @@
 ---
 import { getCollection, type CollectionEntry } from 'astro:content';
 import { Image } from 'astro:assets';
+import { getMemberImage } from '../../lib/memberUtils';
 import App from '../../layouts/App.astro'; 
 import MatchCard from '../../components/MatchCard.astro'; 
 import MatchCardCompact from '../../components/MatchCardCompact.astro'; 
@@ -40,26 +41,6 @@ const knockoutMatches = fc2022Matches.filter(match => match.data.stage === 'knoc
 import FC22Logo from '../../assets/images/tournaments/2022/logo.png'; 
 import AllGoalsHero from '../../assets/images/hero2.png';
 
-// Importación dinámica para banderas/logos de miembros
-const memberImages = import.meta.glob<{ default: ImageMetadata }>('/src/assets/images/members/*.{jpeg,jpg,png,gif,svg,webp}');
-
-// Image Helper
-const getMemberImage = (memberName: string | undefined) => {
-  if (!memberName) return null;
-  const member = membersCollection.find(m => m.data.name === memberName);
-  const imagePath = member?.data.flagPath; 
-  if (!imagePath || !memberImages[imagePath]) {
-    console.warn(`Imagen no encontrada para el miembro: ${memberName} en la ruta: ${imagePath}`);
-    return null;
-  }
-  return memberImages[imagePath]; // Función dinámica
-};
-
-// Para el Bracket y MatchCards, necesitamos pasar una forma de obtener las imágenes.
-// Podemos pasar la función `getMemberImage` o un objeto pre-procesado.
-// Pasemos la función por ahora, asumiendo que los componentes pueden manejarla.
-const imageGetter = getMemberImage;
-
 const slides = [
   { src: "/src/assets/images/hero2.png", alt: "All Goals", videoId: "HQJcfs5rKrs" },
   { src: "/src/assets/images/forest-cup/2022-final.png", alt: "Final", videoId: "dxx2pF9TOR4" },
@@ -69,11 +50,6 @@ const slides = [
   { src: "/src/assets/images/hero2.png", alt: "Day 2", videoId: "uhSVoz-2miE"},
   { src: "/src/assets/images/hero2.png", alt: "Day 1", videoId: "F_3ckioqvnU" },
 ];
-
-// *** ¡IMPORTANTE! Adaptación de datos para Grupos y Partidos ***
-// El código original itera sobre `FC2022.stages` para mostrar tablas y listas de partidos.
-// Asumiremos que `FC2022Data` (de la colección) contiene la estructura de stages/groups/tables.
-// Para los *partidos específicos* dentro de cada grupo/fixture, usaremos `fc2022Matches` filtrados.
 
 // Función auxiliar para encontrar los partidos de una fixture específica (si es necesario)
 // Nota: Esto puede ser complejo si la estructura de `FC2022Data` no coincide perfectamente
@@ -99,8 +75,8 @@ const winner = getMatchWinner(getMatchesForFixture('knockout', undefined, 'Final
          <div class="flex flex-col gap-6 items-center">
            {winner && (
              <div class="flex items-center gap-6">
-               {imageGetter(winner) && (
-                 <Image src={imageGetter(winner)!()} alt={`${winner} Flag`} class="h-24 w-auto rounded-xl object-cover ring-1 ring-green-700" loading={"eager"} />
+               {getMemberImage(winner, membersCollection) && (
+                 <Image src={getMemberImage(winner, membersCollection)!} alt={`${winner} Flag`} class="h-24 w-auto rounded-xl object-cover ring-1 ring-green-700" loading={"eager"} />
                )}
                <h1 class="text-5xl font-bold">{winner}</h1>
              </div>
@@ -108,10 +84,8 @@ const winner = getMatchWinner(getMatchesForFixture('knockout', undefined, 'Final
                <h1 class="text-2xl">Champions</h1>
              </div>
            )}
-           {/* Si no tienes 'champion', usa 'participants' o ajusta la lógica */}
            {!winner && FC2022Data.participants && (
               <p class="text-xl text-gray-400 italic">(Winner details not specified in prizes, showing participants)</p>
-              // Aquí podrías mostrar info del final si la tienes
            )}
          </div>
        </div>
@@ -142,18 +116,17 @@ const winner = getMatchWinner(getMatchesForFixture('knockout', undefined, 'Final
     </div>
 
     <div class="flex flex-col justify-center items-center w-full gap-4 py-4">
-      <Bracket matches={fc2022Matches} tournament={FC2022Data} imageGetter={imageGetter} />
+      <Bracket matches={fc2022Matches} tournament={FC2022Data} members={membersCollection} />
     </div>
 
     <Groups
       matches={fc2022Matches}
-      participants={membersCollection.filter(member => FC2022Data.participants.includes(member.data.name))}
-      imageGetter={imageGetter}
+      members={membersCollection.filter(member => FC2022Data.participants.includes(member.data.name))}
     />
       
     <KnockoutMatches
       knockoutMatches={knockoutMatches}
-      imageGetter={imageGetter}
+      members={membersCollection}
     />
     <div class="prose dark:prose-invert bg-white dark:bg-green-900 shadow-lg rounded-lg p-6 my-8 w-full max-w-4xl mx-auto">
        <h2 class="text-2xl font-semibold mb-4 text-gray-900 dark:text-white border-b pb-2 border-gray-200 dark:border-green-600">Tournament Notes</h2>

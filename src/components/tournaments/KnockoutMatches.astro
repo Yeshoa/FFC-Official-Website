@@ -20,10 +20,10 @@ interface MatchData {
 
 interface Props {
   knockoutMatches: Array<{ id?: string; data: MatchData }>;
-  imageGetter: (teamName: string | undefined) => (() => Promise<{ default: any }>) | null;
+  members: CollectionEntry<'members'>[];
 }
 
-const { knockoutMatches, imageGetter } = Astro.props as Props;
+const { knockoutMatches, members } = Astro.props as Props;
 
 // Agrupar partidos por fixture
 const matchesByFixture: Record<string, Array<{ id?: string; data: MatchData }>> = knockoutMatches.reduce((acc, match) => {
@@ -63,7 +63,7 @@ const sortedFixtures: string[] = Object.keys(matchesByFixture).sort((a, b) => {
                 <MatchCard
                   key={match.id || `${match.data.team1}-${match.data.team2}`}
                   match={match.data}
-                  imageGetter={imageGetter}
+                  members={members} 
                 />
               ))}
           </div>

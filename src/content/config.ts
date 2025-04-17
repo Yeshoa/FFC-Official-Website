@@ -71,11 +71,12 @@ const matchesCollection = defineCollection({
         scored: z.boolean(), // true si convirtió
       })
     ).optional(),
-    redCards: z.array(
+    cards: z.array(
       z.object({
         team: z.string(),
         player: z.string(),
-        minute: z.number()
+        minute: z.number(),
+        type: z.enum(["yellow", "red"])
       })
     ).optional(),
   }),
