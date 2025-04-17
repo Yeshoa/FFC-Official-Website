@@ -20,6 +20,7 @@ Website built with **Astro**. Showcases tournaments, match details, and national
   - ✅ ~~Display score~~
   - ✅ If `verification` is true, show a badge with a tick ✅
   - [ ] Display `roster` with their numbers
+  - [ ] Display `content`
   - ⚠ Show a component for **last matches played**
   - [ ] ~~Upcoming matches~~
   - [ ] Show **Forest Cup history** [Example](https://es.wikipedia.org/wiki/Selección_de_fútbol_de_Argentina#Estadísticas)
