@@ -75,11 +75,6 @@ const winner = getMatchWinner(getMatchesForFixture('knockout', undefined, 'Final
               <h1 class="text-2xl">Champions</h1>
             </div>
           )}
-          {/* Si no tienes 'champion', usa 'participants' o ajusta la lógica */}
-          {!winner && FC2020Data.participants && (
-            <p class="text-xl text-gray-400 italic">(Winner details not specified in prizes, showing participants)</p>
-            // Aquí podrías mostrar info del final si la tienes
-          )}
         </div>
       </div>
     </div>

@@ -183,26 +183,26 @@ const logoImage = getMemberLogo(member.name, members);
       </div>
       {/* Details */}
       <div class="flex-grow grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm md:text-base">
-        <div class="bg-gray-50 dark:bg-gradient-to-br from-green-800 via-green-900 to-green-950 p-3 rounded-md">
+        <a href={member.feddispatch} target="_blank" rel="noopener noreferrer" class="bg-gray-50 dark:bg-gradient-to-br from-green-800 via-green-900 to-green-950 hover:bg-gradient-to-br hover:from-green-700 hover:via-green-800 hover:to-green-900 p-3 rounded-md">
           {member.federation ? (
             member.feddispatch ? (
-              <a href={member.feddispatch} target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-white hover:underline font-bold">
+              <p class="text-blue-600 dark:text-white font-bold">
                 {member.federation}
-              </a>
+              </p>
             ) : (
               <span class="ml-1 text-gray-800 dark:text-gray-200">{member.federation}</span>
             )
           ) : <span class="ml-1 text-gray-400 italic">This nation doesn't have a federation</span>}
-        </div>
+        </a>
         <div class="bg-gray-50 dark:bg-gradient-to-br from-green-800 via-green-900 to-green-950 p-3 rounded-md">
           <span class="font-semibold text-gray-600 dark:text-gray-300">Region:</span>
           <span class="ml-1 text-gray-800 dark:text-white font-bold">{member.region || <span class="italic text-gray-400">N/A</span>}</span>
         </div>
-         <div class="bg-gray-50 dark:bg-gradient-to-br from-green-800 via-green-900 to-green-950 p-3 rounded-md">
-          <a href={member.nslink} target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-white hover:underline font-bold">
+        <a href={member.nslink} target="_blank" rel="noopener noreferrer" class="bg-gray-50 dark:bg-gradient-to-br from-green-800 via-green-900 to-green-950 hover:bg-gradient-to-br hover:from-green-700 hover:via-green-800 hover:to-green-900 p-3 rounded-md">
+          <p class="text-blue-600 dark:text-white font-bold">
             NationStates Profile 🔗
-          </a>
-        </div>
+          </p>
+        </a>
         <div class="bg-gray-50 dark:bg-gradient-to-br from-green-800 via-green-900 to-green-950 p-3 rounded-md">
           <span class="font-semibold text-gray-600 dark:text-gray-300">Founded:</span>
           <span class="ml-1 text-gray-800 dark:text-white font-bold">{member.founded || <span class="italic text-gray-400">N/A</span>}</span>
@@ -215,9 +215,9 @@ const logoImage = getMemberLogo(member.name, members);
     </div>
 
     {/* Markdown Content */}
-    <div class="prose dark:prose-invert max-w-none bg-white dark:bg-green-950/80 shadow-lg rounded-lg p-6 mb-8">
-       <h2 class="text-2xl font-semibold mb-4 text-gray-900 dark:text-white border-b pb-2 border-gray-200 dark:border-green-600">About {member.federation || member.name}</h2>
-      <Content />
+    <div class="prose dark:prose-invert max-w-full bg-white dark:bg-green-950/80 shadow-lg rounded-lg p-6 mb-8">
+      <h2 class="text-2xl font-semibold mb-4 text-gray-900 dark:text-white border-b pb-2 border-gray-200 dark:border-green-600">About {member.federation || member.name}</h2>
+      <div class="space-y-4"><Content /></div>
     </div>
 
     {/* Matches and Stats*/}
