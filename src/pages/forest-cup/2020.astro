@@ -11,13 +11,7 @@ import TournamentGrid from '../../components/tournaments/TournamentGrid.astro';
 import { getMatchWinner } from '../../lib/matchUtils.ts';
 import { getMemberImage } from '../../lib/memberUtils';
 
-
-type Tournament = CollectionEntry<'tournaments'>['data'];
-type Match = CollectionEntry<'matches'>['data'];
-type Member = CollectionEntry<'members'>['data'];
-
 const tournamentsCollection = await getCollection('tournaments');
-// const matchesCollection = await getCollection('matches');
 const matchesCollection = (await getCollection('matches'))
   .filter(match => match.slug.startsWith('forest-cup-2020/'));
 const membersCollection = await getCollection('members');

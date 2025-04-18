@@ -5,6 +5,7 @@ import { getCollection } from 'astro:content';
 
 // const members = await getCollection('members');
 const members = (await getCollection('members'))
+  .filter(entry => entry.data.verified)  
   .sort((a, b) => a.data.id - b.data.id)
   .map((entry) => ({
     ...entry.data,

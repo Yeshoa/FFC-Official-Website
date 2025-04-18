@@ -11,10 +11,6 @@ import KnockoutMatches from '../../components/tournaments/KnockoutMatches.astro'
 import TournamentGrid from '../../components/tournaments/TournamentGrid.astro'; 
 import { getMatchWinner } from '../../lib/matchUtils.ts';
 
-type Tournament = CollectionEntry<'tournaments'>['data'];
-type Match = CollectionEntry<'matches'>['data'];
-type Member = CollectionEntry<'members'>['data'];
-
 const tournamentsCollection = await getCollection('tournaments');
 // const matchesCollection = await getCollection('matches');
 const matchesCollection = (await getCollection('matches'))

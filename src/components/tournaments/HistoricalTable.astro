@@ -37,7 +37,7 @@ type TeamStats = {
 
 const teamStats: Record<string, TeamStats> = {};
 // Recorremos los miembros y los inicializamos en el mapa de estadísticas
-for (const member of members) {
+for (const member of members.filter(m => m.data.verified)) {
   teamStats[member.data.name] = {
     id: member.data.id,
     name: member.data.name,
