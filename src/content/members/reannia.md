@@ -1,5 +1,5 @@
 ---
-id: 6
+id: 3
 code: "REA"
 name: "Reannia"
 nslink: "https://www.nationstates.net/nation=reannia"

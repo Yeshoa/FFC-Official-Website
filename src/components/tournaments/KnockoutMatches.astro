@@ -45,6 +45,8 @@ const sortedFixtures: string[] = Object.keys(matchesByFixture).sort((a, b) => {
     sortedFixtures.map(fixture => {
       const gridClasses = fixture.toLowerCase().includes('round of 16') || fixture.toLowerCase().includes('octavos')
         ? 'grid grid-cols-1 md:grid-cols-2 gap-4'
+        : fixture.toLowerCase().includes('round of 32') || fixture.toLowerCase().includes('dieciseisavos')
+        ? 'grid grid-cols-1 md:grid-cols-4 gap-4'
         : fixture.toLowerCase().includes('quarter') || fixture.toLowerCase().includes('cuartos')
         ? 'grid grid-cols-1 md:grid-cols-2 gap-4'
         : fixture.toLowerCase().includes('semi') || fixture.toLowerCase().includes('semifinales')

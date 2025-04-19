@@ -6,7 +6,6 @@ import FCCard from '../components/FCCard.astro';
 import App from '../layouts/App.astro';
 import { Image } from 'astro:assets';
 import FCLogo from '../assets/images/tournaments/forest-cup.png';
-// import { tournaments } from '../content/tournaments';
 import { getCollection } from 'astro:content';
 
 // Importar todas las imágenes desde el directorio
@@ -37,9 +36,7 @@ const tournaments = (await getCollection('tournaments'))
   .filter(t => t.image); // Evitar torneos con imágenes rotas
 
 const sortedTournaments = tournaments.sort((a, b) => a.id - b.id); // Ordenar por ID
-
 const matches = matchEntries.map((entry) => entry.data);
-
 ---
 
 <App title="FFC - Forest Cup">

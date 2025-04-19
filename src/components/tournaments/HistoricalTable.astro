@@ -33,11 +33,12 @@ type TeamStats = {
   goalsAgainst: number;
   performance: number;
   totalPoints: number;
+  verified: boolean
 };
 
 const teamStats: Record<string, TeamStats> = {};
 // Recorremos los miembros y los inicializamos en el mapa de estadísticas
-for (const member of members.filter(m => m.data.verified)) {
+for (const member of members) {
   teamStats[member.data.name] = {
     id: member.data.id,
     name: member.data.name,
@@ -55,6 +56,7 @@ for (const member of members.filter(m => m.data.verified)) {
     goalsAgainst: 0,
     performance: 0,
     totalPoints: 0,
+    verified: member.data.verified
   };
 }
 // Recorremos los partidos y actualizamos las estadísticas de cada equipo
@@ -108,24 +110,27 @@ for (const team of Object.values(teamStats)) {
 }
 
 // Ordenamos por total de puntos (score + additionalPoints + puntos obtenidos en partidos)
-const sortedStats = Object.values(teamStats).sort((a, b) => {
-  // 1. Total de puntos
+const sortedStats = Object.values(teamStats).filter(stat => stat.verified).sort((a, b) => {
+  // Total de puntos
   const totalA = a.totalPoints;
   const totalB = b.totalPoints;
   if (totalB !== totalA) return totalB - totalA;
-
-  // 2. Performance (porcentaje)
-  if (b.performance !== a.performance) return b.performance - a.performance;
-
-  // 3. Torneos jugados (mayor cantidad)
+  
+  // Torneos jugados (mayor cantidad)
   if (b.tournamentsPlayed.size !== a.tournamentsPlayed.size) {
     return b.tournamentsPlayed.size - a.tournamentsPlayed.size;
   }
 
-  // 4. Diferencia de gol (goles a favor - goles en contra)
+  // Diferencia de gol (goles a favor - goles en contra)
   const diffA = a.goalsFor - a.goalsAgainst;
   const diffB = b.goalsFor - b.goalsAgainst;
-  return diffB - diffA;
+  if (diffB !== diffA) return diffB - diffA;
+
+  // Performance (porcentaje)
+  if (b.performance !== a.performance) return b.performance - a.performance;
+
+  // Goles a favor (mayor cantidad)
+  return b.goalsFor - a.goalsFor;
 });
 ---
 

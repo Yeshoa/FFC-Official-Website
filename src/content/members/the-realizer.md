@@ -1,5 +1,5 @@
 ---
-id: 10
+id: 8
 code: "TRZ"
 name: "The Realizer"
 nslink: "https://www.nationstates.net/nation=the_realizer"

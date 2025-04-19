@@ -37,7 +37,7 @@ for (const match of filteredMatches) {
   if (!match.goals) continue;
 
   for (const goal of match.goals) {
-    if (singleTeam && goal.team !== singleTeam) continue; // Si hay un solo miembro, no mostrar goles de otros equipos
+    if (singleTeam && goal.team !== singleTeam || goal.player === undefined) continue; // Si hay un solo miembro, no mostrar goles de otros equipos o jugadores sin nombre
     const key = `${goal.player}-${goal.team}`;
     // Goleadores
     if (!goal.ownGoal) {

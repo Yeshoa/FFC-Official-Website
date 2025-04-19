@@ -1,5 +1,5 @@
 ---
-id: 7
+id: 6
 code: "ATS"
 name: "Atsvea"
 nslink: "https://www.nationstates.net/nation=atsvea"

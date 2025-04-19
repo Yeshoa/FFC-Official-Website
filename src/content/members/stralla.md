@@ -1,5 +1,5 @@
 ---
-id: 2
+id: 9
 code: "STR"
 name: "Stralla"
 nslink: "https://www.nationstates.net/nation=stralla"

@@ -9,6 +9,5 @@ region: "Forest"
 founded: 2020
 affiliation: 2024
 verified: true
-additionalPoints: 21
 score: 0
 ---

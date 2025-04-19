@@ -1,5 +1,5 @@
 ---
-id: 3
+id: 2
 code: "JUT"
 name: "Jutsa"
 nslink: "https://www.nationstates.net/nation=jutsa"

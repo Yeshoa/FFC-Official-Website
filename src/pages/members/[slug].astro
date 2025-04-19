@@ -122,7 +122,6 @@ const logoImage = getMemberLogo(memberData.name, members);
 ---
 <App title={`FFC - ${memberData.name}`}>
   <div class="container mx-auto px-4 py-8">
-
     {/* Profile*/}
     <div class="bg-white dark:bg-green-950/80 shadow-lg rounded-lg p-6 mb-8 flex flex-col md:flex-row items-center gap-6">
       {/* Logos and Info */}
@@ -143,7 +142,6 @@ const logoImage = getMemberLogo(memberData.name, members);
         <!-- Nombre -->
         <h1 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white text-center md:text-left break-words max-w-56 flex items-center gap-2">
           {memberData.name}
-          
         </h1>
         
         
@@ -175,7 +173,7 @@ const logoImage = getMemberLogo(memberData.name, members);
         <div class="text-center md:text-left w-full">
           <p class="text-sm text-gray-500 dark:text-gray-400">Rank</p>
           <div class="flex items-end justify-between w-full">
-            <p class="text-4xl font-bold text-green-600 dark:text-green-400">{memberData.id}°</p>
+            <p class="text-4xl font-bold text-green-600 dark:text-green-400">{memberData.id === 9999 ? 'N/A' : memberData.id === 1 ? '🥇' : memberData.id === 2 ? '🥈' : memberData.id === 3 ? '🥉' : memberData.id}°</p>
             <p class="text-2xl font-semibold text-green-700 dark:text-green-300">{memberData.score} pts</p>
           </div>
         </div>

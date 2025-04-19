@@ -3,6 +3,7 @@ import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 import type { ImageMetadata } from 'astro';
 import { getMemberImage } from '../lib/memberUtils';
+import { areThereScorers } from '../lib/matchUtils';
 import GoalIcon from '../assets/images/goal.png';
 
 interface Props { // Renombrado de FCCardProps
@@ -26,7 +27,7 @@ let penaltyInfo = '';
 if (hasPenaltyShootout) {
   penaltyScore1 = penalties.filter(p => p.team === match.team1 && p.scored).length;
   penaltyScore2 = penalties.filter(p => p.team === match.team2 && p.scored).length;
-  penaltyInfo = `(${penaltyScore1}-${penaltyScore2} p)`;
+  penaltyInfo = `(${penaltyScore1}-${penaltyScore2})`;
 }
 
 const team1ImagePromiseFn = getMemberImage(match.team1, members);
@@ -64,7 +65,7 @@ const team2ImagePromiseFn = getMemberImage(match.team2, members);
                  {match.date.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit'})}
              </span>
         ) : (
-            <span class="text-sm font-light text-red-400">N/A</span>
+            <span class="text-sm font-light text-red-400">VS</span>
         )}
         {hasPenaltyShootout && penaltyInfo && (
             <span class="block text-xs text-yellow-400 mt-0.5">{penaltyInfo}</span>
@@ -93,7 +94,7 @@ const team2ImagePromiseFn = getMemberImage(match.team2, members);
    {/* <hr class="border-gray-700 w-3/4 my-1"/> */}
 
   {/* Sección Inferior: Goles y Detalles - Solo si se jugó */}
-  {match.status === 'played' && (
+  {match.status === 'played' && areThereScorers(match) && (
     <div class="grid grid-cols-7 items-start w-full gap-2 mt-1 text-xs md:text-sm">
       {/* Goles Equipo 1 */}
       <div class="flex flex-col w-full col-span-3 items-end justify-start h-full text-right pr-1">

@@ -107,3 +107,7 @@ export function getPenaltiesResult(match: Match): { team1: number; team2: number
 export function getTotalGoals(match: Match): number {
   return (match.goals?.length ?? 0);
 }
+
+export function areThereScorers(match: Match): boolean {
+  return (match.goals ?? []).every(goal => !!goal.player);
+}

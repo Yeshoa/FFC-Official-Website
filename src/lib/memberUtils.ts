@@ -13,7 +13,6 @@ export function getMemberImage(
   if (!memberName) return null;
   const member = members.find(m => m.data.name === memberName);
   const imagePath = member?.data.flagPath;
-  
   if (!imagePath || !memberImages[imagePath]) {
     console.warn(`Imagen no encontrada para el miembro: ${memberName} en la ruta: ${imagePath}`);
     return null;
