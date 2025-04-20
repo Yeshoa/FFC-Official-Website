@@ -1,0 +1,178 @@
+---
+// TournamentHistoryTable.astro
+import type { CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+import { getTeamPositionInTournament } from '../../lib/tournamentUtils';
+import { getMemberImageLazy } from '../../lib/memberUtilsLazy';
+import { getMatchResult } from '../../lib/matchUtils';
+
+interface Props {
+  tournaments: CollectionEntry<'tournaments'>[];
+  matches: CollectionEntry<'matches'>[];
+  members: CollectionEntry<'members'>[];
+  type: 'forest-cup' | 'forestian-champions-league';
+}
+
+const { tournaments, matches, members, type } = Astro.props;
+
+// Filtrar los torneos por tipo y ordenarlos
+const allEditions = tournaments
+  .filter(t => t.data.type === type)
+  .sort((a, b) => b.data.edition - a.data.edition);
+
+// Función para obtener el equipo según la posición final
+function getTeamByPosition(tournament: CollectionEntry<'tournaments'>, position: number): string | null {
+  const participants = tournament.data.participants;
+  
+  for (const team of participants) {
+    const teamPosition = getTeamPositionInTournament(tournament, matches, team);
+    if (teamPosition === position) {
+      return team;
+    }
+  }
+  
+  return null;
+}
+
+// Función para obtener el resultado del equipo (goles a favor/goles en contra en la final)
+function getFinalResult(tournament: CollectionEntry<'tournaments'>, teamPosition: number): string {
+  if (teamPosition > 2) return ""; // Solo mostramos resultados para posiciones 1 y 2 (final)
+  
+  const teamName = getTeamByPosition(tournament, teamPosition);
+  if (!teamName) return "";
+  
+  const finalMatch = matches.find(match => 
+    match.data.tournament_id === tournament.data.id && 
+    match.data.fixture === "Final" && 
+    (match.data.team1 === teamName || match.data.team2 === teamName)
+  );
+  
+  if (!finalMatch) return "";
+  
+  const { team1: goalsT1, team2: goalsT2 } = getMatchResult(finalMatch.data);
+  // Si el equipo es el ganador (posición 1), mostramos el resultado normalmente
+  // Si es el perdedor (posición 2), invertimos los goles
+  if (teamPosition === 1) {
+    if (finalMatch.data.team1 === teamName) {
+      return `${goalsT1}-${goalsT2}`;
+    } else {
+      return `${goalsT2}-${goalsT1}`;
+    }
+  } else {
+    if (finalMatch.data.team1 === teamName) {
+      return `${goalsT1}-${goalsT2}`;
+    } else {
+      return `${goalsT2}-${goalsT1}`;
+    }
+  }
+}
+
+// Función para obtener el resultado del partido por el tercer puesto
+function getThirdPlaceResult(tournament: CollectionEntry<'tournaments'>): string {
+  const thirdPlace = getTeamByPosition(tournament, 3);
+  const fourthPlace = getTeamByPosition(tournament, 4);
+  
+  if (!thirdPlace || !fourthPlace) return "";
+  
+  const thirdPlaceMatch = matches.find(match => 
+    match.data.tournament_id === tournament.data.id && 
+    match.data.fixture === "Third Place" && 
+    ((match.data.team1 === thirdPlace && match.data.team2 === fourthPlace) || 
+     (match.data.team1 === fourthPlace && match.data.team2 === thirdPlace))
+  );
+  
+  if (!thirdPlaceMatch) return "N/A";
+  const { team1: goalsT1, team2: goalsT2 } = getMatchResult(thirdPlaceMatch.data);
+  if (thirdPlaceMatch.data.team1 === thirdPlace) {
+    return `${goalsT1}-${goalsT2}`;
+  } else {
+    return `${goalsT2}-${goalsT1}`;
+  }
+}
+---
+
+<div class="p-6">
+  <h2 class="text-4xl text-center font-bold mb-4 pb-2">{type === 'forest-cup' ? 'Forest Cup' : 'Forestian Champions League'} History</h2>
+  <table class="w-full text-md text-center border-collapse rounded-2xl table-fixed">
+    <thead class="bg-green-800 text-white">
+      <tr>
+        <th class="px-2 py-2 rounded-tl-lg w-[7%]">Edition</th>
+        <th class="px-2 py-2 w-[19%]">Champion</th>
+        <th class="px-2 py-2 w-[5%]">Result</th>
+        <th class="px-2 py-2 w-[19%]">Runner-Up</th>
+        <th class="px-2 py-2 w-[19%]">Third</th>
+        <th class="px-2 py-2 w-[5%]">Result</th>
+        <th class="px-2 py-2 w-[19%]">Fourth</th>
+        <th class="px-2 py-2 rounded-tr-lg w-[7%]">Teams</th>
+      </tr>
+    </thead>
+    <tbody>
+      {allEditions.sort((b, a) => b.data.edition - a.data.edition).map(tournament => {
+        const hostImage = getMemberImageLazy(tournament.data.host, members);
+        const champion = getTeamByPosition(tournament, 1);
+        const runnerUp = getTeamByPosition(tournament, 2);
+        const third = getTeamByPosition(tournament, 3);
+        const fourth = getTeamByPosition(tournament, 4);
+        
+        const championImage = champion ? getMemberImageLazy(champion, members) : null;
+        const runnerUpImage = runnerUp ? getMemberImageLazy(runnerUp, members) : null;
+        const thirdImage = third ? getMemberImageLazy(third, members) : null;
+        const fourthImage = fourth ? getMemberImageLazy(fourth, members) : null;
+        
+        const finalResult = champion ? getFinalResult(tournament, 1) : "";
+        const thirdPlaceResult = getThirdPlaceResult(tournament);
+
+        return (
+          <tr class="border-b border-green-700 hover:bg-green-900/20">
+            <td class="px-2 py-3 flex items-center gap-1 justify-center">
+              {hostImage && <a href={`/members/${members.find(m => m.data.name === tournament.data.host)?.slug}`}><Image src={hostImage} alt={tournament.data.host} width={20} height={14} class="rounded-sm" /></a>}
+              <a href={`/${type}/${tournament.data.edition}`} class="hover:underline">{tournament.data.edition}</a>
+            </td>
+            
+            <td class="px-2 py-3 font-semibold">
+              {champion && (
+                <div class="flex items-center gap-1 justify-center">
+                  {championImage && <a href={`/members/${members.find(m => m.data.name === champion)?.slug}`}><Image src={championImage} alt={champion} width={20} height={14} class="rounded-sm" /></a>}
+                  <a href={`/members/${members.find(m => m.data.name === champion)?.slug}`} class="hover:underline text-yellow-400">{champion}</a>
+                </div>
+              )}
+            </td>
+            
+            <td class="px-2 py-3 font-bold">{finalResult}</td>
+            
+            <td class="px-2 py-3">
+              {runnerUp && (
+                <div class="flex items-center gap-1 justify-center">
+                  {runnerUpImage && <a href={`/members/${members.find(m => m.data.name === runnerUp)?.slug}`}><Image src={runnerUpImage} alt={runnerUp} width={20} height={14} class="rounded-sm" /></a>}
+                  <a href={`/members/${members.find(m => m.data.name === runnerUp)?.slug}`} class="hover:underline">{runnerUp}</a>
+                </div>
+              )}
+            </td>
+            
+            <td class="px-2 py-3">
+              {third && (
+                <div class="flex items-center gap-1 justify-center">
+                  {thirdImage && <a href={`/members/${members.find(m => m.data.name === third)?.slug}`}><Image src={thirdImage} alt={third} width={20} height={14} class="rounded-sm" /></a>}
+                  <a href={`/members/${members.find(m => m.data.name === third)?.slug}`} class="hover:underline">{third}</a>
+                </div>
+              )}
+            </td>
+            
+            <td class={`px-2 py-3 ${thirdPlaceResult === "N/A" ? "text-gray-300 italic font-extralight" : "font-bold"}`}>{thirdPlaceResult}</td>
+            
+            <td class="px-2 py-3">
+              {fourth && (
+                <div class="flex items-center gap-1 justify-center">
+                  {fourthImage && <a href={`/members/${members.find(m => m.data.name === fourth)?.slug}`}><Image src={fourthImage} alt={fourth} width={20} height={14} class="rounded-sm" /></a>}
+                  <a href={`/members/${members.find(m => m.data.name === fourth)?.slug}`} class="hover:underline">{fourth}</a>
+                </div>
+              )}
+            </td>
+            
+            <td class="px-2 py-3">{tournament.data.participants.length}</td>
+          </tr>
+        );
+      })}
+    </tbody>
+  </table>
+</div>

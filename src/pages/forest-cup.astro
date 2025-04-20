@@ -2,6 +2,7 @@
 // import HistoricalTable from '../components/react/HistoricalTable';
 import Table from '../components/tournaments/HistoricalTable.astro';
 import ScorersTable from '../components/tournaments/ScorersTable.astro';
+import TournamentHistoryTable from '../components/tournaments/TournamentHistoryTable.astro';
 import FCCard from '../components/FCCard.astro';
 import App from '../layouts/App.astro';
 import { Image } from 'astro:assets';
@@ -13,6 +14,7 @@ const images = import.meta.glob('/src/assets/images/**', { eager: true, import: 
 
 const members = await getCollection('members');
 const matchEntries = await getCollection('matches');
+const tournamentEntries = await getCollection('tournaments');
 const tournaments = (await getCollection('tournaments'))
   .map(tournament => {
     const { id, name, image, edition } = tournament.data;
@@ -60,8 +62,11 @@ const matches = matchEntries.map((entry) => entry.data);
       </div>
     </div>
     <!-- List tournaments -->
+    <div class="container border-t border-green-600 items-start w-full">
+      <TournamentHistoryTable tournaments={tournamentEntries} matches={matchEntries} members={members} type="forest-cup" />
+    </div>
     <!-- Stats and Top Scorers -->
-    <div class="container grid grid-cols-1 md:grid-cols-2 gap-6 mb-12 border-t border-green-600 items-start">
+    <div class="container grid grid-cols-1 md:grid-cols-2 gap-6 mb-12 items-start">
       <Table members={members} matches={matches} />
       <ScorersTable members={members} matches={matches} />
 
