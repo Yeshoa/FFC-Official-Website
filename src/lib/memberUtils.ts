@@ -1,7 +1,7 @@
 import type { ImageMetadata } from 'astro';
 import type { CollectionEntry } from 'astro:content';
 
-const memberImages = import.meta.glob<{ default: ImageMetadata }>('/src/assets/images/members/*.{jpeg,jpg,png,svg,gif}', {
+const memberImages = import.meta.glob<{ default: ImageMetadata }>('/src/assets/images/members/*.{jpeg,jpg,png}', {
   eager: true,
   import: 'default',
 });

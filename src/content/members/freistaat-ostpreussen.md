@@ -1,5 +1,5 @@
 ---
-id: 19
+id: 17
 code: "EPR"
 name: "Freistaat Ostpreussen"
 nslink: "https://www.nationstates.net/nation=freistaat_ostpreussen"

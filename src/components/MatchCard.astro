@@ -3,6 +3,7 @@ import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 import type { ImageMetadata } from 'astro';
 import { getMemberImage } from '../lib/memberUtils';
+import { getMemberImageLazy } from '../lib/memberUtilsLazy';
 import { areThereScorers } from '../lib/matchUtils';
 import GoalIcon from '../assets/images/goal.png';
 
@@ -30,8 +31,8 @@ if (hasPenaltyShootout) {
   penaltyInfo = `(${penaltyScore1}-${penaltyScore2})`;
 }
 
-const team1ImagePromiseFn = getMemberImage(match.team1, members);
-const team2ImagePromiseFn = getMemberImage(match.team2, members);
+const team1ImagePromiseFn = getMemberImageLazy(match.team1, members);
+const team2ImagePromiseFn = getMemberImageLazy(match.team2, members);
 
 ---
 

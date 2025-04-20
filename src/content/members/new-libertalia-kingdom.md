@@ -1,5 +1,5 @@
 ---
-id: 22
+id: 18
 code: "NLK"
 name: "New Libertalia Kingdom"
 nslink: "https://www.nationstates.net/nation=new_libertalia_kingdom"

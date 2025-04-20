@@ -1,5 +1,5 @@
 ---
-id: 18
+id: 13
 code: "RUI"
 name: "Ruinenlust"
 nslink: "https://www.nationstates.net/nation=ruinenlust"

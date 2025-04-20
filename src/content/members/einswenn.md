@@ -1,5 +1,5 @@
 ---
-id: 10
+id: 7
 code: "EIN"
 name: "Einswenn"
 nslink: "https://www.nationstates.net/nation=einswenn"

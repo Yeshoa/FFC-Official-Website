@@ -2,7 +2,7 @@
 id: 2
 type: "forest-cup"
 name: "Forest Cup Anxious & Kevin 2024"
-host: "Anxious & Kevin"
+host: "Anxious and Kevin"
 image: "tournaments/2024/logo.png"
 banner: "tournaments/2024/banner.png"
 edition: 2024
@@ -34,7 +34,7 @@ participants:
   - "New Libertalia Kingdom"
   - "Mozolephies"
   - "Nordustra"
-  - "Otterland"
+  - "Ottterland"
   - "Clown town city"
   - "The Realizer"
   - "Orcuo"

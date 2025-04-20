@@ -1,5 +1,5 @@
 ---
-id: 28
+id: 23
 code: "NAR"
 name: "Nardin"
 nslink: "https://www.nationstates.net/nation=nardin"

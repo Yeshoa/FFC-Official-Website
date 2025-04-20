@@ -5,6 +5,8 @@ import { getMemberImage, getMemberLogo } from '../../lib/memberUtils';
 import App from '../../layouts/App.astro';
 import ScorersTable from '../../components/tournaments/ScorersTable.astro';
 import MatchCard from '../../components/MatchCard.astro';
+import TournamentParticipationTable from '../../components/members/TournamentParticipationTable.astro';
+import { getMemberImageLazy } from '../../lib/memberUtilsLazy';
 
 export const prerender = true;
 
@@ -123,7 +125,7 @@ const logoImage = getMemberLogo(memberData.name, members);
 <App title={`FFC - ${memberData.name}`}>
   <div class="container mx-auto px-4 py-8">
     {/* Profile*/}
-    <div class="bg-white dark:bg-green-950/80 shadow-lg rounded-lg p-6 mb-8 flex flex-col md:flex-row items-center gap-6">
+    <div class="bg-green-950/80 shadow-lg rounded-lg p-6 mb-8 flex flex-col md:flex-row items-center gap-6">
       {/* Logos and Info */}
       <div class="flex flex-col items-center md:items-start gap-2">
         <div class="flex gap-4 items-center">
@@ -131,7 +133,7 @@ const logoImage = getMemberLogo(memberData.name, members);
             <Image
               src={flagImage}
               alt={`${memberData.name}'s flag'`}
-              class="h-16 w-auto md:h-20 object-contain rounded border border-gray-200 dark:border-green-700"
+              class="h-16 w-auto md:h-20 object-contain rounded border border-green-700"
               width={128}
               height={128}
               loading="eager"
@@ -140,14 +142,14 @@ const logoImage = getMemberLogo(memberData.name, members);
         </div>
         
         <!-- Nombre -->
-        <h1 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white text-center md:text-left break-words max-w-56 flex items-center gap-2">
+        <h1 class="text-3xl md:text-4xl font-bold text-white text-center md:text-left break-words max-w-56 flex items-center gap-2">
           {memberData.name}
         </h1>
         
         
         <!-- Código y puntos -->
         <div class="flex flex-col md:flex-row items-center md:items-start text-center md:text-left w-full">
-          <p class="text-lg text-gray-500 dark:text-gray-400">({memberData.code})</p>
+          <p class="text-lg text-gray-400">({memberData.code})</p>
           {memberData.verified && (
             <div class="ml-1 relative group">
               <svg
@@ -171,10 +173,15 @@ const logoImage = getMemberLogo(memberData.name, members);
         
         <!-- Ranking (abajo del todo) -->
         <div class="text-center md:text-left w-full">
-          <p class="text-sm text-gray-500 dark:text-gray-400">Rank</p>
+          <p class="text-sm text-gray-400">Rank</p>
           <div class="flex items-end justify-between w-full">
-            <p class="text-4xl font-bold text-green-600 dark:text-green-400">{memberData.id === 9999 ? 'N/A' : memberData.id === 1 ? '🥇' : memberData.id === 2 ? '🥈' : memberData.id === 3 ? '🥉' : memberData.id}°</p>
-            <p class="text-2xl font-semibold text-green-700 dark:text-green-300">{memberData.score} pts</p>
+            <p class={`text-4xl font-bold 
+            ${memberData.id === 1 ? 'text-amber-400' 
+            : memberData.id === 2 ? 'text-slate-300' 
+            : memberData.id === 3 ? 'text-yellow-600' 
+            : 'text-green-400'} 
+            `}>{memberData.id === 9999 ? 'N/A' : memberData.id}°</p>
+            <p class="text-2xl font-semibold text-green-300">{memberData.score} pts</p>
           </div>
         </div>
       </div>
@@ -192,48 +199,56 @@ const logoImage = getMemberLogo(memberData.name, members);
       </div>
       {/* Details */}
       <div class="flex-grow grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm md:text-base">
-        <a href={memberData.feddispatch} target="_blank" rel="noopener noreferrer" class="bg-gray-50 dark:bg-gradient-to-br from-green-800 via-green-900 to-green-950 hover:bg-gradient-to-br hover:from-green-700 hover:via-green-800 hover:to-green-900 p-3 rounded-md">
+        <a href={memberData.feddispatch} target="_blank" rel="noopener noreferrer" class="bg-gradient-to-br from-green-800 via-green-900 to-green-950 hover:bg-gradient-to-br hover:from-green-700 hover:via-green-800 hover:to-green-900 p-3 rounded-md">
           {memberData.federation ? (
             memberData.feddispatch ? (
-              <p class="text-blue-600 dark:text-white font-bold">
+              <p class="text-white font-bold">
                 {memberData.federation}
               </p>
             ) : (
-              <span class="ml-1 text-gray-800 dark:text-gray-200">{memberData.federation}</span>
+              <span class="ml-1 text-gray-200">{memberData.federation}</span>
             )
           ) : <span class="ml-1 text-gray-400 italic">This nation doesn't have a federation</span>}
         </a>
-        <div class="bg-gray-50 dark:bg-gradient-to-br from-green-800 via-green-900 to-green-950 p-3 rounded-md">
-          <span class="font-semibold text-gray-600 dark:text-gray-300">Region:</span>
-          <span class="ml-1 text-gray-800 dark:text-white font-bold">{memberData.region || <span class="italic text-gray-400">N/A</span>}</span>
+        <div class="bg-gradient-to-br from-green-800 via-green-900 to-green-950 p-3 rounded-md">
+          <span class="font-semibold text-gray-300">Region:</span>
+          <span class="ml-1 text-white font-bold">{memberData.region || <span class="italic text-gray-400">N/A</span>}</span>
         </div>
-        <a href={memberData.nslink} target="_blank" rel="noopener noreferrer" class="bg-gray-50 dark:bg-gradient-to-br from-green-800 via-green-900 to-green-950 hover:bg-gradient-to-br hover:from-green-700 hover:via-green-800 hover:to-green-900 p-3 rounded-md">
-          <p class="text-blue-600 dark:text-white font-bold">
+        <a href={memberData.nslink} target="_blank" rel="noopener noreferrer" class="bg-gradient-to-br from-green-800 via-green-900 to-green-950 hover:bg-gradient-to-br hover:from-green-700 hover:via-green-800 hover:to-green-900 p-3 rounded-md">
+          <p class="text-white font-bold">
             NationStates Profile 🔗
           </p>
         </a>
-        <div class="bg-gray-50 dark:bg-gradient-to-br from-green-800 via-green-900 to-green-950 p-3 rounded-md">
-          <span class="font-semibold text-gray-600 dark:text-gray-300">Founded:</span>
-          <span class="ml-1 text-gray-800 dark:text-white font-bold">{memberData.founded || <span class="italic text-gray-400">N/A</span>}</span>
+        <div class="bg-gradient-to-br from-green-800 via-green-900 to-green-950 p-3 rounded-md">
+          <span class="font-semibold text-gray-300">Founded:</span>
+          <span class="ml-1 text-white font-bold">{memberData.founded || <span class="italic text-gray-400">N/A</span>}</span>
         </div>
-        <div class="bg-gray-50 dark:bg-gradient-to-br from-green-800 via-green-900 to-green-950 p-3 rounded-md">
-          <span class="font-semibold text-gray-600 dark:text-gray-300">FFC Affiliation:</span>
-          <span class="ml-1 text-gray-800 dark:text-white font-bold">{memberData.affiliation || <span class="italic text-gray-400">N/A</span>}</span>
+        <div class="bg-gradient-to-br from-green-800 via-green-900 to-green-950 p-3 rounded-md">
+          <span class="font-semibold text-gray-300">FFC Affiliation:</span>
+          <span class="ml-1 text-white font-bold">{memberData.affiliation || <span class="italic text-gray-400">N/A</span>}</span>
         </div>
       </div>
     </div>
 
     {/* Markdown Content */}
-    <div class="prose dark:prose-invert max-w-full bg-white dark:bg-green-950/80 shadow-lg rounded-lg p-6 mb-8">
-      <h2 class="text-2xl font-semibold mb-4 text-gray-900 dark:text-white border-b pb-2 border-gray-200 dark:border-green-600">About {memberData.federation || memberData.name}</h2>
+    <div class="prose-invert max-w-full bg-green-950/80 shadow-lg rounded-lg p-6 mb-8">
+      <h2 class="text-2xl font-semibold mb-4 text-white border-b pb-2 border-green-600">About {memberData.federation || memberData.name}</h2>
       <div class="space-y-4"><Content /></div>
     </div>
 
+    <TournamentParticipationTable 
+    member={member} 
+    tournaments={tournaments} 
+    matches={matches} 
+    members={members} 
+    type="forest-cup" 
+    />
+    
     {/* Matches and Stats*/}
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
       {/* Last Played */}
-      <div class="bg-white dark:bg-green-950/80 shadow-lg rounded-lg p-6">
-        <h2 class="text-2xl font-semibold mb-4 text-gray-900 dark:text-white border-b pb-2 border-gray-200 dark:border-green-600">Last Matches Played</h2>
+      <div class="bg-green-950/80 shadow-lg rounded-lg p-6">
+        <h2 class="text-2xl font-semibold mb-4 text-white border-b pb-2 border-green-600">Last Matches Played</h2>
         {playedMatches.length > 0 ? (
           <div class="space-y-4">
             {playedMatches.map((match) => {
@@ -241,7 +256,7 @@ const logoImage = getMemberLogo(memberData.name, members);
               const tournamentUrl = tournament ? `/${tournament.data.type}/${tournament.data.edition}` : '';
               const tournamentName = tournament?.data.name ?? '';
               return(
-              <span class="text-sm text-gray-500 dark:text-gray-300 ml-3">
+              <span class="text-sm text-gray-300 ml-3">
                 <a href={tournamentUrl} class="hover:underline">{tournamentName}</a>
                 {match.group ? ` - Group ${match.group}` : ''}
                 {match.fixture ? ` - ${match.fixture}` : ''}
@@ -250,13 +265,13 @@ const logoImage = getMemberLogo(memberData.name, members);
             )}).slice(0, 8)}
           </div>
         ) : (
-          <p class="text-gray-500 dark:text-gray-400 italic">This National Team hasn't played any matches yet.</p>
+          <p class="text-gray-400 italic">This National Team hasn't played any matches yet.</p>
         )}
       </div>
 
       {/* Stats */}
       <div class="bg-white dark:bg-green-950/80 shadow-lg rounded-lg p-6">
-        <h2 class="text-2xl font-semibold mb-4 text-gray-900 dark:text-white border-b pb-2 border-gray-200 dark:border-green-600">Historic Head-to-Head</h2>
+        <h2 class="text-2xl font-semibold mb-4 text-white border-b pb-2 border-green-600">Historic Head-to-Head</h2>
         {Object.keys(h2hStats).length > 0 ? (
           <div class="overflow-x-auto">
             <table class="min-w-full border border-green-700 overflow-hidden rounded-lg text-sm">
@@ -293,39 +308,39 @@ const logoImage = getMemberLogo(memberData.name, members);
                 .map(([opponentName, stats]) => (
                   <tr key={opponentName} 
                   class="border-b border-green-700 hover:bg-green-900/30 transition duration-150">
-                    <td class="px-4 py-2 whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                    <td class="px-4 py-2 whitespace-nowrap font-medium text-white">
                       <a href={`/members/${members.find(m => m.data.name === opponentName)?.slug}`} class="flex items-center gap-2 hover:underline">
                       <Image
-                        src={getMemberImage(opponentName, members)}
+                        src={getMemberImageLazy(opponentName, members)}
                         alt={opponentName}
                         class="w-6 h-4 object-cover rounded" height={36} width={36}
                         loading="lazy"
                       />{opponentName}
                       </a>
                     </td>
-                    <td class={`px-1 py-2 whitespace-nowrap text-center text-gray-500 dark:text-green-200 font-bold
+                    <td class={`px-1 py-2 whitespace-nowrap text-center text-green-200 font-bold
                     ${
                       stats.difference > 0
-                        ? 'text-green-600 dark:text-green-400'
+                        ? 'text-green-400'
                         : stats.difference < 0
-                        ? 'text-red-600 dark:text-red-400'
-                        : 'text-gray-500 dark:text-gray-300'
+                        ? 'text-red-400'
+                        : 'text-gray-300'
                     }`}
                     >{stats.difference === 0 ? '-' : stats.difference > 0 ? `+${stats.difference}` : stats.difference}</td>
-                    <td class="px-1 py-2 whitespace-nowrap text-center text-gray-500 dark:text-green-200">{stats.played}</td>
-                    <td class="px-1 py-2 whitespace-nowrap text-center text-green-600 dark:text-green-400">{stats.wins}</td>
-                    <td class="px-1 py-2 whitespace-nowrap text-center text-yellow-600 dark:text-yellow-400">{stats.draws}</td>
-                    <td class="px-1 py-2 whitespace-nowrap text-center text-red-600 dark:text-red-400">{stats.losses}</td>
-                    <td class="px-1 py-2 whitespace-nowrap text-center text-gray-500 dark:text-green-200">{stats.goalsFor}</td>
-                    <td class="px-1 py-2 whitespace-nowrap text-center text-gray-500 dark:text-green-200">{stats.goalsAgainst}</td>
-                    <td class="px-1 py-2 whitespace-nowrap text-center text-gray-500 dark:text-green-200">{stats.goalsFor - stats.goalsAgainst}</td>
+                    <td class="px-1 py-2 whitespace-nowrap text-center text-green-200">{stats.played}</td>
+                    <td class="px-1 py-2 whitespace-nowrap text-center text-green-400">{stats.wins}</td>
+                    <td class="px-1 py-2 whitespace-nowrap text-center text-yellow-400">{stats.draws}</td>
+                    <td class="px-1 py-2 whitespace-nowrap text-center text-red-400">{stats.losses}</td>
+                    <td class="px-1 py-2 whitespace-nowrap text-center text-green-200">{stats.goalsFor}</td>
+                    <td class="px-1 py-2 whitespace-nowrap text-center text-green-200">{stats.goalsAgainst}</td>
+                    <td class="px-1 py-2 whitespace-nowrap text-center text-green-200">{stats.goalsFor - stats.goalsAgainst}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
         ) : (
-          <p class="text-gray-500 dark:text-gray-400 italic">There are no stats to show for this National Team</p>
+          <p class="text-gray-400 italic">There are no stats to show for this National Team</p>
         )}
       <ScorersTable members={members.filter(m => m.slug === member.slug)} matches={playedMatches} />
       </div>

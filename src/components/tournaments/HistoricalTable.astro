@@ -6,6 +6,7 @@ import {
   getMatchResult,
   getGoalsByTeam,
 } from '../../lib/matchUtils.ts';
+import { getMemberImageLazy } from "../../lib/memberUtilsLazy";
 
 interface Props {
   members: CollectionEntry<'members'>[];
@@ -160,7 +161,7 @@ const sortedStats = Object.values(teamStats).filter(stat => stat.verified).sort(
         <tr class="border-b border-green-700 hover:bg-green-900/30 transition duration-150">
           <td class="px-2 py-2">{index + 1}</td>
           <td class="px-2 py-2">
-            {getMemberImage(team.name, members) && <Image src={getMemberImage(team.name, members)} alt={team.name} 
+            {<Image src={getMemberImageLazy(team.name, members)} alt={team.name} 
             width={32} 
             height={32}
             class="h-6 w-auto object-cover rounded inline-block" />}

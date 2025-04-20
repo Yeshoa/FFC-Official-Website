@@ -1,5 +1,5 @@
 ---
-id: 17
+id: 14
 code: "LUM"
 name: "Lumiose"
 nslink: "https://www.nationstates.net/nation=lumiose"
