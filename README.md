@@ -61,9 +61,6 @@ Website built with **Astro**. Showcases tournaments, match details, and national
 - [ ] **Use `<Image />` component where possible and optimize their size**  
 &nbsp;&nbsp;&nbsp;&nbsp;Try to optimize image rendering. If issues arise, consider moving image directories to `public/`.
 
-- [ ] **Build reusable components for tournament pages**  
-&nbsp;&nbsp;&nbsp;&nbsp;Standings tables, brackets, match grids — all should be modular to simplify future tournament additions.
-
 - [ ] **Improve Final match cards**  
 &nbsp;&nbsp;&nbsp;&nbsp;Match card for final games should be more imposing.
 

@@ -4,7 +4,7 @@ import type { CollectionEntry } from 'astro:content';
 import type { ImageMetadata } from 'astro';
 import { getMemberImage } from '../lib/memberUtils';
 import { getMemberImageLazy } from '../lib/memberUtilsLazy';
-import { areThereScorers } from '../lib/matchUtils';
+import { areThereScorers, getMatchWinner } from '../lib/matchUtils';
 import GoalIcon from '../assets/images/goal.png';
 
 interface Props { // Renombrado de FCCardProps
@@ -34,6 +34,7 @@ if (hasPenaltyShootout) {
 const team1ImagePromiseFn = getMemberImageLazy(match.team1, members);
 const team2ImagePromiseFn = getMemberImageLazy(match.team2, members);
 
+const winner = getMatchWinner(match);
 ---
 
 <div class="flex flex-col justify-center items-center w-full max-w-5xl bg-gradient-to-br from-green-800 to-green-900 dark:from-green-900/80 dark:to-green-950/70 py-3 px-4 rounded-2xl shadow-md text-white hover:bg-green-700/90">
@@ -41,7 +42,7 @@ const team2ImagePromiseFn = getMemberImageLazy(match.team2, members);
   <div class="grid grid-cols-7 items-center w-full gap-2 mb-2">
     {/* Equipo 1 */}
     <div class="flex items-center justify-end col-span-3 gap-2 text-right overflow-hidden">
-      <a class="font-semibold md:text-lg truncate hover:underline" href={`/members/${members.find(m => m.data.name === match.team1)?.slug}`}>{match.team1}</a>
+      <a class={`${winner === match.team1 ? 'font-bold' : 'font-light'} md:text-lg truncate hover:underline`} href={`/members/${members.find(m => m.data.name === match.team1)?.slug}`}>{match.team1}</a>
       {team1ImagePromiseFn ? (
         <Image
           src={team1ImagePromiseFn}
@@ -87,7 +88,7 @@ const team2ImagePromiseFn = getMemberImageLazy(match.team2, members);
       ) : (
         <div class="h-5 w-8 md:h-6 md:w-9 bg-gray-600 rounded-sm flex-shrink-0"></div>
       )}
-      <a class="font-semibold md:text-lg truncate hover:underline" href={`/members/${members.find(m => m.data.name === match.team2)?.slug}`}>{match.team2}</a>
+      <a class={`${winner === match.team2 ? 'font-bold' : 'font-light'} md:text-lg truncate hover:underline`} href={`/members/${members.find(m => m.data.name === match.team2)?.slug}`}>{match.team2}</a>
     </div>
   </div>
 

@@ -86,7 +86,7 @@ export function getTopScorerOfTeamInTournament(
 }
 
 // 🟨 Obtener la posición final de un equipo en un torneo
-export function getTeamPositionInTournament(
+/* export function getTeamPositionInTournament(
   tournament: TournamentEntry,
   matches: MatchEntry[],
   teamName: string
@@ -106,6 +106,158 @@ export function getTeamPositionInTournament(
   });
 
   const index = sorted.findIndex(t => t.name === teamName);
+  return index >= 0 ? index + 1 : null;
+} */
+
+export function getTeamPositionInTournament(
+  tournament: TournamentEntry,
+  matches: MatchEntry[],
+  teamName: string
+): number | null {
+  const otherTeams = tournament.data.participants;
+  
+  // Obtener estadísticas y fase más alta para cada equipo
+  const standings = otherTeams.map(name => {
+    // Obtener estadísticas básicas
+    const stats = getTeamStatsInTournament(name, tournament.data.id, matches);
+    
+    // Determinar la fase más alta
+    let highestPhase = "Group Stage";
+    
+    // Verificamos si es el campeón (ganador de la final)
+    const finalMatch = matches.find(match => 
+      match.data.tournament_id === tournament.data.id && 
+      match.data.fixture === "Final" && 
+      (match.data.team1 === name || match.data.team2 === name)
+    );
+    
+    if (finalMatch) {
+      const { team1: g1, team2: g2 } = getMatchResult(finalMatch.data);
+      
+      if ((finalMatch.data.team1 === name && g1 > g2) || 
+          (finalMatch.data.team2 === name && g2 > g1)) {
+        highestPhase = "Champion";
+      } else {
+        highestPhase = "Final";
+      }
+    } else {
+      // Verificar semifinales
+      const semifinalMatch = matches.some(match => 
+        match.data.tournament_id === tournament.data.id && 
+        match.data.fixture === "Semi Finals" && 
+        (match.data.team1 === name || match.data.team2 === name)
+      );
+      
+      if (semifinalMatch) {
+        highestPhase = "Semi Finals";
+      } else {
+        // Verificar cuartos de final
+        const quarterMatch = matches.some(match => 
+          match.data.tournament_id === tournament.data.id && 
+          match.data.fixture === "Quarter Finals" && 
+          (match.data.team1 === name || match.data.team2 === name)
+        );
+        
+        if (quarterMatch) {
+          highestPhase = "Quarter Finals";
+        } else {
+          // Verificar octavos de final (Round of 16)
+          const r16Match = matches.some(match => 
+            match.data.tournament_id === tournament.data.id && 
+            match.data.fixture === "Round of 16" && 
+            (match.data.team1 === name || match.data.team2 === name)
+          );
+          
+          if (r16Match) {
+            highestPhase = "Round of 16";
+          } else {
+            // Verificar dieciseisavos (Round of 32)
+            const r32Match = matches.some(match => 
+              match.data.tournament_id === tournament.data.id && 
+              match.data.fixture === "Round of 32" && 
+              (match.data.team1 === name || match.data.team2 === name)
+            );
+            
+            if (r32Match) {
+              highestPhase = "Round of 32";
+            }
+          }
+        }
+      }
+    }
+    
+    return {
+      name,
+      highestPhase,
+      ...stats
+    };
+  });
+
+  // Separar equipos por fase
+  const champions = standings.filter(team => team.highestPhase === "Champion");
+  const finalists = standings.filter(team => team.highestPhase === "Final");
+  const semifinalists = standings.filter(team => team.highestPhase === "Semi Finals");
+  const quarterfinalists = standings.filter(team => team.highestPhase === "Quarter Finals");
+  const r16teams = standings.filter(team => team.highestPhase === "Round of 16");
+  const r32teams = standings.filter(team => team.highestPhase === "Round of 32");
+  const groupStageTeams = standings.filter(team => team.highestPhase === "Group Stage");
+
+  // Ordenar dentro de cada fase según criterios normales
+  const sortByStandardCriteria = (a, b) => {
+    if (b.points !== a.points) return b.points - a.points;
+    const gdA = a.goalsFor - a.goalsAgainst;
+    const gdB = b.goalsFor - b.goalsAgainst;
+    if (gdB !== gdA) return gdB - gdA;
+    return b.goalsFor - a.goalsFor;
+  };
+
+  // Ordenar cada grupo por separado
+  const sortedQuarterfinalists = [...quarterfinalists].sort(sortByStandardCriteria);
+  const sortedR16teams = [...r16teams].sort(sortByStandardCriteria);
+  const sortedR32teams = [...r32teams].sort(sortByStandardCriteria);
+  const sortedGroupStageTeams = [...groupStageTeams].sort(sortByStandardCriteria);
+
+  // Determinar 3º y 4º puesto entre semifinalistas
+  let sorted3rdAnd4th = [...semifinalists];
+  if (semifinalists.length === 2) {
+    const thirdPlaceMatch = matches.find(match => 
+      match.data.tournament_id === tournament.data.id && 
+      match.data.fixture === "Third Place" &&
+      (match.data.team1 === semifinalists[0].name || match.data.team1 === semifinalists[1].name) &&
+      (match.data.team2 === semifinalists[0].name || match.data.team2 === semifinalists[1].name)
+    );
+    
+    if (thirdPlaceMatch) {
+      const { team1: g1, team2: g2 } = getMatchResult(thirdPlaceMatch.data);
+      
+      // Determinar ganador del tercer lugar
+      if ((thirdPlaceMatch.data.team1 === semifinalists[0].name && g1 > g2) ||
+          (thirdPlaceMatch.data.team2 === semifinalists[0].name && g2 > g1)) {
+        // El primer semifinalista ganó el partido por el tercer puesto
+        sorted3rdAnd4th = [semifinalists[0], semifinalists[1]];
+      } else {
+        // El segundo semifinalista ganó el partido por el tercer puesto
+        sorted3rdAnd4th = [semifinalists[1], semifinalists[0]];
+      }
+    } else {
+      // No hay partido por el tercer puesto, ordenar por criterios estándar
+      sorted3rdAnd4th.sort(sortByStandardCriteria);
+    }
+  }
+
+  // Combinar todos los equipos en el orden correcto garantizando las posiciones por fase
+  const finalSorted = [
+    ...champions,                // 1er lugar
+    ...finalists,                // 2do lugar
+    ...sorted3rdAnd4th,          // 3er y 4to lugar
+    ...sortedQuarterfinalists,   // Del 5to al 8vo lugar
+    ...sortedR16teams,           // Del 9no al 16to lugar
+    ...sortedR32teams,           // Del 17mo al 32do lugar (si hubo)
+    ...sortedGroupStageTeams     // Del 17mo en adelante // Del 33ro en adelante
+  ];
+
+  // Encontrar la posición del equipo solicitado
+  const index = finalSorted.findIndex(t => t.name === teamName);
   return index >= 0 ? index + 1 : null;
 }
 
@@ -149,10 +301,26 @@ export function getTeamFinalResult(
   for (let i = TOURNAMENT_STAGE_MAP.length - 1; i >= 0; i--) {
     const stage = TOURNAMENT_STAGE_MAP[i];
     if (playedStages.has(stage.key)) {
+      if (stage.key === 'Final') {
+        const finalMatch = relevantMatches.find(
+          m =>
+            m.data.stage === 'Final' ||
+            m.data.fixture.trim() === 'Final'
+        );
+
+        if (finalMatch) {
+          const result = getMatchResult(finalMatch.data);
+          const isWinner =
+            (finalMatch.data.team1 === teamName && result.team1 > result.team2) ||
+            (finalMatch.data.team2 === teamName && result.team2 > result.team1);
+
+          return isWinner ? 'Champion' : 'Finalist';
+        }
+      }
+
       return stage.label;
     }
   }
-
 
   return 'Unknown Stage';
 }
