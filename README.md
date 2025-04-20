@@ -8,8 +8,8 @@ Website built with **Astro**. Showcases tournaments, match details, and national
 
 - [ ] **Landing Page**  
 &nbsp;&nbsp;&nbsp;&nbsp;Add content to the landing page, maybe changing the "grid hero" with a full width React carousel.
- - [ ] Display last news
- - [ ] Display last official matches
+  - [ ] Display last news
+  - [ ] Display last official matches
 
 - [ ] **Elaborate the Members page (by slug)**  
 &nbsp;&nbsp;&nbsp;&nbsp;Collection by markdown DONE✅. ⚠ Components need to be in /components. Page should look like a profile with all this info:
@@ -17,7 +17,7 @@ Website built with **Astro**. Showcases tournaments, match details, and national
   - [ ] ~~Upcoming matches~~
   - ⚠ Show a component for **last matches played**
   - ⚠ Component showing **head-to-head stats** against other national teams (only those they've played)
-  - [ ] Show **Forest Cup history** [Example](https://es.wikipedia.org/wiki/Selección_de_fútbol_de_Argentina#Estadísticas)
+  - ✅ Show **Forest Cup history** [Example](https://es.wikipedia.org/wiki/Selección_de_fútbol_de_Argentina#Estadísticas)
   - [ ] **Records section** [Example](https://es.wikipedia.org/wiki/Selección_de_fútbol_de_Argentina#Récords_y_notas)
   - [ ] **Achievements section** (only Forest Cup for now)
   - [ ] Display `roster` with their numbers
