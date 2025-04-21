@@ -125,14 +125,14 @@ function getThirdPlaceResult(tournament: CollectionEntry<'tournaments'>): string
         return (
           <tr class="border-b border-green-700 hover:bg-green-900/20">
             <td class="px-2 py-3 flex items-center gap-1 justify-center">
-              {hostImage && <a href={`/members/${members.find(m => m.data.name === tournament.data.host)?.slug}`}><Image src={hostImage} alt={tournament.data.host} width={20} height={14} class="rounded-sm" /></a>}
+              {hostImage && <a href={`/members/${members.find(m => m.data.name === tournament.data.host)?.slug}`}><Image src={hostImage} alt={tournament.data.host} width={28} height={20} class="rounded-sm  object-cover max-h-6" /></a>}
               <a href={`/${type}/${tournament.data.edition}`} class="hover:underline">{tournament.data.edition}</a>
             </td>
             
             <td class="px-2 py-3 font-semibold">
               {champion && (
                 <div class="flex items-center gap-1 justify-center">
-                  {championImage && <a href={`/members/${members.find(m => m.data.name === champion)?.slug}`}><Image src={championImage} alt={champion} width={20} height={14} class="rounded-sm" /></a>}
+                  {championImage && <a href={`/members/${members.find(m => m.data.name === champion)?.slug}`}><Image src={championImage} alt={champion} width={28} height={20} class="rounded-sm object-cover max-h-6" /></a>}
                   <a href={`/members/${members.find(m => m.data.name === champion)?.slug}`} class="hover:underline text-yellow-400">{champion}</a>
                 </div>
               )}
@@ -143,7 +143,7 @@ function getThirdPlaceResult(tournament: CollectionEntry<'tournaments'>): string
             <td class="px-2 py-3">
               {runnerUp && (
                 <div class="flex items-center gap-1 justify-center">
-                  {runnerUpImage && <a href={`/members/${members.find(m => m.data.name === runnerUp)?.slug}`}><Image src={runnerUpImage} alt={runnerUp} width={20} height={14} class="rounded-sm" /></a>}
+                  {runnerUpImage && <a href={`/members/${members.find(m => m.data.name === runnerUp)?.slug}`}><Image src={runnerUpImage} alt={runnerUp} width={28} height={20} class="rounded-sm  object-cover max-h-6" /></a>}
                   <a href={`/members/${members.find(m => m.data.name === runnerUp)?.slug}`} class="hover:underline">{runnerUp}</a>
                 </div>
               )}
@@ -152,7 +152,7 @@ function getThirdPlaceResult(tournament: CollectionEntry<'tournaments'>): string
             <td class="px-2 py-3">
               {third && (
                 <div class="flex items-center gap-1 justify-center">
-                  {thirdImage && <a href={`/members/${members.find(m => m.data.name === third)?.slug}`}><Image src={thirdImage} alt={third} width={20} height={14} class="rounded-sm" /></a>}
+                  {thirdImage && <a href={`/members/${members.find(m => m.data.name === third)?.slug}`}><Image src={thirdImage} alt={third} width={28} height={20} class="rounded-sm  object-cover max-h-6" /></a>}
                   <a href={`/members/${members.find(m => m.data.name === third)?.slug}`} class="hover:underline">{third}</a>
                 </div>
               )}
@@ -163,7 +163,7 @@ function getThirdPlaceResult(tournament: CollectionEntry<'tournaments'>): string
             <td class="px-2 py-3">
               {fourth && (
                 <div class="flex items-center gap-1 justify-center">
-                  {fourthImage && <a href={`/members/${members.find(m => m.data.name === fourth)?.slug}`}><Image src={fourthImage} alt={fourth} width={20} height={14} class="rounded-sm" /></a>}
+                  {fourthImage && <a href={`/members/${members.find(m => m.data.name === fourth)?.slug}`}><Image src={fourthImage} alt={fourth} width={28} height={20} class="rounded-sm  object-cover max-h-6" /></a>}
                   <a href={`/members/${members.find(m => m.data.name === fourth)?.slug}`} class="hover:underline">{fourth}</a>
                 </div>
               )}

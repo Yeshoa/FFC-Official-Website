@@ -1,216 +1,68 @@
 ---
+import  {getCollection, type CollectionEntry } from 'astro:content';
+import { getMatchResult, getPenaltiesResult } from '../lib/matchUtils.ts';
+import { getMemberImageLazy } from '../lib/memberUtilsLazy.ts';
 import { Image } from 'astro:assets';
-import type { CollectionEntry } from 'astro:content';
-import { getMemberImage } from '../lib/memberUtils';
-import type { ImageMetadata } from 'astro';
-import { getMemberImageLazy } from '../lib/memberUtilsLazy';
-
-// Definir el tipo para los datos de un partido según el schema
-type MatchData = CollectionEntry<'matches'>['data'];
 
 interface Props {
-  match: MatchData; // Usar el tipo derivado del schema
+  match: CollectionEntry<'matches'>['data'];
   members: CollectionEntry<'members'>[];
 }
 
+const tournaments = await getCollection('tournaments');
 const { match, members } = Astro.props;
+const tournament = tournaments.find(t => t.data.id === match.tournament_id);
+const date = new Date(match.date);
+const { team1, team2 } = match;
+const { team1: score1, team2: score2 } = getMatchResult(match);
+const penalties = getPenaltiesResult(match);
 
-// --- Calcular Marcador Base (Goles en el partido) ---
-const goals = match.goals ?? [];
-const score1 = goals.filter(g => g.team === match.team1).length;
-const score2 = goals.filter(g => g.team === match.team2).length;
+const team1Image = getMemberImageLazy(team1, members);
+const team2Image = getMemberImageLazy(team2, members);
 
-// --- Calcular Marcador de Penales (si existen) ---
-const penalties = match.penalties ?? [];
-const hasPenaltyShootout = penalties.length > 0 && match.status === 'played'; // Solo si hay tanda y se jugó
-let penaltyScore1 = 0;
-let penaltyScore2 = 0;
-let penaltyInfo = '';
-
-if (hasPenaltyShootout) {
-  penaltyScore1 = penalties.filter(p => p.team === match.team1 && p.scored).length;
-  penaltyScore2 = penalties.filter(p => p.team === match.team2 && p.scored).length;
-  penaltyInfo = `(${penaltyScore1}-${penaltyScore2} p)`; // Texto para mostrar ej: (4-3 p)
-}
-
-// --- Determinar Ganador ---
-const getWinner = (): string | 'Draw' => {
-  // Si el partido no se jugó o fue cancelado, no hay ganador aún
-  if (match.status !== 'played') return 'Draw'; // O podrías devolver null/undefined
-
-  if (hasPenaltyShootout) {
-    // Ganador por penales
-    return penaltyScore1 > penaltyScore2 ? match.team1 :
-           penaltyScore2 > penaltyScore1 ? match.team2 :
-           'Draw'; // Empate en penales? Muy raro, tratar como empate o según reglas.
-  } else {
-    // Ganador por marcador normal (incluye goles en prórroga si los hubo)
-    return score1 > score2 ? match.team1 :
-           score2 > score1 ? match.team2 :
-           'Draw'; // Empate normal
-  }
-};
-
-const winner = getWinner();
-
-// --- Obtener Imágenes (Llamar a la función que devuelve la promesa) ---
-const team1ImagePromiseFn = getMemberImageLazy(match.team1, members);
-const team2ImagePromiseFn = getMemberImageLazy(match.team2, members);
-
+// Texto de penales si aplica
+const penaltyText = penalties
+  ? ` (${penalties.team1}–${penalties.team2} p)`
+  : '';
 ---
-
-<div class="relative bg-gradient-to-br from-green-900/70 to-green-900/70 dark:from-green-900/80 dark:to-green-950/80 rounded-lg p-4 group w-full sm:w-72 hover:scale-105 hover:shadow-xl text-white">
-  <div class="flex flex-col space-y-2">
-    <div class="flex items-center justify-between">
-      <div class="flex items-center space-x-2 overflow-hidden mr-2">
-        {team1ImagePromiseFn ? (
-          <Image
-            src={team1ImagePromiseFn}
-            alt={match.team1}
-            class="w-5 h-5 object-contain flex-shrink-0 rounded-sm"
-            loading="lazy"
-            inferSize={true}
-          />
-        ) : (
-          <div class="w-5 h-5 bg-gray-600 rounded-sm flex-shrink-0"></div>
-        )}
-        <span class={`truncate ${winner === match.team1 ? 'font-bold' : 'font-normal'}`}>{match.team1}</span>
-      </div>
-      <div class="flex items-center flex-shrink-0">
-        {/* Mostrar marcador final */}
-        <span class={`font-semibold text-lg ${winner === match.team1 ? 'text-yellow-300' : ''}`}>{score1}</span>
-        {/* Mostrar resultado de penales si hubo */}
-        {hasPenaltyShootout && penaltyInfo && <span class="text-gray-300 text-xs ml-1">{`(${penaltyScore1})`}</span>}
-      </div>
+<div class="bg-green-950/80 rounded-md px-4 py-3 w-full gap-2">
+  <div class="text-xs text-gray-300 flex gap-1 justify-between px-3 pb-2">
+    <div class="">
+      <span class="font-semibold">{tournament?.data.type === 'forest-cup' ? 'Forest Cup' : 'Champions League'} {tournament?.data.edition}</span>
+      <span>{match.group ? 'Groups' : match.fixture ? match.fixture : ''}</span>
     </div>
-
-    <div class="flex items-center justify-between">
-       <div class="flex items-center space-x-2 overflow-hidden mr-2">
-        {team2ImagePromiseFn ? (
-          <Image
-            src={team2ImagePromiseFn}
-            alt={match.team2}
-            class="w-5 h-5 object-contain flex-shrink-0 rounded-sm"
-            loading="lazy"
-            inferSize={true}
-          />
-        ) : (
-          <div class="w-5 h-5 bg-gray-600 rounded-sm flex-shrink-0"></div>
-        )}
-        <span class={`truncate ${winner === match.team2 ? 'font-bold' : 'font-normal'}`}>{match.team2}</span>
-      </div>
-       <div class="flex items-center flex-shrink-0">
-        {/* Mostrar marcador final */}
-        <span class={`font-semibold text-lg ${winner === match.team2 ? 'text-yellow-300' : ''}`}>{score2}</span>
-         {/* Mostrar resultado de penales si hubo */}
-        {hasPenaltyShootout && penaltyInfo && <span class="text-gray-300 text-xs ml-1">{`(${penaltyScore2})`}</span>}
-      </div>
-    </div>
-     {/* Mostrar info de penales globalmente si hubo */}
-    {hasPenaltyShootout && penaltyInfo && (
-        <div class="text-center text-xs text-yellow-400 font-semibold mt-1">
-            {match.team1} won {penaltyInfo} on penalties
-        </div>
-    )}
-    {/* Mostrar estado si no se jugó */}
-    {match.status === 'scheduled' && (
-        <div class="text-center text-xs text-blue-300 mt-1">
-            {match.date.toLocaleDateString('es-ES', { /* Ajusta locale */ day: '2-digit', month: '2-digit', year: 'numeric' })} - {match.date.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit'})}
-        </div>
-    )}
-     {match.status === 'canceled' && (
-        <div class="text-center text-xs text-red-400 mt-1">Canceled</div>
-    )}
+    <span>{date.toLocaleDateString()}</span>
   </div>
-
-  {match.status === 'played' && goals.length > 0 && (
-    <div class="absolute -top-34 left-0 bg-black/90 text-white text-xs p-3 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 w-60 z-20 pointer-events-none group-hover:pointer-events-auto invisible group-hover:visible max-h-48 overflow-y-auto shadow-lg">
-      <h4 class="text-sm font-semibold mb-2 text-center border-b border-gray-600 pb-1">Goalscorers</h4>
-      <div class="flex justify-between gap-3">
-        <div class="flex-1">
-          <p class="font-semibold text-green-400 mb-1">{match.team1}</p>
-          {goals.filter(g => g.team === match.team1).length > 0 ? (
-            // Agrupamos los goles por jugador
-            Object.entries(
-              goals
-                .filter(g => g.team === match.team1)
-                .reduce((acc, g) => {
-                  // Creamos una clave única por jugador y tipo de gol (penal/autogol)
-                  const key = `${g.player}${g.ownGoal ? "-og" : ""}${g.penalty ? "-p" : ""}`;
-                  if (!acc[key]) {
-                    acc[key] = {
-                      player: g.player,
-                      minutes: [],
-                      penalty: g.penalty,
-                      ownGoal: g.ownGoal,
-                      assists: [] // Guardamos todos los asistentes
-                    };
-                  }
-                  acc[key].minutes.push(g.minute);
-                  if (g.assist) acc[key].assists.push(g.assist);
-                  return acc;
-                }, {})
-            ).map(([key, goalGroup]) => (
-              <div key={key} class="text-gray-200 mb-0.5">
-                {goalGroup.player} {goalGroup.minutes.join(', ')}' {goalGroup.penalty ? "(P)" : ""} {goalGroup.ownGoal ? "(OG)" : ""}
-                {goalGroup.assists.length > 0 && (
-                  <span class="text-gray-400 text-[10px] italic">
-                    {" "}(A: {Array.from(new Set(goalGroup.assists)).join(', ')})
-                  </span>
-                )}
-              </div>
-            ))
-          ) : (
-            <p class="text-gray-500 italic text-center">No goals</p>
-          )}
-        </div>
-
-        <div class="flex-1">
-          <p class="font-semibold text-red-400 mb-1">{match.team2}</p>
-          {goals.filter(g => g.team === match.team2).length > 0 ? (
-            // Agrupamos los goles por jugador
-            Object.entries(
-              goals
-                .filter(g => g.team === match.team2)
-                .reduce((acc, g) => {
-                  // Creamos una clave única por jugador y tipo de gol (penal/autogol)
-                  const key = `${g.player}${g.ownGoal ? "-og" : ""}${g.penalty ? "-p" : ""}`;
-                  if (!acc[key]) {
-                    acc[key] = {
-                      player: g.player,
-                      minutes: [],
-                      penalty: g.penalty,
-                      ownGoal: g.ownGoal,
-                      assists: [] // Guardamos todos los asistentes
-                    };
-                  }
-                  acc[key].minutes.push(g.minute);
-                  if (g.assist) acc[key].assists.push(g.assist);
-                  return acc;
-                }, {})
-            ).map(([key, goalGroup]) => (
-              <div key={key} class="text-gray-200 mb-0.5">
-                {goalGroup.player} {goalGroup.minutes.join(', ')}' {goalGroup.penalty ? "(P)" : ""} {goalGroup.ownGoal ? "(OG)" : ""}
-                {goalGroup.assists.length > 0 && (
-                  <span class="text-gray-400 text-[10px] italic">
-                    {" "}(A: {Array.from(new Set(goalGroup.assists)).join(', ')})
-                  </span>
-                )}
-              </div>
-            ))
-          ) : (
-            <p class="text-gray-500 italic text-center">No goals</p>
-          )}
-        </div>
-      </div>
-      {/* Enlace al partido (opcional) */}
-      {match.link && (
-        <div class="mt-2 pt-1 border-t border-gray-600 text-center">
-          <a href={match.link} target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-blue-300 hover:underline text-xs">
-            Watch Match 🔗
-          </a>
-        </div>
+  <div class="w-full flex items-center justify-center gap-2 text-sm text-white">
+    <!-- Team 1 -->
+    <div class="flex items-center gap-2 flex-1 justify-end">
+      <span class="truncate max-w-[100px] text-right">{team1}</span>
+      {team1Image ? (
+        <Image src={team1Image} alt={team1} class="w-5 h-4 object-cover rounded-sm" loading="lazy" />
+      ) : (
+        <div class="w-5 h-4 bg-gray-600 rounded-sm" />
       )}
     </div>
-  )}
+  
+    <!-- Score -->
+    <div class="flex items-center gap-1 text-lg font-semibold text-white mx-4">
+      <span>{score1}</span>
+      <span class="text-gray-400">–</span>
+      <span>{score2}</span>
+      {penaltyText && (
+        <span class="text-xs text-yellow-400 font-normal ml-1">{penaltyText}</span>
+      )}
+    </div>
+  
+    <!-- Team 2 -->
+    <div class="flex items-center gap-2 flex-1">
+      {team2Image ? (
+        <Image src={team2Image} alt={team2} class="w-5 h-4 object-cover rounded-sm" loading="lazy" />
+      ) : (
+        <div class="w-5 h-4 bg-gray-600 rounded-sm" />
+      )}
+      <span class="truncate max-w-[100px]">{team2}</span>
+    </div>
+  </div>
 </div>
+

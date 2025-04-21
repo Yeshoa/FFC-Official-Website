@@ -4,6 +4,7 @@ import type { ImageMetadata } from 'astro';
 import type { CollectionEntry } from 'astro:content';
 import { getMemberImage } from '../../lib/memberUtils';
 import { getMemberImageLazy } from '../../lib/memberUtilsLazy';
+import { getMatchResult, getMatchWinner } from '../../lib/matchUtils';
 
 interface Goal {
   team: string;
@@ -60,20 +61,7 @@ const hasPenalties = isPlayed && match.data.penalties && match.data.penalties.le
 const team1Penalties = hasPenalties ? match.data.penalties!.filter(p => p.team === match.data.team1 && p.scored).length : 0;
 const team2Penalties = hasPenalties ? match.data.penalties!.filter(p => p.team === match.data.team2 && p.scored).length : 0;
 
-// Determinar ganador
-const getWinner = () => {
-  if (!isPlayed) return null;
-  
-  if (hasPenalties) {
-    return team1Penalties > team2Penalties ? match.data.team1 : team2Penalties > team1Penalties ? match.data.team2 : 'Draw';
-  } else {
-    return team1Goals > team2Goals ? match.data.team1 
-         : team2Goals > team1Goals ? match.data.team2 
-         : 'Draw';
-  }
-};
-
-const winner = getWinner();
+const winner = getMatchWinner(match.data);
 
 // Formatear la fecha si el partido está programado
 const formattedDate = match.data.status === 'scheduled' 
@@ -92,7 +80,7 @@ const formattedDate = match.data.status === 'scheduled'
         ) : (
           <div class="w-6 h-6 bg-gray-600 rounded-md"></div>
         )}
-        <a class={`${winner === match.data.team1 ? 'font-bold' : 'font-medium'} hover:underline`} href={`/members/${members.find(m => m.data.name === match.data.team1)?.slug}`}>
+        <a class={`${winner === match.data.team1 ? 'font-bold' : 'font-light'} hover:underline`} href={`/members/${members.find(m => m.data.name === match.data.team1)?.slug}`}>
           {match.data.team1}
         </a>
       </div>
@@ -117,7 +105,7 @@ const formattedDate = match.data.status === 'scheduled'
         ) : (
           <div class="w-6 h-6 bg-gray-600 rounded-md"></div>
         )}
-        <a class={`${winner === match.data.team2 ? 'font-bold' : 'font-medium'} hover:underline` } href={`/members/${members.find(m => m.data.name === match.data.team2)?.slug}`}>
+        <a class={`${winner === match.data.team2 ? 'font-bold' : 'font-light'} hover:underline` } href={`/members/${members.find(m => m.data.name === match.data.team2)?.slug}`}>
           {match.data.team2}
         </a>
       </div>

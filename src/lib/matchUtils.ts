@@ -53,7 +53,7 @@ export function getMatchResult(match: Match): { team1: number; team2: number } {
     if (goal.team === match.team1) t1++;
     else if (goal.team === match.team2) t2++;
   }
-  
+
   return { team1: t1, team2: t2 };
 }
 
@@ -110,4 +110,8 @@ export function getTotalGoals(match: Match): number {
 
 export function areThereScorers(match: Match): boolean {
   return (match.goals ?? []).every(goal => !!goal.player);
+}
+
+export function getAllMatchesByTeam(team: string, matches: Match[]): Match[] {
+  return matches.filter(match => match.team1 === team || match.team2 === team);
 }

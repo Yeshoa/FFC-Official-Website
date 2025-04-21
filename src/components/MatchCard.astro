@@ -4,7 +4,7 @@ import type { CollectionEntry } from 'astro:content';
 import type { ImageMetadata } from 'astro';
 import { getMemberImage } from '../lib/memberUtils';
 import { getMemberImageLazy } from '../lib/memberUtilsLazy';
-import { areThereScorers, getMatchWinner } from '../lib/matchUtils';
+import { areThereScorers, getMatchWinner, getMatchResult } from '../lib/matchUtils';
 import GoalIcon from '../assets/images/goal.png';
 
 interface Props { // Renombrado de FCCardProps
@@ -16,8 +16,7 @@ interface Props { // Renombrado de FCCardProps
 const { match, members } = Astro.props;
 
 const goals = match.goals ?? [];
-const score1 = goals.filter(g => g.team === match.team1).length;
-const score2 = goals.filter(g => g.team === match.team2).length;
+const { team1: score1, team2: score2 } = getMatchResult(match);
 
 const penalties = match.penalties ?? [];
 const hasPenaltyShootout = penalties.length > 0 && match.status === 'played';

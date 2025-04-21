@@ -17,7 +17,7 @@ goals:
     assist: "E. Ñuizvei"
     minute: 21
   - team: "Jutsa"
-    player: "M. Teypet"
+    player: "M. Tepyet"
     minute: 63
   - team: "Jutsa"
     player: "H. Kazñeisei"

@@ -1,0 +1,139 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { getMatchResult, getMatchWinner } from '../../lib/matchUtils.ts';
+import MatchCardCompact from '../MatchCardCompact.astro';
+
+interface Props {
+  member: CollectionEntry<'members'>;
+  members: CollectionEntry<'members'>[];
+  matches: CollectionEntry<'matches'>['data'][];
+}
+
+const { member, matches, members } = Astro.props;
+const teamName = member.data.name;
+
+const sortedMatches = matches.slice().reverse(); // cronológico
+
+let firstMatch = sortedMatches.at(0);
+let cleanSheets = 0;
+let bigWins = 0;
+let bigLosses = 0;
+let unbeatenStreak = 0;
+let currentStreak = 0;
+let longestWinStreak = 0;
+let currentWinStreak = 0;
+let longestLossStreak = 0;
+let currentLossStreak = 0;
+
+let biggestWinDiff = -Infinity;
+let biggestLossDiff = Infinity;
+let biggestWins: typeof matches = [];
+let biggestLosses: typeof matches = [];
+
+for (const match of sortedMatches) {
+  const result = getMatchResult(match);
+  const isTeam1 = match.team1 === teamName;
+  const gf = isTeam1 ? result.team1 : result.team2;
+  const ga = isTeam1 ? result.team2 : result.team1;
+  const diff = gf - ga;
+
+  // Biggest wins
+  if (diff > 0 && diff >= biggestWinDiff) {
+    if (diff > biggestWinDiff) {
+      biggestWins = [match];
+      biggestWinDiff = diff;
+    } else {
+      biggestWins.push(match);
+    }
+  }
+
+  // Biggest losses
+  if (diff < 0 && diff <= biggestLossDiff) {
+    if (diff < biggestLossDiff) {
+      biggestLosses = [match];
+      biggestLossDiff = diff;
+    } else {
+      biggestLosses.push(match);
+    }
+  }
+
+  if (ga === 0) cleanSheets++;
+
+  if (diff >= 3) bigWins++;
+  if (diff <= -3) bigLosses++;
+  
+  const winner = getMatchWinner(match);
+  
+  if (winner === teamName) {
+    currentWinStreak++;
+    currentLossStreak = 0;
+    longestWinStreak = Math.max(longestWinStreak, currentWinStreak);
+  } else if (winner === null) {
+    currentWinStreak = 0;
+    currentLossStreak = 0;
+  } else {
+    currentLossStreak++;
+    currentWinStreak = 0;
+    longestLossStreak = Math.max(longestLossStreak, currentLossStreak);
+  }
+
+  if (winner === teamName || winner === null) {
+    currentStreak++;
+    unbeatenStreak = Math.max(unbeatenStreak, currentStreak);
+  } else {
+    currentStreak = 0;
+  }
+}
+---
+
+<div class="bg-green-950/80 shadow-lg rounded-lg p-6 col-span-2">
+  <h2 class="text-2xl font-semibold mb-4 text-white border-b pb-2 border-green-600">Records</h2>
+  {matches.length > 0 ? (
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div class="text-sm text-gray-200 space-y-2">
+        <div class="flex justify-between items-center">
+          <span class="font-semibold">Longest Unbeaten Streak:</span>
+          <span>{unbeatenStreak} match{unbeatenStreak !== 1 ? 'es' : ''}</span>
+        </div>
+        <div class="flex justify-between items-center">
+          <span class="font-semibold">Longest Win Streak:</span>
+          <span>{longestWinStreak} match{longestWinStreak !== 1 ? 'es' : ''}</span>
+        </div>
+        <div class="flex justify-between items-center">
+          <span class="font-semibold">Longest Loss Streak:</span>
+          <span>{longestLossStreak} match{longestLossStreak !== 1 ? 'es' : ''}</span>
+        </div>
+        <div class="flex justify-between items-center">
+          <span class="font-semibold">Clean Sheets:</span>
+          <span>{cleanSheets}</span>
+        </div>
+        <div class="flex justify-between items-center">
+          <span class="font-semibold">Wins by 3+ goals:</span>
+          <span>{bigWins}</span>
+        </div>
+        <div class="flex justify-between items-center">
+          <span class="font-semibold">Losses by 3+ goals:</span>
+          <span>{bigLosses}</span>
+        </div>
+      </div>
+      <div class="space-y-2">
+        <h3 class="font-semibold text-white">First Match:</h3>
+        <MatchCardCompact match={firstMatch} members={members} />
+      </div>
+      <div class="space-y-2">
+        <h3 class="font-semibold text-white">Biggest Win{biggestWins.length > 1 ? 's' : ''}:</h3>
+        {biggestWins.map(m => (
+          <MatchCardCompact key={m.id} match={m} members={members} />
+        ))}
+      </div>
+      <div class="space-y-2">
+        <h3 class="font-semibold text-white">Worst Defeat{biggestLosses.length > 1 ? 's' : ''}:</h3>
+        {biggestLosses.map(m => (
+          <MatchCardCompact key={m.id} match={m} members={members} />
+        ))}
+      </div>
+    </div>
+  ) : (
+    <p class="text-gray-400 italic">There are no records available yet for this National Team.</p>
+  )}
+</div>

@@ -5,8 +5,10 @@ import { getMemberImage, getMemberLogo } from '../../lib/memberUtils';
 import App from '../../layouts/App.astro';
 import ScorersTable from '../../components/tournaments/ScorersTable.astro';
 import MatchCard from '../../components/MatchCard.astro';
+import RecordsAndStats from '../../components/members/RecordsAndStats.astro';
 import TournamentParticipationTable from '../../components/members/TournamentParticipationTable.astro';
 import { getMemberImageLazy } from '../../lib/memberUtilsLazy';
+import { getAllMatchesByTeam } from '../../lib/matchUtils';
 
 export const prerender = true;
 
@@ -199,17 +201,30 @@ const logoImage = getMemberLogo(memberData.name, members);
       </div>
       {/* Details */}
       <div class="flex-grow grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm md:text-base">
-        <a href={memberData.feddispatch} target="_blank" rel="noopener noreferrer" class="bg-gradient-to-br from-green-800 via-green-900 to-green-950 hover:bg-gradient-to-br hover:from-green-700 hover:via-green-800 hover:to-green-900 p-3 rounded-md">
-          {memberData.federation ? (
-            memberData.feddispatch ? (
-              <p class="text-white font-bold">
-                {memberData.federation}
-              </p>
+        {/* If feddispatch is present, use anchor */}
+        {memberData.feddispatch ? (
+          <a
+            href={memberData.feddispatch}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="bg-gradient-to-br from-green-800 via-green-900 to-green-950 hover:bg-gradient-to-br hover:from-green-700 hover:via-green-800 hover:to-green-900 p-3 rounded-md"
+          >
+            {memberData.federation ? (
+              <p class="text-white font-bold">{memberData.federation}</p>
             ) : (
+              <span class="ml-1 text-gray-400 italic">This nation doesn't have a federation</span>
+            )}
+          </a>
+        ) : (
+          <div class="bg-gradient-to-br from-green-800 via-green-900 to-green-950 p-3 rounded-md">
+            {memberData.federation ? (
               <span class="ml-1 text-gray-200">{memberData.federation}</span>
-            )
-          ) : <span class="ml-1 text-gray-400 italic">This nation doesn't have a federation</span>}
-        </a>
+            ) : (
+              <span class="ml-1 text-gray-400 italic">This nation doesn't have a federation</span>
+            )}
+          </div>
+        )}
+        
         <div class="bg-gradient-to-br from-green-800 via-green-900 to-green-950 p-3 rounded-md">
           <span class="font-semibold text-gray-300">Region:</span>
           <span class="ml-1 text-white font-bold">{memberData.region || <span class="italic text-gray-400">N/A</span>}</span>
@@ -278,14 +293,14 @@ const logoImage = getMemberLogo(memberData.name, members);
               <thead>
                 <tr class="bg-green-800 text-white">
                   <th scope="col" class="px-4 py-2 text-left tracking-wider">Opponent</th>
-                  <th scope="col" class="px-1 py-2 text-center tracking-wider" title="Goles en Contra">Dif</th>
-                  <th scope="col" class="px-1 py-2 text-center tracking-wider" title="Partidos Jugados">Pld</th>
-                  <th scope="col" class="px-1 py-2 text-center tracking-wider" title="Victorias">W</th>
-                  <th scope="col" class="px-1 py-2 text-center tracking-wider" title="Empates">D</th>
-                  <th scope="col" class="px-1 py-2 text-center tracking-wider" title="Derrotas">L</th>
-                  <th scope="col" class="px-1 py-2 text-center tracking-wider" title="Goles a Favor">GF</th>
-                  <th scope="col" class="px-1 py-2 text-center tracking-wider" title="Goles en Contra">GA</th>
-                  <th scope="col" class="px-1 py-2 text-center tracking-wider" title="Goles en Contra">GD</th>
+                  <th scope="col" class="px-1 py-2 text-center tracking-wider" title="Difference">Dif</th>
+                  <th scope="col" class="px-1 py-2 text-center tracking-wider" title="Matches Played">Pld</th>
+                  <th scope="col" class="px-1 py-2 text-center tracking-wider" title="Wins">W</th>
+                  <th scope="col" class="px-1 py-2 text-center tracking-wider" title="Draws">D</th>
+                  <th scope="col" class="px-1 py-2 text-center tracking-wider" title="Losses">L</th>
+                  <th scope="col" class="px-1 py-2 text-center tracking-wider" title="Goals for">GF</th>
+                  <th scope="col" class="px-1 py-2 text-center tracking-wider" title="Goals against">GA</th>
+                  <th scope="col" class="px-1 py-2 text-center tracking-wider" title="Goal difference">GD</th>
                 </tr>
               </thead>
               <tbody>
@@ -344,8 +359,7 @@ const logoImage = getMemberLogo(memberData.name, members);
         )}
       <ScorersTable members={members.filter(m => m.slug === member.slug)} matches={playedMatches} />
       </div>
-      {/* Top Scorers and Top Assists */}
+      <RecordsAndStats member={member} matches={playedMatches} members={members}/>
     </div>
-
   </div>
 </App>
