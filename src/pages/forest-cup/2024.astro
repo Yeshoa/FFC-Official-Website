@@ -36,18 +36,14 @@ const fc2024Matches = matchesCollection
   .sort((a, b) => a.data.date.getTime() - b.data.date.getTime()); // Ordenar por fecha
 const knockoutMatches = fc2024Matches.filter(match => match.data.stage === 'knockout');
 
+// Imagenes
 import FC24Logo from '../../assets/images/tournaments/2024/banner.png'; 
-import AllGoalsHero from '../../assets/images/hero2.png';
-
-const slides = [
-  { src: "/src/assets/images/hero2.png", alt: "All Goals", videoId: "HQJcfs5rKrs" },
-  { src: "/src/assets/images/forest-cup/2022-final.png", alt: "Final", videoId: "dxx2pF9TOR4" },
-  { src: "/src/assets/images/hero2.png", alt: "Semifinals", videoId: "rc8UYbxFyRw" },
-  { src: "/src/assets/images/hero2.png", alt: "Quarter Finals", videoId: "vZ7o6dRT740"},
-  { src: "/src/assets/images/hero2.png", alt: "Day 3", videoId: "aP8APqz4n0U"},
-  { src: "/src/assets/images/hero2.png", alt: "Day 2", videoId: "uhSVoz-2miE"},
-  { src: "/src/assets/images/hero2.png", alt: "Day 1", videoId: "F_3ckioqvnU" },
-];
+import AllGoalsHero from '../../assets/images/tournaments/2024/all-goals.png';
+import FinalMatch from '../../assets/images/tournaments/2024/final-match.png';
+import NysnubShow from '../../assets/images/tournaments/2024/nysnub-show.png';
+import LongestPenalty from '../../assets/images/tournaments/2024/longest-penalty.png';
+import BestGoal from '../../assets/images/tournaments/2024/best-goal.png';
+import MVPTarasov from '../../assets/images/tournaments/2024/mvp-tarasov.png';
 
 // Función auxiliar para encontrar los partidos de una fixture específica (si es necesario)
 // Nota: Esto puede ser complejo si la estructura de `FC2024Data` no coincide perfectamente
@@ -68,9 +64,9 @@ const winner = getMatchWinner(getMatchesForFixture('knockout', undefined, 'Final
   <main class="flex flex-col items-center">
     <div class="flex flex-col justify-center items-center pb-6 bg-gradient-to-r from-transparent to-transparent via-black/20 w-full">
       <TournamentGrid currentTournament={FC2024Data}/>
-       <Image src={FC24Logo} alt={`${FC2024Data.name} Logo`} class="max-w-7xl lg:w-4xl md:w-2xl xl:w-auto sm:w-lg w-sm" loading={"eager"}/>
+       <Image src={FC24Logo} alt={`${FC2024Data.name} Logo`} class="py-8 max-w-7xl lg:w-4xl md:w-2xl xl:w-auto sm:w-lg w-sm" loading={"eager"}/>
        <div class="flex justify-between items-start h-full p-6 gap-6">
-         <div class="flex flex-col gap-6 items-center">
+         <div class="flex flex-col gap-6 items-center p-16">
            {winner && (
              <div class="flex items-center gap-6">
                {getMemberImage(winner, membersCollection) && (
@@ -86,32 +82,80 @@ const winner = getMatchWinner(getMatchesForFixture('knockout', undefined, 'Final
               <p class="text-xl text-gray-400 italic">(Winner details not specified in prizes, showing participants)</p>
            )}
          </div>
-       </div>
-    </div>
-
-    <div class="w-full bg-gradient-to-b from-white/10 to-transparent items-center flex justify-center p-6">
-      <div class="max-w-10/12 grid grid-cols-4 justify-center items-center">
-        <a href={`https://www.youtube.com/watch?v=${slides[0].videoId}`} target="_blank" class="relative overflow-hidden rounded-2xl col-span-3 w-11/12">
-          <Image src={AllGoalsHero} alt="All Goals" class="rounded-xl object-cover hover:scale-105 transition duration-300" loading={"eager"}/>
-          <div class="absolute bottom-7 left-7 text-white">
-            <h2 class="text-6xl font-bold">All Goals</h2>
-          </div>
-        </a>
-        <div class="grid grid-rows-6 gap-1 justify-center items-center bg-green-950 rounded-2xl w-max mx-0 px-4">
-          {slides.slice(1).map(slide => ( // Empezar desde el segundo slide (índice 1)
-                <div class="row-span-1 flex items-center justify-center py-2 border-b-2 border-white w-full last:border-b-0">
-                  <a href={`https://www.youtube.com/watch?v=${slide.videoId}`} target="_blank" class="flex items-center justify-between w-full group">
-                      <div class="h-20 w-36 rounded-2xl overflow-hidden flex-shrink-0">
-                          {/* Idealmente, usar imágenes específicas del slide si las tienes */}
-                          <Image src={AllGoalsHero} alt={slide.alt} class="h-full w-full object-cover group-hover:scale-105 transition duration-300" loading={"lazy"}/>
-                      </div>
-                      <h2 class="text-lg ms-4">{slide.alt}</h2>
-                  </a>
-                </div>
-          ))}
         </div>
       </div>
+      
+      <div class="w-full bg-gradient-to-b from-white/20 to-transparent items-center flex justify-center p-6">
+        <div class="max-w-10/12 flex flex-col lg:grid grid-cols-4 justify-center items-center gap-4">
+          <!-- Video principal -->
+          <a href="https://www.youtube.com/live/XJPwf45Eh4w?si=8Akzbug1jY6sOFv9&t=297" target="_blank" 
+            class="relative overflow-hidden rounded-2xl col-span-3 w-[95%] group">
+            <Image src={FinalMatch} 
+              alt="Final Match" 
+              class="rounded-xl object-cover group-hover:scale-105 transition duration-300" 
+              loading="lazy"
+              width={1080} />
+            <div class="absolute inset-0 bg-gradient-to-tr from-green-950 from-15% to-40% to-transparent"></div>
+            <div class="absolute bottom-7 left-7 text-white">
+              <h2 class="text-5xl font-bold text-shadow">Revive the Final</h2>
+            </div>
+          </a>
+      
+          <!-- Panel derecho: Headlines -->
+          <div class="flex flex-col bg-green-950 rounded-2xl w-full max-w-sm px-4 py-2">
+            <h2 class="text-xl font-bold text-white border-b border-green-600">Headlines</h2>
+      
+            <!-- Cada carta -->
+            <div class="flex items-center justify-center py-2 border-b border-green-600 last:border-b-0">
+              <a href="https://www.youtube.com/watch?v=iddBpQbe7ak" target="_blank" class="flex items-center justify-start w-full group">
+                <div class="h-24 w-40 rounded-2xl overflow-hidden flex-shrink-0">
+                  <Image src={AllGoalsHero} alt="All Goals" class="h-full w-full object-cover group-hover:scale-110 transition duration-300" loading="lazy" width={200} />
+                </div>
+                <h2 class="text-md ms-4 text-white">All Goals</h2>
+              </a>
+            </div>
+      
+            <div class="flex items-center justify-center py-2 border-b border-green-600 last:border-b-0">
+              <a href="#prizes" class="flex items-center justify-start w-full group">
+                <div class="h-24 w-40 rounded-2xl overflow-hidden flex-shrink-0">
+                  <Image src={MVPTarasov} alt="Tarasov MVP" class="h-full w-full object-cover group-hover:scale-115 transition duration-300 scale-110 object-top" loading="lazy" width={200} />
+                </div>
+                <h2 class="text-md ms-4 text-white">Tarasov wins the Golden Ball</h2>
+              </a>
+            </div>
+      
+            <div class="flex items-center justify-center py-2 border-b border-green-600 last:border-b-0">
+              <a href="https://youtube.com/shorts/vzUKv51dzuU" target="_blank" class="flex items-center justify-start w-full group">
+                <div class="h-24 w-40 rounded-2xl overflow-hidden flex-shrink-0">
+                  <Image src={NysnubShow} alt="Nysnub Show" class="h-full w-full object-cover group-hover:scale-105 transition duration-300 object-top" loading="lazy" width={200} />
+                </div>
+                <h2 class="text-md ms-4 text-white">Nysnub Show: 4 goals in one match</h2>
+              </a>
+            </div>
+      
+            <div class="flex items-center justify-center py-2 border-b border-green-600 last:border-b-0">
+              <a href="https://youtube.com/clip/UgkxhC53IxiU-6hjxn5H_XDy_XJsLO-ki5wE?si=c3TqUN6alOi30lv2" target="_blank" class="flex items-center justify-start w-full group">
+                <div class="h-24 w-40 rounded-2xl overflow-hidden flex-shrink-0">
+                  <Image src={BestGoal} alt="Cacusia goal" class="h-full w-full object-cover group-hover:scale-110 transition duration-300" loading="lazy" width={200} />
+                </div>
+                <h2 class="text-md ms-4 text-white">Cacusia amazing goal</h2>
+              </a>
+            </div>
+      
+            <div class="flex items-center justify-center py-2 border-b border-green-600 last:border-b-0">
+              <a href="https://youtube.com/clip/UgkxpY5l94Lpkwctfl8yymRpTlVJimy-HAQN?si=mt_yHADNDHSYjEXZ" target="_blank" class="flex items-center justify-start w-full group">
+                <div class="h-24 w-40 rounded-2xl overflow-hidden flex-shrink-0">
+                  <Image src={LongestPenalty} alt="Longest Penalty Shootout" class="h-full w-full object-cover group-hover:scale-110 transition duration-300" loading="lazy" width={200} />
+                </div>
+                <h2 class="text-md ms-4 text-white">Longest penalty shootout ever!</h2>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
     </div>
+    
 
     <div class="flex flex-col justify-center items-center w-full gap-4 py-4">
       <Bracket matches={fc2024Matches} members={membersCollection} />
@@ -126,11 +170,10 @@ const winner = getMatchWinner(getMatchesForFixture('knockout', undefined, 'Final
       knockoutMatches={knockoutMatches}
       members={membersCollection}
     />
-    <div class="prose dark:prose-invert bg-white dark:bg-green-900 shadow-lg rounded-lg p-6 my-8 w-full max-w-4xl mx-auto">
+    <!-- <div class="prose dark:prose-invert bg-white dark:bg-green-900 shadow-lg rounded-lg p-6 my-8 w-full max-w-4xl mx-auto">
        <h2 class="text-2xl font-semibold mb-4 text-gray-900 dark:text-white border-b pb-2 border-gray-200 dark:border-green-600">Tournament Notes</h2>
-       <Content /> {/* Renderiza el contenido del archivo .md asociado al torneo */}
-       {/* Si no hay Content, puedes poner un mensaje por defecto */}
-    </div>
+       <Content />
+    </div> -->
 
     </main>
 </App>

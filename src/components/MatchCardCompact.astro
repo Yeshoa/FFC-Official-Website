@@ -36,7 +36,7 @@ const penaltyText = penalties
   <div class="w-full flex items-center justify-center gap-2 text-sm text-white">
     <!-- Team 1 -->
     <div class="flex items-center gap-2 flex-1 justify-end">
-      <span class="truncate max-w-[100px] text-right">{team1}</span>
+      <span class="truncate max-w-[100px] text-right" title={team1}>{team1}</span>
       {team1Image ? (
         <Image src={team1Image} alt={team1} class="w-5 h-4 object-cover rounded-sm" loading="lazy" />
       ) : (
@@ -61,7 +61,7 @@ const penaltyText = penalties
       ) : (
         <div class="w-5 h-4 bg-gray-600 rounded-sm" />
       )}
-      <span class="truncate max-w-[100px]">{team2}</span>
+      <span class="truncate max-w-[100px]" title={team2}>{team2}</span>
     </div>
   </div>
 </div>

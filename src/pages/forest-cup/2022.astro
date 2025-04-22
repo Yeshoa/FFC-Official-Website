@@ -35,17 +35,7 @@ const fc2022Matches = matchesCollection
 const knockoutMatches = fc2022Matches.filter(match => match.data.stage === 'knockout');
 
 import FC22Logo from '../../assets/images/tournaments/2022/logo.png'; 
-import AllGoalsHero from '../../assets/images/hero2.png';
-
-const slides = [
-  { src: "/src/assets/images/hero2.png", alt: "All Goals", videoId: "HQJcfs5rKrs" },
-  { src: "/src/assets/images/forest-cup/2022-final.png", alt: "Final", videoId: "dxx2pF9TOR4" },
-  { src: "/src/assets/images/hero2.png", alt: "Semifinals", videoId: "rc8UYbxFyRw" },
-  { src: "/src/assets/images/hero2.png", alt: "Quarter Finals", videoId: "vZ7o6dRT740"},
-  { src: "/src/assets/images/hero2.png", alt: "Day 3", videoId: "aP8APqz4n0U"},
-  { src: "/src/assets/images/hero2.png", alt: "Day 2", videoId: "uhSVoz-2miE"},
-  { src: "/src/assets/images/hero2.png", alt: "Day 1", videoId: "F_3ckioqvnU" },
-];
+import AllGoalsHero from '../../assets/images/atsvea-champions.png';
 
 // Función auxiliar para encontrar los partidos de una fixture específica (si es necesario)
 // Nota: Esto puede ser complejo si la estructura de `FC2022Data` no coincide perfectamente
@@ -89,24 +79,21 @@ const winner = getMatchWinner(getMatchesForFixture('knockout', undefined, 'Final
 
     <div class="w-full bg-gradient-to-b from-white/10 to-transparent items-center flex justify-center p-6">
       <div class="max-w-10/12 grid grid-cols-4 justify-center items-center">
-        <a href={`https://www.youtube.com/watch?v=${slides[0].videoId}`} target="_blank" class="relative overflow-hidden rounded-2xl col-span-3 w-11/12">
-          <Image src={AllGoalsHero} alt="All Goals" class="rounded-xl object-cover hover:scale-105 transition duration-300" loading={"eager"}/>
+        <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" class="relative overflow-hidden rounded-2xl col-span-3 w-11/12">
+          <Image src={AllGoalsHero} alt="All Goals" class="rounded-xl object-cover hover:scale-105 transition duration-300" loading="eager" />
           <div class="absolute bottom-7 left-7 text-white">
             <h2 class="text-6xl font-bold">All Goals</h2>
           </div>
         </a>
         <div class="grid grid-rows-6 gap-1 justify-center items-center bg-green-950 rounded-2xl w-max mx-0 px-4">
-          {slides.slice(1).map(slide => ( // Empezar desde el segundo slide (índice 1)
-                <div class="row-span-1 flex items-center justify-center py-2 border-b-2 border-white w-full last:border-b-0">
-                  <a href={`https://www.youtube.com/watch?v=${slide.videoId}`} target="_blank" class="flex items-center justify-between w-full group">
-                      <div class="h-20 w-36 rounded-2xl overflow-hidden flex-shrink-0">
-                          {/* Idealmente, usar imágenes específicas del slide si las tienes */}
-                          <Image src={AllGoalsHero} alt={slide.alt} class="h-full w-full object-cover group-hover:scale-105 transition duration-300" loading={"lazy"}/>
-                      </div>
-                      <h2 class="text-lg ms-4">{slide.alt}</h2>
-                  </a>
-                </div>
-          ))}
+          <div class="row-span-1 flex items-center justify-center py-2 border-b-2 border-white w-full last:border-b-0">
+            <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" class="flex items-center justify-between w-full group">
+              <div class="h-20 w-36 rounded-2xl overflow-hidden flex-shrink-0">
+                <Image src={AllGoalsHero} alt="Static Alt Text" class="h-full w-full object-cover group-hover:scale-105 transition duration-300" loading="lazy" />
+              </div>
+              <h2 class="text-lg ms-4">Static Alt Text</h2>
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -124,11 +111,10 @@ const winner = getMatchWinner(getMatchesForFixture('knockout', undefined, 'Final
       knockoutMatches={knockoutMatches}
       members={membersCollection}
     />
-    <div class="prose dark:prose-invert bg-white dark:bg-green-900 shadow-lg rounded-lg p-6 my-8 w-full max-w-4xl mx-auto">
+    <!-- <div class="prose dark:prose-invert bg-white dark:bg-green-900 shadow-lg rounded-lg p-6 my-8 w-full max-w-4xl mx-auto">
        <h2 class="text-2xl font-semibold mb-4 text-gray-900 dark:text-white border-b pb-2 border-gray-200 dark:border-green-600">Tournament Notes</h2>
-       <Content /> {/* Renderiza el contenido del archivo .md asociado al torneo */}
-       {/* Si no hay Content, puedes poner un mensaje por defecto */}
-    </div>
+       <Content />
+    </div> -->
 
     </main>
 </App>

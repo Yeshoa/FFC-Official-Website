@@ -23,7 +23,7 @@ Website built with **Astro**. Showcases tournaments, match details, and national
   - [ ] Display `roster` with their numbers
   - [ ] Work on score calculations
 
-- [ ] **Elaborate the Tournaments page (by slug)**  
+- [ ] **Elaborate the Tournaments page**  
 &nbsp;&nbsp;&nbsp;&nbsp;Improve Tournaments pages:
   - [ ] `Banner`: An image of the champions, with their flag-name and maybe the trophy
   - [ ] `Headlines`: A component with relevant media.
@@ -32,6 +32,7 @@ Website built with **Astro**. Showcases tournaments, match details, and national
   - ✅ `Knockout Matches`
   - [ ] `Individual Prizes`
   - [ ] `Overall Table`
+  - [ ] `Team of the Tournament`
   - [ ] `Minor Stats or gallery`
 
 - [ ] **Elaborate the Matches page (by slug)**  
