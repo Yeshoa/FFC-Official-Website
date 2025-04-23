@@ -31,7 +31,7 @@ Website built with **Astro**. Showcases tournaments, match details, and national
   - ✅ `Groups and Matches`
   - ✅ `Knockout Matches`
   - ✅ `Individual Prizes`
-  - [ ] `Overall Table`
+  - ✅ `Overall Table`
   - [ ] `Team of the Tournament`
   - [ ] `Minor Stats or gallery`
 

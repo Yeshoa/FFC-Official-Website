@@ -7,6 +7,7 @@ import Bracket from '../../components/tournaments/Bracket.astro';
 import Groups from '../../components/tournaments/Groups.astro';
 import KnockoutMatches from '../../components/tournaments/KnockoutMatches.astro';
 import TournamentGrid from '../../components/tournaments/TournamentGrid.astro'; 
+import TournamentStandings from '../../components/tournaments/TournamentStandings.astro';
 import { getMatchWinner } from '../../lib/matchUtils.ts';
 
 type Tournament = CollectionEntry<'tournaments'>['data'];
@@ -180,6 +181,12 @@ const winner = getMatchWinner(getMatchesForFixture('knockout', undefined, 'Final
        <h2 class="text-2xl font-semibold mb-4 text-gray-900 dark:text-white border-b pb-2 border-gray-200 dark:border-green-600">Tournament Notes</h2>
        <Content />
     </div> -->
+
+    <TournamentStandings
+    tournament={tournamentEntry}
+    matches={fc2024Matches}
+    members={membersCollection.filter(member => FC2024Data.participants.includes(member.data.name))}
+    />
 
     </main>
 </App>

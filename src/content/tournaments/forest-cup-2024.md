@@ -35,7 +35,7 @@ participants:
   - "Mozolephies"
   - "Nordustra"
   - "Ottterland"
-  - "Clown town city"
+  - "Clown Town City"
   - "The Realizer"
   - "Orcuo"
   - "Aresetia"

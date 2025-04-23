@@ -120,7 +120,7 @@ const bestGoalkeeper = prizes?.bestGoalkeeper;
 const getMemberSlug = (teamName: string): string | undefined => {
   return members.find(m => m.data.name === teamName)?.slug;
 }
-const statsCols = topAssisters.length > 0 ? 3 : 2;
+const statsCols = topAssisters.length > 0 ? "3" : "2";
 ---
 
 <section id="prizes" class="container p-4 md:p-6">
