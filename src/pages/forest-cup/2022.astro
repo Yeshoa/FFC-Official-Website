@@ -34,8 +34,15 @@ const fc2022Matches = matchesCollection
   .sort((a, b) => a.data.date.getTime() - b.data.date.getTime()); // Ordenar por fecha
 const knockoutMatches = fc2022Matches.filter(match => match.data.stage === 'knockout');
 
+// Imagenes
 import FC22Logo from '../../assets/images/tournaments/2022/logo.png'; 
-import AllGoalsHero from '../../assets/images/atsvea-champions.png';
+import Champions from '../../assets/images/tournaments/2022/atsvea-champions.png';
+import Greenaway from '../../assets/images/tournaments/2022/greenaway.png';
+import WolfFreeKick from '../../assets/images/tournaments/2022/wolf-freekick.png';
+import KaskBicycleKick from '../../assets/images/tournaments/2022/kask-bicycle.png';
+import FinalMatch from '../../assets/images/tournaments/2022/final-match.png';
+import Vela from '../../assets/images/tournaments/2022/vela.png';
+import Dartmouth from '../../assets/images/tournaments/2022/dartmouth.png';
 
 // Función auxiliar para encontrar los partidos de una fixture específica (si es necesario)
 // Nota: Esto puede ser complejo si la estructura de `FC2022Data` no coincide perfectamente
@@ -77,26 +84,76 @@ const winner = getMatchWinner(getMatchesForFixture('knockout', undefined, 'Final
        </div>
     </div>
 
-    <div class="w-full bg-gradient-to-b from-white/10 to-transparent items-center flex justify-center p-6">
-      <div class="max-w-10/12 grid grid-cols-4 justify-center items-center">
-        <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" class="relative overflow-hidden rounded-2xl col-span-3 w-11/12">
-          <Image src={AllGoalsHero} alt="All Goals" class="rounded-xl object-cover hover:scale-105 transition duration-300" loading="eager" />
+    <!-- Headlines -->
+    <div class="w-full bg-gradient-to-b from-white/20 to-transparent items-center flex justify-center p-6">
+      <div class="max-w-10/12 flex flex-col lg:grid grid-cols-4 justify-center items-center gap-4">
+        <a href="https://youtu.be/dxx2pF9TOR4?si=oDugjymEcqpIWEln" target="_blank" 
+          class="relative overflow-hidden rounded-2xl col-span-3 w-[95%] group">
+          <Image src={FinalMatch} 
+            alt="Final Match" 
+            class="rounded-xl object-cover group-hover:scale-105 transition duration-300" 
+            loading="lazy"
+            width={1080} />
+          <div class="absolute inset-0 bg-gradient-to-tr from-green-950 from-10% to-40% to-transparent"></div>
           <div class="absolute bottom-7 left-7 text-white">
-            <h2 class="text-6xl font-bold">All Goals</h2>
+            <h2 class="text-5xl font-bold text-shadow">The Final</h2>
           </div>
         </a>
-        <div class="grid grid-rows-6 gap-1 justify-center items-center bg-green-950 rounded-2xl w-max mx-0 px-4">
-          <div class="row-span-1 flex items-center justify-center py-2 border-b-2 border-white w-full last:border-b-0">
-            <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" class="flex items-center justify-between w-full group">
-              <div class="h-20 w-36 rounded-2xl overflow-hidden flex-shrink-0">
-                <Image src={AllGoalsHero} alt="Static Alt Text" class="h-full w-full object-cover group-hover:scale-105 transition duration-300" loading="lazy" />
+    
+        <!-- Panel derecho: Headlines -->
+        <div class="flex flex-col bg-green-950 rounded-2xl w-full max-w-sm px-4 py-2">
+          <h2 class="text-xl font-bold text-white border-b border-green-600">Headlines</h2>
+    
+          <!-- Cada carta -->
+          <div class="flex items-center justify-center py-2 border-b border-green-600 last:border-b-0">
+            <a href="https://youtu.be/HQJcfs5rKrs?si=EjpyeGgIAh2x_be2" target="_blank" class="flex items-center justify-start w-full group">
+              <div class="h-24 w-40 rounded-2xl overflow-hidden flex-shrink-0">
+                <Image src={Greenaway} alt="All Goals" class="h-full w-full object-cover group-hover:scale-110 transition duration-300 object-top" loading="lazy" width={200} />
               </div>
-              <h2 class="text-lg ms-4">Static Alt Text</h2>
+              <h2 class="text-md ms-4 text-white">Watch All Goals</h2>
+            </a>
+          </div>
+    
+          <div class="flex items-center justify-center py-2 border-b border-green-600 last:border-b-0">
+            <a href="https://youtube.com/clip/UgkxnRSBN8vsKt9WX1JlmCPPzJoZjkVbfBj3?si=T4pFoq9ZXLGn_4GT" target="_blank" class="flex items-center justify-start w-full group">
+              <div class="h-24 w-40 rounded-2xl overflow-hidden flex-shrink-0">
+                <Image src={KaskBicycleKick} alt="Kask Bicycle Kick" class="h-full w-full object-cover group-hover:scale-110 transition duration-300 object-left-top" loading="lazy" width={200} />
+              </div>
+              <h2 class="text-md ms-4 text-white">Kask incredible bicycle kick</h2>
+            </a>
+          </div>
+
+          <div class="flex items-center justify-center py-2 border-b border-green-600 last:border-b-0">
+            <a href="#prizes" class="flex items-center justify-start w-full group">
+              <div class="h-24 w-40 rounded-2xl overflow-hidden flex-shrink-0">
+                <Image src={Vela} alt="Vela Best player" class="h-full w-full object-cover group-hover:scale-110 transition duration-300 object-[center_20%]" loading="lazy" width={200} />
+              </div>
+              <h2 class="text-md ms-4 text-white">Vela: Best player</h2>
+            </a>
+          </div>
+          
+          <div class="flex items-center justify-center py-2 border-b border-green-600 last:border-b-0">
+            <a href="https://youtu.be/vZ7o6dRT740?si=FTXSTWBlnCFQVdGq&t=220" target="_blank" class="flex items-center justify-start w-full group">
+              <div class="h-24 w-40 rounded-2xl overflow-hidden flex-shrink-0">
+                <Image src={Dartmouth} alt="Dartmouth Hat-Trick" class="h-full w-full object-cover group-hover:scale-110 transition duration-300 object-left" loading="lazy" width={200} />
+              </div>
+              <h2 class="text-md ms-4 text-white">Malcom Dartmouth's Hat-Trick to comeback Jutsa</h2>
+            </a>
+          </div>
+
+          <div class="flex items-center justify-center py-2 border-b border-green-600 last:border-b-0">
+            <a href="https://youtube.com/clip/UgkxJhD0B2OAPLnGjNjEO64Aj6XrYj5Gelnx?si=8nYsC4Cw5oJ_bObF" target="_blank" class="flex items-center justify-start w-full group">
+              <div class="h-24 w-40 rounded-2xl overflow-hidden flex-shrink-0">
+                <Image src={WolfFreeKick} alt="Wolf free kick" class="h-full w-full object-cover group-hover:scale-110 transition duration-300" loading="lazy" width={200} />
+              </div>
+              <h2 class="text-md ms-4 text-white">Wolf's free kick awarded as best goal</h2>
             </a>
           </div>
         </div>
       </div>
     </div>
+    
+  </div>
 
     <div class="flex flex-col justify-center items-center w-full gap-4 py-4">
       <Bracket matches={fc2022Matches} tournament={FC2022Data} members={membersCollection} />
