@@ -8,6 +8,7 @@ import Bracket from '../../components/tournaments/Bracket.astro';
 import Groups from '../../components/tournaments/Groups.astro';
 import KnockoutMatches from '../../components/tournaments/KnockoutMatches.astro';
 import TournamentGrid from '../../components/tournaments/TournamentGrid.astro'; 
+import TournamentStats from '../../components/tournaments/TournamentStats.astro';
 import { getMatchWinner } from '../../lib/matchUtils.ts';
 import { getMemberImage } from '../../lib/memberUtils';
 
@@ -55,13 +56,18 @@ const winner = getMatchWinner(getMatchesForFixture('knockout', undefined, 'Final
   <main class="flex flex-col items-center">
     <div class="flex flex-col justify-center items-center pb-6 bg-gradient-to-r from-transparent to-transparent via-black/20 w-full">
       <TournamentGrid currentTournament={FC2020Data}/>
-      <Image src={FCLogo} alt={`Forest Cup Logo`} class="max-w-7xl lg:w-4xl md:w-2xl xl:w-auto sm:w-lg w-sm" loading={"eager"}/>
+      <Image src={FCLogo} alt={`Forest Cup Logo`} class="max-w-7xl lg:w-4xl md:w-2xl xl:w-auto sm:w-lg w-sm" 
+      loading={"eager"}
+      width={1280}
+      />
       <div class="flex justify-between items-start h-full p-6 gap-6">
         <div class="flex flex-col gap-6 items-center">
           {winner && (
             <div class="flex items-center gap-6">
               {getMemberImage(winner, membersCollection) && (
-                <Image src={getMemberImage(winner, membersCollection)!} alt={`${winner} Flag`} class="h-24 w-auto rounded-xl object-cover ring-1 ring-green-700" loading={"eager"} />
+                <Image src={getMemberImage(winner, membersCollection)!} alt={`${winner} Flag`} 
+                width={200}
+                class="h-24 w-auto rounded-xl object-cover ring-1 ring-green-700" loading={"eager"} />
               )}
               <h1 class="text-5xl font-bold">{winner}</h1>
             </div>
@@ -73,22 +79,26 @@ const winner = getMatchWinner(getMatchesForFixture('knockout', undefined, 'Final
       </div>
     </div>
 
+    <TournamentStats
+    tournament={tournamentEntry}
+    matches={fc2020Matches}
+    members={membersCollection}
+    />
+
+    <Groups
+    matches={fc2020Matches}
+    members={membersCollection.filter(member => FC2020Data.participants.includes(member.data.name))}
+    />
+    
+    <KnockoutMatches
+    knockoutMatches={knockoutMatches} members={membersCollection} 
+    />
     <div class="flex flex-col justify-center items-center w-full gap-4 py-4">
       <Bracket matches={fc2020Matches} members={membersCollection} />
     </div>
-
-    <Groups
-      matches={fc2020Matches}
-      members={membersCollection.filter(member => FC2020Data.participants.includes(member.data.name))}
-    />
-      
-    <KnockoutMatches
-      knockoutMatches={knockoutMatches} members={membersCollection} 
-    />
     <div class="prose dark:prose-invert bg-white dark:bg-green-900 shadow-lg rounded-lg p-6 my-8 w-full max-w-4xl mx-auto">
        <h2 class="text-2xl font-semibold mb-4 text-gray-900 dark:text-white border-b pb-2 border-gray-200 dark:border-green-600">Tournament Notes</h2>
        <Content /> {/* Renderiza el contenido del archivo .md asociado al torneo */}
-       {/* Si no hay Content, puedes poner un mensaje por defecto */}
     </div>
 
     </main>

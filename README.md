@@ -26,11 +26,11 @@ Website built with **Astro**. Showcases tournaments, match details, and national
 - [ ] **Elaborate the Tournaments page**  
 &nbsp;&nbsp;&nbsp;&nbsp;Improve Tournaments pages:
   - [ ] `Banner`: An image of the champions, with their flag-name and maybe the trophy
-  - [ ] `Headlines`: A component with relevant media.
+  - ✅ `Headlines`: A component with relevant media.
   - ✅ `Brackets`: Improve bracket match card
   - ✅ `Groups and Matches`
   - ✅ `Knockout Matches`
-  - [ ] `Individual Prizes`
+  - ✅ `Individual Prizes`
   - [ ] `Overall Table`
   - [ ] `Team of the Tournament`
   - [ ] `Minor Stats or gallery`

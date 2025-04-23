@@ -32,6 +32,7 @@ const imageMap = Object.fromEntries(
             alt={tournament.data.name} 
             class={`w-auto h-16 object-cover rounded-lg transition-opacity invert group-hover:invert-0 ${isActive ? "invert-0" : ""}`}
             loading="eager"
+            width={256} height={256}
           />
         </a>
       );
