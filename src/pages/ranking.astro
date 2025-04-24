@@ -1,0 +1,15 @@
+---
+// src/pages/ranking.astro
+import { getCollection } from 'astro:content';
+import Layout from '../layouts/App.astro'; // Ajusta la ruta a tu Layout principal
+import RankingTable from '../components/RankingTable.astro'; // Importa el nuevo componente
+
+const allMembers = await getCollection('members');
+console.log(allMembers); // Verifica cuántos miembros hay
+
+---
+<Layout title="Ranking Oficial de Miembros">
+  <main class="py-8">
+    <RankingTable members={allMembers} />
+  </main>
+</Layout>

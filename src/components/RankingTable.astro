@@ -1,0 +1,84 @@
+---
+// src/components/RankingTable.astro
+import type { CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+import { getMemberImageLazy } from '../lib/memberUtilsLazy'; // Ajusta la ruta si es necesario
+import { getRankedMembers } from '../lib/memberUtils'; // Ajusta la ruta si es necesario
+
+interface Props {
+  members: CollectionEntry<'members'>[];
+}
+
+const { members } = Astro.props;
+
+// Filtrar miembros verificados y calcular puntaje total
+const rankedMembers = getRankedMembers(members); // Ordenar por puntaje total descendente
+
+// Función auxiliar para obtener slug (reutilizada)
+const getMemberSlug = (teamName: string): string | undefined => {
+  // Necesitamos buscar en la lista original de members (con datos completos)
+  return members.find(m => m.data.name === teamName)?.slug;
+}
+---
+
+<div class="container mx-auto p-4 md:p-6">
+  <h1 class="text-3xl font-bold mb-6 text-center">Ranking Oficial</h1>
+  <div class="overflow-x-auto shadow-md rounded-lg">
+    <table class="min-w-full w-full table-auto border-collapse text-sm">
+      <thead class="bg-gray-700 text-gray-200 uppercase">
+        <tr>
+          <th rowspan="2" class="px-4 py-3 text-center border-b border-gray-600">Pos</th>
+          <th rowspan="2" class="px-2 py-3 text-center border-b border-gray-600"></th>
+          <th rowspan="2" class="px-4 py-3 text-left border-b border-gray-600">Equipo</th>
+          <th colspan="2" class="px-4 py-2 text-center border-b border-l border-gray-600">RP</th>
+          <th colspan="2" class="px-4 py-2 text-center border-b border-l border-gray-600">Events</th>
+          <th colspan="2" class="px-4 py-2 text-center border-b border-l border-gray-600">Bonus</th>
+          <th rowspan="2" class="px-4 py-3 text-center font-bold border-b border-l border-gray-600 rounded-tr-lg">Total</th>
+        </tr>
+        <tr>
+          {/* Sub-cabeceras para scores */}
+          <th class="px-2 py-2 text-center font-medium border-b border-l border-gray-600" title="Puntos por Historia">Hist</th>
+          <th class="px-2 py-2 text-center font-medium border-b border-l border-gray-600" title="Puntos por Resultados">Res</th>
+          <th class="px-2 py-2 text-center font-medium border-b border-l border-gray-600" title="Puntos Última Edición">Last Ed.</th>
+          <th class="px-2 py-2 text-center font-medium border-b border-l border-gray-600" title="Puntos Poesía">Poetry</th>
+          <th class="px-2 py-2 text-center font-medium border-b border-l border-gray-600" title="Puntos por Anfitrión">Host</th>
+          <th class="px-2 py-2 text-center font-medium border-b border-l border-gray-600" title="Puntos Extra">Extra</th>
+        </tr>
+      </thead>
+      <tbody class="text-center bg-gray-800 text-gray-300">
+        {rankedMembers.map((team, index) => (
+          <tr class="border-b border-gray-700 hover:bg-gray-700/50 transition duration-150">
+            <td class="px-2 py-2">{index + 1}</td>
+            <td class="px-2 py-2">
+              {/* Usamos la lista original 'members' para getMemberImageLazy */}
+              <Image src={getMemberImageLazy(team.name, members)} alt={team.name}
+                     width={24} height={16} class="h-4 w-auto object-cover rounded inline-block" />
+            </td>
+            <td class="px-4 py-2 text-left">
+              {/* Usamos el slug guardado en rankedMembers */}
+              <a href={`/members/${team.slug}`} class="font-semibold hover:underline text-white">{team.name}</a>
+            </td>
+            {/* Scores individuales */}
+            <td class="px-2 py-2">{team.scores.rpHistory}</td>
+            <td class="px-2 py-2">{team.scores.rpResults}</td>
+            <td class="px-2 py-2">{team.scores.eventsLastEdition}</td>
+            <td class="px-2 py-2">{team.scores.eventsPoetry}</td>
+            <td class="px-2 py-2">{team.scores.bonusHost}</td>
+            <td class="px-2 py-2">{team.scores.bonusExtra}</td>
+            {/* Puntaje Total */}
+            <td class="px-4 py-2 font-bold text-white bg-gray-700/30">{team.totalScore}</td>
+          </tr>
+        ))}
+        {rankedMembers.length === 0 && (
+            <tr>
+                <td colspan="10" class="text-center py-4 text-gray-500">No hay miembros verificados para mostrar en el ranking.</td>
+                 {/* Ajusta el colspan si añades/quitas columnas */}
+            </tr>
+        )}
+      </tbody>
+    </table>
+  </div>
+  <p class="text-xs text-gray-500 mt-4 text-center">
+    El ranking se calcula sumando los puntos de las categorías RP (Historia, Resultados), Events (Última Edición, Poesía) y Bonus (Anfitrión, Extra).
+  </p>
+</div>

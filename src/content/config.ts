@@ -97,7 +97,24 @@ const membersCollection = defineCollection({
     founded: z.number().optional(),
     affiliation: z.number().optional(),
     verified: z.boolean().default(false),
-    score: z.number().default(0),
+    score: z.object({
+      rp: z.object({
+        history: z.number().default(0).describe("History Points"),
+        results: z.number().default(0).describe("Previous Results Points"),
+      }).default({ history: 0, results: 0 }).optional(), 
+      events: z.object({
+        lastEditionPoints: z.number().default(0).describe("Points owned in last FC edition"),
+        poetry: z.number().default(0).describe("Forest Poetry Fantasia"),
+      }).default({ lastEditionPoints: 0, poetry: 0 }).optional(), 
+      bonus: z.object({
+        host: z.number().default(0).describe("Host Points"),
+        extra: z.number().default(0).describe("Extra Points"),
+      }).default({ host: 0, extra: 0 }).optional(), 
+    }).default({ 
+        rp: { history: 0, results: 0 },
+        events: { lastEditionPoints: 0, poetry: 0 },
+        bonus: { host: 0, extra: 0 }
+    }).describe("Detailed member score"),
     additionalPoints: z.number().optional().default(0),
   }),
 });

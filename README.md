@@ -44,7 +44,7 @@ Website built with **Astro**. Showcases tournaments, match details, and national
 - [ ] **Add "Sponsor Registration" page**  
 &nbsp;&nbsp;&nbsp;&nbsp;Link to this form from the navbar. Name, Logo and... what else?.
 
-- [ ] **Add Rankings page**  
+- ✅ **Add Rankings page**  
 &nbsp;&nbsp;&nbsp;&nbsp;Create a page with all the national federations rankings. A table based on points earned during different parameters.
 
 - [ ] **Add Champions League page**  

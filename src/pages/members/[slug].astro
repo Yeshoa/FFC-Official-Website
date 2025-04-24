@@ -1,7 +1,7 @@
 ---
 import { getCollection, type CollectionEntry } from 'astro:content';
 import { Image } from 'astro:assets';
-import { getMemberImage, getMemberLogo } from '../../lib/memberUtils';
+import { getMemberImage, getMemberLogo, getMemberTotalScore, getMemberRank } from '../../lib/memberUtils';
 import App from '../../layouts/App.astro';
 import ScorersTable from '../../components/tournaments/ScorersTable.astro';
 import MatchCard from '../../components/MatchCard.astro';
@@ -123,6 +123,9 @@ playedMatches.forEach(match => {
 
 const flagImage = getMemberImage(memberData.name, members);
 const logoImage = getMemberLogo(memberData.name, members);
+
+const memberRank = getMemberRank(memberData.name, members);
+const memberTotalScore = getMemberTotalScore(member);
 ---
 <App title={`FFC - ${memberData.name}`}>
   <div class="container mx-auto px-4 py-8">
@@ -178,12 +181,12 @@ const logoImage = getMemberLogo(memberData.name, members);
           <p class="text-sm text-gray-400">Rank</p>
           <div class="flex items-end justify-between w-full">
             <p class={`text-4xl font-bold 
-            ${memberData.id === 1 ? 'text-amber-400' 
-            : memberData.id === 2 ? 'text-slate-300' 
-            : memberData.id === 3 ? 'text-yellow-600' 
+            ${memberRank === 1 ? 'text-amber-400' 
+            : memberRank === 2 ? 'text-slate-300' 
+            : memberRank === 3 ? 'text-yellow-600' 
             : 'text-green-400'} 
-            `}>{memberData.id === 9999 ? 'N/A' : memberData.id}°</p>
-            <p class="text-2xl font-semibold text-green-300">{memberData.score} pts</p>
+            `}>{!member.data.verified ? 'N/A' : memberRank}°</p>
+            <p class="text-2xl font-semibold text-green-300">{memberTotalScore} Pts.</p>
           </div>
         </div>
       </div>
