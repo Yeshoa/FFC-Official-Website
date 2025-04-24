@@ -14,7 +14,7 @@ score:
     history: 0
     results: 0
   events:
-    lastEditionPoints: 0
+    lastEditionPoints: 15
     poetry: 0
   bonus:
     host: 0

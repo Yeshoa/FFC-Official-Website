@@ -22,41 +22,66 @@ const getMemberSlug = (teamName: string): string | undefined => {
 ---
 
 <div class="container mx-auto p-4 md:p-6">
-  <h1 class="text-3xl font-bold mb-6 text-center">Ranking Oficial</h1>
-  <div class="overflow-x-auto shadow-md rounded-lg">
-    <table class="min-w-full w-full table-auto border-collapse text-sm">
-      <thead class="bg-gray-700 text-gray-200 uppercase">
+  <h1 class="text-6xl font-bold mb-6 text-center">Ranking</h1>
+  <p class="text-lg mb-4 text-center">Score determines how strong your team will be. More points means higher chances to win.</p>
+  <div class="overflow-x-auto rounded-lg">
+    <table class="min-w-full w-full table-fixed border-collapse text-sm">
+      <colgroup>
+        <col style="width: 20px;"> <!-- Pos -->
+        <col style="width: 20px;"> <!-- Flag -->
+        <col style="width: 60px;"> <!-- Team -->
+        <col style="width: 50px;"> <!-- Hist -->
+        <col style="width: 50px;"> <!-- Res -->
+        <col style="width: 60px;"> <!-- Last Edition -->
+        <col style="width: 60px;"> <!-- Poetry -->
+        <col style="width: 50px;"> <!-- Host -->
+        <col style="width: 50px;"> <!-- Extra -->
+        <col style="width: 70px;"> <!-- Total -->
+      </colgroup>
+      <thead class="bg-green-800 uppercase">
         <tr>
-          <th rowspan="2" class="px-4 py-3 text-center border-b border-gray-600">Pos</th>
-          <th rowspan="2" class="px-2 py-3 text-center border-b border-gray-600"></th>
-          <th rowspan="2" class="px-4 py-3 text-left border-b border-gray-600">Equipo</th>
-          <th colspan="2" class="px-4 py-2 text-center border-b border-l border-gray-600">RP</th>
-          <th colspan="2" class="px-4 py-2 text-center border-b border-l border-gray-600">Events</th>
-          <th colspan="2" class="px-4 py-2 text-center border-b border-l border-gray-600">Bonus</th>
-          <th rowspan="2" class="px-4 py-3 text-center font-bold border-b border-l border-gray-600 rounded-tr-lg">Total</th>
+          <th rowspan="2" class="py-3 text-center border-b border-green-600" title="Position">Pos</th>
+          <th rowspan="2" class="py-3 text-center border-b border-green-600"></th>
+          <th rowspan="2" class="py-3 text-left border-b border-green-600">Team</th>
+          <th colspan="2" class="px-4 py-2 text-center border-b border-l border-green-600">Roleplay</th>
+          <th colspan="2" class="px-4 py-2 text-center border-b border-l border-green-600">Events</th>
+          <th colspan="2" class="px-4 py-2 text-center border-b border-l border-green-600">Bonus</th>
+          <th rowspan="2" class="px-4 py-3 text-center font-bold border-b border-l border-green-600 rounded-tr-lg">Total</th>
         </tr>
         <tr>
-          {/* Sub-cabeceras para scores */}
-          <th class="px-2 py-2 text-center font-medium border-b border-l border-gray-600" title="Puntos por Historia">Hist</th>
-          <th class="px-2 py-2 text-center font-medium border-b border-l border-gray-600" title="Puntos por Resultados">Res</th>
-          <th class="px-2 py-2 text-center font-medium border-b border-l border-gray-600" title="Puntos Última Edición">Last Ed.</th>
-          <th class="px-2 py-2 text-center font-medium border-b border-l border-gray-600" title="Puntos Poesía">Poetry</th>
-          <th class="px-2 py-2 text-center font-medium border-b border-l border-gray-600" title="Puntos por Anfitrión">Host</th>
-          <th class="px-2 py-2 text-center font-medium border-b border-l border-gray-600" title="Puntos Extra">Extra</th>
+          <th class="px-2 py-2 text-center font-medium border-b border-l border-green-600" title="History Poins">Hist</th>
+          <th class="px-2 py-2 text-center font-medium border-b border-l border-green-600" title="Forest Cup 2024 Result">Res</th>
+          <th class="px-2 py-2 text-center font-medium border-b border-l border-green-600" title="Points gained through events past year">Last Edition</th>
+          <th class="px-2 py-2 text-center font-medium border-b border-l border-green-600" title="Poetry Fantasia Score">Poetry</th>
+          <th class="px-2 py-2 text-center font-medium border-b border-l border-green-600" title="Host advantage">Host</th>
+          <th class="px-2 py-2 text-center font-medium border-b border-l border-green-600" title="Extra points">Extra</th>
         </tr>
       </thead>
-      <tbody class="text-center bg-gray-800 text-gray-300">
-        {rankedMembers.map((team, index) => (
-          <tr class="border-b border-gray-700 hover:bg-gray-700/50 transition duration-150">
-            <td class="px-2 py-2">{index + 1}</td>
-            <td class="px-2 py-2">
+      <tbody class="text-center text-green-300">
+        {rankedMembers.map((team, index) => {
+          const getTotalColorClass = (total: number) => {
+            if (total >= 110) return "bg-cyan-500/80 text-black font-bold";
+            if (total >= 84) return "bg-red-600/60 text-white font-bold";
+            if (total >= 62) return "bg-orange-600/60 text-white font-bold";
+            if (total >= 42) return "bg-yellow-600/80 text-white font-bold";
+            if (total >= 28) return "bg-green-600/60 text-white font-bold";
+            if (total >= 18) return "bg-blue-600/60 text-white font-bold";
+            if (total >= 10) return "bg-purple-600/60 text-white font-bold";
+            if (total >= 4) return "bg-pink-600/60 text-white font-bold";
+            return "bg-gray-600/80 text-white font-bold"; // Color predeterminado para valores < 4
+          };
+
+          return (
+          <tr class="border-b border-green-700 hover:bg-green-900/30 transition duration-150">
+            <td class="py-2">{index + 1}</td>
+            <td class="py-2">
               {/* Usamos la lista original 'members' para getMemberImageLazy */}
               <Image src={getMemberImageLazy(team.name, members)} alt={team.name}
                      width={24} height={16} class="h-4 w-auto object-cover rounded inline-block" />
             </td>
-            <td class="px-4 py-2 text-left">
+            <td class="py-2 text-left overflow-hidden text-ellipsis">
               {/* Usamos el slug guardado en rankedMembers */}
-              <a href={`/members/${team.slug}`} class="font-semibold hover:underline text-white">{team.name}</a>
+              <a href={`/members/${team.slug}`} class="font-semibold hover:underline text-white block overflow-hidden text-ellipsis" title={team.name}>{team.name}</a>
             </td>
             {/* Scores individuales */}
             <td class="px-2 py-2">{team.scores.rpHistory}</td>
@@ -66,19 +91,18 @@ const getMemberSlug = (teamName: string): string | undefined => {
             <td class="px-2 py-2">{team.scores.bonusHost}</td>
             <td class="px-2 py-2">{team.scores.bonusExtra}</td>
             {/* Puntaje Total */}
-            <td class="px-4 py-2 font-bold text-white bg-gray-700/30">{team.totalScore}</td>
+            <td class={`px-4 py-2 ${getTotalColorClass(team.totalScore)}`}>{team.totalScore}</td>
           </tr>
-        ))}
+        )})}
         {rankedMembers.length === 0 && (
             <tr>
-                <td colspan="10" class="text-center py-4 text-gray-500">No hay miembros verificados para mostrar en el ranking.</td>
-                 {/* Ajusta el colspan si añades/quitas columnas */}
+                <td colspan="10" class="text-center py-4 text-green-500">No verified members.</td>
             </tr>
         )}
       </tbody>
     </table>
   </div>
-  <p class="text-xs text-gray-500 mt-4 text-center">
-    El ranking se calcula sumando los puntos de las categorías RP (Historia, Resultados), Events (Última Edición, Poesía) y Bonus (Anfitrión, Extra).
+  <p class="text-xs text-green-500 mt-4 text-center">
+
   </p>
 </div>

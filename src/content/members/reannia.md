@@ -13,7 +13,7 @@ affiliation: 2024
 verified: true
 score:
   rp:
-    history: 0
+    history: 20
     results: 0
   events:
     lastEditionPoints: 0

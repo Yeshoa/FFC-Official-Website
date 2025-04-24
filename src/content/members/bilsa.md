@@ -13,14 +13,14 @@ affiliation: 2024
 verified: true
 score:
   rp:
-    history: 10
-    results: 12
+    history: 20
+    results: 5
   events:
-    lastEditionPoints: 5
-    poetry: 2
+    lastEditionPoints: 15
+    poetry: 0
   bonus:
-    host: 4
-    extra: 2
+    host: 0
+    extra: 0
 ---
 The Bilsa Football Federation (BF) is the official organization responsible for governing and promoting football within Bilsa. Established in 2012, the BF is dedicated to fostering the growth and development of football at all levels, from youth and amateur leagues to professional competitions, ensuring that the sport thrives across the nation.
 The BF organizes key tournaments such as the Bilsa Lighe and the Bilsa Tanzije, which are cornerstones of the country's football calendar. Additionally, the federation manages the national team, providing support and resources to ensure their successful participation in international tournaments.

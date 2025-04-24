@@ -9,10 +9,10 @@ affiliation: 2024
 verified: true
 score:
   rp:
-    history: 0
-    results: 0
+    history: 3
+    results: 3
   events:
-    lastEditionPoints: 0
+    lastEditionPoints: 9
     poetry: 0
   bonus:
     host: 0
