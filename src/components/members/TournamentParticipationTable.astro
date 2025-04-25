@@ -79,15 +79,17 @@ function getTeamFinalResultInTournament(tournamentId: number) {
 
         const stats = getStatsForTournament(t.data.id);
         const topScorer = getTopScorerInTournament(t.data.id);
-
+        const hostClass = t.data.host === memberName ? 'text-amber-400 font-bold' : '';
+        const position = getTeamPositionInTournamentById(t.data.id);
+        const resultClass =  position === 1 ? 'text-amber-400 font-bold' : position === 2 ? 'text-sky-300 font-bold' : position === 3 ? 'text-amber-600 font-bold' : '';
         return (
           <tr class="border-b border-green-700 hover:bg-green-900/20">
-            <td class="px-2 py-2 flex items-center gap-1 justify-center">
+            <td class={`px-2 py-2 flex items-center gap-1 justify-center ${hostClass}`}>
               {hostImage && <a href={`/members/${members.find(m => m.data.name === t.data.host)?.slug}`}><Image src={hostImage} alt={t.data.host} width={20} height={14} class="rounded-sm" /></a>}
-              <a href={`/${type}/${t.data.edition}`} class={`${t.data.host === memberName ? 'font-semibold text-amber-400' : ''} hover:underline`}>{t.data.edition}</a>
+              <a href={`/${type}/${t.data.edition}`} class={`hover:underline`}>{t.data.edition}</a>
             </td>
-            <td class="px-2 py-2 font-bold">{getTeamFinalResultInTournament(t.data.id)}</td> {/* Placeholder para resultado final */}
-            <td class="px-2 py-2 font-black">{getTeamPositionInTournamentById(t.data.id)}°</td> {/* Placeholder para posición */}
+            <td class={`px-2 py-2 ${resultClass}`}>{getTeamFinalResultInTournament(t.data.id)}</td> {/* Placeholder para resultado final */}
+            <td class="px-2 py-2 font-black">{position}°</td> {/* Placeholder para posición */}
             <td class="px-2 py-2">{stats.played}</td>
             <td class="px-2 py-2">{stats.won}</td>
             <td class="px-2 py-2">{stats.draw}</td>

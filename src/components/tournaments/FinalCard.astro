@@ -1,0 +1,254 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import type { ImageMetadata } from 'astro';
+import { getMemberImage } from '../../lib/memberUtils';
+import { getMemberImageLazy } from '../../lib/memberUtilsLazy';
+import { areThereScorers, getMatchWinner, getMatchResult } from '../../lib/matchUtils';
+import GoalIcon from '../../assets/images/goal.png';
+
+interface Props {
+  match: CollectionEntry<'matches'>['data'];
+  members: any[];
+  tournamentName?: string; // Optional tournament name to display
+}
+
+const { match, members } = Astro.props;
+
+const goals = match.goals ?? [];
+const { team1: score1, team2: score2 } = getMatchResult(match);
+
+const penalties = match.penalties ?? [];
+const hasPenaltyShootout = penalties.length > 0 && match.status === 'played';
+let penaltyScore1 = 0;
+let penaltyScore2 = 0;
+let penaltyInfo = '';
+
+if (hasPenaltyShootout) {
+  penaltyScore1 = penalties.filter(p => p.team === match.team1 && p.scored).length;
+  penaltyScore2 = penalties.filter(p => p.team === match.team2 && p.scored).length;
+  penaltyInfo = `(${penaltyScore1}-${penaltyScore2})`;
+}
+
+const team1ImagePromiseFn = getMemberImageLazy(match.team1, members);
+const team2ImagePromiseFn = getMemberImageLazy(match.team2, members);
+
+const winner = getMatchWinner(match);
+---
+
+<div class="relative overflow-hidden w-full max-w-5xl">
+  <!-- Championship Banner -->
+  <div class="absolute top-0 left-1/2 transform -translate-x-1/2 bg-yellow-500 text-black font-bold px-8 py-1 rounded-b-lg z-10 shadow-lg text-center">
+    <span class="text-sm md:text-xl lg:text-3xl tracking-wider">FINAL</span>
+  </div>
+  
+  <!-- Main Card with Golden Border -->
+  <div class="flex flex-col justify-center items-center w-full mt-4 bg-gradient-to-br from-green-900 to-green-950 py-6 px-5 rounded-2xl shadow-xl text-white hover:from-green-800 hover:to-green-900 transition-all duration-300 border-4 border-yellow-500">
+    
+    <!-- Teams Section -->
+    <div class="grid grid-cols-7 items-center w-full gap-4 mb-4 z-10">
+      <!-- Team 1 -->
+      <div class={`flex flex-col items-center justify-center col-span-3 text-center ${winner === match.team1 ? 'scale-105' : ''} transition-transform duration-300`}>
+        {team1ImagePromiseFn ? (
+          <Image
+            src={team1ImagePromiseFn}
+            alt={match.team1}
+            class={`h-12 w-16 md:h-16 md:w-24 rounded-md object-cover shadow-md ${winner === match.team1 ? 'ring-2 ring-yellow-400' : 'ring-1 ring-gray-600'}`}
+            width={96} 
+            height={96}
+            loading={"eager"}
+            inferSize={true}
+          />
+        ) : (
+          <div class="h-12 w-16 md:h-16 md:w-24 bg-gray-700 rounded-md"></div>
+        )}
+        <a 
+          class={`mt-2 font-medium md:text-lg hover:underline ${winner === match.team1 ? 'text-yellow-300 font-bold' : 'text-white'}`} 
+          href={`/members/${members.find(m => m.data.name === match.team1)?.slug}`}
+        >
+          {match.team1}
+        </a>
+      </div>
+      
+      <!-- Score -->
+      <div class="text-center col-span-1">
+        {match.status === 'played' ? (
+          <div class="bg-black/30 p-2 rounded-lg">
+            <span class="text-2xl md:text-3xl font-bold">{score1} - {score2}</span>
+            {hasPenaltyShootout && penaltyInfo && (
+              <span class="block text-sm text-yellow-400 mt-1">{penaltyInfo}</span>
+            )}
+          </div>
+        ) : match.status === 'scheduled' ? (
+          <div>
+            <span class="text-xl md:text-2xl font-light text-gray-300 block">VS</span>
+            <span class="text-sm text-gray-300 block mt-1">
+              {match.date.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit'})}
+            </span>
+          </div>
+        ) : (
+          <span class="text-xl font-light text-red-400">VS</span>
+        )}
+      </div>
+      
+      <!-- Team 2 -->
+      <div class={`flex flex-col items-center justify-center col-span-3 text-center ${winner === match.team2 ? 'scale-105' : ''} transition-transform duration-300`}>
+        {team2ImagePromiseFn ? (
+          <Image
+            src={team2ImagePromiseFn}
+            alt={match.team2}
+            class={`h-12 w-16 md:h-16 md:w-24 rounded-md object-cover shadow-md ${winner === match.team2 ? 'ring-2 ring-yellow-400' : 'ring-1 ring-gray-600'}`}
+            width={96} 
+            height={96}
+            loading={"eager"}
+            inferSize={true}
+          />
+        ) : (
+          <div class="h-12 w-16 md:h-16 md:w-24 bg-gray-700 rounded-md"></div>
+        )}
+        <a 
+          class={`mt-2 font-medium md:text-lg hover:underline ${winner === match.team2 ? 'text-yellow-300 font-bold' : 'text-white'}`} 
+          href={`/members/${members.find(m => m.data.name === match.team2)?.slug}`}
+        >
+          {match.team2}
+        </a>
+      </div>
+    </div>
+    
+    <!-- Decorative Divider -->
+    <div class="w-3/4 h-px bg-gradient-to-r from-transparent via-yellow-500 to-transparent my-3"></div>
+    
+    <!-- Goals and Match Details Section -->
+    {match.status === 'played' && areThereScorers(match) && (
+      <div class="grid grid-cols-7 items-start w-full gap-2 mt-2 text-sm md:text-base z-10">
+        <!-- Team 1 Scorers -->
+        <div class="flex flex-col w-full col-span-3 items-end justify-start h-full text-right pr-2">
+          {goals.filter(g => g.team === match.team1).length > 0 ? (
+            Object.entries(
+              goals
+                .filter(g => g.team === match.team1)
+                .reduce((acc, g) => {
+                  const key = g.player;
+                  if (!acc[key]) {
+                    acc[key] = {
+                      player: g.player,
+                      goalEvents: [],
+                      penalty: false,
+                      ownGoal: false
+                    };
+                  }
+                  acc[key].goalEvents.push({ minute: g.minute, aggregate: g.aggregate });
+                  acc[key].penalty = acc[key].penalty || g.penalty === true;
+                  acc[key].ownGoal = acc[key].ownGoal || g.ownGoal === true;
+                  return acc;
+                }, {})
+            ).map(([key, goalGroup]) => (
+              <div key={key} class="flex items-center gap-2 justify-end mb-1">
+                <span class="font-medium">{goalGroup.player}</span>
+                <Image src={GoalIcon} alt="Goal" class="w-4 h-4 flex-shrink-0" loading={"lazy"}/>
+                <span>
+                  {goalGroup.goalEvents
+                    .sort((a, b) => {
+                      const minuteA = a.minute + (a.aggregate || 0) / 100;
+                      const minuteB = b.minute + (b.aggregate || 0) / 100;
+                      return minuteA - minuteB;
+                    })
+                    .map((event, idx) => (
+                    <span key={`${event.minute}-${event.aggregate || 'n'}-${idx}`}>
+                      {event.minute}{event.aggregate !== undefined ? `+${event.aggregate}` : ""}'
+                      {idx < goalGroup.goalEvents.length - 1 ? ", " : ""}
+                    </span>
+                  ))}
+                  {goalGroup.penalty ? " (P)" : ""}
+                  {goalGroup.ownGoal ? " (OG)" : ""}
+                </span>
+              </div>
+            ))
+          ) : (
+            <span class="text-gray-400 italic"></span>
+          )}
+        </div>
+        
+        <!-- Video Link -->
+        <div class="flex justify-center items-start w-full h-full col-span-1">
+          {match.link ? (
+            <a 
+              href={match.link} 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              title="Watch Match" 
+              class="bg-blue-600 hover:bg-blue-500 text-white px-3 py-1 rounded-full text-sm transition-colors"
+            >
+              Watch
+            </a>
+          ) : (
+            <span class="text-gray-500 text-sm" title="No link available">Watch</span>
+          )}
+        </div>
+        
+        <!-- Team 2 Scorers -->
+        <div class="flex flex-col w-full col-span-3 justify-start h-full text-left pl-2">
+          {goals.filter(g => g.team === match.team2).length > 0 ? (
+            Object.entries(
+              goals
+                .filter(g => g.team === match.team2)
+                .reduce((acc, g) => {
+                  const key = g.player;
+                  if (!acc[key]) {
+                    acc[key] = {
+                      player: g.player,
+                      goalEvents: [],
+                      penalty: false,
+                      ownGoal: false
+                    };
+                  }
+                  acc[key].goalEvents.push({ minute: g.minute, aggregate: g.aggregate });
+                  acc[key].penalty = acc[key].penalty || g.penalty === true;
+                  acc[key].ownGoal = acc[key].ownGoal || g.ownGoal === true;
+                  return acc;
+                }, {})
+            ).map(([key, goalGroup]) => (
+              <div key={key} class="flex items-center gap-2 justify-start mb-1">
+                <span class="font-medium">{goalGroup.player}</span>
+                <Image src={GoalIcon} alt="Goal" class="w-4 h-4 flex-shrink-0" loading={"lazy"}/>
+                <span>
+                  {goalGroup.goalEvents
+                    .sort((a, b) => {
+                      const minuteA = a.minute + (a.aggregate || 0) / 100;
+                      const minuteB = b.minute + (b.aggregate || 0) / 100;
+                      return minuteA - minuteB;
+                    })
+                    .map((event, idx) => (
+                    <span key={`${event.minute}-${event.aggregate || 'n'}-${idx}`}>
+                      {event.minute}{event.aggregate !== undefined ? `+${event.aggregate}` : ""}'
+                      {idx < goalGroup.goalEvents.length - 1 ? ", " : ""}
+                    </span>
+                  ))}
+                  {goalGroup.penalty ? " (P)" : ""}
+                  {goalGroup.ownGoal ? " (OG)" : ""}
+                </span>
+              </div>
+            ))
+          ) : (
+            <span class="text-gray-400 italic"></span>
+          )}
+        </div>
+      </div>
+    )}
+    
+    <!-- Match Date for Scheduled Matches -->
+    {match.status === 'scheduled' && (
+      <div class="text-center mt-3 bg-black/20 px-4 py-2 rounded-lg z-10">
+        <span class="text-lg text-yellow-300 font-medium">
+          {match.date.toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long' })}
+        </span>
+      </div>
+    )}
+  </div>
+  
+  <!-- Decorative Corner Elements -->
+  <div class="absolute top-0 left-0 w-16 h-16 border-t-4 border-l-4 border-yellow-500 rounded-tl-2xl pointer-events-none"></div>
+  <div class="absolute top-0 right-0 w-16 h-16 border-t-4 border-r-4 border-yellow-500 rounded-tr-2xl pointer-events-none"></div>
+  <div class="absolute bottom-0 left-0 w-16 h-16 border-b-4 border-l-4 border-yellow-500 rounded-bl-2xl pointer-events-none"></div>
+  <div class="absolute bottom-0 right-0 w-16 h-16 border-b-4 border-r-4 border-yellow-500 rounded-br-2xl pointer-events-none"></div>
+</div>

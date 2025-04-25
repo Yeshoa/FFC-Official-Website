@@ -288,10 +288,10 @@ const memberTotalScore = getMemberTotalScore(member);
       </div>
 
       {/* Stats */}
-      <div class="bg-white dark:bg-green-950/80 shadow-lg rounded-lg p-6">
-        <h2 class="text-2xl font-semibold mb-4 text-white border-b pb-2 border-green-600">Historic Head-to-Head</h2>
+      <div class="bg-white dark:bg-green-950/80 shadow-lg rounded-lg">
         {Object.keys(h2hStats).length > 0 ? (
-          <div class="overflow-x-auto">
+          <div class="overflow-x-auto p-6 pb-0">
+            <h2 class="text-2xl font-semibold mb-4 text-white border-b pb-2 border-green-600">Historic Head-to-Head</h2>
             <table class="min-w-full border border-green-700 overflow-hidden rounded-lg text-sm">
               <thead>
                 <tr class="bg-green-800 text-white">

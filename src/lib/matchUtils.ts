@@ -12,6 +12,30 @@ export function getMatchWinner(match: Match): string | null {
     : null;
 }
 
+export function getMatchWinnerIncludingPenalties(match: Match): string | null {
+  if (match.status !== 'played') return null;
+
+  const goals = getGoalsByTeam(match);
+
+  if (goals.team1 > goals.team2) {
+    return match.team1;
+  } else if (goals.team2 > goals.team1) {
+    return match.team2;
+  }
+
+  // Empate → Revisamos penales
+  const penalties = getPenaltiesResult(match);
+  if (!penalties) return null;
+
+  if (penalties.team1 > penalties.team2) {
+    return match.team1;
+  } else if (penalties.team2 > penalties.team1) {
+    return match.team2;
+  }
+
+  return null;
+}
+
 export function getGoalsByTeam(match: Match): { team1: number; team2: number } {
   let team1 = 0;
   let team2 = 0;

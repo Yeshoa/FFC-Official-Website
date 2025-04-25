@@ -98,6 +98,7 @@ const topAssisters = Array.from(assistStats.values())
 ---
 
 <section class="container p-6 flex justify-center items-center flex-col">
+  {topScorers.length >= 1 && (
   <div class="overflow-x-auto w-full">
     <h2 class="text-3xl font-bold text-center mb-6">Top Scorers</h2>
     <table class="min-w-full text-sm border border-green-700 rounded-lg overflow-hidden">
@@ -126,9 +127,10 @@ const topAssisters = Array.from(assistStats.values())
       </tbody>
     </table>
   </div>
-
+  )}
+  {topAssisters.length >= 1 && (
   <div class="overflow-x-auto w-full">
-    <h2 class="text-3xl font-bold text-center mb-6">Top Assists</h2>
+    <h2 class="text-3xl font-bold text-center my-6">Top Assists</h2>
     <table class="min-w-full text-sm border border-green-700 rounded-lg overflow-hidden">
       <thead>
         <tr class="bg-green-800 text-white">
@@ -155,4 +157,5 @@ const topAssisters = Array.from(assistStats.values())
       </tbody>
     </table>
   </div>
+  )}
 </section>

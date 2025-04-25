@@ -318,6 +318,11 @@ export function getTeamFinalResult(
         }
       }
 
+      if (stage.key === 'Semi Finals') {
+        const position = getTeamPositionInTournament(tournament, matches, teamName);
+        if (position === 3) return 'Third-Place';
+      }
+
       return stage.label;
     }
   }
