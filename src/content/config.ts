@@ -79,6 +79,31 @@ const matchesCollection = defineCollection({
         type: z.enum(["yellow", "red"])
       })
     ).optional(),
+    lineup: z.object({
+      team1: z.object({
+        coach: z.string().optional().describe("Coach for team1"),
+        formation: z.string().optional().describe("Team 1 formation"),
+        players: z.array(
+          z.object({
+            number: z.number().describe("Jersey number"),
+            name: z.string().describe("Player name"),
+            position: z.string().describe("Field position"),
+          }).passthrough()
+        ).optional(),
+      }).optional(),
+
+      team2: z.object({
+        coach: z.string().optional().describe("Coach for team2"),
+        formation: z.string().optional().describe("Team 2 formation"),
+        players: z.array(
+          z.object({
+            number: z.number().describe("Jersey number"),
+            name: z.string().describe("Player name"),
+            position: z.string().describe("Field position"),
+          }).passthrough()
+        ).optional(),
+      }).optional(),
+    }).optional().describe("Lineups by team"),
   }),
 });
 
@@ -116,6 +141,17 @@ const membersCollection = defineCollection({
         bonus: { host: 0, extra: 0 }
     }).describe("Detailed member score"),
     additionalPoints: z.number().optional().default(0),
+    squad: z.object({
+      coach: z.string().optional().describe("Head coach name"),
+      formation: z.string().optional().describe("Preferred team formation, e.g. 4-3-3"),
+      players: z.array(
+        z.object({
+          number: z.number().describe("Jersey number"),
+          name: z.string().describe("Player name"),
+          position: z.string().describe("Position on the field"),
+        }).passthrough() 
+      ).optional().describe("List of squad members"),
+    }).optional().describe("Squad configuration"),
   }),
 });
 

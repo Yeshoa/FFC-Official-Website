@@ -1,5 +1,5 @@
 ---
-import { getCollection, type CollectionEntry } from 'astro:content';
+import { getCollection, type CollectionEntry, getEntry } from 'astro:content';
 import { Image } from 'astro:assets';
 import { getMemberImage, getMemberLogo, getMemberTotalScore, getMemberRank } from '../../lib/memberUtils';
 import App from '../../layouts/App.astro';
@@ -9,6 +9,7 @@ import RecordsAndStats from '../../components/members/RecordsAndStats.astro';
 import TournamentParticipationTable from '../../components/members/TournamentParticipationTable.astro';
 import { getMemberImageLazy } from '../../lib/memberUtilsLazy';
 import { getAllMatchesByTeam } from '../../lib/matchUtils';
+import { undefined } from 'astro:schema';
 
 export const prerender = true;
 
@@ -126,6 +127,8 @@ const logoImage = getMemberLogo(memberData.name, members);
 
 const memberRank = getMemberRank(memberData.name, members);
 const memberTotalScore = getMemberTotalScore(member);
+
+const hasContent = member?.body && member.body.trim() !== '';
 ---
 <App title={`FFC - ${memberData.name}`}>
   <div class="container mx-auto px-4 py-8">
@@ -249,10 +252,49 @@ const memberTotalScore = getMemberTotalScore(member);
     </div>
 
     {/* Markdown Content */}
-    <div class="prose-invert max-w-full bg-green-950/80 shadow-lg rounded-lg p-6 mb-8">
+    <!-- {hasContent && (<div class="prose-invert max-w-full bg-green-950/80 shadow-lg rounded-lg p-6 mb-8">
       <h2 class="text-2xl font-semibold mb-4 text-white border-b pb-2 border-green-600">About {memberData.federation || memberData.name}</h2>
       <div class="space-y-4"><Content /></div>
-    </div>
+    </div>)} -->
+
+    {/* Squad */}
+    {member.data.squad && (
+      <section class="bg-green-950/80 rounded-xl p-6 mb-8 text-white">
+        <h2 class="text-2xl font-bold mb-4 border-b border-green-600 pb-2">{memberData.name} Squad</h2>
+    
+        {/* Información general */}
+        <div class="flex flex-col md:flex-row justify-between mb-4 text-sm text-green-300">
+          <p><span class="font-semibold text-white">Coach:</span> {member.data.squad.coach ?? "Unknown"}</p>
+          <p><span class="font-semibold text-white">Preferred Formation:</span> {member.data.squad.formation ?? "Not declared"}</p>
+        </div>
+    
+        {/* Jugadores */}
+        {member.data.squad.players && member.data.squad.players.length > 0 ? (
+          <div class="overflow-x-auto rounded-md border border-green-700">
+            <table class="min-w-full table-auto text-sm text-left">
+              <thead class="bg-green-800 text-white uppercase text-xs">
+                <tr>
+                  <th class="px-3 py-2">#</th>
+                  <th class="px-3 py-2">Name</th>
+                  <th class="px-3 py-2">Position</th>
+                </tr>
+              </thead>
+              <tbody class="text-white">
+                {member.data.squad.players.map(player => (
+                  <tr class="border-b border-green-700 hover:bg-green-900/30 transition duration-150">
+                    <td class="px-3 py-2 font-bold">{player.number}</td>
+                    <td class="px-3 py-2">{player.name}</td>
+                    <td class="px-3 py-2">{player.position}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <p class="italic text-gray-400">No players available for this squad.</p>
+        )}
+      </section>
+    )}
 
     <TournamentParticipationTable 
     member={member} 
@@ -288,7 +330,7 @@ const memberTotalScore = getMemberTotalScore(member);
       </div>
 
       {/* Stats */}
-      <div class="bg-white dark:bg-green-950/80 shadow-lg rounded-lg">
+      <div class="bg-green-950/80 shadow-lg rounded-lg">
         {Object.keys(h2hStats).length > 0 ? (
           <div class="overflow-x-auto p-6 pb-0">
             <h2 class="text-2xl font-semibold mb-4 text-white border-b pb-2 border-green-600">Historic Head-to-Head</h2>
