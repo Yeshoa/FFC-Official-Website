@@ -19,9 +19,9 @@ Website built with **Astro**. Showcases tournaments, match details, and national
   - ⚠ Component showing **head-to-head stats** against other national teams (only those they've played)
   - ✅ Show **Forest Cup history** [Example](https://es.wikipedia.org/wiki/Selección_de_fútbol_de_Argentina#Estadísticas)
   - ✅ **Records section** [Example](https://es.wikipedia.org/wiki/Selección_de_fútbol_de_Argentina#Récords_y_notas)
-  - [ ] ~~**Achievements section**~~ _discarded_
+  - ❌ ~~**Achievements section**~~ _discarded_
   - [ ] Display `roster` with their numbers
-  - [ ] Work on score calculations
+  - ✅ Work on score calculations
 
 - [ ] **Elaborate the Tournaments page**  
 &nbsp;&nbsp;&nbsp;&nbsp;Improve Tournaments pages:
@@ -63,9 +63,6 @@ Website built with **Astro**. Showcases tournaments, match details, and national
 
 - [ ] **Use `<Image />` component where possible and optimize their size**  
 &nbsp;&nbsp;&nbsp;&nbsp;Try to optimize image rendering. If issues arise, consider moving image directories to `public/`.
-
-- [ ] **Improve Final match cards**  
-&nbsp;&nbsp;&nbsp;&nbsp;Match card for final games should be more imposing.
 
 ---
 
