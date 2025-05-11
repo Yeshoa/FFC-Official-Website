@@ -1,83 +1,59 @@
 ---
 import { Image } from 'astro:assets';
+import Carousel from '../components/react/Carousel';
 import Hero1 from '../assets/images/tournaments/2024/tarasov-goal.png';
+import Petrov from '../assets/images/tournaments/2024/petrov-goal.png';
+import FC26 from '../assets/images/tournaments/2026/fc2026.png';
 import Hero2 from '../assets/images/tournaments/2022/atsvea-champions.png';
 import Logo from '../assets/images/logo.png';
+import BannerSimple from '../assets/images/FFC Banner simple.png';
+import FCL from '../assets/images/tournaments/FCL/FCL banner.png';
 import FC24 from '../assets/images/tournaments/2024/logo.png';
+
 ---
 
 <main class="p-6">
-  <div class="max-w-screen-xl mx-auto grid grid-cols-3 gap-6 mb-12">
-    <!-- Hero 1 -->
-    <a href="https://www.youtube.com/watch?v=iddBpQbe7ak" target="_blank"
-     class="col-span-2 row-span-2 relative rounded-lg overflow-hidden min-h-[600px] 
-    ring ring-green-900 hover:ring-2 hover:ring-green-800 
-    shadow hover:shadow-lg shadow-green-900
-    group transition duration-300">
-      <Image 
-        src={Hero1} 
-        class="absolute w-full h-full object-cover translate-x-12 group-hover:scale-110 transition duration-300" 
-        alt="Recap all goals of the Forest Cup Anxious & Kevin 2024"
-        loading={"eager"}
-      />
-      <div class="absolute inset-0 bg-gradient-to-r from-green-950 to-transparent from-25%"></div>
-      <Image 
-          src={FC24} 
-          class="absolute w-auto h-96 top-22 -left-1" 
-          alt="Forest Cup 2024 Logo"
-          loading={"eager"}
-        />
-      <div class="absolute bottom-6 left-10 text-white">
-        <h2 class="text-5xl font-bold mb-4">
-          Recap All Goals<br>
-        </h2>
-      </div>
-    </a>
+  <h1 class="text-6xl mb-4 font-bold text-center">Welcome to the FFC</h1>
 
-    <!-- Join -->
-    <a href="https://forms.gle/Qn2d5kFwCg8pndnK9" target="_blank"
-     class="relative rounded-lg overflow-hidden min-h-[300px] 
-    ring ring-green-900 hover:ring-2 hover:ring-green-800 
-    shadow hover:shadow-lg shadow-green-900
-    group 
-    transition-all duration-300">
-      <Image 
-        src={Logo} 
-        class="absolute w-auto h-48 object-cover top-1/6 right-10 group-hover:scale-110 transition duration-300" 
-        alt="Join the Forestian Football Confederation" 
-        loading={"eager"}
-      />
-      <div class="absolute inset-0 bg-gradient-to-r from-green-950 to-transparent to-45%"></div>
-      <div class="absolute bottom-2 left-10 text-white">
-        <h2 class="text-3xl font-bold mb-4">
-          Join us
-        </h2>
-      </div>
-    </a>
-
-    <!-- Hero 2 -->
-    <a href="./forest-cup/2022" class="relative rounded-lg overflow-hidden min-h-[300px] 
-    ring ring-green-900 hover:ring-2 hover:ring-green-800 
-    shadow hover:shadow-lg shadow-green-900
-    group
-    transition-all duration-300">
-      <Image 
-        src={Hero2} 
-        class="absolute w-full h-full object-cover group-hover:scale-110 transition duration-300" 
-        alt="Atsvea, Forest Cup 2022 Winners" 
-        loading={"eager"}
-      />
-      <div class="absolute inset-0 bg-gradient-to-tr from-green-950 to-transparent from-15%"></div>
-      <div class="absolute bottom-2 left-7 text-white">
-        <h2 class="text-3xl font-bold mb-4">
-          Forest Cup <br> Bilsa 2022
-        </h2>
-      </div>
-    </a>
+  <div class="max-w-screen-xl mx-auto">
+    <Carousel client:load
+      items={[
+        {
+          src: FCL,
+          alt: 'Champions League',
+          caption: 'Sign up for the FCL',
+          href: 'https://forms.gle/Qn2d5kFwCg8pndnK9'
+        },
+        {
+          src: Petrov,
+          alt: 'Forest Cup 2024',
+          caption: 'Forest Cup 2024\nRecap All Goals',
+          href: 'https://www.youtube.com/watch?v=iddBpQbe7ak'
+        },
+        {
+          src: FC26,
+          alt: 'Forest Cup 2026',
+          caption: 'Apply to Host the\nForest Cup 2026',
+          href: 'https://forms.gle/Qn2d5kFwCg8pndnK9'
+        },
+        {
+          src: Hero2,
+          alt: 'Forest Cup 2022',
+          caption: 'Forest Cup\nBilsa 2022',
+          href: './forest-cup/2022'
+        },
+        {
+          src: BannerSimple,
+          alt: 'FFC Logo',
+          caption: 'Join the FFC',
+          href: 'https://forms.gle/Qn2d5kFwCg8pndnK9'
+        },
+      ]}
+      intervalSec={5}
+    />
   </div>
 
   <div class="max-w-screen-xl mx-auto p-6">
-    <h1 class="text-4xl font-bold mb-6">Welcome to the FFC</h1>
     <p class="text-lg mb-8">
       The FFC is the governing body of football in the Forest region. It organizes events like the Forest Cup and the Forestian Champions League, promoting football and regional unity.
     </p>
