@@ -1,55 +1,51 @@
 ---
 import { Image } from 'astro:assets';
-import Carousel from '../components/react/Carousel';
-import Hero1 from '../assets/images/tournaments/2024/tarasov-goal.png';
+import { prepareCarouselImages } from '../lib/imageOptimizer';
+import Hero from './Hero.astro';
+import Hero1 from '../assets/images/tournaments/2024/all-goals.png';
 import Petrov from '../assets/images/tournaments/2024/petrov-goal.png';
 import FC26 from '../assets/images/tournaments/2026/fc2026.png';
 import Hero2 from '../assets/images/tournaments/2022/atsvea-champions.png';
 import Logo from '../assets/images/logo.png';
-import BannerSimple from '../assets/images/FFC Banner simple.png';
 import FCL from '../assets/images/tournaments/FCL/FCL banner.png';
 import FC24 from '../assets/images/tournaments/2024/logo.png';
 
+const items = [
+  {
+    src: FCL,
+    alt: 'Champions League',
+    caption: 'Sign up for the FCL',
+    href: 'https://forms.gle/Qn2d5kFwCg8pndnK9'
+  },
+  {
+    src: Hero1,
+    alt: 'Forest Cup 2024',
+    caption: 'Forest Cup 2024 Recap All Goals',
+    href: 'https://www.youtube.com/watch?v=iddBpQbe7ak'
+  },
+  {
+    src: FC26,
+    alt: 'Forest Cup 2026',
+    caption: 'Apply to host the Forest Cup 2026',
+    href: 'https://forms.gle/Qn2d5kFwCg8pndnK9'
+  },
+  {
+    src: Hero2,
+    alt: 'Forest Cup 2022',
+    caption: 'Forest Cup Bilsa 2022',
+    href: './forest-cup/2022'
+  },
+];
 ---
 
 <main class="p-6">
-  <h1 class="text-6xl mb-4 font-bold text-center">Welcome to the FFC</h1>
-
-  <div class="max-w-screen-xl mx-auto">
-    <Carousel client:load
-      items={[
-        {
-          src: FCL,
-          alt: 'Champions League',
-          caption: 'Sign up for the FCL',
-          href: 'https://forms.gle/Qn2d5kFwCg8pndnK9'
-        },
-        {
-          src: Petrov,
-          alt: 'Forest Cup 2024',
-          caption: 'Forest Cup 2024\nRecap All Goals',
-          href: 'https://www.youtube.com/watch?v=iddBpQbe7ak'
-        },
-        {
-          src: FC26,
-          alt: 'Forest Cup 2026',
-          caption: 'Apply to Host the\nForest Cup 2026',
-          href: 'https://forms.gle/Qn2d5kFwCg8pndnK9'
-        },
-        {
-          src: Hero2,
-          alt: 'Forest Cup 2022',
-          caption: 'Forest Cup\nBilsa 2022',
-          href: './forest-cup/2022'
-        },
-        {
-          src: BannerSimple,
-          alt: 'FFC Logo',
-          caption: 'Join the FFC',
-          href: 'https://forms.gle/Qn2d5kFwCg8pndnK9'
-        },
-      ]}
-      intervalSec={5}
+  <div class="w-full">
+    <Hero
+      heroImage={{ src: Petrov, alt: 'Partido de fútbol' }}
+      heroTitle="Welcome to the FFC"
+      heroSubtitle="Join the Forest Football Community"
+      cta={{ text: 'Join us', href: 'https://forms.gle/Qn2d5kFwCg8pndnK9', noblank: false }}
+      items={items}
     />
   </div>
 

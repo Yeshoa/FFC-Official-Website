@@ -1,0 +1,76 @@
+---
+import { Image } from 'astro:assets';
+import { ImageMetadata } from 'astro:assets';
+
+// Definimos las props para el componente
+interface Props {
+  heroImage: { src: ImageMetadata; alt: string };
+  heroTitle: string;
+  heroSubtitle: string;
+  cta: { text: string; href: string; noblank?: boolean };
+  items: { src: { src: string }; alt: string; caption: string; href?: string }[];
+}
+
+const { heroImage, heroTitle, heroSubtitle, cta, items } = Astro.props;
+---
+
+<section class="w-full mx-auto">
+  <!-- Hero Section -->
+  <div class="relative w-full h-[500px] md:h-[600px] lg:h-[calc(100svh-var(--navbar-height,130px))] rounded-xl overflow-hidden shadow-2xl">
+    <Image
+      src={heroImage.src}
+      alt={heroImage.alt}
+      width={1200}
+      height={1000}
+      class="w-full h-full object-cover"
+      loading="eager"
+    />
+    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/50 to-transparent flex flex-col justify-center items-center text-white">
+      <h1 class="text-4xl md:text-6xl font-bold text-center drop-shadow-lg px-4">
+        {heroTitle}
+      </h1>
+      <p class="text-lg md:text-2xl mt-4 text-center px-4">
+        {heroSubtitle}
+      </p>
+      <a
+        href={cta.href}
+        target={cta.noblank ? '' : '_blank'}
+        rel={cta.noblank ? '' : 'noopener noreferrer'}
+        class="mt-6 px-8 py-3 bg-green-800 hover:bg-green-900 text-white font-semibold rounded-lg transition-colors"
+      >
+        {cta.text}
+      </a>
+    </div>
+  </div>
+
+  <!-- Grid de Imágenes -->
+  <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-8 p-4">
+    {items.map((item) => (
+      <a
+        href={item.href || '#'}
+        class="relative rounded-lg overflow-hidden shadow-lg group"
+      >
+        <Image
+          src={item.src}
+          alt={item.alt}
+          width={400}
+          height={200}
+          class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+          loading="lazy"
+        />
+        <div class="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+          <p class="text-white text-center px-2 text-sm font-semibold">
+            {item.caption}
+          </p>
+        </div>
+      </a>
+    ))}
+  </div>
+</section>
+
+<style>
+  /* Estilos para mejorar la apariencia */
+  .group:hover .group-hover\:scale-105 {
+    transform: scale(1.05);
+  }
+</style>
