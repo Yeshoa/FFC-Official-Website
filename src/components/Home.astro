@@ -1,11 +1,10 @@
 ---
 import { Image } from 'astro:assets';
-import { prepareCarouselImages } from '../lib/imageOptimizer';
 import Hero from './Hero.astro';
 import Hero1 from '../assets/images/tournaments/2024/all-goals.png';
 import Petrov from '../assets/images/tournaments/2024/petrov-goal.png';
 import FC26 from '../assets/images/tournaments/2026/fc2026.png';
-import Hero2 from '../assets/images/tournaments/2022/atsvea-champions.png';
+import Hero2 from '../assets/images/tournaments/fc-history.png';
 import Logo from '../assets/images/logo.png';
 import FCL from '../assets/images/tournaments/FCL/FCL banner.png';
 import FC24 from '../assets/images/tournaments/2024/logo.png';
@@ -15,25 +14,29 @@ const items = [
     src: FCL,
     alt: 'Champions League',
     caption: 'Sign up for the FCL',
+    description: 'Join The Forestian Champions League!!! Bring the top teams of your league to the maximum competition in Forest.',
     href: 'https://forms.gle/Qn2d5kFwCg8pndnK9'
   },
   {
     src: Hero1,
     alt: 'Forest Cup 2024',
     caption: 'Forest Cup 2024 Recap All Goals',
+    description: 'Revive the Forest Cup Anxious & Kevin 2024 with all the goals from the tournament. Featuring stars like Tarasov, Nysnub, Kazñeisei, Gro and more.',
     href: 'https://www.youtube.com/watch?v=iddBpQbe7ak'
   },
   {
     src: FC26,
     alt: 'Forest Cup 2026',
     caption: 'Apply to host the Forest Cup 2026',
+    description: 'Apply to host the next edition of the most exciting national team tournament in Forest.',
     href: 'https://forms.gle/Qn2d5kFwCg8pndnK9'
   },
   {
     src: Hero2,
-    alt: 'Forest Cup 2022',
-    caption: 'Forest Cup Bilsa 2022',
-    href: './forest-cup/2022'
+    alt: 'Forest Cup History',
+    caption: 'Forest Cup History',
+    description: 'Discover the history of the Forest Cup, from its inception to the latest edition. Explore the teams, players, and unforgettable moments that have shaped this iconic tournament.',
+    href: './forest-cup'
   },
 ];
 ---
