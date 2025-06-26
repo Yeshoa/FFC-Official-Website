@@ -7,7 +7,7 @@ import FFCLogo from '@images/logo.png';
   <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
     <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
         <!-- <img src="https://i.ibb.co/Rjf5DpJ/IMG-3057.png" class="h-8" alt="FFC Logo" loading="eager"> -->
-        <Image src={FFCLogo} alt="FFC Logo" class="h-8" loading="eager" width={32} height={32} />
+        <Image src={FFCLogo} alt="FFC Logo" class="h-8" loading="eager" width={32} height={32} quality={10} format="webp" />
         <!-- <span class="self-center text-2xl font-semibold whitespace-nowrap text-white hover:text-green-300">FFC</span> -->
         <span class="self-center text-xl font-semibold whitespace-nowrap text-white hover:text-green-300">
           Forestian Football
@@ -34,12 +34,12 @@ import FFCLogo from '@images/logo.png';
             Forest Cup
           </a>
         </li>
-        <li>
+        <!-- <li>
           <a href="/champions-league" class={`block py-2 px-3 rounded-sm ${currentPath === "/champions-league" ? "text-green-600 font-bold" : "text-white hover:text-green-300"}`}>
             <span class="inline lg:hidden">FCL</span>
             <span class="hidden lg:inline">Champions League</span>
           </a>
-        </li>
+        </li> -->
         <li>
           <a href="/members" class={`block py-2 px-3 rounded-sm ${currentPath === "/members" ? "text-green-600 font-bold" : "text-white hover:text-green-300"}`}>
             Members

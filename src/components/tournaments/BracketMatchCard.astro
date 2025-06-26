@@ -74,7 +74,8 @@ const formattedDate = match.data.status === 'scheduled'
     <div class="flex items-center justify-between">
       <div class="flex items-center space-x-2">
         {members.find(m => m.data.name === match.data.team1)?.data.flagPath ? (
-          <Image src={getMemberImage(match.data.team1, members)!} alt={match.data.team1} class="w-6 h-6 object-contain" width={24} height={24} loading={"lazy"} />
+          <Image src={getMemberImage(match.data.team1, members)!} alt={match.data.team1} 
+          class="w-6 h-6 object-contain" width={24} height={24} loading={"lazy"} quality={10} format="webp" />
         ) : (
           <div class="w-6 h-6 bg-gray-600 rounded-md"></div>
         )}
@@ -98,7 +99,8 @@ const formattedDate = match.data.status === 'scheduled'
     <div class="flex items-center justify-between">
       <div class="flex items-center space-x-2">
         {members.find(m => m.data.name === match.data.team2)?.data.flagPath ? (
-          <Image src={getMemberImage(match.data.team2, members)!} alt={match.data.team2} class="w-6 h-6 object-contain" width={24} height={24} loading={"lazy"}/>
+          <Image src={getMemberImage(match.data.team2, members)!} alt={match.data.team2} 
+          class="w-6 h-6 object-contain" width={24} height={24} loading={"lazy"} quality={10} format="webp" />
         ) : (
           <div class="w-6 h-6 bg-gray-600 rounded-md"></div>
         )}

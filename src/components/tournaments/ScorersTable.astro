@@ -115,7 +115,8 @@ const topAssisters = Array.from(assistStats.values())
             {members.length !== 1 && ( // Si hay más de un miembro, mostrar el equipo
               <td class="px-4 py-2 flex items-center gap-2">
                 <a href={`/members/${members.find(m => m.data.name === entry.team)?.slug}`} class="flex items-center gap-2 hover:underline">
-                  <Image src={getMemberImage(entry.team, members)} alt={entry.team} class="w-6 h-4 object-cover rounded" height={36} width={36} loading={"lazy"} />
+                  <Image src={getMemberImage(entry.team, members)} alt={entry.team} 
+                  class="w-6 h-4 object-cover rounded" height={36} width={36} loading={"lazy"} quality={10} format="webp" />
                   {entry.team}
                 </a>
               </td>
@@ -145,7 +146,8 @@ const topAssisters = Array.from(assistStats.values())
             {members.length !== 1 && ( // Si hay más de un miembro, mostrar el equipo
               <td class="px-4 py-2 flex items-center gap-2">
                 <a href={`/members/${members.find(m => m.data.name === entry.team)?.slug}`} class="flex items-center gap-2 hover:underline">
-                  <Image src={getMemberImage(entry.team, members)} alt={entry.team} class="w-6 h-4 object-cover rounded" height={36} width={36} loading={"lazy"} />
+                  <Image src={getMemberImage(entry.team, members)} alt={entry.team} 
+                  class="w-6 h-4 object-cover rounded" height={36} width={36} loading={"lazy"} quality={10} format="webp" />
                   {entry.team}
                 </a>
               </td>

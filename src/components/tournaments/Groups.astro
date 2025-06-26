@@ -128,7 +128,9 @@ function generateGroupTable(matches) {
                   <tr key={team.team} class="border-b border-green-700 last:border-b-0">
                     <td class="px-1 py-1.5 text-left">{team.position}</td>
                     <td class="px-1 py-1.5 text-left flex items-center gap-2 whitespace-nowrap">
-                    <Image src={getMemberImage(team.team, members)!} alt={team.team} class="h-5 w-8 rounded-md object-cover ring-1 ring-green-600" width={48} height={48} loading="lazy" inferSize={true} />
+                    <Image src={getMemberImage(team.team, members)!} alt={team.team} 
+                    class="h-5 w-8 rounded-md object-cover ring-1 ring-green-600" width={48} height={48} 
+                    loading="lazy" inferSize={true} quality={10} format="webp"/>
                     <a href={`/members/${members.find(m => m.data.name === team.team)?.slug}`} class="hover:underline">{team.team}</a>
                     </td>
                     <td class="px-1 py-1.5 font-semibold">{team.points}</td>

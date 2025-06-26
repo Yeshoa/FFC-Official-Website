@@ -57,6 +57,8 @@ const winner = getMatchWinner(match);
             height={96}
             loading={"eager"}
             inferSize={true}
+            format="webp"
+            quality={70}
           />
         ) : (
           <div class="h-12 w-16 md:h-16 md:w-24 bg-gray-700 rounded-md"></div>
@@ -101,6 +103,8 @@ const winner = getMatchWinner(match);
             height={96}
             loading={"eager"}
             inferSize={true}
+            format="webp"
+            quality={70}
           />
         ) : (
           <div class="h-12 w-16 md:h-16 md:w-24 bg-gray-700 rounded-md"></div>
@@ -144,7 +148,8 @@ const winner = getMatchWinner(match);
             ).map(([key, goalGroup]) => (
               <div key={key} class="flex items-center gap-2 justify-end mb-1">
                 <span class="font-medium">{goalGroup.player}</span>
-                <Image src={GoalIcon} alt="Goal" class="w-4 h-4 flex-shrink-0" loading={"lazy"}/>
+                <Image src={GoalIcon} alt="Goal" class="w-4 h-4 flex-shrink-0" loading={"lazy"}
+                format="webp" quality={1} />
                 <span>
                   {goalGroup.goalEvents
                     .sort((a, b) => {
@@ -209,7 +214,8 @@ const winner = getMatchWinner(match);
             ).map(([key, goalGroup]) => (
               <div key={key} class="flex items-center gap-2 justify-start mb-1">
                 <span class="font-medium">{goalGroup.player}</span>
-                <Image src={GoalIcon} alt="Goal" class="w-4 h-4 flex-shrink-0" loading={"lazy"}/>
+                <Image src={GoalIcon} alt="Goal" class="w-4 h-4 flex-shrink-0" loading={"lazy"}
+                format="webp" quality={1} />
                 <span>
                   {goalGroup.goalEvents
                     .sort((a, b) => {

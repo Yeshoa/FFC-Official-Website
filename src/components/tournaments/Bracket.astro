@@ -66,12 +66,13 @@ const winnerTeam = getMatchWinner(finalMatch.data);
         {finalMatch && (
           <div class="flex flex-col items-center justify-center mt-4 p-4 rounded-2xl text-2xl font-bold w-full">
             {getMemberImage(winnerTeam, members) ? (
-              <Image src={getMemberImage(winnerTeam, members)} alt={winnerTeam} class="w-auto h-20" loading={"lazy"} />
+              <Image src={getMemberImage(winnerTeam, members)} alt={winnerTeam} class="w-auto h-20" loading={"lazy"}
+              quality={10} format="webp" />
             ) : (
               <div class="w-20 h-20 bg-gray-600 rounded-lg" />
             )}
             <a href={`/members/${members.find(m => m.data.name === winnerTeam)?.slug}`} class="hover:underline">{winnerTeam}</a>
-            <Image src={trophy} alt="Trophy" class="w-auto h-20" />
+            <Image src={trophy} alt="Trophy" class="w-auto h-20" quality={1} format="webp" />
           </div>
           <BracketMatchCard match={finalMatch} members={members} />
         )}

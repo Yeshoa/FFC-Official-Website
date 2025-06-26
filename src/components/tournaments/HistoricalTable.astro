@@ -160,11 +160,12 @@ const sortedStats = Object.values(teamStats).filter(stat => stat.verified).sort(
         <tr class="border-b border-green-700 hover:bg-green-900/30 transition duration-150">
           <td class="px-2 py-2">{index + 1}</td>
           <td class="px-2 py-2">
-            {<Image src={getMemberImage(team.name, members)} alt={team.name} 
+            <Image src={getMemberImage(team.name, members)} alt={team.name} 
             width={32} 
             height={32}
             class="h-6 w-auto object-cover rounded inline-block" 
-            loading={"lazy"} />}
+            loading={"lazy"} 
+            quality={80} format="webp"/>
           </td>
           <td class="px-2 py-2 text-left"><a href={`/members/${members.find(m => m.data.name === team.name)?.slug}`} class="font-semibold hover:underline">{team.name}</a></td>
           <td class="px-2 py-2 text-green-200">{team.tournamentsPlayed.size}</td>

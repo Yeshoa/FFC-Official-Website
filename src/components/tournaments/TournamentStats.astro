@@ -137,12 +137,12 @@ const statsCols = topAssisters.length > 0 ? "grid grid-cols-1 lg:grid-cols-3 gap
            <div class="flex items-center gap-2 p-2 rounded hover:bg-green-800/30 transition">
               {getMemberSlug(bestPlayer.team) ? (
                 <a href={`/members/${getMemberSlug(bestPlayer.team)}`} class="flex items-center gap-2 hover:underline">
-                  <Image src={getMemberImage(bestPlayer.team, members)} alt={bestPlayer.team} class="w-6 h-4 object-cover rounded" height={16} width={24} loading={"lazy"}/>
+                  <Image src={getMemberImage(bestPlayer.team, members)} alt={bestPlayer.team} class="w-6 h-4 object-cover rounded" height={16} width={24} quality={10} format='webp' loading={"lazy"}/>
                   <span class="font-medium">{bestPlayer.player}</span> ({bestPlayer.team})
                 </a>
               ) : (
                 <div class="flex items-center gap-2">
-                   <Image src={getMemberImage(bestPlayer.team, members)} alt={bestPlayer.team} class="w-6 h-4 object-cover rounded" height={16} width={24} loading={"lazy"}/>
+                   <Image src={getMemberImage(bestPlayer.team, members)} alt={bestPlayer.team} class="w-6 h-4 object-cover rounded" height={16} width={24} quality={10} format='webp' loading={"lazy"}/>
                    <span class="font-medium">{bestPlayer.player}</span> ({bestPlayer.team})
                  </div>
               )}
@@ -159,12 +159,12 @@ const statsCols = topAssisters.length > 0 ? "grid grid-cols-1 lg:grid-cols-3 gap
               <div class="flex items-center gap-2 mb-1 p-2 rounded hover:bg-green-800/30 transition">
                 {memberSlug ? (
                   <a href={`/members/${memberSlug}`} class="flex items-center gap-2 hover:underline">
-                    <Image src={getMemberImage(scorer.team, members)} loading={"lazy"} alt={scorer.team} class="w-6 h-4 object-cover rounded" height={16} width={24} />
+                    <Image src={getMemberImage(scorer.team, members)} loading={"lazy"} alt={scorer.team} class="w-6 h-4 object-cover rounded" height={16} width={24} quality={10} format='webp' />
                     <span class="font-medium">{scorer.player}</span> ({scorer.team})
                   </a>
                 ) : (
                   <div class="flex items-center gap-2">
-                     <Image src={getMemberImage(scorer.team, members)} loading={"lazy"} alt={scorer.team} class="w-6 h-4 object-cover rounded" height={16} width={24} />
+                     <Image src={getMemberImage(scorer.team, members)} loading={"lazy"} alt={scorer.team} class="w-6 h-4 object-cover rounded" height={16} width={24} quality={10} format='webp' />
                     <span class="font-medium">{scorer.player}</span> ({scorer.team})
                   </div>
                 )}
@@ -180,12 +180,12 @@ const statsCols = topAssisters.length > 0 ? "grid grid-cols-1 lg:grid-cols-3 gap
            <div class="flex items-center gap-2 p-2 rounded hover:bg-green-800/30 transition">
               {getMemberSlug(bestGoalkeeper.team) ? (
                 <a href={`/members/${getMemberSlug(bestGoalkeeper.team)}`} class="flex items-center gap-2 hover:underline">
-                  <Image src={getMemberImage(bestGoalkeeper.team, members)} loading={"lazy"} alt={bestGoalkeeper.team} class="w-6 h-4 object-cover rounded" height={16} width={24} />
+                  <Image src={getMemberImage(bestGoalkeeper.team, members)} loading={"lazy"} alt={bestGoalkeeper.team} class="w-6 h-4 object-cover rounded" height={16} width={24} quality={10} format='webp' />
                   <span class="font-medium">{bestGoalkeeper.player}</span> ({bestGoalkeeper.team})
                 </a>
               ) : (
                  <div class="flex items-center gap-2">
-                   <Image src={getMemberImage(bestGoalkeeper.team, members)} loading={"lazy"} alt={bestGoalkeeper.team} class="w-6 h-4 object-cover rounded" height={16} width={24} />
+                   <Image src={getMemberImage(bestGoalkeeper.team, members)} loading={"lazy"} alt={bestGoalkeeper.team} class="w-6 h-4 object-cover rounded" height={16} width={24} quality={10} format='webp' />
                    <span class="font-medium">{bestGoalkeeper.player}</span> ({bestGoalkeeper.team})
                  </div>
               )}
@@ -231,12 +231,12 @@ const statsCols = topAssisters.length > 0 ? "grid grid-cols-1 lg:grid-cols-3 gap
                     <td class="px-4 py-2">
                       {memberSlug ? (
                         <a href={`/members/${memberSlug}`} class="flex items-center gap-2 hover:underline">
-                          <Image src={getMemberImage(entry.team, members)} loading={"lazy"} alt={entry.team} class="w-6 h-4 object-cover rounded" height={16} width={24} />
+                          <Image src={getMemberImage(entry.team, members)} loading={"lazy"} alt={entry.team} class="w-6 h-4 object-cover rounded" height={16} width={24} quality={10} format='webp' />
                           {entry.team}
                         </a>
                       ) : (
                          <div class="flex items-center gap-2">
-                           <Image src={getMemberImage(entry.team, members)} loading={"lazy"} alt={entry.team} class="w-6 h-4 object-cover rounded" height={16} width={24} />
+                           <Image src={getMemberImage(entry.team, members)} loading={"lazy"} alt={entry.team} class="w-6 h-4 object-cover rounded" height={16} width={24} quality={10} format='webp' />
                            {entry.team}
                          </div>
                       )}
@@ -273,12 +273,12 @@ const statsCols = topAssisters.length > 0 ? "grid grid-cols-1 lg:grid-cols-3 gap
                      <td class="px-4 py-2">
                        {memberSlug ? (
                         <a href={`/members/${memberSlug}`} class="flex items-center gap-2 hover:underline">
-                          <Image src={getMemberImage(entry.team, members)} loading={"lazy"} alt={entry.team} class="w-6 h-4 object-cover rounded" height={16} width={24} />
+                          <Image src={getMemberImage(entry.team, members)} loading={"lazy"} alt={entry.team} class="w-6 h-4 object-cover rounded" height={16} width={24} quality={10} format='webp' />
                           {entry.team}
                         </a>
                       ) : (
                          <div class="flex items-center gap-2">
-                           <Image src={getMemberImage(entry.team, members)} loading={"lazy"} alt={entry.team} class="w-6 h-4 object-cover rounded" height={16} width={24} />
+                           <Image src={getMemberImage(entry.team, members)} loading={"lazy"} alt={entry.team} class="w-6 h-4 object-cover rounded" height={16} width={24} quality={10} format='webp' />
                            {entry.team}
                          </div>
                       )}
