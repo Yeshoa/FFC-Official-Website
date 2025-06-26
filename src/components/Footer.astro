@@ -1,22 +1,35 @@
 ---
 import { Image } from 'astro:assets';
-import FooterImage from '../assets/images/Footer.png';
-import Sponsor1 from '../assets/images/sponsors/bersa.png';
-import Sponsor2 from '../assets/images/sponsors/ecoking.png';
-import Sponsor3 from '../assets/images/sponsors/einsair.png';
-import Sponsor4 from '../assets/images/sponsors/einset royal.png';
-import Sponsor5 from '../assets/images/sponsors/ESN.png';
-import Sponsor6 from '../assets/images/sponsors/frey.png';
-import Sponsor7 from '../assets/images/sponsors/northern wings.png';
-import Sponsor8 from '../assets/images/sponsors/startex.png';
-import Sponsor9 from '../assets/images/sponsors/white island stadium.png';
+import FooterImage from '@images/Footer.png';
+import Sponsor1 from '@images/sponsors/bersa.png';
+import Sponsor2 from '@images/sponsors/ecoking.png';
+import Sponsor3 from '@images/sponsors/einsair.png';
+import Sponsor4 from '@images/sponsors/einset royal.png';
+import Sponsor5 from '@images/sponsors/ESN.png';
+import Sponsor6 from '@images/sponsors/frey.png';
+import Sponsor7 from '@images/sponsors/northern wings.png';
+import Sponsor8 from '@images/sponsors/startex.png';
+import Sponsor9 from '@images/sponsors/white island stadium.png';
+
+const sponsors = [
+  { src: Sponsor1, alt: 'Bersa', class: 'invert' },
+  { src: Sponsor2, alt: 'Ecoking' },
+  { src: Sponsor3, alt: 'Einsair', class: 'invert' },
+  { src: Sponsor4, alt: 'Einset Royal', class: 'invert' },
+  { src: Sponsor5, alt: 'ESN' },
+  { src: Sponsor6, alt: 'Frey', class: 'invert' },
+  { src: Sponsor7, alt: 'Northern Wings', class: 'invert' },
+  { src: Sponsor8, alt: 'Startex', class: 'invert' },
+  { src: Sponsor9, alt: 'White Island Stadium', class: 'invert' },
+];
 ---
 <footer class="bg-green-950 border-t border-green-600">
   <div class="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
       <div class="md:flex md:justify-between">
         <div class="mb-6 md:mb-0">
             <a href="https://www.nationstates.net/page=dispatch/id=2525675" target="_blank" class="flex items-center">
-              <Image src={FooterImage} width={800} alt="Forestian Football Confederation">
+              <Image src={FooterImage} width={800} alt="Forestian Football Confederation"
+              quality={1} format="webp"/>
             </a>
         </div>
         <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3 mb-6">
@@ -67,15 +80,19 @@ import Sponsor9 from '../assets/images/sponsors/white island stadium.png';
       <p>Sponsors</p>
     </div>
     <div class="grid grid-cols-3 gap-4 sm:gap-5 sm:grid-cols-9 mt-8">
-      <div class="flex justify-center items-center"><Image src={Sponsor1} class="w-24 invert" alt="Bersa" width={96}></div>
-      <div class="flex justify-center items-center"><Image src={Sponsor2} class="w-24" alt="Ecoking" width={96}></div>
-      <div class="flex justify-center items-center"><Image src={Sponsor3} class="w-24 invert" alt="Einsair" width={96}></div>
-      <div class="flex justify-center items-center"><Image src={Sponsor4} class="w-24 invert" alt="Einset Royal" width={96}></div>
-      <div class="flex justify-center items-center"><Image src={Sponsor5} class="w-24" alt="ESN" width={96}></div>
-      <div class="flex justify-center items-center"><Image src={Sponsor6} class="w-24 invert" alt="Frey" width={96}></div>
-      <div class="flex justify-center items-center"><Image src={Sponsor7} class="w-24 invert" alt="Northern Wings" width={96}></div>
-      <div class="flex justify-center items-center"><Image src={Sponsor8} class="w-24 invert" alt="Startex" width={96}></div>
-      <div class="flex justify-center items-center"><Image src={Sponsor9} class="w-24 invert" alt="White Island Stadium" width={96}></div>
+      {sponsors.map((sponsor, i) => (
+        <div class="flex justify-center items-center" key={i}>
+          <Image
+            src={sponsor.src}
+            alt={sponsor.alt}
+            width={96}
+            class={`w-24 ${sponsor.class ?? ''}`}
+            loading="lazy"
+            format="webp"
+            quality={10}
+          />
+        </div>
+      ))}
     </div>
   </div>
 </footer>

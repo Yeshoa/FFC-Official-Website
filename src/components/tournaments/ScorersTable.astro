@@ -1,9 +1,8 @@
 ---
 import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
-import { getMemberImage } from '../../lib/memberUtils';
+import { getMemberImage } from '@lib/memberUtils';
 import type { CollectionEntry } from 'astro:content';
-import { getMemberImageLazy } from '../../lib/memberUtilsLazy';
 
 interface Props {
   members: CollectionEntry<'members'>[];
@@ -116,7 +115,7 @@ const topAssisters = Array.from(assistStats.values())
             {members.length !== 1 && ( // Si hay más de un miembro, mostrar el equipo
               <td class="px-4 py-2 flex items-center gap-2">
                 <a href={`/members/${members.find(m => m.data.name === entry.team)?.slug}`} class="flex items-center gap-2 hover:underline">
-                  <Image src={getMemberImageLazy(entry.team, members)} alt={entry.team} class="w-6 h-4 object-cover rounded" height={36} width={36} />
+                  <Image src={getMemberImage(entry.team, members)} alt={entry.team} class="w-6 h-4 object-cover rounded" height={36} width={36} loading={"lazy"} />
                   {entry.team}
                 </a>
               </td>
@@ -146,7 +145,7 @@ const topAssisters = Array.from(assistStats.values())
             {members.length !== 1 && ( // Si hay más de un miembro, mostrar el equipo
               <td class="px-4 py-2 flex items-center gap-2">
                 <a href={`/members/${members.find(m => m.data.name === entry.team)?.slug}`} class="flex items-center gap-2 hover:underline">
-                  <Image src={getMemberImageLazy(entry.team, members)} alt={entry.team} class="w-6 h-4 object-cover rounded" height={36} width={36} />
+                  <Image src={getMemberImage(entry.team, members)} alt={entry.team} class="w-6 h-4 object-cover rounded" height={36} width={36} loading={"lazy"} />
                   {entry.team}
                 </a>
               </td>

@@ -1,6 +1,6 @@
 ---
-import Home from '../components/Home.astro';
-import App from '../layouts/App.astro';
+import Home from '@components/Home.astro';
+import App from '@layouts/App.astro';
 import { getCollection } from 'astro:content';
 
 // const members = await getCollection('members');
@@ -11,7 +11,7 @@ const members = (await getCollection('members'))
     ...entry.data,
     slug: entry.slug,
 }));
-import MemberCard from '../components/MemberCard.astro';
+import MemberCard from '@components/MemberCard.astro';
 ---
 
 <App title="FFC - Members">

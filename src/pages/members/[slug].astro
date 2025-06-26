@@ -1,14 +1,13 @@
 ---
 import { getCollection, type CollectionEntry, getEntry } from 'astro:content';
 import { Image } from 'astro:assets';
-import { getMemberImage, getMemberLogo, getMemberTotalScore, getMemberRank } from '../../lib/memberUtils';
-import App from '../../layouts/App.astro';
-import ScorersTable from '../../components/tournaments/ScorersTable.astro';
-import MatchCard from '../../components/MatchCard.astro';
-import RecordsAndStats from '../../components/members/RecordsAndStats.astro';
-import TournamentParticipationTable from '../../components/members/TournamentParticipationTable.astro';
-import { getMemberImageLazy } from '../../lib/memberUtilsLazy';
-import { getAllMatchesByTeam } from '../../lib/matchUtils';
+import { getMemberImage, getMemberLogo, getMemberTotalScore, getMemberRank } from '@lib/memberUtils';
+import App from '@layouts/App.astro';
+import ScorersTable from '@components/tournaments/ScorersTable.astro';
+import MatchCard from '@components/MatchCard.astro';
+import RecordsAndStats from '@components/members/RecordsAndStats.astro';
+import TournamentParticipationTable from '@components/members/TournamentParticipationTable.astro';
+import { getAllMatchesByTeam } from '@lib/matchUtils';
 
 export const prerender = true;
 
@@ -143,6 +142,8 @@ const hasContent = member?.body && member.body.trim() !== '';
               class="h-16 w-auto md:h-20 object-contain rounded border border-green-700"
               width={128}
               height={128}
+              quality={50}
+              format="webp"
               loading="eager"
             />
           )}
@@ -201,6 +202,8 @@ const hasContent = member?.body && member.body.trim() !== '';
             width={256}
             height={256}
             loading="eager"
+            quality={50}
+            format="webp"
           />
         )}
       </div>
@@ -360,20 +363,22 @@ const hasContent = member?.body && member.body.trim() !== '';
                   const diffA = a.goalsFor - a.goalsAgainst;
                   const diffB = b.goalsFor - b.goalsAgainst;
                   if (diffB !== diffA) return diffB - diffA;
-
+                  
                   // goles a favor
                   return b.goalsFor - a.goalsFor;
                 })
-                .map(([opponentName, stats]) => (
+                .map(([opponentName, stats]) => {
+                  const memberImage = getMemberImage(opponentName, members);
+                  return(
                   <tr key={opponentName} 
                   class="border-b border-green-700 hover:bg-green-900/30 transition duration-150">
                     <td class="px-4 py-2 whitespace-nowrap font-medium text-white">
                       <a href={`/members/${members.find(m => m.data.name === opponentName)?.slug}`} class="flex items-center gap-2 hover:underline">
                       <Image
-                        src={getMemberImageLazy(opponentName, members)}
+                        src={memberImage}
                         alt={opponentName}
                         class="w-6 h-4 object-cover rounded" height={36} width={36}
-                        loading="lazy"
+                        loading="lazy" quality={10} format="webp"
                       />{opponentName}
                       </a>
                     </td>
@@ -394,7 +399,7 @@ const hasContent = member?.body && member.body.trim() !== '';
                     <td class="px-1 py-2 whitespace-nowrap text-center text-green-200">{stats.goalsAgainst}</td>
                     <td class="px-1 py-2 whitespace-nowrap text-center text-green-200">{stats.goalsFor - stats.goalsAgainst}</td>
                   </tr>
-                ))}
+                )})}
               </tbody>
             </table>
           </div>

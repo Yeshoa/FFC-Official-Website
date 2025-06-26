@@ -8,12 +8,12 @@ const sortedTournaments = tournaments.sort((a, b) => a.data.id - b.data.id); // 
 const { currentTournament } = Astro.props;
 // Importamos las imágenes de los banners de los torneos
 // Usamos import.meta.glob para cargar las imágenes de forma dinámica
-const images = import.meta.glob<{ default: ImageMetadata }>("/src/assets/images/tournaments/**/*.{jpeg,jpg,png,gif,svg}", ({ eager: true }));
+// const images = import.meta.glob<{ default: ImageMetadata }>("/src/assets/images/tournaments/**/*.{jpeg,jpg,png,gif,svg}", ({ eager: true }));
 // Convertimos el objeto de imágenes a un formato más fácil de usar (ruta -> ImageMetadata)
 // Esto nos permite acceder a las imágenes usando su ruta como clave
-const imageMap = Object.fromEntries(
+/* const imageMap = Object.fromEntries(
   Object.entries(images).map(([path, module]) => [path, module.default])
-);
+); */
 ---
 
 <div class="flex justify-center items-center px-6 bg-white/10 w-full">
@@ -28,11 +28,13 @@ const imageMap = Object.fromEntries(
             justify-center items-center group ${isActive ? "bg-green-950 cursor-default pointer-events-none" : ""}`}
         >
           <Image 
-            src={imageMap[`/src/assets/images/${tournament.data.banner}`]} 
+            src={tournament.data.banner} 
             alt={tournament.data.name} 
             class={`w-auto h-16 object-cover rounded-lg transition-opacity invert group-hover:invert-0 ${isActive ? "invert-0" : ""}`}
             loading="eager"
             width={256} height={256}
+            format="webp"
+            quality={1}
           />
         </a>
       );

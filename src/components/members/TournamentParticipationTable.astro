@@ -5,7 +5,6 @@ import { getMemberImage } from '../../lib/memberUtils';
 import { getMatchResult } from '../../lib/matchUtils';
 import { Image } from 'astro:assets';
 import { getTeamStatsInTournament, getTeamFinalResult, getTopScorerOfTeamInTournament, getTeamPositionInTournament} from '../../lib/tournamentUtils';
-import { getMemberImageLazy } from '../../lib/memberUtilsLazy';
 
 interface Props {
   member: CollectionEntry<'members'>;
@@ -63,13 +62,13 @@ function getTeamFinalResultInTournament(tournamentId: number) {
     <tbody class="">
       {allEditions.sort((b, a) => b.data.edition - a.data.edition).map(t => {
         const didParticipate = t.data.participants.includes(memberName);
-        const hostImage = getMemberImageLazy(t.data.host, members);
+        const hostImage = getMemberImage(t.data.host, members);
 
         if (!didParticipate) {
           return (
             <tr class="border-b border-green-700 bg-red-900/10 text-red-300 italic">
               <td class="px-2 py-2 flex items-center gap-1 justify-center">
-                {hostImage && <a  href={`/members/${members.find(m => m.data.name === t.data.host)?.slug}`}><Image src={hostImage} alt={t.data.host} width={20} height={14} class="rounded-sm" /></a>}
+                {hostImage && <a  href={`/members/${members.find(m => m.data.name === t.data.host)?.slug}`}><Image src={hostImage} alt={t.data.host} width={20} height={14} class="rounded-sm" loading={'lazy'}/></a>}
                 <a href={`/${type}/${t.data.edition}`} class="hover:underline">{t.data.edition}</a>
               </td>
               <td colspan="12" class="py-2">Didn't participate</td>

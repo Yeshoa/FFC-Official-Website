@@ -1,13 +1,13 @@
 ---
 import { Image } from 'astro:assets';
-import Hero from './Hero.astro';
-import Hero1 from '../assets/images/tournaments/2024/all-goals.png';
-import Petrov from '../assets/images/tournaments/2024/petrov-goal.png';
-import FC26 from '../assets/images/tournaments/2026/fc2026.png';
-import Hero2 from '../assets/images/tournaments/fc-history.png';
-import Logo from '../assets/images/logo.png';
-import FCL from '../assets/images/tournaments/FCL/FCL banner.png';
-import FC24 from '../assets/images/tournaments/2024/logo.png';
+import Hero from '@components/Hero.astro';
+import Hero1 from '@images/tournaments/2024/all-goals.png';
+import Petrov from '@images/tournaments/2024/petrov-goal.png';
+import FC26 from '@images/tournaments/2026/fc2026.png';
+import Hero2 from '@images/tournaments/fc-history.png';
+import Logo from '@images/logo.png';
+import FCL from '@images/tournaments/FCL/FCL banner.png';
+import FC24 from '@images/tournaments/2024/logo.png';
 
 const items = [
   {
@@ -50,25 +50,5 @@ const items = [
       cta={{ text: 'Join us', href: 'https://forms.gle/Qn2d5kFwCg8pndnK9', noblank: false }}
       items={items}
     />
-  </div>
-
-  <div class="max-w-screen-xl mx-auto p-6">
-    <p class="text-lg mb-8">
-      The FFC is the governing body of football in the Forest region. It organizes events like the Forest Cup and the Forestian Champions League, promoting football and regional unity.
-    </p>
-  
-    <h2 class="text-3xl font-semibold mb-4">Why Join the FFC?</h2>
-    <p class="text-lg mb-8">
-      Joining is simple and takes just 30 seconds. Participate in stress-free events and watch live matches through our streams on YouTube, Twitch, and Kick!
-    </p>
-  
-    <h2 class="text-3xl font-semibold mb-4">How to Join</h2>
-    <p class="text-lg mb-8">
-      Fill out the form to register your team for the Forest Cup and other events. Don't miss the chance to be part of this amazing football community!
-    </p>
-  
-    <a href="https://forms.gle/Qn2d5kFwCg8pndnK9" class="text-green-400 hover:underline text-lg font-medium">
-      Registration Form
-    </a>
   </div>
 </main>

@@ -1,12 +1,11 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import { Image } from 'astro:assets';
-import { getMemberImage } from "../../lib/memberUtils";
+import { getMemberImage } from "@lib/memberUtils";
 import {
   getMatchResult,
   getGoalsByTeam,
-} from '../../lib/matchUtils.ts';
-import { getMemberImageLazy } from "../../lib/memberUtilsLazy";
+} from '@lib/matchUtils.ts';
 
 interface Props {
   members: CollectionEntry<'members'>[];
@@ -161,10 +160,11 @@ const sortedStats = Object.values(teamStats).filter(stat => stat.verified).sort(
         <tr class="border-b border-green-700 hover:bg-green-900/30 transition duration-150">
           <td class="px-2 py-2">{index + 1}</td>
           <td class="px-2 py-2">
-            {<Image src={getMemberImageLazy(team.name, members)} alt={team.name} 
+            {<Image src={getMemberImage(team.name, members)} alt={team.name} 
             width={32} 
             height={32}
-            class="h-6 w-auto object-cover rounded inline-block" />}
+            class="h-6 w-auto object-cover rounded inline-block" 
+            loading={"lazy"} />}
           </td>
           <td class="px-2 py-2 text-left"><a href={`/members/${members.find(m => m.data.name === team.name)?.slug}`} class="font-semibold hover:underline">{team.name}</a></td>
           <td class="px-2 py-2 text-green-200">{team.tournamentsPlayed.size}</td>

@@ -1,7 +1,7 @@
 ---
 import  {getCollection, type CollectionEntry } from 'astro:content';
-import { getMatchResult, getPenaltiesResult } from '../lib/matchUtils.ts';
-import { getMemberImageLazy } from '../lib/memberUtilsLazy.ts';
+import { getMatchResult, getPenaltiesResult } from '@lib/matchUtils.ts';
+import { getMemberImage } from '@lib/memberUtils.ts';
 import { Image } from 'astro:assets';
 
 interface Props {
@@ -17,8 +17,8 @@ const { team1, team2 } = match;
 const { team1: score1, team2: score2 } = getMatchResult(match);
 const penalties = getPenaltiesResult(match);
 
-const team1Image = getMemberImageLazy(team1, members);
-const team2Image = getMemberImageLazy(team2, members);
+const team1Image = getMemberImage(team1, members);
+const team2Image = getMemberImage(team2, members);
 
 // Texto de penales si aplica
 const penaltyText = penalties

@@ -1,11 +1,10 @@
 ---
 import { Image } from 'astro:assets';
-import BracketMatchCard from './BracketMatchCard.astro';
-import MatchCardCompact from '../MatchCardCompact.astro';
-import trophy from '/src/assets/images/tournaments/trophy.png';
-import { getMemberImage } from '../../lib/memberUtils';
-import { getMatchWinner } from '../../lib/matchUtils';
-import { getMemberImageLazy } from '../../lib/memberUtilsLazy';
+import BracketMatchCard from '@components/tournaments/BracketMatchCard.astro';
+import MatchCardCompact from '@components/MatchCardCompact.astro';
+import trophy from '@images/tournaments/trophy.png';
+import { getMemberImage } from '@lib/memberUtils';
+import { getMatchWinner } from '@lib/matchUtils';
 
 interface Props {
   matches: any[]; // Lista de partidos del torneo
@@ -66,8 +65,8 @@ const winnerTeam = getMatchWinner(finalMatch.data);
       <div class="w-1/5 flex flex-col items-center justify-center">
         {finalMatch && (
           <div class="flex flex-col items-center justify-center mt-4 p-4 rounded-2xl text-2xl font-bold w-full">
-            {getMemberImageLazy(winnerTeam, members) ? (
-              <Image src={getMemberImageLazy(winnerTeam, members)} alt={winnerTeam} class="w-auto h-20" />
+            {getMemberImage(winnerTeam, members) ? (
+              <Image src={getMemberImage(winnerTeam, members)} alt={winnerTeam} class="w-auto h-20" loading={"lazy"} />
             ) : (
               <div class="w-20 h-20 bg-gray-600 rounded-lg" />
             )}

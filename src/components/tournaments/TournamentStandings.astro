@@ -4,9 +4,9 @@ type MatchEntry = CollectionEntry<'matches'>;
 type TournamentEntry = CollectionEntry<'tournaments'>;
 
 import { Image } from 'astro:assets';
-import { getMemberImageLazy } from "../../lib/memberUtilsLazy"; 
-import { getMatchResult } from '../../lib/matchUtils';      
-import { getTeamStatsInTournament } from '../../lib/tournamentUtils'; 
+import { getMemberImage } from "@lib/memberUtils"; 
+import { getMatchResult } from '@lib/matchUtils';      
+import { getTeamStatsInTournament } from '@lib/tournamentUtils'; 
 
 interface Props {
   tournament: TournamentEntry;
@@ -156,8 +156,7 @@ const getMemberSlug = (teamName: string): string | undefined => {
           <tr class="border-b border-green-700 hover:bg-green-900/30 transition duration-150">
             <td class="px-2 py-2">{index + 1}</td>
             <td class="px-2 py-2">
-               {/* Asegúrate que getMemberImageLazy funcione correctamente */}
-              <Image src={getMemberImageLazy(team.name, members)} alt={team.name}
+              <Image src={getMemberImage(team.name, members)} alt={team.name} loading={"lazy"}
                      width={24} height={16} class="h-4 w-auto object-cover rounded inline-block" />
             </td>
             <td class="px-2 py-2 text-left">

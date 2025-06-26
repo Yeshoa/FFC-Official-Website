@@ -1,14 +1,14 @@
 ---
 import { getCollection, type CollectionEntry } from 'astro:content';
 import { Image } from 'astro:assets';
-import { getMemberImage } from '../../lib/memberUtils';
-import App from '../../layouts/App.astro'; 
-import Bracket from '../../components/tournaments/Bracket.astro'; 
-import Groups from '../../components/tournaments/Groups.astro';
-import KnockoutMatches from '../../components/tournaments/KnockoutMatches.astro';
-import TournamentGrid from '../../components/tournaments/TournamentGrid.astro'; 
-import TournamentStandings from '../../components/tournaments/TournamentStandings.astro';
-import { getMatchWinner } from '../../lib/matchUtils.ts';
+import { getMemberImage } from '@lib/memberUtils';
+import App from '@layouts/App.astro'; 
+import Bracket from '@components/tournaments/Bracket.astro'; 
+import Groups from '@components/tournaments/Groups.astro';
+import KnockoutMatches from '@components/tournaments/KnockoutMatches.astro';
+import TournamentGrid from '@components/tournaments/TournamentGrid.astro'; 
+import TournamentStandings from '@components/tournaments/TournamentStandings.astro';
+import { getMatchWinner } from '@lib/matchUtils.ts';
 
 type Tournament = CollectionEntry<'tournaments'>['data'];
 type Match = CollectionEntry<'matches'>['data'];
@@ -38,14 +38,14 @@ const fc2024Matches = matchesCollection
 const knockoutMatches = fc2024Matches.filter(match => match.data.stage === 'knockout');
 
 // Imagenes
-import FC24Logo from '../../assets/images/tournaments/2024/banner.png'; 
-import AllGoalsHero from '../../assets/images/tournaments/2024/all-goals.png';
-import FinalMatch from '../../assets/images/tournaments/2024/final-match.png';
-import NysnubShow from '../../assets/images/tournaments/2024/nysnub-show.png';
-import LongestPenalty from '../../assets/images/tournaments/2024/longest-penalty.png';
-import BestGoal from '../../assets/images/tournaments/2024/best-goal.png';
-import MVPTarasov from '../../assets/images/tournaments/2024/mvp-tarasov.png';
-import TournamentStats from '../../components/tournaments/TournamentStats.astro';
+import FC24Logo from '@images/tournaments/2024/banner.png'; 
+import AllGoalsHero from '@images/tournaments/2024/all-goals.png';
+import FinalMatch from '@images/tournaments/2024/final-match.png';
+import NysnubShow from '@images/tournaments/2024/nysnub-show.png';
+import LongestPenalty from '@images/tournaments/2024/longest-penalty.png';
+import BestGoal from '@images/tournaments/2024/best-goal.png';
+import MVPTarasov from '@images/tournaments/2024/mvp-tarasov.png';
+import TournamentStats from '@components/tournaments/TournamentStats.astro';
 
 // Función auxiliar para encontrar los partidos de una fixture específica (si es necesario)
 // Nota: Esto puede ser complejo si la estructura de `FC2024Data` no coincide perfectamente
@@ -68,14 +68,17 @@ const winner = getMatchWinner(getMatchesForFixture('knockout', undefined, 'Final
       <TournamentGrid currentTournament={FC2024Data}/>
       <Image src={FC24Logo} alt={`${FC2024Data.name} Logo`} class="py-8 max-w-7xl lg:w-4xl md:w-2xl xl:w-auto sm:w-lg w-sm" 
       width={1280}
-      loading={"eager"}/>
+      loading={"eager"}
+      quality={1}
+      format='webp'
+      />
       <div class="flex justify-between items-start h-full p-6 gap-6">
         <div class="flex flex-col gap-6 items-center p-16">
           {winner && (
             <div class="flex items-center gap-6">
               {getMemberImage(winner, membersCollection) && (
                 <Image src={getMemberImage(winner, membersCollection)!} alt={`${winner} Flag`} 
-                width={200}
+                width={200} quality={20} format="webp"
                 class="h-24 w-auto rounded-xl object-cover ring-1 ring-green-700" loading={"eager"} />
               )}
               <h1 class="text-5xl font-bold">{winner}</h1>
@@ -101,7 +104,10 @@ const winner = getMatchWinner(getMatchesForFixture('knockout', undefined, 'Final
               alt="Final Match" 
               class="rounded-xl object-cover group-hover:scale-105 transition duration-300" 
               loading="lazy"
-              width={1080} />
+              width={1080} 
+              quality={50}
+              format="webp"
+              />
             <div class="absolute inset-0 bg-gradient-to-tr from-green-950 from-15% to-40% to-transparent"></div>
             <div class="absolute bottom-7 left-7 text-white">
               <h2 class="text-5xl font-bold text-shadow">Revive the Final</h2>
@@ -116,7 +122,8 @@ const winner = getMatchWinner(getMatchesForFixture('knockout', undefined, 'Final
             <div class="flex items-center justify-center py-2 border-b border-green-600 last:border-b-0">
               <a href="https://www.youtube.com/watch?v=iddBpQbe7ak" target="_blank" class="flex items-center justify-start w-full group">
                 <div class="h-24 w-40 rounded-2xl overflow-hidden flex-shrink-0">
-                  <Image src={AllGoalsHero} alt="All Goals" class="h-full w-full object-cover group-hover:scale-110 transition duration-300" loading="lazy" width={200} />
+                  <Image src={AllGoalsHero} quality={50} format="webp"
+                  alt="All Goals" class="h-full w-full object-cover group-hover:scale-110 transition duration-300" loading="lazy" width={200} />
                 </div>
                 <h2 class="text-md ms-4 text-white">Watch All Goals</h2>
               </a>
@@ -125,7 +132,8 @@ const winner = getMatchWinner(getMatchesForFixture('knockout', undefined, 'Final
             <div class="flex items-center justify-center py-2 border-b border-green-600 last:border-b-0">
               <a href="#prizes" class="flex items-center justify-start w-full group">
                 <div class="h-24 w-40 rounded-2xl overflow-hidden flex-shrink-0">
-                  <Image src={MVPTarasov} alt="Tarasov MVP" class="h-full w-full object-cover group-hover:scale-115 transition duration-300 scale-110 object-top" loading="lazy" width={200} />
+                  <Image src={MVPTarasov} quality={50} format="webp"
+                  alt="Tarasov MVP" class="h-full w-full object-cover group-hover:scale-115 transition duration-300 scale-110 object-top" loading="lazy" width={200} />
                 </div>
                 <h2 class="text-md ms-4 text-white">Tarasov wins the Golden Ball</h2>
               </a>
@@ -134,7 +142,8 @@ const winner = getMatchWinner(getMatchesForFixture('knockout', undefined, 'Final
             <div class="flex items-center justify-center py-2 border-b border-green-600 last:border-b-0">
               <a href="https://youtube.com/shorts/vzUKv51dzuU" target="_blank" class="flex items-center justify-start w-full group">
                 <div class="h-24 w-40 rounded-2xl overflow-hidden flex-shrink-0">
-                  <Image src={NysnubShow} alt="Nysnub Show" class="h-full w-full object-cover group-hover:scale-105 transition duration-300 object-top" loading="lazy" width={200} />
+                  <Image src={NysnubShow} quality={50} format="webp"
+                  alt="Nysnub Show" class="h-full w-full object-cover group-hover:scale-105 transition duration-300 object-top" loading="lazy" width={200} />
                 </div>
                 <h2 class="text-md ms-4 text-white">Nysnub Show: 4 goals in one match</h2>
               </a>
@@ -143,7 +152,8 @@ const winner = getMatchWinner(getMatchesForFixture('knockout', undefined, 'Final
             <div class="flex items-center justify-center py-2 border-b border-green-600 last:border-b-0">
               <a href="https://youtube.com/clip/UgkxhC53IxiU-6hjxn5H_XDy_XJsLO-ki5wE?si=c3TqUN6alOi30lv2" target="_blank" class="flex items-center justify-start w-full group">
                 <div class="h-24 w-40 rounded-2xl overflow-hidden flex-shrink-0">
-                  <Image src={BestGoal} alt="Cacusia goal" class="h-full w-full object-cover group-hover:scale-110 transition duration-300" loading="lazy" width={200} />
+                  <Image src={BestGoal} quality={50} format="webp"
+                  alt="Cacusia goal" class="h-full w-full object-cover group-hover:scale-110 transition duration-300" loading="lazy" width={200} />
                 </div>
                 <h2 class="text-md ms-4 text-white">Cacusia outstanding play</h2>
               </a>
@@ -152,7 +162,8 @@ const winner = getMatchWinner(getMatchesForFixture('knockout', undefined, 'Final
             <div class="flex items-center justify-center py-2 border-b border-green-600 last:border-b-0">
               <a href="https://youtube.com/clip/UgkxpY5l94Lpkwctfl8yymRpTlVJimy-HAQN?si=mt_yHADNDHSYjEXZ" target="_blank" class="flex items-center justify-start w-full group">
                 <div class="h-24 w-40 rounded-2xl overflow-hidden flex-shrink-0">
-                  <Image src={LongestPenalty} alt="Longest Penalty Shootout" class="h-full w-full object-cover group-hover:scale-110 transition duration-300" loading="lazy" width={200} />
+                  <Image src={LongestPenalty} quality={50} format="webp"
+                  alt="Longest Penalty Shootout" class="h-full w-full object-cover group-hover:scale-110 transition duration-300" loading="lazy" width={200} />
                 </div>
                 <h2 class="text-md ms-4 text-white">Longest penalty shootout ever!</h2>
               </a>

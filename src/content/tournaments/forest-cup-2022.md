@@ -3,8 +3,8 @@ id: 1
 type: "forest-cup"
 name: "Forest Cup Bilsa 2022" 
 host: "Bilsa"
-image: "tournaments/2022/logo.png"
-banner: "tournaments/2022/logo.png"
+image: "src/assets/images/tournaments/2022/logo.png"
+banner: "src/assets/images/tournaments/2022/logo.png"
 edition: 2022
 participants:
   - "Bilsa"

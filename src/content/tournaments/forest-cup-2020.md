@@ -3,8 +3,8 @@ id: 0
 type: "forest-cup"
 name: "Forest Cup 2020"
 host: "Bilsa"
-image: "tournaments/2020/logo.png"
-banner: "tournaments/2020/logo.png"
+image: "src/assets/images/tournaments/2020/logo.png"
+banner: "src/assets/images/tournaments/2020/logo.png"
 edition: 2020
 participants:
   - "Cannibaland"

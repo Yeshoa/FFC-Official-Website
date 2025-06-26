@@ -3,8 +3,8 @@ id: 2
 type: "forest-cup"
 name: "Forest Cup Anxious & Kevin 2024"
 host: "Anxious and Kevin"
-image: "tournaments/2024/logo.png"
-banner: "tournaments/2024/banner.png"
+image: "src/assets/images/tournaments/2024/logo.png"
+banner: "src/assets/images/tournaments/2024/banner.png"
 edition: 2024
 participants:
   - "Bilsa"

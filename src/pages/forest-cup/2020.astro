@@ -1,16 +1,16 @@
 ---
 import { getCollection, type CollectionEntry } from 'astro:content';
 import { Image } from 'astro:assets';
-import App from '../../layouts/App.astro'; 
-import MatchCard from '../../components/MatchCard.astro'; 
-import MatchCardCompact from '../../components/MatchCardCompact.astro'; 
-import Bracket from '../../components/tournaments/Bracket.astro'; 
-import Groups from '../../components/tournaments/Groups.astro';
-import KnockoutMatches from '../../components/tournaments/KnockoutMatches.astro';
-import TournamentGrid from '../../components/tournaments/TournamentGrid.astro'; 
-import TournamentStats from '../../components/tournaments/TournamentStats.astro';
-import { getMatchWinner } from '../../lib/matchUtils.ts';
-import { getMemberImage } from '../../lib/memberUtils';
+import App from '@layouts/App.astro'; 
+import MatchCard from '@components/MatchCard.astro'; 
+import MatchCardCompact from '@components/MatchCardCompact.astro'; 
+import Bracket from '@components/tournaments/Bracket.astro'; 
+import Groups from '@components/tournaments/Groups.astro';
+import KnockoutMatches from '@components/tournaments/KnockoutMatches.astro';
+import TournamentGrid from '@components/tournaments/TournamentGrid.astro'; 
+import TournamentStats from '@components/tournaments/TournamentStats.astro';
+import { getMatchWinner } from '@lib/matchUtils.ts';
+import { getMemberImage } from '@lib/memberUtils';
 
 const tournamentsCollection = await getCollection('tournaments');
 const matchesCollection = (await getCollection('matches'))
@@ -34,9 +34,9 @@ const fc2020Matches = matchesCollection
   .sort((a, b) => a.data.date.getTime() - b.data.date.getTime()); // Ordenar por fecha
 const knockoutMatches = fc2020Matches.filter(match => match.data.stage === 'knockout');
 
-import FC20Logo from '../../assets/images/tournaments/2020/logo.png'; 
-import FCLogo from '../../assets/images/tournaments/forest-cup.png';
-import TournamentStandings from '../../components/tournaments/TournamentStandings.astro';
+import FC20Logo from '@images/tournaments/2020/logo.png'; 
+import FCLogo from '@images/tournaments/forest-cup.png';
+import TournamentStandings from '@components/tournaments/TournamentStandings.astro';
 
 // Función auxiliar para encontrar los partidos de una fixture específica (si es necesario)
 // Nota: Esto puede ser complejo si la estructura de `FC2020Data` no coincide perfectamente
@@ -60,6 +60,8 @@ const winner = getMatchWinner(getMatchesForFixture('knockout', undefined, 'Final
       <Image src={FCLogo} alt={`Forest Cup Logo`} class="max-w-7xl lg:w-4xl md:w-2xl xl:w-auto sm:w-lg w-sm" 
       loading={"eager"}
       width={1280}
+      quality={10}
+      format="webp"
       />
       <div class="flex justify-between items-start h-full p-6 gap-6">
         <div class="flex flex-col gap-6 items-center">
@@ -67,7 +69,7 @@ const winner = getMatchWinner(getMatchesForFixture('knockout', undefined, 'Final
             <div class="flex items-center gap-6">
               {getMemberImage(winner, membersCollection) && (
                 <Image src={getMemberImage(winner, membersCollection)!} alt={`${winner} Flag`} 
-                width={200}
+                width={200} quality={10} format="webp"
                 class="h-24 w-auto rounded-xl object-cover ring-1 ring-green-700" loading={"eager"} />
               )}
               <h1 class="text-5xl font-bold">{winner}</h1>
@@ -96,8 +98,7 @@ const winner = getMatchWinner(getMatchesForFixture('knockout', undefined, 'Final
     members={membersCollection.filter(member => FC2020Data.participants.includes(member.data.name))}
     />
     
-    <KnockoutMatches
-    knockoutMatches={knockoutMatches} members={membersCollection} 
+    <KnockoutMatches knockoutMatches={knockoutMatches} members={membersCollection} 
     />
     <div class="flex flex-col justify-center items-center w-full gap-4 py-4">
       <Bracket matches={fc2020Matches} members={membersCollection} />

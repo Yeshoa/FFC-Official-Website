@@ -14,19 +14,19 @@ import { defineCollection, z } from 'astro:content';
 
 const tournamentsCollection = defineCollection({
   type: 'content',
-  schema: z.object({
+  schema: ({ image }) => z.object({
     id: z.number(),
     type: z.enum(["forest-cup", "forestian-champions-league"]),
     name: z.string(),
     host: z.string().optional(), // País anfitrión
     final: z.string().optional(), // Sede de la final
-    image: z.string(),
-    banner: z.string().optional(), // Banner del torneo
+    image: image(),
+    banner: image().optional(), // Banner del torneo
     edition: z.number(),
     participants: z.array(z.string()), // Referencia a members
     images: z.array(
       z.object({
-        src: z.string(),
+        src: image(),
         type: z.enum(['champion', 'gallery', 'video-thumbnail', 'match', 'other']),
         title: z.string().optional(),
         videoUrl: z.string().url().optional(),
@@ -109,14 +109,14 @@ const matchesCollection = defineCollection({
 
 const membersCollection = defineCollection({
   type: 'content',
-  schema: z.object({
+  schema: ({ image }) => z.object({
     id: z.number(),
     code: z.string().optional(),
     name: z.string(),
     nslink: z.string().url(),
-    flagPath: z.string().optional(),
+    flagPath: image().optional(),
     federation: z.string().optional(),
-    logoPath: z.string().optional(),
+    logoPath: image().optional(),
     feddispatch: z.string().url().optional(),
     region: z.string(),
     founded: z.number().optional(),
