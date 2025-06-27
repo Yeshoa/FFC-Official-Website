@@ -1,0 +1,95 @@
+---
+// --- Astro Component Script ---
+// Importaciones necesarias
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro:assets';
+
+// Definimos las props para el componente, manteniendo la estructura original
+interface Props {
+  items: { src: { src: string }; alt: string; caption: string; description: string; href?: string }[];
+}
+
+// Obtenemos las props
+const { items } = Astro.props;
+---
+
+
+
+  {/* Grid de Items Rediseñado */}
+  {/* Contenedor principal para los items, centrado y con padding */}
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+    {/* Grid responsivo: 1 columna en móviles, 2 en tablets/desktop pequeños */}
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+      {items.map((item) => (
+        <a
+          href={item.href || '#'}
+          class="group bg-slate-800 rounded-xl overflow-hidden shadow-xl hover:shadow-2xl hover:shadow-green-500/40 transition-all duration-300 ease-in-out flex flex-col"
+          aria-label={item.caption}
+        >
+          {/* Contenedor de la Imagen */}
+          <div class="relative w-full h-64 sm:h-72 md:h-80 overflow-hidden">
+            {/* Imagen del Item */}
+            {/* Nota: 'item.src.src' es porque la prop 'src' es un objeto con una propiedad 'src' string.
+                Si 'item.src' es directamente ImageMetadata, entonces sería solo 'item.src'.
+                Asumiendo que 'item.src' es un objeto { src: "url_string" } como en el original,
+                y que Image de astro:assets espera ImageMetadata o un string de importación.
+                Para usar strings de URL directamente, se usaría <img> normal o se adaptaría la prop.
+                Aquí asumiré que 'item.src' puede ser usado por <Image /> si es una importación válida o ImageMetadata.
+                Si 'item.src.src' es una URL externa, necesitarás un <img> tag normal o una configuración diferente.
+                Para este ejemplo, asumiré que `item.src` es compatible con `astro:assets Image`.
+                Si `item.src` es solo una URL string, cambia <Image /> por <img /> y ajusta las clases.
+            */}
+            <Image
+              src={item.src} // Asumiendo que item.src es ImageMetadata o una importación compatible
+              alt={item.alt}
+              width={600} // Ancho para optimización, ajusta según tus imágenes
+              height={450} // Alto para optimización, para un aspect ratio ~4:3
+              class="w-full h-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-110"
+              loading="lazy"
+              format="webp"
+              quality={50}
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-70 group-hover:opacity-50 transition-opacity duration-300"></div>
+          </div>
+
+          {/* Título y Descripción) */}
+          <div class="p-6 flex-grow flex flex-col bg-green-950">
+            <h3 class="text-2xl lg:text-3xl font-bold text-white mb-3 leading-tight group-hover:text-green-400 transition-colors duration-300">
+              {item.caption} 
+            </h3>
+            <p class="text-gray-300 text-base leading-relaxed line-clamp-4 flex-grow"> 
+              {item.description}
+            </p>
+            <span class="mt-4 inline-block text-green-400 group-hover:text-green-300 transition-colors duration-300">
+              More info &rarr;
+            </span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+
+<style>
+  /* Estilos para mejorar la apariencia y funcionalidad */
+  /* Tailwind CSS maneja la mayoría de los estilos, pero puedes añadir CSS global o específico aquí si es necesario */
+  
+  /* Para el line-clamp (si no está por defecto en tu versión de Tailwind o para navegadores antiguos) */
+  /* Tailwind v3+ incluye plugins para line-clamp, asegúrate que esté habilitado en tu tailwind.config.js */
+  /* @tailwindcss/line-clamp */
+  .line-clamp-4 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+  }
+
+  /* Mejorar el foco para accesibilidad */
+  a:focus-visible {
+    outline: 2px solid var(--color-green-500) ;
+    outline-offset: 2px;
+    border-radius: var('borderRadius.lg'); /* O el radio de la tarjeta */
+  }
+
+  /* Para asegurar que la altura de las tarjetas en una fila sea la misma si el contenido varía y se usa flex-col en el <a> */
+  /* Esto ya está manejado con flex-grow en el div de contenido y flex-col en el <a> */
+</style>

@@ -9,122 +9,189 @@ interface Props {
   heroImage: { src: ImageMetadata; alt: string };
   heroTitle: string;
   heroSubtitle: string;
-  cta: { text: string; href: string; noblank?: boolean };
-  items: { src: { src: string }; alt: string; caption: string; description: string; href?: string }[];
+  cta: { text: string; href: string; noblank?: boolean, logo: ImageMetadata };
 }
 
 // Obtenemos las props
-const { heroImage, heroTitle, heroSubtitle, cta, items } = Astro.props;
+const { heroImage, heroTitle, heroSubtitle, cta } = Astro.props;
 ---
 
-{/* --- Component Template --- */}
-<section class="w-full mx-auto antialiased">
-  {/* Hero Section: Se mantiene igual, ya que el foco está en las tarjetas */}
-  <div class="relative w-full h-[500px] md:h-[600px] lg:h-[calc(100svh-var(--navbar-height,130px))] rounded-xl overflow-hidden shadow-2xl">
-    <Image
-      src={heroImage.src}
-      alt={heroImage.alt}
-      width={1200} 
-      height={800} 
-      quality={90} 
-      class="w-full h-full object-cover"
-      format="webp" 
-      priority
-    />
-    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/60 to-transparent flex flex-col justify-center items-center text-center text-white p-4">
-      <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold drop-shadow-lg">
-        {heroTitle}
-      </h1>
-      <p class="text-lg sm:text-xl md:text-2xl mt-4 max-w-3xl drop-shadow-md">
-        {heroSubtitle}
-      </p>
-      <a
-        href={cta.href}
-        target={cta.noblank ? undefined : '_blank'}
-        rel={cta.noblank ? undefined : 'noopener noreferrer'}
-        class="mt-8 px-8 py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105"
-      >
-        {cta.text}
-      </a>
+<section class="hero z-0">
+    <div class="hero__cont">
+        <Image
+            src={heroImage.src}
+            alt={heroImage.alt}
+            width={1200} 
+            height={800} 
+            quality={90} 
+            class="hero__img"
+            format="webp" 
+            priority
+        />
+        <div class="hero__flex">
+            <Image src={cta.logo} alt="Logo" width={230} height={230} class="hero__logo" format="webp" />
+            <div class="hero__text">
+                <h1 class="hero__title">{heroTitle}</h1>
+                <p class="hero__subtitle">{heroSubtitle}</p>
+                <div class="hero__btn__cont"><a href={cta.href} class="hero__btn" target={cta.noblank ? "_blank" : "_self"}>{cta.text}</a></div>
+            </div>
+        </div>
+        <div class="hero__overlay"></div>
+        <div class="hero__blur"></div>
     </div>
-  </div>
-
-  {/* Grid de Items Rediseñado */}
-  {/* Contenedor principal para los items, centrado y con padding */}
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
-    {/* Grid responsivo: 1 columna en móviles, 2 en tablets/desktop pequeños */}
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
-      {items.map((item) => (
-        <a
-          href={item.href || '#'}
-          class="group bg-slate-800 rounded-xl overflow-hidden shadow-xl hover:shadow-2xl hover:shadow-green-500/40 transition-all duration-300 ease-in-out flex flex-col"
-          aria-label={item.caption}
-        >
-          {/* Contenedor de la Imagen */}
-          <div class="relative w-full h-64 sm:h-72 md:h-80 overflow-hidden">
-            {/* Imagen del Item */}
-            {/* Nota: 'item.src.src' es porque la prop 'src' es un objeto con una propiedad 'src' string.
-                Si 'item.src' es directamente ImageMetadata, entonces sería solo 'item.src'.
-                Asumiendo que 'item.src' es un objeto { src: "url_string" } como en el original,
-                y que Image de astro:assets espera ImageMetadata o un string de importación.
-                Para usar strings de URL directamente, se usaría <img> normal o se adaptaría la prop.
-                Aquí asumiré que 'item.src' puede ser usado por <Image /> si es una importación válida o ImageMetadata.
-                Si 'item.src.src' es una URL externa, necesitarás un <img> tag normal o una configuración diferente.
-                Para este ejemplo, asumiré que `item.src` es compatible con `astro:assets Image`.
-                Si `item.src` es solo una URL string, cambia <Image /> por <img /> y ajusta las clases.
-            */}
-            <Image
-              src={item.src} // Asumiendo que item.src es ImageMetadata o una importación compatible
-              alt={item.alt}
-              width={600} // Ancho para optimización, ajusta según tus imágenes
-              height={450} // Alto para optimización, para un aspect ratio ~4:3
-              class="w-full h-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-110"
-              loading="lazy"
-              format="webp"
-              quality={50}
-            />
-            <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-70 group-hover:opacity-50 transition-opacity duration-300"></div>
-          </div>
-
-          {/* Título y Descripción) */}
-          <div class="p-6 flex-grow flex flex-col bg-green-950">
-            <h3 class="text-2xl lg:text-3xl font-bold text-white mb-3 leading-tight group-hover:text-green-400 transition-colors duration-300">
-              {item.caption} 
-            </h3>
-            <p class="text-gray-300 text-base leading-relaxed line-clamp-4 flex-grow"> 
-              {item.description}
-            </p>
-            <span class="mt-4 inline-block text-green-400 group-hover:text-green-300 transition-colors duration-300">
-              More info &rarr;
-            </span>
-          </div>
-        </a>
-      ))}
-    </div>
-  </div>
 </section>
 
-<style>
-  /* Estilos para mejorar la apariencia y funcionalidad */
-  /* Tailwind CSS maneja la mayoría de los estilos, pero puedes añadir CSS global o específico aquí si es necesario */
-  
-  /* Para el line-clamp (si no está por defecto en tu versión de Tailwind o para navegadores antiguos) */
-  /* Tailwind v3+ incluye plugins para line-clamp, asegúrate que esté habilitado en tu tailwind.config.js */
-  /* @tailwindcss/line-clamp */
-  .line-clamp-4 {
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 4;
-  }
+ 
+  <style>
+    .hero {
+        height: calc(100vh - 89px);
+        overflow: hidden;
+        .hero__cont {
+            position: relative;
+        }
+        .hero__img {
+            width: 100%;
+            height: 100vh;
+            object-fit: cover;
+            object-position: center -6rem;
+        }
+        .hero__overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1) , rgba(0, 0, 0, .85) 80%);
+            animation: showIn 1.5s ease-in-out .4s forwards;
+            opacity: 0;
+        }
+        .hero__flex {
+            position: absolute;
+            z-index: 20;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -70%);
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 3rem;
+            width: 100%;
+        }
+        .hero__blur {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            animation: blurIn 1.5s ease-in-out .4s forwards;
+            opacity: 1;
+            backdrop-filter: blur(2px);
+        }
+        .hero__text {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        .hero__logo {
+            animation: fadeIn 1.5s ease-in-out .4s forwards;
+            opacity: 0;
+        }
+        .hero__title {
+            font-size: 4rem;
+            font-weight: bold;
+            animation: fadeIn 1s ease-in-out  .4s forwards;
+            opacity: 0;
+            margin: 0;
+            line-height: 1;
+        }
+        .hero__subtitle {
+            font-size: 1.5rem;
+            animation: fadeIn 1s ease-in-out .6s forwards;
+            opacity: 0;
+            margin: 0;
+            line-height: 1;
+        }
+        .hero__btn {
+            background-color: var(--color-green-700);
+            padding: 1rem 3rem;
+            font-size: 1.1rem;
+            font-weight: 500;
+            display: inline-block;
+            align-self: center;
+            transition: all .2s ease-in-out;
+            &:hover {
+                background-color: var(--color-green-600);
+                transform: scale(1.05);
+                box-shadow: 0 3px 8px rgba(0, 0, 0, .2);
+            }
+        }
+        .hero__btn__cont {
+            animation: fadeIn 1s ease-in-out .8s forwards;
+            opacity: 0;
+        }
+    }
 
-  /* Mejorar el foco para accesibilidad */
-  a:focus-visible {
-    outline: 2px solid var(--color-green-500) ;
-    outline-offset: 2px;
-    border-radius: var('borderRadius.lg'); /* O el radio de la tarjeta */
-  }
+    @keyframes fadeIn {
+        0% {
+            transform: scale(.9);
+            filter: blur(2px);
+            opacity: 0;
+        }
+        70% {
+            filter: blur(0);
+        }
+        100% {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+    @keyframes showIn {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+    @keyframes blurIn {
+        15% {
+            backdrop-filter: blur(3px);
+        }
+        50% {
+            backdrop-filter: blur(6px);
+        }
+        80% {
+            backdrop-filter: blur(0);
+        }
+        100% {
+            backdrop-filter: blur(0);
+        }
+    }
 
-  /* Para asegurar que la altura de las tarjetas en una fila sea la misma si el contenido varía y se usa flex-col en el <a> */
-  /* Esto ya está manejado con flex-grow en el div de contenido y flex-col en el <a> */
-</style>
+    @media (width < 768px) {
+        .hero {
+            .hero__flex {
+                flex-direction: column;
+                gap: 2rem;
+            }
+            .hero__title {
+                font-size: 2.6rem;
+            }
+            .hero__img {
+                object-position: 35% -2rem;
+                
+            }
+            .hero__text {
+                gap: 1rem;
+            }
+            .hero__flex {
+                padding: 0 1rem;
+            }
+            .hero__btn {
+                margin-top: 1rem;
+                font-size: 1.4rem;
+            }
+        }
+    }
+  </style>
