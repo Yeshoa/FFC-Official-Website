@@ -17,7 +17,7 @@ score:
     results: 5
   events:
     lastEditionPoints: 15
-    poetry: 0
+    poetry: 22.7
   bonus:
     host: 0
     extra: 0

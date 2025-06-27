@@ -2,6 +2,8 @@
 import type { ImageMetadata } from 'astro';
 import { Image } from 'astro:assets';
 
+import DefaultLogo from '@images/members/default_logo.png';
+
 const { name, code, slug } = Astro.props;
 let { flagPath, logoPath } = Astro.props;
 
@@ -9,8 +11,10 @@ const logoClass = logoPath
   ? "max-h-32 w-auto max-w-32"
   : "max-h-32 w-auto max-w-32 opacity-5";
 
-if (!logoPath) logoPath = "/src/assets/images/members/default_logo.png";
-if (!flagPath) flagPath = "/src/assets/images/members/default_logo.png";
+// if (!logoPath) { logoPath = "/src/assets/images/members/default_logo.png"; console.log(logoPath); }
+// if (!flagPath) flagPath = "/src/assets/images/members/default_logo.png";
+if (!logoPath) logoPath = DefaultLogo;
+if (!flagPath) flagPath = DefaultLogo;
 
 /* const images = import.meta.glob<{ default: ImageMetadata }>("/src/assets/images/members/*.{jpeg,jpg,png,gif,svg}");
 

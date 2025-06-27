@@ -47,7 +47,7 @@ Website built with **Astro**. Showcases tournaments, match details, and national
 - ✅ **Add Rankings page**  
 &nbsp;&nbsp;&nbsp;&nbsp;Create a page with all the national federations rankings. A table based on points earned during different parameters.
 
-- [ ] **Add Champions League page**  
+- ❌ **Add Champions League page** _Discarded: For another time_ 
 &nbsp;&nbsp;&nbsp;&nbsp;Make a page for the Champions League. It should have a new Layout background, passed through props to define tailwind classes.
 
 ---
@@ -55,14 +55,14 @@ Website built with **Astro**. Showcases tournaments, match details, and national
 
 ## 🎨 Frontend Tasks
 
-- [ ] **Make only one theme, no dark mode**  
+- ✅ **Make only one theme, no dark mode**  
 &nbsp;&nbsp;&nbsp;&nbsp;Remove the dark: in tailwind classes.
 
 - [ ] **Make Tailwind designs more responsive**  
 &nbsp;&nbsp;&nbsp;&nbsp;Improve layout for various screen sizes, mobile and tablets.
 
-- [ ] **Use `<Image />` component where possible and optimize their size**  
-&nbsp;&nbsp;&nbsp;&nbsp;Try to optimize image rendering. If issues arise, consider moving image directories to `public/`.
+- ✅ **Use `<Image />` component where possible and optimize their size**  
+&nbsp;&nbsp;&nbsp;&nbsp;Try to optimize image rendering.
 
 ---
 

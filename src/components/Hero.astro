@@ -28,8 +28,8 @@ const { heroImage, heroTitle, heroSubtitle, cta, items } = Astro.props;
       height={800} 
       quality={90} 
       class="w-full h-full object-cover"
-      loading="eager"
       format="webp" 
+      priority
     />
     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/60 to-transparent flex flex-col justify-center items-center text-center text-white p-4">
       <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold drop-shadow-lg">

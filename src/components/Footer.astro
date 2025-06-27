@@ -11,6 +11,15 @@ import Sponsor7 from '@images/sponsors/northern wings.png';
 import Sponsor8 from '@images/sponsors/startex.png';
 import Sponsor9 from '@images/sponsors/white island stadium.png';
 
+import PayPalLogo from '@images/paypal.png';
+import MPLogo from '@images/mercadopago.png';
+import YTLogo from '@images/youtube.png';
+import TwitchLogo from '@images/twitch.png';
+import KickLogo from '@images/kick.png';
+
+const paypalLink = import.meta.env.PUBLIC_PAYPAL_LINK;
+const mpLink = import.meta.env.PUBLIC_MERCADOPAGO_LINK;
+
 const sponsors = [
   { src: Sponsor1, alt: 'Bersa', class: 'invert' },
   { src: Sponsor2, alt: 'Ecoking' },
@@ -26,52 +35,96 @@ const sponsors = [
 <footer class="bg-green-950 border-t border-green-600">
   <div class="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
       <div class="md:flex md:justify-between">
-        <div class="mb-6 md:mb-0">
+        <div class="mb-6 md:mb-0 flex justify-center">
             <a href="https://www.nationstates.net/page=dispatch/id=2525675" target="_blank" class="flex items-center">
               <Image src={FooterImage} width={800} alt="Forestian Football Confederation"
               quality={1} format="webp"/>
             </a>
         </div>
-        <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3 mb-6">
-            <div>
-                <h2 class="mb-6 text-sm font-semibold uppercase text-white">Community</h2>
-                <ul class="text-gray-400 font-medium">
-                    <li class="mb-4">
-                        <a href="https://www.nationstates.net/region=forest" target="_blank" class="hover:underline">Forest</a>
-                    </li>
-                    <li class="mb-4">
-                      <a href="https://discord.gg/c2Uw6MN" target="_blank" class="hover:underline">Forest Discord Server</a>
-                    </li>
-                    <li>
-                      <a href="https://discord.com/invite/EX4sGhjbgU" target="_blank" class="hover:underline">FFC Discord Server</a>
-                    </li>
-                </ul>
+        <div class="grid grid-cols-2 gap-8 md:grid-cols-4 mb-6">
+          <!-- 1. Community -->
+          <div>
+            <h2 class="mb-4 text-sm font-semibold uppercase text-white">Community</h2>
+            <ul class="text-gray-400 font-medium space-y-4">
+              <li><a href="https://www.nationstates.net/region=forest" target="_blank" class="hover:underline">Forest</a></li>
+              <li><a href="https://discord.gg/c2Uw6MN" target="_blank" class="hover:underline">Forest Discord Server</a></li>
+              <li><a href="https://discord.com/invite/EX4sGhjbgU" target="_blank" class="hover:underline">FFC Discord Server</a></li>
+            </ul>
+          </div>
+
+          <!-- 2. Follow us -->
+          <div>
+            <h2 class="mb-4 text-sm font-semibold uppercase text-white">Follow us</h2>
+            <ul class="text-gray-400 font-medium space-y-4">
+              <li>
+                <a href="https://www.youtube.com/@Bolbon" target="_blank" class="hover:underline flex items-center">
+                  <Image src={YTLogo} alt="YouTube" class="inline-block h-auto mr-2" width={16} quality={1} format="webp"/>
+                  YouTube
+                </a>
+              </li>
+              <li>
+                <a href="https://www.twitch.tv/bolbon_" target="_blank" class="hover:underline flex items-center">
+                  <Image src={TwitchLogo} alt="Twitch" class="inline-block h-4 mr-2" width={16} quality={1} format="webp"/>
+                  Twitch
+                </a>
+              </li>
+              <li>
+                <a href="https://kick.com/bolbon" target="_blank" class="hover:underline flex items-center">
+                  <Image src={KickLogo} alt="Kick" class="inline-block h-4 mr-2" width={16} quality={1} format="webp"/>
+                  Kick
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- 3. Support (Sponsor) -->
+          <div>
+            <h2 class="mb-4 text-sm font-semibold uppercase text-white">Support</h2>
+            <ul class="text-gray-400 font-medium space-y-4">
+              <li><a href="/sponsor" class="hover:underline">Sponsor us (Roleplay)</a></li>
+            </ul>
+          </div>
+
+          <!-- 4. Donate -->
+          <div>
+            <h2 class="mb-4 text-sm font-semibold uppercase text-white">Donate</h2>
+            <div class="flex flex-col items-start space-y-4">
+              <!-- PayPal -->
+              <a
+                href={paypalLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="transition-opacity hover:opacity-80 bg-white rounded px-3 flex items-center justify-center h-[40px] overflow-hidden"
+                aria-label="Donate via PayPal"
+              >
+                <Image
+                  src={PayPalLogo}
+                  alt="PayPal"
+                  class="h-full object-cover"
+                  width={75}
+                  quality={1}
+                  format="webp"
+                />
+              </a>
+              <!-- MercadoPago -->
+              <a
+                href={mpLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="transition-opacity hover:opacity-80 bg-white rounded flex items-center justify-center h-[40px] overflow-hidden"
+                aria-label="Donate via MercadoPago"
+              >
+                <Image
+                  src={MPLogo}
+                  alt="MercadoPago"
+                  class="h-full object-cover"
+                  width={100}
+                  quality={1}
+                  format="webp"
+                />
+              </a>
             </div>
-            <div>
-                <h2 class="mb-6 text-sm font-semibold uppercase text-white">Follow us</h2>
-                <ul class="text-gray-400 font-medium">
-                    <li class="mb-4">
-                      <a href="https://www.youtube.com/@Bolbon" target="_blank" class="hover:underline">Youtube</a>
-                    </li>
-                    <li class="mb-4">
-                      <a href="https://www.twitch.tv/bolbon_" target="_blank" class="hover:underline">Twitch</a>
-                    </li>
-                    <li>
-                      <a href="https://kick.com/bolbon" target="_blank" class="hover:underline">Kick</a>
-                    </li>
-                </ul>
-            </div>
-            <div>
-                <h2 class="mb-6 text-sm font-semibold uppercase text-white">Support</h2>
-                <ul class="text-gray-400 font-medium">
-                    <li class="mb-4">
-                      <a href="/sponsor" class="hover:underline">Sponsor us (RP)</a>
-                    </li>
-                    <li class="mb-4">
-                      <a href="" class="hover:underline">Donate</a>
-                    </li>
-                </ul>
-            </div>
+          </div>
         </div>
     </div>
   </div>

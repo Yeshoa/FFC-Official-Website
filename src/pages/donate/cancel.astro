@@ -1,0 +1,37 @@
+---
+import App from '@layouts/App.astro';
+import { Image } from 'astro:assets';
+import FCLogo from '@images/Footer.png';
+---
+
+<App title="FFC - Donation Cancelled">
+  <main class="flex flex-col items-center py-16">
+    <!-- Logo -->
+    <div class="container flex justify-center items-center mb-8">
+      <Image
+        src={FCLogo}
+        alt="Forest Cup"
+        loading="eager"
+        format="webp"
+        width={800}
+        quality={1}
+      />
+    </div>
+
+    <!-- Message -->
+    <section class="text-center max-w-lg px-4">
+      <h1 class="text-4xl font-bold text-green-600 mb-4">
+        Donation Cancelled
+      </h1>
+      <p class="text-gray-200 mb-6">
+        It looks like you cancelled your donation. No worries! If you change your mind, you can try again anytime.
+      </p>
+      <a
+        href="/"
+        class="inline-block px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg shadow-lg transition-all duration-300"
+      >
+        Back to Home
+      </a>
+    </section>
+  </main>
+</App>
