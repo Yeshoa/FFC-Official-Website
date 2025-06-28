@@ -50,7 +50,7 @@ const { heroImage, heroTitle, heroSubtitle, cta } = Astro.props;
             />
         </div>
         <div class="hero__flex">
-            <Image src={cta.logo} alt="Logo" width={230} height={230} class="hero__logo" format="webp" />
+            <Image src={cta.logo} alt="Logo" width={300} height={300} class="hero__logo" format="webp" />
             <div class="hero__text">
                 <h1 class="hero__title">{heroTitle}</h1>
                 <p class="hero__subtitle">{heroSubtitle}</p>
@@ -147,6 +147,7 @@ const { heroImage, heroTitle, heroSubtitle, cta } = Astro.props;
             will-change: transform, opacity, filter;
             animation: fadeIn 1.5s ease-in-out .4s forwards;
             opacity: 0;
+            width: 230px;
         }
         .hero__title {
             font-size: 4rem;
@@ -266,7 +267,7 @@ const { heroImage, heroTitle, heroSubtitle, cta } = Astro.props;
             }
             .hero__btn {
                 margin-top: 1rem;
-                font-size: 1.4rem;
+                font-size: 1.2rem;
             }
         }
     }
