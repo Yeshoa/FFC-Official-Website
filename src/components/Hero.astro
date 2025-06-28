@@ -69,7 +69,7 @@ const { heroImage, heroTitle, heroSubtitle, cta } = Astro.props;
  
   <style>
     .hero {
-        height: calc(100vh - 90.38px);
+        height: calc(100svh - 90.38px);
         overflow: hidden;
         .hero__cont {
             position: relative;
@@ -79,12 +79,12 @@ const { heroImage, heroTitle, heroSubtitle, cta } = Astro.props;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100vh;
+            height: 100svh;
             overflow: hidden;
         }
         .hero__img {
             width: 100%;
-            height: 100vh;
+            height: 100svh;
             object-fit: cover;
             object-position: center -6rem;
             position: absolute;
@@ -106,7 +106,7 @@ const { heroImage, heroTitle, heroSubtitle, cta } = Astro.props;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100vh;
+            height: 100svh;
             background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) , rgba(0, 0, 0, .85) 80%);
             will-change: opacity;
             animation: showIn 1.5s ease-in-out .4s forwards;
@@ -131,7 +131,7 @@ const { heroImage, heroTitle, heroSubtitle, cta } = Astro.props;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100vh;
+            height: 100svh;
             will-change: backdrop-filter;
             animation: blurIn 1.5s ease-in-out .4s forwards;
             opacity: 1;
@@ -144,14 +144,14 @@ const { heroImage, heroTitle, heroSubtitle, cta } = Astro.props;
             gap: 2rem;
         }
         .hero__logo {
-            will-change: transform, opacity;
+            will-change: transform, opacity, filter;
             animation: fadeIn 1.5s ease-in-out .4s forwards;
             opacity: 0;
         }
         .hero__title {
             font-size: 4rem;
             font-weight: bold;
-            will-change: transform, opacity;
+            will-change: transform, opacity, filter;
             animation: fadeIn 1s ease-in-out  .4s forwards;
             opacity: 0;
             margin: 0;
@@ -159,7 +159,7 @@ const { heroImage, heroTitle, heroSubtitle, cta } = Astro.props;
         }
         .hero__subtitle {
             font-size: 1.3rem;
-            will-change: transform, opacity;
+            will-change: transform, opacity, filter;
             animation: fadeIn 1s ease-in-out .6s forwards;
             opacity: 0;
             margin: 0;
@@ -192,7 +192,7 @@ const { heroImage, heroTitle, heroSubtitle, cta } = Astro.props;
             }
         }
         .hero__btn__cont {
-            will-change: transform, opacity;
+            will-change: transform, opacity, filter; 
             animation: fadeIn 1s ease-in-out .8s forwards;
             display: flex;
             justify-content: center;
@@ -290,7 +290,7 @@ const { heroImage, heroTitle, heroSubtitle, cta } = Astro.props;
         }, 500);
     }
 
-    function addAnimation(elem) {
+    function addAnimation(elem: HTMLElement) {
         elem.classList.add('hero__img--active');
         setTimeout(() => {
             elem.classList.remove('hero__img--active');
