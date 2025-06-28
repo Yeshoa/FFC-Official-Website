@@ -1,7 +1,7 @@
 ---
 const currentPath = Astro.url.pathname;
 import { Image } from 'astro:assets';
-import FFCLogo from '@images/FFC_Logo_website.png';
+import FFCLogo from '@images/FFC_Logo_website.webp';
 import Home from '@images/icons/house-solid.svg';
 import Ranking from '@images/icons/ranking-star-solid.svg';
 import Members from '@images/icons/table-solid.svg';
@@ -12,7 +12,7 @@ import Join from '@images/icons/user-solid.svg';
   <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-3">
     <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
         <!-- <img src="https://i.ibb.co/Rjf5DpJ/IMG-3057.png" class="h-8" alt="FFC Logo" loading="eager"> -->
-        <Image src={FFCLogo} alt="FFC Logo"  loading="eager" height={65} quality={10} format="webp" />
+        <Image src={FFCLogo} alt="FFC Logo"  loading="eager" height={65} />
         <!-- <span class="self-center text-2xl font-semibold whitespace-nowrap text-white hover:text-green-300">FFC</span> -->
     </a>
     <!-- <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
