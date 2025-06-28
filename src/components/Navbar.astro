@@ -1,13 +1,18 @@
 ---
 const currentPath = Astro.url.pathname;
 import { Image } from 'astro:assets';
-import FFCLogo from '@images/FFC_Logo_website.png';
+import FFCLogo from '@images/FFC_Logo_website.webp';
+import Home from '@images/icons/house-solid.svg';
+import Ranking from '@images/icons/ranking-star-solid.svg';
+import Members from '@images/icons/flag-solid.svg';
+import Cup from '@images/icons/trophy-solid.svg';
+import Join from '@images/icons/user-solid.svg';
 ---
 <nav class="bg-green-950 w-full z-20 top-0 start-0 border-b border-green-600 ">
   <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-3">
     <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
         <!-- <img src="https://i.ibb.co/Rjf5DpJ/IMG-3057.png" class="h-8" alt="FFC Logo" loading="eager"> -->
-        <Image src={FFCLogo} alt="FFC Logo"  loading="eager" height={120} format="webp" class="navbar__img"/>
+        <Image src={FFCLogo} alt="FFC Logo"  loading="eager" height={65} />
         <!-- <span class="self-center text-2xl font-semibold whitespace-nowrap text-white hover:text-green-300">FFC</span> -->
     </a>
     <!-- <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
@@ -20,13 +25,15 @@ import FFCLogo from '@images/FFC_Logo_website.png';
     </div> -->
     <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
       <ul class="flex flex-col p-4 md:p-0 mt-4 font-medium border rounded-lg md:space-x-4 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 border-gray-700">
-        <li>
-          <a href="/" class={`block py-2 px-3 rounded-sm ${currentPath === "/" ? "text-green-600 font-bold" : "text-white hover:text-green-300"}`}>
+        <li class="group">
+          <a href="/" class={`py-2 px-3 rounded-sm flex gap-2 items-center ${currentPath === "/" ? "text-green-600 font-bold" : "text-white group-hover:text-green-300"}`}>
+            <Home width={20}  class={`${currentPath === "/" ? "fill-green-600 font-bold" : "fill-white group-hover:fill-green-300"}`}/>
             Home
           </a>
         </li>
-        <li>
-          <a href="/forest-cup" class={`block py-2 px-3 rounded-sm ${currentPath === "/forest-cup" ? "text-green-600 font-bold" : "text-white hover:text-green-300"}`}>
+        <li class="group">
+          <a href="/forest-cup" class={`flex gap-2 items-center py-2 px-3 rounded-sm ${currentPath === "/forest-cup" ? "text-green-600 font-bold" : "text-white group-hover:text-green-300"}`}>
+            <Cup width={20} class={`${currentPath === "/forest-cup" ? "fill-green-600 font-bold" : "fill-white group-hover:fill-green-300"}`} />
             Forest Cup
           </a>
         </li>
@@ -36,18 +43,21 @@ import FFCLogo from '@images/FFC_Logo_website.png';
             <span class="hidden lg:inline">Champions League</span>
           </a>
         </li> -->
-        <li>
-          <a href="/members" class={`block py-2 px-3 rounded-sm ${currentPath === "/members" ? "text-green-600 font-bold" : "text-white hover:text-green-300"}`}>
+        <li class="group">
+          <a href="/members" class={`flex gap-2 items-center py-2 px-3 rounded-sm ${currentPath === "/members" ? "text-green-600 font-bold" : "text-white group-hover:text-green-300"}`}>
+            <Members width={16} class={`${currentPath === "/members" ? "fill-green-600 font-bold" : "fill-white group-hover:fill-green-300"}`} />
             Members
           </a>
         </li>
-        <li>
-          <a href="/ranking" class={`block py-2 px-3 rounded-sm ${currentPath === "/ranking" ? "text-green-600 font-bold" : "text-white hover:text-green-300"}`}>
+        <li class="group">
+          <a href="/ranking" class={`flex gap-2 items-center py-2 px-3 rounded-sm ${currentPath === "/ranking" ? "text-green-600 font-bold" : "text-white group-hover:text-green-300"}`}>
+            <Ranking width={20} class={`${currentPath === "/ranking" ? "fill-green-600 font-bold" : "fill-white group-hover:fill-green-300"}`} />
             Ranking
           </a>
         </li>
-        <li class="">
-          <a href="https://forms.gle/Qn2d5kFwCg8pndnK9" target="_blank" class={`block py-2 px-2 bg-white rounded-lg text-green-950 hover:bg-green-600 hover:text-white`}>
+        <li class="group">
+          <a href="https://forms.gle/Qn2d5kFwCg8pndnK9" target="_blank" class={`flex gap-2 items-center py-2 px-2 bg-white rounded-lg text-green-950 group-hover:bg-green-600 group-hover:text-white`}>
+            <Join width={15} class={"fill-green-950 group-hover:fill-white"} />
             Join<span class="hidden lg:inline"> FFC</span>
           </a>
         </li>
