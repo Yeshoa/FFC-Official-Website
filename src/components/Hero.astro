@@ -3,6 +3,7 @@
 // Importaciones necesarias
 import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro:assets';
+import JoinImg from '@images/icons/right-to-bracket-solid.svg';
 
 // Definimos las props para el componente, manteniendo la estructura original
 interface Props {
@@ -33,7 +34,11 @@ const { heroImage, heroTitle, heroSubtitle, cta } = Astro.props;
             <div class="hero__text">
                 <h1 class="hero__title">{heroTitle}</h1>
                 <p class="hero__subtitle">{heroSubtitle}</p>
-                <div class="hero__btn__cont"><a href={cta.href} class="hero__btn" target={cta.noblank ? "_blank" : "_self"}>{cta.text}</a></div>
+                <div class="hero__btn__cont">
+                    <a href={cta.href} class="hero__btn" target={cta.noblank ? "_blank" : "_self"}>
+                        <JoinImg width={20} class="hero__btn__icon" fill={"#fff"} />{cta.text}
+                    </a>
+                </div>
             </div>
         </div>
         <div class="hero__overlay"></div>
@@ -125,15 +130,29 @@ const { heroImage, heroTitle, heroSubtitle, cta } = Astro.props;
             display: inline-block;
             align-self: center;
             transition: all .2s ease-in-out;
+            display: flex;
+            align-items: center;
+            width: fit-content;
+            gap: 1rem;
+            overflow: hidden;
+            .hero__btn__icon {
+                transform: translateX(-10px);
+                transition: transform .2s ease-in-out;
+            }
             &:hover {
                 background-color: var(--color-green-600);
                 transform: scale(1.05);
                 box-shadow: 0 3px 8px rgba(0, 0, 0, .2);
             }
+            &:hover .hero__btn__icon {
+                transform: translateX(0) scale(1.2);
+            }
         }
         .hero__btn__cont {
             will-change: transform, opacity;
             animation: fadeIn 1s ease-in-out .8s forwards;
+            display: flex;
+            justify-content: center;
             opacity: 0;
         }
     }
