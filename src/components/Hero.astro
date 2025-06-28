@@ -94,6 +94,9 @@ const { heroImage, heroTitle, heroSubtitle, cta } = Astro.props;
                 animation: slowMotion 11s linear infinite forwards;
                 z-index: 2;
             }
+            &:nth-child(3) {
+                z-index: 1;
+            }
         }
         .hero__img--active {
             animation: slowMotion 11s linear infinite forwards;
