@@ -4,7 +4,7 @@ import { Image } from 'astro:assets';
 import FFCLogo from '@images/FFC_Logo_website.webp';
 import Home from '@images/icons/house-solid.svg';
 import Ranking from '@images/icons/ranking-star-solid.svg';
-import Members from '@images/icons/table-solid.svg';
+import Members from '@images/icons/flag-solid.svg';
 import Cup from '@images/icons/trophy-solid.svg';
 import Join from '@images/icons/user-solid.svg';
 ---
@@ -45,7 +45,7 @@ import Join from '@images/icons/user-solid.svg';
         </li> -->
         <li class="group">
           <a href="/members" class={`flex gap-2 items-center py-2 px-3 rounded-sm ${currentPath === "/members" ? "text-green-600 font-bold" : "text-white group-hover:text-green-300"}`}>
-            <Members width={20} class={`${currentPath === "/members" ? "fill-green-600 font-bold" : "fill-white group-hover:fill-green-300"}`} />
+            <Members width={16} class={`${currentPath === "/members" ? "fill-green-600 font-bold" : "fill-white group-hover:fill-green-300"}`} />
             Members
           </a>
         </li>
