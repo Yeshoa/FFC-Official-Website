@@ -24,7 +24,7 @@ const { currentTournament } = Astro.props;
         <a 
           href={isActive ? "#" : `/${tournament.data.type}/${tournament.data.edition}`} 
           key={tournament.data.name} 
-          class={`bg-gray-300 flex relative overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-shadow group hover:bg-green-950
+          class={`bg-gray-300 flex relative p-2 overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-shadow group hover:bg-green-950
             justify-center items-center group ${isActive ? "bg-green-950 cursor-default pointer-events-none" : ""}`}
         >
           <Image 
@@ -32,9 +32,9 @@ const { currentTournament } = Astro.props;
             alt={tournament.data.name} 
             class={`w-auto h-16 object-cover rounded-lg transition-opacity invert group-hover:invert-0 ${isActive ? "invert-0" : ""}`}
             loading="eager"
-            width={256} height={256}
+            width={306} height={306}
             format="webp"
-            quality={1}
+            quality={40}
           />
         </a>
       );
