@@ -161,9 +161,9 @@ const sortedStats = Object.values(teamStats).filter(stat => stat.verified).sort(
           <td class="px-2 py-2">{index + 1}</td>
           <td class="px-2 py-2">
             <Image src={getMemberImage(team.name, members)} alt={team.name} 
-            width={32} 
-            height={32}
-            class="h-6 w-auto object-cover rounded inline-block" 
+            width={42} 
+            height={42}
+            class="h-5 w-14 object-cover rounded inline-block 2xl:h-6 2xl:w-9" 
             loading={"lazy"} 
             quality={80} format="webp"/>
           </td>
