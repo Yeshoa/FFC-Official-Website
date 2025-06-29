@@ -7,68 +7,210 @@ import Ranking from '@images/icons/ranking-star-solid.svg';
 import Members from '@images/icons/flag-solid.svg';
 import Cup from '@images/icons/trophy-solid.svg';
 import Join from '@images/icons/user-solid.svg';
+import XMark from '@images/icons/circle-xmark-solid.svg';
+import Search from '@images/icons/magnifying-glass-solid.svg';
 ---
-<nav class="bg-green-950 w-full z-20 top-0 start-0 border-b border-green-600 ">
-  <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-3">
-    <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
-        <!-- <img src="https://i.ibb.co/Rjf5DpJ/IMG-3057.png" class="h-8" alt="FFC Logo" loading="eager"> -->
-        <Image src={FFCLogo} alt="FFC Logo"  loading="eager" height={100} class="navbar__logo"/>
-        <!-- <span class="self-center text-2xl font-semibold whitespace-nowrap text-white hover:text-green-300">FFC</span> -->
-    </a>
-    <!-- <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-      <button data-collapse-toggle="navbar-sticky" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm rounded-lg md:hidden focus:outline-none focus:ring-2 text-gray-400 hover:bg-gray-700 focus:ring-gray-600" aria-controls="navbar-sticky" aria-expanded="false">
-        <span class="sr-only">Open main menu</span>
-        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
-        </svg>
-      </button>
-    </div> -->
-    <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
-      <ul class="flex flex-col p-4 md:p-0 mt-4 font-medium border rounded-lg md:space-x-4 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 border-gray-700">
-        <li class="group">
-          <a href="/" class={`py-2 px-3 rounded-sm flex gap-2 items-center ${currentPath === "/" ? "text-green-600" : "text-white group-hover:text-green-300"}`}>
-            <Home width={20}  class={`${currentPath === "/" ? "fill-green-600" : "fill-white group-hover:fill-green-300"}`}/>
-            Home
-          </a>
-        </li>
-        <li class="group">
-          <a href="/forest-cup" class={`flex gap-2 items-center py-2 px-3 rounded-sm ${currentPath === "/forest-cup" ? "text-green-600" : "text-white group-hover:text-green-300"}`}>
-            <Cup width={20} class={`${currentPath === "/forest-cup" ? "fill-green-600" : "fill-white group-hover:fill-green-300"}`} />
-            Forest Cup
-          </a>
-        </li>
-        <!-- <li>
-          <a href="/champions-league" class={`block py-2 px-3 rounded-sm ${currentPath === "/champions-league" ? "text-green-600 font-bold" : "text-white hover:text-green-300"}`}>
-            <span class="inline lg:hidden">FCL</span>
-            <span class="hidden lg:inline">Champions League</span>
-          </a>
-        </li> -->
-        <li class="group">
-          <a href="/members" class={`flex gap-2 items-center py-2 px-3 rounded-sm ${currentPath === "/members" ? "text-green-600" : "text-white group-hover:text-green-300"}`}>
-            <Members width={16} class={`${currentPath === "/members" ? "fill-green-600" : "fill-white group-hover:fill-green-300"}`} />
-            Members
-          </a>
-        </li>
-        <li class="group">
-          <a href="/ranking" class={`flex gap-2 items-center py-2 px-3 rounded-sm ${currentPath === "/ranking" ? "text-green-600" : "text-white group-hover:text-green-300"}`}>
-            <Ranking width={20} class={`${currentPath === "/ranking" ? "fill-green-600" : "fill-white group-hover:fill-green-300"}`} />
-            Ranking
-          </a>
-        </li>
-        <li class="group">
-          <a href="https://forms.gle/Qn2d5kFwCg8pndnK9" target="_blank" class={`flex gap-2 items-center py-2 px-2 bg-white rounded-lg text-green-950 group-hover:bg-green-600 group-hover:text-white`}>
-            <Join width={15} class={"fill-green-950 group-hover:fill-white"} />
-            Join<span class="hidden lg:inline"> FFC</span>
-          </a>
-        </li>
-      </ul>
+<div class="main__cont">
+  <nav class="bg-green-950 w-full z-20 top-0 start-0 border-b border-green-600 ">
+    <div class="navbar__cont max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-3">
+      <div class="hamburger flex md:hidden">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </div>
+      <a href="/" class="flex items-center m-auto space-x-3 rtl:space-x-reverse md:m-0">
+          <!-- <img src="https://i.ibb.co/Rjf5DpJ/IMG-3057.png" class="h-8" alt="FFC Logo" loading="eager"> -->
+          <Image src={FFCLogo} alt="FFC Logo"  loading="eager" height={100} class="navbar__logo"/>
+          <!-- <span class="self-center text-2xl font-semibold whitespace-nowrap text-white hover:text-green-300">FFC</span> -->
+      </a>
+      <!-- <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+        <button data-collapse-toggle="navbar-sticky" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm rounded-lg md:hidden focus:outline-none focus:ring-2 text-gray-400 hover:bg-gray-700 focus:ring-gray-600" aria-controls="navbar-sticky" aria-expanded="false">
+          <span class="sr-only">Open main menu</span>
+          <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
+          </svg>
+        </button>
+      </div> -->
+      <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
+        <ul class="flex flex-col p-4 md:p-0 mt-4 font-medium border rounded-lg md:space-x-4 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 border-gray-700">
+          <li class="group">
+            <a href="/" class={`py-2 px-3 rounded-sm flex gap-2 items-center ${currentPath === "/" ? "text-green-600" : "text-white group-hover:text-green-300"}`}>
+              <Home width={20}  class={`${currentPath === "/" ? "fill-green-600" : "fill-white group-hover:fill-green-300"}`}/>
+              Home
+            </a>
+          </li>
+          <li class="group">
+            <a href="/forest-cup" class={`flex gap-2 items-center py-2 px-3 rounded-sm ${currentPath === "/forest-cup" ? "text-green-600" : "text-white group-hover:text-green-300"}`}>
+              <Cup width={20} class={`${currentPath === "/forest-cup" ? "fill-green-600" : "fill-white group-hover:fill-green-300"}`} />
+              Forest Cup
+            </a>
+          </li>
+          <!-- <li>
+            <a href="/champions-league" class={`block py-2 px-3 rounded-sm ${currentPath === "/champions-league" ? "text-green-600 font-bold" : "text-white hover:text-green-300"}`}>
+              <span class="inline lg:hidden">FCL</span>
+              <span class="hidden lg:inline">Champions League</span>
+            </a>
+          </li> -->
+          <li class="group">
+            <a href="/members" class={`flex gap-2 items-center py-2 px-3 rounded-sm ${currentPath === "/members" ? "text-green-600" : "text-white group-hover:text-green-300"}`}>
+              <Members width={16} class={`${currentPath === "/members" ? "fill-green-600" : "fill-white group-hover:fill-green-300"}`} />
+              Members
+            </a>
+          </li>
+          <li class="group">
+            <a href="/ranking" class={`flex gap-2 items-center py-2 px-3 rounded-sm ${currentPath === "/ranking" ? "text-green-600" : "text-white group-hover:text-green-300"}`}>
+              <Ranking width={20} class={`${currentPath === "/ranking" ? "fill-green-600" : "fill-white group-hover:fill-green-300"}`} />
+              Ranking
+            </a>
+          </li>
+          <li class="group">
+            <a href="https://forms.gle/Qn2d5kFwCg8pndnK9" target="_blank" class={`flex gap-2 items-center py-2 px-3 bg-white rounded-lg text-green-950 group-hover:bg-green-600 group-hover:text-white`}>
+              <Join width={15} class={"fill-green-950 group-hover:fill-white"} />
+              Join<span class="hidden lg:inline"> FFC</span>
+            </a>
+          </li>
+        </ul>
+      </div>
     </div>
+  </nav>
+  <div class="navbar border-r-1 border-green-600 flex flex-col" id="navbar-sticky">
+    <header class="navbar__header py-8 px-4 flex items-center justify-between border-b-1 border-green-600">
+      <div class="navbar__header__logo">
+        <a href="/">
+          <Image src={FFCLogo} alt="FFC Logo"  loading="eager" height={100} class="navbar__phone__logo"/>
+        </a>
+      </div>
+      <XMark width={30} class="fill-white cursor-pointer close__btn" />
+    </header>
+    <div class="focus-within:outline-green-700 focus-within:outline-2 searchbar flex items-center rounded-md bg-green-800 w-7/8 place-self-center mt-10">
+      <a href="" class="searchbar__btn p-3 bg-green-100 h-full flex items-center rounded-l-md justify-center" >
+        <Search width={20} class="fill-green-950" />
+      </a>
+      <input type="text" placeholder="Search..." class="w-full p-2 outline-none text-white" />
+    </div>
+    <ul class="flex flex-col p-4 font-medium gap-3">
+      <li class="group">
+        <a href="/" class={`py-2 px-3 rounded-sm flex gap-2 items-center ${currentPath === "/" ? "text-green-600" : "text-white group-hover:text-green-300"}`}>
+          <Home width={20}  class={`${currentPath === "/" ? "fill-green-600" : "fill-white group-hover:fill-green-300"}`}/>
+          Home
+        </a>
+      </li>
+      <li class="group">
+        <a href="/forest-cup" class={`flex gap-2 items-center py-2 px-3 rounded-sm ${currentPath === "/forest-cup" ? "text-green-600" : "text-white group-hover:text-green-300"}`}>
+          <Cup width={20} class={`${currentPath === "/forest-cup" ? "fill-green-600" : "fill-white group-hover:fill-green-300"}`} />
+          Forest Cup
+        </a>
+      </li>
+      <!-- <li>
+        <a href="/champions-league" class={`block py-2 px-3 rounded-sm ${currentPath === "/champions-league" ? "text-green-600 font-bold" : "text-white hover:text-green-300"}`}>
+          <span class="inline lg:hidden">FCL</span>
+          <span class="hidden lg:inline">Champions League</span>
+        </a>
+      </li> -->
+      <li class="group">
+        <a href="/members" class={`flex gap-2 items-center py-2 px-3 rounded-sm ${currentPath === "/members" ? "text-green-600" : "text-white group-hover:text-green-300"}`}>
+          <Members width={16} class={`${currentPath === "/members" ? "fill-green-600" : "fill-white group-hover:fill-green-300"}`} />
+          Members
+        </a>
+      </li>
+      <li class="group">
+        <a href="/ranking" class={`flex gap-2 items-center py-2 px-3 rounded-sm ${currentPath === "/ranking" ? "text-green-600" : "text-white group-hover:text-green-300"}`}>
+          <Ranking width={20} class={`${currentPath === "/ranking" ? "fill-green-600" : "fill-white group-hover:fill-green-300"}`} />
+          Ranking
+        </a>
+      </li>
+      <li class="group">
+        <a href="https://forms.gle/Qn2d5kFwCg8pndnK9" target="_blank" class={`flex gap-2 items-center py-2 px-3 bg-white rounded-md text-green-950 group-hover:bg-green-600 group-hover:text-white`}>
+          <Join width={15} class={"fill-green-950 group-hover:fill-white"} />
+          Join<span class="hidden lg:inline"> FFC</span>
+        </a>
+      </li>
+    </ul>
   </div>
-</nav>
+  <div class="navbar__overlay"></div>
+</div>
 
 <style>
   .navbar__logo {
     height: 65px;
     width: auto;
   }
+  .hamburger {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    .bar {
+      display: block;
+      width: 30px;
+      height: 3px;
+      margin: 4px auto;
+      background-color: white;
+      transition: all 0.3s ease-in-out;
+    }
+  }
+  .navbar {
+    position: fixed;
+    display: flex;
+    height: 100vh;
+    width: 70%;
+    top: 0;
+    left: 0;
+    background-color: var(--color-green-950);
+    z-index: 50;
+    will-change: transform;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+  }
+  .navbar__overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 30;
+    opacity: 0;
+    pointer-events: none;
+    will-change: opacity;
+    transition: opacity 0.3s ease-in-out;
+  }
+  .overlay--active {
+    opacity: 1;
+    pointer-events: all;
+  }
+  .navbar--active {
+    transform: translateX(0);
+  }
+  .navbar__phone__logo {
+    height: 55px;
+    width: auto;
+  }
+  .main__cont {
+    position: relative;
+    z-index: 40;
+  }
 </style>
+
+<script>
+  const menu = document.querySelector(".hamburger");
+  const navbar = document.querySelector(".navbar");
+  const closeBtn = document.querySelector(".close__btn");
+  const overlay = document.querySelector(".navbar__overlay");
+
+  menu.addEventListener("click", () => {
+    navbar.classList.toggle("navbar--active");
+    overlay.classList.toggle("overlay--active");;
+  });
+  closeBtn.addEventListener("click", () => {
+    navbar.classList.remove("navbar--active");
+    overlay.classList.remove("overlay--active");
+  });
+  overlay.addEventListener("click", () => {
+    navbar.classList.remove("navbar--active");
+    overlay.classList.remove("overlay--active");
+  });
+
+</script>
