@@ -8,6 +8,7 @@ import CarrouselImgTwo from '@images/atsvea_champion.png';
 import CarrouselImgThree from '@images/tournaments/trophy_panoramic.png';
 import CarrouselImgFour from '@images/tournaments/2020/rui_champions.png';
 import CarrouselImgFive from '@images/tournaments/2024/darrow_dribble.png';
+import CarrouselImgSix from '@images/nysnub3.png';
 
 // Definimos las props para el componente, manteniendo la estructura original
 interface Props {
@@ -43,6 +44,13 @@ const { heroImage, heroTitle, heroSubtitle, cta } = Astro.props;
             <Image 
                 src={CarrouselImgFive} 
                 alt="Darrow Dribble" 
+                width={1200} 
+                 class="hero__img" 
+                 format="webp"
+            />
+            <Image 
+                src={CarrouselImgSix} 
+                alt="Nysnub Holding Ball" 
                 width={1200} 
                  class="hero__img" 
                  format="webp"
