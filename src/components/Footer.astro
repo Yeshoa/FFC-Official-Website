@@ -10,6 +10,7 @@ import Sponsor6 from '@images/sponsors/frey.png';
 import Sponsor7 from '@images/sponsors/northern wings.png';
 import Sponsor8 from '@images/sponsors/startex.png';
 import Sponsor9 from '@images/sponsors/white island stadium.png';
+import Sponsor10 from '@images/sponsors/tms.png';
 
 import PayPalLogo from '@images/paypal.png';
 import MPLogo from '@images/mercadopago.png';
@@ -30,6 +31,7 @@ const sponsors = [
   { src: Sponsor7, alt: 'Northern Wings', class: 'invert' },
   { src: Sponsor8, alt: 'Startex', class: 'invert' },
   { src: Sponsor9, alt: 'White Island Stadium', class: 'invert' },
+  { src: Sponsor10, alt: 'TMS', width: 160 },
 ];
 ---
 <footer class="bg-green-950 border-t border-green-600">
@@ -132,17 +134,17 @@ const sponsors = [
     <div class="flex justify-center ">
       <p>Sponsors</p>
     </div>
-    <div class="grid grid-cols-3 gap-4 sm:gap-5 sm:grid-cols-9 mt-8">
-      {sponsors.map((sponsor, i) => (
-        <div class="flex justify-center items-center" key={i}>
+    <div class="grid grid-cols-3 gap-4 sm:gap-5 sm:grid-cols-10 mt-8">
+      {sponsors.map((sponsor) => (
+        <div class="flex justify-center items-center">
           <Image
             src={sponsor.src}
             alt={sponsor.alt}
-            width={96}
+            width={sponsor.width || 96}
             class={`w-24 ${sponsor.class ?? ''}`}
             loading="lazy"
             format="webp"
-            quality={10}
+            quality={30}
           />
         </div>
       ))}
