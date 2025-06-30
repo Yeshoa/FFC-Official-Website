@@ -157,7 +157,7 @@ const getMemberSlug = (teamName: string): string | undefined => {
             <td class="px-2 py-2">{index + 1}</td>
             <td class="px-2 py-2">
               <Image src={getMemberImage(team.name, members)} alt={team.name} loading={"lazy"}
-                     width={24} height={16} class="h-4 w-auto object-cover rounded inline-block" quality={50} format="webp"/>
+                     width={50}  class="h-6 w-10 object-cover rounded inline-block" quality={50} format="webp"/>
             </td>
             <td class="px-2 py-2 text-left">
               <a href={`/members/${getMemberSlug(team.name)}`} class="font-semibold hover:underline">{team.name}</a>

@@ -9,6 +9,8 @@ import Cup from '@images/icons/trophy-solid.svg';
 import Join from '@images/icons/user-solid.svg';
 import XMark from '@images/icons/circle-xmark-solid.svg';
 import Search from '@images/icons/magnifying-glass-solid.svg';
+
+console.log("Current Path:", currentPath);
 ---
 <div class="main__cont">
   <nav class="bg-green-950 w-full z-20 top-0 start-0 border-b border-green-600 ">
@@ -40,8 +42,8 @@ import Search from '@images/icons/magnifying-glass-solid.svg';
             </a>
           </li>
           <li class="group">
-            <a href="/forest-cup" class={`flex gap-2 items-center py-2 px-3 rounded-sm ${currentPath === "/forest-cup" ? "text-green-600" : "text-white group-hover:text-green-300"}`}>
-              <Cup width={20} class={`${currentPath === "/forest-cup" ? "fill-green-600" : "fill-white group-hover:fill-green-300"}`} />
+            <a href="/forest-cup" class={`flex gap-2 items-center py-2 px-3 rounded-sm ${currentPath.includes("/forest-cup") ? "text-green-600" : "text-white group-hover:text-green-300"}`}>
+              <Cup width={20} class={`${currentPath.includes("/forest-cup") ? "fill-green-600" : "fill-white group-hover:fill-green-300"}`} />
               Forest Cup
             </a>
           </li>
@@ -96,8 +98,8 @@ import Search from '@images/icons/magnifying-glass-solid.svg';
         </a>
       </li>
       <li class="group">
-        <a href="/forest-cup" class={`flex gap-2 items-center py-2 px-3 rounded-sm ${currentPath === "/forest-cup" ? "text-green-600" : "text-white group-hover:text-green-300"}`}>
-          <Cup width={20} class={`${currentPath === "/forest-cup" ? "fill-green-600" : "fill-white group-hover:fill-green-300"}`} />
+        <a href="/forest-cup" class={`flex gap-2 items-center py-2 px-3 rounded-sm ${currentPath.includes("/forest-cup") ? "text-green-600" : "text-white group-hover:text-green-300"}`}>
+          <Cup width={20} class={`${currentPath.includes("/forest-cup") ? "fill-green-600" : "fill-white group-hover:fill-green-300"}`} />
           Forest Cup
         </a>
       </li>

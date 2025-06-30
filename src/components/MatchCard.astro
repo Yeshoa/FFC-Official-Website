@@ -60,7 +60,7 @@ const winner = getMatchWinner(match);
     {/* Marcador */}
     <div class="text-center">
         {match.status === 'played' ? (
-            <span class="text-lg md:text-xl font-bold">{score1} - {score2}</span>
+            <span class="text-lg md:text-xl whitespace-nowrap font-bold">{score1} - {score2}</span>
         ) : match.status === 'scheduled' ? (
             <span class="text-sm md:text-base font-light text-gray-300 block">vs</span>
              <span class="text-xs text-gray-400 block mt-0.5">
