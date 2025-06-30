@@ -1,7 +1,7 @@
 ---
 id: 0
 type: "forest-cup"
-name: "Forest Cup 2020"
+name: "Bilsa 2020"
 host: "Bilsa"
 image: "src/assets/images/tournaments/2020/logo.png"
 banner: "src/assets/images/tournaments/2020/logo.png"

@@ -1,7 +1,7 @@
 ---
 id: 2
 type: "forest-cup"
-name: "Forest Cup Anxious & Kevin 2024"
+name: "Anxious & Kevin 2024"
 host: "Anxious and Kevin"
 image: "src/assets/images/tournaments/2024/logo.png"
 banner: "src/assets/images/tournaments/2024/banner.png"

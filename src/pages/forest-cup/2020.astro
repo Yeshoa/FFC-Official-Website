@@ -54,7 +54,7 @@ const winner = getMatchWinner(getMatchesForFixture('knockout', undefined, 'Final
 ---
 
 <App title={pageTitle}>
-  <main class="flex flex-col items-center">
+  <main class="flex flex-col items-center relative">
     <div class="flex flex-col justify-center items-center pb-6 bg-gradient-to-r from-transparent to-transparent via-black/20 w-full">
       <TournamentGrid currentTournament={FC2020Data}/>
       <Image src={FCLogo} alt={`Forest Cup Logo`} class="max-w-7xl lg:w-4xl md:w-2xl xl:w-auto sm:w-lg w-sm" 

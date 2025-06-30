@@ -1,10 +1,11 @@
 ---
 id: 1
 type: "forest-cup"
-name: "Forest Cup Bilsa 2022" 
+name: "Bilsa 2022" 
 host: "Bilsa"
 image: "src/assets/images/tournaments/2022/logo.png"
 banner: "src/assets/images/tournaments/2022/logo.png"
+heroImg: "src/assets/images/tournaments/2022/atsvea-champions.png"
 edition: 2022
 participants:
   - "Bilsa"

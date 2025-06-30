@@ -1,0 +1,16 @@
+---
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+const { currentTournament } = Astro.props;
+---
+
+<section>
+    <Image
+        src={currentTournament.heroImg}
+        class="object-cover w-full h-auto"
+        alt={currentTournament.name}
+        loading={"eager"}
+        quality={1}
+        format="webp"
+    />
+</section>

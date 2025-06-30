@@ -6,6 +6,8 @@
   --color-forest: oklch(58.35% 0.1686 143.03);
   --color-forest-light: oklch(74.36% 0.1656 143.69);
   --color-forest-dark: oklch(43.47% 0.1419 142.64);
+  --breakpoint-xs: 400px;
+  --spacing-8xl: 1450px;
 } 
  
 :root {
@@ -91,9 +93,7 @@
   animation: fadeOutPenguin 4s 0.5s forwards;
 }
 
-.max-w-8xl {
-	max-width: 1450px;
-}
+
 
 @keyframes fadeOutPenguin {
   to {

@@ -24,14 +24,7 @@ const tournamentsCollection = defineCollection({
     banner: image().optional(), // Banner del torneo
     edition: z.number(),
     participants: z.array(z.string()), // Referencia a members
-    images: z.array(
-      z.object({
-        src: image(),
-        type: z.enum(['champion', 'gallery', 'video-thumbnail', 'match', 'other']),
-        title: z.string().optional(),
-        videoUrl: z.string().url().optional(),
-      })
-    ).optional(), // Imágenes del torneo
+    heroImg: image().optional(), // Imágenes del torneo
     prizes: z.object({ // Estructura más detallada para premios
       topScorer: z.array(z.object({ player: z.string(), team: z.string(), goals: z.number() })).optional(),
       bestPlayer: z.object({ player: z.string(), team: z.string() }).optional(),
