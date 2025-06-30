@@ -21,14 +21,14 @@ if (!flagPath) flagPath = DefaultLogo;
 if (!images[flagPath]) throw new Error(`"${flagPath}" does not exist in glob: "src/assets/*.{jpeg,jpg,png,gif}"`);
 if (!images[logoPath]) throw new Error(`"${logoPath}" does not exist in glob: "src/assets/*.{jpeg,jpg,png,gif}"`); */
 ---
-<a href={`/members/${slug}`} class="flex flex-col p-4 border ring-0 hover:ring-2 hover:ring-green-300 transition-all duration-300 border-green-800 items-center rounded-4xl">
+<a href={`/members/${slug}`} class="flex flex-col p-4 border gap-4 ring-0 hover:ring-2 hover:ring-green-300 transition-all duration-300 border-green-800 items-center rounded-4xl">
   <div class="flex h-full items-center">
     {logoPath && <Image src={logoPath} class={logoClass} alt={name} loading={"eager"} 
-      width={128} height={128} quality={60} format='webp'/>}
+      width={220} height={220} quality={60} format='webp'/>}
   </div>
   <div class="w-full flex gap-2 items-center justify-center"> 
-    {flagPath && <Image src={flagPath} width={32} height={32} quality={60} format='webp'
-    class="h-6 w-auto rounded-xl object-cover ring-1 ring-green-700" alt={name} loading={"eager"}/>}
+    {flagPath && <Image src={flagPath} width={60} height={60} quality={60} format='webp'
+    class="h-6 w-10 rounded-xl object-cover ring-1 ring-green-700" alt={name} loading={"eager"}/>}
     <p class="text-sm my-2">{code}</p>
   </div>
 </a>
