@@ -155,10 +155,22 @@ const membersCollection = defineCollection({
   }),
 });
 
+const articlesCollection = defineCollection({
+  type: 'content',
+  schema: ({ image }) => z.object({
+    title: z.string(),
+    image: image().default('/src/assets/images/FFC Banner simple.png'),
+    date: z.date().default(() => new Date()),
+    summary: z.string().optional(),
+    tags: z.array(z.string()).optional(),
+  }),
+});
+
 
 export const collections = {
   'tournaments': tournamentsCollection,
   /* 'forest-cup': forestCupCollection, */
   'matches': matchesCollection,
   'members': membersCollection,
+  'articles': articlesCollection,
 };

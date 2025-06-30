@@ -91,6 +91,10 @@
   animation: fadeOutPenguin 4s 0.5s forwards;
 }
 
+.max-w-8xl {
+	max-width: 1450px;
+}
+
 @keyframes fadeOutPenguin {
   to {
     opacity: 0;

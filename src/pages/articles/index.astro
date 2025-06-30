@@ -1,0 +1,28 @@
+---
+import { getCollection } from 'astro:content';
+import App from '@layouts/App.astro';
+import ArticleCard from '@components/ArticleCard.astro';
+
+const articles = await getCollection('articles');
+articles.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+---
+<App title="FFC - Artículos">
+  <div class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl md:text-4xl font-bold text-white mb-8">Artículos y Noticias</h1>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {articles.map(article => (
+        <ArticleCard 
+          title={article.data.title}
+          image={article.data.image}
+          date={article.data.date}
+          summary={article.data.summary}
+          tags={article.data.tags}
+          href={`/articles/${article.slug}`}
+        />
+      ))}
+    </div>
+    {articles.length === 0 && (
+      <p class="text-green-200 mt-8">No hay artículos publicados aún.</p>
+    )}
+  </div>
+</App>

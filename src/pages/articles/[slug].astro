@@ -1,0 +1,44 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+import App from '@layouts/App.astro';
+
+export const prerender = true;
+
+type ArticleType = CollectionEntry<'articles'>;
+
+export async function getStaticPaths() {
+  const articles = await getCollection('articles');
+  return articles.map((article: ArticleType) => ({
+    params: { slug: article.slug },
+    props: { article },
+  }));
+}
+
+console.log("hola");
+const { article } = Astro.props;
+const { Content } = await article.render();
+const data = article.data;
+---
+<App title={`FFC - ${data.title}`}>
+  <div class="container mx-auto px-4 py-8">
+    <article class="bg-green-950/80 shadow-lg rounded-lg p-6 max-w-3xl mx-auto">
+      <header class="mb-6">
+        <h1 class="text-3xl md:text-4xl font-bold text-white mb-2">{data.title}</h1>
+        <div class="flex flex-wrap items-center gap-3 text-green-300 text-sm mb-2">
+          <span>{data.date.toLocaleDateString()}</span>
+          {data.tags && data.tags.length > 0 && (
+            <span>· {data.tags.map(tag => `#${tag}`).join(' ')}</span>
+          )}
+        </div>
+        {data.image && (
+          <Image src={data.image} alt={data.title} class="w-full max-h-72 object-cover rounded mb-4" width={800} height={300} />
+        )}
+        {data.summary && <p class="text-green-200 mb-2">{data.summary}</p>}
+      </header>
+      <div class="prose prose-invert max-w-none">
+        <Content />
+      </div>
+    </article>
+  </div>
+</App>
