@@ -23,10 +23,10 @@ const {title} = Astro.props;
 <body class="bg-gradient-to-br from-green-950 to-green-900 to-80% text-white">
   <Navbar />
     <slot />
-    <!-- <Chatbot client:load /> -->
+    <Chatbot client:load />
   <Footer />
 </body>
-<!-- <script type="module">
+<script type="module">
   import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
 
 	createChat({
@@ -34,5 +34,5 @@ const {title} = Astro.props;
     // webhookUrl: ViteWebhook
     webhookUrl: 'https://n8n-1-onbo.onrender.com/webhook/a889d2ae-2159-402f-b326-5f61e90f602e/chat',
 	});
-</script> -->
+</script>
 </html>
