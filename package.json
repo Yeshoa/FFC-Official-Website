@@ -1,7 +1,7 @@
 {
   "name": "ffc-astro",
   "type": "module",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
@@ -11,6 +11,7 @@
   "dependencies": {
     "@astrojs/netlify": "^6.3.0",
     "@astrojs/react": "^4.2.4",
+    "@n8n/chat": "^0.45.0",
     "@tailwindcss/vite": "^4.0.15",
     "@types/react": "^19.0.12",
     "@types/react-dom": "^19.0.4",
