@@ -11,6 +11,7 @@ import TournamentGrid from '@components/tournaments/TournamentGrid.astro';
 import TournamentStats from '@components/tournaments/TournamentStats.astro';
 import { getMatchWinner } from '@lib/matchUtils.ts';
 import { getMemberImage } from '@lib/memberUtils';
+import TournamentHero from '@components/tournaments/TournamentHero.astro';
 
 const tournamentsCollection = await getCollection('tournaments');
 const matchesCollection = (await getCollection('matches'))
@@ -55,37 +56,11 @@ const winner = getMatchWinner(getMatchesForFixture('knockout', undefined, 'Final
 
 <App title={pageTitle}>
   <main class="flex flex-col items-center relative">
-    <div class="flex flex-col justify-center items-center pb-6 bg-gradient-to-r from-transparent to-transparent via-black/20 w-full">
+    <div class="flex flex-col justify-center items-center bg-gradient-to-r from-transparent to-transparent via-black/20 w-full">
       <TournamentGrid currentTournament={FC2020Data}/>
-      <Image src={FCLogo} alt={`Forest Cup Logo`} class="max-w-7xl lg:w-4xl md:w-2xl xl:w-auto sm:w-lg w-sm" 
-      loading={"eager"}
-      width={1280}
-      quality={10}
-      format="webp"
-      />
-      <div class="flex justify-between items-start h-full p-6 gap-6">
-        <div class="flex flex-col gap-6 items-center">
-          {winner && (
-            <div class="flex items-center gap-6">
-              {getMemberImage(winner, membersCollection) && (
-                <Image src={getMemberImage(winner, membersCollection)!} alt={`${winner} Flag`} 
-                width={200} quality={10} format="webp"
-                class="h-24 w-auto rounded-xl object-cover ring-1 ring-green-700" loading={"eager"} />
-              )}
-              <h1 class="text-5xl font-bold">{winner}</h1>
-            </div>
-            <div class="flex items-center">
-              <h1 class="text-2xl">Champions</h1>
-            </div>
-          )}
-        </div>
-      </div>
+      <TournamentHero currentTournament={FC2020Data} members={membersCollection} />
     </div>
 
-    <div class="prose dark:prose-invert bg-white dark:bg-green-900 shadow-lg rounded-lg p-6 my-8 w-full max-w-4xl mx-auto">
-      <h2 class="text-2xl font-semibold mb-4 text-gray-900 dark:text-white border-b pb-2 border-gray-200 dark:border-green-600">Tournament Notes</h2>
-      <Content />
-   </div>
 
     <TournamentStats
     tournament={tournamentEntry}

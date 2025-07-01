@@ -3,8 +3,10 @@ id: 2
 type: "forest-cup"
 name: "Anxious & Kevin 2024"
 host: "Anxious and Kevin"
+champion: "Nardin"
 image: "src/assets/images/tournaments/2024/logo.png"
 banner: "src/assets/images/tournaments/2024/banner.png"
+heroImg: "src/assets/images/tournaments/2022/atsvea-champions.png"
 edition: 2024
 participants:
   - "Bilsa"

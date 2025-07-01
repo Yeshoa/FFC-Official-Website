@@ -3,6 +3,7 @@ id: 1
 type: "forest-cup"
 name: "Bilsa 2022" 
 host: "Bilsa"
+champion: "Atsvea"
 image: "src/assets/images/tournaments/2022/logo.png"
 banner: "src/assets/images/tournaments/2022/logo.png"
 heroImg: "src/assets/images/tournaments/2022/atsvea-champions.png"

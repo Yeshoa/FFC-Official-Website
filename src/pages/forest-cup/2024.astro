@@ -9,6 +9,7 @@ import KnockoutMatches from '@components/tournaments/KnockoutMatches.astro';
 import TournamentGrid from '@components/tournaments/TournamentGrid.astro'; 
 import TournamentStandings from '@components/tournaments/TournamentStandings.astro';
 import { getMatchWinner } from '@lib/matchUtils.ts';
+import TournamentHero from '@components/tournaments/TournamentHero.astro';
 
 type Tournament = CollectionEntry<'tournaments'>['data'];
 type Match = CollectionEntry<'matches'>['data'];
@@ -66,32 +67,7 @@ const winner = getMatchWinner(getMatchesForFixture('knockout', undefined, 'Final
   <main class="flex flex-col items-center relative">
     <div class="flex flex-col justify-center items-center pb-6 w-full bg-gradient-to-b from-transparent to-green-900/80">
       <TournamentGrid currentTournament={FC2024Data}/>
-      <Image src={FC24Logo} alt={`${FC2024Data.name} Logo`} class="py-8 max-w-7xl lg:w-4xl md:w-2xl xl:w-auto sm:w-lg w-sm" 
-      width={1300}
-      loading={"eager"}
-      quality={50}
-      format='webp'
-      />
-      <div class="flex justify-between items-start h-full p-6 gap-6">
-        <div class="flex flex-col gap-6 items-center p-16">
-          {winner && (
-            <div class="flex items-center gap-6">
-              {getMemberImage(winner, membersCollection) && (
-                <Image src={getMemberImage(winner, membersCollection)!} alt={`${winner} Flag`} 
-                width={200} quality={60} format="webp"
-                class="h-24 w-auto rounded-xl object-cover ring-1 ring-green-700" loading={"eager"} />
-              )}
-              <h1 class="text-5xl font-bold">{winner}</h1>
-            </div>
-            <div class="flex items-center">
-              <h1 class="text-2xl">Champions</h1>
-            </div>
-          )}
-          {!winner && FC2024Data.participants && (
-            <p class="text-xl text-gray-400 italic">(Winner details not specified in prizes, showing participants)</p>
-          )}
-        </div>
-      </div>  
+      <TournamentHero currentTournament={FC2024Data} members={membersCollection} />
     </div>
     <!-- News -->
     <div class="w-full bg-gradient-to-b from-green-900/80 to-green-900">

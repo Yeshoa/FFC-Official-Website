@@ -3,8 +3,10 @@ id: 0
 type: "forest-cup"
 name: "Bilsa 2020"
 host: "Bilsa"
+champion: "Ruinenlust"
 image: "src/assets/images/tournaments/2020/logo.png"
 banner: "src/assets/images/tournaments/2020/logo.png"
+heroImg: "src/assets/images/tournaments/2020/rui_champions.png"
 edition: 2020
 participants:
   - "Cannibaland"

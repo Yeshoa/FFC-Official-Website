@@ -21,6 +21,7 @@ const tournamentsCollection = defineCollection({
     host: z.string().optional(), // País anfitrión
     final: z.string().optional(), // Sede de la final
     image: image(),
+    champion: z.string().optional(),
     banner: image().optional(), // Banner del torneo
     edition: z.number(),
     participants: z.array(z.string()), // Referencia a members
