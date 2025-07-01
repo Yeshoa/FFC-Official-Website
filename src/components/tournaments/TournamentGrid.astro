@@ -16,8 +16,8 @@ const { currentTournament } = Astro.props;
 ); */
 ---
 
-<div class="flex justify-center absolute top-0 left-0 w-full items-center px-6 z-10 bg-black/90">
-  <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-auto">
+<div class="flex justify-center absolute top-0 left-0 w-full items-center px-6 z-10 bg-green-1000">
+  <div class="flex gap-10 justify-center">
     {sortedTournaments.slice().reverse().map((tournament) => {
       const isActive = tournament.data.id === currentTournament.id;
       return (
