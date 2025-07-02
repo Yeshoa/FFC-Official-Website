@@ -9,12 +9,14 @@ import Star from "@images/icons/star-solid.svg";
 <section class="max-custom-high w-full overflow-hidden relative">
     <div class="flex w-full h-full flex-col lg:flex-row">
         <article class=" w-full lg:w-1/3 h-1/2 lg:h-full bg-green-950 flex justify-center 2xl:gap-10 flex-col text-center">
-            <div class="relative mb-5 after:w-3/5 after:h-1 after:bg-gradient-to-r after:from-transparent after:via-white after:to-transparent after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:rounded-full">
+            <div class="flex justify-center mx-auto w-auto max-w-75 lg:max-w-90 max-h-33 2xl:max-w-120 2xl:max-h-45 relative mb-5 after:w-3/5 after:h-1 after:bg-gradient-to-r after:from-transparent after:via-white after:to-transparent after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:rounded-full">
                 <Image
                     src={currentTournament.banner}
-                    class="w-auto max-w-75 lg:max-w-90 max-h-33 2xl:max-w-120 2xl:max-h-45 mx-auto relative pb-2 lg:pb-8 2xl:pb-14 after-element"
+                    class="w-full h-full relative pb-2 lg:pb-8 2xl:pb-14 after-element"
                     alt={currentTournament.name}
+                    width={500}
                     loading={"eager"}
+                    quality={40}
                     format="webp"
                 />
             </div>
@@ -25,8 +27,10 @@ import Star from "@images/icons/star-solid.svg";
                 <div class="">
                     <Image
                         src={getMemberImage(currentTournament.champion, members)}
-                        class="w-auto max-w-30 lg:max-w-40 z-8 h-auto max-h-25 lg:max-h-40 mx-auto mt-4 border-2 rounded-xl border-amber-400"
+                        class="w-auto max-w-30 lg:max-w-35 z-8 h-auto max-h-25 lg:max-h-40 mx-auto mt-4 border-2 rounded-xl border-amber-400"
                         alt={currentTournament.champion}
+                        width={220}
+                        quality={50}
                         loading={"eager"}
                         format="webp"
                     />
@@ -37,6 +41,8 @@ import Star from "@images/icons/star-solid.svg";
             src={currentTournament.heroImg}
             class="object-cover w-full lg:w-2/3 h-1/2 lg:h-full"
             alt={currentTournament.name}
+            width={1100}
+            quality={70}
             loading={"eager"}
             format="webp"
         />
