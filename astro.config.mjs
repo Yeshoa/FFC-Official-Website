@@ -7,6 +7,8 @@ import netlify from '@astrojs/netlify';
 
 import react from '@astrojs/react';
 
+import mdx from '@astrojs/mdx';
+
 // https://astro.build/config
 export default defineConfig({
   vite: {
@@ -15,5 +17,5 @@ export default defineConfig({
 
   output: 'server',
   adapter: netlify(),
-  integrations: [react()]
+  integrations: [react(), mdx()]
 });

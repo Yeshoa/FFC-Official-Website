@@ -60,13 +60,13 @@ Website built with **Astro**. Showcases tournaments, match details, and national
 
 - [ ] **Make Tailwind designs more responsive**  
 &nbsp;&nbsp;&nbsp;&nbsp;Improve layout for various screen sizes, mobile and tablets.
- - ✅ Home (`/`)
-  - [ ] Forest Cup (`/forest-cup`)
+  - ✅ Home (`/`)
+  - ⚠ Forest Cup (`/forest-cup`)
     - [ ] FC 2020 (`/forest-cup/2020`)
     - [ ] FC 2022 (`/forest-cup/2022`)
     - [ ] FC 2024 (`/forest-cup/2024`)
   - [ ] Members (`/members`)
-    - [ ] Member detail (`/members/[slug]`)
+    - ✅ Member detail (`/members/[slug]`)
   - [ ] Ranking (`/ranking`)
   - [ ] Sponsor (`/sponsor`)
 

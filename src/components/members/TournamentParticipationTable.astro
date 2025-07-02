@@ -40,68 +40,70 @@ function getTeamFinalResultInTournament(tournamentId: number) {
 ---
 
 <div class="bg-green-950/80 shadow-lg rounded-lg p-6 mb-8">
-  <h2 class="text-2xl font-semibold mb-4 border-b pb-2 border-green-600">{type === 'forest-cup' ? 'Forest Cup' : 'Champions League'} Participations</h2>
-  <table class="w-full text-sm text-center table-auto border-collapse">
-    <thead class="bg-green-800 text-white">
-      <tr>
-        <th class="px-2 py-2 rounded-tl-lg" title="Edition">Edition</th>
-        <th class="px-2 py-2" title="Final match">Result</th>
-        <th class="px-2 py-2" title="Position">Pos</th>
-        <th class="px-2 py-2" title="Matches Played">Pld</th>
-        <th class="px-2 py-2" title="Wins">W</th>
-        <th class="px-2 py-2" title="Draws">D</th>
-        <th class="px-2 py-2" title="Losses">L</th>
-        <th class="px-2 py-2" title="Goals for">GF</th>
-        <th class="px-2 py-2" title="Goals against">GA</th>
-        <th class="px-2 py-2" title="Goal difference">GD</th>
-        <th class="px-2 py-2" title="Points">Pts</th>
-        <th class="px-2 py-2" title="Performance">PR</th>
-        <th class="px-2 py-2 rounded-tr-lg" title="Top scorer">Top Scorer</th>
-      </tr>
-    </thead>
-    <tbody class="">
-      {allEditions.sort((b, a) => b.data.edition - a.data.edition).map(t => {
-        const didParticipate = t.data.participants.includes(memberName);
-        const hostImage = getMemberImage(t.data.host, members);
-
-        if (!didParticipate) {
+<h2 class="text-2xl font-semibold mb-4 border-b pb-2 border-green-600">{type === 'forest-cup' ? 'Forest Cup' : 'Champions League'} Participations</h2>
+  <div class="overflow-x-auto">
+    <table class="w-full text-sm text-center table-auto border-collapse">
+      <thead class="bg-green-800 text-white">
+        <tr>
+          <th class="px-2 py-2 rounded-tl-lg" title="Edition">Edition</th>
+          <th class="px-2 py-2" title="Final match">Result</th>
+          <th class="px-2 py-2" title="Position">Pos</th>
+          <th class="px-2 py-2" title="Matches Played">Pld</th>
+          <th class="px-2 py-2" title="Wins">W</th>
+          <th class="px-2 py-2" title="Draws">D</th>
+          <th class="px-2 py-2" title="Losses">L</th>
+          <th class="px-2 py-2" title="Goals for">GF</th>
+          <th class="px-2 py-2" title="Goals against">GA</th>
+          <th class="px-2 py-2" title="Goal difference">GD</th>
+          <th class="px-2 py-2" title="Points">Pts</th>
+          <th class="px-2 py-2" title="Performance">PR</th>
+          <th class="px-2 py-2 rounded-tr-lg" title="Top scorer">Top Scorer</th>
+        </tr>
+      </thead>
+      <tbody class="">
+        {allEditions.sort((b, a) => b.data.edition - a.data.edition).map(t => {
+          const didParticipate = t.data.participants.includes(memberName);
+          const hostImage = getMemberImage(t.data.host, members);
+  
+          if (!didParticipate) {
+            return (
+              <tr class="border-b border-green-700 bg-red-900/10 text-red-300 italic">
+                <td class="px-2 py-2 flex items-center gap-1 justify-center">
+                  {hostImage && <a  href={`/members/${members.find(m => m.data.name === t.data.host)?.slug}`}><Image src={hostImage} alt={t.data.host} width={20} height={14} class="rounded-sm" loading={'lazy'} quality={10} format={'webp'} /></a>}
+                  <a href={`/${type}/${t.data.edition}`} class="hover:underline">{t.data.edition}</a>
+                </td>
+                <td colspan="12" class="py-2">Didn't participate</td>
+              </tr>
+            );
+          }
+  
+          const stats = getStatsForTournament(t.data.id);
+          const topScorer = getTopScorerInTournament(t.data.id);
+          const hostClass = t.data.host === memberName ? 'text-amber-400 font-bold' : '';
+          const position = getTeamPositionInTournamentById(t.data.id);
+          const resultClass =  position === 1 ? 'text-amber-400 font-bold' : position === 2 ? 'text-sky-300 font-bold' : position === 3 ? 'text-amber-600 font-bold' : '';
           return (
-            <tr class="border-b border-green-700 bg-red-900/10 text-red-300 italic">
-              <td class="px-2 py-2 flex items-center gap-1 justify-center">
-                {hostImage && <a  href={`/members/${members.find(m => m.data.name === t.data.host)?.slug}`}><Image src={hostImage} alt={t.data.host} width={20} height={14} class="rounded-sm" loading={'lazy'} quality={10} format={'webp'} /></a>}
-                <a href={`/${type}/${t.data.edition}`} class="hover:underline">{t.data.edition}</a>
+            <tr class="border-b border-green-700 hover:bg-green-900/20">
+              <td class={`px-2 py-2 flex items-center gap-1 justify-center ${hostClass}`}>
+                {hostImage && <a href={`/members/${members.find(m => m.data.name === t.data.host)?.slug}`}><Image src={hostImage} alt={t.data.host} width={20} height={14} class="rounded-sm" quality={10} format={'webp'} /></a>}
+                <a href={`/${type}/${t.data.edition}`} class={`hover:underline`}>{t.data.edition}</a>
               </td>
-              <td colspan="12" class="py-2">Didn't participate</td>
+              <td class={`px-2 py-2 ${resultClass}`}>{getTeamFinalResultInTournament(t.data.id)}</td> {/* Placeholder para resultado final */}
+              <td class="px-2 py-2 font-black">{position}°</td> {/* Placeholder para posición */}
+              <td class="px-2 py-2">{stats.played}</td>
+              <td class="px-2 py-2">{stats.won}</td>
+              <td class="px-2 py-2">{stats.draw}</td>
+              <td class="px-2 py-2">{stats.lost}</td>
+              <td class="px-2 py-2">{stats.goalsFor}</td>
+              <td class="px-2 py-2">{stats.goalsAgainst}</td>
+              <td class="px-2 py-2">{stats.gd}</td>
+              <td class="px-2 py-2 font-bold">{stats.points}</td>
+              <td class="px-2 py-2">{stats.pr}%</td>
+              <td class="px-2 py-2 truncate">{topScorer}</td>
             </tr>
           );
-        }
-
-        const stats = getStatsForTournament(t.data.id);
-        const topScorer = getTopScorerInTournament(t.data.id);
-        const hostClass = t.data.host === memberName ? 'text-amber-400 font-bold' : '';
-        const position = getTeamPositionInTournamentById(t.data.id);
-        const resultClass =  position === 1 ? 'text-amber-400 font-bold' : position === 2 ? 'text-sky-300 font-bold' : position === 3 ? 'text-amber-600 font-bold' : '';
-        return (
-          <tr class="border-b border-green-700 hover:bg-green-900/20">
-            <td class={`px-2 py-2 flex items-center gap-1 justify-center ${hostClass}`}>
-              {hostImage && <a href={`/members/${members.find(m => m.data.name === t.data.host)?.slug}`}><Image src={hostImage} alt={t.data.host} width={20} height={14} class="rounded-sm" quality={10} format={'webp'} /></a>}
-              <a href={`/${type}/${t.data.edition}`} class={`hover:underline`}>{t.data.edition}</a>
-            </td>
-            <td class={`px-2 py-2 ${resultClass}`}>{getTeamFinalResultInTournament(t.data.id)}</td> {/* Placeholder para resultado final */}
-            <td class="px-2 py-2 font-black">{position}°</td> {/* Placeholder para posición */}
-            <td class="px-2 py-2">{stats.played}</td>
-            <td class="px-2 py-2">{stats.won}</td>
-            <td class="px-2 py-2">{stats.draw}</td>
-            <td class="px-2 py-2">{stats.lost}</td>
-            <td class="px-2 py-2">{stats.goalsFor}</td>
-            <td class="px-2 py-2">{stats.goalsAgainst}</td>
-            <td class="px-2 py-2">{stats.gd}</td>
-            <td class="px-2 py-2 font-bold">{stats.points}</td>
-            <td class="px-2 py-2">{stats.pr}</td>
-            <td class="px-2 py-2">{topScorer}</td>
-          </tr>
-        );
-      })}
-    </tbody>
-  </table>
+        })}
+      </tbody>
+    </table>
+  </div>
 </div>

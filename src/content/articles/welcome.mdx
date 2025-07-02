@@ -1,27 +1,38 @@
 ---
 title: "Welcome to the new FFC website"
 image: "/src/assets/images/nysnub3.png"
-date: 2025-06-30
+date: 2025-04-30
 summary: "We're launching our new website! Discover all the news and features of the new Forestian Football Confederation page."
-tags:
-  - news
-  - website
-  - launch
+tags: [news, website, launch]
 ---
+import { Image } from 'astro:assets';
+import Banner from '@images/articles/welcome/banner.png';
 
 # Welcome to the new FFC website!
 
-![FFC Stadium panoramic view with fans celebrating](/src/images/articles/welcome/banner.png)
-*The iconic FFC Stadium filled with passionate Forestian football fans during the championship final*
+<div class="flex justify-center mb-6">
+  <Image src={Banner} alt="FFC fans" class="rounded-xl shadow-lg max-h-72 w-full object-cover" quality={40} format="webp" />
+</div>
+<p class="text-center text-green-200 italic mb-8">
+  The iconic FFC Stadium filled with passionate Forestian football fans during the championship final
+</p>
 
 We are thrilled to present the brand new official website of the Forestian Football Confederation. This digital home has been completely redesigned to bring you closer to the heart of Forestian football like never before.
+
+---
 
 ## What you'll find here
 
 Our new platform is your gateway to everything related to Forestian football. Here you'll discover the latest news, comprehensive match results, detailed statistics, tournament information, and so much more.
 
-![Modern website interface showing match results and league tables]()
-*Clean, intuitive design showcasing live scores, league standings, and upcoming fixtures*
+<div class="flex justify-center my-8">
+  <Image src={Banner} alt="Modern website interface showing match results and league tables" class="rounded shadow-md max-w-2xl" quality={30} format="webp" />
+</div>
+<p class="text-center text-green-200 italic mb-8">
+  Clean, intuitive design showcasing live scores, league standings, and upcoming fixtures
+</p>
+
+---
 
 ### Enhanced Features
 
@@ -30,15 +41,27 @@ Our new platform is your gateway to everything related to Forestian football. He
 - **Interactive Tournament Brackets**: Follow the progression of our championships with dynamic visual displays
 - **Team Information Hub**: Complete profiles of all member clubs with histories, rosters, and achievements
 
-![Collage of diverse Forestian football teams in their distinctive uniforms]()
-*Representatives from the various member clubs of the FFC, showcasing the diversity and unity of Forestian football*
+<div class="flex justify-center my-8">
+  <Image src={Banner} alt="Collage of diverse Forestian football teams in their distinctive uniforms" class="rounded shadow-md max-w-xl" quality={30} format="webp" />
+</div>
+<p class="text-center text-green-200 italic mb-8">
+  Representatives from the various member clubs of the FFC, showcasing the diversity and unity of Forestian football
+</p>
+
+---
 
 ## Explore and Connect
 
 Navigate through our intuitive sections, get to know our federation members, and stay up-to-date with all the latest developments in Forestian football. Whether you're a longtime supporter or new to our community, this website is designed to enhance your connection to the beautiful game as played in our region.
 
-![Group photo of FFC officials and board members at the website launch event]()
-*FFC leadership team celebrating the official launch of the new digital platform*
+<div class="flex justify-center my-8">
+  <Image src={Banner} alt="Group photo of FFC officials and board members at the website launch event" class="rounded shadow-md max-w-xl" quality={30} format="webp" />
+</div>
+<p class="text-center text-green-200 italic mb-8">
+  FFC leadership team celebrating the official launch of the new digital platform
+</p>
+
+---
 
 ## Join Our Digital Community
 

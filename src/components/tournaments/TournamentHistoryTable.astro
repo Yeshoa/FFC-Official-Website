@@ -91,9 +91,9 @@ function getThirdPlaceResult(tournament: CollectionEntry<'tournaments'>): string
 }
 ---
 
-<div class="p-6">
-  <h2 class="text-4xl text-center font-bold mb-4 pb-2">{type === 'forest-cup' ? 'Forest Cup' : 'Forestian Champions League'} History</h2>
-  <table class="w-full text-md text-center border-collapse rounded-2xl table-fixed">
+<h2 class="text-4xl text-center font-bold py-6">{type === 'forest-cup' ? 'Forest Cup' : 'Forestian Champions League'} History</h2>
+<div class="pb-6 overflow-x-auto">
+  <table class="min-w-[1000px] w-full text-md text-center border-collapse rounded-2xl table-fixed">
     <thead class="bg-green-800 text-white">
       <tr>
         <th class="px-2 py-2 rounded-tl-lg w-[7%]">Edition</th>
@@ -101,7 +101,7 @@ function getThirdPlaceResult(tournament: CollectionEntry<'tournaments'>): string
         <th class="px-2 py-2 w-[5%]">Result</th>
         <th class="px-2 py-2 w-[19%]">Runner-Up</th>
         <th class="px-2 py-2 w-[19%]">Third</th>
-        <th class="px-2 py-2 w-[5%]">Result</th>
+        <!-- <th class="px-2 py-2 w-[5%]">Result</th> -->
         <th class="px-2 py-2 w-[19%]">Fourth</th>
         <th class="px-2 py-2 rounded-tr-lg w-[7%]">Teams</th>
       </tr>
@@ -133,7 +133,7 @@ function getThirdPlaceResult(tournament: CollectionEntry<'tournaments'>): string
               {champion && (
                 <div class="flex items-center gap-1 justify-center">
                   {championImage && <a href={`/members/${members.find(m => m.data.name === champion)?.slug}`}><Image src={championImage} alt={champion} width={28} height={20} class="rounded-sm object-cover max-h-6" loading={'lazy'} quality={10} format={'webp'} /></a>}
-                  <a href={`/members/${members.find(m => m.data.name === champion)?.slug}`} class="hover:underline text-yellow-400">{champion}</a>
+                  <a href={`/members/${members.find(m => m.data.name === champion)?.slug}`} class="hover:underline truncate text-yellow-400">{champion}</a>
                 </div>
               )}
             </td>
@@ -144,7 +144,7 @@ function getThirdPlaceResult(tournament: CollectionEntry<'tournaments'>): string
               {runnerUp && (
                 <div class="flex items-center gap-1 justify-center">
                   {runnerUpImage && <a href={`/members/${members.find(m => m.data.name === runnerUp)?.slug}`}><Image src={runnerUpImage} alt={runnerUp} width={28} height={20} class="rounded-sm  object-cover max-h-6" loading={'lazy'} quality={10} format={'webp'} /></a>}
-                  <a href={`/members/${members.find(m => m.data.name === runnerUp)?.slug}`} class="hover:underline">{runnerUp}</a>
+                  <a href={`/members/${members.find(m => m.data.name === runnerUp)?.slug}`} class="hover:underline truncate">{runnerUp}</a>
                 </div>
               )}
             </td>
@@ -153,18 +153,18 @@ function getThirdPlaceResult(tournament: CollectionEntry<'tournaments'>): string
               {third && (
                 <div class="flex items-center gap-1 justify-center">
                   {thirdImage && <a href={`/members/${members.find(m => m.data.name === third)?.slug}`}><Image src={thirdImage} alt={third} width={28} height={20} class="rounded-sm  object-cover max-h-6" loading={'lazy'} quality={10} format={'webp'} /></a>}
-                  <a href={`/members/${members.find(m => m.data.name === third)?.slug}`} class="hover:underline">{third}</a>
+                  <a href={`/members/${members.find(m => m.data.name === third)?.slug}`} class="hover:underline truncate">{third}</a>
                 </div>
               )}
             </td>
             
-            <td class={`px-2 py-3 ${thirdPlaceResult === "N/A" ? "text-gray-300 italic font-extralight" : "font-bold"}`}>{thirdPlaceResult}</td>
+            {/* <td class={`px-2 py-3 ${thirdPlaceResult === "N/A" ? "text-gray-300 italic font-extralight" : "font-bold"}`}>{thirdPlaceResult}</td> */}
             
             <td class="px-2 py-3">
               {fourth && (
                 <div class="flex items-center gap-1 justify-center">
                   {fourthImage && <a href={`/members/${members.find(m => m.data.name === fourth)?.slug}`}><Image src={fourthImage} alt={fourth} width={28} height={20} class="rounded-sm  object-cover max-h-6" loading={'lazy'} quality={10} format={'webp'} /></a>}
-                  <a href={`/members/${members.find(m => m.data.name === fourth)?.slug}`} class="hover:underline">{fourth}</a>
+                  <a href={`/members/${members.find(m => m.data.name === fourth)?.slug}`} class="hover:underline truncate">{fourth}</a>
                 </div>
               )}
             </td>

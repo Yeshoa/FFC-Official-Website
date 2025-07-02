@@ -9,6 +9,7 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/mdx": "^4.3.0",
     "@astrojs/netlify": "^6.3.0",
     "@astrojs/react": "^4.2.4",
     "@n8n/chat": "^0.45.0",

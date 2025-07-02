@@ -102,71 +102,30 @@ const winner = getMatchWinner(match);
     <div class="grid grid-cols-7 items-start w-full gap-2 mt-1 text-xs md:text-sm">
       {/* Goles Equipo 1 */}
       <div class="flex flex-col w-full col-span-3 items-end justify-start h-full text-right pr-1">
-      {goals.filter(g => g.team === match.team1).length > 0 ? (
-        Object.entries(
+        {goals.filter(g => g.team === match.team1).length > 0 ? (
           goals
             .filter(g => g.team === match.team1)
-            .reduce((acc, g) => {
-              const key = g.player; // Agrupamos solo por jugador
-
-              if (!acc[key]) {
-                acc[key] = {
-                  player: g.player,
-                  // Array para almacenar objetos de gol {minute, aggregate}
-                  goalEvents: [],
-                  penalty: false, // Bandera general para el jugador
-                  ownGoal: false  // Bandera general para el jugador
-                };
-              }
-
-              // Añadimos el objeto con minuto y agregado juntos
-              acc[key].goalEvents.push({ minute: g.minute, aggregate: g.aggregate });
-
-              // Actualizamos las banderas generales si algún gol lo fue
-              acc[key].penalty = acc[key].penalty || g.penalty === true;
-              acc[key].ownGoal = acc[key].ownGoal || g.ownGoal === true;
-
-              // Opcional: Ordenar los goles por minuto dentro del reduce
-              // acc[key].goalEvents.sort((a, b) => {
-              //   const minuteA = a.minute + (a.aggregate || 0) / 100; // Simple way to sort including aggregate
-              //   const minuteB = b.minute + (b.aggregate || 0) / 100;
-              //   return minuteA - minuteB;
-              // });
-
-
-              return acc;
-            }, {})
-        ).map(([key, goalGroup]) => (
-          <div key={key} class="flex items-center gap-1.5 justify-end">
-            <span class="truncate" title={goalGroup.player}>{goalGroup.player}</span>
-            <Image src={GoalIcon} alt="Goal" class="w-3 h-3 flex-shrink-0" loading={"lazy"} format="webp" quality={1} />
-            <span>
-              {goalGroup.goalEvents
-                // Opcional: Ordenar aquí si no se hizo en el reduce
-                .sort((a, b) => {
-                  const minuteA = a.minute + (a.aggregate || 0) / 100; // Simple way to sort including aggregate
-                  const minuteB = b.minute + (b.aggregate || 0) / 100;
-                  return minuteA - minuteB;
-                })
-                .map((event, idx) => (
-                // Usar una clave más única por si acaso
-                <span key={`${event.minute}-${event.aggregate || 'n'}-${idx}`}>
-                  {/* Mostrar minuto y su agregado asociado */}
-                  {event.minute}{event.aggregate !== undefined ? `+${event.aggregate}` : ""}'
-                  {/* Añadir coma si no es el último */}
-                  {idx < goalGroup.goalEvents.length - 1 ? ", " : ""}
+            .sort((a, b) => {
+              // Ordenar por minuto + tiempo agregado
+              const minuteA = a.minute + (a.aggregate || 0) / 100;
+              const minuteB = b.minute + (b.aggregate || 0) / 100;
+              return minuteA - minuteB;
+            })
+            .map((goal, idx) => (
+              <div key={`team1-goal-${idx}-${goal.player}-${goal.minute}`} class="flex items-center gap-1.5 justify-end">
+                <span class="truncate" title={goal.player}>{goal.player}</span>
+                <Image src={GoalIcon} alt="Goal" class="w-3 h-3 flex-shrink-0" loading={"lazy"} format="webp" quality={1} />
+                <span>
+                  {goal.minute}{goal.aggregate !== undefined ? `+${goal.aggregate}` : ""}'
+                  {goal.penalty ? " (P)" : ""}
+                  {goal.ownGoal ? " (OG)" : ""}
                 </span>
-              ))}
-              {/* Mostrar banderas P/OG basadas en el grupo del jugador */}
-              {goalGroup.penalty ? " (P)" : ""}
-              {goalGroup.ownGoal ? " (OG)" : ""}
-            </span>
-          </div>
-        ))
-      ) : (
-        <span class="text-gray-500 italic text-xs"></span>
-      )}
-    </div>
+              </div>
+            ))
+        ) : (
+          <span class="text-gray-500 italic text-xs"></span>
+        )}
+      </div>
 
       {/* Enlace Detalles/Video */}
       <div class="flex justify-center items-start w-full h-full col-span-1">
@@ -182,67 +141,25 @@ const winner = getMatchWinner(match);
       {/* Goles Equipo 2 */}
       <div class="flex flex-col w-full col-span-3 justify-start h-full text-left pl-1">
         {goals.filter(g => g.team === match.team2).length > 0 ? (
-          // Agrupamos los goles por jugador
-          Object.entries(
           goals
             .filter(g => g.team === match.team2)
-            .reduce((acc, g) => {
-              const key = g.player; // Agrupamos solo por jugador
-
-              if (!acc[key]) {
-                acc[key] = {
-                  player: g.player,
-                  // Array para almacenar objetos de gol {minute, aggregate}
-                  goalEvents: [],
-                  penalty: false, // Bandera general para el jugador
-                  ownGoal: false  // Bandera general para el jugador
-                };
-              }
-
-              // Añadimos el objeto con minuto y agregado juntos
-              acc[key].goalEvents.push({ minute: g.minute, aggregate: g.aggregate });
-
-              // Actualizamos las banderas generales si algún gol lo fue
-              acc[key].penalty = acc[key].penalty || g.penalty === true;
-              acc[key].ownGoal = acc[key].ownGoal || g.ownGoal === true;
-
-              // Opcional: Ordenar los goles por minuto dentro del reduce
-              // acc[key].goalEvents.sort((a, b) => {
-              //   const minuteA = a.minute + (a.aggregate || 0) / 100; // Simple way to sort including aggregate
-              //   const minuteB = b.minute + (b.aggregate || 0) / 100;
-              //   return minuteA - minuteB;
-              // });
-
-
-              return acc;
-            }, {})
-          ).map(([key, goalGroup]) => (
-            <div key={key} class="flex items-center gap-1.5 justify-start">
-              <span class="truncate" title={goalGroup.player}>{goalGroup.player}</span>
-              <Image src={GoalIcon} alt="Goal" class="w-3 h-3 flex-shrink-0" loading={"lazy"} format="webp" quality={1} />
-              <span>
-                {goalGroup.goalEvents
-                  // Opcional: Ordenar aquí si no se hizo en el reduce
-                  .sort((a, b) => {
-                    const minuteA = a.minute + (a.aggregate || 0) / 100; // Simple way to sort including aggregate
-                    const minuteB = b.minute + (b.aggregate || 0) / 100;
-                    return minuteA - minuteB;
-                  })
-                  .map((event, idx) => (
-                  // Usar una clave más única por si acaso
-                  <span key={`${event.minute}-${event.aggregate || 'n'}-${idx}`}>
-                    {/* Mostrar minuto y su agregado asociado */}
-                    {event.minute}{event.aggregate !== undefined ? `+${event.aggregate}` : ""}'
-                    {/* Añadir coma si no es el último */}
-                    {idx < goalGroup.goalEvents.length - 1 ? ", " : ""}
-                  </span>
-                ))}
-                {/* Mostrar banderas P/OG basadas en el grupo del jugador */}
-                {goalGroup.penalty ? " (P)" : ""}
-                {goalGroup.ownGoal ? " (OG)" : ""}
-              </span>
-            </div>
-          ))
+            .sort((a, b) => {
+              // Ordenar por minuto + tiempo agregado
+              const minuteA = a.minute + (a.aggregate || 0) / 100;
+              const minuteB = b.minute + (b.aggregate || 0) / 100;
+              return minuteA - minuteB;
+            })
+            .map((goal, idx) => (
+              <div key={`team2-goal-${idx}-${goal.player}-${goal.minute}`} class="flex items-center gap-1.5 justify-start">
+                <span class="truncate" title={goal.player}>{goal.player}</span>
+                <Image src={GoalIcon} alt="Goal" class="w-3 h-3 flex-shrink-0" loading={"lazy"} format="webp" quality={1} />
+                <span>
+                  {goal.minute}{goal.aggregate !== undefined ? `+${goal.aggregate}` : ""}'
+                  {goal.penalty ? " (P)" : ""}
+                  {goal.ownGoal ? " (OG)" : ""}
+                </span>
+              </div>
+            ))
         ) : (
           <span class="text-gray-500 italic text-xs"></span>
         )}

@@ -134,12 +134,12 @@ const sortedStats = Object.values(teamStats).filter(stat => stat.verified).sort(
 });
 ---
 
-<div class="container mx-auto p-6 flex flex-col justify-center items-center">
-  <h1 class="text-3xl font-bold mb-6">Historical Table</h1>
-  <table class="min-w-full w-full table-auto border-collapse text-sm">
+<h1 class="text-3xl font-bold py-6">Historical Table</h1>
+<div class="flex flex-col overflow-x-auto md:overflow-x-visible w-full">
+  <table class="min-w-[768px] md:min-w-full w-full table-auto border-collapse text-sm">
     <thead class="bg-green-800 text-white">
       <tr>
-        <th class="px-4 py-2 text-center rounded-tl-lg" title="Position">Pos</th>
+        <th class="px-4 py-2 text-center rounded-tl-lg" title="Position">°</th>
         <th class="px-2 py-2 text-center"></th>
         <th class="px-2 py-2 text-left" title="Team">Team</th>
         <th class="px-2 py-2 text-center" title="Tournaments Played">TP</th>
@@ -158,16 +158,15 @@ const sortedStats = Object.values(teamStats).filter(stat => stat.verified).sort(
     <tbody class=" text-center">
       {sortedStats.map((team, index) => (
         <tr class="border-b border-green-700 hover:bg-green-900/30 transition duration-150">
-          <td class="px-2 py-2">{index + 1}</td>
+          <td class="px-2 py-2">{index + 1}°</td>
           <td class="px-2 py-2">
             <Image src={getMemberImage(team.name, members)} alt={team.name} 
             width={42} 
-            height={42}
-            class="h-5 w-14 object-cover rounded inline-block 2xl:h-6 2xl:w-9" 
+            class="h-5 max-w-9 object-cover rounded inline-block 2xl:h-6 2xl:w-9" 
             loading={"lazy"} 
             quality={80} format="webp"/>
           </td>
-          <td class="px-2 py-2 text-left"><a href={`/members/${members.find(m => m.data.name === team.name)?.slug}`} class="font-semibold hover:underline">{team.name}</a></td>
+          <td class="px-2 py-2 text-left"><a href={`/members/${members.find(m => m.data.name === team.name)?.slug}`} class="font-semibold hover:underline truncate">{team.name}</a></td>
           <td class="px-2 py-2 text-green-200">{team.tournamentsPlayed.size}</td>
           <td class="px-2 py-2 font-bold">{team.totalPoints}{team.additionalPoints > 0 && '*'}</td>
           <td class="px-2 py-2 text-green-200">{team.played}</td>
@@ -178,7 +177,7 @@ const sortedStats = Object.values(teamStats).filter(stat => stat.verified).sort(
           <td class="px-2 py-2 text-green-200">{team.goalsAgainst}</td>
           <td class="px-2 py-2 text-green-200">{team.goalsFor - team.goalsAgainst}</td>
           {/* <td class="px-2 py-2">{team.tournamentsWon}</td> */}
-          <td class="px-2 py-2">{team.performance.toFixed(2)}</td>
+          <td class="px-2 py-2">{team.performance.toFixed(2)}%</td>
         </tr>
       ))}
     </tbody>

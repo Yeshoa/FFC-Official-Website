@@ -129,126 +129,125 @@ const memberTotalScore = getMemberTotalScore(member);
 const hasContent = member?.body && member.body.trim() !== '';
 ---
 <App title={`FFC - ${memberData.name}`}>
-  <div class="container mx-auto px-4 py-8">
+  <div class="md:container mx-auto px-4 py-8">
     {/* Profile*/}
-    <div class="bg-green-950/80 shadow-lg rounded-lg p-6 mb-8 flex flex-col md:flex-row items-center gap-6">
-      {/* Logos and Info */}
-      <div class="flex flex-col items-center md:items-start gap-2">
-        <div class="flex gap-4 items-center">
-          {flagImage && (
+    <div class="bg-green-950/80 shadow-lg rounded-lg p-6 mb-8">
+      <h1 class="text-3xl md:text-4xl font-bold text-white text-center md:text-left flex items-center mb-3 border-b border-green-600 pb-2">
+        {memberData.name}
+      </h1>
+      <div class="flex flex-col md:flex-row items-center gap-6">
+        {/* Logos and Info */}
+        <div class="flex flex-col items-center md:items-start gap-2">
+          <!-- Nombre -->
+          <div class="flex gap-4 items-center">
+            {flagImage && (
+              <Image
+                src={flagImage}
+                alt={`${memberData.name}'s flag'`}
+                class="h-24 w-auto md:h-20 object-contain rounded border border-green-700"
+                width={128}
+                height={128}
+                quality={50}
+                format="webp"
+                loading="eager"
+              />
+            )}
+          </div>
+          <!-- Código y puntos -->
+          <div class="flex justify-center md:justify-start items-center md:items-start text-center md:text-left w-full">
+            <p class="text-lg text-gray-400">({memberData.code})</p>
+            {memberData.verified && (
+              <div class="ml-1 relative group">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  class="text-green-400"
+                  title="This member is verified"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                  <path d="M12.01 2.011a3.2 3.2 0 0 1 2.113 .797l.154 .145l.698 .698a1.2 1.2 0 0 0 .71 .341l.135 .008h1a3.2 3.2 0 0 1 3.195 3.018l.005 .182v1c0 .27 .092 .533 .258 .743l.09 .1l.697 .698a3.2 3.2 0 0 1 .147 4.382l-.145 .154l-.698 .698a1.2 1.2 0 0 0 -.341 .71l-.008 .135v1a3.2 3.2 0 0 1 -3.018 3.195l-.182 .005h-1a1.2 1.2 0 0 0 -.743 .258l-.1 .09l-.698 .697a3.2 3.2 0 0 1 -4.382 .147l-.154 -.145l-.698 -.698a1.2 1.2 0 0 0 -.71 -.341l-.135 -.008h-1a3.2 3.2 0 0 1 -3.195 -3.018l-.005 -.182v-1a1.2 1.2 0 0 0 -.258 -.743l-.09 -.1l-.697 -.698a3.2 3.2 0 0 1 -.147 -4.382l.145 -.154l.698 -.698a1.2 1.2 0 0 0 .341 -.71l.008 -.135v-1l.005 -.182a3.2 3.2 0 0 1 3.013 -3.013l.182 -.005h1a1.2 1.2 0 0 0 .743 -.258l.1 -.09l.698 -.697a3.2 3.2 0 0 1 2.269 -.944zm3.697 7.282a1 1 0 0 0 -1.414 0l-3.293 3.292l-1.293 -1.292l-.094 -.083a1 1 0 0 0 -1.32 1.497l2 2l.094 .083a1 1 0 0 0 1.32 -.083l4 -4l.083 -.094a1 1 0 0 0 -.083 -1.32z"/>
+                </svg>
+                <div class="absolute left-1/2 -translate-x-1/2 top-full mt-1 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-green-800 text-white text-xs rounded px-3 py-1 shadow-lg whitespace-nowrap">
+                  This member is verified
+                </div>
+              </div>
+            )}
+          </div>
+          
+          <!-- Ranking (abajo del todo) -->
+          <div class="text-center text-left w-full">
+            <p class="text-sm text-gray-400">Rank</p>
+            <div class="flex items-end justify-between w-full">
+              <p class={`text-4xl font-bold 
+              ${memberRank === 1 ? 'text-amber-400' 
+              : memberRank === 2 ? 'text-slate-300' 
+              : memberRank === 3 ? 'text-yellow-600' 
+              : 'text-green-400'} 
+              `}>{!member.data.verified ? 'N/A' : memberRank}°</p>
+              <p class="text-2xl font-semibold text-green-300">{memberTotalScore} Pts.</p>
+            </div>
+          </div>
+        </div>
+        <div class="flex flex-col items-center md:items-start gap-4">
+          {logoImage && (
             <Image
-              src={flagImage}
-              alt={`${memberData.name}'s flag'`}
-              class="h-16 w-auto md:h-20 object-contain rounded border border-green-700"
-              width={128}
-              height={128}
+              src={logoImage}
+              alt={`${memberData.federation || memberData.name}'s Logo'`}
+              class="w-64 h-auto md:w-48 object-contain rounded"
+              width={256}
+              height={256}
+              loading="eager"
               quality={50}
               format="webp"
-              loading="eager"
             />
           )}
         </div>
-        
-        <!-- Nombre -->
-        <h1 class="text-3xl md:text-4xl font-bold text-white text-center md:text-left break-words max-w-56 flex items-center gap-2">
-          {memberData.name}
-        </h1>
-        
-        
-        <!-- Código y puntos -->
-        <div class="flex flex-col md:flex-row items-center md:items-start text-center md:text-left w-full">
-          <p class="text-lg text-gray-400">({memberData.code})</p>
-          {memberData.verified && (
-            <div class="ml-1 relative group">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                class="text-green-400"
-                title="This member is verified"
-              >
-                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                <path d="M12.01 2.011a3.2 3.2 0 0 1 2.113 .797l.154 .145l.698 .698a1.2 1.2 0 0 0 .71 .341l.135 .008h1a3.2 3.2 0 0 1 3.195 3.018l.005 .182v1c0 .27 .092 .533 .258 .743l.09 .1l.697 .698a3.2 3.2 0 0 1 .147 4.382l-.145 .154l-.698 .698a1.2 1.2 0 0 0 -.341 .71l-.008 .135v1a3.2 3.2 0 0 1 -3.018 3.195l-.182 .005h-1a1.2 1.2 0 0 0 -.743 .258l-.1 .09l-.698 .697a3.2 3.2 0 0 1 -4.382 .147l-.154 -.145l-.698 -.698a1.2 1.2 0 0 0 -.71 -.341l-.135 -.008h-1a3.2 3.2 0 0 1 -3.195 -3.018l-.005 -.182v-1a1.2 1.2 0 0 0 -.258 -.743l-.09 -.1l-.697 -.698a3.2 3.2 0 0 1 -.147 -4.382l.145 -.154l.698 -.698a1.2 1.2 0 0 0 .341 -.71l.008 -.135v-1l.005 -.182a3.2 3.2 0 0 1 3.013 -3.013l.182 -.005h1a1.2 1.2 0 0 0 .743 -.258l.1 -.09l.698 -.697a3.2 3.2 0 0 1 2.269 -.944zm3.697 7.282a1 1 0 0 0 -1.414 0l-3.293 3.292l-1.293 -1.292l-.094 -.083a1 1 0 0 0 -1.32 1.497l2 2l.094 .083a1 1 0 0 0 1.32 -.083l4 -4l.083 -.094a1 1 0 0 0 -.083 -1.32z"/>
-              </svg>
-              <div class="absolute left-1/2 -translate-x-1/2 top-full mt-1 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-green-800 text-white text-xs rounded px-3 py-1 shadow-lg whitespace-nowrap">
-                This member is verified
-              </div>
+        {/* Details */}
+        <div class="flex-grow grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm md:text-base w-full md:w-auto">
+          {/* If feddispatch is present, use anchor */}
+          {memberData.feddispatch ? (
+            <a
+              href={memberData.feddispatch}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="bg-gradient-to-br from-green-800 via-green-900 to-green-950 hover:bg-gradient-to-br hover:from-green-700 hover:via-green-800 hover:to-green-900 p-3 rounded-md"
+            >
+              {memberData.federation ? (
+                <p class="text-white font-bold">{memberData.federation}</p>
+              ) : (
+                <span class="ml-1 text-gray-400 italic">This nation doesn't have a federation</span>
+              )}
+            </a>
+          ) : (
+            <div class="bg-gradient-to-br from-green-800 via-green-900 to-green-950 p-3 rounded-md">
+              {memberData.federation ? (
+                <span class="ml-1 text-gray-200">{memberData.federation}</span>
+              ) : (
+                <span class="ml-1 text-gray-400 italic">This nation doesn't have a federation</span>
+              )}
             </div>
           )}
-        </div>
-        
-        <!-- Ranking (abajo del todo) -->
-        <div class="text-center md:text-left w-full">
-          <p class="text-sm text-gray-400">Rank</p>
-          <div class="flex items-end justify-between w-full">
-            <p class={`text-4xl font-bold 
-            ${memberRank === 1 ? 'text-amber-400' 
-            : memberRank === 2 ? 'text-slate-300' 
-            : memberRank === 3 ? 'text-yellow-600' 
-            : 'text-green-400'} 
-            `}>{!member.data.verified ? 'N/A' : memberRank}°</p>
-            <p class="text-2xl font-semibold text-green-300">{memberTotalScore} Pts.</p>
-          </div>
-        </div>
-      </div>
-      <div class="flex flex-col items-center md:items-start gap-4">
-        {logoImage && (
-          <Image
-            src={logoImage}
-            alt={`${memberData.federation || memberData.name}'s Logo'`}
-            class="w-16 h-auto md:w-48 object-contain rounded"
-            width={256}
-            height={256}
-            loading="eager"
-            quality={50}
-            format="webp"
-          />
-        )}
-      </div>
-      {/* Details */}
-      <div class="flex-grow grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm md:text-base">
-        {/* If feddispatch is present, use anchor */}
-        {memberData.feddispatch ? (
-          <a
-            href={memberData.feddispatch}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="bg-gradient-to-br from-green-800 via-green-900 to-green-950 hover:bg-gradient-to-br hover:from-green-700 hover:via-green-800 hover:to-green-900 p-3 rounded-md"
-          >
-            {memberData.federation ? (
-              <p class="text-white font-bold">{memberData.federation}</p>
-            ) : (
-              <span class="ml-1 text-gray-400 italic">This nation doesn't have a federation</span>
-            )}
-          </a>
-        ) : (
+          
           <div class="bg-gradient-to-br from-green-800 via-green-900 to-green-950 p-3 rounded-md">
-            {memberData.federation ? (
-              <span class="ml-1 text-gray-200">{memberData.federation}</span>
-            ) : (
-              <span class="ml-1 text-gray-400 italic">This nation doesn't have a federation</span>
-            )}
+            <span class="font-semibold text-gray-300">Region:</span>
+            <span class="ml-1 text-white font-bold">{memberData.region || <span class="italic text-gray-400">N/A</span>}</span>
           </div>
-        )}
-        
-        <div class="bg-gradient-to-br from-green-800 via-green-900 to-green-950 p-3 rounded-md">
-          <span class="font-semibold text-gray-300">Region:</span>
-          <span class="ml-1 text-white font-bold">{memberData.region || <span class="italic text-gray-400">N/A</span>}</span>
-        </div>
-        <a href={memberData.nslink} target="_blank" rel="noopener noreferrer" class="bg-gradient-to-br from-green-800 via-green-900 to-green-950 hover:bg-gradient-to-br hover:from-green-700 hover:via-green-800 hover:to-green-900 p-3 rounded-md">
-          <p class="text-white font-bold">
-            NationStates Profile 🔗
-          </p>
-        </a>
-        <div class="bg-gradient-to-br from-green-800 via-green-900 to-green-950 p-3 rounded-md">
-          <span class="font-semibold text-gray-300">Founded:</span>
-          <span class="ml-1 text-white font-bold">{memberData.founded || <span class="italic text-gray-400">N/A</span>}</span>
-        </div>
-        <div class="bg-gradient-to-br from-green-800 via-green-900 to-green-950 p-3 rounded-md">
-          <span class="font-semibold text-gray-300">FFC Affiliation:</span>
-          <span class="ml-1 text-white font-bold">{memberData.affiliation || <span class="italic text-gray-400">N/A</span>}</span>
+          <a href={memberData.nslink} target="_blank" rel="noopener noreferrer" class="bg-gradient-to-br from-green-800 via-green-900 to-green-950 hover:bg-gradient-to-br hover:from-green-700 hover:via-green-800 hover:to-green-900 p-3 rounded-md">
+            <p class="text-white font-bold">
+              NationStates Profile 🔗
+            </p>
+          </a>
+          <div class="bg-gradient-to-br from-green-800 via-green-900 to-green-950 p-3 rounded-md">
+            <span class="font-semibold text-gray-300">Founded:</span>
+            <span class="ml-1 text-white font-bold">{memberData.founded || <span class="italic text-gray-400">N/A</span>}</span>
+          </div>
+          <div class="bg-gradient-to-br from-green-800 via-green-900 to-green-950 p-3 rounded-md">
+            <span class="font-semibold text-gray-300">FFC Affiliation:</span>
+            <span class="ml-1 text-white font-bold">{memberData.affiliation || <span class="italic text-gray-400">N/A</span>}</span>
+          </div>
         </div>
       </div>
     </div>
@@ -307,7 +306,7 @@ const hasContent = member?.body && member.body.trim() !== '';
     />
     
     {/* Matches and Stats*/}
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
       {/* Last Played */}
       <div class="bg-green-950/80 shadow-lg rounded-lg p-6">
         <h2 class="text-2xl font-semibold mb-4 text-white border-b pb-2 border-green-600">Last Matches Played</h2>
@@ -332,10 +331,10 @@ const hasContent = member?.body && member.body.trim() !== '';
       </div>
 
       {/* Stats */}
-      <div class="bg-green-950/80 shadow-lg rounded-lg">
+      <div class="bg-green-950/80 shadow-lg rounded-lg p-6">
+        <h2 class="text-2xl font-semibold mb-4 text-white border-b pb-2 border-green-600">Historic Head-to-Head</h2>
         {Object.keys(h2hStats).length > 0 ? (
-          <div class="overflow-x-auto p-6 pb-0">
-            <h2 class="text-2xl font-semibold mb-4 text-white border-b pb-2 border-green-600">Historic Head-to-Head</h2>
+          <div class="overflow-x-auto pb-0">
             <table class="min-w-full border border-green-700 overflow-hidden rounded-lg text-sm">
               <thead>
                 <tr class="bg-green-800 text-white">
@@ -373,7 +372,7 @@ const hasContent = member?.body && member.body.trim() !== '';
                   <tr key={opponentName} 
                   class="border-b border-green-700 hover:bg-green-900/30 transition duration-150">
                     <td class="px-4 py-2 whitespace-nowrap font-medium text-white">
-                      <a href={`/members/${members.find(m => m.data.name === opponentName)?.slug}`} class="flex items-center gap-2 hover:underline">
+                      <a href={`/members/${members.find(m => m.data.name === opponentName)?.slug}`} class="flex items-center gap-2 hover:underline truncate">
                       <Image
                         src={memberImage}
                         alt={opponentName}
@@ -406,9 +405,11 @@ const hasContent = member?.body && member.body.trim() !== '';
         ) : (
           <p class="text-gray-400 italic">There are no stats to show for this National Team</p>
         )}
-      <ScorersTable members={members.filter(m => m.slug === member.slug)} matches={playedMatches} />
+        <section class="flex justify-center items-center flex-col">
+          <ScorersTable members={members.filter(m => m.slug === member.slug)} matches={playedMatches} />
+        </section>
       </div>
-      <RecordsAndStats member={member} matches={playedMatches} members={members}/>
     </div>
+    <RecordsAndStats member={member} matches={playedMatches} members={members}/>
   </div>
 </App>

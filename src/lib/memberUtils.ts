@@ -1,6 +1,20 @@
 import type { ImageMetadata } from 'astro';
 import type { CollectionEntry } from 'astro:content';
+// import {getCollection} from 'astro:content';
+// const membersCollection = await getCollection('members');
 
+export function getMemberByName(
+  name: string,
+  members: CollectionEntry<'members'>[]
+): CollectionEntry<'members'> | null {
+  return members.find(m => m.data.name === name) ?? null;
+}
+export function getMemberBySlug(
+  slug: string,
+  members: CollectionEntry<'members'>[]
+): CollectionEntry<'members'> | null {
+  return members.find(m => m.slug === slug) ?? null;
+}
 export function getMemberImage(
   memberName: string | undefined,
   members: CollectionEntry<'members'>[]

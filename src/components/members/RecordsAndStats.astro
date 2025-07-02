@@ -89,7 +89,24 @@ for (const match of sortedMatches) {
 <div class="bg-green-950/80 shadow-lg rounded-lg p-6 col-span-2">
   <h2 class="text-2xl font-semibold mb-4 text-white border-b pb-2 border-green-600">Records</h2>
   {matches.length > 0 ? (
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+    <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-4">
+      
+      <div class="space-y-2">
+        <h3 class="font-semibold text-white">First Match:</h3>
+        <MatchCardCompact match={firstMatch} members={members} />
+      </div>
+      <div class="space-y-2">
+        <h3 class="font-semibold text-white">Biggest Win{biggestWins.length > 1 ? 's' : ''}:</h3>
+        {biggestWins.map(m => (
+          <MatchCardCompact key={m.id} match={m} members={members} />
+        ))}
+      </div>
+      <div class="space-y-2">
+        <h3 class="font-semibold text-white">Worst Defeat{biggestLosses.length > 1 ? 's' : ''}:</h3>
+        {biggestLosses.map(m => (
+          <MatchCardCompact key={m.id} match={m} members={members} />
+        ))}
+      </div>
       <div class="text-sm text-gray-200 space-y-2">
         <div class="flex justify-between items-center">
           <span class="font-semibold">Longest Unbeaten Streak:</span>
@@ -115,22 +132,6 @@ for (const match of sortedMatches) {
           <span class="font-semibold">Losses by 3+ goals:</span>
           <span>{bigLosses}</span>
         </div>
-      </div>
-      <div class="space-y-2">
-        <h3 class="font-semibold text-white">First Match:</h3>
-        <MatchCardCompact match={firstMatch} members={members} />
-      </div>
-      <div class="space-y-2">
-        <h3 class="font-semibold text-white">Biggest Win{biggestWins.length > 1 ? 's' : ''}:</h3>
-        {biggestWins.map(m => (
-          <MatchCardCompact key={m.id} match={m} members={members} />
-        ))}
-      </div>
-      <div class="space-y-2">
-        <h3 class="font-semibold text-white">Worst Defeat{biggestLosses.length > 1 ? 's' : ''}:</h3>
-        {biggestLosses.map(m => (
-          <MatchCardCompact key={m.id} match={m} members={members} />
-        ))}
       </div>
     </div>
   ) : (
