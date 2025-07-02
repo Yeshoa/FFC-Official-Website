@@ -27,7 +27,7 @@ const { currentTournament } = Astro.props;
           class={` flex relative py-2 overflow-hidden hover:text-white
             justify-center font-semibold items-center text-green-300 group ${isActive ? "text-white  cursor-default pointer-events-none" : ""}`}
         >
-          <h2 class={`border-b border-transparent ${isActive ? "border-b border-white" : ""}`}>{tournament.data.name}  </h2>
+          <h2 class={`border-b border-transparent text-nowrap text-sm lg:text-md ${isActive ? "border-b border-white" : ""}`}>{tournament.data.name}  </h2>
         </a>
       );
     })}

@@ -94,6 +94,12 @@
   animation: fadeOutPenguin 4s 0.5s forwards;
 }
 
+.grid-custom {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  }
+ .grid-custom-2 {
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  } 
 
 
 @keyframes fadeOutPenguin {
