@@ -20,20 +20,24 @@ import Star from "@images/icons/star-solid.svg";
                     format="webp"
                 />
             </div>
-            <div>
-                <h2 class="text-gray-400 text-xl lg:text-2xl mb-2">CHAMPION</h2>
-                <h3 class="font-bold text-2xl lg:text-4xl">{currentTournament.champion.toUpperCase()}</h3>
-                <Star class="w-8 h-8 mx-auto mt-2 fill-amber-400" />
-                <div class="">
-                    <Image
-                        src={getMemberImage(currentTournament.champion, members)}
-                        class="w-auto max-w-30 lg:max-w-35 z-8 h-auto max-h-25 lg:max-h-40 mx-auto mt-4 border-2 rounded-xl border-amber-400"
-                        alt={currentTournament.champion}
-                        width={220}
-                        quality={50}
-                        loading={"eager"}
-                        format="webp"
-                    />
+            <div class="flex justify-center items-end gap-4 lg:flex-col lg:gap-0 lg:items-center">
+                <div>
+                    <h2 class="text-gray-400 text-xl lg:text-2xl mb-2">CHAMPION</h2>
+                    <h3 class="font-bold text-2xl lg:text-4xl">{currentTournament.champion.toUpperCase()}</h3>
+                </div>
+                <div>
+                    <Star class="w-8 h-8 mx-auto mt-2 fill-amber-400" />
+                    <div class="">
+                        <Image
+                            src={getMemberImage(currentTournament.champion, members)}
+                            class="w-auto max-w-30 lg:max-w-35 z-8 h-auto max-h-25 lg:max-h-40 mx-auto mt-4 border-2 rounded-xl border-amber-400"
+                            alt={currentTournament.champion}
+                            width={220}
+                            quality={50}
+                            loading={"eager"}
+                            format="webp"
+                        />
+                    </div>
                 </div>
             </div>
         </article>
