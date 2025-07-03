@@ -65,7 +65,7 @@ Website built with **Astro**. Showcases tournaments, match details, and national
     - [ ] FC 2020 (`/forest-cup/2020`)
     - [ ] FC 2022 (`/forest-cup/2022`)
     - [ ] FC 2024 (`/forest-cup/2024`)
-  - [ ] Members (`/members`)
+  - ✅ Members (`/members`)
     - ✅ Member detail (`/members/[slug]`)
   - [ ] Ranking (`/ranking`)
 
