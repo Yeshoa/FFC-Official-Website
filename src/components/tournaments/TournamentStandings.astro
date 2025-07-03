@@ -153,7 +153,7 @@ const getMemberSlug = (teamName: string): string | undefined => {
       {finalSortedStats.map((team, index) => (
         <tr class="border-b border-green-700 hover:bg-green-900/30 transition duration-150">
           <td class="px-2 py-2">{index + 1}°</td>
-          <td class="py-2 sticky left-0 z-10 bg-green-900">
+          <td class="py-2 sticky left-0 z-10 bg-green-900 md:bg-transparent">
             <Image src={getMemberImage(team.name, members)} alt={team.name} loading={"lazy"}
                     width={50}  class="h-6 w-10 object-cover rounded inline-block" quality={50} format="webp"/>
           </td>

@@ -159,7 +159,7 @@ const sortedStats = Object.values(teamStats).filter(stat => stat.verified).sort(
       {sortedStats.map((team, index) => (
         <tr class="border-b border-green-700 hover:bg-green-900/30 transition duration-150">
           <td class="px-2 py-2">{index + 1}°</td>
-          <td class="py-2 sticky left-0 z-10 bg-green-900">
+          <td class="py-2 sticky left-0 z-10 bg-green-900 md:bg-transparent">
             <Image src={getMemberImage(team.name, members)} alt={team.name} 
             width={42} 
             class="h-5 max-w-9 object-cover rounded inline-block 2xl:h-6 2xl:w-9" 
