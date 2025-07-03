@@ -153,10 +153,11 @@ const articlesCollection = defineCollection({
   type: 'content',
   schema: ({ image }) => z.object({
     title: z.string(),
-    image: image().default('/src/assets/images/FFC Banner simple.png'),
     date: z.date().default(() => new Date()),
-    summary: z.string().optional(),
+    author: z.string().default('John Doe'),
     tags: z.array(z.string()).optional(),
+    summary: z.string().optional(),
+    image: image().default('/src/assets/images/FFC Banner simple.png'),
   }),
 });
 
