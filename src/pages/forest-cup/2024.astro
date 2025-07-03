@@ -133,10 +133,12 @@ const winner = getMatchWinner(getMatchesForFixture('knockout', undefined, 'Final
        <Content />
     </div> -->
 
-    <TournamentStandings
-    tournament={tournamentEntry}
-    matches={fc2024Matches}
-    members={membersCollection.filter(member => FC2024Data.participants.includes(member.data.name))}
-    />
+    <div class="w-full flex flex-col items-center px-6">
+      <TournamentStandings
+      tournament={tournamentEntry}
+      matches={fc2024Matches}
+      members={membersCollection.filter(member => FC2024Data.participants.includes(member.data.name))}
+      />
+    </div>
   </main>
 </App>

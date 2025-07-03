@@ -135,7 +135,7 @@ const sortedStats = Object.values(teamStats).filter(stat => stat.verified).sort(
 ---
 
 <h1 class="text-3xl font-bold py-6">Historical Table</h1>
-<div class="flex flex-col overflow-x-auto md:overflow-x-visible w-full">
+<div class="overflow-x-auto md:overflow-x-visible w-full">
   <table class="min-w-[768px] md:min-w-full w-full table-auto border-collapse text-sm">
     <thead class="bg-green-800 text-white">
       <tr>
@@ -155,11 +155,11 @@ const sortedStats = Object.values(teamStats).filter(stat => stat.verified).sort(
         <th class="px-4 text-center rounded-tr-lg" title="Performance">PR</th>
       </tr>
     </thead>
-    <tbody class=" text-center">
+    <tbody class="text-center">
       {sortedStats.map((team, index) => (
         <tr class="border-b border-green-700 hover:bg-green-900/30 transition duration-150">
           <td class="px-2 py-2">{index + 1}°</td>
-          <td class="px-2 py-2">
+          <td class="py-2 sticky left-0 z-10 bg-green-900">
             <Image src={getMemberImage(team.name, members)} alt={team.name} 
             width={42} 
             class="h-5 max-w-9 object-cover rounded inline-block 2xl:h-6 2xl:w-9" 

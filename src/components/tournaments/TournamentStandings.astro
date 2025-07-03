@@ -130,55 +130,52 @@ const getMemberSlug = (teamName: string): string | undefined => {
   return members.find(m => m.data.name === teamName)?.slug;
 }
 ---
-
-<div class="container mx-auto p-4 md:p-6">
-  <h2 class="text-2xl font-bold mb-4 text-center">Final Standings</h2>
-  <div class="overflow-x-auto">
-    <table class="min-w-full w-full table-auto border-collapse text-sm">
-      <thead class="bg-green-800 text-white">
-        <tr>
-          <th class="px-4 py-2 text-center rounded-tl-lg" title="Position">Pos</th>
-          <th class="px-2 py-2 text-center"></th>
-          <th class="px-2 py-2 text-left" title="Team">Team</th>
-          <th class="px-2 py-2 text-center" title="Points">Pts</th>
-          <th class="px-2 py-2 text-center" title="Matches Played">Pld</th>
-          <th class="px-2 py-2 text-center" title="Wins">W</th>
-          <th class="px-2 py-2 text-center" title="Draws">D</th>
-          <th class="px-2 py-2 text-center" title="Losses">L</th>
-          <th class="px-2 py-2 text-center" title="Goals For">GF</th>
-          <th class="px-2 py-2 text-center" title="Goals Against">GA</th>
-          <th class="px-2 py-2 text-center" title="Goal Difference">GD</th>
-          <th class="px-4 py-2 text-center rounded-tr-lg" title="Performance (%)">PR</th> {/* Columna añadida */}
+<h2 class="text-2xl font-bold py-6 text-center">Final Standings</h2>
+<div class="overflow-x-auto w-full">
+  <table class="min-w-[768px] lg:min-w-full w-full table-auto border-collapse text-sm">
+    <thead class="bg-green-800 text-white">
+      <tr>
+        <th class="px-4 py-2 text-center rounded-tl-lg" title="Position">°</th>
+        <th class="py-2 text-center"></th>
+        <th class="px-2 py-2 text-left" title="Team">Team</th>
+        <th class="px-2 py-2 text-center" title="Points">Pts</th>
+        <th class="px-2 py-2 text-center" title="Matches Played">Pld</th>
+        <th class="px-2 py-2 text-center" title="Wins">W</th>
+        <th class="px-2 py-2 text-center" title="Draws">D</th>
+        <th class="px-2 py-2 text-center" title="Losses">L</th>
+        <th class="px-2 py-2 text-center" title="Goals For">GF</th>
+        <th class="px-2 py-2 text-center" title="Goals Against">GA</th>
+        <th class="px-2 py-2 text-center" title="Goal Difference">GD</th>
+        <th class="px-4 py-2 text-center rounded-tr-lg" title="Performance">PR</th> 
+      </tr>
+    </thead>
+    <tbody class="text-center">
+      {finalSortedStats.map((team, index) => (
+        <tr class="border-b border-green-700 hover:bg-green-900/30 transition duration-150">
+          <td class="px-2 py-2">{index + 1}°</td>
+          <td class="py-2 sticky left-0 z-10 bg-green-900">
+            <Image src={getMemberImage(team.name, members)} alt={team.name} loading={"lazy"}
+                    width={50}  class="h-6 w-10 object-cover rounded inline-block" quality={50} format="webp"/>
+          </td>
+          <td class="px-2 py-2 text-left">
+            <a href={`/members/${getMemberSlug(team.name)}`} class="font-semibold hover:underline">{team.name}</a>
+          </td>
+          <td class="px-2 py-2 font-bold">{team.points}</td>
+          <td class="px-2 py-2 text-green-200">{team.played}</td>
+          <td class="px-2 py-2 text-green-200">{team.won}</td>
+          <td class="px-2 py-2 text-green-200">{team.draw}</td>
+          <td class="px-2 py-2 text-green-200">{team.lost}</td>
+          <td class="px-2 py-2 text-green-200">{team.goalsFor}</td>
+          <td class="px-2 py-2 text-green-200">{team.goalsAgainst}</td>
+          <td class="px-2 py-2 text-green-100 font-medium">{team.gd}</td>
+          <td class="px-2 py-2 text-green-100 font-medium">{team.pr}%</td> {/* Valor de Performance */}
         </tr>
-      </thead>
-      <tbody class="text-center">
-        {finalSortedStats.map((team, index) => (
-          <tr class="border-b border-green-700 hover:bg-green-900/30 transition duration-150">
-            <td class="px-2 py-2">{index + 1}</td>
-            <td class="px-2 py-2">
-              <Image src={getMemberImage(team.name, members)} alt={team.name} loading={"lazy"}
-                     width={50}  class="h-6 w-10 object-cover rounded inline-block" quality={50} format="webp"/>
-            </td>
-            <td class="px-2 py-2 text-left">
-              <a href={`/members/${getMemberSlug(team.name)}`} class="font-semibold hover:underline">{team.name}</a>
-            </td>
-            <td class="px-2 py-2 font-bold">{team.points}</td>
-            <td class="px-2 py-2 text-green-200">{team.played}</td>
-            <td class="px-2 py-2 text-green-200">{team.won}</td>
-            <td class="px-2 py-2 text-green-200">{team.draw}</td>
-            <td class="px-2 py-2 text-green-200">{team.lost}</td>
-            <td class="px-2 py-2 text-green-200">{team.goalsFor}</td>
-            <td class="px-2 py-2 text-green-200">{team.goalsAgainst}</td>
-            <td class="px-2 py-2 text-green-100 font-medium">{team.gd}</td>
-            <td class="px-2 py-2 text-green-100 font-medium">{team.pr}%</td> {/* Valor de Performance */}
+      ))}
+      {finalSortedStats.length === 0 && (
+          <tr>
+              <td colspan="12" class="text-center py-4 text-gray-500">Data not available</td>
           </tr>
-        ))}
-        {finalSortedStats.length === 0 && (
-            <tr>
-                <td colspan="12" class="text-center py-4 text-gray-500">Data not available</td>
-            </tr>
-        )}
-      </tbody>
-    </table>
-  </div>
+      )}
+    </tbody>
+  </table>
 </div>
