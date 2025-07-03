@@ -64,32 +64,38 @@ const headlines = [
     title: 'Revive the Final',
     image: FinalMatch,
     link: 'https://www.youtube.com/live/XJPwf45Eh4w?si=8Akzbug1jY6sOFv9&t=297',
+    noblank: true,
   },
   {
     title: 'Watch All Goals',
     image: AllGoalsHero,
     link: 'https://www.youtube.com/watch?v=iddBpQbe7ak',
+    noblank: true,
   },
   {
     title: 'Tarasov wins the Golden Ball',
     image: MVPTarasov,
     link: '#prizes',
+    noblank: false,
   },
   {
     title: 'Nysnub Show: 4 goals in one match',
     image: NysnubShow,
     link: 'https://youtube.com/shorts/vzUKv51dzuU',
     class: 'object-top',
+    noblank: true,
   },
   {
     title: 'Cacusia outstanding play',
     image: BestGoal,
     link: 'https://youtube.com/clip/UgkxhC53IxiU-6hjxn5H_XDy_XJsLO-ki5wE?si=c3TqUN6alOi30lv2',
+    noblank: true,
   },
   {
     title: 'Longest penalty shootout ever!',
     image: LongestPenalty,
     link: 'https://youtube.com/clip/UgkxpY5l94Lpkwctfl8yymRpTlVJimy-HAQN?si=mt_yHADNDHSYjEXZ',
+    noblank: true,
   },
 ]
 
@@ -99,7 +105,7 @@ const winner = getMatchWinner(getMatchesForFixture('knockout', undefined, 'Final
 
 <App title={pageTitle}>
   <main class="flex flex-col items-center relative">
-    <div class="flex flex-col justify-center items-center pb-6 w-full bg-gradient-to-b from-transparent to-green-900/80">
+    <div class="flex flex-col justify-center items-center w-full bg-gradient-to-b from-transparent to-green-900/80">
       <TournamentGrid currentTournament={FC2024Data}/>
       <TournamentHero currentTournament={FC2024Data} members={membersCollection} />
     </div>
@@ -132,6 +138,5 @@ const winner = getMatchWinner(getMatchesForFixture('knockout', undefined, 'Final
     matches={fc2024Matches}
     members={membersCollection.filter(member => FC2024Data.participants.includes(member.data.name))}
     />
-
-    </main>
+  </main>
 </App>

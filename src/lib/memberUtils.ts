@@ -1,7 +1,5 @@
 import type { ImageMetadata } from 'astro';
 import type { CollectionEntry } from 'astro:content';
-// import {getCollection} from 'astro:content';
-// const membersCollection = await getCollection('members');
 
 export function getMemberByName(
   name: string,

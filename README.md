@@ -15,7 +15,7 @@ Website built with **Astro**. Showcases tournaments, match details, and national
 &nbsp;&nbsp;&nbsp;&nbsp;Collection by markdown DONE✅. ⚠ Components need to be in /components. Page should look like a profile with all this info:
   - ✅ Set up `render` content
   - [ ] ~~Upcoming matches~~
-  - ⚠ Show a component for **last matches played**
+  - ✅ Show a component for **last matches played**
   - ⚠ Component showing **head-to-head stats** against other national teams (only those they've played)
   - ✅ Show **Forest Cup history** [Example](https://es.wikipedia.org/wiki/Selección_de_fútbol_de_Argentina#Estadísticas)
   - ✅ **Records section** [Example](https://es.wikipedia.org/wiki/Selección_de_fútbol_de_Argentina#Récords_y_notas)
@@ -25,11 +25,11 @@ Website built with **Astro**. Showcases tournaments, match details, and national
 
 - [ ] **Elaborate the Tournaments page**  
 &nbsp;&nbsp;&nbsp;&nbsp;Improve Tournaments pages:
-  - [ ] `Banner`: An image of the champions, with their flag-name and maybe the trophy
+  - ✅ `Banner`: An image of the champions, with their flag-name and maybe the trophy
   - ✅ `Headlines`: A component with relevant media.
   - ✅ `Brackets`: Improve bracket match card
   - ✅ `Groups and Matches`
-  - ✅ `Knockout Matches`
+  - ⚠ `Knockout Matches`
   - ✅ `Individual Prizes`
   - ✅ `Overall Table`
   - [ ] `Team of the Tournament`
@@ -68,7 +68,6 @@ Website built with **Astro**. Showcases tournaments, match details, and national
   - [ ] Members (`/members`)
     - ✅ Member detail (`/members/[slug]`)
   - [ ] Ranking (`/ranking`)
-  - [ ] Sponsor (`/sponsor`)
 
 - ✅ **Use `<Image />` component where possible and optimize their size**  
 &nbsp;&nbsp;&nbsp;&nbsp;Try to optimize image rendering.
