@@ -125,7 +125,7 @@ const winner = getMatchWinner(match);
     {match.status === 'played' && areThereScorers(match) && (
       <div class="grid grid-cols-7 items-start w-full gap-2 mt-2 text-sm md:text-base z-10">
         <!-- Team 1 Scorers -->
-        <div class="flex flex-col w-full col-span-3 items-end justify-start h-full text-right pr-2">
+        <div class="flex flex-col w-full col-span-3 justify-start h-full text-right pr-2">
           {goals.filter(g => g.team === match.team1).length > 0 ? (
             goals
               .filter(g => g.team === match.team1)
@@ -136,14 +136,16 @@ const winner = getMatchWinner(match);
                 return minuteA - minuteB;
               })
               .map((goal, idx) => (
-                <div key={`team1-goal-${idx}-${goal.player}-${goal.minute}`} class="flex items-center gap-2 justify-end mb-1">
+                <div key={`team1-goal-${idx}-${goal.player}-${goal.minute}`} class="text-xs sm:text-base flex xs:flex-row flex-col items-center gap-2 justify-center mb-1">
                   <span class="font-medium">{goal.player}</span>
-                  <Image src={GoalIcon} alt="Goal" class="w-4 h-4 flex-shrink-0" loading={"lazy"} format="webp" quality={1} />
-                  <span>
-                    {goal.minute}{goal.aggregate !== undefined ? `+${goal.aggregate}` : ""}'
-                    {goal.penalty ? " (P)" : ""}
-                    {goal.ownGoal ? " (OG)" : ""}
-                  </span>
+                  <div class="flex items-center gap-1">
+                    <Image src={GoalIcon} alt="Goal" class="w-4 h-4 flex-shrink-0" loading={"lazy"} format="webp" quality={1} />
+                    <span>
+                      {goal.minute}{goal.aggregate !== undefined ? `+${goal.aggregate}` : ""}'
+                      {goal.penalty ? " (P)" : ""}
+                      {goal.ownGoal ? " (OG)" : ""}
+                    </span>
+                  </div>
                 </div>
               ))
           ) : (
@@ -159,7 +161,7 @@ const winner = getMatchWinner(match);
               target="_blank" 
               rel="noopener noreferrer" 
               title="Watch Match" 
-              class="bg-blue-600 hover:bg-blue-500 text-white px-3 py-1 rounded-full text-sm transition-colors"
+              class="bg-blue-500 hover:bg-blue-400 text-white px-3 py-1 rounded-full text-sm transition-colors"
             >
               Watch
             </a>
@@ -180,14 +182,16 @@ const winner = getMatchWinner(match);
                 return minuteA - minuteB;
               })
               .map((goal, idx) => (
-                <div key={`team2-goal-${idx}-${goal.player}-${goal.minute}`} class="flex items-center gap-2 justify-start mb-1">
+                <div key={`team2-goal-${idx}-${goal.player}-${goal.minute}`} class="text-xs sm:text-base flex xs:flex-row flex-col items-center gap-2 justify-center mb-1">
                   <span class="font-medium">{goal.player}</span>
-                  <Image src={GoalIcon} alt="Goal" class="w-4 h-4 flex-shrink-0" loading={"lazy"} format="webp" quality={1} />
-                  <span>
-                    {goal.minute}{goal.aggregate !== undefined ? `+${goal.aggregate}` : ""}'
-                    {goal.penalty ? " (P)" : ""}
-                    {goal.ownGoal ? " (OG)" : ""}
-                  </span>
+                  <div class="flex items-center gap-1">
+                    <Image src={GoalIcon} alt="Goal" class="w-4 h-4 flex-shrink-0" loading={"lazy"} format="webp" quality={1} />
+                    <span>
+                      {goal.minute}{goal.aggregate !== undefined ? `+${goal.aggregate}` : ""}'
+                      {goal.penalty ? " (P)" : ""}
+                      {goal.ownGoal ? " (OG)" : ""}
+                    </span>
+                  </div>
                 </div>
               ))
           ) : (

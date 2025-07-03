@@ -130,7 +130,8 @@ const winner = getMatchWinner(match);
       {/* Enlace Detalles/Video */}
       <div class="flex justify-center items-start w-full h-full col-span-1">
         {match.link ? (
-          <a href={match.link} target="_blank" rel="noopener noreferrer" title="Watch Match" class="text-blue-400 hover:text-blue-300 hover:underline text-xs md:text-sm transition-colors">
+          <a href={match.link} target="_blank" rel="noopener noreferrer" title="Watch Match" 
+          class="bg-blue-500 hover:bg-blue-400 text-white px-2 py-1 rounded-full text-xs transition-colors">
             Watch
           </a>
         ) : (
