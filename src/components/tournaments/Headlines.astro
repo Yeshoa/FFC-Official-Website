@@ -8,19 +8,19 @@ const { headlines } = Astro.props;
     <div class="w-full items-center flex justify-center p-6">
         <div class="2xl:max-w-10/12 flex flex-col lg:grid grid-cols-4 justify-center items-center">
             <a href={headlines[0].link} target={headlines[0].noblank ? '_self' : '_blank'}
-            class="relative overflow-hidden lg:rounded-tr-none rounded-t-2xl lg:rounded-l-2xl h-full col-span-3 w-full group">
-            <Image src={headlines[0].image} 
-                alt="Final Match" 
-                class="rounded-t-2xl lg:rounded-tr-none lg:rounded-l-2xl object-cover h-full group-hover:scale-105 group-hover:brightness-90 transition duration-300" 
-                loading="lazy"
-                width={1300}
-                quality={60}
-                format="webp"
-                />
-            <div class="absolute inset-0 bg-gradient-to-tr from-green-950 from-15% to-40% to-transparent"></div>
-            <div class="absolute bottom-7 left-7 text-white">
-                <h2 class="text-3xl sm:text-5xl font-bold text-shadow">{headlines[0].title}</h2>
-            </div>
+            class="relative overflow-hidden lg:rounded-tr-none rounded-t-2xl lg:rounded-l-2xl h-80 sm:h-full col-span-3 w-full group">
+                <Image src={headlines[0].image} 
+                    alt="Final Match" 
+                    class="rounded-t-2xl lg:rounded-tr-none lg:rounded-l-2xl object-cover h-full group-hover:scale-105 group-hover:brightness-90 transition duration-300" 
+                    loading="lazy"
+                    width={1300}
+                    quality={60}
+                    format="webp"
+                    />
+                <div class="absolute inset-0 bg-gradient-to-tr from-green-950 from-15% to-40% to-transparent"></div>
+                <div class="absolute bottom-7 left-7 text-white">
+                    <h2 class="text-3xl sm:text-5xl font-bold text-shadow">{headlines[0].title}</h2>
+                </div>
             </a>
         
             <!-- Panel derecho: Headlines -->
