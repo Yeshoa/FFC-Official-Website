@@ -129,20 +129,44 @@ const hasContent = member?.body && member.body.trim() !== '';
   <div class="md:container mx-auto px-4 py-8">
     {/* Profile*/}
     <div class="bg-green-950/80 shadow-lg rounded-lg p-6 mb-8">
-      <h1 class="text-3xl md:text-4xl font-bold text-white text-center md:text-left flex items-center mb-3 border-b border-green-600 pb-2">
-        {memberData.name}
-      </h1>
+      <div class="flex flex-col xs:flex-row items-end gap-1 mb-4 pb-1 border-b border-green-600">
+        <h1 class="text-3xl md:text-4xl font-bold text-white text-center md:text-left">
+          {memberData.name}
+        </h1>
+        <!-- Código y puntos -->
+        <div class="flex">
+          <p class="text-2xl text-gray-400">({memberData.code})</p>
+          {memberData.verified && (
+            <div class="relative group">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="32"
+                height="32"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="text-green-400"
+                title="This member is verified"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                <path d="M12.01 2.011a3.2 3.2 0 0 1 2.113 .797l.154 .145l.698 .698a1.2 1.2 0 0 0 .71 .341l.135 .008h1a3.2 3.2 0 0 1 3.195 3.018l.005 .182v1c0 .27 .092 .533 .258 .743l.09 .1l.697 .698a3.2 3.2 0 0 1 .147 4.382l-.145 .154l-.698 .698a1.2 1.2 0 0 0 -.341 .71l-.008 .135v1a3.2 3.2 0 0 1 -3.018 3.195l-.182 .005h-1a1.2 1.2 0 0 0 -.743 .258l-.1 .09l-.698 .697a3.2 3.2 0 0 1 -4.382 .147l-.154 -.145l-.698 -.698a1.2 1.2 0 0 0 -.71 -.341l-.135 -.008h-1a3.2 3.2 0 0 1 -3.195 -3.018l-.005 -.182v-1a1.2 1.2 0 0 0 -.258 -.743l-.09 -.1l-.697 -.698a3.2 3.2 0 0 1 -.147 -4.382l.145 -.154l.698 -.698a1.2 1.2 0 0 0 .341 -.71l.008 -.135v-1l.005 -.182a3.2 3.2 0 0 1 3.013 -3.013l.182 -.005h1a1.2 1.2 0 0 0 .743 -.258l.1 -.09l.698 -.697a3.2 3.2 0 0 1 2.269 -.944zm3.697 7.282a1 1 0 0 0 -1.414 0l-3.293 3.292l-1.293 -1.292l-.094 -.083a1 1 0 0 0 -1.32 1.497l2 2l.094 .083a1 1 0 0 0 1.32 -.083l4 -4l.083 -.094a1 1 0 0 0 -.083 -1.32z"/>
+              </svg>
+              <div class="absolute left-1/2 -translate-x-1/2 top-full mt-1 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-green-800 text-white text-xs rounded px-3 py-1 shadow-lg whitespace-nowrap">
+                This member is verified
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
       <div class="flex flex-col md:flex-row items-center gap-6">
         {/* Logos and Info */}
-        <div class="flex flex-col items-center md:items-start gap-2">
+        <div class="flex flex-col gap-2 h-full">
           <!-- Nombre -->
           <div class="flex gap-4 items-center">
             {memberData.flagPath && (
               <Image
                 src={memberData.flagPath}
                 alt={`${memberData.name}'s flag'`}
-                class="h-24 w-auto md:h-20 object-contain rounded border border-green-700"
-                width={128}
+                class="max-h-24 w-auto md:max-h-24 rounded border border-green-700"
                 height={128}
                 quality={50}
                 format="webp"
@@ -150,48 +174,22 @@ const hasContent = member?.body && member.body.trim() !== '';
               />
             )}
           </div>
-          <!-- Código y puntos -->
-          <div class="flex justify-center md:justify-start items-center md:items-start text-center md:text-left w-full">
-            <p class="text-lg text-gray-400">({memberData.code})</p>
-            {memberData.verified && (
-              <div class="ml-1 relative group">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  class="text-green-400"
-                  title="This member is verified"
-                >
-                  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                  <path d="M12.01 2.011a3.2 3.2 0 0 1 2.113 .797l.154 .145l.698 .698a1.2 1.2 0 0 0 .71 .341l.135 .008h1a3.2 3.2 0 0 1 3.195 3.018l.005 .182v1c0 .27 .092 .533 .258 .743l.09 .1l.697 .698a3.2 3.2 0 0 1 .147 4.382l-.145 .154l-.698 .698a1.2 1.2 0 0 0 -.341 .71l-.008 .135v1a3.2 3.2 0 0 1 -3.018 3.195l-.182 .005h-1a1.2 1.2 0 0 0 -.743 .258l-.1 .09l-.698 .697a3.2 3.2 0 0 1 -4.382 .147l-.154 -.145l-.698 -.698a1.2 1.2 0 0 0 -.71 -.341l-.135 -.008h-1a3.2 3.2 0 0 1 -3.195 -3.018l-.005 -.182v-1a1.2 1.2 0 0 0 -.258 -.743l-.09 -.1l-.697 -.698a3.2 3.2 0 0 1 -.147 -4.382l.145 -.154l.698 -.698a1.2 1.2 0 0 0 .341 -.71l.008 -.135v-1l.005 -.182a3.2 3.2 0 0 1 3.013 -3.013l.182 -.005h1a1.2 1.2 0 0 0 .743 -.258l.1 -.09l.698 -.697a3.2 3.2 0 0 1 2.269 -.944zm3.697 7.282a1 1 0 0 0 -1.414 0l-3.293 3.292l-1.293 -1.292l-.094 -.083a1 1 0 0 0 -1.32 1.497l2 2l.094 .083a1 1 0 0 0 1.32 -.083l4 -4l.083 -.094a1 1 0 0 0 -.083 -1.32z"/>
-                </svg>
-                <div class="absolute left-1/2 -translate-x-1/2 top-full mt-1 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-green-800 text-white text-xs rounded px-3 py-1 shadow-lg whitespace-nowrap">
-                  This member is verified
-                </div>
-              </div>
-            )}
-          </div>
           
           <!-- Ranking (abajo del todo) -->
-          <div class="text-center text-left w-full">
-            <p class="text-sm text-gray-400">Rank</p>
-            <div class="flex items-end justify-between w-full">
-              <p class={`text-4xl font-bold 
-              ${memberRank === 1 ? 'text-amber-400' 
-              : memberRank === 2 ? 'text-slate-300' 
-              : memberRank === 3 ? 'text-yellow-600' 
-              : 'text-green-400'} 
-              `}>{!member.data.verified ? 'N/A' : memberRank}°</p>
-              <p class="text-2xl font-semibold text-green-300">{memberTotalScore} Pts.</p>
-            </div>
+          <div class="flex items-end justify-between w-full">
+            <p class={`text-4xl font-bold 
+            ${memberRank === 1 ? 'text-amber-400' 
+            : memberRank === 2 ? 'text-slate-300' 
+            : memberRank === 3 ? 'text-yellow-600' 
+            : 'text-green-400'} 
+            `}>{!member.data.verified ? 'N/A' : memberRank}°</p>
+            <p class="text-2xl font-semibold text-green-300">{memberTotalScore} Pts.</p>
           </div>
         </div>
         <div class="flex flex-col items-center md:items-start gap-4">
-          {memberData.logo && (
+          {memberData.logoPath && (
             <Image
-              src={memberData.logo}
+              src={memberData.logoPath}
               alt={`${memberData.federation || memberData.name}'s Logo'`}
               class="w-64 h-auto md:w-48 object-contain rounded"
               width={256}
