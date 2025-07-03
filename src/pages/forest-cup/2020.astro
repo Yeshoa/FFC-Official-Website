@@ -9,10 +9,9 @@ import Groups from '@components/tournaments/Groups.astro';
 import KnockoutMatches from '@components/tournaments/KnockoutMatches.astro';
 import TournamentGrid from '@components/tournaments/TournamentGrid.astro'; 
 import TournamentStats from '@components/tournaments/TournamentStats.astro';
-import { getMatchWinner } from '@lib/matchUtils.ts';
-import { getMemberImage } from '@lib/memberUtils';
 import TournamentHero from '@components/tournaments/TournamentHero.astro';
 import Headlines from '@components/tournaments/Headlines.astro';
+import { getMemberByName } from '@lib/memberUtils';
 
 const tournamentsCollection = await getCollection('tournaments');
 const matchesCollection = (await getCollection('matches'))
@@ -36,30 +35,17 @@ const fc2020Matches = matchesCollection
   .sort((a, b) => a.data.date.getTime() - b.data.date.getTime()); // Ordenar por fecha
 const knockoutMatches = fc2020Matches.filter(match => match.data.stage === 'knockout');
 
-import FC20Logo from '@images/tournaments/2020/logo.png'; 
-import FCLogo from '@images/tournaments/forest-cup.png';
 import TournamentStandings from '@components/tournaments/TournamentStandings.astro';
 
-// Función auxiliar para encontrar los partidos de una fixture específica (si es necesario)
-// Nota: Esto puede ser complejo si la estructura de `FC2020Data` no coincide perfectamente
-// con cómo quieres mostrar los partidos de `fc2020Matches`.
-const getMatchesForFixture = (stageName?: string, groupName?: string, fixtureName?: string) => {
-    return fc2020Matches.filter(m =>
-        (!stageName || m.data.stage === stageName) &&
-        (!groupName || m.data.group === groupName) &&
-        (!fixtureName || m.data.fixture === fixtureName)
-    );
-}
-
 const pageTitle = `FFC - ${FC2020Data.name || 'Forest Cup'}`;
-const winner = getMatchWinner(getMatchesForFixture('knockout', undefined, 'Final')[0].data); 
+const winner = getMemberByName(FC2020Data.champion, membersCollection);
 ---
 
 <App title={pageTitle}>
   <main class="flex flex-col items-center relative">
     <div class="flex flex-col justify-center items-center bg-gradient-to-r from-transparent to-transparent via-black/20 w-full">
       <TournamentGrid currentTournament={FC2020Data}/>
-      <TournamentHero currentTournament={FC2020Data} members={membersCollection} />
+      <TournamentHero currentTournament={FC2020Data} champion={winner} />
     </div>
 
     <!-- <Headlines headlines={headlines}/> -->
@@ -80,12 +66,13 @@ const winner = getMatchWinner(getMatchesForFixture('knockout', undefined, 'Final
     <div class="flex flex-col justify-center items-center w-full gap-4 py-4">
       <Bracket matches={fc2020Matches} members={membersCollection} />
     </div>
-
-    <TournamentStandings
-    tournament={tournamentEntry}
-    matches={fc2020Matches}
-    members={membersCollection.filter(member => FC2020Data.participants.includes(member.data.name))}
-    />
-
-    </main>
+    
+    <div class="w-full flex flex-col items-center px-6 max-w-8xl">
+      <TournamentStandings
+      tournament={tournamentEntry}
+      matches={fc2020Matches}
+      members={membersCollection.filter(member => FC2020Data.participants.includes(member.data.name))}
+      />
+    </div>
+  </main>
 </App>

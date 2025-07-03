@@ -3,14 +3,12 @@ import { Image } from 'astro:assets';
 import BracketMatchCard from '@components/tournaments/BracketMatchCard.astro';
 import MatchCardCompact from '@components/MatchCardCompact.astro';
 import trophy from '@images/tournaments/trophy.png';
-import { getMemberImage } from '@lib/memberUtils';
+import { getMemberByName } from '@lib/memberUtils';
 import { getMatchWinner } from '@lib/matchUtils';
 
 interface Props {
   matches: any[]; // Lista de partidos del torneo
   members: any[];
-  // tournament: any; // Datos del torneo *YA NO LO USO PORQUE LOS MATCHES SE FILTRAN ANTES
-  // imageGetter: (teamName: string) => ImageMetadata | null;
 }
 
 const { matches, members } = Astro.props;
@@ -33,7 +31,7 @@ const finalMatches = getMatchesByRound('Final');
 const finalMatch = finalMatches.length > 0 ? finalMatches[0] : null;
 
 // Determinar el ganador del torneo
-const winnerTeam = getMatchWinner(finalMatch.data);
+const winnerTeam = getMemberByName(getMatchWinner(finalMatch.data), members) || 'Unknown';
 ---
 <div class="w-full py-8 px-4 rounded-lg">
 <!-- <div class="w-full py-8 px-4 rounded-lg bg-gradient-to-r from-green-950/80 via-green-900 to-green-950/80"> -->
@@ -65,13 +63,13 @@ const winnerTeam = getMatchWinner(finalMatch.data);
       <div class="w-1/5 flex flex-col items-center justify-center">
         {finalMatch && (
           <div class="flex flex-col items-center justify-center mt-4 p-4 rounded-2xl text-2xl font-bold w-full">
-            {getMemberImage(winnerTeam, members) ? (
-              <Image src={getMemberImage(winnerTeam, members)} alt={winnerTeam} class="w-auto h-20" loading={"lazy"}
+            {winnerTeam?.data.flagPath || winnerTeam?.data.logoPath ? (
+              <Image src={winnerTeam?.data.flagPath || winnerTeam?.data.logoPath} alt={winnerTeam.data.name} class="w-auto h-20" loading={"lazy"}
               quality={10} format="webp" />
             ) : (
               <div class="w-20 h-20 bg-gray-600 rounded-lg" />
             )}
-            <a href={`/members/${members.find(m => m.data.name === winnerTeam)?.slug}`} class="hover:underline">{winnerTeam}</a>
+            <a href={`/members/${winnerTeam?.slug}`} class="hover:underline">{winnerTeam?.data.name}</a>
             <Image src={trophy} alt="Trophy" class="w-auto h-20" quality={1} format="webp" />
           </div>
           <BracketMatchCard match={finalMatch} members={members} />

@@ -2,7 +2,7 @@
 import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 import type { ImageMetadata } from 'astro';
-import { getMemberImage } from '@lib/memberUtils';
+import { getMemberByName } from '@lib/memberUtils';
 import { areThereScorers, getMatchWinner, getMatchResult } from '@lib/matchUtils';
 import GoalIcon from '@images/goal.png';
 
@@ -29,8 +29,8 @@ if (hasPenaltyShootout) {
   penaltyInfo = `(${penaltyScore1}-${penaltyScore2})`;
 }
 
-const team1ImagePromiseFn = getMemberImage(match.team1, members);
-const team2ImagePromiseFn = getMemberImage(match.team2, members);
+const team1 = getMemberByName(match.team1, members);
+const team2 = getMemberByName(match.team2, members);
 
 const winner = getMatchWinner(match);
 ---
@@ -48,9 +48,9 @@ const winner = getMatchWinner(match);
     <div class="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-7 items-center w-full gap-4 mb-4 z-10">
       <!-- Team 1 -->
       <div class={`flex flex-col sm:col-span-2 items-center md:col-span-3 justify-center text-center ${winner === match.team1 ? 'scale-105' : ''} transition-transform duration-300`}>
-        {team1ImagePromiseFn ? (
+        {team1.data.flagPath || team1.data.logoPath ? (
           <Image
-            src={team1ImagePromiseFn}
+            src={team1.data.flagPath || team1.data.logoPath}
             alt={match.team1}
             class={`h-12 w-16 md:h-16 md:w-24 rounded-md object-cover shadow-md ${winner === match.team1 ? 'ring-2 ring-yellow-400' : 'ring-1 ring-gray-600'}`}
             width={96} 
@@ -65,7 +65,7 @@ const winner = getMatchWinner(match);
         )}
         <a 
           class={`mt-2 font-medium md:text-lg hover:underline ${winner === match.team1 ? 'text-yellow-300 font-bold' : 'text-white'}`} 
-          href={`/members/${members.find(m => m.data.name === match.team1)?.slug}`}
+          href={`/members/${team1?.slug}`}
         >
           {match.team1}
         </a>
@@ -94,10 +94,10 @@ const winner = getMatchWinner(match);
       
       <!-- Team 2 -->
       <div class={`flex flex-col sm:col-span-2 items-center md:col-span-3 justify-center text-center ${winner === match.team2 ? 'scale-105' : ''} transition-transform duration-300`}>
-        {team2ImagePromiseFn ? (
+        {team2.data.flagPath || team2.data.logoPath ? (
           <Image
-            src={team2ImagePromiseFn}
-            alt={match.team2}
+            src={team2.data.flagPath || team2.data.logoPath}
+            alt={team2.data.name}
             class={`h-12 w-16 md:h-16 md:w-24 rounded-md object-cover shadow-md ${winner === match.team2 ? 'ring-2 ring-yellow-400' : 'ring-1 ring-gray-600'}`}
             width={96} 
             height={96}
@@ -111,7 +111,7 @@ const winner = getMatchWinner(match);
         )}
         <a 
           class={`mt-2 font-medium md:text-lg hover:underline ${winner === match.team2 ? 'text-yellow-300 font-bold' : 'text-white'}`} 
-          href={`/members/${members.find(m => m.data.name === match.team2)?.slug}`}
+          href={`/members/${team2?.slug}`}
         >
           {match.team2}
         </a>

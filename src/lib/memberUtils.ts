@@ -70,6 +70,7 @@ export function getRankedMembers(
 ): {
   slug: string;
   name: string;
+  flag: ImageMetadata | null;
   scores: {
     rpHistory: number;
     rpResults: number;
@@ -96,6 +97,7 @@ export function getRankedMembers(
       return {
         slug: member.slug,
         name: member.data.name,
+        flag: member.data.flagPath,
         scores: {
           rpHistory,
           rpResults,

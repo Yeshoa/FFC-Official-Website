@@ -3,7 +3,7 @@
 import type { CollectionEntry } from 'astro:content';
 import { Image } from 'astro:assets';
 import { getTeamPositionInTournament } from '@lib/tournamentUtils';
-import { getMemberImage } from '@lib/memberUtils';
+import { getMemberImage, getMemberByName } from '@lib/memberUtils';
 import { getMatchResult } from '@lib/matchUtils';
 
 interface Props {
@@ -21,13 +21,13 @@ const allEditions = tournaments
   .sort((a, b) => b.data.edition - a.data.edition);
 
 // Función para obtener el equipo según la posición final
-function getTeamByPosition(tournament: CollectionEntry<'tournaments'>, position: number): string | null {
+function getTeamByPosition(tournament: CollectionEntry<'tournaments'>, position: number): CollectionEntry<'members'> | null {
   const participants = tournament.data.participants;
   
   for (const team of participants) {
     const teamPosition = getTeamPositionInTournament(tournament, matches, team);
     if (teamPosition === position) {
-      return team;
+      return getMemberByName(team, members);
     }
   }
   
@@ -38,7 +38,7 @@ function getTeamByPosition(tournament: CollectionEntry<'tournaments'>, position:
 function getFinalResult(tournament: CollectionEntry<'tournaments'>, teamPosition: number): string {
   if (teamPosition > 2) return ""; // Solo mostramos resultados para posiciones 1 y 2 (final)
   
-  const teamName = getTeamByPosition(tournament, teamPosition);
+  const teamName = getTeamByPosition(tournament, teamPosition)?.data.name;
   if (!teamName) return "";
   
   const finalMatch = matches.find(match => 
@@ -69,9 +69,9 @@ function getFinalResult(tournament: CollectionEntry<'tournaments'>, teamPosition
 
 // Función para obtener el resultado del partido por el tercer puesto
 function getThirdPlaceResult(tournament: CollectionEntry<'tournaments'>): string {
-  const thirdPlace = getTeamByPosition(tournament, 3);
-  const fourthPlace = getTeamByPosition(tournament, 4);
-  
+  const thirdPlace = getTeamByPosition(tournament, 3)?.data.name;
+  const fourthPlace = getTeamByPosition(tournament, 4)?.data.name;
+
   if (!thirdPlace || !fourthPlace) return "";
   
   const thirdPlaceMatch = matches.find(match => 
@@ -108,16 +108,11 @@ function getThirdPlaceResult(tournament: CollectionEntry<'tournaments'>): string
     </thead>
     <tbody>
       {allEditions.sort((b, a) => b.data.edition - a.data.edition).map(tournament => {
-        const hostImage = getMemberImage(tournament.data.host, members);
+        const host = getMemberByName(tournament.data.host, members);
         const champion = getTeamByPosition(tournament, 1);
         const runnerUp = getTeamByPosition(tournament, 2);
         const third = getTeamByPosition(tournament, 3);
         const fourth = getTeamByPosition(tournament, 4);
-        
-        const championImage = champion ? getMemberImage(champion, members) : null;
-        const runnerUpImage = runnerUp ? getMemberImage(runnerUp, members) : null;
-        const thirdImage = third ? getMemberImage(third, members) : null;
-        const fourthImage = fourth ? getMemberImage(fourth, members) : null;
         
         const finalResult = champion ? getFinalResult(tournament, 1) : "";
         const thirdPlaceResult = getThirdPlaceResult(tournament);
@@ -125,15 +120,15 @@ function getThirdPlaceResult(tournament: CollectionEntry<'tournaments'>): string
         return (
           <tr class="border-b border-green-700 hover:bg-green-900/20">
             <td class="px-2 py-3 flex items-center gap-1 justify-center">
-              {hostImage && <a href={`/members/${members.find(m => m.data.name === tournament.data.host)?.slug}`}><Image src={hostImage} alt={tournament.data.host} width={28} height={20} class="rounded-sm  object-cover max-h-6" loading={'lazy'} quality={10} format={'webp'} /></a>}
+              {host?.data.flagPath && <a href={`/members/${host.slug}`} class="flex-shrink-0"><Image src={host.data.flagPath} alt={host.data.name} width={28} height={20} class="rounded-sm object-cover max-h-6" loading={'lazy'} quality={10} format={'webp'} /></a>}
               <a href={`/${type}/${tournament.data.edition}`} class="hover:underline">{tournament.data.edition}</a>
             </td>
             
             <td class="px-2 py-3 font-semibold">
               {champion && (
                 <div class="flex items-center gap-1 justify-center">
-                  {championImage && <a href={`/members/${members.find(m => m.data.name === champion)?.slug}`}><Image src={championImage} alt={champion} width={28} height={20} class="rounded-sm object-cover max-h-6" loading={'lazy'} quality={10} format={'webp'} /></a>}
-                  <a href={`/members/${members.find(m => m.data.name === champion)?.slug}`} class="hover:underline truncate text-yellow-400">{champion}</a>
+                  {champion.data.flagPath && <a href={`/members/${champion.slug}`}><Image src={champion.data.flagPath} alt={champion.data.name} width={28} height={20} class="rounded-sm object-cover max-h-6" loading={'lazy'} quality={10} format={'webp'} /></a>}
+                  <a href={`/members/${champion.slug}`} class="hover:underline truncate text-yellow-400">{champion.data.name}</a>
                 </div>
               )}
             </td>
@@ -143,8 +138,8 @@ function getThirdPlaceResult(tournament: CollectionEntry<'tournaments'>): string
             <td class="px-2 py-3">
               {runnerUp && (
                 <div class="flex items-center gap-1 justify-center">
-                  {runnerUpImage && <a href={`/members/${members.find(m => m.data.name === runnerUp)?.slug}`}><Image src={runnerUpImage} alt={runnerUp} width={28} height={20} class="rounded-sm  object-cover max-h-6" loading={'lazy'} quality={10} format={'webp'} /></a>}
-                  <a href={`/members/${members.find(m => m.data.name === runnerUp)?.slug}`} class="hover:underline truncate">{runnerUp}</a>
+                  {runnerUp.data.flagPath && <a href={`/members/${runnerUp.slug}`}><Image src={runnerUp.data.flagPath} alt={runnerUp.data.name} width={28} height={20} class="rounded-sm  object-cover max-h-6" loading={'lazy'} quality={10} format={'webp'} /></a>}
+                  <a href={`/members/${runnerUp.slug}`} class="hover:underline truncate">{runnerUp.data.name}</a>
                 </div>
               )}
             </td>
@@ -152,8 +147,8 @@ function getThirdPlaceResult(tournament: CollectionEntry<'tournaments'>): string
             <td class="px-2 py-3">
               {third && (
                 <div class="flex items-center gap-1 justify-center">
-                  {thirdImage && <a href={`/members/${members.find(m => m.data.name === third)?.slug}`}><Image src={thirdImage} alt={third} width={28} height={20} class="rounded-sm  object-cover max-h-6" loading={'lazy'} quality={10} format={'webp'} /></a>}
-                  <a href={`/members/${members.find(m => m.data.name === third)?.slug}`} class="hover:underline truncate">{third}</a>
+                  {third.data.flagPath && <a href={`/members/${third.slug}`}><Image src={third.data.flagPath} alt={third.data.name} width={28} height={20} class="rounded-sm  object-cover max-h-6" loading={'lazy'} quality={10} format={'webp'} /></a>}
+                  <a href={`/members/${third.slug}`} class="hover:underline truncate">{third.data.name}</a>
                 </div>
               )}
             </td>
@@ -163,8 +158,8 @@ function getThirdPlaceResult(tournament: CollectionEntry<'tournaments'>): string
             <td class="px-2 py-3">
               {fourth && (
                 <div class="flex items-center gap-1 justify-center">
-                  {fourthImage && <a href={`/members/${members.find(m => m.data.name === fourth)?.slug}`}><Image src={fourthImage} alt={fourth} width={28} height={20} class="rounded-sm  object-cover max-h-6" loading={'lazy'} quality={10} format={'webp'} /></a>}
-                  <a href={`/members/${members.find(m => m.data.name === fourth)?.slug}`} class="hover:underline truncate">{fourth}</a>
+                  {fourth.data.flagPath && <a href={`/members/${fourth.slug}`}><Image src={fourth.data.flagPath} alt={fourth.data.name} width={28} height={20} class="rounded-sm  object-cover max-h-6" loading={'lazy'} quality={10} format={'webp'} /></a>}
+                  <a href={`/members/${fourth.slug}`} class="hover:underline truncate">{fourth.data.name}</a>
                 </div>
               )}
             </td>

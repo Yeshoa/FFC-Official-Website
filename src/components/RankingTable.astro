@@ -2,7 +2,6 @@
 // src/components/RankingTable.astro
 import type { CollectionEntry } from 'astro:content';
 import { Image } from 'astro:assets';
-import { getMemberImage } from '@lib/memberUtils'; 
 import { getRankedMembers } from '@lib/memberUtils';
 
 interface Props {
@@ -13,12 +12,6 @@ const { members } = Astro.props;
 
 // Filtrar miembros verificados y calcular puntaje total
 const rankedMembers = getRankedMembers(members); // Ordenar por puntaje total descendente
-
-// Función auxiliar para obtener slug (reutilizada)
-const getMemberSlug = (teamName: string): string | undefined => {
-  // Necesitamos buscar en la lista original de members (con datos completos)
-  return members.find(m => m.data.name === teamName)?.slug;
-}
 ---
 
 <div class="container mx-auto p-4 md:p-6">
@@ -74,9 +67,7 @@ const getMemberSlug = (teamName: string): string | undefined => {
           <tr class="border-b border-green-700 hover:bg-green-900/30 transition duration-150">
             <td class="py-2">{index + 1}</td>
             <td class="py-2">
-              {/* Usamos la lista original 'members' para getMemberImageLazy */}
-              
-              <Image src={getMemberImage(team.name, members)} alt={team.name} quality={20} format="webp"
+              <Image src={team.flag} alt={team.name} quality={20} format="webp"
                      width={24} height={16} class="h-4 w-auto object-cover rounded inline-block" />
             </td>
             <td class="py-2 text-left overflow-hidden text-ellipsis">

@@ -2,7 +2,7 @@
 import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 import type { CollectionEntry } from 'astro:content';
-import { getMemberImage } from '@lib/memberUtils';
+import { getMemberByName, getMemberImage } from '@lib/memberUtils';
 import { getMatchResult, getMatchWinnerIncludingPenalties } from '@lib/matchUtils';
 
 interface Goal {
@@ -42,7 +42,6 @@ interface Match {
 interface Props {
   match: Match;
   members: CollectionEntry<'members'>[];
-  // imageGetter: (teamName: string) => ImageMetadata | null;
 }
 
 const { match, members } = Astro.props;
@@ -62,6 +61,10 @@ const team2Penalties = hasPenalties ? match.data.penalties!.filter(p => p.team =
 
 const winner = getMatchWinnerIncludingPenalties(match.data);
 
+// Teams objects
+const team1 = getMemberByName(match.data.team1, members);
+const team2 = getMemberByName(match.data.team2, members);
+
 // Formatear la fecha si el partido está programado
 const formattedDate = match.data.status === 'scheduled' 
   ? match.data.date.toLocaleDateString('es-ES', { day: '2-digit', month: 'short' })
@@ -73,14 +76,14 @@ const formattedDate = match.data.status === 'scheduled'
     <!-- Equipo 1 -->
     <div class="flex items-center justify-between">
       <div class="flex items-center space-x-2">
-        {members.find(m => m.data.name === match.data.team1)?.data.flagPath ? (
-          <Image src={getMemberImage(match.data.team1, members)!} alt={match.data.team1} 
+        {team1?.data.flagPath || team1?.data.logoPath ? (
+          <Image src={team1?.data.flagPath || team1?.data.logoPath} alt={team1?.data.name} 
           class="w-6 h-6 object-contain" width={24} height={24} loading={"lazy"} quality={10} format="webp" />
         ) : (
           <div class="w-6 h-6 bg-gray-600 rounded-md"></div>
         )}
-        <a class={`${winner === match.data.team1 ? 'font-bold' : 'font-light'} hover:underline`} href={`/members/${members.find(m => m.data.name === match.data.team1)?.slug}`}>
-          {members.find(m => m.data.name === match.data.team1)?.data.code}
+        <a class={`${winner === match.data.team1 ? 'font-bold' : 'font-light'} hover:underline`} href={`/members/${team1?.slug}`}>
+          {team1?.data.code}
         </a>
       </div>
       {isPlayed ? (
@@ -98,14 +101,14 @@ const formattedDate = match.data.status === 'scheduled'
     <!-- Equipo 2 -->
     <div class="flex items-center justify-between">
       <div class="flex items-center space-x-2">
-        {members.find(m => m.data.name === match.data.team2)?.data.flagPath ? (
-          <Image src={getMemberImage(match.data.team2, members)!} alt={match.data.team2} 
+        {team2?.data.flagPath || team2?.data.logoPath ? (
+          <Image src={team2?.data.flagPath || team2?.data.logoPath} alt={team2?.data.name} 
           class="w-6 h-6 object-contain" width={24} height={24} loading={"lazy"} quality={10} format="webp" />
         ) : (
           <div class="w-6 h-6 bg-gray-600 rounded-md"></div>
         )}
-        <a class={`${winner === match.data.team2 ? 'font-bold' : 'font-light'} hover:underline` } href={`/members/${members.find(m => m.data.name === match.data.team2)?.slug}`}>
-          {members.find(m => m.data.name === match.data.team2)?.data.code}
+        <a class={`${winner === match.data.team2 ? 'font-bold' : 'font-light'} hover:underline` } href={`/members/${team2?.slug}`}>
+          {team2?.data.code}
         </a>
       </div>
       {isPlayed ? (

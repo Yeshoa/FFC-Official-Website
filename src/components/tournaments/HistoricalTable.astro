@@ -1,7 +1,7 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import { Image } from 'astro:assets';
-import { getMemberImage } from "@lib/memberUtils";
+import { getMemberByName } from "@lib/memberUtils";
 import {
   getMatchResult,
   getGoalsByTeam,
@@ -20,7 +20,7 @@ type TeamStats = {
   id: number;
   name: string;
   code?: string;
-  flagPath?: string;
+  flagPath?: ImageMetadata;
   additionalPoints: number;
   tournamentsPlayed: Set<number>;
   // tournamentsWon: number;
@@ -156,17 +156,19 @@ const sortedStats = Object.values(teamStats).filter(stat => stat.verified).sort(
       </tr>
     </thead>
     <tbody class="text-center">
-      {sortedStats.map((team, index) => (
+      {sortedStats.map((team, index) => { 
+        const teamObject = getMemberByName(team.name, members);
+        return (
         <tr class="border-b border-green-700 hover:bg-green-900/30 transition duration-150">
           <td class="px-2 py-2">{index + 1}°</td>
           <td class="py-2 sticky left-0 z-10 bg-green-900 md:bg-transparent">
-            <Image src={getMemberImage(team.name, members)} alt={team.name} 
+            <Image src={teamObject.data.flagPath || teamObject.data.logoPath} alt={team.name} 
             width={42} 
             class="h-5 max-w-9 object-cover rounded inline-block 2xl:h-6 2xl:w-9" 
             loading={"lazy"} 
             quality={80} format="webp"/>
           </td>
-          <td class="px-2 py-2 text-left"><a href={`/members/${members.find(m => m.data.name === team.name)?.slug}`} class="font-semibold hover:underline truncate">{team.name}</a></td>
+          <td class="px-2 py-2 text-left"><a href={`/members/${teamObject.slug}`} class="font-semibold hover:underline truncate">{team.name}</a></td>
           <td class="px-2 py-2 text-green-200">{team.tournamentsPlayed.size}</td>
           <td class="px-2 py-2 font-bold">{team.totalPoints}{team.additionalPoints > 0 && '*'}</td>
           <td class="px-2 py-2 text-green-200">{team.played}</td>
@@ -179,7 +181,7 @@ const sortedStats = Object.values(teamStats).filter(stat => stat.verified).sort(
           {/* <td class="px-2 py-2">{team.tournamentsWon}</td> */}
           <td class="px-2 py-2">{team.performance.toFixed(2)}%</td>
         </tr>
-      ))}
+      )})}
     </tbody>
   </table>
 </div>

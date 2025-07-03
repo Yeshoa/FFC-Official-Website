@@ -1,7 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
-import { getMemberImage } from '@lib/memberUtils';
+import { getMemberByName } from '@lib/memberUtils';
 import type { CollectionEntry } from 'astro:content';
 
 interface Props {
@@ -28,8 +28,9 @@ const filteredMatches = tournamentId
   ? matches.filter(m => m.tournament_id === tournamentId)
   : matches;
 
-const goalStats = new Map<string, { player: string; team: string; goals: number; assists: number }>();
-const assistStats = new Map<string, { player: string; team: string; assists: number; goals: number }>();
+type MemberEntry = CollectionEntry<'members'>;
+const goalStats = new Map<string, { player: string; team: MemberEntry | string; goals: number; assists: number }>();
+const assistStats = new Map<string, { player: string; team: MemberEntry | string; assists: number; goals: number }>();
 
 const singleTeam = members.length === 1 ? members[0].data.name : null; // Si hay un solo miembro, filtrar por su nombre
 
@@ -44,7 +45,7 @@ for (const match of filteredMatches) {
       if (!goalStats.has(key)) {
         goalStats.set(key, {
           player: goal.player,
-          team: goal.team,
+          team: getMemberByName(goal.team, members),
           goals: 1,
           assists: 0,
         });
@@ -64,7 +65,7 @@ for (const match of filteredMatches) {
       if (!assistStats.has(assistKey)) {
         assistStats.set(assistKey, {
           player: goal.assist,
-          team: goal.team,
+          team: getMemberByName(goal.team, members),
           assists: 1,
           goals: 0,
         });
@@ -113,10 +114,10 @@ const topAssisters = Array.from(assistStats.values())
             <td class="px-4 py-2 font-semibold">{entry.player}</td>
             {members.length !== 1 && ( // Si hay más de un miembro, mostrar el equipo
               <td class="px-4 py-2 flex items-center gap-2">
-                <a href={`/members/${members.find(m => m.data.name === entry.team)?.slug}`} class="flex items-center gap-2 hover:underline">
-                  <Image src={getMemberImage(entry.team, members)} alt={entry.team} 
+                <a href={`/members/${entry.team.slug}`} class="flex items-center gap-2 hover:underline">
+                  <Image src={entry.team.data.flagPath} alt={entry.team.data.name} 
                   class="w-6 h-4 object-cover rounded" height={36} width={36} loading={"lazy"} quality={10} format="webp" />
-                  {entry.team}
+                  {entry.team.data.name}
                 </a>
               </td>
             )}
@@ -144,10 +145,10 @@ const topAssisters = Array.from(assistStats.values())
             <td class="px-4 py-2 font-semibold">{entry.player}</td>
             {members.length !== 1 && ( // Si hay más de un miembro, mostrar el equipo
               <td class="px-4 py-2 flex items-center gap-2">
-                <a href={`/members/${members.find(m => m.data.name === entry.team)?.slug}`} class="flex items-center gap-2 hover:underline">
-                  <Image src={getMemberImage(entry.team, members)} alt={entry.team} 
+                <a href={`/members/${entry.team.slug}`} class="flex items-center gap-2 hover:underline">
+                  <Image src={entry.team.data.flagPath} alt={entry.team.data.name} 
                   class="w-6 h-4 object-cover rounded" height={36} width={36} loading={"lazy"} quality={10} format="webp" />
-                  {entry.team}
+                  {entry.team.data.name}
                 </a>
               </td>
             )}

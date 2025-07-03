@@ -4,7 +4,7 @@ type MatchEntry = CollectionEntry<'matches'>;
 type TournamentEntry = CollectionEntry<'tournaments'>;
 
 import { Image } from 'astro:assets';
-import { getMemberImage } from "@lib/memberUtils"; 
+import { getMemberByName } from "@lib/memberUtils"; 
 import { getMatchResult } from '@lib/matchUtils';      
 import { getTeamStatsInTournament } from '@lib/tournamentUtils'; 
 
@@ -150,15 +150,17 @@ const getMemberSlug = (teamName: string): string | undefined => {
       </tr>
     </thead>
     <tbody class="text-center">
-      {finalSortedStats.map((team, index) => (
+      {finalSortedStats.map((team, index) => { 
+        const teamObject = getMemberByName(team.name, members);
+        return (
         <tr class="border-b border-green-700 hover:bg-green-900/30 transition duration-150">
           <td class="px-2 py-2">{index + 1}°</td>
           <td class="py-2 sticky left-0 z-10 bg-green-900 md:bg-transparent">
-            <Image src={getMemberImage(team.name, members)} alt={team.name} loading={"lazy"}
+            <Image src={teamObject?.data.flagPath || teamObject?.data.logoPath} alt={team.name} loading={"lazy"}
                     width={50}  class="h-6 w-10 object-cover rounded inline-block" quality={50} format="webp"/>
           </td>
           <td class="px-2 py-2 text-left">
-            <a href={`/members/${getMemberSlug(team.name)}`} class="font-semibold hover:underline">{team.name}</a>
+            <a href={`/members/${teamObject?.slug}`} class="font-semibold hover:underline">{team.name}</a>
           </td>
           <td class="px-2 py-2 font-bold">{team.points}</td>
           <td class="px-2 py-2 text-green-200">{team.played}</td>
@@ -170,7 +172,7 @@ const getMemberSlug = (teamName: string): string | undefined => {
           <td class="px-2 py-2 text-green-100 font-medium">{team.gd}</td>
           <td class="px-2 py-2 text-green-100 font-medium">{team.pr}%</td> {/* Valor de Performance */}
         </tr>
-      ))}
+      )})}
       {finalSortedStats.length === 0 && (
           <tr>
               <td colspan="12" class="text-center py-4 text-gray-500">Data not available</td>

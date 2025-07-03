@@ -1,8 +1,8 @@
 ---
 // TournamentParticipationTable.astro
 import type { CollectionEntry } from 'astro:content';
-import { getMemberImage } from '../../lib/memberUtils';
-import { getMatchResult } from '../../lib/matchUtils';
+import { getMemberByName } from '@lib/memberUtils';
+import { getMatchResult } from '@lib/matchUtils';
 import { Image } from 'astro:assets';
 import { getTeamStatsInTournament, getTeamFinalResult, getTopScorerOfTeamInTournament, getTeamPositionInTournament} from '../../lib/tournamentUtils';
 
@@ -63,13 +63,13 @@ function getTeamFinalResultInTournament(tournamentId: number) {
       <tbody class="">
         {allEditions.sort((b, a) => b.data.edition - a.data.edition).map(t => {
           const didParticipate = t.data.participants.includes(memberName);
-          const hostImage = getMemberImage(t.data.host, members);
-  
+          const host = getMemberByName(t.data.host, members);
+
           if (!didParticipate) {
             return (
               <tr class="border-b border-green-700 bg-red-900/10 text-red-300 italic">
                 <td class="px-2 py-2 flex items-center gap-1 justify-center">
-                  {hostImage && <a  href={`/members/${members.find(m => m.data.name === t.data.host)?.slug}`}><Image src={hostImage} alt={t.data.host} width={20} height={14} class="rounded-sm" loading={'lazy'} quality={10} format={'webp'} /></a>}
+                  {host && <a  href={`/members/${host.slug}`}><Image src={host.data.flagPath} alt={host.data.name} width={20} height={14} class="rounded-sm" loading={'lazy'} quality={10} format={'webp'} /></a>}
                   <a href={`/${type}/${t.data.edition}`} class="hover:underline">{t.data.edition}</a>
                 </td>
                 <td colspan="12" class="py-2">Didn't participate</td>
@@ -85,7 +85,7 @@ function getTeamFinalResultInTournament(tournamentId: number) {
           return (
             <tr class="border-b border-green-700 hover:bg-green-900/20">
               <td class={`px-2 py-2 flex items-center gap-1 justify-center ${hostClass}`}>
-                {hostImage && <a href={`/members/${members.find(m => m.data.name === t.data.host)?.slug}`}><Image src={hostImage} alt={t.data.host} width={20} height={14} class="rounded-sm" quality={10} format={'webp'} /></a>}
+                {host && <a href={`/members/${host.slug}`}><Image src={host.data.flagPath} alt={host.data.name} width={20} height={14} class="rounded-sm" quality={10} format={'webp'} /></a>}
                 <a href={`/${type}/${t.data.edition}`} class={`hover:underline`}>{t.data.edition}</a>
               </td>
               <td class={`px-2 py-2 ${resultClass}`}>{getTeamFinalResultInTournament(t.data.id)}</td> {/* Placeholder para resultado final */}

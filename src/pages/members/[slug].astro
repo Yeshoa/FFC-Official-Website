@@ -1,7 +1,7 @@
 ---
 import { getCollection, type CollectionEntry, getEntry } from 'astro:content';
 import { Image } from 'astro:assets';
-import { getMemberImage, getMemberLogo, getMemberTotalScore, getMemberRank } from '@lib/memberUtils';
+import { getMemberTotalScore, getMemberRank, getMemberByName } from '@lib/memberUtils';
 import App from '@layouts/App.astro';
 import ScorersTable from '@components/tournaments/ScorersTable.astro';
 import MatchCard from '@components/MatchCard.astro';
@@ -120,9 +120,6 @@ playedMatches.forEach(match => {
   }
 });
 
-const flagImage = getMemberImage(memberData.name, members);
-const logoImage = getMemberLogo(memberData.name, members);
-
 const memberRank = getMemberRank(memberData.name, members);
 const memberTotalScore = getMemberTotalScore(member);
 
@@ -140,9 +137,9 @@ const hasContent = member?.body && member.body.trim() !== '';
         <div class="flex flex-col items-center md:items-start gap-2">
           <!-- Nombre -->
           <div class="flex gap-4 items-center">
-            {flagImage && (
+            {memberData.flagPath && (
               <Image
-                src={flagImage}
+                src={memberData.flagPath}
                 alt={`${memberData.name}'s flag'`}
                 class="h-24 w-auto md:h-20 object-contain rounded border border-green-700"
                 width={128}
@@ -192,9 +189,9 @@ const hasContent = member?.body && member.body.trim() !== '';
           </div>
         </div>
         <div class="flex flex-col items-center md:items-start gap-4">
-          {logoImage && (
+          {memberData.logo && (
             <Image
-              src={logoImage}
+              src={memberData.logo}
               alt={`${memberData.federation || memberData.name}'s Logo'`}
               class="w-64 h-auto md:w-48 object-contain rounded"
               width={256}
@@ -367,14 +364,14 @@ const hasContent = member?.body && member.body.trim() !== '';
                   return b.goalsFor - a.goalsFor;
                 })
                 .map(([opponentName, stats]) => {
-                  const memberImage = getMemberImage(opponentName, members);
+                  const opponentData = getMemberByName(opponentName, members);
                   return(
                   <tr key={opponentName} 
                   class="border-b border-green-700 hover:bg-green-900/30 transition duration-150">
                     <td class="px-4 py-2 whitespace-nowrap font-medium text-white">
-                      <a href={`/members/${members.find(m => m.data.name === opponentName)?.slug}`} class="flex items-center gap-2 hover:underline truncate">
+                      <a href={`/members/${opponentData?.slug}`} class="flex items-center gap-2 hover:underline truncate">
                       <Image
-                        src={memberImage}
+                        src={opponentData?.data.flagPath}
                         alt={opponentName}
                         class="w-6 h-4 object-cover rounded" height={36} width={36}
                         loading="lazy" quality={10} format="webp"

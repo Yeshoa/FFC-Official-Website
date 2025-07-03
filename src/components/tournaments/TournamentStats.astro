@@ -2,9 +2,8 @@
 // src/components/TournamentStats.astro
 import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
-import { getMemberImage } from '../../lib/memberUtils'; // Ajusta la ruta si es necesario
+import { getMemberByName } from '../../lib/memberUtils'; // Ajusta la ruta si es necesario
 import type { CollectionEntry } from 'astro:content';
-import { getEntry } from 'astro:content';
 
 interface Props {
   tournament: CollectionEntry<'tournaments'>;
@@ -116,10 +115,6 @@ const officialTopScorers = prizes?.topScorer; // Puede ser un array
 const bestPlayer = prizes?.bestPlayer;
 const bestGoalkeeper = prizes?.bestGoalkeeper;
 
-// Función auxiliar para obtener el slug del miembro
-const getMemberSlug = (teamName: string): string | undefined => {
-  return members.find(m => m.data.name === teamName)?.slug;
-}
 const statsCols = topAssisters.length > 0 ? "grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8" : "grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8";
 ---
 
@@ -130,80 +125,63 @@ const statsCols = topAssisters.length > 0 ? "grid grid-cols-1 lg:grid-cols-3 gap
     <aside class="border border-green-700 rounded-lg p-4 bg-green-900/20 order-first justify-between">
       <h3 class="text-xl font-semibold mb-4 text-center text-green-300">Individual Prizes</h3>
       {(!officialTopScorers && !bestPlayer && !bestGoalkeeper) && <p class="text-center text-gray-400">There are no prizes for this tournament</p>}
-
-      {bestPlayer && (
-        <div class="mb-4">
-          <h4 class="font-bold text-lg mb-2 text-amber-400">Best Player</h4>
-           <div class="flex items-center gap-2 p-2 rounded hover:bg-green-800/30 transition">
-              {getMemberSlug(bestPlayer.team) ? (
-                <a href={`/members/${getMemberSlug(bestPlayer.team)}`} class="flex items-center gap-2 hover:underline">
-                  <Image src={getMemberImage(bestPlayer.team, members)} alt={bestPlayer.team} class="w-6 h-4 object-cover rounded" height={16} width={24} quality={10} format='webp' loading={"lazy"}/>
-                  <span class="font-medium">{bestPlayer.player}</span> ({bestPlayer.team})
-                </a>
-              ) : (
-                <div class="flex items-center gap-2">
-                   <Image src={getMemberImage(bestPlayer.team, members)} alt={bestPlayer.team} class="w-6 h-4 object-cover rounded" height={16} width={24} quality={10} format='webp' loading={"lazy"}/>
-                   <span class="font-medium">{bestPlayer.player}</span> ({bestPlayer.team})
-                 </div>
-              )}
+      {bestPlayer && (() => {
+        const member = getMemberByName(bestPlayer.team, members);
+        return (
+          <div class="mb-4">
+            <h4 class="font-bold text-lg mb-2 text-amber-400">Best Player</h4>
+            <div class="flex items-center gap-2 p-2 rounded hover:bg-green-800/30 transition">
+              <a href={`/members/${member.slug}`} class="flex items-center gap-2 hover:underline">
+                <Image src={member.data.flagPath} alt={member.data.name} class="w-6 h-4 object-cover rounded" height={16} width={24} quality={10} format='webp' loading={"lazy"}/>
+                <span class="font-medium">{bestPlayer.player}</span> ({bestPlayer.team})
+              </a>
+            </div>
           </div>
-        </div>
-      )}
+        );
+      })()}
 
       {officialTopScorers && officialTopScorers.length > 0 && (
         <div class="mb-4">
           <h4 class="font-bold text-lg mb-2 text-green-400">Top Scorer</h4>
           {officialTopScorers.map(scorer => {
-            const memberSlug = getMemberSlug(scorer.team);
+            const member = getMemberByName(scorer.team, members);
             return (
               <div class="flex items-center gap-2 mb-1 p-2 rounded hover:bg-green-800/30 transition">
-                {memberSlug ? (
-                  <a href={`/members/${memberSlug}`} class="flex items-center gap-2 hover:underline">
-                    <Image src={getMemberImage(scorer.team, members)} loading={"lazy"} alt={scorer.team} class="w-6 h-4 object-cover rounded" height={16} width={24} quality={10} format='webp' />
-                    <span class="font-medium">{scorer.player}</span> ({scorer.team})
-                  </a>
-                ) : (
-                  <div class="flex items-center gap-2">
-                     <Image src={getMemberImage(scorer.team, members)} loading={"lazy"} alt={scorer.team} class="w-6 h-4 object-cover rounded" height={16} width={24} quality={10} format='webp' />
-                    <span class="font-medium">{scorer.player}</span> ({scorer.team})
-                  </div>
-                )}
-                 <span class="ml-auto font-bold text-green-300">{scorer.goals} Goals</span>
+                <a href={`/members/${member.slug}`} class="flex items-center gap-2 hover:underline">
+                  <Image src={member.data.flagPath} alt={member.data.name} class="w-6 h-4 object-cover rounded" height={16} width={24} quality={10} format='webp' loading={"lazy"}/>
+                  <span class="font-medium">{scorer.player}</span> ({scorer.team})
+                </a>
+                <span class="ml-auto font-bold text-green-300">{scorer.goals} Goals</span>
               </div>
             );
           })}
         </div>
       )}
-      {bestGoalkeeper && (
+      {bestGoalkeeper && (() => {
+        const member = getMemberByName(bestGoalkeeper.team, members);
+        return (
         <div>
           <h4 class="font-bold text-lg mb-2 text-blue-300">Best Goalkeeper</h4>
            <div class="flex items-center gap-2 p-2 rounded hover:bg-green-800/30 transition">
-              {getMemberSlug(bestGoalkeeper.team) ? (
-                <a href={`/members/${getMemberSlug(bestGoalkeeper.team)}`} class="flex items-center gap-2 hover:underline">
-                  <Image src={getMemberImage(bestGoalkeeper.team, members)} loading={"lazy"} alt={bestGoalkeeper.team} class="w-6 h-4 object-cover rounded" height={16} width={24} quality={10} format='webp' />
-                  <span class="font-medium">{bestGoalkeeper.player}</span> ({bestGoalkeeper.team})
-                </a>
-              ) : (
-                 <div class="flex items-center gap-2">
-                   <Image src={getMemberImage(bestGoalkeeper.team, members)} loading={"lazy"} alt={bestGoalkeeper.team} class="w-6 h-4 object-cover rounded" height={16} width={24} quality={10} format='webp' />
-                   <span class="font-medium">{bestGoalkeeper.player}</span> ({bestGoalkeeper.team})
-                 </div>
-              )}
+              <a href={`/members/${member.slug}`} class="flex items-center gap-2 hover:underline">
+                <Image src={member.data.flagPath} loading={"lazy"} alt={member.data.name} class="w-6 h-4 object-cover rounded" height={16} width={24} quality={10} format='webp' />
+                <span class="font-medium">{bestGoalkeeper.player}</span> ({bestGoalkeeper.team})
+              </a>
           </div>
         </div>
-      )}
+      )})}
 
       <h3 class="text-xl font-semibold mb-4 text-center">Global Stats</h3>
       <div class="text-center grid-cols-3 grid gap-4">
-        <div class="p-3 bg-green-600/50 rounded">
+        <div class="p-3 bg-green-600/50 rounded flex flex-col justify-center">
           <p class="text-sm">Total Matches</p>
           <p class="text-2xl font-bold">{totalMatchesPlayed}</p>
         </div>
-        <div class="p-3 bg-green-600/50 rounded">
+        <div class="p-3 bg-green-600/50 rounded flex flex-col justify-center">
           <p class="text-sm">Total Goals</p>
           <p class="text-2xl font-bold">{totalGoals}</p>
         </div>
-        <div class="p-3 bg-green-600/50 rounded">
+        <div class="p-3 bg-green-600/50 rounded flex flex-col justify-center">
           <p class="text-sm">Goals per Match</p>
           <p class="text-2xl font-bold">{averageGoalsPerMatch.toFixed(2)}</p>
         </div>
@@ -224,22 +202,15 @@ const statsCols = topAssisters.length > 0 ? "grid grid-cols-1 lg:grid-cols-3 gap
             </thead>
             <tbody>
               {topScorers.map((entry, index) => {
-                const memberSlug = getMemberSlug(entry.team);
+                const member = getMemberByName(entry.team, members);
                 return (
                   <tr class="border-b border-green-700 hover:bg-green-900/30 transition duration-150" key={`${entry.player}-${entry.team}-goals`}>
                     <td class="px-4 py-2 font-semibold">{entry.player}</td>
                     <td class="px-4 py-2">
-                      {memberSlug ? (
-                        <a href={`/members/${memberSlug}`} class="flex items-center gap-2 hover:underline">
-                          <Image src={getMemberImage(entry.team, members)} loading={"lazy"} alt={entry.team} class="w-6 h-4 object-cover rounded" height={16} width={24} quality={10} format='webp' />
-                          {entry.team}
-                        </a>
-                      ) : (
-                         <div class="flex items-center gap-2">
-                           <Image src={getMemberImage(entry.team, members)} loading={"lazy"} alt={entry.team} class="w-6 h-4 object-cover rounded" height={16} width={24} quality={10} format='webp' />
-                           {entry.team}
-                         </div>
-                      )}
+                      <a href={`/members/${member.slug}`} class="flex items-center gap-2 hover:underline">
+                        <Image src={member.data.flagPath} loading={"lazy"} alt={entry.team} class="w-6 h-4 object-cover rounded" height={16} width={24} quality={10} format='webp' />
+                        {entry.team}
+                      </a>
                     </td>
                     <td class="px-4 py-2 text-right font-bold">{entry.goals}</td>
                     {/* <td class="px-4 py-2 text-right hidden sm:table-cell">{entry.assists}</td>  */}</tr>
@@ -266,22 +237,15 @@ const statsCols = topAssisters.length > 0 ? "grid grid-cols-1 lg:grid-cols-3 gap
             </thead>
             <tbody>
               {topAssisters.map((entry, index) => {
-                 const memberSlug = getMemberSlug(entry.team);
+                 const member = getMemberByName(entry.team, members);
                  return (
                   <tr class="border-b border-cyan-700 hover:bg-cyan-900/30 transition duration-150" key={`${entry.player}-${entry.team}-assists`}>
                     <td class="px-4 py-2 font-semibold">{entry.player}</td>
                      <td class="px-4 py-2">
-                       {memberSlug ? (
-                        <a href={`/members/${memberSlug}`} class="flex items-center gap-2 hover:underline">
-                          <Image src={getMemberImage(entry.team, members)} loading={"lazy"} alt={entry.team} class="w-6 h-4 object-cover rounded" height={16} width={24} quality={10} format='webp' />
+                        <a href={`/members/${member.slug}`} class="flex items-center gap-2 hover:underline">
+                          <Image src={member.data.flagPath} loading={"lazy"} alt={entry.team} class="w-6 h-4 object-cover rounded" height={16} width={24} quality={10} format='webp' />
                           {entry.team}
                         </a>
-                      ) : (
-                         <div class="flex items-center gap-2">
-                           <Image src={getMemberImage(entry.team, members)} loading={"lazy"} alt={entry.team} class="w-6 h-4 object-cover rounded" height={16} width={24} quality={10} format='webp' />
-                           {entry.team}
-                         </div>
-                      )}
                     </td>
                     <td class="px-4 py-2 text-right font-bold">{entry.assists}</td>
                     {/*  <td class="px-4 py-2 text-right hidden sm:table-cell">{entry.goals}</td> */} </tr>

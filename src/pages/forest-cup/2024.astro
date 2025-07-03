@@ -1,7 +1,6 @@
 ---
 import { getCollection, type CollectionEntry } from 'astro:content';
 import { Image } from 'astro:assets';
-import { getMemberImage } from '@lib/memberUtils';
 import App from '@layouts/App.astro'; 
 import Bracket from '@components/tournaments/Bracket.astro'; 
 import Groups from '@components/tournaments/Groups.astro';
@@ -31,7 +30,6 @@ if (!tournamentEntry) {
 }
 
 const FC2024Data = tournamentEntry.data;
-const { Content } = await tournamentEntry.render();
 
 // Matches
 const fc2024Matches = matchesCollection
@@ -40,7 +38,6 @@ const fc2024Matches = matchesCollection
 const knockoutMatches = fc2024Matches.filter(match => match.data.stage === 'knockout');
 
 // Imagenes
-import FC24Logo from '@images/tournaments/2024/banner.png'; 
 import AllGoalsHero from '@images/tournaments/2024/all-goals.png';
 import FinalMatch from '@images/tournaments/2024/final-match.png';
 import NysnubShow from '@images/tournaments/2024/nysnub-show.png';
@@ -48,6 +45,7 @@ import LongestPenalty from '@images/tournaments/2024/longest-penalty.png';
 import BestGoal from '@images/tournaments/2024/best-goal.png';
 import MVPTarasov from '@images/tournaments/2024/mvp-tarasov.png';
 import TournamentStats from '@components/tournaments/TournamentStats.astro';
+import { getMemberByName } from '@lib/memberUtils';
 
 // Función auxiliar para encontrar los partidos de una fixture específica (si es necesario)
 // Nota: Esto puede ser complejo si la estructura de `FC2024Data` no coincide perfectamente
@@ -100,14 +98,14 @@ const headlines = [
 ]
 
 const pageTitle = `FFC - ${FC2024Data.name || 'Forest Cup'}`;
-const winner = getMatchWinner(getMatchesForFixture('knockout', undefined, 'Final')[0].data); 
+const winner = getMemberByName(FC2024Data.champion, membersCollection); 
 ---
 
 <App title={pageTitle}>
   <main class="flex flex-col items-center relative">
     <div class="flex flex-col justify-center items-center w-full bg-gradient-to-b from-transparent to-green-900/80">
       <TournamentGrid currentTournament={FC2024Data}/>
-      <TournamentHero currentTournament={FC2024Data} members={membersCollection} />
+      <TournamentHero currentTournament={FC2024Data} champion={winner} />
     </div>
     <!-- News -->
     <Headlines headlines={headlines}/>
