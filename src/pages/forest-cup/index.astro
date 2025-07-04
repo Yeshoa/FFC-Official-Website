@@ -12,40 +12,26 @@ import { getCollection } from 'astro:content';
 const members = await getCollection('members');
 const matchEntries = await getCollection('matches');
 const tournamentEntries = await getCollection('tournaments');
-const tournaments = (await getCollection('tournaments'))
-  .map(tournament => {
-    const { id, name, image, edition } = tournament.data;
+const tournaments = await getCollection('tournaments');
 
-    return {
-      id,
-      name,
-      slug: edition,
-      image,
-    };
-  });
-
-const sortedTournaments = tournaments.sort((a, b) => a.id - b.id); // Ordenar por ID
 const matches = matchEntries.map((entry) => entry.data);
+
 ---
 
 <App title="FFC - Forest Cup">
   <main class="flex flex-col items-center">
     <!-- Banner -->
     <div class="container flex flex-col justify-center items-center pt-6">
-        <Image src={FCLogo} alt="Forest Cup" width={700} class="w-1/2" loading={"eager"} format={"webp"} quality={50}/>
+        <Image src={FCLogo} alt="Forest Cup" height={700} class="w-1/3" loading={"eager"} format={"webp"} quality={50}/>
     </div>
     <!-- Tournaments -->
-    <div class="flex justify-center p-6">
-      <div class="container">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {sortedTournaments.slice().reverse().map(({ name, image, slug }) => (
-            <FCCard
-              title={name}
-              imagePath={image} // Esto es ahora un import válido de astro:assets
-              slug={slug}
-            />
-          ))}
-        </div>
+    <div class="container p-6">
+      <div class="flex gap-6">
+        {tournaments.slice().reverse().map((tournament) => (
+          <FCCard
+            tournament={tournament}
+          />
+        ))}
       </div>
     </div>
     <!-- List tournaments -->

@@ -1,20 +1,19 @@
 ---
 import type { ImageMetadata } from 'astro';
 import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
 interface FCCardProps {
-  title: string;
-  imagePath: ImageMetadata;
-  slug: string;
+  tournament: CollectionEntry<'tournaments'>;
 }
-const { title, imagePath, slug } = Astro.props;
+const { tournament } = Astro.props;
 
-if (!imagePath) throw new Error(`"${imagePath}" does not exist in glob: "src/assets/images/tournaments/*.{jpeg,jpg,png,gif}"`);
+if (!tournament.data.image) throw new Error(`"${tournament.data.image}" does not exist in glob: "src/assets/images/tournaments/*.{jpeg,jpg,png,gif}"`);
 ---
-<a href={`/forest-cup/${slug}`} class="flex flex-col justify-center items-center overflow-hidden 
+<a href={`/forest-cup/${tournament.slug}`} class="flex flex-col justify-center items-center overflow-hidden 
 border ring-0 hover:ring-2 hover:ring-green-300 border-green-800 
 p-4 rounded-4xl w-auto">
   <div class="flex h-full items-center">
-    <Image src={imagePath} class="h-auto w-full" width={300} alt={title} loading={"eager"} quality={40} format="webp"/>
+    <Image src={tournament.data.image} class="h-auto w-full" width={300} alt={tournament.data.name} loading={"eager"} quality={40} format="webp"/>
   </div>
-  <p class="font-bold text-xl">{title}</p>
+  <p class="font-bold text-xl">{tournament.data.name}</p>
 </a>
