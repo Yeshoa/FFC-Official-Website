@@ -29,15 +29,16 @@ const { heroImage, heroTitle, heroSubtitle, cta } = Astro.props;
                 src={CarrouselImgTwo} 
                 alt="Atsvea Champion" 
                 width={1200} 
-                 class="hero__img" 
-                 format="webp"
+                class="hero__img" 
+                format="webp"
+                loading="lazy"
             />
             <Image
                 src={heroImage.src}
                 alt={heroImage.alt}
                 width={1200}
                 quality={90}
-                class="hero__img"
+                class="hero__img object-[35%_-2rem] lg:object-center"
                 format="webp"
                 priority
                 loading="eager"
@@ -46,29 +47,33 @@ const { heroImage, heroTitle, heroSubtitle, cta } = Astro.props;
                 src={CarrouselImgFive} 
                 alt="Darrow Dribble" 
                 width={1200} 
-                 class="hero__img" 
-                 format="webp"
+                class="hero__img object-[55%_center] lg:object-center" 
+                format="webp"
+                loading="lazy"
             />
             <Image 
                 src={CarrouselImgSix} 
                 alt="Nysnub Holding Ball" 
                 width={1200} 
-                 class="hero__img" 
-                 format="webp"
+                class="hero__img" 
+                format="webp"
+                loading="lazy"
             />
             <Image 
                 src={CarrouselImgFour} 
                 alt="Rui Champions" 
                 width={1200} 
-                 class="hero__img" 
-                 format="webp"
+                class="hero__img object-[35%_center] lg:object-center" 
+                format="webp"
+                loading="lazy"
             />
             <Image 
                 src={CarrouselImgThree} 
                 alt="Trophy Panoramic" 
                 width={1200} 
-                 class="hero__img" 
-                 format="webp"
+                class="hero__img" 
+                format="webp"
+                loading="lazy"
             />
         </div>
         <div class="hero__flex">
@@ -108,7 +113,6 @@ const { heroImage, heroTitle, heroSubtitle, cta } = Astro.props;
             width: 100%;
             height: 100svh;
             object-fit: cover;
-            object-position: center center;
             position: absolute;
             transition: opacity .5s ease-in-out;
             &:nth-child(2) {
@@ -169,7 +173,7 @@ const { heroImage, heroTitle, heroSubtitle, cta } = Astro.props;
             gap: 2rem;
         }
         .hero__logo {
-            will-change: transform, opacity, filter;
+            will-change: transform, opacity;
             animation: fadeIn 1.5s ease-in-out .4s forwards;
             opacity: 0;
             width: 230px;
@@ -177,7 +181,7 @@ const { heroImage, heroTitle, heroSubtitle, cta } = Astro.props;
         .hero__title {
             font-size: 4rem;
             font-weight: bold;
-            will-change: transform, opacity, filter;
+            will-change: transform, opacity;
             animation: fadeIn 1s ease-in-out  .4s forwards;
             opacity: 0;
             margin: 0;
@@ -185,7 +189,7 @@ const { heroImage, heroTitle, heroSubtitle, cta } = Astro.props;
         }
         .hero__subtitle {
             font-size: 1.3rem;
-            will-change: transform, opacity, filter;
+            will-change: transform, opacity;
             animation: fadeIn 1s ease-in-out .6s forwards;
             opacity: 0;
             margin: 0;
@@ -218,7 +222,7 @@ const { heroImage, heroTitle, heroSubtitle, cta } = Astro.props;
             }
         }
         .hero__btn__cont {
-            will-change: transform, opacity, filter; 
+            will-change: transform, opacity; 
             animation: fadeIn 1s ease-in-out .8s forwards;
             display: flex;
             justify-content: center;
@@ -229,11 +233,7 @@ const { heroImage, heroTitle, heroSubtitle, cta } = Astro.props;
     @keyframes fadeIn {
         0% {
             transform: scale(.9);
-            filter: blur(2px);
             opacity: 0;
-        }
-        70% {
-            filter: blur(0);
         }
         100% {
             transform: scale(1);
@@ -279,10 +279,6 @@ const { heroImage, heroTitle, heroSubtitle, cta } = Astro.props;
             }
             .hero__title {
                 font-size: 2.6rem;
-            }
-            .hero__img {
-                object-position: 35% -2rem;
-                
             }
             .hero__text {
                 gap: 1rem;
