@@ -52,8 +52,8 @@ import Search from '@images/icons/magnifying-glass-solid.svg';
             </a>
           </li> -->
           <li class="group">
-            <a href="/members" class={`flex gap-2 items-center py-2 px-3 rounded-sm ${currentPath === "/members" ? "text-green-600" : "text-white group-hover:text-green-300"}`}>
-              <Members width={16} class={`${currentPath === "/members" ? "fill-green-600" : "fill-white group-hover:fill-green-300"}`} />
+            <a href="/members" class={`flex gap-2 items-center py-2 px-3 rounded-sm ${currentPath.includes("/members") ? "text-green-600" : "text-white group-hover:text-green-300"}`}>
+              <Members width={16} class={`${currentPath.includes("/members") ? "fill-green-600" : "fill-white group-hover:fill-green-300"}`} />
               Members
             </a>
           </li>
@@ -108,8 +108,8 @@ import Search from '@images/icons/magnifying-glass-solid.svg';
         </a>
       </li> -->
       <li class="group">
-        <a href="/members" class={`flex gap-2 items-center py-2 px-3 rounded-sm ${currentPath === "/members" ? "text-green-600" : "text-white group-hover:text-green-300"}`}>
-          <Members width={16} class={`${currentPath === "/members" ? "fill-green-600" : "fill-white group-hover:fill-green-300"}`} />
+        <a href="/members" class={`flex gap-2 items-center py-2 px-3 rounded-sm ${currentPath.includes("/members") ? "text-green-600" : "text-white group-hover:text-green-300"}`}>
+          <Members width={16} class={`${currentPath.includes("/members") ? "fill-green-600" : "fill-white group-hover:fill-green-300"}`} />
           Members
         </a>
       </li>
