@@ -49,12 +49,12 @@ const matches = matchEntries.map((entry) => entry.data);
       </div>
     </div>
     <!-- List tournaments -->
-    <div class="max-w-8xl border-t border-green-600 items-start w-full px-1 md:px-6">
+    <div class="max-w-8xl border-t border-green-600 items-start w-full px-2 md:px-6">
       <TournamentHistoryTable tournaments={tournamentEntries} matches={matchEntries} members={members} type="forest-cup" />
     </div>
     <!-- Stats and Top Scorers -->
-    <div class="grid grid-cols-1 xl:grid-cols-2 gap-6 mb-12 items-start justify-between w-full max-w-8xl px-1 md:px-6">
-      <div class="w-full flex flex-col items-center px-1">
+    <div class="grid grid-cols-1 xl:grid-cols-2 gap-6 mb-12 items-start justify-between w-full max-w-8xl px-2 md:px-6">
+      <div class="w-full flex flex-col items-center">
         <Table members={members} matches={matches} />
       </div>
       <section class="flex items-center flex-col px-1">
