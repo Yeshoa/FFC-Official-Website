@@ -47,7 +47,6 @@ const tournamentLink = `/${type}/${edition}`;
         quality={85}
       />
     ) : (
-      <!-- Patrón de fondo animado cuando no hay imagen -->
       <div class="absolute inset-0 bg-gradient-to-br from-emerald-900/20 via-gray-900 to-black">
         <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
         <div class="absolute inset-0 bg-gradient-to-r from-emerald-500/10 via-transparent to-blue-500/10 animate-pulse-slow"></div>
@@ -66,14 +65,12 @@ const tournamentLink = `/${type}/${edition}`;
         <div class="flex items-start justify-between">
           <!-- Logo con efecto glassmorphism -->
           <div class="relative group/logo">
-            <div class="w-16 h-16 md:w-20 md:h-20 lg:w-32 lg:h-32  transition-all duration-300 group-hover:scale-105 group-hover:rotate-3">
+            <div class="w-32 h-32  transition-all duration-300 group-hover:scale-105 group-hover:rotate-3">
               <Image
                 src={image}
                 alt={`${name} Logo`}
                 class="w-full h-full object-contain drop-shadow-lg"
-                widths={[96, 128]}
-                sizes="96px"
-                quality="max"
+                width={150}
               />
             </div>
             <!-- Glow effect -->
@@ -100,12 +97,12 @@ const tournamentLink = `/${type}/${edition}`;
       </div>
       
       <!-- Sección inferior: Información y stats -->
-      <div class="space-y-4">
+      <div class="space-y-4 mt-2">
         <!-- Stats principales -->
         <div class="flex flex-wrap gap-4 md:gap-6">
           {champion && (
             <div class="flex items-center gap-3 backdrop-blur-sm bg-yellow-500/10 border border-yellow-400/20 rounded-xl px-4 py-3 group/stat hover:bg-yellow-500/20 transition-all duration-300">
-              <div class="text-2xl animate-bounce-slow"><Star class="w-8 h-8 mx-auto mt-2 fill-amber-400" /></div>
+              <div class="text-2xl animate-bounce-slow"><Star class="w-8 h-8 mx-auto fill-amber-400" /></div>
               <div>
                 <div class="text-xs text-yellow-200/80 uppercase tracking-wide font-medium">Winner</div>
                 <div class="text-yellow-100 font-bold text-lg">{champion}</div>
@@ -115,7 +112,7 @@ const tournamentLink = `/${type}/${edition}`;
           
           {host && (
             <div class="flex items-center gap-3 backdrop-blur-sm bg-emerald-500/10 border border-emerald-400/20 rounded-xl px-4 py-3 group/stat hover:bg-emerald-500/20 transition-all duration-300">
-              <div class="text-2xl"><House class="w-8 h-8 mx-auto mt-2 fill-emerald-400" /></div>
+              <div class="text-2xl"><House class="w-8 h-8 mx-auto mb-1 fill-emerald-400" /></div>
               <div>
                 <div class="text-xs text-emerald-200/80 uppercase tracking-wide font-medium">Host</div>
                 <div class="text-emerald-100 font-bold text-lg">{host}</div>
@@ -124,7 +121,7 @@ const tournamentLink = `/${type}/${edition}`;
           )}
           
           <div class="flex items-center gap-3 backdrop-blur-sm bg-blue-500/10 border border-blue-400/20 rounded-xl px-4 py-3 group/stat hover:bg-blue-500/20 transition-all duration-300">
-            <div class="text-2xl"><People class="w-8 h-8 mx-auto mt-2 fill-blue-400" /></div>
+            <div class="text-2xl"><People class="w-8 h-8 mx-auto fill-blue-400" /></div>
             <div>
               <div class="text-xs text-blue-200/80 uppercase tracking-wide font-medium">Participants</div>
               <div class="text-blue-100 font-bold text-lg">{participants.length}</div>
