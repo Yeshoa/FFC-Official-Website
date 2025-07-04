@@ -47,16 +47,6 @@ import MVPTarasov from '@images/tournaments/2024/mvp-tarasov.png';
 import TournamentStats from '@components/tournaments/TournamentStats.astro';
 import { getMemberByName } from '@lib/memberUtils';
 
-// Función auxiliar para encontrar los partidos de una fixture específica (si es necesario)
-// Nota: Esto puede ser complejo si la estructura de `FC2024Data` no coincide perfectamente
-// con cómo quieres mostrar los partidos de `fc2024Matches`.
-const getMatchesForFixture = (stageName?: string, groupName?: string, fixtureName?: string) => {
-    return fc2024Matches.filter(m =>
-        (!stageName || m.data.stage === stageName) &&
-        (!groupName || m.data.group === groupName) &&
-        (!fixtureName || m.data.fixture === fixtureName)
-    );
-}
 const headlines = [
   {
     title: 'Revive the Final',
