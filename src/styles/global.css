@@ -10,6 +10,7 @@
   --breakpoint-xs: 400px;
   --breakpoint-2md: 900px;
   --spacing-8xl: 1450px;
+  --animate-sladeIn: slide-in 1s ease-out forwards;
 } 
  
 :root {
@@ -108,4 +109,15 @@
     opacity: 0;
     transform: translateY(10px);
   }
+
 }
+ @keyframes slide-in {
+	from {
+	  transform: translateY(-10px);
+	  opacity: 0;
+	}
+	to {
+	  transform: translateX(0);
+	  opacity: 1;
+	}
+  }
