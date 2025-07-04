@@ -30,7 +30,7 @@ const { headlines } = Astro.props;
                 <!-- Cada carta -->
                 <div class="grid grid-custom-2 lg:grid-cols-1 h-full">
                     {headlines.slice(1).map((headline) => (
-                        <div class="flex items-center justify-center h-full py-2 px-2 lg:px-0 border-b border-green-600 min-[860px]:nth-4:border-b-0 last:border-b-0">
+                        <div class="flex items-center justify-center h-full py-2 px-2 lg:px-0 border-b border-green-600 min-[860px]:nth-4:border-b-0 lg:nth-4:border-b last:border-b-0">
                             <a href={headline.link} target={headline.noblank ? '_blank' : '_self'} class="flex items-center justify-start w-full group">
                             <div class="h-13 w-[25%] min-w-23 sm:w-[45%] sm:h-22 xl:w-40% rounded-lg sm:rounded-2xl overflow-hidden flex-shrink-0">
                                 <Image src={headline.image} quality={50} format="webp"
