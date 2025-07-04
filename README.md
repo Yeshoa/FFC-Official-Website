@@ -8,22 +8,23 @@ Website built with **Astro**. Showcases tournaments, match details, and national
 
 - [ ] **Landing Page**  
 &nbsp;&nbsp;&nbsp;&nbsp;Add content to the landing page, maybe changing the "grid hero" with a full width React carousel.
+  - [ ] Banner links to fc, ~~CL~~, members, rankings, forms
   - [ ] Display last news
   - [ ] Display last official matches
 
 - ✅ **Elaborate the Members page (by slug)**  
-&nbsp;&nbsp;&nbsp;&nbsp;Collection by markdown DONE✅. ⚠ Components need to be in /components. Page should look like a profile with all this info:
-  - ✅ Set up `render` content
+&nbsp;&nbsp;&nbsp;&nbsp;Collection by markdown DONE✅. ⚠ Components need to be in /components. Page should look like a profile with all this info:  
+  - ❌️ Set up `render` content
   - [ ] ~~Upcoming matches~~
   - ✅ Show a component for **last matches played**
   - ⚠ Component showing **head-to-head stats** against other national teams (only those they've played)
   - ✅ Show **Forest Cup history** [Example](https://es.wikipedia.org/wiki/Selección_de_fútbol_de_Argentina#Estadísticas)
   - ✅ **Records section** [Example](https://es.wikipedia.org/wiki/Selección_de_fútbol_de_Argentina#Récords_y_notas)
-  - ❌ ~~**Achievements section**~~ _discarded_
+  - [ ] **Achievements**
   - [ ] Display `roster` with their numbers
   - ✅ Work on score calculations
 
-- [ ] **Elaborate the Tournaments page**  
+- ✅️ **Elaborate the Tournaments page**  
 &nbsp;&nbsp;&nbsp;&nbsp;Improve Tournaments pages:
   - ✅ `Banner`: An image of the champions, with their flag-name and maybe the trophy
   - ✅ `Headlines`: A component with relevant media.
@@ -35,7 +36,7 @@ Website built with **Astro**. Showcases tournaments, match details, and national
   - [ ] `Team of the Tournament`
   - [ ] `Minor Stats or gallery`
 
-- [ ] **Elaborate the Matches page (by slug)**  
+ - ⛔️**Elaborate the Matches page (by slug)**_discarded: too heavy for deploy_
 &nbsp;&nbsp;&nbsp;&nbsp;Collection by markdown DONE✅. Page should show all the match info: [Example](https://www.promiedos.com.ar/game/borussia-dortmund-vs-real-madrid/ebcejgh)
 
 - [ ] **Create "sign up" form**  
@@ -67,7 +68,7 @@ Website built with **Astro**. Showcases tournaments, match details, and national
     - [ ] FC 2024 (`/forest-cup/2024`)
   - ✅ Members (`/members`)
     - ✅ Member detail (`/members/[slug]`)
-  - [ ] Ranking (`/ranking`)
+  - ✅️ Ranking (`/ranking`)
 
 - ✅ **Use `<Image />` component where possible and optimize their size**  
 &nbsp;&nbsp;&nbsp;&nbsp;Try to optimize image rendering.
