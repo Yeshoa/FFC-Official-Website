@@ -21,19 +21,24 @@ const matches = matchEntries.map((entry) => entry.data);
 <App title="FFC - Forest Cup">
   <main class="flex flex-col items-center">
     <!-- Banner -->
-    <div class="container flex flex-col justify-center items-center pt-6">
-        <Image src={FCLogo} alt="Forest Cup" height={700} class="w-1/3" loading={"eager"} format={"webp"} quality={50}/>
-    </div>
-    <!-- Tournaments -->
-    <div class="container p-6">
-      <div class="flex flex-col gap-6">
-        {tournaments.slice().reverse().map((tournament) => (
-          <FCCard
-            tournament={tournament}
-          />
-        ))}
+    <header class="bg-green-1000 w-full flex flex-col items-center">
+      <div class="container flex flex-col justify-center items-center pt-6">
+          <div class="flex justify-center items-center after:w-30 after:h-1 mb-2 after:bg-green-700 after:rounded-full after:absolute after:bottom-0 after:mx-auto relative">
+            <Image src={FCLogo} alt="Forest Cup" width={500} class="w-90 sm:w-95" loading={"eager"} format={"webp"} quality={50}/>
+          </div>
+          <p class="text-sm sm:text-lg text-gray-200 px-8 sm:px-0 text-center">Here you can find all the information about the Forest Cup</p>
       </div>
-    </div>
+      <!-- Tournaments -->
+      <div class="container px-6 py-4">
+        <div class="flex flex-col gap-6">
+          {tournaments.slice().reverse().map((tournament) => (
+            <FCCard
+              tournament={tournament}
+            />
+          ))}
+        </div>
+      </div>
+    </header>
     <!-- List tournaments -->
     <div class="max-w-8xl border-t border-green-600 items-start w-full px-2 md:px-6">
       <TournamentHistoryTable tournaments={tournamentEntries} matches={matchEntries} members={members} type="forest-cup" />
