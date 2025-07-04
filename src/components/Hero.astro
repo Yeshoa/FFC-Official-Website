@@ -40,6 +40,7 @@ const { heroImage, heroTitle, heroSubtitle, cta } = Astro.props;
                 class="hero__img"
                 format="webp"
                 priority
+                loading="eager"
             />
             <Image 
                 src={CarrouselImgFive} 
@@ -71,7 +72,7 @@ const { heroImage, heroTitle, heroSubtitle, cta } = Astro.props;
             />
         </div>
         <div class="hero__flex">
-            <Image src={cta.logo} alt="Logo" width={300} height={300} class="hero__logo" format="webp" />
+            <Image src={cta.logo} alt="Logo" width={300} height={300} class="hero__logo" format="webp" loading="eager" />
             <div class="hero__text">
                 <h1 class="hero__title">{heroTitle}</h1>
                 <p class="hero__subtitle">{heroSubtitle}</p>
