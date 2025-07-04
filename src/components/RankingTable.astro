@@ -14,14 +14,14 @@ const { members } = Astro.props;
 const rankedMembers = getRankedMembers(members); // Ordenar por puntaje total descendente
 ---
 
-<div class="container mx-auto p-4 md:p-6">
+<div class="w-full p-4 items-center">
   <h1 class="text-6xl font-bold mb-6 text-center">Ranking</h1>
   <p class="text-lg mb-4 text-center">Score determines how strong your team will be. More points means higher chances to win.</p>
   <div class="overflow-x-auto rounded-lg">
-    <table class="min-w-full w-full table-fixed border-collapse text-sm">
+    <table class="min-w-7xl table-auto border-collapse text-sm w-max md:w-full max-w-7xl mx-auto">
       <colgroup>
         <col style="width: 20px;"> <!-- Pos -->
-        <col style="width: 20px;"> <!-- Flag -->
+        <col style="width: 15px;"> <!-- Flag -->
         <col style="width: 60px;"> <!-- Team -->
         <col style="width: 50px;"> <!-- Hist -->
         <col style="width: 50px;"> <!-- Res -->
@@ -33,13 +33,13 @@ const rankedMembers = getRankedMembers(members); // Ordenar por puntaje total de
       </colgroup>
       <thead class="bg-green-800 uppercase">
         <tr>
-          <th rowspan="2" class="py-3 text-center border-b border-green-600" title="Position">Pos</th>
+          <th rowspan="2" class="py-3 text-center border-b border-green-600 rounded-tl-xl" title="Position">Pos</th>
           <th rowspan="2" class="py-3 text-center border-b border-green-600"></th>
           <th rowspan="2" class="py-3 text-left border-b border-green-600">Team</th>
           <th colspan="2" class="px-4 py-2 text-center border-b border-l border-green-600">Roleplay</th>
           <th colspan="2" class="px-4 py-2 text-center border-b border-l border-green-600">Events</th>
           <th colspan="2" class="px-4 py-2 text-center border-b border-l border-green-600">Bonus</th>
-          <th rowspan="2" class="px-4 py-3 text-center font-bold border-b border-l border-green-600 rounded-tr-lg">Total</th>
+          <th rowspan="2" class="px-4 py-3 text-center font-bold border-b border-l border-green-600 rounded-tr-xl">Total</th>
         </tr>
         <tr>
           <th class="px-2 py-2 text-center font-medium border-b border-l border-green-600" title="History Poins">Hist</th>
@@ -66,11 +66,12 @@ const rankedMembers = getRankedMembers(members); // Ordenar por puntaje total de
           return (
           <tr class="border-b border-green-700 hover:bg-green-900/30 transition duration-150">
             <td class="py-2">{index + 1}</td>
-            <td class="py-2">
+            <td class="py-2 sticky left-0 z-10 bg-green-900 xl:bg-transparent">
+              {/* Usamos el slug guardado en rankedMembers */}
               <Image src={team.flag} alt={team.name} quality={20} format="webp"
                      width={24} height={16} class="h-4 w-auto object-cover rounded inline-block" />
             </td>
-            <td class="py-2 text-left overflow-hidden text-ellipsis">
+            <td class="pl-2 py-2 text-left overflow-hidden text-ellipsis">
               {/* Usamos el slug guardado en rankedMembers */}
               <a href={`/members/${team.slug}`} class="font-semibold hover:underline text-white block overflow-hidden text-ellipsis" title={team.name}>{team.name}</a>
             </td>
