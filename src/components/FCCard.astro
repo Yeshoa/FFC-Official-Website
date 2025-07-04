@@ -22,7 +22,8 @@ const {
     participants,
     banner,
     image,
-    heroImg
+    heroImg,
+    loadingType, 
 } = data;
 
 const mainImage = heroImg;
@@ -46,6 +47,7 @@ const tournamentLink = `/${type}/${edition}`;
         sizes="100vw"
         quality={70}
         format="webp"
+        loading={loadingType || "lazy"}
       />
     ) : (
       <div class="absolute inset-0 bg-gradient-to-br from-emerald-900/20 via-gray-900 to-black">
@@ -72,6 +74,7 @@ const tournamentLink = `/${type}/${edition}`;
                 alt={`${name} Logo`}
                 class="w-full h-full object-contain drop-shadow-lg"
                 width={150}
+                loading={loadingType || "lazy"}
               />
             </div>
             <!-- Glow effect -->

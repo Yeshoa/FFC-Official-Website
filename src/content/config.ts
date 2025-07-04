@@ -24,6 +24,7 @@ const tournamentsCollection = defineCollection({
     champion: z.string().optional(),
     banner: image().optional(), // Banner del torneo
     edition: z.number(),
+    loadingType: z.enum(["eager", "lazy"]).optional(), // Carga de imágenes
     participants: z.array(z.string()), // Referencia a members
     heroImg: image().optional(), // Imágenes del torneo
     prizes: z.object({ // Estructura más detallada para premios
