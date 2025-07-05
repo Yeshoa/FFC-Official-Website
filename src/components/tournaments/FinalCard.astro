@@ -35,19 +35,25 @@ const team2 = getMemberByName(match.team2, members);
 const winner = getMatchWinner(match);
 ---
 
-<div class="relative overflow-hidden w-full max-w-5xl">
+<div class="relative overflow-hidden w-full max-w-5xl border-3 border-yellow-500 rounded-2xl">
+  <!-- Decorative Corner Elements (MOVED AND FIXED)-->
+  <div class="absolute top-1.5 left-1.5 w-8 h-8 border-t-3 border-l-3 border-yellow-500 rounded-tl-xl pointer-events-none"></div>
+  <div class="absolute top-1.5 right-1.5 w-8 h-8 border-t-3 border-r-3 border-yellow-500 rounded-tr-xl pointer-events-none"></div>
+  <div class="absolute bottom-1.5 left-1.5 w-8 h-8 border-b-3 border-l-3 border-yellow-500 rounded-bl-xl pointer-events-none"></div>
+  <div class="absolute bottom-1.5 right-1.5 w-8 h-8 border-b-3 border-r-3 border-yellow-500 rounded-br-xl pointer-events-none"></div>
+  
   <!-- Championship Banner -->
-  <div class="absolute top-0 left-1/2 transform -translate-x-1/2 bg-yellow-500 text-black font-bold px-8 py-1 rounded-b-lg z-10 shadow-lg text-center">
+  <div class="absolute top-4 left-1/2 transform -translate-x-1/2 bg-yellow-500 text-black font-bold px-8 py-1 rounded-lg z-10 shadow-lg text-center">
     <span class="text-sm md:text-xl lg:text-3xl tracking-wider">FINAL</span>
   </div>
   
   <!-- Main Card with Golden Border -->
-  <div class="flex flex-col justify-center items-center w-full mt-4 bg-gradient-to-br from-green-900 to-green-950 py-6 px-5 rounded-2xl shadow-xl text-white hover:from-green-800 hover:to-green-900 transition-all duration-300 border-4 border-yellow-500">
+  <div class="flex flex-col justify-center items-center w-full bg-gradient-to-br from-green-900 to-green-950 py-8 px-5 rounded-2xl shadow-xl text-white hover:from-green-800 hover:to-green-900 transition-all duration-300">
     
     <!-- Teams Section -->
-    <div class="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-7 items-center w-full gap-4 mb-4 z-10">
+    <div class="grid grid-cols-3 items-center w-full gap-2 mb-4 z-10 mt-4">
       <!-- Team 1 -->
-      <div class={`flex flex-col sm:col-span-2 items-center md:col-span-3 justify-center text-center ${winner === match.team1 ? 'scale-105' : ''} transition-transform duration-300`}>
+      <div class={`flex flex-col items-center justify-center text-center ${winner === match.team1 ? 'scale-105' : ''} transition-transform duration-300`}>
         {team1.data.flagPath || team1.data.logoPath ? (
           <Image
             src={team1.data.flagPath || team1.data.logoPath}
@@ -72,9 +78,9 @@ const winner = getMatchWinner(match);
       </div>
       
       <!-- Score -->
-      <div class="text-center md:col-span-1">
+      <div class="flex flex-col items-center justify-center text-center">
         {match.status === 'played' ? (
-          <div class="bg-black/30 p-2 rounded-lg">
+          <div class="bg-black/30 px-4 py-2 rounded-lg">
             <span class="text-2xl md:text-3xl whitespace-nowrap font-bold">{score1} - {score2}</span>
             {hasPenaltyShootout && penaltyInfo && (
               <span class="block text-sm text-yellow-400 mt-1">{penaltyInfo}</span>
@@ -93,7 +99,7 @@ const winner = getMatchWinner(match);
       </div>
       
       <!-- Team 2 -->
-      <div class={`flex flex-col sm:col-span-2 items-center md:col-span-3 justify-center text-center ${winner === match.team2 ? 'scale-105' : ''} transition-transform duration-300`}>
+      <div class={`flex flex-col items-center justify-center text-center ${winner === match.team2 ? 'scale-105' : ''} transition-transform duration-300`}>
         {team2.data.flagPath || team2.data.logoPath ? (
           <Image
             src={team2.data.flagPath || team2.data.logoPath}
@@ -210,10 +216,4 @@ const winner = getMatchWinner(match);
       </div>
     )}
   </div>
-  
-  <!-- Decorative Corner Elements -->
-  <div class="absolute top-0 left-0 w-16 h-16 border-t-4 border-l-4 border-yellow-500 rounded-tl-2xl pointer-events-none"></div>
-  <div class="absolute top-0 right-0 w-16 h-16 border-t-4 border-r-4 border-yellow-500 rounded-tr-2xl pointer-events-none"></div>
-  <div class="absolute bottom-0 left-0 w-16 h-16 border-b-4 border-l-4 border-yellow-500 rounded-bl-2xl pointer-events-none"></div>
-  <div class="absolute bottom-0 right-0 w-16 h-16 border-b-4 border-r-4 border-yellow-500 rounded-br-2xl pointer-events-none"></div>
 </div>
