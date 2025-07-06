@@ -42,7 +42,7 @@ function getTeamFinalResultInTournament(tournamentId: number) {
 <div class="bg-green-950/80 shadow-lg rounded-lg p-6 mb-8">
 <h2 class="text-2xl font-semibold mb-4 border-b pb-2 border-green-600">{type === 'forest-cup' ? 'Forest Cup' : 'Champions League'} Participations</h2>
   <div class="overflow-x-auto">
-    <table class="w-full text-sm text-center table-auto border-collapse">
+    <table class="w-full text-center table-auto border-collapse">
       <thead class="bg-green-800 text-white">
         <tr>
           <th class="px-2 py-2 rounded-tl-lg" title="Edition">Edition</th>
@@ -68,8 +68,8 @@ function getTeamFinalResultInTournament(tournamentId: number) {
           if (!didParticipate) {
             return (
               <tr class="border-b border-green-700 bg-red-900/10 text-red-300 italic">
-                <td class="px-2 py-2 flex items-center gap-1 justify-center">
-                  {host && <a  href={`/members/${host.slug}`}><Image src={host.data.flagPath} alt={host.data.name} width={20} height={14} class="rounded-sm" loading={'lazy'} quality={10} format={'webp'} /></a>}
+                <td class="px-2 py-2 flex flex-col items-center gap-1 justify-center">
+                  {host && <a href={`/members/${host.slug}`} class="flex-shrink-0"><Image src={host.data.flagPath} alt={host.data.name} height={20} class="rounded-sm max-h-14" loading={'lazy'} quality={10} format={'webp'} /></a>}
                   <a href={`/${type}/${t.data.edition}`} class="hover:underline">{t.data.edition}</a>
                 </td>
                 <td colspan="12" class="py-2">Didn't participate</td>
@@ -84,8 +84,8 @@ function getTeamFinalResultInTournament(tournamentId: number) {
           const resultClass =  position === 1 ? 'text-amber-400 font-bold' : position === 2 ? 'text-sky-300 font-bold' : position === 3 ? 'text-amber-600 font-bold' : '';
           return (
             <tr class="border-b border-green-700 hover:bg-green-900/20">
-              <td class={`px-2 py-2 flex items-center gap-1 justify-center ${hostClass}`}>
-                {host && <a href={`/members/${host.slug}`}><Image src={host.data.flagPath} alt={host.data.name} width={20} height={14} class="rounded-sm" quality={10} format={'webp'} /></a>}
+              <td class={`px-2 py-2 flex flex-col items-center gap-1 justify-center ${hostClass}`}>
+                {host && <a href={`/members/${host.slug}`} class="flex-shrink-0"><Image src={host.data.flagPath} alt={host.data.name} height={20} class="rounded-sm max-h-14" quality={10} format={'webp'} /></a>}
                 <a href={`/${type}/${t.data.edition}`} class={`hover:underline`}>{t.data.edition}</a>
               </td>
               <td class={`px-2 py-2 ${resultClass}`}>{getTeamFinalResultInTournament(t.data.id)}</td> {/* Placeholder para resultado final */}
