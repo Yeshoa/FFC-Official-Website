@@ -6,11 +6,11 @@ Website built with **Astro**. Showcases tournaments, match details, and national
 
 ## 🧠 General Tasks
 
-- [ ] **Landing Page**  
+- ✅ **Landing Page**  
 &nbsp;&nbsp;&nbsp;&nbsp;Add content to the landing page, maybe changing the "grid hero" with a full width React carousel.
-  - [ ] Banner links to fc, ~~CL~~, members, rankings, forms
-  - [ ] Display last news
-  - [ ] Display last official matches
+  - ✅ Banner links to fc, ~~CL~~, members, rankings, forms
+  - ✅ Display last news
+  - ❌ Display last official matches _discarded_
 
 - ✅ **Elaborate the Members page (by slug)**  
 &nbsp;&nbsp;&nbsp;&nbsp;Collection by markdown DONE✅. ⚠ Components need to be in /components. Page should look like a profile with all this info:  
@@ -62,7 +62,7 @@ Website built with **Astro**. Showcases tournaments, match details, and national
 - [ ] **Make Tailwind designs more responsive**  
 &nbsp;&nbsp;&nbsp;&nbsp;Improve layout for various screen sizes, mobile and tablets.
   - ✅ Home (`/`)
-  - ⚠ Forest Cup (`/forest-cup`)
+  - ✅ Forest Cup (`/forest-cup`)
     - [ ] FC 2020 (`/forest-cup/2020`)
     - [ ] FC 2022 (`/forest-cup/2022`)
     - [ ] FC 2024 (`/forest-cup/2024`)
