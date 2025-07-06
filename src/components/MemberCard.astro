@@ -4,7 +4,7 @@ import { Image } from 'astro:assets';
 
 import DefaultLogo from '@images/members/default_logo.png';
 
-const { name, code, slug } = Astro.props;
+const { name, code, slug, index = 0 } = Astro.props;
 let { flagPath, logoPath } = Astro.props;
 
 const logoClass = logoPath 
@@ -13,15 +13,17 @@ const logoClass = logoPath
 
 if (!logoPath) logoPath = DefaultLogo;
 if (!flagPath) flagPath = DefaultLogo;
+
+const loading = index < 24 ? "eager" : "lazy";
 ---
 <a href={`/members/${slug}`} class="flex flex-col p-4 border gap-4 ring-0 hover:ring-2 hover:ring-green-300 transition-all duration-300 border-green-800 items-center rounded-4xl">
   <div class="flex h-full items-center">
-    {logoPath && <Image src={logoPath} class={logoClass} alt={name} loading={"eager"} 
-      width={220} height={220} quality={60} format='webp'/>}
+    {logoPath && <Image src={logoPath} class={logoClass} alt={name} 
+      width={220} height={220} quality={60} format='webp' loading={loading}/>} 
   </div>
   <div class="w-full flex gap-2 items-center justify-center"> 
     {flagPath && <Image src={flagPath} width={60} height={60} quality={60} format='webp'
-    class="h-6 w-10 rounded-xl object-cover ring-1 ring-green-700" alt={name} loading={"eager"}/>}
+    class="h-6 w-10 rounded-xl object-cover ring-1 ring-green-700" alt={name} loading={loading}/>}
     <p class="text-sm my-2">{code}</p>
   </div>
 </a>
