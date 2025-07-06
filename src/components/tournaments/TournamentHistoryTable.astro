@@ -119,8 +119,8 @@ function getThirdPlaceResult(tournament: CollectionEntry<'tournaments'>): string
 
         return (
           <tr class="border-b border-green-700 hover:bg-green-900/20">
-            <td class="px-2 py-3 flex items-center gap-1 justify-center">
-              {host?.data.flagPath && <a href={`/members/${host.slug}`} class="flex-shrink-0"><Image src={host.data.flagPath} alt={host.data.name} width={28} height={20} class="rounded-sm object-cover max-h-6" loading={'lazy'} quality={10} format={'webp'} /></a>}
+            <td class="px-2 py-3 flex flex-col items-center gap-1 justify-center">
+              {host?.data.flagPath && <a href={`/members/${host.slug}`} class="flex-shrink-0"><Image src={host.data.flagPath} alt={host.data.name} height={20} class="rounded-sm object-cover max-h-6" loading={'lazy'} quality={10} format={'webp'} /></a>}
               <a href={`/${type}/${tournament.data.edition}`} class="hover:underline">{tournament.data.edition}</a>
             </td>
             

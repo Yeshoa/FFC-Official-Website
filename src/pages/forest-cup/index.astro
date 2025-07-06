@@ -8,11 +8,12 @@ import App from '@layouts/App.astro';
 import { Image } from 'astro:assets';
 import FCLogo from '@images/tournaments/forest-cup.png';
 import { getCollection } from 'astro:content';
+import { getMemberByName } from '@lib/memberUtils';
 
 const members = await getCollection('members');
 const matchEntries = await getCollection('matches');
-const tournamentEntries = await getCollection('tournaments');
-const tournaments = await getCollection('tournaments');
+let tournaments = await getCollection('tournaments');
+tournaments = tournaments.sort((a, b) => a.data.id - b.data.id);
 
 const matches = matchEntries.map((entry) => entry.data);
 
@@ -24,16 +25,17 @@ const matches = matchEntries.map((entry) => entry.data);
     <header class="bg-gradient-to-r from-green-950 to-green-1000 w-full flex flex-col items-center">
       <div class="container flex flex-col justify-center items-center pt-10">
           <div class="flex justify-center items-center after:w-30 after:h-1 mb-4 animate-sladeIn after:bg-green-700 after:rounded-full after:absolute after:bottom-0 after:mx-auto relative">
-            <Image src={FCLogo} alt="Forest Cup" width={500} class="w-90 sm:w-95" loading={"eager"} format={"webp"} quality={50}/>
+            <Image src={FCLogo} alt="Forest Cup" width={500} class="w-2xl" loading={"eager"} format={"webp"} quality={50}/>
           </div>
           <p class="text-sm sm:text-lg text-gray-200 px-8 sm:px-0 text-center opacity-0 animate-[slide-in_1s_ease-in-out_forwards_.1s]">Here you can find all the information about the Forest Cup</p>
       </div>
       <!-- Tournaments -->
-      <div class="container px-6 pt-4 pb-10 opacity-0 animate-[slide-in_1s_ease-in-out_forwards_.2s]">
+      <div class="w-full sm:container px-6 pt-4 pb-10 opacity-0 animate-[slide-in_1s_ease-in-out_forwards_.2s]">
         <div class="flex flex-col gap-6">
           {tournaments.slice().reverse().map((tournament) => (
             <FCCard
               tournament={tournament}
+              hostFlag={getMemberByName(tournament.data.host, members)?.data.flagPath}
             />
           ))}
         </div>
@@ -41,7 +43,7 @@ const matches = matchEntries.map((entry) => entry.data);
     </header>
     <!-- List tournaments -->
     <div class="max-w-8xl border-t border-green-600 items-start w-full px-2 md:px-6">
-      <TournamentHistoryTable tournaments={tournamentEntries} matches={matchEntries} members={members} type="forest-cup" />
+      <TournamentHistoryTable tournaments={tournaments} matches={matchEntries} members={members} type="forest-cup" />
     </div>
     <!-- Stats and Top Scorers -->
     <div class="grid grid-cols-1 xl:grid-cols-2 gap-6 mb-12 items-start justify-between w-full max-w-8xl px-2 md:px-6">

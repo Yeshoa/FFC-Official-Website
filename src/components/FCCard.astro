@@ -5,12 +5,14 @@ import type { CollectionEntry } from 'astro:content';
 import Star from "@images/icons/star-solid.svg";
 import House from "@images/icons/house-solid.svg";
 import People from "@images/icons/people-group-solid.svg";
+import type { ImageMetadata } from 'astro';
 
 interface Props {
   tournament: CollectionEntry<'tournaments'>;
+  hostFlag?: ImageMetadata
 }
 
-const { tournament } = Astro.props;
+const { tournament, hostFlag } = Astro.props;
 const { data, slug } = tournament;
 
 const {
@@ -68,32 +70,33 @@ const tournamentLink = `/${type}/${edition}`;
         <div class="flex items-start justify-between">
           <!-- Logo con efecto glassmorphism -->
           <div class="relative group/logo">
-            <div class="w-32 h-32  transition-all duration-300 group-hover:scale-105 group-hover:rotate-3">
+            <div class="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-64 lg:h-64 transition-all duration-300 group-hover:scale-105 group-hover:rotate-3">
               <Image
                 src={image}
                 alt={`${name} Logo`}
                 class="w-full h-full object-contain drop-shadow-lg"
-                width={150}
+                width={350}
                 loading={loadingType || "lazy"}
               />
             </div>
             <!-- Glow effect -->
             <div class="absolute inset-0 w-16 h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 rounded-2xl bg-emerald-400/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10"></div>
           </div>
-          
-          <!-- Badge de edición -->
-          <div class="backdrop-blur-md bg-emerald-500/20 border border-emerald-400/30 rounded-full px-4 py-2 shadow-lg">
-            <span class="text-emerald-200 font-semibold text-sm tracking-wider uppercase">
-              {edition}
-            </span>
-          </div>
         </div>
         
         <!-- Título principal -->
         <div class="space-y-2">
-          <h2 class="text-3xl md:text-4xl lg:text-5xl font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white via-emerald-200 to-white leading-tight">
-            {name}
-          </h2>
+          <div class="flex flex-col md:flex-row md:items-center gap-1">
+            {hostFlag && <Image src={hostFlag} alt="Host Flag" class="max-w-6 sm:max-w-10 md:max-w-11 h-4 sm:h-6 md:h-7 lg:h-9 lg:max-w-14 xl:max-w-auto rounded-md object-cover" 
+            width={100}
+            quality={70}
+            format="webp"
+            loading={loadingType || "lazy"}
+            />}
+            <h2 class="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white via-emerald-200 to-white leading-tight">
+              {name}
+            </h2>
+          </div>
           
           <!-- Línea decorativa -->
           <div class="w-20 h-1 bg-gradient-to-r from-emerald-400 via-blue-400 to-emerald-400 rounded-full transform group-hover:w-32 transition-all duration-500"></div>
@@ -101,9 +104,8 @@ const tournamentLink = `/${type}/${edition}`;
       </div>
       
       <!-- Sección inferior: Información y stats -->
-      <div class="space-y-4 mt-2">
-        <!-- Stats principales -->
-        <div class="flex flex-wrap gap-4 md:gap-6">
+      {/*<div class="space-y-4 mt-2">
+         <div class="flex flex-wrap gap-4 md:gap-6">
           {champion && (
             <div class="flex items-center gap-3 backdrop-blur-sm bg-yellow-500/10 border border-yellow-400/20 rounded-xl px-4 py-3 group/stat hover:bg-yellow-500/20 transition-all duration-300">
               <div class="text-2xl animate-bounce-slow"><Star class="w-8 h-8 mx-auto fill-amber-400" /></div>
@@ -131,7 +133,7 @@ const tournamentLink = `/${type}/${edition}`;
               <div class="text-blue-100 font-bold text-lg">{participants.length}</div>
             </div>
           </div>
-        </div>
+        </div>*/}
         
         <!-- Indicador de hover -->
         <div class="flex items-center gap-2 text-emerald-300/60 group-hover:text-emerald-300 transition-all duration-300">
@@ -144,7 +146,7 @@ const tournamentLink = `/${type}/${edition}`;
     </div>
     
     <!-- Efecto de brillo que se mueve -->
-    <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+    <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none">
       <div class="absolute top-0 left-0 w-full h-full">
         <div class="absolute top-0 left-0 w-32 h-full bg-gradient-to-r from-transparent via-white/10 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out"></div>
       </div>
