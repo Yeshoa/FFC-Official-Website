@@ -9,7 +9,6 @@ interface Props {
   href: string;
 }
 const { title, image, date, summary, tags, href } = Astro.props;
-console.log(image);
 ---
 <a href={href} class="block bg-green-950/80 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-200 overflow-hidden group">
   {image && (

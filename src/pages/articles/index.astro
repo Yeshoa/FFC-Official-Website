@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import App from '@layouts/App.astro';
-import ArticleCard from '@components/ArticleCard.astro';
+import ArticleCard from '@components/articles/ArticleCard.astro';
 
 const articles = await getCollection('articles');
 articles.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());

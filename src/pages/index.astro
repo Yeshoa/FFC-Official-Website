@@ -1,14 +1,11 @@
 ---
 import App from '../layouts/App.astro';
 import { Image } from 'astro:assets';
-import Grid from '@components/Grid.astro';
 import Hero from '@components/Hero.astro';
 import AllGoals from '@images/tournaments/2024/all-goals.png';
 import Petrov from '@images/tournaments/2024/petrov-goal.png';
-import FC26 from '@images/tournaments/2026/fc2026.png';
 import FCHistory from '@images/tournaments/fc-history.png';
 import Logo from '@images/logo.png';
-import FC24 from '@images/tournaments/2024/logo.png';
 import Banner from '@images/FFC Banner simple.png';
 import HeroCard from '@components/HeroCard.astro';
 import Members from '@images/members3.png';
@@ -89,10 +86,15 @@ const heroCards = [
         href={`/articles/${article.slug}`}
         />
       ))}
+    </div>
+    <div class="flex justify-center mt-8">
+      <a href="/articles" class="inline-block px-8 py-3 bg-green-700 hover:bg-green-600 text-white font-semibold rounded-full shadow-lg transition-all duration-200">
+        View All Articles
+      </a>
+    </div>
+    {articles.length === 0 && (
+      <p class="text-green-200 mt-8 text-center">No news published yet.</p>
+    )}
   </div>
-  {articles.length === 0 && (
-    <p class="text-green-200 mt-8 text-center">No news published yet.</p>
-  )}
-</div>
 
 </App>
