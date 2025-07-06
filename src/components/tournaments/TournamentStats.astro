@@ -205,7 +205,7 @@ const statsCols = topAssisters.length > 0 ? "grid grid-cols-1 lg:grid-cols-3 gap
                 const member = getMemberByName(entry.team, members);
                 return (
                   <tr class="border-b border-green-700 hover:bg-green-900/30 transition duration-150" key={`${entry.player}-${entry.team}-goals`}>
-                    <td class="px-4 py-2 font-semibold">{entry.player}</td>
+                    <td class="px-4 py-2 font-semibold truncate">{entry.player}</td>
                     <td class="px-4 py-2">
                       <a href={`/members/${member.slug}`} class="flex items-center gap-2 hover:underline">
                         <Image src={member.data.flagPath} loading={"lazy"} alt={entry.team} class="w-6 h-4 object-cover rounded" height={16} width={24} quality={10} format='webp' />
@@ -240,7 +240,7 @@ const statsCols = topAssisters.length > 0 ? "grid grid-cols-1 lg:grid-cols-3 gap
                  const member = getMemberByName(entry.team, members);
                  return (
                   <tr class="border-b border-cyan-700 hover:bg-cyan-900/30 transition duration-150" key={`${entry.player}-${entry.team}-assists`}>
-                    <td class="px-4 py-2 font-semibold">{entry.player}</td>
+                    <td class="px-4 py-2 font-semibold truncate">{entry.player}</td>
                      <td class="px-4 py-2">
                         <a href={`/members/${member.slug}`} class="flex items-center gap-2 hover:underline">
                           <Image src={member.data.flagPath} loading={"lazy"} alt={entry.team} class="w-6 h-4 object-cover rounded" height={16} width={24} quality={10} format='webp' />
