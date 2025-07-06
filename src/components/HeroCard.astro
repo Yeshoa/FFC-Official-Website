@@ -9,8 +9,10 @@ export interface Props {
   buttonText: string;
   buttonUrl?: string;
   imagePosition?: 'left' | 'right';
-  backgroundColor?: string; // ej: "bg-green-900"
-  noblank?: boolean; // Si es true, no abrirá en nueva pestaña
+  backgroundColor?: string;
+  noblank?: boolean;
+  variant?: 'default' | 'diagonal' | 'overlay' | 'floating' | 'split';
+  objectPosition?: 'center' | 'top' | 'bottom';
 }
 
 const { 
@@ -20,52 +22,272 @@ const {
   buttonText, 
   buttonUrl = "#",
   imagePosition = 'left',
-  backgroundColor = "green-1000",
-  noblank = false
+  backgroundColor = "from-green-900 to-green-1000",
+  noblank = false,
+  variant = 'default',
+  objectPosition = 'center'
 } = Astro.props;
-
-const bgColor = `bg-${backgroundColor}`;
-const gradientFrom = `from-${backgroundColor}`;
 ---
 
-<div class="relative w-full h-[500px] overflow-hidden shadow-2xl">
-  
-  <!-- Layout en dos columnas: imagen + texto -->
-  <div class={`flex flex-row ${imagePosition === 'left' ? '' : 'flex-row-reverse'} h-full`}>
-    
-    <!-- Imagen: 50% -->
-    <div class="w-1/2 h-full relative z-0">
-      <Image 
-      src={image} 
-      alt={title}
-      height={500}
-      format="webp"
-      quality={70}
-      class="w-full h-full object-cover"
-      />
-      <div class={`absolute inset-0 pointer-events-none ${imagePosition === 'left' ? 'bg-gradient-to-l' : 'bg-gradient-to-r'} ${gradientFrom} to-transparent`}></div>
+<!-- Variant: Default - Diseño limpio con efectos sutiles -->
+{variant === 'default' && (
+  <div class="relative w-full h-[500px] overflow-hidden shadow-2xl bg-gradient-to-br from-green-1000 to-green-800 group">
+    <div class={`flex ${imagePosition === 'left' ? 'flex-row' : 'flex-row-reverse'} h-full`}>
+      <div class="w-1/2 h-full relative overflow-hidden">
+        <Image 
+          src={image} 
+          alt={title}
+          height={500}
+          format="webp"
+          quality={80}
+          class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
+        />
+        <div class={`absolute inset-0 bg-gradient-to-${imagePosition === 'left' ? 'r' : 'l'} ${backgroundColor} opacity-60`}></div>
+      </div>
+      
+      <div class={`w-1/2 h-full flex items-center justify-center p-12 bg-gradient-to-br ${backgroundColor} relative`}>
+        <div class="max-w-lg text-white z-10">
+          <h2 class="text-4xl font-black mb-6 leading-tight transform group-hover:translate-y-[-4px] transition-transform duration-500">
+            {title}
+          </h2>
+          <div class="w-16 h-1 bg-white/60 mb-6 transform group-hover:w-24 transition-all duration-500"></div>
+          <p class="text-xl text-gray-100 mb-8 leading-relaxed">
+            {description}
+          </p>
+          <a 
+            href={buttonUrl}
+            class="inline-flex items-center gap-2 px-8 py-4 bg-white/10 backdrop-blur-sm border border-white/20 
+                   text-white font-semibold hover:bg-white hover:text-gray-900 
+                   transform hover:scale-105 transition-all duration-300"
+            target={noblank ? "_self" : "_blank"}
+          >
+            {buttonText}
+            <svg class="w-5 h-5 transform group-hover:translate-x-1 transition-transform duration-300" 
+                 fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
     </div>
+  </div>
+)}
 
-    <!-- Texto: 50% -->
-    <div class={`w-1/2 h-full flex items-center justify-center p-8 md:p-12 lg:p-16 ${bgColor} relative z-0`}>
-      <div class="max-w-lg text-white text-center md:text-left z-20">
-        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-tight">
+<!-- Variant: Diagonal - Corte diagonal dinámico -->
+{variant === 'diagonal' && (
+  <div class="relative w-full h-[500px] overflow-hidden shadow-2xl bg-gradient-to-br from-gray-900 to-gray-800 group">
+    <div class="relative h-full">
+      <!-- Imagen con corte diagonal -->
+      <div class={`absolute inset-0 ${imagePosition === 'left' ? 'clip-path-diagonal-left' : 'clip-path-diagonal-right'}`}>
+        <Image 
+          src={image} 
+          alt={title}
+          height={500}
+          format="webp"
+          quality={80}
+          class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
+        />
+      </div>
+      
+      <!-- Fondo con corte diagonal opuesto -->
+      <div class={`absolute inset-0 bg-gradient-to-br ${backgroundColor} ${imagePosition === 'left' ? 'clip-path-diagonal-right' : 'clip-path-diagonal-left'}`}></div>
+      
+      <!-- Contenido superpuesto -->
+      <div class={`absolute inset-0 flex items-center ${imagePosition === 'left' ? 'justify-end pr-16' : 'justify-start pl-16'}`}>
+        <div class="max-w-md text-white z-10 text-center">
+          <h2 class="text-5xl font-black mb-6 leading-tight drop-shadow-2xl transform group-hover:scale-105 transition-transform duration-500">
+            {title}
+          </h2>
+          <p class="text-xl text-gray-100 mb-8 leading-relaxed drop-shadow-lg">
+            {description}
+          </p>
+          <a 
+            href={buttonUrl}
+            class="inline-flex items-center gap-2 px-10 py-5 bg-white text-gray-900 font-bold
+                   shadow-2xl hover:shadow-3xl transform hover:scale-110 transition-all duration-300"
+            target={noblank ? "_self" : "_blank"}
+          >
+            {buttonText}
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+)}
+
+<!-- Variant: Overlay - Imagen de fondo con overlay -->
+{variant === 'overlay' && (
+  <div class="relative w-full h-[500px] overflow-hidden shadow-2xl bg-gradient-to-br from-gray-900 to-gray-800 group">
+    <!-- Imagen de fondo completa -->
+    <div class="absolute inset-0">
+      <Image 
+        src={image} 
+        alt={title}
+        height={500}
+        format="webp"
+        quality={80}
+        class={`w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-1000 ` + (objectPosition ? `object-${objectPosition}` : '')}
+      />
+    </div>
+    
+    <!-- Overlay con patrón -->
+    <div class="absolute inset-0 bg-black/50"></div>
+    <div class={`absolute inset-0 bg-gradient-to-r via-transparent ${backgroundColor}`}></div>
+
+    <!-- Contenido centrado -->
+    <div class="absolute inset-0 flex items-center justify-center text-center p-12">
+      <div class="max-w-3xl text-white z-10">
+        <h2 class="text-6xl font-black mb-8 leading-tight drop-shadow-2xl transform group-hover:translate-y-[-8px] transition-transform duration-500">
           {title}
         </h2>
-        <p class="text-lg md:text-xl text-gray-200 mb-8 leading-relaxed">
+        <div class="w-24 h-1 bg-white mx-auto mb-8 transform group-hover:w-32 transition-all duration-500"></div>
+        <p class="text-2xl text-gray-100 mb-12 leading-relaxed drop-shadow-lg max-w-2xl mx-auto">
           {description}
         </p>
         <a 
           href={buttonUrl}
-          class="inline-block px-8 py-4 bg-white text-gray-900 font-semibold rounded-full 
-                 hover:bg-gray-100 transform hover:scale-105 transition-all duration-300 
-                 shadow-lg hover:shadow-xl"
+          class="inline-flex items-center gap-3 px-12 py-6 bg-white/10 backdrop-blur-md border-2 border-white/30 
+                 text-white font-bold text-xl hover:bg-white hover:text-gray-900 
+                 transform hover:scale-110 transition-all duration-300 shadow-2xl"
           target={noblank ? "_self" : "_blank"}
         >
           {buttonText}
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+          </svg>
         </a>
       </div>
     </div>
-
   </div>
-</div>
+)}
+
+<!-- Variant: Floating - Elementos flotantes y superpuestos -->
+{variant === 'floating' && (
+  <div class="relative w-full h-[500px] overflow-hidden shadow-2xl bg-gradient-to-br from-gray-900 to-gray-800 group">
+    <!-- Fondo degradado -->
+    <div class={`absolute inset-0 bg-gradient-to-br ${backgroundColor}`}></div>
+    
+    <!-- Imagen flotante -->
+    <div class={`absolute ${imagePosition === 'left' ? 'right-12 top-12' : 'left-12 top-12'} w-80 h-80 transform group-hover:scale-110 group-hover:rotate-3 transition-all duration-700`}>
+      <div class="w-full h-full overflow-hidden" style="filter: drop-shadow(10px 10px 10px rgba(0, 0, 0, 0.5));">
+        <Image
+          src={image}
+          alt={title}
+          height={400}
+          format="webp"
+          quality={80}
+          class="w-full h-full object-cover"
+        />
+      </div>
+    </div>
+    
+    <!-- Contenido -->
+    <div class={`absolute inset-0 flex items-center ${imagePosition === 'left' ? 'justify-start pl-16' : 'justify-end pr-16'}`}>
+      <div class="max-w-lg text-white z-10">
+        <h2 class="text-5xl font-black mb-6 leading-tight transform group-hover:translate-x-2 transition-transform duration-500">
+          {title}
+        </h2>
+        <p class="text-xl text-gray-100 mb-8 leading-relaxed">
+          {description}
+        </p>
+        <a 
+          href={buttonUrl}
+          class="inline-flex items-center gap-2 px-8 py-4 bg-white/20 backdrop-blur-sm border border-white/30 
+                 text-white font-semibold hover:bg-white hover:text-gray-900 
+                 transform hover:scale-105 transition-all duration-300"
+          target={noblank ? "_self" : "_blank"}
+        >
+          {buttonText}
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+    
+    <!-- Elementos decorativos -->
+    <div class="absolute bottom-8 left-8 w-16 h-16 bg-white/10 transform rotate-45 group-hover:rotate-90 transition-transform duration-500"></div>
+    <div class="absolute top-8 right-8 w-8 h-8 bg-white/20 transform group-hover:scale-150 transition-transform duration-500"></div>
+  </div>
+)}
+
+<!-- Variant: Split - División creativa -->
+{variant === 'split' && (
+  <div class="relative w-full h-[500px] overflow-hidden shadow-2xl bg-gradient-to-br from-gray-900 to-gray-800 group">
+    <div class="flex h-full">
+      <!-- Sección pequeña de imagen -->
+      <div class={`${imagePosition === 'left' ? 'w-1/3 order-1' : 'w-1/3 order-2'} h-full relative overflow-hidden`}>
+        <Image 
+          src={image} 
+          alt={title}
+          height={500}
+          format="webp"
+          quality={80}
+          class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
+        />
+        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+      </div>
+      
+      <!-- Sección grande de contenido -->
+      <div class={`${imagePosition === 'left' ? 'w-2/3 order-2' : 'w-2/3 order-1'} h-full flex items-center justify-center p-16 bg-gradient-to-br ${backgroundColor} relative`}>
+        <!-- Elementos decorativos de fondo -->
+        <div class="absolute inset-0 opacity-10">
+          <div class="absolute top-0 left-0 w-32 h-32 bg-white transform rotate-45"></div>
+          <div class="absolute bottom-0 right-0 w-24 h-24 bg-white/50 transform -rotate-45"></div>
+        </div>
+        
+        <div class="max-w-2xl text-white z-10">
+          <h2 class="text-6xl font-black mb-8 leading-tight transform group-hover:translate-y-[-6px] transition-transform duration-500">
+            {title}
+          </h2>
+          <p class="text-2xl text-gray-100 mb-10 leading-relaxed">
+            {description}
+          </p>
+          <a 
+            href={buttonUrl}
+            class="inline-flex items-center gap-3 px-10 py-5 bg-white text-gray-900 font-bold text-lg
+                   shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all duration-300"
+            target={noblank ? "_self" : "_blank"}
+          >
+            {buttonText}
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+)}
+
+<style>
+  /* Clips paths para cortes diagonales */
+  .clip-path-diagonal-left {
+    clip-path: polygon(0 0, 70% 0, 50% 100%, 0 100%);
+  }
+  
+  .clip-path-diagonal-right {
+    clip-path: polygon(30% 0, 100% 0, 100% 100%, 50% 100%);
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .flex-row,
+    .flex-row-reverse {
+      flex-direction: column;
+    }
+    
+    .w-1\/2, .w-1\/3, .w-2\/3 {
+      width: 100%;
+      height: 50%;
+    }
+    
+    .clip-path-diagonal-left,
+    .clip-path-diagonal-right {
+      clip-path: none;
+    }
+  }
+</style>

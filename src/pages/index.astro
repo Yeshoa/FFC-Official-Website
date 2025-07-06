@@ -11,10 +11,15 @@ import HeroCard from '@components/HeroCard.astro';
 import Members from '@images/members3.png';
 import { getCollection } from 'astro:content';
 import ArticleCard from '@components/articles/ArticleCard.astro';
+import { object } from 'astro:schema';
 
 const articles = await getCollection('articles');
 articles.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
-
+/* default - Diseño limpio y moderno con efectos sutiles
+diagonal - Cortes diagonales dinámicos usando clip-path
+overlay - Imagen de fondo completa con contenido superpuesto
+floating - Elementos flotantes y superpuestos con rotación
+split - División creativa 1/3 imagen, 2/3 contenido */
 const heroCards = [
   {
     title: "Forest Cup History",
@@ -23,6 +28,18 @@ const heroCards = [
     buttonText: "Explore Forest Cup",
     buttonUrl: "/forest-cup",
     imagePosition: 'left',
+    variant: 'default',
+    backgroundColor: 'from-transparent to-green-900',
+  },
+  {
+    title: "Anxious & Kevin 2024 Recap All Goals",
+    description: "Revive the Forest Cup Anxious & Kevin 2024 with all the goals from the tournament. Featuring stars like Tarasov, Nysnub, Kazñeisei, Gro and more.",
+    image: AllGoals,
+    buttonText: "Watch Recap",
+    buttonUrl: "https://www.youtube.com/watch?v=iddBpQbe7ak",
+    noblank: true,
+    variant: 'split',
+    imagePosition: 'right',
   },
   {
     title: "Meet the Members",
@@ -31,24 +48,20 @@ const heroCards = [
     buttonText: "Explore Federations",
     buttonUrl: "/members",
     imagePosition: 'right',
-  },
-  {
-    title: "Forest Cup 2024 Recap All Goals",
-    description: "Revive the Forest Cup Anxious & Kevin 2024 with all the goals from the tournament. Featuring stars like Tarasov, Nysnub, Kazñeisei, Gro and more.",
-    image: AllGoals,
-    buttonText: "Watch Recap",
-    buttonUrl: "https://www.youtube.com/watch?v=iddBpQbe7ak",
-    noblank: true,
+    backgroundColor: 'from-black/30 to-green-600/50',
+    variant: 'overlay',
+    objectPosition: 'object-top',
   },
   {
     title: "Collaborate with Us",
     description: "Join us in shaping Forestian football! We’re looking for collaborators to improve every event and grow together.",
-    image: Banner,
+    image: Logo,
     buttonText: "Collaborate",
     buttonUrl: "https://discord.com/invite/EX4sGhjbgU",
     imagePosition: 'right',
     noblank: true,
-  }
+    variant: 'floating',
+  },
 ];
 
 ---
@@ -68,8 +81,9 @@ const heroCards = [
           image={card.image}
           buttonText={card.buttonText}
           buttonUrl={card.buttonUrl}
-          imagePosition={card.imagePosition}
           backgroundColor={card.backgroundColor}
+          imagePosition={card.imagePosition}
+          variant={card.variant}
         />
       ))}
   </div>
