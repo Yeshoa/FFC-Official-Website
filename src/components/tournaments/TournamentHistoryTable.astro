@@ -96,14 +96,14 @@ function getThirdPlaceResult(tournament: CollectionEntry<'tournaments'>): string
   <table class="min-w-[1000px] w-full text-md text-center border-collapse rounded-2xl table-fixed">
     <thead class="bg-green-800 text-white">
       <tr>
-        <th class="px-2 py-2 rounded-tl-lg w-[7%]">Edition</th>
-        <th class="px-2 py-2 w-[19%]">Champion</th>
+        <th class="px-2 py-2 rounded-tl-lg w-[5%]">Edition</th>
+        <th class="px-2 py-2 w-[16%]">Champion</th>
         <th class="px-2 py-2 w-[5%]">Result</th>
-        <th class="px-2 py-2 w-[19%]">Runner-Up</th>
-        <th class="px-2 py-2 w-[19%]">Third</th>
-        <!-- <th class="px-2 py-2 w-[5%]">Result</th> -->
-        <th class="px-2 py-2 w-[19%]">Fourth</th>
-        <th class="px-2 py-2 rounded-tr-lg w-[7%]">Teams</th>
+        <th class="px-2 py-2 w-[16%]">Runner-Up</th>
+        <th class="px-2 py-2 w-[16%]">Third</th>
+        <th class="px-2 py-2 w-[16%]">Fourth</th>
+        <th class="px-2 py-2 w-[13%]">Best Player</th>
+        <th class="px-2 py-2 w-[13%] rounded-tr-lg">Top Scorer</th>
       </tr>
     </thead>
     <tbody>
@@ -116,6 +116,9 @@ function getThirdPlaceResult(tournament: CollectionEntry<'tournaments'>): string
         
         const finalResult = champion ? getFinalResult(tournament, 1) : "";
         const thirdPlaceResult = getThirdPlaceResult(tournament);
+        const prizes = tournament.data.prizes;
+        const bestPlayer = prizes?.bestPlayer;
+        const topScorers = prizes?.topScorer;
 
         return (
           <tr class="border-b border-green-700 hover:bg-green-900/20">
@@ -164,7 +167,42 @@ function getThirdPlaceResult(tournament: CollectionEntry<'tournaments'>): string
               )}
             </td>
             
-            <td class="px-2 py-3">{tournament.data.participants.length}</td>
+            <td class="px-2 py-3">
+              {bestPlayer ? (
+                (() => {
+                  const member = getMemberByName(bestPlayer.team, members);
+                  return member ? (
+                    <div class="flex items-center gap-1 justify-center">
+                      {member.data.flagPath && <Image src={member.data.flagPath} alt={member.data.name} width={20} height={14} class="rounded-sm object-cover max-h-4" loading={'lazy'} quality={10} format={'webp'} />}
+                      <span class="ml-1 truncate">{bestPlayer.player}</span>
+                    </div>
+                  ) : (
+                    <span>{bestPlayer.player} ({bestPlayer.team})</span>
+                  );
+                })()
+              ) : (
+                <span class="text-gray-400 italic">N/A</span>
+              )}
+            </td>
+            <td class="px-2 py-3">
+              {topScorers && topScorers.length > 0 ? (
+                (() => {
+                  const top = topScorers[0];
+                  const member = getMemberByName(top.team, members);
+                  return member ? (
+                    <div class="flex items-center gap-1 justify-center">
+                      {member.data.flagPath && <Image src={member.data.flagPath} alt={member.data.name} width={20} height={14} class="rounded-sm object-cover max-h-4" loading={'lazy'} quality={10} format={'webp'} />}
+                      <span class="ml-1 truncate">{top.player}</span>
+                      <span class="ml-1 text-green-300 font-bold">({top.goals})</span>
+                    </div>
+                  ) : (
+                    <span>{top.player} ({top.team}) <span class="text-green-300 font-bold">({top.goals})</span></span>
+                  );
+                })()
+              ) : (
+                <span class="text-gray-400 italic">N/A</span>
+              )}
+            </td>
           </tr>
         );
       })}
