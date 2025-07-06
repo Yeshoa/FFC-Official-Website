@@ -126,7 +126,6 @@ export function getPenaltiesResult(match: Match): { team1: number; team2: number
   return { team1: t1, team2: t2 };
 }
 
-
 // Obtener goles de un equipo en un partido
 export function getTotalGoals(match: Match): number {
   return (match.goals?.length ?? 0);
@@ -138,4 +137,16 @@ export function areThereScorers(match: Match): boolean {
 
 export function getAllMatchesByTeam(team: string, matches: Match[]): Match[] {
   return matches.filter(match => match.team1 === team || match.team2 === team);
+}
+
+export function getMatchRedCards(match: Match): { team1: { player: string; minute: number }[]; team2: { player: string; minute: number }[] } {
+  const team1: { player: string; minute: number }[] = [];
+  const team2: { player: string; minute: number }[] = [];
+  for (const card of match.cards || []) {
+    if (card.type === 'red' && card.player) {
+      if (card.team === match.team1) team1.push({ player: card.player, minute: card.minute });
+      else if (card.team === match.team2) team2.push({ player: card.player, minute: card.minute });
+    }
+  }
+  return { team1, team2 };
 }

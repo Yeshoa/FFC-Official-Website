@@ -3,7 +3,7 @@ import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 import type { ImageMetadata } from 'astro';
 import { getMemberByName } from '@lib/memberUtils';
-import { areThereScorers, getMatchWinner, getMatchResult } from '@lib/matchUtils';
+import { areThereScorers, getMatchWinner, getMatchResult, getMatchRedCards } from '@lib/matchUtils';
 import GoalIcon from '@images/goal.png';
 
 interface Props { 
@@ -32,6 +32,7 @@ const team1 = getMemberByName(match.team1, members);
 const team2 = getMemberByName(match.team2, members);
 
 const winner = getMatchWinner(match);
+const redCards = getMatchRedCards(match);
 ---
 
 <div class="flex flex-col justify-center items-center w-full max-w-5xl bg-gradient-to-br from-green-900/80 to-green-950/70 py-3 px-4 rounded-2xl shadow-md text-white hover:bg-green-700/90">
@@ -100,14 +101,14 @@ const winner = getMatchWinner(match);
   {match.status === 'played' && areThereScorers(match) && (
     <div class="grid grid-cols-7 items-start w-full gap-2 mt-1 text-xs md:text-sm">
       {/* Goles Equipo 1 */}
-      <div class="flex flex-col w-full col-span-3 items-end justify-start h-full text-right pr-1">
+      <div class="flex flex-col w-full col-span-3 items-end justify-start text-right pr-1">
         {goals.filter(g => g.team === match.team1).length > 0 ? (
           goals
             .filter(g => g.team === match.team1)
             .sort((a, b) => {
               // Ordenar por minuto + tiempo agregado
-              const minuteA = a.minute + (a.aggregate || 0) / 100;
-              const minuteB = b.minute + (b.aggregate || 0) / 100;
+              const minuteA = (a.minute || 0) + (a.aggregate || 0) / 100;
+              const minuteB = (b.minute || 0) + (b.aggregate || 0) / 100;
               return minuteA - minuteB;
             })
             .map((goal, idx) => (
@@ -124,6 +125,30 @@ const winner = getMatchWinner(match);
         ) : (
           <span class="text-gray-500 italic text-xs"></span>
         )}
+        {/* Tarjetas rojas equipo 1 */}
+        {redCards.team1.length > 0 && redCards.team1.map((card, idx) => (
+          <div key={`team1-redcard-${idx}-${card.player}-${card.minute}`} class="flex items-center gap-1.5 justify-end mt-0.5">
+            <span class="truncate font-bold text-red-400" title={card.player}>{card.player}</span>
+            <span class="inline-block w-3 h-3 rounded-sm bg-red-600 border border-red-900"></span>
+            <span>{card.minute}'</span>
+          </div>
+        ))}
+        {/* Penales equipo 1 */}
+        {/* {hasPenaltyShootout && penalties.filter(p => p.team === match.team1).length > 0 && (
+          <div class="flex flex-col mt-1">
+            <span class="text-yellow-300 font-semibold mb-0.5">Penalties</span>
+            {penalties.filter(p => p.team === match.team1).map((pk, idx) => (
+              <div key={`team1-pk-${idx}-${pk.player}`} class="flex items-center gap-1.5 justify-end">
+                <span class="truncate" title={pk.player}>{pk.player}</span>
+                {pk.scored ? (
+                  <Image src={GoalIcon} alt="Goal" class="w-3 h-3 flex-shrink-0" loading={"lazy"} format="webp" quality={1} />
+                ) : (
+                  <span class="text-red-400 text-lg">❌</span>
+                )}
+              </div>
+            ))}
+          </div>
+        )} */}
       </div>
 
       {/* Enlace Detalles/Video */}
@@ -139,14 +164,14 @@ const winner = getMatchWinner(match);
       </div>
 
       {/* Goles Equipo 2 */}
-      <div class="flex flex-col w-full col-span-3 justify-start h-full text-left pl-1">
+      <div class="flex flex-col w-full col-span-3 justify-start text-left pl-1">
         {goals.filter(g => g.team === match.team2).length > 0 ? (
           goals
             .filter(g => g.team === match.team2)
             .sort((a, b) => {
               // Ordenar por minuto + tiempo agregado
-              const minuteA = a.minute + (a.aggregate || 0) / 100;
-              const minuteB = b.minute + (b.aggregate || 0) / 100;
+              const minuteA = (a.minute || 0) + (a.aggregate || 0) / 100;
+              const minuteB = (b.minute || 0) + (b.aggregate || 0) / 100;
               return minuteA - minuteB;
             })
             .map((goal, idx) => (
@@ -163,6 +188,30 @@ const winner = getMatchWinner(match);
         ) : (
           <span class="text-gray-500 italic text-xs"></span>
         )}
+        {/* Tarjetas rojas equipo 2 */}
+        {redCards.team2.length > 0 && redCards.team2.map((card, idx) => (
+          <div key={`team2-redcard-${idx}-${card.player}-${card.minute}`} class="flex items-center gap-1.5 justify-start mt-0.5">
+            <span class="truncate font-bold text-red-400" title={card.player}>{card.player}</span>
+            <span class="inline-block w-3 h-3 rounded-sm bg-red-600 border border-red-900"></span>
+            <span>{card.minute}'</span>
+          </div>
+        ))}
+        {/* Penales equipo 2 */}
+        {/* {hasPenaltyShootout && penalties.filter(p => p.team === match.team2).length > 0 && (
+          <div class="flex flex-col mt-1">
+            <span class="text-yellow-300 font-semibold mb-0.5">Penalties</span>
+            {penalties.filter(p => p.team === match.team2).map((pk, idx) => (
+              <div key={`team2-pk-${idx}-${pk.player}`} class="flex items-center gap-1.5 justify-start">
+                <span class="truncate" title={pk.player}>{pk.player}</span>
+                {pk.scored ? (
+                  <Image src={GoalIcon} alt="Goal" class="w-3 h-3 flex-shrink-0" loading={"lazy"} format="webp" quality={1} />
+                ) : (
+                  <span class="text-red-400 text-lg">❌</span>
+                )}
+              </div>
+            ))}
+          </div>
+        )} */}
       </div>
     </div>
   )}
