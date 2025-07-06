@@ -3,47 +3,55 @@ import App from '../layouts/App.astro';
 import { Image } from 'astro:assets';
 import Grid from '@components/Grid.astro';
 import Hero from '@components/Hero.astro';
-import Hero1 from '@images/tournaments/2024/all-goals.png';
+import AllGoals from '@images/tournaments/2024/all-goals.png';
 import Petrov from '@images/tournaments/2024/petrov-goal.png';
 import FC26 from '@images/tournaments/2026/fc2026.png';
-import Hero2 from '@images/tournaments/fc-history.png';
+import FCHistory from '@images/tournaments/fc-history.png';
 import Logo from '@images/logo.png';
 import FC24 from '@images/tournaments/2024/logo.png';
-import Collab from '@images/FFC Banner simple.png';
+import Banner from '@images/FFC Banner simple.png';
+import HeroCard from '@components/HeroCard.astro';
+import Members from '@images/members3.png';
+import { getCollection } from 'astro:content';
+import ArticleCard from '@components/articles/ArticleCard.astro';
 
-const items = [
+const articles = await getCollection('articles');
+articles.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+const heroCards = [
   {
-    src: Collab,
-    alt: 'Collaborate with us',
-    caption: 'Collaborate with us',
-    description: 'Join us in shaping Forestian football! We’re looking for collaborators to improve every event and grow together.',
-    href: 'https://discord.com/invite/EX4sGhjbgU',
-    noblank: true
-  },
-  {
-    src: Hero1,
-    alt: 'Forest Cup 2024',
-    caption: 'Forest Cup 2024 Recap All Goals',
-    description: 'Revive the Forest Cup Anxious & Kevin 2024 with all the goals from the tournament. Featuring stars like Tarasov, Nysnub, Kazñeisei, Gro and more.',
-    href: 'https://www.youtube.com/watch?v=iddBpQbe7ak',
-    noblank: true
-  },
-  {
-    src: FC26,
-    alt: 'Forest Cup 2026',
-    caption: 'Apply to host the Forest Cup 2026',
-    description: 'Apply to host the next edition of the most exciting national team tournament in Forest.',
-    href: 'https://forms.gle/Qn2d5kFwCg8pndnK9',
-    noblank: true
-  },
-  {
-    src: Hero2,
-    alt: 'Forest Cup History',
-    caption: 'Forest Cup History',
+    title: "Forest Cup History",
     description: 'Discover the history of the Forest Cup, from its inception to the latest edition. Explore the teams, players, and unforgettable moments that have shaped this iconic tournament.',
-    href: './forest-cup',
-    noblank: false
+    image: FCHistory,
+    buttonText: "Explore Forest Cup",
+    buttonUrl: "/forest-cup",
+    imagePosition: 'left',
   },
+  {
+    title: "Meet the Members",
+    description: "Discover the federations and associations of Forest: their history, achievements, records, and roleplay behind each team.",
+    image: Members,
+    buttonText: "Explore Federations",
+    buttonUrl: "/members",
+    imagePosition: 'right',
+  },
+  {
+    title: "Forest Cup 2024 Recap All Goals",
+    description: "Revive the Forest Cup Anxious & Kevin 2024 with all the goals from the tournament. Featuring stars like Tarasov, Nysnub, Kazñeisei, Gro and more.",
+    image: AllGoals,
+    buttonText: "Watch Recap",
+    buttonUrl: "https://www.youtube.com/watch?v=iddBpQbe7ak",
+    noblank: true,
+  },
+  {
+    title: "Collaborate with Us",
+    description: "Join us in shaping Forestian football! We’re looking for collaborators to improve every event and grow together.",
+    image: Banner,
+    buttonText: "Collaborate",
+    buttonUrl: "https://discord.com/invite/EX4sGhjbgU",
+    imagePosition: 'right',
+    noblank: true,
+  }
 ];
 
 ---
@@ -54,7 +62,37 @@ const items = [
 		heroTitle="Welcome to the FFC"
 		heroSubtitle="Join the Football Community of Forest"
 		cta={{ text: 'Join us', href: 'https://forms.gle/Qn2d5kFwCg8pndnK9', noblank: true, logo: Logo }}
-
 	/>
-	<Grid items={items} />
+  <div class="">
+      {heroCards.map((card, index) => (
+        <HeroCard
+          title={card.title}
+          description={card.description}
+          image={card.image}
+          buttonText={card.buttonText}
+          buttonUrl={card.buttonUrl}
+          imagePosition={card.imagePosition}
+          backgroundColor={card.backgroundColor}
+        />
+      ))}
+  </div>
+  <div class="container mx-auto px-4 py-12">
+    <h2 class="text-3xl md:text-4xl font-bold text-white mb-8 text-center">Latest News</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+      {articles.slice(0, 3).map(article => (
+        <ArticleCard
+        title={article.data.title}
+        image={article.data.image}
+        date={article.data.date}
+        summary={article.data.summary}
+        tags={article.data.tags}
+        href={`/articles/${article.slug}`}
+        />
+      ))}
+  </div>
+  {articles.length === 0 && (
+    <p class="text-green-200 mt-8 text-center">No news published yet.</p>
+  )}
+</div>
+
 </App>
