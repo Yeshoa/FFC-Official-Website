@@ -123,14 +123,14 @@ function getThirdPlaceResult(tournament: CollectionEntry<'tournaments'>): string
         return (
           <tr class="border-b border-green-700 hover:bg-green-900/20">
             <td class="px-2 py-3 flex flex-col items-center gap-1 justify-center">
-              {host?.data.flagPath && <a href={`/members/${host.slug}`} class="flex-shrink-0"><Image src={host.data.flagPath} alt={host.data.name} height={20} class="rounded-sm object-cover max-h-6" loading={'lazy'} quality={10} format={'webp'} /></a>}
+              {host?.data.flagPath && <a href={`/members/${host.slug}`} class="flex-shrink-0"><Image src={host.data.flagPath} alt={host.data.name} height={20} class="rounded-sm object-cover max-h-6" loading={'lazy'} quality={40} format={'webp'} /></a>}
               <a href={`/${type}/${tournament.data.edition}`} class="hover:underline">{tournament.data.edition}</a>
             </td>
             
             <td class="px-2 py-3 font-semibold">
               {champion && (
                 <div class="flex items-center gap-1 justify-center">
-                  {champion.data.flagPath && <a href={`/members/${champion.slug}`}><Image src={champion.data.flagPath} alt={champion.data.name} width={28} height={20} class="rounded-sm object-cover max-h-6" loading={'lazy'} quality={10} format={'webp'} /></a>}
+                  {champion.data.flagPath && <a href={`/members/${champion.slug}`}><Image src={champion.data.flagPath} alt={champion.data.name} width={28} height={20} class="rounded-sm object-cover max-h-6" loading={'lazy'} quality={40} format={'webp'} /></a>}
                   <a href={`/members/${champion.slug}`} class="hover:underline truncate text-yellow-400">{champion.data.name}</a>
                 </div>
               )}

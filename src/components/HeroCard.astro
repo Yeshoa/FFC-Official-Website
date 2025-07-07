@@ -12,7 +12,6 @@ export interface Props {
   backgroundColor?: string;
   noblank?: boolean;
   variant?: 'default' | 'diagonal' | 'overlay' | 'floating' | 'split';
-  objectPosition?: 'center' | 'top' | 'bottom';
 }
 
 const { 
@@ -23,10 +22,13 @@ const {
   buttonUrl = "#",
   imagePosition = 'left',
   backgroundColor = "from-green-900 to-green-1000",
-  noblank = false,
+  noblank = true,
   variant = 'default',
-  objectPosition = 'center'
 } = Astro.props;
+console.log("HeroCard Props:", {
+  title,
+  noblank,
+});
 ---
 
 <!-- Variant: Default - Diseño limpio con efectos sutiles -->
@@ -129,7 +131,7 @@ const {
         height={500}
         format="webp"
         quality={80}
-        class={`w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-1000 ` + (objectPosition ? `object-${objectPosition}` : '')}
+        class={`w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-1000 `}
       />
     </div>
     

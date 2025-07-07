@@ -37,7 +37,7 @@ const heroCards = [
     image: AllGoals,
     buttonText: "Watch Recap",
     buttonUrl: "https://www.youtube.com/watch?v=iddBpQbe7ak",
-    noblank: true,
+    noblank: false,
     variant: 'split',
     imagePosition: 'right',
   },
@@ -48,9 +48,8 @@ const heroCards = [
     buttonText: "Explore Federations",
     buttonUrl: "/members",
     imagePosition: 'right',
-    backgroundColor: 'from-black/30 to-green-600/50',
+    backgroundColor: 'from-black/30 to-green-700/50',
     variant: 'overlay',
-    objectPosition: 'object-top',
   },
   {
     title: "Collaborate with Us",
@@ -59,7 +58,7 @@ const heroCards = [
     buttonText: "Collaborate",
     buttonUrl: "https://discord.com/invite/EX4sGhjbgU",
     imagePosition: 'right',
-    noblank: true,
+    noblank: false,
     variant: 'floating',
   },
 ];
@@ -84,6 +83,7 @@ const heroCards = [
           backgroundColor={card.backgroundColor}
           imagePosition={card.imagePosition}
           variant={card.variant}
+          noblank={card.noblank}
         />
       ))}
   </div>
