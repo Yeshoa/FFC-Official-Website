@@ -94,7 +94,8 @@ squad:
     - number: 11
       name: "H. Nuvljabawnj"
       position: "CF"
-
+manualAchievements: 
+  - "founder"
     
 
     

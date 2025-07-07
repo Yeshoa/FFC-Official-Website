@@ -2,6 +2,7 @@
 import { getCollection, type CollectionEntry, getEntry } from 'astro:content';
 import { Image } from 'astro:assets';
 import { getMemberTotalScore, getMemberRank, getMemberByName } from '@lib/memberUtils';
+import { getAchievementsForMember } from '@lib/achievements';
 import App from '@layouts/App.astro';
 import ScorersTable from '@components/tournaments/ScorersTable.astro';
 import MatchCard from '@components/MatchCard.astro';
@@ -126,10 +127,11 @@ const memberRank = getMemberRank(memberData.name, members);
 const memberTotalScore = getMemberTotalScore(member);
 
 const hasContent = member?.body && member.body.trim() !== '';
+const achievements = await getAchievementsForMember(memberData.name);
 ---
 <App title={`FFC - ${memberData.name}`}>
   <div class="md:container m-auto p-4 py-8">
-    <MemberHero memberData={memberData} ranking={memberRank} points={memberTotalScore} titles={[{year: 2020}]} achievements={[{id: '1', iconUrl: Icon, label: 'King'}, {id: '2', iconUrl: Icon, label: 'King'}]} />
+    <MemberHero memberData={memberData} ranking={memberRank} points={memberTotalScore} titles={[{year: 2020}]} achievements={achievements} />
     <!-- <MemberHero name={memberData.name} logoUrl={memberData.logoPath} flagUrl={memberData.flagPath} ranking={memberRank} points={memberTotalScore} founded={memberData.founded} affiliation={memberData.affiliation} fedDispatch={memberData.feddispatch} titles={[{year: 2020}]} achievements={[{id: '1', iconUrl: Icon, label: 'King'}]} /> -->
 
     <TournamentParticipationTable 

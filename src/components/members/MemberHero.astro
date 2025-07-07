@@ -1,9 +1,9 @@
 ---
 import { Image } from 'astro:assets';
 import StarIcon from '@images/icons/star-solid.svg'; 
-import BackgroundImage from '@images/members/Banner.png';
 import type { CollectionEntry } from 'astro:content';
 import { getTotalColorClass, getMemberTier } from '@lib/memberUtils';
+import { getAchievementsForMember } from '@lib/achievements';
 import defaultLogo from '@images/members/default_logo.png';
 import Arrow from '@images/icons/arrow-up-right-from-square-solid.svg';
 
@@ -21,116 +21,252 @@ const rankClass =
 
 const tierClass = getTotalColorClass(points);
 const tier = getMemberTier(points);
-console.log('Tier class:', tierClass);
-
 ---
 
-<section class="relative mb-8 flex items-center justify-center w-full h-[calc(100svh-135px)] bg-green-950 text-white overflow-hidden">
+<section class="hero-member relative mb-8 flex items-center justify-center w-full min-h-[calc(100svh-135px)] bg-green-950 text-white overflow-hidden">
+  <!-- Background with enhanced gradient -->
   <div class="absolute inset-0 z-0">
-    <Image
-      src={BackgroundImage}
-      alt="Estadio de fondo"
-      class="object-cover w-full h-full opacity-15"
-      loading="eager"
-      quality={50}
-    />
-    <div class="absolute inset-0 bg-gradient-to-t from-green-950 via-green-950/80 to-transparent"></div>
+    <div class="absolute inset-0 bg-gradient-to-br from-green-950 via-green-900/90 to-emerald-950/80"></div>
+    <div class="absolute inset-0 bg-gradient-to-t from-green-950 via-transparent to-transparent"></div>
   </div>
 
-  <div class="relative z-10 grid w-full max-w-screen-xl grid-cols-1 grid-rows-[auto_1fr_auto] gap-6 px-4 text-center md:grid-cols-[1fr_2.5fr_1fr] lg:grid-rows-1 lg:gap-8 lg:text-left">
-    <div class="flex items-center justify-center">
-      <Image
-        src={flagPath}
-        alt={`Bandera de ${name}`}
-        class="h-28 w-auto max-w-[250px] object-contain drop-shadow-lg md:h-40 lg:h-56"
-        width={300}
-        height={200}
-      />
-    </div>
-
-    <div class="flex flex-col items-center justify-center gap-4 text-center row-span-2 relative">
-      {titles.length > 0 && (
-        <div class="flex items-center gap-x-3 col-span-3 justify-center absolute -top-5">
-          {titles.map(title => (
-            <div class="flex flex-col items-center">
-              <StarIcon class="w-16 h-16 fill-yellow-400 drop-shadow-[0_0_6px_rgba(252,211,77,0.7)]" />
-              <span class="text-lg font-semibold px-2 py-1 rounded-md">{title.year}</span>
-            </div>
-          ))}
+  <!-- Content Container -->
+  <div class="relative z-10 w-full max-w-screen-xl px-4 py-8">
+    
+    <!-- Mobile & Tablet Layout (< md) -->
+    <div class="md:hidden">
+      <!-- Main Content Card -->
+      <div class="bg-black/20 backdrop-blur-md border border-white/10 rounded-3xl p-6 sm:p-8 mb-6 shadow-2xl">
+        <!-- Flag and Logo Row -->
+        <div class="flex items-center justify-center gap-6 mb-6">
+          <div class="flex-shrink-0">
+            <Image
+              src={flagPath}
+              alt={`Bandera de ${name}`}
+              class="h-16 w-auto max-w-[120px] object-contain drop-shadow-lg sm:h-20 sm:max-w-[150px]"
+              width={200}
+              height={150}
+              loading="eager"
+              quality={70}
+              format="webp"
+            />
+          </div>
+          <div class="flex-shrink-0">
+            <Image
+              src={logoToShow}
+              alt={`Logo de ${name}`}
+              class={`h-16 w-auto max-w-[120px] object-contain drop-shadow-lg sm:h-20 sm:max-w-[150px] ${logoPath ? '' : 'opacity-10 grayscale'}`}
+              width={200}
+              height={150}
+              loading="eager"
+              quality={70}
+              format="webp"
+            />
+          </div>
         </div>
-      )}
-      <h1 class="text-5xl font-black tracking-tight uppercase break-words lg:text-6xl xl:text-7xl" style="text-shadow: 3px 3px 12px rgba(0, 0, 0, 0.7);">
-        {name}
-      </h1>
-      {federation && (
-        <h2 class="text-lg lg:text-xl xl:text-2xl text-gray-300 font-light">{federation}</h2>
-      )}
-      <div class="flex flex-col items-center justify-center gap-y-1 text-sm text-gray-300">
-        <div class="flex md:flex-col lg:flex-row sm:flex-wrap items-center justify-center gap-x-4 gap-y-1">
-          <span class="text-gray-400">({code})</span>
-          {region && <span class="inline md:hidden lg:inline">•</span>}
-          {region && <span>Region: <span class="font-semibold">{region}</span></span>}
-          {nslink && <span class="inline md:hidden lg:inline">•</span>}
-          {nslink && (
-            <a href={nslink} target="_blank" rel="noopener noreferrer" class="font-semibold text-green-400 hover:underline">
-              Nationstates <Arrow class="inline w-3 h-3 fill-green-400" />
-            </a>
+
+        <!-- Title Section -->
+        <div class="text-center mb-6">
+          <h1 class="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight uppercase break-words mb-2 text-glow">
+            {name}
+          </h1>
+          {federation && (
+            <h2 class="text-sm sm:text-lg md:text-xl text-gray-300 font-light">{federation}</h2>
+          )}
+          <!-- Titles Section -->
+          {titles.length > 0 && (
+            <div class="flex flex-wrap items-center justify-center gap-4 mb-6">
+              {titles.map(title => (
+                <div class="flex flex-col items-center animate-pulse-glow">
+                  <StarIcon class="w-12 h-12 sm:w-16 sm:h-16 fill-yellow-400 drop-shadow-[0_0_8px_rgba(252,211,77,0.8)]" />
+                  <span class="text-sm sm:text-lg font-semibold px-2 py-1 rounded-md bg-black/20 mt-1">{title.year}</span>
+                </div>
+              ))}
+            </div>
           )}
         </div>
-        <div class="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 md:flex-col lg:flex-row">
-          {founded && <span>Founded in <span class="font-semibold">{founded}</span></span>}
-          {founded && affiliation && <span class="inline md:hidden lg:inline">•</span>}
-          {affiliation && <span>Affiliation: <span class="font-semibold">{affiliation}</span></span>}
-          {feddispatch && affiliation && <span class="inline md:hidden lg:inline">•</span>}
-          {feddispatch && (
-            <a href={feddispatch} target="_blank" rel="noopener noreferrer" class="font-semibold text-green-400 hover:underline">
-              Dispatch <Arrow class="inline w-3 h-3 fill-green-400" />
-            </a>
-          )}
-        </div>
-      </div>
-    </div>
 
-    <div class="flex flex-col items-center justify-center">
-       <Image
-        src={logoToShow}
-        alt={`Logo de ${name}`}
-        class={`h-28 w-auto max-w-[250px] object-contain drop-shadow-lg md:h-40 lg:h-56 ${logoPath ? '' : 'opacity-10 grayscale'}`}
-        width={250}
-        height={250}
-      />
-    </div>
-    <div class="w-full max-w-xs p-4 text-center bg-black/30 border border-white/20 rounded-2xl backdrop-blur-sm flex items-center justify-center mx-auto">
-      <div class="grid grid-cols-[auto_auto_auto] w-full mx-2">
-        <div class="justify-self-start text-center">
-          <p class="text-xs tracking-widest text-gray-400 uppercase">Rank</p>
-          <p class={`text-5xl font-bold ${rankClass}`}>{ranking ?? 'N/A'}</p>
-        </div>
-
-        <div class="justify-self-center text-center">
-          <p class="text-xs tracking-widest text-gray-400 uppercase">Score</p>
-          <p class="text-5xl font-bold">{points}</p>
-        </div>
-
-        <div class="justify-self-end text-center">
-          <p class="text-xs tracking-widest text-gray-400 uppercase">Tier</p>
-          <p class={`text-5xl font-bold ${tierClass}`}>{tier}</p>
-        </div>
-      </div>
-    </div>
-    {achievements.length > 0 && (
-      <div class="mt-4 flex flex-col justify-center text-center">
-        <h3 class="mb-3 text-sm font-bold tracking-widest text-gray-400 uppercase">Badges</h3>
-        <div class="flex flex-wrap items-center justify-center gap-4">
-          {achievements.map((achv, index) => (
-            <div class="achievement-item group flex flex-col items-center gap-2" style={`animation-delay: ${index * 100}ms`}>
-              <Image src={achv.iconUrl} alt={achv.label} class="w-12 h-12 transition-transform duration-300 group-hover:scale-110" />
-              <span class="text-xs text-gray-300">{achv.label}</span>
+        <!-- Stats Card -->
+        <div class="bg-black/40 border border-white/20 rounded-2xl p-4 mb-6 backdrop-blur-sm">
+          <div class="grid grid-cols-3 gap-4 text-center">
+            <div>
+              <p class="text-xs tracking-widest text-gray-400 uppercase mb-1">Rank</p>
+              <p class={`text-2xl sm:text-3xl font-bold ${rankClass}`}>{ranking ?? 'N/A'}</p>
             </div>
-          ))}
+            <div>
+              <p class="text-xs tracking-widest text-gray-400 uppercase mb-1">Score</p>
+              <p class="text-2xl sm:text-3xl font-bold">{points}</p>
+            </div>
+            <div>
+              <p class="text-xs tracking-widest text-gray-400 uppercase mb-1">Tier</p>
+              <p class={`text-2xl sm:text-3xl font-bold ${tierClass}`}>{tier}</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Info Section -->
+        <div class="space-y-3 text-center text-sm text-gray-300">
+          <div class="flex flex-wrap items-center justify-center gap-2">
+            <span class="px-2 py-1 bg-gray-800/50 rounded-full">Code: <span class="font-semibold">{code}</span></span>
+            {region && <span class="px-2 py-1 bg-gray-800/50 rounded-full">Region: <span class="font-semibold">{region}</span></span>}
+          </div>
+          <div class="flex flex-wrap items-center justify-center gap-2">
+            {founded && <span class="px-2 py-1 bg-gray-800/50 rounded-full">Founded in <span class="font-semibold">{founded}</span></span>}
+            {affiliation && <span class="px-2 py-1 bg-gray-800/50 rounded-full">Affiliation: <span class="font-semibold">{affiliation}</span></span>}
+          </div>
+          <div class="flex flex-wrap items-center justify-center gap-2">
+            {nslink && (
+              <a href={nslink} target="_blank" rel="noopener noreferrer" class="px-3 py-1 bg-green-600/20 border border-green-500/30 rounded-full font-semibold text-green-400 hover:bg-green-600/30 transition-colors">
+                Nationstates <Arrow class="inline w-3 h-3 fill-green-400 ml-1" />
+              </a>
+            )}
+            {feddispatch && (
+              <a href={feddispatch} target="_blank" rel="noopener noreferrer" class="px-3 py-1 bg-green-600/20 border border-green-500/30 rounded-full font-semibold text-green-400 hover:bg-green-600/30 transition-colors">
+                Dispatch <Arrow class="inline w-3 h-3 fill-green-400 ml-1" />
+              </a>
+            )}
+          </div>
         </div>
       </div>
-    )}
+
+      <!-- Achievements Section -->
+      {achievements.length > 0 && (
+        <div class="bg-black/20 backdrop-blur-md border border-white/10 rounded-3xl p-6 shadow-2xl">
+          <h3 class="mb-4 text-lg font-bold tracking-widest text-gray-400 uppercase text-center">Badges</h3>
+          <div class="flex flex-wrap items-center justify-center gap-4">
+            {achievements.map((achv, index) => (
+              <div class="achievement-item group flex flex-col items-center gap-2 p-2 rounded-lg bg-black/20 hover:bg-black/40 transition-colors" style={`animation-delay: ${index * 100}ms`}>
+                <Image src={achv.icon} alt={achv.name} 
+                class="w-10 h-10 transition-transform duration-300 group-hover:scale-110" 
+                loading="eager"
+                quality="60"
+                width={100}
+                format="webp"
+                />
+                <span class="text-xs text-gray-300 text-center">{achv.name}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+
+    <!-- Desktop Layout (md+) -->
+    <!-- Title -->
+    <div class="hidden md:flex flex-col justify-center items-center">
+      <h1 class="text-5xl lg:text-6xl 2xl:text-7xl font-black tracking-tight uppercase break-words mb-4 text-glow whitespace-nowrap">
+          {name}
+        </h1>
+    </div>
+    <div class="hidden md:grid md:grid-cols-[1fr_2.5fr_1fr] md:gap-8 md:items-center">
+      <!-- Left: Flag -->
+      <div class="flex items-center justify-center self-start h-[300px]">
+        <div class="relative">
+          <Image
+            src={flagPath}
+            alt={`Bandera de ${name}`}
+            class="w-[300px] h-auto md:max-h-[192px] max-h-[300px] object-contain drop-shadow-2xl transition-transform duration-300 hover:scale-105"
+            width={300}
+            height={200}
+            loading="eager"
+            quality={70}
+            format="webp"
+          />
+        </div>
+      </div>
+
+      <!-- Center: Main Content -->
+      <div class="flex flex-col items-center justify-center gap-6 text-center relative">
+        {federation && (
+          <h2 class="text-xl xl:text-2xl 2xl:text-3xl text-gray-300 font-light">{federation}</h2>
+        )}
+        <!-- Titles -->
+        {titles.length > 0 && (
+          <div class="flex flex-wrap justify-center gap-4 -mt-2 -mb-4">
+            {titles.map(title => (
+              <div class="flex flex-col items-center animate-pulse-glow">
+                <StarIcon class="w-20 h-20 fill-yellow-400 drop-shadow-[0_0_8px_rgba(252,211,77,0.8)]" />
+                <span class="text-sm font-semibold mt-1">{title.year}</span>
+              </div>
+            ))}
+          </div>
+        )}
+        <!-- Info -->
+        <div class="flex flex-col items-center gap-y-2 text-sm text-gray-300 max-w-2xl">
+          <div class="flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
+            <span class="px-3 py-1 bg-gray-800/50 rounded-full">Code: <span class="font-semibold">{code}</span></span>
+            {region && <span class="px-3 py-1 bg-gray-800/50 rounded-full">Region: <span class="font-semibold">{region}</span></span>}
+            {nslink && (
+              <a href={nslink} target="_blank" rel="noopener noreferrer" class="px-3 py-1 bg-green-600/20 border border-green-500/30 rounded-full font-semibold text-green-400 hover:bg-green-600/30 transition-all duration-300 hover:scale-105">
+                Nationstates <Arrow class="inline w-3 h-3 fill-green-400 ml-1" />
+              </a>
+            )}
+          </div>
+          <div class="flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
+            {founded && <span class="px-3 py-1 bg-gray-800/50 rounded-full">Founded in <span class="font-semibold">{founded}</span></span>}
+            {affiliation && <span class="px-3 py-1 bg-gray-800/50 rounded-full">Affiliation: <span class="font-semibold">{affiliation}</span></span>}
+            {feddispatch && (
+              <a href={feddispatch} target="_blank" rel="noopener noreferrer" class="px-3 py-1 bg-green-600/20 border border-green-500/30 rounded-full font-semibold text-green-400 hover:bg-green-600/30 transition-all duration-300 hover:scale-105">
+                Dispatch <Arrow class="inline w-3 h-3 fill-green-400 ml-1" />
+              </a>
+            )}
+          </div>
+        </div>
+        <!-- Stats -->
+        <div class="w-full max-w-md p-6 bg-black/30 border border-white/20 rounded-2xl backdrop-blur-sm shadow-2xl">
+          <div class="grid grid-cols-3 gap-4 text-center">
+            <div>
+              <p class="text-xs tracking-widest text-gray-400 uppercase mb-2">Rank</p>
+              <p class={`text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold ${rankClass}`}>{ranking ?? 'N/A'}</p>
+            </div>
+            <div>
+              <p class="text-xs tracking-widest text-gray-400 uppercase mb-2">Score</p>
+              <p class="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold">{points}</p>
+            </div>
+            <div>
+              <p class="text-xs tracking-widest text-gray-400 uppercase mb-2">Tier</p>
+              <p class={`text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold ${tierClass}`}>{tier}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Logo -->
+      <div class="flex items-center justify-center self-start h-[300px]">
+        <div class="relative">
+          <Image
+            src={logoToShow}
+            alt={`Logo de ${name}`}
+            class={`w-[300px] h-auto max-h-[300px] object-contain drop-shadow-2xl transition-transform duration-300 hover:scale-105 ${logoPath ? '' : 'opacity-10 grayscale'}`}
+            width={300}
+            height={300}
+            loading="eager"
+            quality={70}
+            format="webp"
+          />
+        </div>
+      </div>
+
+      <!-- Achievements (Full Width Below) -->
+      {achievements.length > 0 && (
+        <div class="col-span-3 mt-8 bg-black/20 backdrop-blur-md border border-white/10 rounded-3xl p-8 shadow-2xl">
+          <h3 class="mb-6 text-lg font-bold tracking-widest text-gray-400 uppercase text-center">Badges</h3>
+          <div class="flex flex-wrap items-center justify-center gap-6">
+            {achievements.map((achv, index) => (
+              <div class="achievement-item group flex flex-col items-center gap-3 p-4 rounded-xl bg-black/20 hover:bg-black/40 transition-all duration-300 hover:scale-105" style={`animation-delay: ${index * 100}ms`}>
+                <Image src={achv.icon} alt={achv.name} 
+                loading="eager"
+                quality="60"
+                width={100}
+                format="webp"
+                class="w-14 h-14 transition-transform duration-300 group-hover:scale-110" />
+                <span class="text-sm text-gray-300 text-center font-medium">{achv.name}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
   </div>
 </section>
 
@@ -146,7 +282,61 @@ console.log('Tier class:', tierClass);
     }
   }
 
+  @keyframes pulseGlow {
+    0%, 100% {
+      filter: drop-shadow(0 0 8px rgba(252, 211, 77, 0.6));
+    }
+    50% {
+      filter: drop-shadow(0 0 16px rgba(252, 211, 77, 0.9));
+    }
+  }
+
   .achievement-item {
     animation: fadeInScaleUp 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  }
+
+  .animate-pulse-glow {
+    animation: pulseGlow 2s ease-in-out infinite;
+  }
+
+  .text-glow {
+    text-shadow: 
+      0 0 10px rgba(255, 255, 255, 0.3),
+      0 0 20px rgba(255, 255, 255, 0.2),
+      0 0 30px rgba(255, 255, 255, 0.1),
+      3px 3px 12px rgba(0, 0, 0, 0.7);
+  }
+
+  .hero-member {
+    position: relative;
+  }
+
+  .hero-member::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+      radial-gradient(circle at 20% 80%, rgba(16, 185, 129, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(16, 185, 129, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* Responsive hover effects */
+  @media (hover: hover) {
+    .achievement-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    }
+  }
+
+  /* Enhanced mobile styles */
+  @media (max-width: 640px) {
+    .hero-member {
+      min-height: calc(100svh - 100px);
+    }
   }
 </style>

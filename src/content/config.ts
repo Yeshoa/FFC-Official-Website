@@ -147,6 +147,7 @@ const membersCollection = defineCollection({
         }).passthrough() 
       ).optional().describe("List of squad members"),
     }).optional().describe("Squad configuration"),
+    manualAchievements: z.array(z.string()).optional()
   }),
 });
 
@@ -162,6 +163,16 @@ const articlesCollection = defineCollection({
   }),
 });
 
+const achievementsCollection = defineCollection({
+  type: 'content',
+  schema: ({ image }) => z.object({
+    id: z.string().optional(),
+    name: z.string(),
+    icon: image(),
+    description: z.string(),
+    rarity: z.enum(["Common","Uncommon", "Rare", "Epic", "Legendary", "Mythic"]).default("common"),
+  }),
+});
 
 export const collections = {
   'tournaments': tournamentsCollection,
@@ -169,4 +180,5 @@ export const collections = {
   'matches': matchesCollection,
   'members': membersCollection,
   'articles': articlesCollection,
+  'achievements': achievementsCollection
 };
