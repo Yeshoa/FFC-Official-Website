@@ -1,0 +1,152 @@
+---
+import { Image } from 'astro:assets';
+import StarIcon from '@images/icons/star-solid.svg'; 
+import BackgroundImage from '@images/members/Banner.png';
+import type { CollectionEntry } from 'astro:content';
+import { getTotalColorClass, getMemberTier } from '@lib/memberUtils';
+import defaultLogo from '@images/members/default_logo.png';
+import Arrow from '@images/icons/arrow-up-right-from-square-solid.svg';
+
+// --- PROPS DEFINITION ---
+const { titles = [], achievements = [], memberData, ranking, points } = Astro.props;
+const { name, logoPath, flagPath, founded, affiliation, feddispatch, nslink, code, region, federation } = memberData;
+// --- DYNAMIC STYLES ---
+const logoToShow = logoPath || defaultLogo;
+
+const rankClass =
+  ranking === 1 ? 'text-amber-300 drop-shadow-[0_0_10px_rgba(252,211,77,0.8)]' :
+  ranking === 2 ? 'text-slate-300 drop-shadow-[0_0_10px_rgba(203,213,225,0.7)]' :
+  ranking === 3 ? 'text-orange-400 drop-shadow-[0_0_10px_rgba(251,146,60,0.7)]' :
+  'text-green-400';
+
+const tierClass = getTotalColorClass(points);
+const tier = getMemberTier(points);
+console.log('Tier class:', tierClass);
+
+---
+
+<section class="relative mb-8 flex items-center justify-center w-full h-[calc(100svh-135px)] bg-green-950 text-white overflow-hidden">
+  <div class="absolute inset-0 z-0">
+    <Image
+      src={BackgroundImage}
+      alt="Estadio de fondo"
+      class="object-cover w-full h-full opacity-15"
+      loading="eager"
+      quality={50}
+    />
+    <div class="absolute inset-0 bg-gradient-to-t from-green-950 via-green-950/80 to-transparent"></div>
+  </div>
+
+  <div class="relative z-10 grid w-full max-w-screen-xl grid-cols-1 grid-rows-[auto_1fr_auto] gap-6 px-4 text-center md:grid-cols-[1fr_2.5fr_1fr] lg:grid-rows-1 lg:gap-8 lg:text-left">
+    <div class="flex items-center justify-center">
+      <Image
+        src={flagPath}
+        alt={`Bandera de ${name}`}
+        class="h-28 w-auto max-w-[250px] object-contain drop-shadow-lg md:h-40 lg:h-56"
+        width={300}
+        height={200}
+      />
+    </div>
+
+    <div class="flex flex-col items-center justify-center gap-4 text-center row-span-2 relative">
+      {titles.length > 0 && (
+        <div class="flex items-center gap-x-3 col-span-3 justify-center absolute -top-5">
+          {titles.map(title => (
+            <div class="flex flex-col items-center">
+              <StarIcon class="w-16 h-16 fill-yellow-400 drop-shadow-[0_0_6px_rgba(252,211,77,0.7)]" />
+              <span class="text-lg font-semibold px-2 py-1 rounded-md">{title.year}</span>
+            </div>
+          ))}
+        </div>
+      )}
+      <h1 class="text-5xl font-black tracking-tight uppercase break-words lg:text-6xl xl:text-7xl" style="text-shadow: 3px 3px 12px rgba(0, 0, 0, 0.7);">
+        {name}
+      </h1>
+      {federation && (
+        <h2 class="text-lg lg:text-xl xl:text-2xl text-gray-300 font-light">{federation}</h2>
+      )}
+      <div class="flex flex-col items-center justify-center gap-y-1 text-sm text-gray-300">
+        <div class="flex md:flex-col lg:flex-row sm:flex-wrap items-center justify-center gap-x-4 gap-y-1">
+          <span class="text-gray-400">({code})</span>
+          {region && <span class="inline md:hidden lg:inline">•</span>}
+          {region && <span>Region: <span class="font-semibold">{region}</span></span>}
+          {nslink && <span class="inline md:hidden lg:inline">•</span>}
+          {nslink && (
+            <a href={nslink} target="_blank" rel="noopener noreferrer" class="font-semibold text-green-400 hover:underline">
+              Nationstates <Arrow class="inline w-3 h-3 fill-green-400" />
+            </a>
+          )}
+        </div>
+        <div class="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 md:flex-col lg:flex-row">
+          {founded && <span>Founded in <span class="font-semibold">{founded}</span></span>}
+          {founded && affiliation && <span class="inline md:hidden lg:inline">•</span>}
+          {affiliation && <span>Affiliation: <span class="font-semibold">{affiliation}</span></span>}
+          {feddispatch && affiliation && <span class="inline md:hidden lg:inline">•</span>}
+          {feddispatch && (
+            <a href={feddispatch} target="_blank" rel="noopener noreferrer" class="font-semibold text-green-400 hover:underline">
+              Dispatch <Arrow class="inline w-3 h-3 fill-green-400" />
+            </a>
+          )}
+        </div>
+      </div>
+    </div>
+
+    <div class="flex flex-col items-center justify-center">
+       <Image
+        src={logoToShow}
+        alt={`Logo de ${name}`}
+        class={`h-28 w-auto max-w-[250px] object-contain drop-shadow-lg md:h-40 lg:h-56 ${logoPath ? '' : 'opacity-10 grayscale'}`}
+        width={250}
+        height={250}
+      />
+    </div>
+    <div class="w-full max-w-xs p-4 text-center bg-black/30 border border-white/20 rounded-2xl backdrop-blur-sm flex items-center justify-center mx-auto">
+      <div class="grid grid-cols-[auto_auto_auto] w-full mx-2">
+        <div class="justify-self-start text-center">
+          <p class="text-xs tracking-widest text-gray-400 uppercase">Rank</p>
+          <p class={`text-5xl font-bold ${rankClass}`}>{ranking ?? 'N/A'}</p>
+        </div>
+
+        <div class="justify-self-center text-center">
+          <p class="text-xs tracking-widest text-gray-400 uppercase">Score</p>
+          <p class="text-5xl font-bold">{points}</p>
+        </div>
+
+        <div class="justify-self-end text-center">
+          <p class="text-xs tracking-widest text-gray-400 uppercase">Tier</p>
+          <p class={`text-5xl font-bold ${tierClass}`}>{tier}</p>
+        </div>
+      </div>
+    </div>
+    {achievements.length > 0 && (
+      <div class="mt-4 flex flex-col justify-center text-center">
+        <h3 class="mb-3 text-sm font-bold tracking-widest text-gray-400 uppercase">Badges</h3>
+        <div class="flex flex-wrap items-center justify-center gap-4">
+          {achievements.map((achv, index) => (
+            <div class="achievement-item group flex flex-col items-center gap-2" style={`animation-delay: ${index * 100}ms`}>
+              <Image src={achv.iconUrl} alt={achv.label} class="w-12 h-12 transition-transform duration-300 group-hover:scale-110" />
+              <span class="text-xs text-gray-300">{achv.label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    )}
+  </div>
+</section>
+
+<style>
+  @keyframes fadeInScaleUp {
+    from {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .achievement-item {
+    animation: fadeInScaleUp 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  }
+</style>

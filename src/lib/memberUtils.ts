@@ -111,3 +111,27 @@ export function getRankedMembers(
     })
     .sort((a, b) => b.totalScore - a.totalScore);
 }
+
+export function getTotalColorClass(total: number) {
+  if (total >= 110) return "text-cyan-500";
+  if (total >= 84) return "text-red-500";
+  if (total >= 62) return "text-orange-500";
+  if (total >= 42) return "text-yellow-500";
+  if (total >= 28) return "text-green-500";
+  if (total >= 18) return "text-blue-500";
+  if (total >= 10) return "text-purple-500";
+  if (total >= 4) return "text-pink-500";
+  return "text-gray-500"; // Color predeterminado para valores < 4
+};
+
+export function getMemberTier(total: number): string {
+  if (total >= 110) return "X";
+  if (total >= 84) return "SS";
+  if (total >= 62) return "S";
+  if (total >= 42) return "A";
+  if (total >= 28) return "B";
+  if (total >= 18) return "C";
+  if (total >= 10) return "D";
+  if (total >= 4) return "E";
+  return "F"; // Tier predeterminado para valores < 4
+}
