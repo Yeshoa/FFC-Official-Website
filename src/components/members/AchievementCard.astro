@@ -1,0 +1,265 @@
+---
+import { Image } from 'astro:assets';
+const { achievement } = Astro.props;
+
+// Rarity mapping con efectos más dramáticos
+const rarityMap = {
+  'Common': { 
+    label: 'Common', 
+    color: 'from-slate-600 via-slate-500 to-slate-700', 
+    border: 'border-slate-400', 
+    text: 'text-slate-200', 
+    shadow: 'shadow-slate-400/60',
+    glow: 'group-hover:shadow-slate-400/80',
+    sparkle: 'bg-slate-400/20'
+  },
+  'Uncommon': { 
+    label: 'Uncommon', 
+    color: 'from-emerald-500 via-emerald-400 to-emerald-600', 
+    border: 'border-emerald-400', 
+    text: 'text-emerald-100', 
+    shadow: 'shadow-emerald-400/60',
+    glow: 'group-hover:shadow-emerald-400/80',
+    sparkle: 'bg-emerald-400/20'
+  },
+  'Rare': { 
+    label: 'Rare', 
+    color: 'from-blue-500 via-sky-400 to-blue-600', 
+    border: 'border-sky-400', 
+    text: 'text-sky-100', 
+    shadow: 'shadow-sky-400/60',
+    glow: 'group-hover:shadow-sky-400/80',
+    sparkle: 'bg-sky-400/20'
+  },
+  'Ultra Rare': { 
+    label: 'Ultra Rare', 
+    color: 'from-purple-600 via-violet-500 to-fuchsia-600', 
+    border: 'border-violet-400', 
+    text: 'text-violet-100', 
+    shadow: 'shadow-violet-400/60',
+    glow: 'group-hover:shadow-violet-400/80',
+    sparkle: 'bg-violet-400/20'
+  },
+  'Epic': { 
+    label: 'Epic', 
+    color: 'from-orange-500 via-amber-400 to-orange-600', 
+    border: 'border-orange-400', 
+    text: 'text-orange-100', 
+    shadow: 'shadow-orange-400/60',
+    glow: 'group-hover:shadow-orange-400/80',
+    sparkle: 'bg-orange-400/20'
+  },
+  'Legendary': { 
+    label: 'Legendary', 
+    color: 'from-yellow-400 via-amber-300 to-yellow-500', 
+    border: 'border-yellow-300', 
+    text: 'text-yellow-900', 
+    shadow: 'shadow-yellow-300/60',
+    glow: 'group-hover:shadow-yellow-300/80',
+    sparkle: 'bg-yellow-300/30'
+  },
+};
+const rarity = rarityMap[achievement.rarity] || rarityMap['Common'];
+
+// Generar ID único para cada carta
+const cardId = `achievement-${Math.random().toString(36).substr(2, 9)}`;
+---
+
+<div class={`achievement-card group relative flex flex-col items-center gap-2 p-4 rounded-xl bg-gradient-to-br ${rarity.color} ${rarity.border} border-2 ${rarity.shadow} ${rarity.glow} transition-all duration-500 hover:scale-110 hover:-translate-y-2 cursor-pointer w-[120px] h-[140px] overflow-visible`}
+     tabindex="0"
+     data-card-id={cardId}
+     role="button"
+     aria-describedby={`tooltip-${cardId}`}>
+  
+  <!-- Partículas de fondo animadas -->
+  <div class="absolute inset-0 rounded-xl overflow-hidden pointer-events-none">
+    <div class={`particle particle-1 absolute w-1 h-1 ${rarity.sparkle} rounded-full animate-pulse`}></div>
+    <div class={`particle particle-2 absolute w-0.5 h-0.5 ${rarity.sparkle} rounded-full animate-pulse`} style="animation-delay: 0.5s;"></div>
+    <div class={`particle particle-3 absolute w-1 h-1 ${rarity.sparkle} rounded-full animate-pulse`} style="animation-delay: 1s;"></div>
+  </div>
+  
+  <!-- Efecto de brillo superior -->
+  <div class="absolute top-0 left-0 right-0 h-8 bg-gradient-to-b from-white/20 to-transparent rounded-t-xl pointer-events-none"></div>
+  
+  <!-- Icono con efecto de levitación -->
+  <div class="icon-container relative z-10 group-hover:animate-bounce transition-all duration-300">
+    <div class="absolute inset-0 rounded-full bg-white/10 blur-sm scale-110 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+    <Image 
+      src={achievement.icon} 
+      alt={achievement.name} 
+      width={80} 
+      height={80} 
+      class="w-14 h-14 drop-shadow-2xl relative z-10 transition-all duration-300 group-hover:drop-shadow-2xl" 
+      loading="eager" 
+      quality="70" 
+      format="webp" 
+    />
+  </div>
+  
+  <!-- Nombre con texto adaptativo -->
+  <div class="name-container flex-1 flex items-center justify-center min-h-[2rem] px-1">
+    <span class={`text-center ${rarity.text} font-bold leading-tight transition-all duration-300 group-hover:text-white text-shadow-sm ${achievement.name.length > 12 ? 'text-xs' : 'text-sm'}`}>
+      {achievement.name}
+    </span>
+  </div>
+  
+  <!-- Badge de rareza con animación -->
+  <div class={`rarity-badge absolute -top-1 -right-1 px-2 py-0.5 rounded-full text-xs font-semibold uppercase ${rarity.text} bg-black/60 border ${rarity.border} transform transition-all duration-300 group-hover:scale-110 group-hover:rotate-12`}>
+    {rarity.label}
+  </div>
+  
+  <!-- Efecto de ondas en hover -->
+  <div class="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
+    <div class="absolute inset-0 rounded-xl border-2 border-white/20 animate-ping"></div>
+    <div class="absolute inset-0 rounded-xl border-2 border-white/10 animate-ping" style="animation-delay: 0.2s;"></div>
+  </div>
+</div>
+
+<!-- Modal/Tooltip para móviles y desktop -->
+<div id={`modal-${cardId}`} class="achievement-modal fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm opacity-0 pointer-events-none transition-all duration-300">
+  <div class={`modal-content relative max-w-sm w-full p-6 rounded-2xl bg-gradient-to-br ${rarity.color} ${rarity.border} border-2 ${rarity.shadow} transform scale-95 transition-all duration-300`}>
+    <!-- Botón cerrar -->
+    <button class="close-modal absolute top-3 right-3 w-8 h-8 rounded-full bg-black/40 hover:bg-black/60 transition-colors duration-200 flex items-center justify-center text-white text-lg font-bold">
+      ×
+    </button>
+    
+    <!-- Contenido del modal -->
+    <div class="flex flex-col items-center gap-4 text-center">
+      <div class="icon-large relative">
+        <div class="absolute inset-0 rounded-full bg-white/10 blur-md scale-110"></div>
+        <Image 
+          src={achievement.icon} 
+          alt={achievement.name} 
+          width={120} 
+          height={120} 
+          class="w-20 h-20 drop-shadow-2xl relative z-10" 
+          loading="eager" 
+          quality="70" 
+          format="webp" 
+        />
+      </div>
+      
+      <div class="text-content">
+        <h3 class={`text-xl font-bold ${rarity.text} mb-2`}>{achievement.name}</h3>
+        <div class={`inline-block px-3 py-1 rounded-full text-sm font-semibold uppercase ${rarity.text} bg-black/40 border ${rarity.border} mb-3`}>
+          {rarity.label}
+        </div>
+        <p class="text-white/90 text-sm leading-relaxed">{achievement.description}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.achievement-card {
+  box-shadow: 0 8px 32px 0 rgba(0,0,0,0.3);
+  backdrop-filter: blur(4px);
+  position: relative;
+  overflow: visible;
+}
+
+.achievement-card:hover {
+  box-shadow: 0 16px 48px 0 rgba(0,0,0,0.4);
+}
+
+.text-shadow-sm {
+  text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+}
+
+/* Animaciones de partículas */
+.particle-1 {
+  top: 20%;
+  left: 15%;
+  animation: float 3s ease-in-out infinite;
+}
+
+.particle-2 {
+  top: 60%;
+  right: 20%;
+  animation: float 2.5s ease-in-out infinite reverse;
+}
+
+.particle-3 {
+  bottom: 30%;
+  left: 70%;
+  animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translateY(-10px) rotate(180deg);
+    opacity: 1;
+  }
+}
+
+/* Efectos de modal */
+.achievement-modal.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.achievement-modal.active .modal-content {
+  transform: scale(1);
+}
+
+/* Responsive text sizing */
+@media (max-width: 640px) {
+  .achievement-card {
+    width: 110px;
+    height: 130px;
+  }
+}
+</style>
+
+<script>
+// Script para manejar la interacción con las cartas
+document.addEventListener('DOMContentLoaded', function() {
+  const cards = document.querySelectorAll('.achievement-card');
+  
+  cards.forEach(card => {
+    const cardId = card.dataset.cardId;
+    const modal = document.getElementById(`modal-${cardId}`);
+    const closeBtn = modal.querySelector('.close-modal');
+    
+    // Función para abrir modal
+    function openModal(e) {
+      e.preventDefault();
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    
+    // Función para cerrar modal
+    function closeModal(e) {
+      e.preventDefault();
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    
+    // Event listeners
+    card.addEventListener('click', openModal);
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        openModal(e);
+      }
+    });
+    
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        closeModal(e);
+      }
+    });
+    
+    // Cerrar con Escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('active')) {
+        closeModal(e);
+      }
+    });
+  });
+});
+</script>

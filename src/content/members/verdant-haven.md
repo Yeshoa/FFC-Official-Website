@@ -20,4 +20,7 @@ score:
   bonus:
     host: 0
     extra: 0
+manualAchievements: 
+  - "dispatch"
+  - "discord"
 ---

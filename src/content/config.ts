@@ -170,7 +170,7 @@ const achievementsCollection = defineCollection({
     name: z.string(),
     icon: image(),
     description: z.string(),
-    rarity: z.enum(["Common","Uncommon", "Rare", "Epic", "Legendary", "Mythic"]).default("common"),
+    rarity: z.enum(["Common","Uncommon", "Rare", "Ultra Rare", "Epic", "Legendary"]).default("common"),
   }),
 });
 

@@ -1,0 +1,38 @@
+---
+import App from '@layouts/App.astro';
+import { getCollection } from 'astro:content';
+import AchievementCard from '@components/members/AchievementCard.astro';
+import { dynamicDefs } from '@lib/achievements';
+
+// 1. Todos los achievements estáticos
+const staticAchievements = (await getCollection('achievements')).map(a => ({
+  id: a.data.id,
+  name: a.data.name,
+  icon: a.data.icon,
+  description: a.data.description,
+  rarity: a.data.rarity,
+}));
+
+// 2. Todos los achievements dinámicos (sin evaluar, solo definición)
+const dynamicAchievements = dynamicDefs.map(a => ({
+  id: a.id,
+  name: a.name,
+  icon: a.icon,
+  description: a.evaluate.toString().includes('description') ? '' : a.description, // fallback si no hay description directa
+  rarity: a.rarity,
+}));
+
+// 3. Unir ambos arrays y eliminar duplicados por id
+const allAchievements = [
+  ...staticAchievements,
+  ...dynamicAchievements.filter(d => !staticAchievements.some(s => s.id === d.id))
+];
+---
+
+<App title="FFC - Test: Todos los Achievements">
+  <div class="flex flex-wrap items-center justify-center gap-4">
+    {allAchievements.map((achv, idx) => (
+      <AchievementCard achievement={achv} />
+    ))}
+  </div>
+</App>

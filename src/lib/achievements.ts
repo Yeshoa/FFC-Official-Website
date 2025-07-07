@@ -2,6 +2,8 @@ import { getCollection } from 'astro:content';
 import type { InferEntrySchema, CollectionEntry } from 'astro:content';
 import Trophy from '@images/achievements/king.webp';
 import type { ImageMetadata } from 'astro';
+import { getGoalsByTeam } from './matchUtils';
+import { getMemberByName } from './memberUtils';
 
 type Match = CollectionEntry<'matches'>;
 type Tournament = CollectionEntry<'tournaments'>;
@@ -11,26 +13,27 @@ type StaticAch = CollectionEntry<'achievements'>;
 type Tournament = InferEntrySchema<'tournaments'>;
 type Member = InferEntrySchema<'members'>;
 type StaticAch = InferEntrySchema<'achievements'>; */
+const memberCollection = await getCollection('members');
 
 export interface Achievement {
   id: string;
   name: string;
   icon: ImageMetadata;
   description: string;
-  rarity: 'Common'|'Uncommon'|'Rare'|'Epic'|'Legendary'|'Mythic';
+  rarity: 'Common'|'Uncommon'|'Rare'|'Ultra Rare'|'Epic'|'Legendary';
 }
 
 /** Dynamic achievement definitions */
-const dynamicDefs: {
+export const dynamicDefs: {
   id: string;
   rarity: Achievement['rarity'];
   name: string;
   icon: ImageMetadata;
-  evaluate: (allMatches: Match[], allTournaments: Tournament[], member: Member) => Achievement | null;
+  evaluate: (allMatches: Match[], allTournaments: Tournament[], member: Member, members: Member[]) => Achievement | null;
 }[] = [
   {
     id: 'champion',
-    rarity: 'Epic',
+    rarity: 'Ultra Rare',
     name: 'Champion',
     icon: Trophy,
     evaluate: (matches, tournaments, member) => {
@@ -40,8 +43,8 @@ const dynamicDefs: {
             id: 'champion',
             name: 'Champion',
             icon: Trophy,
-            rarity: 'Epic',
-            description: `Won the Forest Cup ${won.data.edition} edition.`
+            rarity: 'Ultra Rare',
+            description: `Won the Forest Cup ${won.data.edition}.`
           }
         : null;
     }
@@ -59,14 +62,14 @@ const dynamicDefs: {
             name: 'Host',
             icon: Trophy,
             rarity: 'Rare',
-            description: `Hosted the Forest Cup ${h.data.edition} edition.`
+            description: `Hosted the Forest Cup ${h.data.edition}.`
           }
         : null;
     }
   },
   {
     id: 'all-time-scorer',
-    rarity: 'Epic',
+    rarity: 'Ultra Rare',
     name: 'All‑Time Scorer',
     icon: Trophy,
     evaluate: (matches, tournaments, member) => {
@@ -84,7 +87,7 @@ const dynamicDefs: {
           id: 'all-time-scorer',
           name: 'All‑Time Scorer',
           icon: Trophy,
-          rarity: 'Epic',
+          rarity: 'Ultra Rare',
           description: `Has scored the most goals ever: ${top[1]} goals.`
         };
       }
@@ -245,7 +248,7 @@ const dynamicDefs: {
   },
   {
     id: 'invictus',
-    rarity: 'Legendary',
+    rarity: 'Epic',
     name: 'Invictus',
     icon: Trophy,
     evaluate: (matches, tournaments, member) => {
@@ -262,7 +265,7 @@ const dynamicDefs: {
             id: 'invictus',
             name: 'Invictus',
             icon: Trophy,
-            rarity: 'Legendary',
+            rarity: 'Epic',
             description: `Won a Forest Cup (${t.data.edition}) without losing a single match.`
           };
       }
@@ -286,7 +289,7 @@ const dynamicDefs: {
         if (wins === played.length)
           return {
             id: 'perfect-champion',
-            name: 'Perfect Champion',
+            name: 'Flawless',
             icon: Trophy,
             rarity: 'Legendary',
             description: `Won a Forest Cup (${t.data.edition}) with a perfect record (${wins}-${played.length-wins}).`
@@ -300,35 +303,67 @@ const dynamicDefs: {
     rarity: 'Rare',
     name: 'Biggest Win',
     icon: Trophy,
-    evaluate: (matches, tournaments, member) => {
-      // Find the single biggest margin in history
-      let best: { diff: number; match: Match } | null = null;
-      for (const m of matches) {
-        const gf = m.data.goals?.filter(g=>g.team===member.data.name).length ??0;
-        const ga = m.data.goals?.filter(g=>g.team!==member.data.name).length ??0;
-        const diff = gf - ga;
-        if ((m.data.team1===member.data.name||m.data.team2===member.data.name) && diff>0) {
-          if (!best || diff>best.diff) best = { diff, match: m };
+    evaluate: (matches, tournaments, member, memberCollection) => {
+      if (!member.data.verified) return null;
+      const verifiedMatches = matches.filter(m => {
+        const team1Verified = getMemberByName(m.data.team1, memberCollection)?.data.verified === true;
+        const team2Verified = getMemberByName(m.data.team2, memberCollection)?.data.verified === true;
+        return team1Verified || team2Verified;
+      });
+
+      if (verifiedMatches.length === 0) return null;
+      // Encontrar la máxima diferencia de goles
+      let maxDiff = 0;
+      for (const m of verifiedMatches) {
+        const goals = getGoalsByTeam(m.data);
+        const diff1 = goals.team1 - goals.team2;
+        const diff2 = goals.team2 - goals.team1;
+        if (diff1 > maxDiff) maxDiff = diff1;
+        if (diff2 > maxDiff) maxDiff = diff2;
+      }
+      
+      // Encontrar todos los partidos con la máxima diferencia
+      const biggestWins = [];
+      for (const m of verifiedMatches) {
+        const goals = getGoalsByTeam(m.data);
+        const diff1 = goals.team1 - goals.team2;
+        const diff2 = goals.team2 - goals.team1;
+        // Solo pushear si el ganador está verificado
+        if (diff1 === maxDiff && maxDiff > 0) {
+          const winnerVerified = getMemberByName(m.data.team1, memberCollection)?.data.verified === true;
+          if (winnerVerified) {
+            biggestWins.push({ match: m.data, winner: m.data.team1, goals });
+          }
+        } else if (diff2 === maxDiff && maxDiff > 0) {
+          const winnerVerified = getMemberByName(m.data.team2, memberCollection)?.data.verified === true;
+          if (winnerVerified) {
+            biggestWins.push({ match: m.data, winner: m.data.team2, goals });
+          }
         }
       }
-      if (best) {
-        const opp = best.match.data.team1===member.data.name
-          ? best.match.data.team2
-          : best.match.data.team1;
-        return {
-          id: 'biggest-win',
-          name: 'Biggest Win',
-          icon: Trophy,
-          rarity: 'Rare',
-          description: `Biggest victory: ${best.diff}–0 vs ${opp}.`
-        };
+
+      // Verificar si el miembro actual es ganador en alguno de estos partidos
+      for (const win of biggestWins) {
+        if (win.winner === member.data.name) {
+          const opponent = win.match.team1 === member.data.name ? win.match.team2 : win.match.team1;
+          const goalsWinner = win.winner === win.match.team1 ? win.goals.team1 : win.goals.team2;
+          const goalsLoser = win.winner === win.match.team1 ? win.goals.team2 : win.goals.team1;
+          return {
+            id: 'biggest-win',
+            name: 'Biggest Win',
+            icon: Trophy,
+            rarity: 'Rare',
+            description: `Biggest victory: ${goalsWinner}–${goalsLoser} vs ${opponent}.`
+          };
+        }
       }
+
       return null;
     }
   },
   {
     id: 'hat-trick',
-    rarity: 'Legendary',
+    rarity: 'Ultra Rare',
     name: 'Hat‑Trick',
     icon: Trophy,
     evaluate: (matches, tournaments, member) => {
@@ -344,7 +379,7 @@ const dynamicDefs: {
             id: 'hat-trick',
             name: 'Hat‑Trick',
             icon: Trophy,
-            rarity: 'Epic',
+            rarity: 'Ultra Rare',
             description: `Won the Cup, Golden Ball and Golden Boot in FC ${edition.data.edition}.`
           }
         : null;
@@ -390,7 +425,7 @@ export async function getAchievementsForMember(name: string): Promise<Achievemen
 
   // 1) Dynamic
   const dynamic = dynamicDefs
-    .map(def => def.evaluate(matches, tournaments, member))
+    .map(def => def.evaluate(matches, tournaments, member, members))
     .filter((a): a is Achievement => !!a);
 
   // 2) Manual – suppose you have a field `member.data.manualAchievements: string[]`
@@ -404,7 +439,53 @@ export async function getAchievementsForMember(name: string): Promise<Achievemen
       description: a.data.description,
       rarity: a.data.rarity as Achievement['rarity'],
     }));
-  console.log("manual:", manual, "manualIds:", manualIds, "staticAch:", staticAch);
   // Merge and return
   return [...manual, ...dynamic];
+}
+
+/**
+ * Obtiene todos los miembros que tienen un logro específico dado su ID.
+ * @param achievementId - El ID del logro a buscar.
+ * @returns Una promesa que resuelve en una lista de miembros con el logro especificado.
+ */
+export async function getMembersWithAchievement(achievementId: string): Promise<Member[]> {
+  // Obtener todas las colecciones necesarias
+  const [members, matches, tournaments, staticAch] = await Promise.all([
+    getCollection('members'),
+    getCollection('matches'),
+    getCollection('tournaments'),
+    getCollection('achievements'),
+  ]);
+
+  const membersWithAchievement: Member[] = [];
+
+  // Iterar sobre cada miembro
+  for (const member of members) {
+    // Evaluar logros dinámicos
+    const dynamicAchievements = dynamicDefs
+      .map(def => def.evaluate(matches, tournaments, member, members))
+      .filter((a): a is Achievement => !!a);
+
+    // Obtener logros manuales
+    const manualIds: string[] = (member.data as any).manualAchievements || [];
+    const manualAchievements = staticAch
+      .filter(a => manualIds.includes(a.data.id))
+      .map(a => ({
+        id: a.data.id,
+        name: a.data.name,
+        icon: a.data.icon,
+        description: a.data.description,
+        rarity: a.data.rarity as Achievement['rarity'],
+      }));
+
+    // Combinar ambos tipos de logros
+    const allAchievements = [...manualAchievements, ...dynamicAchievements];
+
+    // Verificar si el logro específico está presente
+    if (allAchievements.some(ach => ach.id === achievementId)) {
+      membersWithAchievement.push(member);
+    }
+  }
+
+  return membersWithAchievement;
 }
