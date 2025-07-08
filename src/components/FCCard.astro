@@ -70,12 +70,12 @@ const tournamentLink = `/${type}/${edition}`;
         <div class="flex items-start justify-between">
           <!-- Logo con efecto glassmorphism -->
           <div class="relative group/logo">
-            <div class="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-64 lg:h-64 transition-all duration-300 group-hover:scale-105 group-hover:rotate-3">
+            <div class="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-60 lg:h-60 transition-all duration-300 group-hover:scale-105 group-hover:rotate-3">
               <Image
                 src={image}
                 alt={`${name} Logo`}
                 class="w-full h-full object-contain drop-shadow-lg"
-                width={350}
+                width={300}
                 loading={loadingType || "lazy"}
               />
             </div>
@@ -86,8 +86,8 @@ const tournamentLink = `/${type}/${edition}`;
         
         <!-- Título principal -->
         <div class="space-y-2">
-          <div class="flex flex-col md:flex-row md:items-center gap-1">
-            {hostFlag && <Image src={hostFlag} alt="Host Flag" class="max-w-6 sm:max-w-10 md:max-w-11 h-4 sm:h-6 md:h-7 lg:h-9 lg:max-w-14 xl:max-w-auto rounded-md object-cover" 
+          <div class="flex flex-col md:flex-row md:items-center gap-2">
+            {hostFlag && <Image src={hostFlag} alt="Host Flag" class="max-w-6 sm:max-w-10 md:max-w-11 h-4 sm:h-6 md:mt-1 md:h-7 lg:h-9 lg:max-w-14 xl:max-w-auto rounded-md object-cover" 
             width={100}
             quality={70}
             format="webp"
@@ -136,7 +136,7 @@ const tournamentLink = `/${type}/${edition}`;
         </div>*/}
         
         <!-- Indicador de hover -->
-        <div class="flex items-center gap-2 text-emerald-300/60 group-hover:text-emerald-300 transition-all duration-300">
+        <div class="flex items-center gap-2 mt-2 text-emerald-300/60 group-hover:text-emerald-300 transition-all duration-300">
           <span class="text-sm font-medium">View Details</span>
           <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
