@@ -63,7 +63,7 @@ const _dynamicDefs: {
             id: 'host',
             name: 'Host',
             icon: Trophy,
-            rarity: 'Rare',
+            rarity: 'Uncommom',
             description: `Hosted the Forest Cup ${h.data.edition}.`
           }
         : null;
