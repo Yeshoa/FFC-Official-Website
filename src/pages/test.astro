@@ -18,7 +18,7 @@ const dynamicAchievements = dynamicDefs.map(a => ({
   id: a.id,
   name: a.name,
   icon: a.icon,
-  description: a.evaluate.toString().includes('description') ? '' : a.description, // fallback si no hay description directa
+  description: a.description,
   rarity: a.rarity,
 }));
 
@@ -27,6 +27,12 @@ const allAchievements = [
   ...staticAchievements,
   ...dynamicAchievements.filter(d => !staticAchievements.some(s => s.id === d.id))
 ];
+
+// 4. Ordenar por rareza según config.ts (de menor a mayor)
+const rarityOrder = [
+  "Doomed", "Cursed", "Common", "Uncommon", "Rare", "Ultra Rare", "Epic", "Legendary", "Godlike"
+];
+allAchievements.sort((a, b) => rarityOrder.indexOf(a.rarity) - rarityOrder.indexOf(b.rarity));
 ---
 
 <App title="FFC - Test: Todos los Achievements">

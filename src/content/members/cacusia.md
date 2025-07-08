@@ -25,4 +25,5 @@ manualAchievements:
   - "founder"
   - "dispatch"
   - "discord"
+  - "giant-slayer"
 ---

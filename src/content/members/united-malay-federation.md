@@ -22,4 +22,5 @@ score:
     extra: 0
 manualAchievements: 
   - "dispatch"
+  - "voter"
 ---

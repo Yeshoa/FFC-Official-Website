@@ -2,7 +2,7 @@ import { getCollection } from 'astro:content';
 import type { InferEntrySchema, CollectionEntry } from 'astro:content';
 import Trophy from '@images/achievements/king.webp';
 import type { ImageMetadata } from 'astro';
-import { getGoalsByTeam } from './matchUtils';
+import { getGoalsByTeam, getMatchWinner } from './matchUtils';
 import { getMemberByName } from './memberUtils';
 
 type Match = CollectionEntry<'matches'>;
@@ -20,18 +20,19 @@ export interface Achievement {
   name: string;
   icon: ImageMetadata;
   description: string;
-  rarity: 'Common'|'Uncommon'|'Rare'|'Ultra Rare'|'Epic'|'Legendary';
+  rarity: 'Doomed'|'Cursed'|'Common'|'Uncommon'|'Rare'|'Ultra Rare'|'Epic'|'Legendary'|'Godlike';
 }
 
 /** Dynamic achievement definitions */
-export const dynamicDefs: {
+const _dynamicDefs: {
   id: string;
   rarity: Achievement['rarity'];
   name: string;
   icon: ImageMetadata;
+  description: string;
   evaluate: (allMatches: Match[], allTournaments: Tournament[], member: Member, members: Member[]) => Achievement | null;
 }[] = [
-  {
+  /* {
     id: 'champion',
     rarity: 'Ultra Rare',
     name: 'Champion',
@@ -48,12 +49,13 @@ export const dynamicDefs: {
           }
         : null;
     }
-  },
+  }, */
   {
     id: 'host',
-    rarity: 'Rare',
+    rarity: 'Uncommon',
     name: 'Host',
     icon: Trophy,
+    description: 'Awarded for hosting a Forest Cup edition.',
     evaluate: (matches, tournaments, member) => {
       const h = tournaments.find(t => t.data.host === member.data.name);
       return h
@@ -72,6 +74,7 @@ export const dynamicDefs: {
     rarity: 'Ultra Rare',
     name: 'All‑Time Scorer',
     icon: Trophy,
+    description: 'Awarded for being the top all-time scorer.',
     evaluate: (matches, tournaments, member) => {
       // Sum goals per team
       const teamGoals = new Map<string, number>();
@@ -99,8 +102,9 @@ export const dynamicDefs: {
     rarity: 'Rare',
     name: 'MVP',
     icon: Trophy,
+    description: 'Awarded for winning the Golden Ball in a Forest Cup.',
     evaluate: (matches, tournaments, member) => {
-      const tour = tournaments.find(t => t.data.prizes?.bestPlayer?.team === member.data.code);
+      const tour = tournaments.find(t => t.data.prizes?.bestPlayer?.team === member.data.name);
       if (!tour) return null;
       const player = tour.data.prizes!.bestPlayer!.player;
       return {
@@ -117,8 +121,9 @@ export const dynamicDefs: {
     rarity: 'Rare',
     name: 'Wall',
     icon: Trophy,
+    description: 'Awarded for winning the Golden Glove in a Forest Cup.',
     evaluate: (matches, tournaments, member) => {
-      const tour = tournaments.find(t => t.data.prizes?.bestGoalkeeper?.team === member.data.code);
+      const tour = tournaments.find(t => t.data.prizes?.bestGoalkeeper?.team === member.data.name);
       if (!tour) return null;
       const keeper = tour.data.prizes!.bestGoalkeeper!.player;
       return {
@@ -135,6 +140,7 @@ export const dynamicDefs: {
     rarity: 'Common',
     name: 'Rivalry',
     icon: Trophy,
+    description: 'Awarded for playing 3+ matches against the same rival.',
     evaluate: (matches, tournaments, member) => {
       const counts = new Map<string,number>();
       for (const m of matches) {
@@ -154,10 +160,11 @@ export const dynamicDefs: {
     }
   },
   {
-    id: 'nemesis',
+    id: 'classic',
     rarity: 'Uncommon',
-    name: 'Nemesis',
+    name: 'Classic',
     icon: Trophy,
+    description: 'Awarded for playing 7+ matches against the same rival.',
     evaluate: (matches, tournaments, member) => {
       const counts = new Map<string,number>();
       for (const m of matches) {
@@ -167,8 +174,8 @@ export const dynamicDefs: {
       const nem = [...counts.entries()].filter(([,c]) => c>=7).map(([r])=>r);
       return nem.length
         ? {
-            id: 'nemesis',
-            name: 'Nemesis',
+            id: 'classic',
+            name: 'Classic',
             icon: Trophy,
             rarity: 'Uncommon',
             description: `Played 7+ matches against: ${nem.join(', ')}.`
@@ -181,6 +188,7 @@ export const dynamicDefs: {
     rarity: 'Uncommon',
     name: 'Dominator',
     icon: Trophy,
+    description: 'Awarded for winning 3+ matches against the same rival.',
     evaluate: (matches, tournaments, member) => {
       // Count wins vs each rival
       const winCounts = new Map<string, number>();
@@ -213,9 +221,10 @@ export const dynamicDefs: {
   },
   {
     id: 'underdog',
-    rarity: 'Uncommon',
+    rarity: 'Cursed',
     name: 'Underdog',
     icon: Trophy,
+    description: 'Awarded for losing 3+ matches against the same rival.',
     evaluate: (matches, tournaments, member) => {
       // Count losses vs each rival
       const lossCounts = new Map<string, number>();
@@ -240,7 +249,7 @@ export const dynamicDefs: {
             id: 'underdog',
             name: 'Underdog',
             icon: Trophy,
-            rarity: 'Common',
+            rarity: 'Cursed',
             description: `Lost 3+ matches against: ${underdogs.join(', ')}.`
           }
         : null;
@@ -251,6 +260,7 @@ export const dynamicDefs: {
     rarity: 'Epic',
     name: 'Invictus',
     icon: Trophy,
+    description: 'Awarded for winning a Forest Cup without losing a single match.',
     evaluate: (matches, tournaments, member) => {
       const won = tournaments.filter(t => t.data.champion===member.data.name);
       for (const t of won) {
@@ -277,6 +287,7 @@ export const dynamicDefs: {
     rarity: 'Legendary',
     name: 'Flawless',
     icon: Trophy,
+    description: 'Awarded for winning a Forest Cup with a perfect record (all wins).',
     evaluate: (matches, tournaments, member) => {
       const won = tournaments.filter(t => t.data.champion===member.data.name);
       for (const t of won) {
@@ -303,6 +314,7 @@ export const dynamicDefs: {
     rarity: 'Rare',
     name: 'Biggest Win',
     icon: Trophy,
+    description: 'Awarded for achieving the largest goal difference victory in a verified match.',
     evaluate: (matches, tournaments, member, memberCollection) => {
       if (!member.data.verified) return null;
       const verifiedMatches = matches.filter(m => {
@@ -362,25 +374,55 @@ export const dynamicDefs: {
     }
   },
   {
-    id: 'hat-trick',
-    rarity: 'Ultra Rare',
-    name: 'Hat‑Trick',
+    id: 'awarded',
+    rarity: 'Rare',
+    name: 'Awarded',
     icon: Trophy,
+    description: 'Won a Forest Cup, a Golden Ball, a Golden Glove, and a Golden Boot.',
+    evaluate: (matches, tournaments, member) => {
+      const hasTrick = tournaments.some(t =>
+        t.data.champion === member.data.name &&
+        t.data.prizes?.bestPlayer?.team === member.data.name &&
+        Array.isArray(t.data.prizes?.topScorer) &&
+        t.data.prizes.topScorer.some(ts => ts.team === member.data.name) && 
+        t.data.prizes?.bestGoalkeeper?.team === member.data.name
+      );
+
+      if (hasTrick) {
+        return {
+          id: 'awarded',
+          name: 'Awarded',
+          icon: Trophy,
+          rarity: 'Rare',
+          description: 'Won a Forest Cup, a Golden Ball, a Golden Glove, and a Golden Boot.'
+        };
+      }
+
+      return null;
+    }
+  },
+  {
+    id: 'poker',
+    rarity: 'Legendary',
+    name: 'Poker',
+    icon: Trophy,
+    description: 'Awarded for winning the Cup, Golden Ball, and Golden Boot in the same edition.',
     evaluate: (matches, tournaments, member) => {
       const edition = tournaments.find(t =>
-        t.data.champion === member.data.code &&
-        t.data.prizes?.bestPlayer?.team === member.data.code &&
+        t.data.champion === member.data.name &&
+        t.data.prizes?.bestPlayer?.team === member.data.name &&
         Array.isArray(t.data.prizes?.topScorer) &&
         t.data.prizes!.topScorer.length > 0 &&
-        t.data.prizes!.topScorer.some(ts => ts.team === member.data.code)
+        t.data.prizes!.topScorer.some(ts => ts.team === member.data.name) && 
+        t.data.prizes?.bestGoalkeeper?.team === member.data.name
       );
       return edition
         ? {
-            id: 'hat-trick',
-            name: 'Hat‑Trick',
+            id: 'poker',
+            name: 'Poker',
             icon: Trophy,
             rarity: 'Ultra Rare',
-            description: `Won the Cup, Golden Ball and Golden Boot in FC ${edition.data.edition}.`
+            description: `Won the Cup, Golden Ball, Golden Glove and Golden Boot in FC ${edition.data.edition}.`
           }
         : null;
     }
@@ -390,14 +432,15 @@ export const dynamicDefs: {
     rarity: 'Rare',
     name: 'Golden Boot',
     icon: Trophy,
+    description: 'Awarded for winning the Golden Boot in a Forest Cup.',
     evaluate: (matches, tournaments, member) => {
       const tour = tournaments.find(t =>
         Array.isArray(t.data.prizes?.topScorer) &&
-        t.data.prizes!.topScorer.some(ts => ts.team === member.data.code)
+        t.data.prizes!.topScorer.some(ts => ts.team === member.data.name)
       );
       if (!tour) return null;
 
-      const winner = tour.data.prizes!.topScorer.find(ts => ts.team === member.data.code)!;
+      const winner = tour.data.prizes!.topScorer.find(ts => ts.team === member.data.name)!;
       return {
         id: 'golden-boot',
         name: 'Golden Boot',
@@ -407,7 +450,411 @@ export const dynamicDefs: {
       };
     }
   },
+  /* {
+    id: 'verified',
+    rarity: 'Common',
+    name: 'Verified',
+    icon: Trophy,
+    evaluate: (matches, tournaments, member) => {
+      if (!member.data.verified) return null;
+      return {
+        id: 'verified',
+        name: 'Verified',
+        icon: Trophy,
+        rarity: 'Common',
+        description: `Member is verified.`
+      };
+    }
+  }, */
+  {
+    id: 'double-champion',
+    rarity: 'Legendary',
+    name: 'Dynasty',
+    icon: Trophy,
+    description: 'Awarded for winning two Forest Cups.',
+    evaluate: (matches, tournaments, member) => {
+      const won = tournaments.filter(t => t.data.champion === member.data.name);
+      if (won.length === 2) {
+        const years = won.map(w => w.data.edition).join(', ');
+        return {
+          id: 'double-champion',
+          name: 'Dynasty',
+          icon: Trophy,
+          rarity: 'Legendary',
+          description: `Won two Forest Cups (${years}).`
+        };
+      }
+      return null;
+    }
+  },
+  {
+    id: 'triple-champion',
+    rarity: 'Godlike',
+    name: 'Overlord',
+    icon: Trophy,
+    description: 'Awarded for winning three Forest Cups.',
+    evaluate: (matches, tournaments, member) => {
+      const won = tournaments.filter(t => t.data.champion === member.data.name);
+      if (won.length === 3) {
+        const years = won.map(w => w.data.edition).join(', ');
+        return {
+          id: 'triple-champion',
+          name: 'Overlord',
+          icon: Trophy,
+          rarity: 'Godlike',
+          description: `Won three Forest Cups (${years}).`
+        };
+      }
+      return null;
+    }
+  },
+  {
+    id: 'winless',
+    rarity: 'Cursed',
+    name: 'Winless',
+    icon: Trophy,
+    description: 'Participated in Forest Cups but never won a match.',
+    evaluate: (matches, tournaments, member) => {
+      const played = matches.filter(m =>
+        [m.data.team1, m.data.team2].includes(member.data.name)
+      );
+
+      const wins = played.filter(m => {
+        const gf = m.data.goals?.filter(g => g.team === member.data.name).length ?? 0;
+        const ga = m.data.goals?.filter(g => g.team !== member.data.name).length ?? 0;
+        return gf > ga;
+      });
+
+      if (played.length && wins.length === 0) {
+        return {
+          id: 'winless',
+          name: 'Winless',
+          icon: Trophy,
+          rarity: 'Cursed',
+          description: `Participated in Forest Cups but never won a match.`
+        };
+      }
+
+      return null;
+    }
+  },
+  {
+    id: 'goal-famine',
+    rarity: 'Doomed',
+    name: 'Dry Spell',
+    icon: Trophy,
+    description: 'Never scored a single goal in Forest Cup history.',
+    evaluate: (matches, tournaments, member) => {
+      const played = matches.filter(m =>
+        [m.data.team1, m.data.team2].includes(member.data.name)
+      );
+
+      const goals = played.reduce((acc, m) => {
+        return acc + (m.data.goals?.filter(g => g.team === member.data.name).length ?? 0);
+      }, 0);
+
+      if (played.length && goals === 0) {
+        return {
+          id: 'goal-famine',
+          name: 'Dry Spell',
+          icon: Trophy,
+          rarity: 'Cursed',
+          description: `Never scored a single goal in Forest Cup history.`
+        };
+      }
+
+      return null;
+    }
+  },
+  {
+    id: 'nemesis',
+    rarity: 'Rare',
+    name: 'Nemesis',
+    icon: Trophy,
+    description: 'Awarded for having a +5 win/loss record against a rival.',
+    evaluate: (matches, tournaments, member) => {
+      const scores = new Map<string, { wins: number; losses: number }>();
+
+      for (const m of matches) {
+        const { team1, team2, goals } = m.data;
+        const gf1 = goals?.filter(g => g.team === team1).length ?? 0;
+        const gf2 = goals?.filter(g => g.team === team2).length ?? 0;
+
+        if (team1 === member.data.name) {
+          const entry = scores.get(team2) || { wins: 0, losses: 0 };
+          if (gf1 > gf2) entry.wins++;
+          if (gf1 < gf2) entry.losses++;
+          scores.set(team2, entry);
+        }
+        if (team2 === member.data.name) {
+          const entry = scores.get(team1) || { wins: 0, losses: 0 };
+          if (gf2 > gf1) entry.wins++;
+          if (gf2 < gf1) entry.losses++;
+          scores.set(team1, entry);
+        }
+      }
+
+      const dominantRivals = [...scores.entries()]
+        .filter(([, record]) => record.wins - record.losses >= 5)
+        .map(([r]) => r);
+
+      return dominantRivals.length
+        ? {
+            id: 'nemesis',
+            name: 'Nemesis',
+            icon: Trophy,
+            rarity: 'Rare',
+            description: `Has a +5 record against: ${dominantRivals.join(', ')}.`
+          }
+        : null;
+    }
+  },
+  {
+    id: 'prey',
+    rarity: 'Doomed',
+    name: 'Prey',
+    icon: Trophy,
+    description: 'Awarded for having a -5 win/loss record against a rival.',
+    evaluate: (matches, tournaments, member) => {
+      const scores = new Map<string, { wins: number; losses: number }>();
+
+      for (const m of matches) {
+        const { team1, team2, goals } = m.data;
+        const gf1 = goals?.filter(g => g.team === team1).length ?? 0;
+        const gf2 = goals?.filter(g => g.team === team2).length ?? 0;
+
+        if (team1 === member.data.name) {
+          const entry = scores.get(team2) || { wins: 0, losses: 0 };
+          if (gf1 < gf2) entry.losses++;
+          if (gf1 > gf2) entry.wins++;
+          scores.set(team2, entry);
+        }
+        if (team2 === member.data.name) {
+          const entry = scores.get(team1) || { wins: 0, losses: 0 };
+          if (gf2 < gf1) entry.losses++;
+          if (gf2 > gf1) entry.wins++;
+          scores.set(team1, entry);
+        }
+      }
+
+      const badRivals = [...scores.entries()]
+        .filter(([, record]) => record.losses - record.wins >= 5)
+        .map(([r]) => r);
+
+      return badRivals.length
+        ? {
+            id: 'prey',
+            name: 'Prey',
+            icon: Trophy,
+            rarity: 'Cursed',
+            description: `Has a -5 record against: ${badRivals.join(', ')}.`
+          }
+        : null;
+    }
+  },
+  {
+    id: 'longest-win-streak',
+    rarity: 'Epic',
+    name: 'Unstoppable',
+    icon: Trophy,
+    description: 'Awarded for achieving the longest win streak among all members.',
+    evaluate: (matches, _, member, members) => {
+      function getWinStreak(memberName) {
+        let streak = 0;
+        let maxStreak = 0;
+  
+        const games = matches
+          .filter(m => m.data.team1 === memberName|| m.data.team2 === memberName)
+          .sort((a, b) => new Date(a.data.date).getTime() - new Date(b.data.date).getTime());
+  
+        for (const m of games) {
+          const goals = m.data.goals ?? [];
+          const gf = goals.filter(g => g.team === memberName).length ?? 0;
+          const ga = goals.filter(g => g.team !== memberName).length ?? 0;
+  
+          if (gf > ga) {
+            streak++;
+            maxStreak = Math.max(maxStreak, streak);
+          } else {
+            streak = 0;
+          }
+        }
+        return maxStreak;
+      }
+
+      const streaks = members.map(m => ({
+        name: m.data.name,
+        value: getWinStreak(m.data.name)
+      }));
+
+      const max = Math.max(...streaks.map(s => s.value));
+      const tied = streaks.filter(s => s.value === max);
+      const current = getWinStreak(member.data.name);
+
+      if (current === max) {
+        return {
+            id: 'longest-win-streak',
+            name: 'Unstoppable',
+            icon: Trophy,
+            rarity: 'Epic',
+            description: `Achieved a win streak of ${max} matches.`
+          };
+      }
+      return null;
+    }
+  },
+  {
+    id: 'longest-unbeaten-streak',
+    rarity: 'Ultra Rare',
+    name: 'Invincible',
+    icon: Trophy,
+    description: 'Awarded for achieving the longest unbeaten streak among all members.',
+    evaluate: (matches, _, member, members) => {
+      function getUnbeatenStreak(memberName) {
+        let streak = 0;
+        let maxStreak = 0;
+
+        const playedMatches = matches
+          .filter(m => [m.data.team1, m.data.team2].includes(memberName) && m.data.status === 'played')
+          .sort((a, b) => new Date(a.data.date) - new Date(b.data.date));
+
+        for (const match of playedMatches) {
+          const { goals } = match.data;
+          const gf = goals?.filter(g => g.team === memberName).length ?? 0;
+          const ga = goals?.filter(g => g.team !== memberName).length ?? 0;
+
+          const lost = gf < ga;
+          if (!lost) {
+            streak++;
+            if (streak > maxStreak) maxStreak = streak;
+          } else {
+            streak = 0;
+          }
+        }
+        return maxStreak;
+      }
+
+      const streaks = members.map(m => ({
+        name: m.data.name,
+        value: getUnbeatenStreak(m.data.name)
+      }));
+
+      const max = Math.max(...streaks.map(s => s.value));
+      const tied = streaks.filter(s => s.value === max);
+      const current = getUnbeatenStreak(member.data.name);
+      if (current === max) {
+        return {
+            id: 'longest-unbeaten-streak',
+            name: 'Invincible',
+            icon: Trophy,
+            rarity: 'Ultra Rare',
+            description: `Stayed unbeaten for ${max} matches in a row.`
+          };
+      }
+      return null;
+    }
+  },
+  {
+    id: 'longest-loss-streak',
+    rarity: 'Doomed',
+    name: 'Hopeless',
+    icon: Trophy,
+    description: 'Awarded for suffering the longest losing streak among all members.',
+    evaluate: (matches, _, member, members) => {
+      function getLossStreak(memberName) {
+        let streak = 0;
+        let maxStreak = 0;
+  
+        const playedMatches = matches
+          .filter(m => [m.data.team1, m.data.team2].includes(memberName))
+          .sort((a, b) => new Date(a.data.date).getTime() - new Date(b.data.date).getTime());
+  
+        for (const match of playedMatches) {
+          const { goals } = match.data;
+          const gf = goals?.filter(g => g.team === memberName).length ?? 0;
+          const ga = goals?.filter(g => g.team !== memberName).length ?? 0;
+
+          const lost = gf < ga;
+          if (lost) {
+            streak++;
+            if (streak > maxStreak) maxStreak = streak;
+          } else {
+            streak = 0;
+          }
+        }
+        return maxStreak;
+      }
+
+      const streaks = members.map(m => ({
+        name: m.data.name,
+        value: getLossStreak(m.data.name)
+      }));
+
+      const max = Math.max(...streaks.map(s => s.value));
+      const tied = streaks.filter(s => s.value === max);
+      const current = getLossStreak(member.data.name);
+
+      if (current === max)
+        return {
+          id: 'longest-loss-streak',
+          name: 'Hopeless',
+          icon: Trophy,
+          rarity: 'Cursed',
+          description: `Lost ${max} matches in a row.`
+        } 
+       return null;
+    }
+  },
+  {
+    id: 'enemy',
+    rarity: 'Cursed',
+    name: 'Enemy',
+    icon: Trophy,
+    description: 'Awarded for being eliminated 2+ times by the same rival in knockout matches.',
+    evaluate: (matches, tournaments, member) => {
+      const eliminations: Record<string, number> = {};
+
+      for (const m of matches) {
+        if (m.data.stage !== 'knockout') continue;
+        if (m.data.status !== 'played') continue;
+
+        const winner = getMatchWinner(m.data);
+        const loser = winner === m.data.team1 ? m.data.team2 : m.data.team1;
+
+        if (loser === member.data.name) {
+          eliminations[winner] = (eliminations[winner] ?? 0) + 1;
+        }
+      }
+
+      const rivals = Object.entries(eliminations).filter(([, count]) => count >= 2);
+      if (rivals.length) {
+        const names = rivals.map(([r]) => r).join(', ');
+        return {
+          id: 'enemy',
+          name: 'Enemy',
+          icon: Trophy,
+          rarity: 'Cursed',
+          description: `Eliminated 2+ times by: ${names}.`
+        };
+      }
+
+      return null;
+    }
+  }
+
 ];
+
+// Ordenar por rareza y luego por nombre
+const rarityOrder = [
+  'Doomed', 'Cursed', 'Common', 'Uncommon', 'Rare', 'Ultra Rare', 'Epic', 'Legendary', 'Godlike'
+];
+
+export const dynamicDefs = [..._dynamicDefs].sort((a, b) => {
+  const rA = rarityOrder.findIndex(r => r.toLowerCase() === a.rarity.toLowerCase());
+  const rB = rarityOrder.findIndex(r => r.toLowerCase() === b.rarity.toLowerCase());
+  if (rA !== rB) return rA - rB;
+  return a.name.localeCompare(b.name);
+});
 
 /**
  * Returns both manual (static) and dynamic achievements for a given member name.
@@ -439,8 +886,19 @@ export async function getAchievementsForMember(name: string): Promise<Achievemen
       description: a.data.description,
       rarity: a.data.rarity as Achievement['rarity'],
     }));
-  // Merge and return
-  return [...manual, ...dynamic];
+
+  // Unir y ordenar por rareza y nombre
+  const all = [...manual, ...dynamic];
+  const rarityOrder = [
+    'Doomed', 'Cursed', 'Common', 'Uncommon', 'Rare', 'Ultra Rare', 'Epic', 'Legendary', 'Godlike'
+  ];
+  all.sort((a, b) => {
+    const rA = rarityOrder.findIndex(r => r.toLowerCase() === a.rarity.toLowerCase());
+    const rB = rarityOrder.findIndex(r => r.toLowerCase() === b.rarity.toLowerCase());
+    if (rA !== rB) return rA - rB;
+    return a.name.localeCompare(b.name);
+  });
+  return all;
 }
 
 /**

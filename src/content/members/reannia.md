@@ -24,4 +24,5 @@ score:
 manualAchievements: 
   - "dispatch"
   - "discord"
+  - "powerhouse"
 ---

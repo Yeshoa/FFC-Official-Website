@@ -25,4 +25,5 @@ manualAchievements:
   - "dispath"
   - "collaborator"
   - "discord"
+  - "giant-slayer"
 ---

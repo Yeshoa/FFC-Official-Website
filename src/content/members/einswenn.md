@@ -25,4 +25,5 @@ manualAchievements:
   - "dispatch"
   - "sponsor"
   - "discord"
+  - "powerhouse"
 ---

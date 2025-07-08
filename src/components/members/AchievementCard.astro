@@ -4,61 +4,108 @@ const { achievement } = Astro.props;
 
 // Rarity mapping con efectos más dramáticos
 const rarityMap = {
-  'Common': { 
-    label: 'Common', 
-    color: 'from-slate-600 via-slate-500 to-slate-700', 
-    border: 'border-slate-400', 
-    text: 'text-slate-200', 
+  'Doomed': {
+    label: 'Doomed',
+    color: 'from-black via-gray-900 to-red-950',
+    border: 'border-gray-900',
+    text: 'text-gray-500',
+    name: 'text-red-900 font-bold text-shadow-sm text-shadow-black',
+    shadow: 'shadow-gray-900/30',
+    glow: 'group-hover:shadow-red-950/40',
+    sparkle: 'bg-red-950'
+  },
+  'Cursed': {
+    label: 'Cursed',
+    color: 'from-gray-900 via-red-950 to-black',
+    border: 'border-red-800',
+    text: 'text-gray-400',
+    name: 'text-red-700 font-bold text-shadow-sm text-shadow-black',
+    shadow: 'shadow-red-900/50',
+    glow: 'group-hover:shadow-red-800/60',
+    sparkle: 'bg-red-700'
+  },
+  'Common': {
+    label: 'Common',
+    color: 'bg-slate-500',
+    border: 'border-gray-400',
+    text: 'text-slate-200',
+    name: 'text-slate-200',
     shadow: 'shadow-slate-400/60',
     glow: 'group-hover:shadow-slate-400/80',
     sparkle: 'bg-slate-400/20'
   },
-  'Uncommon': { 
-    label: 'Uncommon', 
-    color: 'from-emerald-500 via-emerald-400 to-emerald-600', 
-    border: 'border-emerald-400', 
-    text: 'text-emerald-100', 
+  'Uncommon': {
+    label: 'Uncommon',
+    color: 'from-emerald-500 via-emerald-600 to-emerald-700',
+    border: 'border-emerald-400',
+    text: 'text-emerald-100',
+    name: 'text-emerald-100',
     shadow: 'shadow-emerald-400/60',
     glow: 'group-hover:shadow-emerald-400/80',
     sparkle: 'bg-emerald-400/20'
   },
-  'Rare': { 
-    label: 'Rare', 
-    color: 'from-blue-500 via-sky-400 to-blue-600', 
-    border: 'border-sky-400', 
-    text: 'text-sky-100', 
+  'Rare': {
+    label: 'Rare',
+    color: 'from-blue-500 via-sky-400 to-blue-600',
+    border: 'border-sky-400',
+    text: 'text-sky-100',
+    name: 'text-sky-100',
     shadow: 'shadow-sky-400/60',
     glow: 'group-hover:shadow-sky-400/80',
     sparkle: 'bg-sky-400/20'
   },
-  'Ultra Rare': { 
-    label: 'Ultra Rare', 
-    color: 'from-purple-600 via-violet-500 to-fuchsia-600', 
-    border: 'border-violet-400', 
-    text: 'text-violet-100', 
+  'Ultra Rare': {
+    label: 'Ultra Rare',
+    color: 'from-sky-500 via-violet-600 to-fuchsia-600',
+    border: 'border-violet-400',
+    text: 'text-cyan-300',
+    name: 'text-violet-100',
     shadow: 'shadow-violet-400/60',
     glow: 'group-hover:shadow-violet-400/80',
-    sparkle: 'bg-violet-400/20'
+    sparkle: 'bg-violet-400'
   },
-  'Epic': { 
-    label: 'Epic', 
-    color: 'from-orange-500 via-amber-400 to-orange-600', 
-    border: 'border-orange-400', 
-    text: 'text-orange-100', 
-    shadow: 'shadow-orange-400/60',
-    glow: 'group-hover:shadow-orange-400/80',
-    sparkle: 'bg-orange-400/20'
+  'Epic': {
+    label: 'Epic',
+    color: 'from-amber-600 via-red-700 to-amber-700',
+    border: 'border-amber-300',
+    text: 'text-amber-200',
+    name: 'text-amber-200 font-black text-shadow-lg text-shadow-amber-400',
+    shadow: 'shadow-red-500/60',
+    glow: 'group-hover:shadow-red-600/80',
+    sparkle: 'bg-amber-300'
   },
-  'Legendary': { 
-    label: 'Legendary', 
-    color: 'from-yellow-400 via-amber-300 to-yellow-500', 
-    border: 'border-yellow-300', 
-    text: 'text-yellow-900', 
-    shadow: 'shadow-yellow-300/60',
-    glow: 'group-hover:shadow-yellow-300/80',
-    sparkle: 'bg-yellow-300/30'
+  'Legendary': {
+    label: 'Legendary',
+    color: 'from-yellow-600 via-amber-900 to-yellow-700',
+    border: 'border-yellow-200',
+    text: 'text-red-500',
+    name: 'text-yellow-100 text-shadow-lg text-shadow-yellow-300',
+    shadow: 'shadow-yellow-400/60',
+    glow: 'group-hover:shadow-yellow-500/80',
+    sparkle: 'bg-yellow-200'
   },
+  'Godlike': {
+    label: 'Godlike',
+    color: 'from-blue-700 via-purple-950 to-cyan-900',
+    border: 'border-cyan-300',
+    text: 'text-cyan-200',
+    name: 'text-white font-black text-shadow-lg text-shadow-cyan-300',
+    shadow: 'shadow-purple-600/50',
+    glow: 'group-hover:shadow-cyan-500/70',
+    sparkle: 'bg-white'
+  }
+  /* 'Godlike': {
+    label: 'Godlike',
+    color: 'from-sky-600 via-cyan-300 to-blue-400',
+    border: 'border-yellow-200',
+    text: 'text-cyan-300',
+    name: 'text-yellow-500 font-extrabold text-shadow-lg text-shadow-black',
+    shadow: 'shadow-purple-500/50',
+    glow: 'group-hover:shadow-purple-600/70',
+    sparkle: 'bg-yellow-300'
+  } */
 };
+
 const rarity = rarityMap[achievement.rarity] || rarityMap['Common'];
 
 // Generar ID único para cada carta
@@ -98,7 +145,7 @@ const cardId = `achievement-${Math.random().toString(36).substr(2, 9)}`;
   
   <!-- Nombre con texto adaptativo -->
   <div class="name-container flex-1 flex items-center justify-center min-h-[2rem] px-1">
-    <span class={`text-center ${rarity.text} font-bold leading-tight transition-all duration-300 group-hover:text-white text-shadow-sm ${achievement.name.length > 12 ? 'text-xs' : 'text-sm'}`}>
+    <span class={`text-center ${rarity.name} font-bold leading-tight transition-all duration-300 group-hover:text-white text-shadow-sm ${achievement.name.length > 12 ? 'text-xs' : 'text-sm'}`}>
       {achievement.name}
     </span>
   </div>
@@ -140,7 +187,7 @@ const cardId = `achievement-${Math.random().toString(36).substr(2, 9)}`;
       </div>
       
       <div class="text-content">
-        <h3 class={`text-xl font-bold ${rarity.text} mb-2`}>{achievement.name}</h3>
+        <h3 class={`text-xl font-bold ${rarity.name} mb-2`}>{achievement.name}</h3>
         <div class={`inline-block px-3 py-1 rounded-full text-sm font-semibold uppercase ${rarity.text} bg-black/40 border ${rarity.border} mb-3`}>
           {rarity.label}
         </div>
