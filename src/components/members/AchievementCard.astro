@@ -1,9 +1,21 @@
 ---
 import { Image } from 'astro:assets';
 const { achievement } = Astro.props;
-
+import StarIcon from '@images/icons/star-solid.svg'; 
+import SkullIcon from '@images/icons/skull-crossbones-solid.svg';
 // Rarity mapping con efectos más dramáticos
 const rarityMap = {
+  'Ravaged': {
+    label: 'Ravaged',
+    color: 'from-black via-black to-red-950',
+    border: 'border-red-900',
+    text: 'text-gray-600',
+    name: 'text-red-800 font-bold text-shadow-sm text-shadow-black',
+    shadow: 'shadow-red-950/30',
+    glow: 'group-hover:shadow-orange-900/40',
+    sparkle: 'bg-orange-600',
+    icons: { type: 'skull', count: 6 }
+  },
   'Doomed': {
     label: 'Doomed',
     color: 'from-black via-gray-900 to-red-950',
@@ -12,7 +24,8 @@ const rarityMap = {
     name: 'text-red-900 font-bold text-shadow-sm text-shadow-black',
     shadow: 'shadow-gray-900/30',
     glow: 'group-hover:shadow-red-950/40',
-    sparkle: 'bg-red-950'
+    sparkle: 'bg-red-950',
+    icons: { type: 'skull', count: 5 }
   },
   'Cursed': {
     label: 'Cursed',
@@ -22,7 +35,41 @@ const rarityMap = {
     name: 'text-red-700 font-bold text-shadow-sm text-shadow-black',
     shadow: 'shadow-red-900/50',
     glow: 'group-hover:shadow-red-800/60',
-    sparkle: 'bg-red-700'
+    sparkle: 'bg-red-700',
+    icons: { type: 'skull', count: 4 }
+  },
+  'Broken': {
+    label: 'Broken',
+    color: 'from-gray-800 via-gray-700 to-gray-900',    
+    border: 'border-gray-600',
+    text: 'text-gray-300',
+    name: 'text-gray-500 font-bold text-shadow-sm text-shadow-black',
+    shadow: 'shadow-gray-700/50',
+    glow: 'group-hover:shadow-gray-600/60',
+    sparkle: 'bg-gray-500',
+    icons: { type: 'skull', count: 3 }
+  },
+  'Worn': {
+    label: 'Worn',
+    color: 'from-brown-800 via-brown-700 to-brown-900',
+    border: 'border-brown-600',
+    text: 'text-brown-300',
+    name: 'text-brown-500 font-bold text-shadow-sm text-shadow-black',
+    shadow: 'shadow-brown-700/50',    
+    glow: 'group-hover:shadow-brown-600/60',
+    sparkle: 'bg-brown-500',
+    icons: { type: 'skull', count: 2 }
+  },
+  'Mundane': {    
+    label: 'Mundane',
+    color: 'from-gray-600 via-gray-500 to-gray-700',
+    border: 'border-gray-400',
+    text: 'text-gray-200',
+    name: 'text-gray-300 font-bold text-shadow-sm text-shadow-black',
+    shadow: 'shadow-gray-600/50',
+    glow: 'group-hover:shadow-gray-500/60',
+    sparkle: 'bg-gray-400',
+    icons: { type: 'skull', count: 1 }
   },
   'Common': {
     label: 'Common',
@@ -32,7 +79,8 @@ const rarityMap = {
     name: 'text-slate-200',
     shadow: 'shadow-slate-400/60',
     glow: 'group-hover:shadow-slate-400/80',
-    sparkle: 'bg-slate-400/20'
+    sparkle: 'bg-slate-400/20',
+    icons: { type: 'star', count: 0 }
   },
   'Uncommon': {
     label: 'Uncommon',
@@ -42,7 +90,8 @@ const rarityMap = {
     name: 'text-emerald-100',
     shadow: 'shadow-emerald-400/60',
     glow: 'group-hover:shadow-emerald-400/80',
-    sparkle: 'bg-emerald-400/20'
+    sparkle: 'bg-emerald-400/20',
+    icons: { type: 'star', count: 1 }
   },
   'Rare': {
     label: 'Rare',
@@ -52,7 +101,8 @@ const rarityMap = {
     name: 'text-sky-100',
     shadow: 'shadow-sky-400/60',
     glow: 'group-hover:shadow-sky-400/80',
-    sparkle: 'bg-sky-400/20'
+    sparkle: 'bg-sky-400/20',
+    icons: { type: 'star', count: 2 }
   },
   'Ultra Rare': {
     label: 'Ultra Rare',
@@ -62,7 +112,8 @@ const rarityMap = {
     name: 'text-violet-100',
     shadow: 'shadow-violet-400/60',
     glow: 'group-hover:shadow-violet-400/80',
-    sparkle: 'bg-violet-400'
+    sparkle: 'bg-violet-400',
+    icons: { type: 'star', count: 3 }
   },
   'Epic': {
     label: 'Epic',
@@ -72,7 +123,8 @@ const rarityMap = {
     name: 'text-amber-200 font-black text-shadow-lg text-shadow-amber-400',
     shadow: 'shadow-red-500/60',
     glow: 'group-hover:shadow-red-600/80',
-    sparkle: 'bg-amber-300'
+    sparkle: 'bg-amber-300',
+    icons: { type: 'star', count: 4 }
   },
   'Legendary': {
     label: 'Legendary',
@@ -82,28 +134,20 @@ const rarityMap = {
     name: 'text-yellow-100 text-shadow-lg text-shadow-yellow-300',
     shadow: 'shadow-yellow-400/60',
     glow: 'group-hover:shadow-yellow-500/80',
-    sparkle: 'bg-yellow-200'
+    sparkle: 'bg-yellow-200',
+    icons: { type: 'star', count: 5 }
   },
-  'Godlike': {
-    label: 'Godlike',
+  'Ultra': {
+    label: 'Ultra',
     color: 'from-blue-700 via-purple-950 to-cyan-900',
     border: 'border-cyan-300',
     text: 'text-cyan-200',
     name: 'text-white font-black text-shadow-lg text-shadow-cyan-300',
     shadow: 'shadow-purple-600/50',
     glow: 'group-hover:shadow-cyan-500/70',
-    sparkle: 'bg-white'
+    sparkle: 'bg-white',
+    icons: { type: 'star', count: 6 }
   }
-  /* 'Godlike': {
-    label: 'Godlike',
-    color: 'from-sky-600 via-cyan-300 to-blue-400',
-    border: 'border-yellow-200',
-    text: 'text-cyan-300',
-    name: 'text-yellow-500 font-extrabold text-shadow-lg text-shadow-black',
-    shadow: 'shadow-purple-500/50',
-    glow: 'group-hover:shadow-purple-600/70',
-    sparkle: 'bg-yellow-300'
-  } */
 };
 
 const rarity = rarityMap[achievement.rarity] || rarityMap['Common'];
@@ -144,10 +188,11 @@ const cardId = `achievement-${Math.random().toString(36).substr(2, 9)}`;
   </div>
   
   <!-- Nombre con texto adaptativo -->
-  <div class="name-container flex-1 flex items-center justify-center min-h-[2rem] px-1">
+  <div class="name-container flex-1 flex items-center justify-center text-center min-h-[2rem] px-1">
     <span class={`text-center ${rarity.name} font-bold leading-tight transition-all duration-300 group-hover:text-white text-shadow-sm ${achievement.name.length > 12 ? 'text-xs' : 'text-sm'}`}>
       {achievement.name}
     </span>
+    
   </div>
   
   <!-- Badge de rareza con animación -->

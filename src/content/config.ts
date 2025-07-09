@@ -1,5 +1,5 @@
 import { defineCollection, z } from 'astro:content';
-
+import { RARITIES, CATEGORIES } from '@lib/achievements/utils';
 /* const tournamentsCollection = defineCollection({
   type: 'content',
   schema: z.object({
@@ -170,8 +170,11 @@ const achievementsCollection = defineCollection({
     name: z.string(),
     icon: image(),
     description: z.string(),
-    rarity: z.enum(["Cursed","Common","Uncommon", "Rare", "Ultra Rare", "Epic", "Legendary", "Godlike"]).default("Common"),
+    rarity: z.enum([...RARITIES] as [string, ...string[]]).default("Common"),
     enabled: z.boolean().default(true),
+    category: z.enum([...CATEGORIES]).default("special"),
+    unique: z.boolean().default(false),
+    visible: z.boolean().default(true),
   }),
 });
 

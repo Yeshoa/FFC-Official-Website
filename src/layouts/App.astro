@@ -2,6 +2,7 @@
 import Navbar from "@components/Navbar.astro";
 import Footer from "@components/Footer.astro";
 import Chatbot from "@components/Chatbot.tsx";
+import { ClientRouter } from "astro:transitions";
 import "../styles/global.css";
 
 // const ViteWebhook = import.meta.env.VITE_WEBHOOK_URL;
@@ -19,6 +20,7 @@ const {title} = Astro.props;
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="/favicon.ico" />
   <title>{title}</title>
+  <!-- <ClientRouter /> -->
 </head>
 <body class="bg-gradient-to-br from-green-1000 to-green-900 to-80% text-white">
   <Navbar />

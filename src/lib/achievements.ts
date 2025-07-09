@@ -4,6 +4,7 @@ import Trophy from '@images/achievements/king.webp';
 import type { ImageMetadata } from 'astro';
 import { getGoalsByTeam, getMatchWinner } from './matchUtils';
 import { getMemberByName } from './memberUtils';
+import { RARITIES, type Rarity } from './achievements/utils';
 
 type Match = CollectionEntry<'matches'>;
 type Tournament = CollectionEntry<'tournaments'>;
@@ -13,15 +14,79 @@ type StaticAch = CollectionEntry<'achievements'>;
 type Tournament = InferEntrySchema<'tournaments'>;
 type Member = InferEntrySchema<'members'>;
 type StaticAch = InferEntrySchema<'achievements'>; */
-const memberCollection = await getCollection('members');
 
 export interface Achievement {
   id: string;
   name: string;
   icon: ImageMetadata;
   description: string;
-  rarity: 'Doomed'|'Cursed'|'Common'|'Uncommon'|'Rare'|'Ultra Rare'|'Epic'|'Legendary'|'Godlike';
+  rarity: Rarity;
+  category: string;
+  unique: boolean;
+  visible: boolean; // This one is for when it is locked, not for enabled or disabled
+  enabled: boolean;
 }
+// minor -> major
+const achievementHierarchy: Record<string, string> = {
+  'host': '', //host
+  'champion': 'double-champion', //champion
+  'double-champion': 'triple-champion', //double-champion
+  'triple-champion': '', //triple-champion
+  'unbeaten-champion': 'perfect-champion', //invictus
+  'perfect-champion': 'ultimate-champion', //flawless
+  'ultimate-champion': '', //puntaje perfecto + todos los premios
+  'golden-ball': 'mvp-gg-gb', //mvp
+  'golden-glove': 'mvp-gg-gb', //wall
+  'golden-boot': 'mvp-gg-gb', //golden-boot
+  'mvp-gg-gb': 'mvp-gg-gb-single', //awarded
+  'mvp-gg-gb-single': '', //poker
+  'no-goal': '', //goal-famine
+  'ten-goals': 'twenty-goals', //
+  'twenty-goals': 'thirty-goals', //
+  'thirty-goals': 'forty-goals', //
+  'forty-goals': 'fifty-goals', //
+  'fifty-goals': '', //
+  'all-time-scorer': '', //all-time-scorer
+  '3-matches': '5-matches', //rivalry
+  '5-matches': '7-matches', //classic
+  '7-matches': '10-matches', //
+  '10-matches': '', //
+  '3-wins': '5-wins', //dominator
+  '5-wins': '7-wins', //nemesis
+  '7-wins': '10-wins', //
+  '10-wins': '', //
+  '3-loses': '5-loses', //underdog
+  '5-loses': '7-loses', //prey
+  '7-loses': '10-loses', //
+  '10-loses': '', //
+  '3-goal-difference': '5-goal-difference', //goal-difference
+  '5-goal-difference': '7-goal-difference', //
+  '7-goal-difference': '10-goal-difference', //
+  '10-goal-difference': '', //
+  'biggest-win': '', //biggest-win
+  'biggest-loss': '', //biggest-loss
+  'no-win': '', //winless
+  'no-loss': '', //lossless
+  '3-win-streak': '5-win-streak', //longest-win-streak
+  '5-win-streak': '7-win-streak', //
+  '7-win-streak': '10-win-streak', //
+  '10-win-streak': '', //
+  'longest-win-streak': '', //longest-win-streak
+  '3-unbeaten-streak': '5-unbeaten-streak', //longest-unbeaten-streak
+  '5-unbeaten-streak': '7-unbeaten-streak', //
+  '7-unbeaten-streak': '10-unbeaten-streak', //
+  '10-unbeaten-streak': '', //
+  'longest-unbeaten-streak': '', //longest-unbeaten-streak
+  '3-loss-streak': '5-loss-streak', //longest-loss-streak
+  '5-loss-streak': '7-loss-streak', //
+  '7-loss-streak': '10-loss-streak', //
+  '10-loss-streak': '', //
+  'longest-loss-streak': '', //longest-loss-streak
+  '3-eliminations': '', //
+};
+
+// Ordenar por rareza y luego por nombre
+const rarityOrder = RARITIES;
 
 /** Dynamic achievement definitions */
 const _dynamicDefs: {
@@ -30,6 +95,10 @@ const _dynamicDefs: {
   name: string;
   icon: ImageMetadata;
   description: string;
+  category: string;
+  unique: boolean;
+  visible: boolean;
+  enabled: boolean;
   evaluate: (allMatches: Match[], allTournaments: Tournament[], member: Member, members: Member[]) => Achievement | null;
 }[] = [
   /* {
@@ -56,6 +125,10 @@ const _dynamicDefs: {
     name: 'Host',
     icon: Trophy,
     description: 'Awarded for hosting a Forest Cup edition.',
+    enabled: true,
+    category: 'tournament',
+    unique: false,
+    visible: true,
     evaluate: (matches, tournaments, member) => {
       const h = tournaments.find(t => t.data.host === member.data.name);
       return h
@@ -64,7 +137,11 @@ const _dynamicDefs: {
             name: 'Host',
             icon: Trophy,
             rarity: 'Uncommon',
-            description: `Hosted the Forest Cup ${h.data.edition}.`
+            description: `Hosted the Forest Cup ${h.data.edition}.`,
+            enabled: true,
+            category: 'tournament',
+            unique: false,
+            visible: true
           }
         : null;
     }
@@ -221,7 +298,7 @@ const _dynamicDefs: {
   },
   {
     id: 'underdog',
-    rarity: 'Cursed',
+    rarity: 'Worn',
     name: 'Underdog',
     icon: Trophy,
     description: 'Awarded for losing 3+ matches against the same rival.',
@@ -489,7 +566,7 @@ const _dynamicDefs: {
   },
   {
     id: 'triple-champion',
-    rarity: 'Godlike',
+    rarity: 'Ultra',
     name: 'Overlord',
     icon: Trophy,
     description: 'Awarded for winning three Forest Cups.',
@@ -501,7 +578,7 @@ const _dynamicDefs: {
           id: 'triple-champion',
           name: 'Overlord',
           icon: Trophy,
-          rarity: 'Godlike',
+          rarity: 'Ultra',
           description: `Won three Forest Cups (${years}).`
         };
       }
@@ -510,7 +587,7 @@ const _dynamicDefs: {
   },
   {
     id: 'winless',
-    rarity: 'Cursed',
+    rarity: 'Broken',
     name: 'Winless',
     icon: Trophy,
     description: 'Participated in Forest Cups but never won a match.',
@@ -540,7 +617,7 @@ const _dynamicDefs: {
   },
   {
     id: 'goal-famine',
-    rarity: 'Doomed',
+    rarity: 'Cursed',
     name: 'Dry Spell',
     icon: Trophy,
     description: 'Never scored a single goal in Forest Cup history.',
@@ -756,7 +833,7 @@ const _dynamicDefs: {
   },
   {
     id: 'longest-loss-streak',
-    rarity: 'Doomed',
+    rarity: 'Ravaged',
     name: 'Hopeless',
     icon: Trophy,
     description: 'Awarded for suffering the longest losing streak among all members.',
@@ -807,7 +884,7 @@ const _dynamicDefs: {
   },
   {
     id: 'enemy',
-    rarity: 'Cursed',
+    rarity: 'Mundane',
     name: 'Enemy',
     icon: Trophy,
     description: 'Awarded for being eliminated 2+ times by the same rival in knockout matches.',
@@ -841,12 +918,6 @@ const _dynamicDefs: {
       return null;
     }
   }
-
-];
-
-// Ordenar por rareza y luego por nombre
-const rarityOrder = [
-  'Doomed', 'Cursed', 'Common', 'Uncommon', 'Rare', 'Ultra Rare', 'Epic', 'Legendary', 'Godlike'
 ];
 
 export const dynamicDefs = [..._dynamicDefs].sort((a, b) => {
@@ -866,7 +937,6 @@ export async function getAchievementsForMember(name: string): Promise<Achievemen
     getCollection('tournaments'),
     getCollection('members'),
   ]);
-
   const member = members.find(m => m.data.name === name);
   if (!member) return [];
 
@@ -888,10 +958,13 @@ export async function getAchievementsForMember(name: string): Promise<Achievemen
     }));
 
   // Unir y ordenar por rareza y nombre
-  const all = [...manual, ...dynamic];
-  const rarityOrder = [
-    'Doomed', 'Cursed', 'Common', 'Uncommon', 'Rare', 'Ultra Rare', 'Epic', 'Legendary', 'Godlike'
-  ];
+  let all = [...manual, ...dynamic];
+  const achievedIds = new Set(all.map(a => a.id));
+  all = all.filter(a => {
+    const superior = Object.entries(achievementHierarchy)
+      .find(([lower, higher]) => lower === a.id && higher && achievedIds.has(higher));
+    return !superior;
+  });
   all.sort((a, b) => {
     const rA = rarityOrder.findIndex(r => r.toLowerCase() === a.rarity.toLowerCase());
     const rB = rarityOrder.findIndex(r => r.toLowerCase() === b.rarity.toLowerCase());

@@ -5,6 +5,7 @@ import type { CollectionEntry } from 'astro:content';
 import { getTotalColorClass, getMemberTier } from '@lib/memberUtils';
 import { getAchievementsForMember } from '@lib/achievements';
 import AchievementCard from './AchievementCard.astro';
+import AchievementCardBoosted from './AchievementCardBoosted.astro';
 import defaultLogo from '@images/members/default_logo.png';
 import Arrow from '@images/icons/arrow-up-right-from-square-solid.svg';
 
@@ -245,7 +246,8 @@ const tier = getMemberTier(points);
           <h3 class="mb-6 text-lg font-bold tracking-widest text-gray-400 uppercase text-center">Badges</h3>
           <div class="flex flex-wrap items-center justify-center gap-6">
             {achievements.map((achv: any, index: number) => (
-              <AchievementCard achievement={achv} />
+              // <AchievementCard achievement={achv} />
+              <AchievementCardBoosted achievement={achv} />
             ))}
           </div>
         </div>

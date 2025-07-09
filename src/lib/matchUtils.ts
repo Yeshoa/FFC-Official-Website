@@ -150,3 +150,74 @@ export function getMatchRedCards(match: Match): { team1: { player: string; minut
   }
   return { team1, team2 };
 }
+
+export function getLossStreak(memberName: string, allMatches) {
+  let streak = 0;
+  let maxStreak = 0;
+
+  const playedMatches = allMatches
+    .filter(m => [m.data.team1, m.data.team2].includes(memberName))
+    .sort((a, b) => new Date(a.data.date).getTime() - new Date(b.data.date).getTime());
+
+  for (const match of playedMatches) {
+    const { goals } = match.data;
+    const gf = goals?.filter(g => g.team === memberName).length ?? 0;
+    const ga = goals?.filter(g => g.team !== memberName).length ?? 0;
+
+    const lost = gf < ga;
+    if (lost) {
+      streak++;
+      if (streak > maxStreak) maxStreak = streak;
+    } else {
+      streak = 0;
+    }
+  }
+  return maxStreak;
+}
+
+export function getUnbeatenStreak(memberName: string, allMatches) {
+  let streak = 0;
+  let maxStreak = 0;
+
+  const playedMatches = allMatches
+    .filter(m => [m.data.team1, m.data.team2].includes(memberName) && m.data.status === 'played')
+    .sort((a, b) => new Date(a.data.date) - new Date(b.data.date));
+
+  for (const match of playedMatches) {
+    const { goals } = match.data;
+    const gf = goals?.filter(g => g.team === memberName).length ?? 0;
+    const ga = goals?.filter(g => g.team !== memberName).length ?? 0;
+
+    const lost = gf < ga;
+    if (!lost) {
+      streak++;
+      if (streak > maxStreak) maxStreak = streak;
+    } else {
+      streak = 0;
+    }
+  }
+  return maxStreak;
+}
+
+export function getWinStreak(memberName: string, allMatches) {
+  let streak = 0;
+  let maxStreak = 0;
+
+  const games = allMatches
+    .filter(m => m.data.team1 === memberName|| m.data.team2 === memberName)
+    .sort((a, b) => new Date(a.data.date).getTime() - new Date(b.data.date).getTime());
+
+  for (const m of games) {
+    const goals = m.data.goals ?? [];
+    const gf = goals.filter(g => g.team === memberName).length ?? 0;
+    const ga = goals.filter(g => g.team !== memberName).length ?? 0;
+
+    if (gf > ga) {
+      streak++;
+      maxStreak = Math.max(maxStreak, streak);
+    } else {
+      streak = 0;
+    }
+  }
+  return maxStreak;
+}
