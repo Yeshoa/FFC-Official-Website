@@ -29,9 +29,9 @@ const {
 
 <!-- Variant: Default - Diseño limpio con efectos sutiles -->
 {variant === 'default' && (
-  <div class="relative w-full h-[500px] overflow-hidden shadow-2xl bg-gradient-to-br from-green-1000 to-green-800 group">
-    <div class={`flex ${imagePosition === 'left' ? 'flex-row' : 'flex-row-reverse'} h-full`}>
-      <div class="w-1/2 h-full relative overflow-hidden">
+  <div class="relative w-full h-[950px] xs:h-[900px] md:h-[500px] overflow-hidden shadow-2xl bg-gradient-to-br from-green-1000 to-green-800 group">
+    <div class={`flex flex-col ${imagePosition === 'left' ? 'md:flex-row' : 'md:flex-row-reverse'} h-full`}>
+      <div class="w-full md:w-1/2 min-h-[350px] md:h-full md:min-h-0 relative overflow-hidden">
         <Image 
           src={image} 
           alt={title}
@@ -43,9 +43,9 @@ const {
         <div class={`absolute inset-0 bg-gradient-to-${imagePosition === 'left' ? 'r' : 'l'} ${backgroundColor} opacity-60`}></div>
       </div>
       
-      <div class={`w-1/2 h-full flex items-center justify-center p-12 bg-gradient-to-br ${backgroundColor} relative`}>
+      <div class={`w-full md:w-1/2 h-full flex items-center justify-center p-12 bg-gradient-to-br ${backgroundColor} relative`}>
         <div class="max-w-lg text-white z-10">
-          <h2 class="text-4xl font-black mb-6 leading-tight transform group-hover:translate-y-[-4px] transition-transform duration-500">
+          <h2 class="text-5xl font-black mb-6 leading-tight transform group-hover:translate-y-[-4px] transition-transform duration-500">
             {title}
           </h2>
           <div class="w-16 h-1 bg-white/60 mb-6 transform group-hover:w-24 transition-all duration-500"></div>
@@ -73,7 +73,7 @@ const {
 
 <!-- Variant: Diagonal - Corte diagonal dinámico -->
 {variant === 'diagonal' && (
-  <div class="relative w-full h-[500px] overflow-hidden shadow-2xl bg-gradient-to-br from-gray-900 to-gray-800 group">
+  <div class="relative w-full h-full md:h-[500px] overflow-hidden shadow-2xl bg-gradient-to-br from-gray-900 to-gray-800 group">
     <div class="relative h-full">
       <!-- Imagen con corte diagonal -->
       <div class={`absolute inset-0 ${imagePosition === 'left' ? 'clip-path-diagonal-left' : 'clip-path-diagonal-right'}`}>
@@ -118,7 +118,7 @@ const {
 
 <!-- Variant: Overlay - Imagen de fondo con overlay -->
 {variant === 'overlay' && (
-  <div class="relative w-full h-[500px] overflow-hidden shadow-2xl bg-gradient-to-br from-gray-900 to-gray-800 group">
+  <div class="relative w-full h-[700px] md:h-[500px] overflow-hidden shadow-2xl bg-gradient-to-br from-gray-900 to-gray-800 group">
     <!-- Imagen de fondo completa -->
     <div class="absolute inset-0">
       <Image 
@@ -164,12 +164,12 @@ const {
 
 <!-- Variant: Floating - Elementos flotantes y superpuestos -->
 {variant === 'floating' && (
-  <div class="relative w-full h-[500px] overflow-hidden shadow-2xl bg-gradient-to-br from-gray-900 to-gray-800 group">
+  <div class="relative w-full flex flex-col items-center gap-5 justify-center md:justify-around md:gap-0 md:flex-row h-[800px] md:h-[500px] overflow-hidden shadow-2xl bg-gradient-to-br from-gray-900 to-gray-800 group">
     <!-- Fondo degradado -->
     <div class={`absolute inset-0 bg-gradient-to-br ${backgroundColor}`}></div>
     
     <!-- Imagen flotante -->
-    <div class={`absolute ${imagePosition === 'left' ? 'right-12 top-12' : 'left-12 top-12'} w-80 h-80 transform group-hover:scale-110 group-hover:rotate-3 transition-all duration-700`}>
+    <div class="w-80 h-80 transform group-hover:scale-110 group-hover:rotate-3 transition-all duration-700">
       <div class="w-full h-full overflow-hidden" style="filter: drop-shadow(10px 10px 10px rgba(0, 0, 0, 0.5));">
         <Image
           src={image}
@@ -183,12 +183,12 @@ const {
     </div>
     
     <!-- Contenido -->
-    <div class={`absolute inset-0 flex items-center ${imagePosition === 'left' ? 'justify-start pl-16' : 'justify-end pr-16'}`}>
+    <div class="px-12 md:p-0">
       <div class="max-w-lg text-white z-10">
         <h2 class="text-5xl font-black mb-6 leading-tight transform group-hover:translate-x-2 transition-transform duration-500">
           {title}
         </h2>
-        <p class="text-xl text-gray-100 mb-8 leading-relaxed">
+        <p class="text-xl text-gray-100 mb-8 leading-relaxed sticky">
           {description}
         </p>
         <a 
@@ -214,10 +214,10 @@ const {
 
 <!-- Variant: Split - División creativa -->
 {variant === 'split' && (
-  <div class="relative w-full h-[500px] overflow-hidden shadow-2xl bg-gradient-to-br from-gray-900 to-gray-800 group">
-    <div class="flex h-full">
+  <div class="relative w-full h-[950px] md:h-[600px] lg:h-[550px] overflow-hidden shadow-2xl bg-gradient-to-br from-gray-900 to-gray-800 group">
+    <div class="flex flex-col md:flex-row h-full">
       <!-- Sección pequeña de imagen -->
-      <div class={`${imagePosition === 'left' ? 'w-1/3 order-1' : 'w-1/3 order-2'} h-full relative overflow-hidden`}>
+      <div class={`${imagePosition === 'left' ? 'md:w-1/3 order-1' : 'md:w-1/3 order-2'} min-h-[400px] md:h-full md:min-h-0 w-full relative overflow-hidden`}>
         <Image 
           src={image} 
           alt={title}
@@ -230,7 +230,7 @@ const {
       </div>
       
       <!-- Sección grande de contenido -->
-      <div class={`${imagePosition === 'left' ? 'w-2/3 order-2' : 'w-2/3 order-1'} h-full flex items-center justify-center p-16 bg-gradient-to-br ${backgroundColor} relative`}>
+      <div class={`${imagePosition === 'left' ? 'md:w-2/3 md:order-2' : 'md:w-2/3 md:order-1'} h-[550px] md:h-full flex items-center justify-center p-12 bg-gradient-to-br ${backgroundColor} relative`}>
         <!-- Elementos decorativos de fondo -->
         <div class="absolute inset-0 opacity-10">
           <div class="absolute top-0 left-0 w-32 h-32 bg-white transform rotate-45"></div>
@@ -238,10 +238,10 @@ const {
         </div>
         
         <div class="max-w-2xl text-white z-10">
-          <h2 class="text-6xl font-black mb-8 leading-tight transform group-hover:translate-y-[-6px] transition-transform duration-500">
+          <h2 class="text-4xl md:text-5xl font-black mb-8 leading-tight transform group-hover:translate-y-[-6px] transition-transform duration-500">
             {title}
           </h2>
-          <p class="text-2xl text-gray-100 mb-10 leading-relaxed">
+          <p class="text-xl md:text-2xl text-gray-100 mb-10 leading-relaxed">
             {description}
           </p>
           <a 
