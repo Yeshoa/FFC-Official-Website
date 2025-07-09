@@ -126,13 +126,18 @@ playedMatches.forEach(match => {
 const memberRank = getMemberRank(memberData.name, members);
 const memberTotalScore = getMemberTotalScore(member);
 
+//Get championships won by member
+const titles = tournaments
+  .filter(t => t.data.champion === memberData.name)
+  .map(t => ({ year: t.data.edition }));
+
 const hasContent = member?.body && member.body.trim() !== '';
 const achievements = await getAchievementsForMember(memberData.name);
 
 ---
 <App title={`FFC - ${memberData.name}`}>
   <div class="md:container m-auto p-4 py-8">
-    <MemberHero memberData={memberData} ranking={memberRank} points={memberTotalScore} titles={[{year: 2020}]} achievements={achievements} />
+    <MemberHero memberData={memberData} ranking={memberRank} points={memberTotalScore} titles={titles} achievements={achievements} />
     <!-- <MemberHero name={memberData.name} logoUrl={memberData.logoPath} flagUrl={memberData.flagPath} ranking={memberRank} points={memberTotalScore} founded={memberData.founded} affiliation={memberData.affiliation} fedDispatch={memberData.feddispatch} titles={[{year: 2020}]} achievements={[{id: '1', iconUrl: Icon, label: 'King'}]} /> -->
 
     <TournamentParticipationTable 
