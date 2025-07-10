@@ -11,7 +11,7 @@ type Member = CollectionEntry<'members'>;
 
 export const awardAchievements: {
   id: string;
-  rarity: Achievement['rarity'];
+  rarity: number;
   name: string;
   icon: ImageMetadata;
   description: string;
@@ -24,7 +24,7 @@ export const awardAchievements: {
 }[] = [
   {
     id: 'mvp',
-    rarity: 'Rare',
+    rarity: 2,
     name: 'MVP',
     icon: Trophy,
     description: 'Awarded for winning the Golden Ball in a Forest Cup.',
@@ -45,7 +45,7 @@ export const awardAchievements: {
   },
   {
     id: 'wall',
-    rarity: 'Rare',
+    rarity: 2,
     name: 'Wall',
     icon: Trophy,
     description: 'Awarded for winning the Golden Glove in a Forest Cup.',
@@ -66,7 +66,7 @@ export const awardAchievements: {
   },
   {
     id: 'golden-boot',
-    rarity: 'Rare',
+    rarity: 2,
     name: 'Golden Boot',
     icon: Trophy,
     description: 'Awarded for winning the Golden Boot in a Forest Cup.',
@@ -87,7 +87,7 @@ export const awardAchievements: {
   },
   {
     id: 'awarded',
-    rarity: 'Rare',
+    rarity: 2,
     name: 'Awarded',
     icon: Trophy,
     description: 'Won a Forest Cup, a Golden Ball, a Golden Glove, and a Golden Boot.',
@@ -113,7 +113,7 @@ export const awardAchievements: {
   },
   {
     id: 'poker',
-    rarity: 'Legendary',
+    rarity: 5,
     name: 'Poker',
     icon: Trophy,
     description: 'Awarded for winning the Cup, Golden Ball, and Golden Boot in the same edition.',

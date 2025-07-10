@@ -39,8 +39,10 @@ const allAchievements = [
 ];
 
 // 4. Ordenar por rareza según config.ts (de menor a mayor)
-const rarityOrder = RARITIES;
-allAchievements.sort((a, b) => rarityOrder.indexOf(a.rarity) - rarityOrder.indexOf(b.rarity));
+allAchievements.sort((a, b) => {
+  if (a.rarity !== b.rarity) return a.rarity - b.rarity;
+  return a.name.localeCompare(b.name);
+});
 ---
 
 <App title="FFC - Test: Todos los Achievements">

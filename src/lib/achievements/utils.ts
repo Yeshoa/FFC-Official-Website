@@ -11,8 +11,22 @@ export const RARITIES = [
   'Ultra Rare',// 3
   'Epic',      // 4
   'Legendary', // 5
-  'Ultra'    // Ultra
+  'Ultimate'    // 6
 ] as const;
+
+export const COMMON_INDEX = RARITIES.indexOf('Common');
+
+export function rarityFromLevel(level: number): Rarity {
+  const idx = Math.min(
+    RARITIES.length - 1,
+    Math.max(0, level + COMMON_INDEX)
+  );
+  return RARITIES[idx];
+}
+
+export function levelFromRarity(r: Rarity): number {
+  return RARITIES.indexOf(r) - COMMON_INDEX;
+}
 
 export const CATEGORIES = [
   'Tournament',

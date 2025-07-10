@@ -10,7 +10,7 @@ const maxStreakAchievements: {
   name: string;
   icon: ImageMetadata;
   description: string;
-  rarity: Rarity;
+  rarity: number;
   category: Category;
   unique: boolean;
   visible: boolean; // This one is for when it is locked, not for enabled or disabled
@@ -19,7 +19,7 @@ const maxStreakAchievements: {
 }[] = [
   {
     id: 'longest-win-streak',
-    rarity: 'Epic',
+    rarity: 4,
     name: 'Unstoppable',
     icon: Trophy,
     description: 'Awarded for achieving the longest win streak among all members.',
@@ -48,7 +48,7 @@ const maxStreakAchievements: {
   },
   {
     id: 'longest-unbeaten-streak',
-    rarity: 'Ultra Rare',
+    rarity: 3,
     name: 'Invincible',
     icon: Trophy,
     description: 'Awarded for achieving the longest unbeaten streak among all members.',
@@ -76,7 +76,7 @@ const maxStreakAchievements: {
   },
   {
     id: 'longest-loss-streak',
-    rarity: 'Ravaged',
+    rarity: -6,
     name: 'Hopeless',
     icon: Trophy,
     description: 'Awarded for suffering the longest losing streak among all members.',
@@ -105,7 +105,7 @@ const maxStreakAchievements: {
   },
   {
     id: 'longest-scoreless-streak',
-    rarity: 'Ravaged',
+    rarity: -6,
     name: 'Scoreless',
     icon: Trophy,
     description: 'Awarded for achieving the longest scoreless streak among all members.',
@@ -133,7 +133,7 @@ const maxStreakAchievements: {
   },
   {
     id: 'longest-winless-streak',
-    rarity: 'Ravaged',
+    rarity: -6,
     name: 'Winless',
     icon: Trophy,
     description: 'Awarded for achieving the longest winless streak among all members.',
@@ -161,7 +161,7 @@ const maxStreakAchievements: {
   },
   {
     id: 'most-red-cards',
-    rarity: 'Ravaged',
+    rarity: -6,
     name: 'Red Cards',
     icon: Trophy,
     description: 'Awarded for achieving the most red cards among all members.',
@@ -190,7 +190,7 @@ const maxStreakAchievements: {
   },
   {
     id: 'all-time-scorer',
-    rarity: 'Ultra Rare',
+    rarity: 3,
     name: 'All‑Time Scorer',
     icon: Trophy,
     description: 'Awarded for being the top all-time scorer.',
@@ -226,7 +226,7 @@ const makeWinStreakAchievement = (
   name: string,
   icon: ImageMetadata,
   description: string,
-  rarity: Rarity,
+  rarity: number,
   minWins: number,
 ) => ({
   id,
@@ -254,7 +254,7 @@ const makeNoWinStreakAchievement = (
   name: string,
   icon: ImageMetadata,
   description: string,
-  rarity: Rarity,
+  rarity: number,
   minMatches: number
 ) => ({
   id,
@@ -284,7 +284,7 @@ const makeUnbeatenStreakAchievement = (
   name: string,
   icon: ImageMetadata,
   description: string,
-  rarity: Rarity,
+  rarity: number,
   minMatches: number
 ) => ({
   id,
@@ -313,7 +313,7 @@ const makeLossStreakAchievement = (
   name: string,
   icon: ImageMetadata,
   description: string,
-  rarity: Rarity,
+  rarity: number,
   minLosses: number
 ) => ({
   id,
@@ -342,7 +342,7 @@ const makeScorelessStreakAchievement = (
   name: string,
   icon: ImageMetadata,
   description: string,
-  rarity: Rarity,
+  rarity: number,
   minMatches: number
 ) => ({
   id,
@@ -371,7 +371,7 @@ const makeGoalsAchievement = (
   name: string,
   icon: ImageMetadata,
   description: string,
-  rarity: Rarity,
+  rarity: number,
   minGoals: number
 ) => ({
   id,
@@ -395,49 +395,49 @@ const makeGoalsAchievement = (
   }
 });
 const goalsAchievements: Achievement[] = [
-  makeGoalsAchievement('10-goals', '10 Goals', Trophy, 'Scored 10+ goals.', 'Common', 10),
-  makeGoalsAchievement('20-goals', '20 Goals', Trophy, 'Scored 20+ goals.', 'Uncommon', 20),
-  makeGoalsAchievement('30-goals', '30 Goals', Trophy, 'Scored 30+ goals.', 'Rare', 30),
-  makeGoalsAchievement('40-goals', '40 Goals', Trophy, 'Scored 40+ goals.', 'Ultra Rare', 40),
-  makeGoalsAchievement('50-goals', '50 Goals', Trophy, 'Scored 50+ goals.', 'Epic', 50),
-  makeGoalsAchievement('75-goals', '75 Goals', Trophy, 'Scored 75+ goals.', 'Legendary', 75),
-  makeGoalsAchievement('100-goals', '100 Goals', Trophy, 'Scored 100+ goals.', 'Ultra', 100),
+  makeGoalsAchievement('10-goals', 'Striker', Trophy, 'Scored 10+ goals.', 0, 10),
+  makeGoalsAchievement('20-goals', 'Finisher', Trophy, 'Scored 20+ goals.', 1, 20),
+  makeGoalsAchievement('30-goals', 'Sharpshooter', Trophy, 'Scored 30+ goals.', 2, 30),
+  makeGoalsAchievement('40-goals', '40 Goals', Trophy, 'Scored 40+ goals.', 3, 40),
+  makeGoalsAchievement('50-goals', 'Android', Trophy, 'Scored 50+ goals.', 4, 50),
+  makeGoalsAchievement('75-goals', 'Juggernaut', Trophy, 'Scored 75+ goals.', 5, 75),
+  makeGoalsAchievement('100-goals', 'All Star', Trophy, 'Scored 100+ goals.', 6, 100),
 ];
 
 const winStreakAchievements: Achievement[] = [
-  makeWinStreakAchievement('3-win-streak', '3-Win Streak', Trophy, 'Won 3 matches in a row.', 'Uncommon', 3),
-  makeWinStreakAchievement('5-win-streak', '5-Win Streak', Trophy, 'Won 5 matches in a row.', 'Rare', 5),
-  makeWinStreakAchievement('7-win-streak', '7-Win Streak', Trophy, 'Won 7 matches in a row.', 'Ultra Rare', 7),
-  makeWinStreakAchievement('10-win-streak', '10-Win Streak', Trophy, 'Won 10 matches in a row.', 'Epic', 10),
+  makeWinStreakAchievement('3-win-streak', 'Heated', Trophy, 'Won 3 matches in a row.', 1, 3),
+  makeWinStreakAchievement('5-win-streak', '5-Win Streak', Trophy, 'Won 5 matches in a row.', 2, 5),
+  makeWinStreakAchievement('7-win-streak', '7-Win Streak', Trophy, 'Won 7 matches in a row.', 3, 7),
+  makeWinStreakAchievement('10-win-streak', 'Rampant', Trophy, 'Won 10 matches in a row.', 4, 10),
 ];
 
 const unbeatenStreakAchievements: Achievement[] = [
-  makeUnbeatenStreakAchievement('7-unbeaten-streak', '7-Unbeaten Streak', Trophy, 'Stayed unbeaten for 7+ matches in a row.', 'Uncommon', 7),
-  makeUnbeatenStreakAchievement('10-unbeaten-streak', '10-Unbeaten Streak', Trophy, 'Stayed unbeaten for 10+ matches in a row.', 'Rare', 10),
-  makeUnbeatenStreakAchievement('15-unbeaten-streak', '15-Unbeaten Streak', Trophy, 'Stayed unbeaten for 15+ matches in a row.', 'Ultra Rare', 15),
-  makeUnbeatenStreakAchievement('20-unbeaten-streak', '20-Unbeaten Streak', Trophy, 'Stayed unbeaten for 20+ matches in a row.', 'Epic', 20),
+  makeUnbeatenStreakAchievement('7-unbeaten-streak', '7-Unbeaten Streak', Trophy, 'Stayed unbeaten for 7+ matches in a row.', 1, 7),
+  makeUnbeatenStreakAchievement('10-unbeaten-streak', '10-Unbeaten Streak', Trophy, 'Stayed unbeaten for 10+ matches in a row.', 2, 10),
+  makeUnbeatenStreakAchievement('15-unbeaten-streak', '15-Unbeaten Streak', Trophy, 'Stayed unbeaten for 15+ matches in a row.', 3, 15),
+  makeUnbeatenStreakAchievement('20-unbeaten-streak', 'Machine', Trophy, 'Stayed unbeaten for 20+ matches in a row.', 4, 20),
 ];
 
 const noWinStreakAchievements: Achievement[] = [
-  makeNoWinStreakAchievement('no-win-20', '20-Winless', Trophy, 'Played +20 matches but never won.', 'Doomed', 20),
-  makeNoWinStreakAchievement('no-win-15', '15-Winless', Trophy, 'Played +15 matches but never won.', 'Cursed', 15),
-  makeNoWinStreakAchievement('no-win-10', '10-Winless', Trophy, 'Played +10 matches but never won.', 'Broken', 10),
-  makeNoWinStreakAchievement('no-win-7', 'Winless', Trophy, 'Played +7 matches but never won.', 'Worn', 7),
+  makeNoWinStreakAchievement('no-win-20', '20-Winless', Trophy, 'Played +20 matches but never won.', -5, 20),
+  makeNoWinStreakAchievement('no-win-15', '15-Winless', Trophy, 'Played +15 matches but never won.', -4, 15),
+  makeNoWinStreakAchievement('no-win-10', 'Jinxed', Trophy, 'Played +10 matches but never won.', -3, 10),
+  makeNoWinStreakAchievement('no-win-7', 'Winless', Trophy, 'Played +7 matches but never won.', -2, 7),
 ];
 
 const lossStreakAchievements: Achievement[] = [
-  makeLossStreakAchievement('3-loss-streak', '3-Loss Streak', Trophy, 'Lost 3+ matches in a row.', 'Mundane', 3),
-  makeLossStreakAchievement('5-loss-streak', '5-Loss Streak', Trophy, 'Lost 5+ matches in a row.', 'Worn', 5),
-  makeLossStreakAchievement('7-loss-streak', '7-Loss Streak', Trophy, 'Lost 7+ matches in a row.', 'Broken', 7),
-  makeLossStreakAchievement('10-loss-streak', '10-Loss Streak', Trophy, 'Lost 10+ matches in a row.', 'Cursed', 10),
-  makeLossStreakAchievement('15-loss-streak', '15-Loss Streak', Trophy, 'Lost 15+ matches in a row.', 'Doomed', 15),
+  makeLossStreakAchievement('3-loss-streak', '3-Loss Streak', Trophy, 'Lost 3+ matches in a row.', -1, 3),
+  makeLossStreakAchievement('5-loss-streak', '5-Loss Streak', Trophy, 'Lost 5+ matches in a row.', -2, 5),
+  makeLossStreakAchievement('7-loss-streak', '7-Loss Streak', Trophy, 'Lost 7+ matches in a row.', -3, 7),
+  makeLossStreakAchievement('10-loss-streak', '10-Loss Streak', Trophy, 'Lost 10+ matches in a row.', -4, 10),
+  makeLossStreakAchievement('15-loss-streak', '15-Loss Streak', Trophy, 'Lost 15+ matches in a row.', -5, 15),
 ]
 
 const scorelessStreakAchievements: Achievement[] = [
-  makeScorelessStreakAchievement('5-scoreless-streak', '5-Scoreless Streak', Trophy, 'Scoreless in 5+ matches.', 'Mundane', 5),
-  makeScorelessStreakAchievement('10-scoreless-streak', '10-Scoreless Streak', Trophy, 'Scoreless in 10+ matches.', 'Worn', 10),
-  makeScorelessStreakAchievement('15-scoreless-streak', '15-Scoreless Streak', Trophy, 'Scoreless in 15+ matches.', 'Broken', 15),
-  makeScorelessStreakAchievement('20-scoreless-streak', '20-Scoreless Streak', Trophy, 'Scoreless in 20+ matches.', 'Cursed', 20),
+  makeScorelessStreakAchievement('5-scoreless-streak', '5-Scoreless Streak', Trophy, 'Scoreless in 5+ matches.', -1, 5),
+  makeScorelessStreakAchievement('10-scoreless-streak', '10-Scoreless Streak', Trophy, 'Scoreless in 10+ matches.', -2, 10),
+  makeScorelessStreakAchievement('15-scoreless-streak', '15-Scoreless Streak', Trophy, 'Scoreless in 15+ matches.', -3, 15),
+  makeScorelessStreakAchievement('20-scoreless-streak', '20-Scoreless Streak', Trophy, 'Scoreless in 20+ matches.', -4, 20),
 ]
 
 export const streakAchievements = [

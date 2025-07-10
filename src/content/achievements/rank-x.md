@@ -3,7 +3,7 @@ id: "apex"
 name: "Apex"
 icon: "src/assets/images/achievements/king.webp"
 description: "Reached rank X."
-rarity: "Legendary"
+rarity: 5
 category: "Ranking"
 unique: false
 visible: false

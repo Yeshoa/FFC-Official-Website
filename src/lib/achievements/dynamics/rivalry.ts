@@ -1,6 +1,7 @@
 import Trophy from '@images/achievements/king.webp';
 import type { Achievement } from './index';
 import { type Rarity, type Category, CATEGORIES } from '../utils';
+import { rarityFromLevel } from '../utils';
 import type { CollectionEntry } from 'astro:content';
 import { getMemberByName } from '@lib/memberUtils';
 import { getGoalsByTeam, getMatchWinnerIncludingPenalties } from '@lib/matchUtils';
@@ -13,7 +14,7 @@ const thisCategory = CATEGORIES[3];
 
 export const baseAchievements: {
   id: string;
-  rarity: Achievement['rarity'];
+  rarity: number;
   name: string;
   icon: ImageMetadata;
   description: string;
@@ -23,228 +24,10 @@ export const baseAchievements: {
   enabled: boolean;
   evaluate: (...args: any[]) => Achievement | null;
 }[] = [
-  /* {
-    id: 'rivalry',
-    rarity: 'Common',
-    name: 'Rivalry',
-    icon: Trophy,
-    description: 'Awarded for playing 3+ matches against the same rival.',
-    category: thisCategory,
-    unique: false,
-    visible: true,
-    enabled: true,
-    evaluate: function (matches, tournaments, member) {
-      const { evaluate, ...base } = this;
-      const counts = new Map<string,number>();
-      for (const m of matches) {
-        if (m.data.team1 === member.data.name) counts.set(m.data.team2, (counts.get(m.data.team2)||0)+1);
-        if (m.data.team2 === member.data.name) counts.set(m.data.team1, (counts.get(m.data.team1)||0)+1);
-      }
-      const rivals = [...counts.entries()].filter(([,c]) => c>=3).map(([r])=>r);
-      return rivals.length
-        ? {
-            ...base,
-            description: `Played 3+ matches against: ${rivals.join(', ')}.`
-          }
-        : null;
-    }
-  },
-  {
-    id: 'classic',
-    rarity: 'Uncommon',
-    name: 'Classic',
-    icon: Trophy,
-    description: 'Awarded for playing 7+ matches against the same rival.',
-    category: thisCategory,
-    unique: false,
-    visible: true,
-    enabled: true,
-    evaluate: function (matches, tournaments, member) {
-      const { evaluate, ...base } = this;
-      const counts = new Map<string,number>();
-      for (const m of matches) {
-        if (m.data.team1 === member.data.name) counts.set(m.data.team2, (counts.get(m.data.team2)||0)+1);
-        if (m.data.team2 === member.data.name) counts.set(m.data.team1, (counts.get(m.data.team1)||0)+1);
-      }
-      const nem = [...counts.entries()].filter(([,c]) => c>=7).map(([r])=>r);
-      return nem.length
-        ? {
-            ...base,
-            description: `Played 7+ matches against: ${nem.join(', ')}.`
-          }
-        : null;
-    }
-  }, */
-  /* {
-    id: 'dominator',
-    rarity: 'Uncommon',
-    name: 'Dominator',
-    icon: Trophy,
-    description: 'Awarded for winning 3+ matches against the same rival.',
-    category: thisCategory,
-    unique: false,
-    visible: true,
-    enabled: true,
-    evaluate: function (matches, tournaments, member) {
-      const { evaluate, ...base } = this;
-      // Count wins vs each rival
-      const winCounts = new Map<string, number>();
-      for (const m of matches) {
-        const { team1, team2, goals } = m.data;
-        const gf1 = goals?.filter(g => g.team === team1).length ?? 0;
-        const gf2 = goals?.filter(g => g.team === team2).length ?? 0;
-        if (team1 === member.data.name && gf1 > gf2) {
-          winCounts.set(team2, (winCounts.get(team2) ?? 0) + 1);
-        }
-        if (team2 === member.data.name && gf2 > gf1) {
-          winCounts.set(team1, (winCounts.get(team1) ?? 0) + 1);
-        }
-      }
-      // Find rivals beaten at least 3 times
-      const dominators = [...winCounts.entries()]
-        .filter(([, wins]) => wins >= 3)
-        .map(([r]) => r);
-
-      return dominators.length > 0
-        ? {
-            ...base,
-            description: `Won 3+ matches against: ${dominators.join(', ')}.`
-          }
-        : null;
-    }
-  },
-  {
-    id: 'underdog',
-    rarity: 'Worn',
-    name: 'Underdog',
-    icon: Trophy,
-    description: 'Awarded for losing 3+ matches against the same rival.',
-    category: thisCategory,
-    unique: false,
-    visible: true,
-    enabled: true,
-    evaluate: function (matches, tournaments, member) {
-      const { evaluate, ...base } = this;
-      // Count losses vs each rival
-      const lossCounts = new Map<string, number>();
-      for (const m of matches) {
-        const { team1, team2, goals } = m.data;
-        const gf1 = goals?.filter(g => g.team === team1).length ?? 0;
-        const gf2 = goals?.filter(g => g.team === team2).length ?? 0;
-        if (team1 === member.data.name && gf1 < gf2) {
-          lossCounts.set(team2, (lossCounts.get(team2) ?? 0) + 1);
-        }
-        if (team2 === member.data.name && gf2 < gf1) {
-          lossCounts.set(team1, (lossCounts.get(team1) ?? 0) + 1);
-        }
-      }
-      // Find rivals beaten them at least 3 times
-      const underdogs = [...lossCounts.entries()]
-        .filter(([, losses]) => losses >= 3)
-        .map(([r]) => r);
-
-      return underdogs.length > 0
-        ? {
-            ...base,
-            description: `Lost 3+ matches against: ${underdogs.join(', ')}.`
-          }
-        : null;
-    }
-  },
-  {
-    id: 'nemesis',
-    rarity: 'Rare',
-    name: 'Nemesis',
-    icon: Trophy,
-    description: 'Awarded for having a +5 win/loss record against a rival.',
-    category: thisCategory,
-    unique: false,
-    visible: true,
-    enabled: true,
-    evaluate: function (matches, tournaments, member) {
-      const { evaluate, ...base } = this;
-      const scores = new Map<string, { wins: number; losses: number }>();
-
-      for (const m of matches) {
-        const { team1, team2, goals } = m.data;
-        const gf1 = goals?.filter(g => g.team === team1).length ?? 0;
-        const gf2 = goals?.filter(g => g.team === team2).length ?? 0;
-
-        if (team1 === member.data.name) {
-          const entry = scores.get(team2) || { wins: 0, losses: 0 };
-          if (gf1 > gf2) entry.wins++;
-          if (gf1 < gf2) entry.losses++;
-          scores.set(team2, entry);
-        }
-        if (team2 === member.data.name) {
-          const entry = scores.get(team1) || { wins: 0, losses: 0 };
-          if (gf2 > gf1) entry.wins++;
-          if (gf2 < gf1) entry.losses++;
-          scores.set(team1, entry);
-        }
-      }
-
-      const dominantRivals = [...scores.entries()]
-        .filter(([, record]) => record.wins - record.losses >= 5)
-        .map(([r]) => r);
-
-      return dominantRivals.length
-        ? {
-            ...base,
-            description: `Has a +5 record against: ${dominantRivals.join(', ')}.`
-          }
-        : null;
-    }
-  },
-  {
-    id: 'prey',
-    rarity: 'Doomed',
-    name: 'Prey',
-    icon: Trophy,
-    description: 'Awarded for having a -5 win/loss record against a rival.',
-    category: thisCategory,
-    unique: false,
-    visible: true,
-    enabled: true,
-    evaluate: function (matches, tournaments, member) {
-      const { evaluate, ...base } = this;
-      const scores = new Map<string, { wins: number; losses: number }>();
-
-      for (const m of matches) {
-        const { team1, team2, goals } = m.data;
-        const gf1 = goals?.filter(g => g.team === team1).length ?? 0;
-        const gf2 = goals?.filter(g => g.team === team2).length ?? 0;
-
-        if (team1 === member.data.name) {
-          const entry = scores.get(team2) || { wins: 0, losses: 0 };
-          if (gf1 < gf2) entry.losses++;
-          if (gf1 > gf2) entry.wins++;
-          scores.set(team2, entry);
-        }
-        if (team2 === member.data.name) {
-          const entry = scores.get(team1) || { wins: 0, losses: 0 };
-          if (gf2 < gf1) entry.losses++;
-          if (gf2 > gf1) entry.wins++;
-          scores.set(team1, entry);
-        }
-      }
-
-      const badRivals = [...scores.entries()]
-        .filter(([, record]) => record.losses - record.wins >= 5)
-        .map(([r]) => r);
-
-      return badRivals.length
-        ? {
-            ...base,
-            description: `Has a -5 record against: ${badRivals.join(', ')}.`
-          }
-        : null;
-    }
-  }, */
   {
     id: 'biggest-win',
-    rarity: 'Ravaged',
-    name: '',
+    rarity: -6,
+    name: 'Judgement Day',
     icon: Trophy,
     description: 'Awarded for achieving the largest goal difference victory.',
     category: thisCategory,
@@ -300,7 +83,7 @@ export const baseAchievements: {
 const makeMatchesAchievements = (
   id: string,
   name: string,
-  rarity: Rarity,
+  rarity: number,
   icon: ImageMetadata,
   description: string,
   minMatches: number
@@ -336,7 +119,7 @@ const makeMatchesAchievements = (
 const makeWinAchievements = (
   id: string,
   name: string,
-  rarity: Rarity,
+  rarity: number,
   icon: ImageMetadata,
   description: string,
   minWins: number
@@ -378,7 +161,7 @@ const makeWinAchievements = (
 const makeLossAchievements = (
   id: string,
   name: string,
-  rarity: Rarity,
+  rarity: number,
   icon: ImageMetadata,
   description: string,
   minLosses: number
@@ -420,7 +203,7 @@ const makeLossAchievements = (
 const makeDifAchievements = (
   id: string,
   name: string,
-  rarity: Rarity,
+  rarity: number,
   icon: ImageMetadata,
   description: string,
   minDif: number
@@ -453,7 +236,7 @@ const makeDifAchievements = (
     return rivals.length
       ? {
           ...base,
-          description: `Scored ${minDif}${minDif===3 || minDif===10?'+':''} goals against: ${list}.`
+          description: `Won by ${minDif}${minDif===3 || minDif===10?'+':''} goals against: ${list}.`
         }
       : null;
   }
@@ -462,7 +245,7 @@ const makeDifAchievements = (
 const makeEliminationAchievements = (
   id: string,
   name: string,
-  rarity: Rarity,
+  rarity: number,
   icon: ImageMetadata,
   description: string,
   minEliminations: number
@@ -502,44 +285,44 @@ const makeEliminationAchievements = (
 });
 
 const matchesAchievements: Achievement[] = [
-  makeMatchesAchievements('3-matches', 'Acquaintances', 'Common', Trophy, 'Awarded for playing 3+ matches against the same rival.', 3),
-  makeMatchesAchievements('5-matches', 'Friends', 'Uncommon', Trophy, 'Awarded for playing 5+ matches against the same rival.', 5),
-  makeMatchesAchievements('7-matches', 'Mates', 'Rare', Trophy, 'Awarded for playing 7+ matches against the same rival.', 7),
-  makeMatchesAchievements('10-matches', 'Lovers', 'Ultra Rare', Trophy, 'Awarded for playing 10+ matches against the same rival.', 10),
-  makeMatchesAchievements('15-matches', 'Twin Flames', 'Epic', Trophy, 'Awarded for playing 15+ matches against the same rival.', 15),
+  makeMatchesAchievements('3-matches', 'Acquaintances', 0, Trophy, 'Awarded for playing 3+ matches against the same rival.', 3),
+  makeMatchesAchievements('5-matches', 'Friends', 1, Trophy, 'Awarded for playing 5+ matches against the same rival.', 5),
+  makeMatchesAchievements('7-matches', 'Mates', 2, Trophy, 'Awarded for playing 7+ matches against the same rival.', 7),
+  makeMatchesAchievements('10-matches', 'Lovers', 3, Trophy, 'Awarded for playing 10+ matches against the same rival.', 10),
+  makeMatchesAchievements('15-matches', 'Twin Flames', 4, Trophy, 'Awarded for playing 15+ matches against the same rival.', 15),
 ];
 
 const winAchievements: Achievement[] = [
-  makeWinAchievements('3-wins', 'Edge', 'Mundane', Trophy, 'Awarded for winning 3+ matches against the same rival.', 3),
-  makeWinAchievements('5-wins', 'Dominant', 'Worn', Trophy, 'Awarded for winning 5+ matches against the same rival.', 5),
-  makeWinAchievements('7-wins', 'Superior', 'Broken', Trophy, 'Awarded for winning 7+ matches against the same rival.', 7),
-  makeWinAchievements('10-wins', 'Overlord', 'Cursed', Trophy, 'Awarded for winning 10+ matches against the same rival.', 10),
-  makeWinAchievements('15-wins', 'Nemesis', 'Doomed', Trophy, 'Awarded for winning 15+ matches against the same rival.', 15),
+  makeWinAchievements('3-wins', 'Edge', -1, Trophy, 'Awarded for winning 3+ matches against the same rival.', 3),
+  makeWinAchievements('5-wins', 'Dominant', -2, Trophy, 'Awarded for winning 5+ matches against the same rival.', 5),
+  makeWinAchievements('7-wins', 'Superior', -3, Trophy, 'Awarded for winning 7+ matches against the same rival.', 7),
+  makeWinAchievements('10-wins', 'Overlord', -4, Trophy, 'Awarded for winning 10+ matches against the same rival.', 10),
+  makeWinAchievements('15-wins', 'Nemesis', -5, Trophy, 'Awarded for winning 15+ matches against the same rival.', 15),
 ];
 
 const lossAchievements: Achievement[] = [
-  makeLossAchievements('3-loses', 'Defeated', 'Mundane', Trophy, 'Awarded for losing 3+ matches against the same rival.', 3),
-  makeLossAchievements('5-loses', 'Outclassed', 'Worn', Trophy, 'Awarded for losing 5+ matches against the same rival.', 5),
-  makeLossAchievements('7-loses', 'Yielded', 'Broken', Trophy, 'Awarded for losing 7+ matches against the same rival.', 7),
-  makeLossAchievements('10-loses', 'Crushed', 'Cursed', Trophy, 'Awarded for losing 10+ matches against the same rival.', 10),
-  makeLossAchievements('15-loses', 'Destroyed', 'Doomed', Trophy, 'Awarded for losing 15+ matches against the same rival.', 15),
+  makeLossAchievements('3-loses', 'Defeated', -1, Trophy, 'Awarded for losing 3+ matches against the same rival.', 3),
+  makeLossAchievements('5-loses', 'Outclassed', -2, Trophy, 'Awarded for losing 5+ matches against the same rival.', 5),
+  makeLossAchievements('7-loses', 'Yielded', -3, Trophy, 'Awarded for losing 7+ matches against the same rival.', 7),
+  makeLossAchievements('10-loses', 'Crushed', -4, Trophy, 'Awarded for losing 10+ matches against the same rival.', 10),
+  makeLossAchievements('15-loses', 'Destroyed', -5, Trophy, 'Awarded for losing 15+ matches against the same rival.', 15),
 ];
 
 const difAchievements: Achievement[] = [
-  makeDifAchievements('3-goal-difference', 'Beater', 'Common', Trophy, 'Awarded for winning by a goal difference of 3+.', 3),
-  makeDifAchievements('5-goal-difference', 'Stomper', 'Mundane', Trophy, 'Awarded for winning by a goal difference of 5+.', 5),
-  makeDifAchievements('6-goal-difference', 'Merciless', 'Worn', Trophy, 'Awarded for winning by a goal difference of 6+.', 6),
-  makeDifAchievements('7-goal-difference', 'Killer', 'Broken', Trophy, 'Awarded for winning by a goal difference of 7+.', 7),
-  makeDifAchievements('8-goal-difference', 'Slayer', 'Cursed', Trophy, 'Awarded for winning by a goal difference of 8+.', 8),
-  makeDifAchievements('9-goal-difference', 'Annihilator', 'Doomed', Trophy, 'Awarded for winning by a goal difference of 9+.', 9),
-  makeDifAchievements('10-goal-difference', 'Exterminator', 'Ravaged', Trophy, 'Awarded for winning by a goal difference of 10+.', 10),
+  makeDifAchievements('3-goal-difference', 'Beater', 0, Trophy, 'Awarded for winning by a goal difference of 3+.', 3),
+  makeDifAchievements('5-goal-difference', 'Stomper', -1, Trophy, 'Awarded for winning by a goal difference of 5+.', 5),
+  makeDifAchievements('6-goal-difference', 'Merciless', -2, Trophy, 'Awarded for winning by a goal difference of 6+.', 6),
+  makeDifAchievements('7-goal-difference', 'Killer', -3, Trophy, 'Awarded for winning by a goal difference of 7+.', 7),
+  makeDifAchievements('8-goal-difference', 'Slayer', -4, Trophy, 'Awarded for winning by a goal difference of 8+.', 8),
+  makeDifAchievements('9-goal-difference', 'Annihilator', -5, Trophy, 'Awarded for winning by a goal difference of 9+.', 9),
+  makeDifAchievements('10-goal-difference', 'Exterminator', -6, Trophy, 'Awarded for winning by a goal difference of 10+.', 10),
 ];
 
 const eliminationAchievements: Achievement[] = [
-  makeEliminationAchievements('3-eliminations', 'Comeback Spark', 'Mundane', Trophy, 'Awarded for being eliminated 3 times by the same team.', 3),
-  makeEliminationAchievements('5-eliminations', 'Rally Cry', 'Broken', Trophy, 'Awarded for being eliminated 5 times by the same team.', 5),
-  makeEliminationAchievements('7-eliminations', 'Last Stand', 'Doomed', Trophy, 'Awarded for being eliminated 7 times by the same team.', 7),
-  makeEliminationAchievements('10-eliminations', 'No Return', 'Ravaged', Trophy, 'Awarded for being eliminated 10 times by the same team.', 10),
+  makeEliminationAchievements('3-eliminations', 'Comeback Spark', -1, Trophy, 'Awarded for being eliminated 3 times by the same team.', 3),
+  makeEliminationAchievements('5-eliminations', 'Rally Cry', -3, Trophy, 'Awarded for being eliminated 5 times by the same team.', 5),
+  makeEliminationAchievements('7-eliminations', 'Last Stand', -5, Trophy, 'Awarded for being eliminated 7 times by the same team.', 7),
+  makeEliminationAchievements('10-eliminations', 'No Return', -6, Trophy, 'Awarded for being eliminated 10 times by the same team.', 10),
 ];
 
 export const rivalryAchievements = [

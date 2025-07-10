@@ -8,7 +8,7 @@ const thisCategory = 'Special';
 
 export const specialAchievements: {
   id: string;
-  rarity: Achievement['rarity'];
+  rarity: number;
   name: string;
   icon: ImageMetadata;
   description: string;
@@ -20,7 +20,7 @@ export const specialAchievements: {
 }[] = [
   {
     id: 'goal-famine',
-    rarity: 'Cursed',
+    rarity: -4,
     name: 'Dry Spell',
     icon: Trophy,
     description: 'Never scored a single goal in Forest Cup history.',
@@ -48,7 +48,7 @@ export const specialAchievements: {
   },
   /* {
     id: 'biggest-win',
-    rarity: 'Rare',
+    rarity: 2,
     name: 'Biggest Win',
     icon: Trophy,
     description: 'Awarded for achieving the largest goal difference victory in a verified match.',
@@ -102,7 +102,7 @@ export const specialAchievements: {
   }, */
   {
     id: 'enemy',
-    rarity: 'Mundane',
+    rarity: -1,
     name: 'Enemy',
     icon: Trophy,
     description: 'Eliminated 2+ times by the same rival.',

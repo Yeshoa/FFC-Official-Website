@@ -20,7 +20,7 @@ const prizeCheckers: Record<PrizeType, (t: any, memberName: string) => boolean> 
 
 const baseAchievements: {
   id: string;
-  rarity: Achievement['rarity'];
+  rarity: number;
   name: string;
   icon: ImageMetadata;
   description: string;
@@ -32,7 +32,7 @@ const baseAchievements: {
 }[] = [
   {
     id: 'host',
-    rarity: 'Uncommon',
+    rarity: 1,
     name: 'Host',
     icon: Trophy,
     description: 'Awarded for hosting a Forest Cup edition.',
@@ -51,7 +51,7 @@ const baseAchievements: {
   },
   {
     id: 'champion',
-    rarity: 'Rare',
+    rarity: 2,
     name: 'Champion',
     icon: Trophy,
     description: 'Awarded for winning a Forest Cup.',
@@ -70,7 +70,7 @@ const baseAchievements: {
   },
   {
     id: 'double-champion',
-    rarity: 'Legendary',
+    rarity: 5,
     name: 'Dynasty',
     icon: Trophy,
     description: 'Awarded for winning two Forest Cups.',
@@ -91,8 +91,8 @@ const baseAchievements: {
   },
   {
     id: 'triple-champion',
-    rarity: 'Ultra',
-    name: 'Overlord',
+    rarity: 6,
+    name: 'Emperor',
     icon: Trophy,
     description: 'Awarded for winning three Forest Cups.',
     category: thisCategory,
@@ -112,7 +112,7 @@ const baseAchievements: {
   },
   {
     id: 'unbeaten-champion',
-    rarity: 'Epic',
+    rarity: 4,
     name: 'Invictus',
     icon: Trophy,
     description: 'Awarded for winning a Forest Cup without losing a single match.',
@@ -141,7 +141,7 @@ const baseAchievements: {
   },
   {
     id: 'perfect-champion',
-    rarity: 'Legendary',
+    rarity: 5,
     name: 'Flawless',
     icon: Trophy,
     description: 'Awarded for winning a Forest Cup with a perfect record (all wins).',
@@ -170,7 +170,7 @@ const baseAchievements: {
   },
   {
     id: 'ultimate-champion',
-    rarity: 'Ultra',
+    rarity: 6,
     name: 'Superb',
     icon: Trophy,
     description: 'Awarded for winning a Forest Cup with a perfect record and getting all awards.',
@@ -220,7 +220,7 @@ const baseAchievements: {
     const desc = `Won Forest Cup ${editions[0]}, ${editions[1]}, and ${editions[2]}.`;
     return {
       id: 'triple-champion',
-      rarity: 'Ultra',
+      rarity: 6,
       name: 'Overlord',
       icon: Trophy,
       description: desc,
@@ -234,7 +234,7 @@ const baseAchievements: {
     const desc = `Won Forest Cup ${editions[0]} and ${editions[1]}.`;
     return {
       id: 'double-champion',
-      rarity: 'Legendary',
+      rarity: 5,
       name: 'Dynasty',
       icon: Trophy,
       description: desc,
@@ -248,7 +248,7 @@ const baseAchievements: {
     const desc = `Won the Forest Cup ${editions[0]}.`;
     return {
       id: 'champion',
-      rarity: 'Rare',
+      rarity: 2,
       name: 'Champion',
       icon: Trophy,
       description: desc,
@@ -264,7 +264,7 @@ const baseAchievements: {
 const multiChampionAchievements = [
   {
     id: 'multi-champion',
-    rarity: 'Rare', 
+    rarity: 2, 
     name: 'Multi Champion',
     icon: Trophy,
     description: 'Awarded for winning one or more Forest Cups.',
@@ -311,7 +311,7 @@ const multiChampionAchievements = [
     if (wins === played.length && awardsCount === 4) {
       return {
         id: 'ultimate-champion',
-        rarity: 'Ultra',
+        rarity: 6,
         name: 'Superb',
         icon: Trophy,
         description: `Won Forest Cup ${tournament.data.edition} with a perfect record and got all awards.`,
@@ -324,7 +324,7 @@ const multiChampionAchievements = [
     if (wins === played.length) {
       return {
         id: 'perfect-champion',
-        rarity: 'Legendary',
+        rarity: 5,
         name: 'Flawless',
         icon: Trophy,
         description: `Won Forest Cup ${tournament.data.edition} with a perfect record (${wins}-0).`,
@@ -337,7 +337,7 @@ const multiChampionAchievements = [
     if (losses === 0) {
       return {
         id: 'unbeaten-champion',
-        rarity: 'Epic',
+        rarity: 4,
         name: 'Invictus',
         icon: Trophy,
         description: `Won Forest Cup ${tournament.data.edition} without losing a match.`,
@@ -354,7 +354,7 @@ const multiChampionAchievements = [
 const championAchievements = [
   {
     id: 'champion-achievements', 
-    rarity: 'Epic', 
+    rarity: 4, 
     name: 'Champion Achievements',
     icon: Trophy,
     description: 'Awarded for exceptional performance in winning a Forest Cup.',
@@ -371,7 +371,7 @@ const makePrizeAchievement = (
   name: string,
   description: string,
   icon: ImageMetadata,
-  rarity: Rarity,
+  rarity: number,
   minTypes: number,
 ) => ({
   id,
@@ -405,10 +405,10 @@ const makePrizeAchievement = (
 });
 
 const prizeAchievements: Achievement[] = [
-  makePrizeAchievement('prize-winner-1', 'Awarded', 'Won one type of prize', Trophy, 'Rare', 1),
-  makePrizeAchievement('prize-winner-2', 'Double Prize Winner', 'Won two type of prizes', Trophy, 'Ultra Rare', 2),
-  makePrizeAchievement('prize-winner-3', 'Triple Prize Winner', 'Won three type of prizes', Trophy, 'Epic', 3),
-  makePrizeAchievement('prize-winner-4', 'Poker', 'Won all types of prizes',  Trophy, 'Legendary', 4),
+  makePrizeAchievement('prize-winner-1', 'Awarded', 'Won one type of prize', Trophy, 2, 1),
+  makePrizeAchievement('prize-winner-2', 'Double Prize Winner', 'Won two type of prizes', Trophy, 3, 2),
+  makePrizeAchievement('prize-winner-3', 'Triple Prize Winner', 'Won three type of prizes', Trophy, 4, 3),
+  makePrizeAchievement('prize-winner-4', 'Poker', 'Won all types of prizes',  Trophy, 5, 4),
 ];
 
 /* Export */

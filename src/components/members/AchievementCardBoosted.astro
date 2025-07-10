@@ -3,12 +3,12 @@ import { Image } from 'astro:assets';
 const { achievement } = Astro.props;
 import StarIcon from '@images/icons/star-solid.svg'; 
 import SkullIcon from '@images/icons/skull-crossbones-solid.svg';
+import { rarityFromLevel, COMMON_INDEX } from '@lib/achievements/utils';
 
-// Rarity mapping REFINADO con animaciones sutiles y poderosas
-const rarityMap = {
+const rarityStylesByLevel = [
   // --- Tiers Negativos ---
-  'Ravaged': { // NUEVA ANIMACIÓN
-    label: 'Ravaged',
+  { // -6
+    label: rarityFromLevel(-6),
     color: 'bg-gradient-to-b from-black  via-red-950 via-65% to-red-900',
     border: 'border-black',
     text: 'text-red-600',
@@ -19,8 +19,8 @@ const rarityMap = {
     icons: { type: 'skull', count: 6, color: 'fill-black' },
     animationClass: 'ravaged-inferno', // Efecto de fuego interno
   },
-  'Doomed': { // AHORA TIENE LA ANIMACIÓN ANTERIOR DE RAVAGED
-    label: 'Doomed',
+  { // -5
+    label: rarityFromLevel(-5),
     color: 'bg-gradient-to-br from-black via-gray-900 to-red-950',
     border: 'border-orange-700',
     text: 'text-orange-500',
@@ -31,8 +31,8 @@ const rarityMap = {
     icons: { type: 'skull', count: 5, color: 'fill-orange-700' },
     animationClass: 'doomed-fire-cracks', // Llamas y grietas
   },
-  'Cursed': { // SE MANTIENE
-    label: 'Cursed',
+  { // -4
+    label: rarityFromLevel(-4),
     color: 'bg-gradient-to-br from-gray-900 via-red-950 to-black',
     border: 'border-red-900',
     text: 'text-red-700',
@@ -43,8 +43,8 @@ const rarityMap = {
     icons: { type: 'skull', count: 4, color: 'fill-red-700' },
     animationClass: 'cursed-orbs-runes', // Orbes y runas sutiles
   },
-  'Broken': { // AHORA TIENE EL HUMO (SIN CADENAS)
-    label: 'Broken',
+  { // -3
+    label: rarityFromLevel(-3),
     color: 'bg-gradient-to-br from-gray-800 via-gray-700 to-gray-900',
     border: 'border-gray-600',
     text: 'text-gray-300',
@@ -56,8 +56,8 @@ const rarityMap = {
     animationClass: 'broken-dust-scratches', // Solo el humo
   },
   // --- Tiers Comunes/Bajos ---
-  'Worn': { // SE MANTIENE
-    label: 'Worn',
+  { // -2
+    label: rarityFromLevel(-2),
     color: 'bg-gradient-to-br from-stone-800 via-stone-700 to-stone-900',
     border: 'border-stone-600',
     text: 'text-stone-300',
@@ -68,8 +68,8 @@ const rarityMap = {
     icons: { type: 'skull', count: 2, color: 'fill-stone-400' },
 //     animationClass: 'worn-smoke', // Polvo y rayones
   },
-  'Mundane': { // SE MANTIENE
-    label: 'Mundane',
+  { // -1
+    label: rarityFromLevel(-1),
     color: 'bg-gradient-to-br from-lime-900 via-lime-900 to-lime-950',
     border: 'border-lime-800',
     text: 'text-lime-600',
@@ -81,8 +81,8 @@ const rarityMap = {
     animationClass: 'mundane-glow-pulse', // Brillo y pulso
   },
   // --- Tiers Positivos ---
-  'Common': { // SE MANTIENE
-    label: 'Common',
+  { // 0
+    label: rarityFromLevel(0),
     color: 'bg-slate-500',
     border: 'border-gray-400',
     text: 'text-slate-200',
@@ -92,8 +92,8 @@ const rarityMap = {
     sparkle: 'bg-slate-400/20',
     icons: { type: 'star', count: 0, color: 'fill-yellow-400' },
   },
-  'Uncommon': { // NUEVA ANIMACIÓN
-    label: 'Uncommon',
+  { // 1
+    label: rarityFromLevel(1),
     color: 'bg-gradient-to-br from-emerald-500 via-emerald-600 to-emerald-700',
     border: 'border-emerald-400',
     text: 'text-emerald-100',
@@ -103,8 +103,8 @@ const rarityMap = {
     sparkle: 'bg-emerald-400/20',
     icons: { type: 'star', count: 1, color: 'fill-slate-200' },
   },
-  'Rare': { // NUEVA ANIMACIÓN
-    label: 'Rare',
+  { // 2
+    label: rarityFromLevel(2),
     color: 'bg-gradient-to-br from-blue-500 via-sky-400 to-blue-600',
     border: 'border-sky-400',
     text: 'text-sky-100',
@@ -115,8 +115,8 @@ const rarityMap = {
     icons: { type: 'star', count: 2, color: 'fill-yellow-400' },
     animationClass: 'uncommon-breathing-glow bg-gradient-to-tl from-blue-950 via-sky-100 to-blue-900', // Brillo que respira
   },
-  'Ultra Rare': { // SE MANTIENE
-    label: 'Ultra Rare',
+  { // 3
+    label: rarityFromLevel(3),
     color: 'bg-gradient-to-br from-sky-500 via-violet-600 to-fuchsia-600',
     border: 'border-violet-400',
     text: 'text-cyan-300',
@@ -127,8 +127,8 @@ const rarityMap = {
     icons: { type: 'star', count: 3, color: 'fill-sky-300' },
     animationClass: 'ultra-rare-plasma-hologram', // Plasma y holograma,
   },
-  'Epic': {
-    label: 'Epic',
+  { // 4
+    label: rarityFromLevel(4),
     color: 'bg-gradient-to-br from-red-950 via-red-700 from-20% via-65% to-amber-600',
     border: 'border-amber-300',
     text: 'text-amber-200',
@@ -139,8 +139,8 @@ const rarityMap = {
     icons: { type: 'star', count: 4, color: 'fill-yellow-300' },
     animationClass: 'epic-power-flow',
   },
-  'Legendary': {
-    label: 'Legendary',
+  { // 5
+    label: rarityFromLevel(5),
     color: 'bg-gradient-to-bl from-yellow-600 via-amber-900 to-yellow-700',
     border: 'border-yellow-200',
     text: 'text-white',
@@ -151,8 +151,8 @@ const rarityMap = {
     icons: { type: 'star', count: 5, color: 'fill-yellow-200' },
     animationClass: 'legendary-golden-pulse rare-shine',
   },
-  'Ultra': {
-    label: 'Ultra',
+  { // 6
+    label: rarityFromLevel(6),
     color: 'bg-gradient-to-t from-blue-900 via-purple-950 to-black',
     border: 'border-cyan-300',
     text: 'text-cyan-200',
@@ -163,9 +163,18 @@ const rarityMap = {
     icons: { type: 'star', count: 6, color: 'fill-cyan-300' },
     animationClass: 'ultra-cosmic-field',
   }
-};
+];
 
-const rarity = rarityMap[achievement.rarity] || rarityMap['Common'];
+function getRarityStyles(level: number) {
+  const idx = Math.min(
+    rarityStylesByLevel.length - 1,
+    Math.max(0, level + COMMON_INDEX)
+  );
+  return rarityStylesByLevel[idx];
+}
+
+// const rarity = rarityMap[achievement.rarity] || rarityMap['Common'];
+const rarity = getRarityStyles(achievement.rarity);
 ---
 
 <div class="achievement-card group" tabindex="0" role="button" aria-label={`Ver detalles de ${achievement.name}`}>
