@@ -36,4 +36,8 @@ prizes:
   bestGoalkeeper:
     player: "Ksatsthas"
     team: "Atsvea"
+  bestGoal:
+    player: "T. Wolf"
+    team: "Trebenia"
+
 ---

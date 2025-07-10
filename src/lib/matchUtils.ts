@@ -136,7 +136,7 @@ export function areThereScorers(match: Match): boolean {
 }
 
 export function getAllMatchesByTeam(team: string, matches: Match[]): Match[] {
-  return matches.filter(match => match.team1 === team || match.team2 === team);
+  return matches.filter(match => match.data.team1 === team || match.data.team2 === team);
 }
 
 export function getMatchRedCards(match: Match): { team1: { player: string; minute: number }[]; team2: { player: string; minute: number }[] } {
@@ -151,45 +151,40 @@ export function getMatchRedCards(match: Match): { team1: { player: string; minut
   return { team1, team2 };
 }
 
-export function getLossStreak(memberName: string, allMatches) {
-  let streak = 0;
-  let maxStreak = 0;
-
-  const playedMatches = allMatches
-    .filter(m => [m.data.team1, m.data.team2].includes(memberName))
-    .sort((a, b) => new Date(a.data.date).getTime() - new Date(b.data.date).getTime());
-
-  for (const match of playedMatches) {
-    const { goals } = match.data;
-    const gf = goals?.filter(g => g.team === memberName).length ?? 0;
-    const ga = goals?.filter(g => g.team !== memberName).length ?? 0;
-
-    const lost = gf < ga;
-    if (lost) {
-      streak++;
-      if (streak > maxStreak) maxStreak = streak;
-    } else {
-      streak = 0;
+export function getAllRedCards(memberName: string, matches: Match[]) {
+  let total = 0;
+  for (const match of matches) {
+    if (match.data.team1 === memberName) {
+      total += getMatchRedCards(match.data).team1.length;
+    }
+    if (match.data.team2 === memberName) {
+      total += getMatchRedCards(match.data).team2.length;
     }
   }
-  return maxStreak;
+  return total;
 }
 
-export function getUnbeatenStreak(memberName: string, allMatches) {
+function getMatchGoals(match: Match, team: string): { gf: number, ga: number } {
+  const goals = match.data.goals ?? [];
+  const gf = goals.filter(g => g.team === team).length;
+  const ga = goals.length - gf; // Total de goles menos los goles a favor
+  return { gf, ga };
+}
+
+function getStreak(
+  memberName: string,
+  allMatches: Match[],
+  condition: (gf: number, ga: number) => boolean
+): number {
   let streak = 0;
   let maxStreak = 0;
-
   const playedMatches = allMatches
     .filter(m => [m.data.team1, m.data.team2].includes(memberName) && m.data.status === 'played')
-    .sort((a, b) => new Date(a.data.date) - new Date(b.data.date));
+    .sort((a, b) => new Date(a.data.date).getTime() - new Date(b.data.date).getTime());
 
   for (const match of playedMatches) {
-    const { goals } = match.data;
-    const gf = goals?.filter(g => g.team === memberName).length ?? 0;
-    const ga = goals?.filter(g => g.team !== memberName).length ?? 0;
-
-    const lost = gf < ga;
-    if (!lost) {
+    const { gf, ga } = getMatchGoals(match, memberName);
+    if (condition(gf, ga)) {
       streak++;
       if (streak > maxStreak) maxStreak = streak;
     } else {
@@ -199,25 +194,40 @@ export function getUnbeatenStreak(memberName: string, allMatches) {
   return maxStreak;
 }
 
-export function getWinStreak(memberName: string, allMatches) {
-  let streak = 0;
-  let maxStreak = 0;
+export function getLossStreak(memberName: string, allMatches: Match[]) {
+  return getStreak(memberName, allMatches, (gf, ga) => gf < ga);
+}
 
-  const games = allMatches
-    .filter(m => m.data.team1 === memberName|| m.data.team2 === memberName)
-    .sort((a, b) => new Date(a.data.date).getTime() - new Date(b.data.date).getTime());
+export function getUnbeatenStreak(memberName: string, allMatches: Match[]) {
+  return getStreak(memberName, allMatches, (gf, ga) => gf >= ga);
+}
 
-  for (const m of games) {
-    const goals = m.data.goals ?? [];
-    const gf = goals.filter(g => g.team === memberName).length ?? 0;
-    const ga = goals.filter(g => g.team !== memberName).length ?? 0;
+export function getWinStreak(memberName: string, allMatches: Match[]) {
+  return getStreak(memberName, allMatches, (gf, ga) => gf > ga);
+}
 
-    if (gf > ga) {
-      streak++;
-      maxStreak = Math.max(maxStreak, streak);
-    } else {
-      streak = 0;
-    }
+export function getNoWinStreak(memberName: string, allMatches: Match[]) {
+  return getStreak(memberName, allMatches, (gf, ga) => gf <= ga);
+}
+
+export function getNoGoalStreak(memberName: string, allMatches: Match[]): number {
+  return getStreak(memberName, allMatches, (gf, ga) => gf === 0);
+}
+
+export function getWins(memberName: string) {
+  let wins = 0;
+  for (const match of allMatches) {
+    const { gf, ga } = getMatchGoals(match, memberName);
+    if (gf > ga) wins++;
   }
-  return maxStreak;
+  return wins;
+}
+
+export function getAllGoals(memberName: string, allMatches: Match[]) {
+  let goals = 0;
+  for (const match of allMatches) {
+    const { gf, ga } = getMatchGoals(match, memberName);
+    goals += gf;
+  }
+  return goals;
 }

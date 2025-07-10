@@ -53,4 +53,7 @@ prizes:
   bestGoalkeeper:
     player: "I. Hans"
     team: "Einswenn"
+  bestGoal:
+    player: "I. Darrow"
+    team: "Cacusia"
 ---

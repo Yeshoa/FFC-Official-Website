@@ -31,6 +31,7 @@ const tournamentsCollection = defineCollection({
       topScorer: z.array(z.object({ player: z.string(), team: z.string(), goals: z.number() })).optional(),
       bestPlayer: z.object({ player: z.string(), team: z.string() }).optional(),
       bestGoalkeeper: z.object({ player: z.string(), team: z.string() }).optional(),
+      bestGoal: z.object({ player: z.string(), team: z.string() }).optional(),
     }).optional(),
   }),
 });

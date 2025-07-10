@@ -1,6 +1,9 @@
 import Trophy from '@images/achievements/king.webp';
 import type { Achievement } from './index';
 import type { CollectionEntry } from 'astro:content';
+import type { Rarity, Category } from '../utils';
+
+const thisCategory = 'Awards';
 
 type Match = CollectionEntry<'matches'>;
 type Tournament = CollectionEntry<'tournaments'>;
@@ -12,6 +15,10 @@ export const awardAchievements: {
   name: string;
   icon: ImageMetadata;
   description: string;
+  category: Category;
+  unique: boolean;
+  visible: boolean; // This one is for when it is locked, not for enabled or disabled
+  enabled: boolean;
   evaluate: (allMatches: Match[], allTournaments: Tournament[], member: Member, members: Member[]) => Achievement | null;
   
 }[] = [
@@ -21,15 +28,17 @@ export const awardAchievements: {
     name: 'MVP',
     icon: Trophy,
     description: 'Awarded for winning the Golden Ball in a Forest Cup.',
-    evaluate: (matches, tournaments, member) => {
+    category: thisCategory,
+    unique: false,
+    visible: false,
+    enabled: false,
+    evaluate: function (matches, tournaments, member) {
+      const { evaluate, ...base } = this;
       const tour = tournaments.find(t => t.data.prizes?.bestPlayer?.team === member.data.name);
       if (!tour) return null;
       const player = tour.data.prizes!.bestPlayer!.player;
       return {
-        id: 'mvp',
-        name: 'MVP',
-        icon: Trophy,
-        rarity: 'Rare',
+        ...base,
         description: `Player ${player} won the Golden Ball in FC ${tour.data.edition}.`
       };
     }
@@ -40,15 +49,17 @@ export const awardAchievements: {
     name: 'Wall',
     icon: Trophy,
     description: 'Awarded for winning the Golden Glove in a Forest Cup.',
-    evaluate: (matches, tournaments, member) => {
+    category: thisCategory,
+    unique: false,
+    visible: false,
+    enabled: false,
+    evaluate: function (matches, tournaments, member)  {
+      const { evaluate, ...base } = this;
       const tour = tournaments.find(t => t.data.prizes?.bestGoalkeeper?.team === member.data.name);
       if (!tour) return null;
       const player = tour.data.prizes!.bestGoalkeeper!.player;
       return {
-        id: 'wall',
-        name: 'Wall',
-        icon: Trophy,
-        rarity: 'Rare',
+        ...base,
         description: `Player ${player} won the Golden Glove in FC ${tour.data.edition}.`
       };
     }
@@ -59,15 +70,17 @@ export const awardAchievements: {
     name: 'Golden Boot',
     icon: Trophy,
     description: 'Awarded for winning the Golden Boot in a Forest Cup.',
-    evaluate: (matches, tournaments, member) => {
+    category: thisCategory,
+    unique: false,
+    visible: false,
+    enabled: false,
+    evaluate: function (matches, tournaments, member)   {
+      const { evaluate, ...base } = this;
       const tour = tournaments.find(t => t.data.prizes?.topScorer?.team === member.data.name);
       if (!tour) return null;
       const player = tour.data.prizes!.topScorer!.player;
       return {
-        id: 'golden-boot',
-        name: 'Golden Boot',
-        icon: Trophy,
-        rarity: 'Rare',
+        ...base,
         description: `Player ${player} won the Golden Boot in FC ${tour.data.edition}.`
       };
     }
@@ -78,7 +91,12 @@ export const awardAchievements: {
     name: 'Awarded',
     icon: Trophy,
     description: 'Won a Forest Cup, a Golden Ball, a Golden Glove, and a Golden Boot.',
-    evaluate: (matches, tournaments, member) => {
+    category: thisCategory,
+    unique: false,
+    visible: false,
+    enabled: false,
+    evaluate: function (matches, tournaments, member)   {
+      const { evaluate, ...base } = this;
       // Lógica combinada: ganó copa, balón, guante y bota en cualquier edición
       const wonCup = tournaments.some(t => t.data.champion === member.data.name);
       const wonBall = tournaments.some(t => t.data.prizes?.bestPlayer?.team === member.data.name);
@@ -86,10 +104,7 @@ export const awardAchievements: {
       const wonBoot = tournaments.some(t => t.data.prizes?.topScorer?.team === member.data.name);
       if (wonCup && wonBall && wonGlove && wonBoot) {
         return {
-          id: 'awarded',
-          name: 'Awarded',
-          icon: Trophy,
-          rarity: 'Rare',
+          ...base,
           description: 'Won a Forest Cup, a Golden Ball, a Golden Glove, and a Golden Boot.'
         };
       }
@@ -102,17 +117,19 @@ export const awardAchievements: {
     name: 'Poker',
     icon: Trophy,
     description: 'Awarded for winning the Cup, Golden Ball, and Golden Boot in the same edition.',
-    evaluate: (matches, tournaments, member) => {
+    category: thisCategory,
+    unique: false,
+    visible: false,
+    enabled: false,
+    evaluate: function (matches, tournaments, member)  {
+      const { evaluate, ...base } = this;
       for (const t of tournaments) {
         const isChampion = t.data.champion === member.data.name;
         const isBall = t.data.prizes?.bestPlayer?.team === member.data.name;
         const isBoot = t.data.prizes?.topScorer?.team === member.data.name;
         if (isChampion && isBall && isBoot) {
           return {
-            id: 'poker',
-            name: 'Poker',
-            icon: Trophy,
-            rarity: 'Legendary',
+            ...base,
             description: `Won Cup, Golden Ball, and Golden Boot in FC ${t.data.edition}.`
           };
         }

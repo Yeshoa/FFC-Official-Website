@@ -3,7 +3,7 @@ import { awardAchievements } from './awards';
 import { streakAchievements } from './streaks';
 import { rivalryAchievements } from './rivalry';
 import { specialAchievements } from './special';
-import { RARITIES, type Rarity, CATEGORIES, type Category } from '../utils';
+import { RARITIES, type Rarity, CATEGORIES, type Category, hierarchy } from '../utils';
 import { getCollection } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
 
@@ -13,83 +13,25 @@ type Member = CollectionEntry<'members'>;
 type StaticAch = CollectionEntry<'achievements'>;
 export interface Achievement {
   id: string;
-    name: string;
-    icon: ImageMetadata;
-    description: string;
-    rarity: Rarity;
-    category: Category;
-    unique: boolean;
-    visible: boolean; // This one is for when it is locked, not for enabled or disabled
-    enabled: boolean;
+  name: string;
+  icon: ImageMetadata;
+  description: string;
+  rarity: Rarity;
+  category: Category;
+  unique: boolean;
+  visible: boolean; // This one is for when it is locked, not for enabled or disabled
+  enabled: boolean;
 }
 
 const rarityOrder = RARITIES;
-
-// minor -> major
-const achievementHierarchy: Record<string, string> = {
-  'host': '', //host
-  'champion': 'double-champion', //champion
-  'double-champion': 'triple-champion', //double-champion
-  'triple-champion': '', //triple-champion
-  'unbeaten-champion': 'perfect-champion', //invictus
-  'perfect-champion': 'ultimate-champion', //flawless
-  'ultimate-champion': '', //puntaje perfecto + todos los premios
-  'golden-ball': 'mvp-gg-gb', //mvp
-  'golden-glove': 'mvp-gg-gb', //wall
-  'golden-boot': 'mvp-gg-gb', //golden-boot
-  'mvp-gg-gb': 'mvp-gg-gb-single', //awarded
-  'mvp-gg-gb-single': '', //poker
-  'no-goal': '', //goal-famine
-  'ten-goals': 'twenty-goals', //
-  'twenty-goals': 'thirty-goals', //
-  'thirty-goals': 'forty-goals', //
-  'forty-goals': 'fifty-goals', //
-  'fifty-goals': '', //
-  'all-time-scorer': '', //all-time-scorer
-  '3-matches': '5-matches', //rivalry
-  '5-matches': '7-matches', //classic
-  '7-matches': '10-matches', //
-  '10-matches': '', //
-  '3-wins': '5-wins', //dominator
-  '5-wins': '7-wins', //nemesis
-  '7-wins': '10-wins', //
-  '10-wins': '', //
-  '3-loses': '5-loses', //underdog
-  '5-loses': '7-loses', //prey
-  '7-loses': '10-loses', //
-  '10-loses': '', //
-  '3-goal-difference': '5-goal-difference', //goal-difference
-  '5-goal-difference': '7-goal-difference', //
-  '7-goal-difference': '10-goal-difference', //
-  '10-goal-difference': '', //
-  'biggest-win': '', //biggest-win
-  'biggest-loss': '', //biggest-loss
-  'no-win': '', //winless
-  'no-loss': '', //lossless
-  '3-win-streak': '5-win-streak', //longest-win-streak
-  '5-win-streak': '7-win-streak', //
-  '7-win-streak': '10-win-streak', //
-  '10-win-streak': '', //
-  'longest-win-streak': '', //longest-win-streak
-  '3-unbeaten-streak': '5-unbeaten-streak', //longest-unbeaten-streak
-  '5-unbeaten-streak': '7-unbeaten-streak', //
-  '7-unbeaten-streak': '10-unbeaten-streak', //
-  '10-unbeaten-streak': '', //
-  'longest-unbeaten-streak': '', //longest-unbeaten-streak
-  '3-loss-streak': '5-loss-streak', //longest-loss-streak
-  '5-loss-streak': '7-loss-streak', //
-  '7-loss-streak': '10-loss-streak', //
-  '10-loss-streak': '', //
-  'longest-loss-streak': '', //longest-loss-streak
-  '3-eliminations': '', //
-};
 
 export const dynamicDefs = [
   ...tournamentAchievements,
   ...awardAchievements,
   ...streakAchievements,
   ...rivalryAchievements,
-  ...specialAchievements,
+  // ...specialAchievements,
+
 ].sort((a, b) => {
   const rA = rarityOrder.findIndex(r => r.toLowerCase() === a.rarity.toLowerCase());
   const rB = rarityOrder.findIndex(r => r.toLowerCase() === b.rarity.toLowerCase());
@@ -110,10 +52,13 @@ export async function getAchievementsForMember(name: string): Promise<Achievemen
   const member = members.find(m => m.data.name === name);
   if (!member) return [];
 
+  const duplicatedUniques = await findDuplicatedUniqueIds();
+
   // 1) Dynamic
   const dynamic = dynamicDefs
     .map(def => def.evaluate(matches, tournaments, member, members))
-    .filter((a): a is Achievement => !!a);
+    .filter((a): a is Achievement => !!a)
+    .filter(a => !(a.unique && duplicatedUniques.has(a.id)));
 
   // 2) Manual – suppose you have a field `member.data.manualAchievements: string[]`
   const manualIds: string[] = (member.data as any).manualAchievements || [];
@@ -135,9 +80,9 @@ export async function getAchievementsForMember(name: string): Promise<Achievemen
   let all = [...manual, ...dynamic];
   const achievedIds = new Set(all.map(a => a.id));
   all = all.filter(a => {
-    const superior = Object.entries(achievementHierarchy)
+    const superior = Object.entries(hierarchy)
       .find(([lower, higher]) => lower === a.id && higher && achievedIds.has(higher));
-    return !superior;
+    return !superior && a.enabled;
   });
   all.sort((a, b) => {
     const rA = rarityOrder.findIndex(r => r.toLowerCase() === a.rarity.toLowerCase());
@@ -193,3 +138,29 @@ export async function getMembersWithAchievement(achievementId: string): Promise<
 
   return membersWithAchievement;
 }
+
+async function findDuplicatedUniqueIds(): Promise<Set<string>> {
+  const [matches, tournaments, members] = await Promise.all([
+    getCollection('matches'),
+    getCollection('tournaments'),
+    getCollection('members'),
+  ]);
+
+  const counts = new Map<string, number>();
+
+  for (const member of members) {
+    for (const def of dynamicDefs) {
+      const ach = def.evaluate(matches, tournaments, member, members);
+      if (ach && def.unique) {
+        counts.set(ach.id, (counts.get(ach.id) ?? 0) + 1);
+      }
+    }
+  }
+
+  return new Set(
+    [...counts.entries()]
+      .filter(([, count]) => count > 1)
+      .map(([id]) => id)
+  );
+}
+
