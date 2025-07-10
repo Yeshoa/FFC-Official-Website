@@ -310,6 +310,7 @@ const rarity = rarityMap[achievement.rarity] || rarityMap['Common'];
   perspective: 1000px;
   cursor: pointer;
 }
+
 .flip-card-inner {
   position: relative;
   width: 100%;
@@ -317,17 +318,26 @@ const rarity = rarityMap[achievement.rarity] || rarityMap['Common'];
   transition: transform 0.7s;
   transform-style: preserve-3d;
   box-shadow: 0 8px 32px 0 rgba(0,0,0,0.3);
+  /* Addded will-change for performance optimization. */
+  will-change: transform;
 }
+
 .achievement-card.is-flipped .flip-card-inner {
   transform: rotateY(180deg);
 }
+
 .flip-card-front, .flip-card-back {
   position: absolute;
   width: 100%;
   height: 100%;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
+  /* Addded transform for proper layering.
+  Addded will-change for performance optimization. */
+  transform: translateZ(0);
+  will-change: transform;
 }
+
 .flip-card-back {
   transform: rotateY(180deg);
 }
