@@ -27,7 +27,6 @@ const makeReachedTierAchievements = (
   icon,
   rarity,
   stars,
-  skulls: 0,
   description: "Reached Tier " + tier + " at least once.",
   category: thisCategory,
   unique: false,
@@ -48,11 +47,11 @@ const makeReachedTierAchievements = (
     const newStars = reachedTier.length;
     const bonus = Math.floor((newStars - 1) / 8); // 1 extra rarity por cada 8 estrellas
     const newRarity = rarity + bonus;
-    const displayStars = ((newStars - 1) % 8) + 1;; // max 8 estrellas
+    // const displayStars = ((newStars - 1) % 8) + 1;; // max 8 estrellas
 
     return {
       ...base,
-      stars: displayStars,
+      stars: newStars,
       description: newDescription,
       rarity: newRarity
     };
@@ -89,6 +88,7 @@ const makeBeatTierAchievements = (
     let bestStars = -1;
     let bestEdition = null;
     let bestOpponentTier = null;
+    let bestOpponentName = null;
 
     for (const m of played) {
       const edition = m.data.date.getFullYear();
@@ -113,6 +113,7 @@ const makeBeatTierAchievements = (
         bestStars = stars;
         bestEdition = edition;
         bestOpponentTier = oppRecord.tier;
+        bestOpponentName = opponentName;
       }
     }
 
@@ -120,7 +121,7 @@ const makeBeatTierAchievements = (
       return {
         ...base,
         stars: bestStars,
-        description: `Beat a ${bestOpponentTier} team being ${bestStars} tiers lower in edition ${bestEdition}.`,
+        description: `Beaten a ${bestOpponentTier} team being ${bestStars} tiers lower.`,
       };
     }
 

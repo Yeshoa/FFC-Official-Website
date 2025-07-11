@@ -7,5 +7,5 @@ rarity: 2
 category: "Ranking"
 unique: false
 visible: false
-enabled: true
+enabled: false
 ---

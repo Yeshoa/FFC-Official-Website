@@ -20,7 +20,6 @@ export const baseAchievements: {
   description: string;
   category: Category;
   stars?: number;
-  skulls?: number;
   unique: boolean;
   visible: boolean; // This one is for when it is locked, not for enabled or disabled
   enabled: boolean;
@@ -65,19 +64,43 @@ export const baseAchievements: {
       });
 
       // 4) If the member won one of them
-      if (biggestWins.some(w => w.winner === member.data.name)) {
-        const win = biggestWins.find(w => w.winner === member.data.name)!;
-        const opponent = win.loser;
-        const [scW, scL] = win.goals;
+      if (!biggestWins.some(w => w.winner === member.data.name)) return null;
 
-        const { evaluate, ...base } = this;
-        return {
-          ...base,
-          description: `Biggest victory: ${scW}–${scL} vs ${opponent}.`
-        };
+      const win = biggestWins.find(w => w.winner === member.data.name)!;
+      const opponent = win.loser;
+      const [scW, scL] = win.goals;
+
+      const maxMinDif = Math.max(...difAchievements.map(ach => parseInt(ach.id.split('-')[0], 10)));
+      let newRarity = this.rarity; 
+      let newName = this.name; // Default a "Judgement Day"
+      if (maxDiff <= maxMinDif) {
+        for (const ach of difAchievements) {
+          const minDif = parseInt(ach.id.split('-')[0], 10);
+          if (maxDiff >= minDif) {
+            newRarity = ach.rarity - 1; // Subirle la rareza del logro
+            newName = ach.name; // EN ESTE CASO ESPECIFICO NO IMPORTA USAR EL MISMO
+          } else {
+            // newName = ach.name; // EN ESTE CASO USA EL NOMBRE DEL SIGUIENTE
+            break; // Parar cuando maxDiff es menor que minDif
+          }
+        }
       }
-
-      return null;
+      const { evaluate, ...base } = this;
+      return {
+        ...base,
+        description: `Biggest victory: ${scW}–${scL} vs ${opponent}.`,
+        name: newName,
+        stars: maxDiff,
+        rarity: newRarity,
+        suppresses: [
+        '3-goal-difference',
+        '5-goal-difference',
+        '6-goal-difference',
+        '7-goal-difference',
+        '8-goal-difference',
+        '9-goal-difference',
+        /* '10-goal-difference' */]
+      };
     }
   },
 ];
@@ -108,12 +131,12 @@ const makeMatchesAchievements = (
       }
       const rivals = [...counts.entries()].filter(([,c]) => c>=minMatches).map(([r])=>r);
       const newStars = rivals.length;
-      const displayStars = ((newStars - 1) % 8) + 1;; // max 8 estrellas
+      // const displayStars = ((newStars - 1) % 8) + 1;; // max 8 estrellas
       const list = rivals.map((r, i, arr) => i === arr.length - 1 && rivals.length > 1 ? ` and ${r}` : r).join(', ');
       return rivals.length
         ? {
             ...base,
-            stars: displayStars,
+            stars: newStars,
             description: `Played ${minMatches}+ matches against: ${list}.`
           }
         : null;
@@ -153,14 +176,13 @@ const makeWinAchievements = (
     const rivals = [...counts.entries()].filter(([,c]) => c>=minWins).map(([r])=>r);
 
     const newStars = rivals.length;
-    const displayStars = ((newStars - 1) % 8) + 1;; // max 8 estrellas
+    // const displayStars = ((newStars - 1) % 8) + 1;; // max 8 estrellas
 
     const list = rivals.map((r, i, arr) => i === arr.length - 1 && rivals.length > 1 ? ` and ${r}` : r).join(', ');
     return rivals.length
       ? {
           ...base,
-          stars: rarity >= 0 ? displayStars:0,
-          skulls: rarity < 0 ? displayStars:0,
+          stars: newStars,
           description: `Won ${minWins}+ matches against: ${list}.`
         }
       : null;
@@ -199,14 +221,13 @@ const makeLossAchievements = (
     }
     const rivals = [...counts.entries()].filter(([,c]) => c>=minLosses).map(([r])=>r);
     const newStars = rivals.length;
-    const displayStars = ((newStars - 1) % 8) + 1;; // max 8 estrellas
+    // const displayStars = ((newStars - 1) % 8) + 1;; // max 8 estrellas
 
     const list = rivals.map((r, i, arr) => i === arr.length - 1 && rivals.length > 1 ? ` and ${r}` : r).join(', ');
     return rivals.length
       ? {
           ...base,
-          stars: rarity >= 0 ? displayStars:0,
-          skulls: rarity < 0 ? displayStars:0,
+          stars: newStars,
           description: `Lost ${minLosses}+ matches against: ${list}.`
         }
       : null;
@@ -246,14 +267,13 @@ const makeDifAchievements = (
     }
     const rivals = [...counts.entries()].map(([r])=>r);
     const newStars = rivals.length;
-    const displayStars = ((newStars - 1) % 8) + 1;; // max 8 estrellas
+    // const displayStars = ((newStars - 1) % 8) + 1;; // max 8 estrellas
 
     const list = rivals.map((r, i, arr) => i === arr.length - 1 && rivals.length > 1 ? ` and ${r}` : r).join(', ');
     return rivals.length
       ? {
           ...base,
-          stars: rarity >= 0 ? displayStars:0,
-          skulls: rarity < 0 ? displayStars:0,
+          stars: newStars,
           description: `Won by ${minDif}${minDif===3 || minDif===10?'+':''} goals against: ${list}.`
         }
       : null;
@@ -294,12 +314,12 @@ const makeEliminationAchievements = (
 
     const rivals = Object.entries(eliminations).filter(([, count]) => count >= minEliminations);
     const newStars = rivals.length;
-    const displayStars = ((newStars - 1) % 8) + 1;; // max 8 estrellas
+    // const displayStars = ((newStars - 1) % 8) + 1; // max 8 estrellas
     if (!rivals.length) return null;
     const list = rivals.map((r, i, arr) => i === arr.length - 1 && rivals.length > 1 ? ` and ${r[0]}` : r[0]).join(', ');
     return {
       ...base,
-      skulls: displayStars,
+      stars: newStars,
       description: `Eliminated ${minEliminations}+ times by: ${list}.`
     }
   }
@@ -336,7 +356,7 @@ const difAchievements: Achievement[] = [
   makeDifAchievements('7-goal-difference', 'Killer', -3, Trophy, 'Awarded for winning by a goal difference of 7+.', 7),
   makeDifAchievements('8-goal-difference', 'Slayer', -4, Trophy, 'Awarded for winning by a goal difference of 8+.', 8),
   makeDifAchievements('9-goal-difference', 'Annihilator', -5, Trophy, 'Awarded for winning by a goal difference of 9+.', 9),
-  makeDifAchievements('10-goal-difference', 'Exterminator', -6, Trophy, 'Awarded for winning by a goal difference of 10+.', 10),
+  // makeDifAchievements('10-goal-difference', 'Exterminator', -6, Trophy, 'Awarded for winning by a goal difference of 10+.', 10),
 ];
 
 const eliminationAchievements: Achievement[] = [

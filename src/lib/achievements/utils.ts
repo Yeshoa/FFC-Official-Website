@@ -55,27 +55,27 @@ export const hierarchy: Record<string, string> = {
   '3-win-streak': '5-win-streak', //
   '5-win-streak': '7-win-streak', //
   '7-win-streak': '10-win-streak', //
-  '10-win-streak': 'longest-win-streak', //
+  '10-win-streak': '', //
   'longest-win-streak': '', //
   '3-unbeaten-streak': '5-unbeaten-streak', //
   '5-unbeaten-streak': '7-unbeaten-streak', //
   '7-unbeaten-streak': '10-unbeaten-streak', //
-  '10-unbeaten-streak': 'longest-unbeaten-streak', //
+  '10-unbeaten-streak': '', //
   'longest-unbeaten-streak': '', //
-  'no-win-7': 'no-win-10', //
-  'no-win-10': 'no-win-15', //
-  'no-win-15': 'no-win-20', //
-  'no-win-20': 'longest-winless-streak', //
+  '7-no-win': '10-no-win', //
+  '10-no-win': '15-no-win', //
+  '15-no-win': '20-no-win', //
+  '20-no-win': '', //
   'longest-winless-streak': '', //
   '3-loss-streak': '5-loss-streak', //
   '5-loss-streak': '7-loss-streak', //
   '7-loss-streak': '10-loss-streak', //
-  '10-loss-streak': 'longest-loss-streak', //
+  '10-loss-streak': '', //
   'longest-loss-streak': '', //
   '5-scoreless-streak': '10-scoreless-streak', //
   '10-scoreless-streak': '15-scoreless-streak', //
   '15-scoreless-streak': '20-scoreless-streak', //
-  '20-scoreless-streak': 'longest-scoreless-streak', //
+  '20-scoreless-streak': '', //
   'longest-scoreless-streak': '', //
   '10-goals': '20-goals', //
   '20-goals': '30-goals', //
@@ -83,6 +83,7 @@ export const hierarchy: Record<string, string> = {
   '40-goals': '50-goals', //
   '50-goals': '75-goals', //
   '75-goals': '100-goals', //, 
+  '100-goals': '', //
   'all-time-scorer': '', //
   'most-red-cards': '', //
   // Rivalry

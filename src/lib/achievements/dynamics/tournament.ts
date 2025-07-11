@@ -26,7 +26,6 @@ const baseAchievements: {
   description: string;
   category: Category;
   stars?: number;
-  skulls?: number;
   unique: boolean;
   visible: boolean; // This one is for when it is locked, not for enabled or disabled
   enabled: boolean;
@@ -92,7 +91,7 @@ const baseAchievements: {
   {
     id: 'champion',
     rarity: 2,
-    name: 'Champion',
+    name: 'Kingdom',
     icon: Trophy,
     description: 'Awarded for winning a Forest Cup.',
     category: thisCategory,
@@ -133,7 +132,7 @@ const baseAchievements: {
   {
     id: 'triple-champion',
     rarity: 6,
-    name: 'Emperor',
+    name: 'Empire',
     icon: Trophy,
     description: 'Awarded for winning three Forest Cups.',
     category: thisCategory,
@@ -143,13 +142,15 @@ const baseAchievements: {
     enabled: true,
     evaluate: function (matches, tournaments, member) {
       const won = tournaments.filter(t => t.data.champion === member.data.name);
-      if (won.length !== 3) return null;
+      if (won.length < 3) return null;
       const editions = won
         .map(t => t.data.edition)
         .sort((a, b) => a - b);
-      const desc = `Won Forest Cup ${editions[0]}, ${editions[1]}, and ${editions[2]}.`;
+      const list = editions.map((e, i, arr) => i === arr.length - 1 && arr.length > 1 ? ` and ${e}` : e).join(', ');
+      const newDescription = `Won the Forest Cup ${editions.length} times (${list}).`;
+      // const desc = `Won Forest Cup ${editions[0]}, ${editions[1]}, and ${editions[2]}.`;
       const { evaluate, ...base } = this;
-      return { ...base, description: desc };
+      return { ...base, description: newDescription, stars: editions.length };
     }
   },
   {
@@ -371,7 +372,7 @@ function createAchievementResult(base, editions, options = {}) {
   if (editions.length === 0) return null;
 
   const newStars = editions.length;
-  const displayStars = ((newStars - 1) % 8) + 1;
+  // const displayStars = ((newStars - 1) % 8) + 1;
 
   // Calcular bonus de rareza si está habilitado
   const rarityBonus = enableRarityBonus ? Math.floor((newStars - 1) / 8) : 0;
@@ -400,7 +401,7 @@ function createAchievementResult(base, editions, options = {}) {
 
   return {
     ...base,
-    stars: displayStars,
+    stars: newStars,
     description: newDescription,
     ...(enableRarityBonus && { rarity: newRarity })
   };

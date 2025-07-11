@@ -184,8 +184,8 @@ const achievementsCollection = defineCollection({
       .min(-COMMON_INDEX)               
       .max(RARITIES.length - 1 - COMMON_INDEX)
       .default(0),                       // Common
-    stars: z.number().min(0).max(6).default(0),
-    skulls: z.number().min(0).max(6).default(0),
+    stars: z.number().min(0).default(0),
+    skulls: z.number().min(0).default(0),
     enabled: z.boolean().default(true),
     category: z.enum([...CATEGORIES]).default("special"),
     unique: z.boolean().default(false),

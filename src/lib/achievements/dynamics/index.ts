@@ -27,7 +27,7 @@ export interface Achievement {
   visible: boolean;
   enabled: boolean;
   stars?: number;
-  skulls?: number;
+  suppresses?: string[];
 }
 
 // Orden de rareza para sorting: usamos índices de RARITIES
@@ -36,10 +36,10 @@ const rarityOrderLevels = RARITIES.map((_, idx) => idx);
 /** Concatena todos los logros dinámicos y los ordena por nivel y luego nombre */
 export const dynamicDefs = [
   ...tournamentAchievements,
-  ...awardAchievements,
+  // ...awardAchievements,
   ...streakAchievements,
   ...rivalryAchievements,
-  ...specialAchievements,
+  // ...specialAchievements,
   ...rankingAchievements
 ].sort((a, b) => {
   if (a.rarity !== b.rarity) return a.rarity - b.rarity;
@@ -93,12 +93,18 @@ export async function getAchievementsForMember(name: string): Promise<Achievemen
 
   // 3) Unir, filtrar por jerarquía y enabled, y ordenar
   let all = [...manual, ...dynamic];
+
+  // 4) Aplicar supresiones
+  all = applySuppressions(all);
+
+  // 5) Filtrar por jerarquía y enabled
   const achievedIds = new Set(all.map(a => a.id));
   all = all.filter(a => {
     const superior = Object.entries(hierarchy)
       .find(([lower, higher]) => lower === a.id && higher && achievedIds.has(higher));
     return !superior && a.enabled;
   });
+  // 6) Ordenar por rareza y nombre
   all.sort((a, b) => {
     if (a.rarity !== b.rarity) return a.rarity - b.rarity;
     return a.name.localeCompare(b.name);
@@ -195,3 +201,14 @@ function dedupeByMaxStars(achs: Achievement[]): Achievement[] {
   return Array.from(bestById.values());
 }
 
+function applySuppressions(achievements: Achievement[]): Achievement[] {
+  const suppressedIds = new Set<string>();
+  // Recolectar todos los IDs que están en las propiedades `suppresses`
+  for (const ach of achievements) {
+    if (ach.suppresses) {
+      ach.suppresses.forEach(id => suppressedIds.add(id));
+    }
+  }
+  // Filtrar los logros, excluyendo aquellos cuyos IDs estén en suppressedIds
+  return achievements.filter(ach => !suppressedIds.has(ach.id));
+}
