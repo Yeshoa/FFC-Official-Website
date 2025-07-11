@@ -26,4 +26,7 @@ manualAchievements:
   - "collaborator"
   - "discord"
   - "giant-slayer"
+tierHistory:
+  - tier: "B"
+    edition: 2024
 ---

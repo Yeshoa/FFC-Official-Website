@@ -5,7 +5,6 @@ import { getMemberImage } from "@lib/memberUtils";
 import Star from "@images/icons/star-solid.svg";
 
 const { currentTournament, champion } = Astro.props;
-
 ---
 
 <section class="max-custom-high w-full overflow-hidden relative">
@@ -25,7 +24,7 @@ const { currentTournament, champion } = Astro.props;
             <div class="flex justify-center items-end gap-4 lg:flex-col lg:gap-0 lg:items-center">
                 <div>
                     <h2 class="text-gray-400 text-xl lg:text-2xl mb-2">CHAMPION</h2>
-                    <h3 class="font-bold text-2xl lg:text-4xl">{champion.data.name.toUpperCase()}</h3>
+                    <a href={`/members/${champion.slug}`} class="font-bold text-2xl lg:text-4xl hover:text-amber-400 transition-all duration-300">{champion.data.name.toUpperCase()}</a>
                 </div>
                 <div>
                     <Star class="w-8 h-8 mx-auto mt-2 fill-amber-400" />

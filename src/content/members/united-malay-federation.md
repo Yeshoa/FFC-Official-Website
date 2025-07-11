@@ -23,4 +23,7 @@ score:
 manualAchievements: 
   - "dispatch"
   - "voter"
+tierHistory:
+  - tier: "B"
+    edition: 2024
 ---

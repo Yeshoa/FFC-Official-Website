@@ -113,6 +113,8 @@ export const hierarchy: Record<string, string> = {
   '10-eliminations': '', //
 };
 
+export const tiers = ['F', 'E', 'D', 'C', 'B', 'A', 'S', 'SS', 'X'] as const;
+
 export type Category = typeof CATEGORIES[number];
 
 export type Rarity = typeof RARITIES[number];

@@ -12,6 +12,8 @@ const maxStreakAchievements: {
   description: string;
   rarity: number;
   category: Category;
+  stars?: number;
+  skulls?: number;
   unique: boolean;
   visible: boolean; // This one is for when it is locked, not for enabled or disabled
   enabled: boolean;

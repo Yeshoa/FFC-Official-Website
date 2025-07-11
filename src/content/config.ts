@@ -148,7 +148,13 @@ const membersCollection = defineCollection({
         }).passthrough() 
       ).optional().describe("List of squad members"),
     }).optional().describe("Squad configuration"),
-    manualAchievements: z.array(z.string()).optional()
+    manualAchievements: z.array(z.string()).optional(),
+    tierHistory: z.array(
+      z.object({
+        tier: z.string(),
+        edition: z.number(),
+      })
+    ).optional(),
   }),
 });
 
@@ -178,6 +184,8 @@ const achievementsCollection = defineCollection({
       .min(-COMMON_INDEX)               
       .max(RARITIES.length - 1 - COMMON_INDEX)
       .default(0),                       // Common
+    stars: z.number().min(0).max(6).default(0),
+    skulls: z.number().min(0).max(6).default(0),
     enabled: z.boolean().default(true),
     category: z.enum([...CATEGORIES]).default("special"),
     unique: z.boolean().default(false),

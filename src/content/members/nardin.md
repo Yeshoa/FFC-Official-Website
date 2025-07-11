@@ -20,4 +20,7 @@ score:
     extra: 0
 manualAchievements:
   - "giant-slayer"
+tierHistory:
+  - tier: "B"
+    edition: 2024
 ---

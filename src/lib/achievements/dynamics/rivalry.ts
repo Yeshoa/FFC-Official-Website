@@ -19,6 +19,8 @@ export const baseAchievements: {
   icon: ImageMetadata;
   description: string;
   category: Category;
+  stars?: number;
+  skulls?: number;
   unique: boolean;
   visible: boolean; // This one is for when it is locked, not for enabled or disabled
   enabled: boolean;
@@ -105,11 +107,13 @@ const makeMatchesAchievements = (
         if (m.data.team2 === member.data.name) counts.set(m.data.team1, (counts.get(m.data.team1)||0)+1);
       }
       const rivals = [...counts.entries()].filter(([,c]) => c>=minMatches).map(([r])=>r);
-
+      const newStars = rivals.length;
+      const displayStars = ((newStars - 1) % 8) + 1;; // max 8 estrellas
       const list = rivals.map((r, i, arr) => i === arr.length - 1 && rivals.length > 1 ? ` and ${r}` : r).join(', ');
       return rivals.length
         ? {
             ...base,
+            stars: displayStars,
             description: `Played ${minMatches}+ matches against: ${list}.`
           }
         : null;
@@ -148,10 +152,15 @@ const makeWinAchievements = (
     }
     const rivals = [...counts.entries()].filter(([,c]) => c>=minWins).map(([r])=>r);
 
+    const newStars = rivals.length;
+    const displayStars = ((newStars - 1) % 8) + 1;; // max 8 estrellas
+
     const list = rivals.map((r, i, arr) => i === arr.length - 1 && rivals.length > 1 ? ` and ${r}` : r).join(', ');
     return rivals.length
       ? {
           ...base,
+          stars: rarity >= 0 ? displayStars:0,
+          skulls: rarity < 0 ? displayStars:0,
           description: `Won ${minWins}+ matches against: ${list}.`
         }
       : null;
@@ -189,11 +198,15 @@ const makeLossAchievements = (
       if (m.data.team2 === member.data.name) counts.set(m.data.team1, (counts.get(m.data.team1)||0)+1);
     }
     const rivals = [...counts.entries()].filter(([,c]) => c>=minLosses).map(([r])=>r);
+    const newStars = rivals.length;
+    const displayStars = ((newStars - 1) % 8) + 1;; // max 8 estrellas
 
     const list = rivals.map((r, i, arr) => i === arr.length - 1 && rivals.length > 1 ? ` and ${r}` : r).join(', ');
     return rivals.length
       ? {
           ...base,
+          stars: rarity >= 0 ? displayStars:0,
+          skulls: rarity < 0 ? displayStars:0,
           description: `Lost ${minLosses}+ matches against: ${list}.`
         }
       : null;
@@ -232,10 +245,15 @@ const makeDifAchievements = (
       if (m.data.team2 === member.data.name) counts.set(m.data.team1, (counts.get(m.data.team1)||0)+1);
     }
     const rivals = [...counts.entries()].map(([r])=>r);
+    const newStars = rivals.length;
+    const displayStars = ((newStars - 1) % 8) + 1;; // max 8 estrellas
+
     const list = rivals.map((r, i, arr) => i === arr.length - 1 && rivals.length > 1 ? ` and ${r}` : r).join(', ');
     return rivals.length
       ? {
           ...base,
+          stars: rarity >= 0 ? displayStars:0,
+          skulls: rarity < 0 ? displayStars:0,
           description: `Won by ${minDif}${minDif===3 || minDif===10?'+':''} goals against: ${list}.`
         }
       : null;
@@ -261,6 +279,7 @@ const makeEliminationAchievements = (
   enabled: true,
   evaluate: function (matches: Match[], _tournaments: Tournament[], member: Member) {
     const eliminations: Record<string, number> = {};
+    const { evaluate, ...base } = this;
     for (const m of matches) {
       if (m.data.stage !== 'knockout') continue;
       if (m.data.status !== 'played') continue;
@@ -274,11 +293,13 @@ const makeEliminationAchievements = (
     }
 
     const rivals = Object.entries(eliminations).filter(([, count]) => count >= minEliminations);
+    const newStars = rivals.length;
+    const displayStars = ((newStars - 1) % 8) + 1;; // max 8 estrellas
     if (!rivals.length) return null;
     const list = rivals.map((r, i, arr) => i === arr.length - 1 && rivals.length > 1 ? ` and ${r[0]}` : r[0]).join(', ');
-    const { evaluate, ...base } = this;
     return {
       ...base,
+      skulls: displayStars,
       description: `Eliminated ${minEliminations}+ times by: ${list}.`
     }
   }

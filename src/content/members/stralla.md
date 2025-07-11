@@ -22,4 +22,9 @@ score:
     extra: 0
 manualAchievements: 
   - "founder"
+tierHistory:
+  - tier: "B"
+    edition: 2022
+  - tier: "E"
+    edition: 2024
 ---

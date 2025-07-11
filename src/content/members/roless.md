@@ -26,4 +26,9 @@ manualAchievements:
   - "dispatch"
   - "discord"
   - "powerhouse"
+tierHistory:
+  - tier: "A"
+    edition: 2022
+  - tier: "S"
+    edition: 2024
 ---

@@ -6,4 +6,7 @@ nslink: "https://www.nationstates.net/nation=chan_island"
 flagPath: "/src/assets/images/members/xchi_flag.jpg"
 region: "Forest"
 verified: false
+tierHistory:
+  - tier: "C"
+    edition: 2020
 ---

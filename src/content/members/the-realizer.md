@@ -21,4 +21,7 @@ score:
 manualAchievements: 
   - "founder"
   - "collaborator"
+tierHistory:
+  - tier: "C"
+    edition: 2024
 ---

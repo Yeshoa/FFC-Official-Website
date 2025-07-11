@@ -21,4 +21,7 @@ score:
   bonus:
     host: 0
     extra: 0
+tierHistory:
+  - tier: "B"
+    edition: 2024
 ---

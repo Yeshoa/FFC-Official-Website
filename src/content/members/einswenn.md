@@ -26,4 +26,9 @@ manualAchievements:
   - "sponsor"
   - "discord"
   - "powerhouse"
+tierHistory:
+  - tier: "S"
+    edition: 2022
+  - tier: "A"
+    edition: 2024
 ---

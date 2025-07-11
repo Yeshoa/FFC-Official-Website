@@ -23,4 +23,7 @@ score:
     extra: 0
 manualAchievements: 
   - "dispatch"
+tierHistory:
+  - tier: "C"
+    edition: 2024
 ---

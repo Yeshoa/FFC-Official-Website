@@ -22,4 +22,7 @@ score:
     extra: 0
 manualAchievements: 
   - "voter"
+tierHistory:
+  - tier: "B"
+    edition: 2024
 ---

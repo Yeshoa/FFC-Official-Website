@@ -17,4 +17,7 @@ score:
   bonus:
     host: 0
     extra: 0
+tierHistory:
+  - tier: "C"
+    edition: 2022
 ---

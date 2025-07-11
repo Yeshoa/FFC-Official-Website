@@ -6,4 +6,7 @@ nslink: "https://www.nationstates.net/nation=dwardossa"
 flagPath: "/src/assets/images/members/xdwa_flag.png"
 region: "Forest"
 verified: false
+tierHistory:
+  - tier: "A"
+    edition: 2020
 ---

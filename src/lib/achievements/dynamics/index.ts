@@ -3,6 +3,7 @@ import { awardAchievements }      from './awards';
 import { streakAchievements }     from './streaks';
 import { rivalryAchievements }    from './rivalry';
 import { specialAchievements }    from './special';
+import { rankingAchievements } from './ranking';
 import { RARITIES, levelFromRarity, rarityFromLevel, CATEGORIES, type Category, hierarchy } from '../utils';
 import { getCollection }          from 'astro:content';
 import type { CollectionEntry }   from 'astro:content';
@@ -25,6 +26,8 @@ export interface Achievement {
   unique: boolean;
   visible: boolean;
   enabled: boolean;
+  stars?: number;
+  skulls?: number;
 }
 
 // Orden de rareza para sorting: usamos índices de RARITIES
@@ -37,6 +40,7 @@ export const dynamicDefs = [
   ...streakAchievements,
   ...rivalryAchievements,
   ...specialAchievements,
+  ...rankingAchievements
 ].sort((a, b) => {
   if (a.rarity !== b.rarity) return a.rarity - b.rarity;
   return a.name.localeCompare(b.name);
@@ -79,6 +83,8 @@ export async function getAchievementsForMember(name: string): Promise<Achievemen
       unique:      a.data.unique,
       visible:     a.data.visible,
       enabled:     a.data.enabled,
+      stars:       a.data.stars,
+      skulls:      a.data.skulls
     }))
     .sort((a, b) => {  // Ordenar los logros manuales
       if (a.rarity !== b.rarity) return a.rarity - b.rarity;
@@ -130,6 +136,8 @@ export async function getMembersWithAchievement(achievementId: string): Promise<
         unique:      a.data.unique,
         visible:     a.data.visible,
         enabled:     a.data.enabled,
+        stars:       a.data.stars,
+        skulls:      a.data.skulls
       }));
     const allAchievements = [...dyn, ...man];
     if (allAchievements.some(ach => ach.id === achievementId)) {
@@ -162,3 +170,28 @@ async function findDuplicatedUniqueIds(
       .map(([id]) => id)
   );
 }
+
+/**
+ * Dado un array de Achievement (con optional stars),
+ * devuelve un array donde, de cada grupo con el mismo `id`,
+ * sólo se conserva el que tenga más `stars`.
+ */
+function dedupeByMaxStars(achs: Achievement[]): Achievement[] {
+  const bestById = new Map<string, Achievement>();
+
+  for (const ach of achs) {
+    const prev = bestById.get(ach.id);
+    const currStars = ach.stars ?? 0;
+    const prevStars = prev?.stars ?? 0;
+
+    // Si no había ninguno, o éste tiene más estrellas, lo guardamos/reemplazamos
+    if (!prev || currStars > prevStars) {
+      bestById.set(ach.id, ach);
+    }
+  }
+
+  // Map mantiene el orden de inserción de keys, así que respetarás
+  // el "primer" orden que hayas construido tu array original (antes del dedupe).
+  return Array.from(bestById.values());
+}
+

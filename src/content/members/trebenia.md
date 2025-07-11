@@ -19,4 +19,7 @@ score:
     extra: 0
 manualAchievements: 
   - "discord"
+tierHistory:
+  - tier: "B"
+    edition: 2022
 ---

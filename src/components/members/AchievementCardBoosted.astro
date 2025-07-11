@@ -4,7 +4,6 @@ const { achievement } = Astro.props;
 import StarIcon from '@images/icons/star-solid.svg'; 
 import SkullIcon from '@images/icons/skull-crossbones-solid.svg';
 import { rarityFromLevel, COMMON_INDEX } from '@lib/achievements/utils';
-
 const rarityStylesByLevel = [
   // --- Tiers Negativos ---
   { // -6
@@ -16,7 +15,7 @@ const rarityStylesByLevel = [
     shadow: 'shadow-red-950/30',
     glow: 'group-hover:shadow-orange-800/60',
     sparkle: 'bg-orange-600',
-    icons: { type: 'skull', count: 6, color: 'fill-black' },
+    icons: { type: 'skull', count: achievement.skulls/* 6 */, color: 'fill-black' },
     animationClass: 'ravaged-inferno', // Efecto de fuego interno
   },
   { // -5
@@ -28,7 +27,7 @@ const rarityStylesByLevel = [
     shadow: 'shadow-gray-900/30',
     glow: 'group-hover:shadow-red-950/40',
     sparkle: 'bg-red-950',
-    icons: { type: 'skull', count: 5, color: 'fill-orange-700' },
+    icons: { type: 'skull', count: achievement.skulls/* 5 */, color: 'fill-orange-700' },
     animationClass: 'doomed-fire-cracks', // Llamas y grietas
   },
   { // -4
@@ -40,7 +39,7 @@ const rarityStylesByLevel = [
     shadow: 'shadow-red-900/50',
     glow: 'group-hover:shadow-red-800/60',
     sparkle: 'bg-red-700',
-    icons: { type: 'skull', count: 4, color: 'fill-red-700' },
+    icons: { type: 'skull', count: achievement.skulls/* 4 */, color: 'fill-red-700' },
     animationClass: 'cursed-orbs-runes', // Orbes y runas sutiles
   },
   { // -3
@@ -52,7 +51,7 @@ const rarityStylesByLevel = [
     shadow: 'shadow-gray-700/50',
     glow: 'group-hover:shadow-gray-600/60',
     sparkle: 'bg-gray-500',
-    icons: { type: 'skull', count: 3, color: 'fill-gray-500' },
+    icons: { type: 'skull', count: achievement.skulls/* 3 */, color: 'fill-gray-500' },
     animationClass: 'broken-dust-scratches', // Solo el humo
   },
   // --- Tiers Comunes/Bajos ---
@@ -65,7 +64,7 @@ const rarityStylesByLevel = [
     shadow: 'shadow-stone-700/50',
     glow: 'group-hover:shadow-stone-600/60',
     sparkle: 'bg-stone-500',
-    icons: { type: 'skull', count: 2, color: 'fill-stone-400' },
+    icons: { type: 'skull', count: achievement.skulls/* 2 */, color: 'fill-stone-400' },
 //     animationClass: 'worn-smoke', // Polvo y rayones
   },
   { // -1
@@ -77,7 +76,7 @@ const rarityStylesByLevel = [
     shadow: 'shadow-lime-700/50',
     glow: 'group-hover:shadow-lime-600/60',
     sparkle: 'bg-lime-500',
-    icons: { type: 'skull', count: 1, color: 'fill-lime-600' },
+    icons: { type: 'skull', count: achievement.skulls/* 1 */, color: 'fill-lime-600' },
     animationClass: 'mundane-glow-pulse', // Brillo y pulso
   },
   // --- Tiers Positivos ---
@@ -90,7 +89,7 @@ const rarityStylesByLevel = [
     shadow: 'shadow-slate-400/60',
     glow: 'group-hover:shadow-slate-400/80',
     sparkle: 'bg-slate-400/20',
-    icons: { type: 'star', count: 0, color: 'fill-yellow-400' },
+    icons: { type: 'star', count: achievement.stars /* 0 */, color: 'fill-slate-300' },
   },
   { // 1
     label: rarityFromLevel(1),
@@ -101,7 +100,7 @@ const rarityStylesByLevel = [
     shadow: 'shadow-emerald-400/60',
     glow: 'group-hover:shadow-emerald-400/80',
     sparkle: 'bg-emerald-400/20',
-    icons: { type: 'star', count: 1, color: 'fill-slate-200' },
+    icons: { type: 'star', count: achievement.stars /* 1 */, color: 'fill-slate-200' },
   },
   { // 2
     label: rarityFromLevel(2),
@@ -112,7 +111,7 @@ const rarityStylesByLevel = [
     shadow: 'shadow-sky-400/60',
     glow: 'group-hover:shadow-sky-400/80',
     sparkle: 'bg-sky-400/20',
-    icons: { type: 'star', count: 2, color: 'fill-yellow-400' },
+    icons: { type: 'star', count: achievement.stars /* 2 */, color: 'fill-yellow-400' },
     animationClass: 'uncommon-breathing-glow bg-gradient-to-tl from-blue-950 via-sky-100 to-blue-900', // Brillo que respira
   },
   { // 3
@@ -124,7 +123,7 @@ const rarityStylesByLevel = [
     shadow: 'shadow-violet-400/60',
     glow: 'group-hover:shadow-violet-400/80',
     sparkle: 'bg-violet-400',
-    icons: { type: 'star', count: 3, color: 'fill-sky-300' },
+    icons: { type: 'star', count: achievement.stars /* 3 */, color: 'fill-sky-300' },
     animationClass: 'ultra-rare-plasma-hologram', // Plasma y holograma,
   },
   { // 4
@@ -136,7 +135,7 @@ const rarityStylesByLevel = [
     shadow: 'shadow-red-500/60',
     glow: 'group-hover:shadow-red-600/80',
     sparkle: 'bg-amber-300',
-    icons: { type: 'star', count: 4, color: 'fill-yellow-300' },
+    icons: { type: 'star', count: achievement.stars /* 4 */, color: 'fill-yellow-300' },
     animationClass: 'epic-power-flow',
   },
   { // 5
@@ -148,7 +147,7 @@ const rarityStylesByLevel = [
     shadow: 'shadow-yellow-400/60',
     glow: 'group-hover:shadow-yellow-300/80',
     sparkle: 'bg-yellow-200',
-    icons: { type: 'star', count: 5, color: 'fill-yellow-200' },
+    icons: { type: 'star', count: achievement.stars /* 5 */, color: 'fill-yellow-200' },
     animationClass: 'legendary-golden-pulse rare-shine',
   },
   { // 6
@@ -160,7 +159,7 @@ const rarityStylesByLevel = [
     shadow: 'shadow-purple-600/50',
     glow: 'group-hover:shadow-cyan-500/70',
     sparkle: 'bg-white',
-    icons: { type: 'star', count: 6, color: 'fill-cyan-300' },
+    icons: { type: 'star', count: achievement.stars /* 6 */, color: 'fill-cyan-300' },
     animationClass: 'ultra-cosmic-field',
   }
 ];
@@ -185,7 +184,7 @@ const rarity = getRarityStyles(achievement.rarity);
        <!-- ANIMACIÓN ESPECÍFICA POR RAREZA -->
       <div class={`absolute inset-0 overflow-hidden pointer-events-none ${rarity.animationClass}`}>
         <!-- Ravaged: Infierno interno -->
-        {achievement.rarity === 'Ravaged' && (
+        {achievement.rarity === -6 && (
           <>
             <div class="ravaged-flame ravaged-flame-1"></div>
             <div class="ravaged-flame ravaged-flame-2"></div>
@@ -200,7 +199,7 @@ const rarity = getRarityStyles(achievement.rarity);
           </>
         )}
         <!-- Doomed: Fuego y grietas -->
-        {achievement.rarity === 'Doomed' && (
+        {achievement.rarity === -5 && (
           <>
             <div class="doomed-crack doomed-crack-1"></div>
             <div class="doomed-crack doomed-crack-2"></div>
@@ -214,7 +213,7 @@ const rarity = getRarityStyles(achievement.rarity);
           </>
         )}
         <!-- Cursed: Orbes y runas malditas -->
-        {achievement.rarity === 'Cursed' && (
+        {achievement.rarity === -4 && (
           <>
             <div class="cursed-orb cursed-orb-1"></div>
             <div class="cursed-orb cursed-orb-2"></div>
@@ -226,7 +225,7 @@ const rarity = getRarityStyles(achievement.rarity);
           </>
         )}
         <!-- Epic: Ondas de energía -->
-        {achievement.rarity === 'Epic' && (
+        {achievement.rarity === 4 && (
           <>
             <div class="epic-wave epic-wave-1"></div>
             <div class="epic-wave epic-wave-2"></div>
@@ -235,7 +234,7 @@ const rarity = getRarityStyles(achievement.rarity);
         )}
         
         <!-- Legendary: Corona dorada divina -->
-        {achievement.rarity === 'Legendary' && (
+        {achievement.rarity === 5 && (
           <>
             {/* <div class="legendary-ray legendary-ray-1"></div>
             <div class="legendary-ray legendary-ray-2"></div>
@@ -252,7 +251,7 @@ const rarity = getRarityStyles(achievement.rarity);
         )}
         
         <!-- Ultra: Campo cósmico -->
-        {achievement.rarity === 'Ultra' && (
+        {achievement.rarity === 6 && (
           <>
             <div class="ultra-star ultra-star-1"></div>
             <div class="ultra-star ultra-star-2"></div>

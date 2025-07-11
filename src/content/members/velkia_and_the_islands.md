@@ -6,4 +6,7 @@ nslink: "https://www.nationstates.net/nation=velkia_and_the_islands"
 flagPath: "/src/assets/images/members/xvel_flag.jpg"
 region: "Forest"
 verified: false
+tierHistory:
+  - tier: "S"
+    edition: 2020
 ---

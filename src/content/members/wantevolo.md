@@ -6,4 +6,7 @@ nslink: "https://www.nationstates.net/nation=wantevolo"
 flagPath: "/src/assets/images/members/xwan_flag.jpg"
 region: "Forest"
 verified: false
+tierHistory:
+  - tier: "A"
+    edition: 2020
 ---

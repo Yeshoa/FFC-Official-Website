@@ -18,4 +18,7 @@ score:
   bonus:
     host: 0
     extra: 0
+tierHistory:
+  - tier: "F"
+    edition: 2024
 ---

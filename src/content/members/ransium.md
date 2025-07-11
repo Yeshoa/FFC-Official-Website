@@ -6,4 +6,7 @@ nslink: "https://www.nationstates.net/nation=ransium"
 flagPath: "/src/assets/images/members/xran_flag.jpg"
 region: "Forest"
 verified: false
+tierHistory:
+  - tier: "F"
+    edition: 2020
 ---

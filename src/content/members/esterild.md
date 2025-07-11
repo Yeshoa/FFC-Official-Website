@@ -6,4 +6,7 @@ nslink: "https://www.nationstates.net/nation=esterild"
 flagPath: "/src/assets/images/members/xest_flag.png"
 region: "Forest"
 verified: false
+tierHistory:
+  - tier: "B"
+    edition: 2020
 ---

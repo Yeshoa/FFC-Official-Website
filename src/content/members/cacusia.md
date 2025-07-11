@@ -26,4 +26,9 @@ manualAchievements:
   - "dispatch"
   - "discord"
   - "giant-slayer"
+tierHistory:
+  - tier: "B"
+    edition: 2022
+  - tier: "A"
+    edition: 2024
 ---
