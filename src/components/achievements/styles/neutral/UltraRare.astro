@@ -1,0 +1,20 @@
+<div class={`absolute inset-0 overflow-hidden pointer-events-none ultra-rare-plasma-hologram`}>
+</div>
+<style>
+  .ultra-rare-plasma-hologram::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:     repeating-linear-gradient(      45deg,      transparent,      transparent 8px,      rgba(147,51,234,0.3) 8px,      rgba(147,51,234,0.3) 12px,      transparent 12px,      transparent 16px    );
+  animation: hologram-flicker 1.5s ease-in-out infinite;
+}
+
+@keyframes hologram-flicker {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 0.3; }
+}
+
+</style>

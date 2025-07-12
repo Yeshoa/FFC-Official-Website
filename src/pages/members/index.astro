@@ -10,7 +10,7 @@ const members = (await getCollection('members'))
     ...entry.data,
     slug: entry.slug,
 }));
-import MemberCard from '@components/MemberCard.astro';
+import MemberCard from '@components/members/MemberCard.astro';
 ---
 
 <App title="FFC - Members">

@@ -1,0 +1,174 @@
+<div class="doomed-crack doomed-crack-1"></div>
+<div class="doomed-crack doomed-crack-2"></div>
+<div class="doomed-crack doomed-crack-3"></div>
+<div class="doomed-fire-burst doomed-fire-burst-1"></div>
+<div class="doomed-fire-burst doomed-fire-burst-2"></div>
+<div class="doomed-fire-burst doomed-fire-burst-3"></div>
+<div class="doomed-smoke doomed-smoke-1"></div>
+<div class="doomed-smoke doomed-smoke-2"></div>
+<div class="doomed-destruction-pulse"></div>
+<style>
+  .doomed-fire-cracks {
+  border-radius: 0.75rem;
+}
+
+.doomed-crack {
+  position: absolute;
+  width: 2px;
+  background: linear-gradient(to bottom, transparent, #dc2626, #7f1d1d);
+  animation: doomed-crack-spread 4s ease-in-out infinite;
+  border-radius: 1px;
+}
+
+.doomed-crack-1 {
+  top: 20%;
+  left: 30%;
+  height: 40%;
+  animation-delay: 0s;
+}
+
+.doomed-crack-2 {
+  top: 10%;
+  right: 25%;
+  height: 50%;
+  animation-delay: 1.3s;
+}
+
+.doomed-crack-3 {
+  top: 40%;
+  left: 60%;
+  height: 35%;
+  animation-delay: 2.6s;
+}
+
+.doomed-fire-burst {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: radial-gradient(circle, #f59e0b, #dc2626);
+  border-radius: 50%;
+  animation: doomed-fire-explosion 3s ease-in-out infinite;
+}
+
+.doomed-fire-burst-1 {
+  top: 35%;
+  left: 29%;
+  animation-delay: 0.5s;
+}
+
+.doomed-fire-burst-2 {
+  top: 25%;
+  right: 24%;
+  animation-delay: 1.8s;
+}
+
+.doomed-fire-burst-3 {
+  top: 55%;
+  left: 59%;
+  animation-delay: 3.1s;
+}
+
+.doomed-smoke {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: radial-gradient(circle, rgba(75, 85, 99, 0.6), transparent);
+  border-radius: 50%;
+  animation: doomed-smoke-rise 5s linear infinite;
+}
+
+.doomed-smoke-1 {
+  bottom: 20%;
+  left: 25%;
+  animation-delay: 0s;
+}
+
+.doomed-smoke-2 {
+  bottom: 15%;
+  right: 30%;
+  animation-delay: 2.5s;
+}
+
+.doomed-destruction-pulse {
+  position: absolute;
+  inset: 6px;
+  background: radial-gradient(ellipse at center, rgba(220, 38, 38, 0.1) 0%, transparent 70%);
+  border-radius: 0.75rem;
+  animation: doomed-destruction-throb 4s ease-in-out infinite;
+}
+
+@keyframes doomed-crack-spread {
+  0%, 70%, 100% {
+    opacity: 0;
+    transform: scaleY(0);
+  }
+  10%, 60% {
+    opacity: 0.8;
+    transform: scaleY(1);
+    box-shadow: 0 0 6px rgba(220, 38, 38, 0.6);
+  }
+  35% {
+    opacity: 1;
+    transform: scaleY(1.1);
+    box-shadow: 0 0 12px rgba(220, 38, 38, 0.8);
+  }
+}
+
+@keyframes doomed-fire-explosion {
+  0%, 80%, 100% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  10% {
+    transform: scale(1);
+    opacity: 1;
+    box-shadow: 0 0 15px rgba(245, 158, 11, 0.8);
+  }
+  50% {
+    transform: scale(1.5);
+    opacity: 0.8;
+    box-shadow: 0 0 20px rgba(220, 38, 38, 0.6);
+  }
+}
+
+@keyframes doomed-smoke-rise {
+  0% {
+    transform: translateY(0) scale(0.5);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateY(-30px) scale(1);
+    opacity: 0.4;
+  }
+  100% {
+    transform: translateY(-60px) scale(1.5);
+    opacity: 0;
+  }
+}
+
+@keyframes doomed-destruction-throb {
+  0%, 100% {
+    background: radial-gradient(ellipse at center, rgba(220, 38, 38, 0.05) 0%, transparent 70%);
+  }
+  50% {
+    background: radial-gradient(ellipse at center, rgba(220, 38, 38, 0.15) 0%, transparent 70%);
+  }
+}
+
+.achievement-card:hover .doomed-crack {
+  animation-duration: 3s;
+}
+
+.achievement-card:hover .doomed-fire-burst {
+  animation-duration: 2s;
+}
+
+.achievement-card:hover .doomed-smoke {
+  animation-duration: 3.5s;
+}
+
+.achievement-card:hover .doomed-destruction-pulse {
+  animation-duration: 2.5s;
+}
+
+</style>

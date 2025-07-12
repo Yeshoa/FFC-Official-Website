@@ -1,0 +1,162 @@
+<div class={`absolute inset-0 overflow-hidden pointer-events-none shine`}>
+  {/* <div class="legendary-ray legendary-ray-1"></div>
+<div class="legendary-ray legendary-ray-2"></div>
+<div class="legendary-ray legendary-ray-3"></div>
+<div class="legendary-ray legendary-ray-4"></div>
+<div class="legendary-ray legendary-ray-5"></div>
+<div class="legendary-ray legendary-ray-6"></div> */}
+<div class="legendary-sparkle legendary-sparkle-1"></div>
+<div class="legendary-sparkle legendary-sparkle-2"></div>
+<div class="legendary-sparkle legendary-sparkle-3"></div>
+<div class="legendary-sparkle legendary-sparkle-4"></div>
+<div class="legendary-sparkle legendary-sparkle-5"></div>
+</div>
+<style>
+.shine::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
+  animation: simple-shine 4s ease-in-out infinite;
+}
+
+@keyframes simple-shine { 
+  0% { transform: translateX(-100%); } 
+  100% { transform: translateX(100%); } 
+}
+.legendary-ray {
+  position: absolute;
+  width: 2px;
+  height: 60%;
+  background: linear-gradient(to top, transparent, #80c8ff, #57abff, transparent);
+  /* background: linear-gradient(to top, transparent, #fbbf24, #f59e0b, transparent); */
+  transform-origin: bottom center;
+  animation: legendary-ray-rotate 4s linear infinite;
+  opacity: 0.1;
+}
+
+.legendary-ray-1 {
+  bottom: 50%;
+  left: 50%;
+  transform: translateX(-50%) rotate(0deg);
+  animation-delay: 0s;
+}
+
+.legendary-ray-2 {
+  bottom: 50%;
+  left: 50%;
+  transform: translateX(-50%) rotate(60deg);
+  animation-delay: 0.7s;
+}
+
+.legendary-ray-3 {
+  bottom: 50%;
+  left: 50%;
+  transform: translateX(-50%) rotate(120deg);
+  animation-delay: 1.4s;
+}
+
+.legendary-ray-4 {
+  bottom: 50%;
+  left: 50%;
+  transform: translateX(-50%) rotate(180deg);
+  animation-delay: 2.1s;
+}
+
+.legendary-ray-5 {
+  bottom: 50%;
+  left: 50%;
+  transform: translateX(-50%) rotate(240deg);
+  animation-delay: 2.8s;
+}
+
+.legendary-ray-6 {
+  bottom: 50%;
+  left: 50%;
+  transform: translateX(-50%) rotate(300deg);
+  animation-delay: 3.5s;
+}
+
+.legendary-sparkle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: radial-gradient(circle, #fbbf24, #f59e0b);
+  border-radius: 50%;
+  animation: legendary-sparkle-twinkle 2s ease-in-out infinite;
+}
+
+.legendary-sparkle-1 {
+  top: 15%;
+  left: 25%;
+  animation-delay: 0s;
+}
+
+.legendary-sparkle-2 {
+  top: 30%;
+  right: 20%;
+  animation-delay: 0.4s;
+}
+
+.legendary-sparkle-3 {
+  top: 60%;
+  left: 15%;
+  animation-delay: 0.8s;
+}
+
+.legendary-sparkle-4 {
+  top: 75%;
+  right: 30%;
+  animation-delay: 1.2s;
+}
+
+.legendary-sparkle-5 {
+  top: 45%;
+  left: 70%;
+  animation-delay: 1.6s;
+}
+
+@keyframes legendary-ray-rotate {
+  0% {
+    transform: translateX(-50%) rotate(var(--start-rotation, 0deg)) scaleY(0.5);
+    opacity: 0.1;
+  }
+  50% {
+    transform: translateX(-50%) rotate(calc(var(--start-rotation, 0deg) + 180deg)) scaleY(1);
+    opacity: 0.4;
+    box-shadow: 0 0 15px rgba(36, 151, 251, 0.6);
+  }
+  100% {
+    transform: translateX(-50%) rotate(calc(var(--start-rotation, 0deg) + 360deg)) scaleY(0.5);
+    opacity: 0.1;
+  }
+}
+
+@keyframes legendary-sparkle-twinkle {
+  0%, 100% {
+    transform: scale(0.3);
+    opacity: 0.4;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+    box-shadow: 0 0 12px rgba(251, 191, 36, 0.8);
+  }
+}
+
+.achievement-card:hover .legendary-ray {
+  animation-duration: 2s;
+}
+
+.achievement-card:hover .legendary-aura {
+  animation-duration: 1.5s;
+}
+
+.achievement-card:hover .legendary-sparkle {
+  animation-duration: 1s;
+}
+
+.achievement-card:hover .legendary-crown {
+  animation-duration: 1.2s;
+}
+</style>

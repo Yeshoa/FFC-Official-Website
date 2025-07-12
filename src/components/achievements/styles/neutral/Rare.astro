@@ -1,0 +1,28 @@
+<div class={`absolute inset-0 overflow-hidden pointer-events-none uncommon-breathing-glow bg-gradient-to-tl from-blue-950 via-sky-200 to-blue-900`}>
+</div>
+<style>
+/*   .rare-shine::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
+  animation: simple-shine 4s ease-in-out infinite;
+}
+
+@keyframes simple-shine { 
+  0% { transform: translateX(-100%); } 
+  100% { transform: translateX(100%); } 
+} */
+.uncommon-breathing-glow {
+  animation: breathing-light 3s ease-in-out infinite;
+}
+
+@keyframes breathing-light {
+  0%, 100% {
+    filter: opacity(0);
+  }
+  50% {
+    filter: opacity(0.4); /* o 1.05 si querés más sutil */
+  }
+}
+</style>

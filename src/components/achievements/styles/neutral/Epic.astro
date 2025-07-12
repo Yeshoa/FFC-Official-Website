@@ -1,0 +1,40 @@
+<div class="epic-wave epic-wave-1"></div>
+<div class="epic-wave epic-wave-2"></div>
+<div class="epic-wave epic-wave-3"></div>
+<style>
+.epic-wave {
+  position: absolute;
+  border: 2px solid rgba(251, 191, 36, 0.6);
+  animation: epic-pulse 2s ease-in-out infinite;
+}
+
+.epic-wave-1 {
+  inset: 0;
+  animation-delay: 0s;
+}
+
+.epic-wave-2 {
+  inset: 4px;
+  animation-delay: 0.3s;
+}
+
+.epic-wave-3 {
+  inset: 8px;
+  animation-delay: 0.6s;
+}
+
+@keyframes epic-pulse {
+  0%, 100% {
+    border-color: rgba(251, 191, 36, 0.1);
+    box-shadow: 0 0 0 0 rgba(251, 191, 36, 0.4);
+  }
+  50% {
+    border-color: rgba(251, 191, 36, 0.3);
+    box-shadow: 0 0 20px 5px rgba(251, 191, 36, 0.2);
+  }
+}
+
+.achievement-card:hover .epic-wave {
+  animation-duration: 1s;
+}
+</style>

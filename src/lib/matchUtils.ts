@@ -136,7 +136,8 @@ export function areThereScorers(match: Match): boolean {
 }
 
 export function getAllMatchesByTeam(team: string, matches: Match[]): Match[] {
-  return matches.filter(match => match.data.team1 === team || match.data.team2 === team);
+  return matches.filter(match => match.data.team1 === team || match.data.team2 === team)
+  .sort((a, b) => new Date(a.data.date).getTime() - new Date(b.data.date).getTime());
 }
 
 export function getMatchRedCards(match: Match): { team1: { player: string; minute: number }[]; team2: { player: string; minute: number }[] } {
@@ -164,7 +165,7 @@ export function getAllRedCards(memberName: string, matches: Match[]) {
   return total;
 }
 
-function getMatchGoals(match: Match, team: string): { gf: number, ga: number } {
+export function getMatchGoals(match: Match, team: string): { gf: number, ga: number } {
   const goals = match.data.goals ?? [];
   const gf = goals.filter(g => g.team === team).length;
   const ga = goals.length - gf; // Total de goles menos los goles a favor
@@ -181,7 +182,6 @@ function getStreak(
   const playedMatches = allMatches
     .filter(m => [m.data.team1, m.data.team2].includes(memberName) && m.data.status === 'played')
     .sort((a, b) => new Date(a.data.date).getTime() - new Date(b.data.date).getTime());
-
   for (const match of playedMatches) {
     const { gf, ga } = getMatchGoals(match, memberName);
     if (condition(gf, ga)) {

@@ -1,5 +1,5 @@
 import { defineCollection, z } from 'astro:content';
-import { RARITIES, CATEGORIES, COMMON_INDEX, rarityFromLevel } from '@lib/achievements/utils';
+import { CATEGORIES, SUBCATEGORIES, ALIGNMENTS } from '@lib/achievements/utils';
 /* const tournamentsCollection = defineCollection({
   type: 'content',
   schema: z.object({
@@ -177,17 +177,12 @@ const achievementsCollection = defineCollection({
     name: z.string(),
     icon: image(),
     description: z.string(),
-    // rarity: z.enum([...RARITIES] as [string, ...string[]]).default("Common"),
-    rarity: z
-      .number()
-      .int()
-      .min(-COMMON_INDEX)               
-      .max(RARITIES.length - 1 - COMMON_INDEX)
-      .default(0),                       // Common
+    rarity: z.number().int().min(0).default(0),
     stars: z.number().min(0).default(0),
-    skulls: z.number().min(0).default(0),
     enabled: z.boolean().default(true),
-    category: z.enum([...CATEGORIES]).default("special"),
+    category: z.enum([...CATEGORIES]).default("None"),
+    subcategory: z.enum([...SUBCATEGORIES]).default("None"),
+    alignment: z.enum([...ALIGNMENTS]).default("Neutral"),
     unique: z.boolean().default(false),
     visible: z.boolean().default(true),
   }),
@@ -195,7 +190,6 @@ const achievementsCollection = defineCollection({
 
 export const collections = {
   'tournaments': tournamentsCollection,
-  /* 'forest-cup': forestCupCollection, */
   'matches': matchesCollection,
   'members': membersCollection,
   'articles': articlesCollection,

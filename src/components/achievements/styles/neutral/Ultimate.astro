@@ -1,0 +1,195 @@
+<div class="ultra-star ultra-star-1"></div>
+<div class="ultra-star ultra-star-2"></div>
+<div class="ultra-star ultra-star-3"></div>
+<div class="ultra-star ultra-star-4"></div>
+<div class="ultra-star ultra-star-5"></div>
+<div class="ultra-star ultra-star-6"></div>
+<div class="ultra-nebula"></div>
+<div class="ultra-ray ultra-ray-1"></div>
+<div class="ultra-ray ultra-ray-2"></div>
+<div class="ultra-ray ultra-ray-3"></div>
+<div class="ultra-ray ultra-ray-4"></div>
+<div class="ultra-ray ultra-ray-5"></div>
+<div class="ultra-ray ultra-ray-6"></div>
+<div class="ultra-ray ultra-ray-7"></div>
+<div class="ultra-ray ultra-ray-8"></div>
+<div class="ultra-ray ultra-ray-9"></div>
+<div class="ultra-ray ultra-ray-10"></div>
+<div class="ultra-ray ultra-ray-11"></div>
+<div class="ultra-ray ultra-ray-12"></div>
+
+<style>
+  .ultra-cosmic-field {
+  }
+  .ultra-star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: #ffffffbf;
+    border-radius: 50%;
+    animation: ultra-twinkle 2s ease-in-out infinite;
+  }
+  .ultra-star-1 {
+    top: 15%;
+    left: 20%;
+    animation-delay: 0s;
+  }
+  .ultra-star-2 {
+    top: 25%;
+    right: 30%;
+    animation-delay: 0.3s;
+  }
+  .ultra-star-3 {
+    top: 45%;
+    left: 15%;
+    animation-delay: 0.6s;
+  }
+  .ultra-star-4 {
+    top: 65%;
+    right: 20%;
+    animation-delay: 0.9s;
+  }
+  .ultra-star-5 {
+    top: 75%;
+    left: 40%;
+    animation-delay: 1.2s;
+  }
+  .ultra-star-6 {
+    top: 35%;
+    left: 60%;
+    animation-delay: 1.5s;
+  }
+  .ultra-nebula {
+    position: absolute;
+    inset: 1px;
+    pointer-events: none;
+    background: radial-gradient(ellipse at center, rgba(6, 182, 212, 0.7) 0%, transparent 70%);
+    animation: ultra-nebula-pulse 2s ease-in-out infinite;
+  }
+  .ultra-ray {
+    position: absolute;
+    width: 2px;
+    height: 66%;
+    background: linear-gradient(to top, transparent, #80c8ff, #57abff, transparent);
+    transform-origin: bottom center;
+    animation: ultra-ray-rotate 4s linear infinite;
+    opacity: 0.1;
+  }
+  .ultra-ray-1 {
+    bottom: 66%;
+    left: 50%;
+    transform: translateX(-50%) rotate(0deg);
+    animation-delay: 0s;
+  }
+  .ultra-ray-2 {
+    bottom: 66%;
+    left: 50%;
+    transform: translateX(-50%) rotate(30deg);
+    animation-delay: -0.35s;
+  }
+  .ultra-ray-3 {
+    bottom: 66%;
+    left: 50%;
+    transform: translateX(-50%) rotate(60deg);
+    animation-delay: -0.7s;
+  }
+  .ultra-ray-4 {
+    bottom: 66%;
+    left: 50%;
+    transform: translateX(-50%) rotate(90deg);
+    animation-delay: -1.05s;
+  }
+  .ultra-ray-5 {
+    bottom: 66%;
+    left: 50%;
+    transform: translateX(-50%) rotate(120deg);
+    animation-delay: -1.4s;
+  }
+  .ultra-ray-6 {
+    bottom: 66%;
+    left: 50%;
+    transform: translateX(-50%) rotate(150deg);
+    animation-delay: -1.75s;
+  }
+  .ultra-ray-7 {
+    bottom: 66%;
+    left: 50%;
+    transform: translateX(-50%) rotate(180deg);
+    animation-delay: -2.1s;
+  }
+  .ultra-ray-8 {
+    bottom: 66%;
+    left: 50%;
+    transform: translateX(-50%) rotate(210deg);
+    animation-delay: -2.45s;
+  }
+  .ultra-ray-9 {
+    bottom: 66%;
+    left: 50%;
+    transform: translateX(-50%) rotate(240deg);
+    animation-delay: -2.8s;
+  }
+  .ultra-ray-10 {
+    bottom: 66%;
+    left: 50%;
+    transform: translateX(-50%) rotate(270deg);
+    animation-delay: -3.15s;
+  }
+  .ultra-ray-11 {
+    bottom: 66%;
+    left: 50%;
+    transform: translateX(-50%) rotate(300deg);
+    animation-delay: -3.4s;
+  }
+  .ultra-ray-12 {
+    bottom: 66%;
+    left: 50%;
+    transform: translateX(-50%) rotate(330deg);
+    animation-delay: -3.7s;
+  }
+  @keyframes ultra-twinkle {
+    0%, 100% {
+      opacity: 0.3;
+      transform: scale(0.5);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(2);
+      box-shadow: 0 0 10px #06b6d4;
+    }
+  }
+  @keyframes ultra-nebula-pulse {
+    0%, 100% {
+      opacity: 0.1;
+      scale: 1.5;
+    }
+    50% {
+      opacity: 0.7;
+      scale: 1;
+    }
+  }
+  @keyframes ultra-ray-rotate {
+    0% {
+      transform: translateX(-50%) rotate(var(--start-rotation, 0deg)) scaleY(0.5);
+      opacity: 0.1;
+    }
+    50% {
+      transform: translateX(-50%) rotate(calc(var(--start-rotation, 0deg) + 180deg)) scaleY(1);
+      opacity: 0.4;
+      box-shadow: 0 0 15px rgba(36, 151, 251, 0.6);
+    }
+    100% {
+      transform: translateX(-50%) rotate(calc(var(--start-rotation, 0deg) + 360deg)) scaleY(0.5);
+      opacity: 0.1;
+    }
+  }
+  .achievement-card:hover .ultra-star {
+    animation-duration: 1.5s;
+  }
+  .achievement-card:hover .ultra-nebula {
+    animation-duration: 2s;
+  }
+  .achievement-card:hover .ultra-ray {
+    animation-duration: 2s;
+  }
+</style>

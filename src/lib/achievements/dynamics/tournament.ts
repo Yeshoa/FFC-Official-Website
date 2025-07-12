@@ -1,13 +1,13 @@
 import Trophy from '@images/achievements/king.webp';
 import type { Achievement } from './index';
-import { type Rarity, type Category, CATEGORIES } from '../utils';
+import { type Category, CATEGORIES, type Subcategory, SUBCATEGORIES, type Alignment, ALIGNMENTS } from '../utils';
 import type { CollectionEntry } from 'astro:content';
 
 type Tournament = CollectionEntry<'tournaments'>;
 type Member = CollectionEntry<'members'>;
 type Match = CollectionEntry<'matches'>;
 
-const thisCategory = CATEGORIES[0];
+const thisCategory = CATEGORIES[1];
 
 type PrizeType = 'topScorer' | 'bestPlayer' | 'bestGoalkeeper' | 'bestGoal';
 
@@ -25,6 +25,8 @@ const baseAchievements: {
   icon: ImageMetadata;
   description: string;
   category: Category;
+  subcategory: Subcategory;
+  alignment: Alignment;
   stars?: number;
   unique: boolean;
   visible: boolean; // This one is for when it is locked, not for enabled or disabled
@@ -65,9 +67,12 @@ const baseAchievements: {
     icon: Trophy,
     description: 'Awarded for hosting a Forest Cup edition.',
     category: thisCategory,
+    subcategory: SUBCATEGORIES[0],
+    alignment: ALIGNMENTS[0],
     visible: true,
     unique: false,
     enabled: true,
+    stars: 1,
     evaluate: function (matches, tournaments, member) {
       const h = tournaments.filter(t => t.data.host === member.data.name);
       const { evaluate, ...base } = this;
@@ -95,9 +100,12 @@ const baseAchievements: {
     icon: Trophy,
     description: 'Awarded for winning a Forest Cup.',
     category: thisCategory,
+    subcategory: "Champion Times" as Subcategory,
+    alignment: ALIGNMENTS[0],
     visible: true,
     unique: false,
     enabled: false,
+    stars: 1,
     evaluate: function (matches, tournaments, member) {
       const won = tournaments.find(t => t.data.champion === member.data.name);
       const { evaluate, ...base } = this;
@@ -114,6 +122,8 @@ const baseAchievements: {
     icon: Trophy,
     description: 'Awarded for winning two Forest Cups.',
     category: thisCategory,
+    subcategory: "Champion Times" as Subcategory,
+    alignment: ALIGNMENTS[0],
     stars: 2,
     visible: false,
     unique: false,
@@ -136,6 +146,8 @@ const baseAchievements: {
     icon: Trophy,
     description: 'Awarded for winning three Forest Cups.',
     category: thisCategory,
+    subcategory: "Champion Times" as Subcategory,
+    alignment: ALIGNMENTS[0],
     stars: 3,
     visible: false,
     unique: false,
@@ -160,9 +172,12 @@ const baseAchievements: {
     icon: Trophy,
     description: 'Awarded for winning a Forest Cup without losing a single match.',
     category: thisCategory,
+    subcategory: "Champion Tiers" as Subcategory,
+    alignment: ALIGNMENTS[0],
     visible: false,
     unique: false,
     enabled: true,
+    stars: 1,
     evaluate: function (matches, tournaments, member) {
       const won = tournaments.filter(t => t.data.champion === member.data.name);
       const { evaluate, ...base } = this;
@@ -206,9 +221,12 @@ const baseAchievements: {
     icon: Trophy,
     description: 'Awarded for winning a Forest Cup with a perfect record (all wins).',
     category: thisCategory,
+    subcategory: "Champion Tiers" as Subcategory,
+    alignment: ALIGNMENTS[0],
     visible: false,
     unique: false,
     enabled: true,
+    stars: 1,
     evaluate: function (matches, tournaments, member)  {
       const won = tournaments.filter(t => t.data.champion === member.data.name);
       if (won.length !== 1) return null;
@@ -254,9 +272,12 @@ const baseAchievements: {
     icon: Trophy,
     description: 'Awarded for winning a Forest Cup with a perfect record and getting all awards.',
     category: thisCategory,
+    subcategory: "Champion Tiers" as Subcategory,
+    alignment: ALIGNMENTS[0],
     visible: false,
     unique: false,
     enabled: true,
+    stars: 1,
     evaluate: function (matches, tournaments, member) {
       const won = tournaments.filter(t => t.data.champion === member.data.name);
       const { evaluate, ...base } = this;
@@ -318,7 +339,9 @@ const makePrizeAchievement = (
   rarity,
   stars,
   description: description,
-  category: CATEGORIES[0],
+  category: thisCategory,
+  subcategory: "Prizes" as Subcategory,
+  alignment: ALIGNMENTS[0],
   unique: false,
   visible: false,
   enabled: true,

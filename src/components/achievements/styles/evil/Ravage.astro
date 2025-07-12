@@ -1,0 +1,171 @@
+<div class="ravaged-flame ravaged-flame-1"></div>
+<div class="ravaged-flame ravaged-flame-2"></div>
+<div class="ravaged-flame ravaged-flame-3"></div>
+<div class="ravaged-flame ravaged-flame-4"></div>
+<div class="ravaged-ember ravaged-ember-1"></div>
+<div class="ravaged-ember ravaged-ember-2"></div>
+<div class="ravaged-ember ravaged-ember-3"></div>
+<div class="ravaged-ember ravaged-ember-4"></div>
+<div class="ravaged-heat-wave"></div>
+<div class="ravaged-core-fire"></div>
+<style>
+.ravaged-inferno {
+  border-radius: 0.75rem;
+}
+
+.ravaged-flame {
+  position: absolute;
+  width: 6px;
+  height: 12px;
+  background: linear-gradient(to top, #dc2626, #ea580c, #f59e0b);
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  animation: ravaged-flame-dance 2s ease-in-out infinite;
+  box-shadow: 0 0 8px rgba(234, 88, 12, 0.6);
+}
+
+.ravaged-flame-1 {
+  bottom: 10%;
+  left: 20%;
+  animation-delay: 0s;
+}
+
+.ravaged-flame-2 {
+  bottom: 15%;
+  right: 25%;
+  animation-delay: 0.4s;
+}
+
+.ravaged-flame-3 {
+  bottom: 20%;
+  left: 60%;
+  animation-delay: 0.8s;
+}
+
+.ravaged-flame-4 {
+  bottom: 12%;
+  left: 45%;
+  animation-delay: 1.2s;
+}
+
+.ravaged-ember {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: radial-gradient(circle, #f59e0b, #dc2626);
+  border-radius: 50%;
+  animation: ravaged-ember-rise 4s linear infinite;
+}
+
+.ravaged-ember-1 {
+  bottom: 5%;
+  left: 30%;
+  animation-delay: 0s;
+}
+
+.ravaged-ember-2 {
+  bottom: 8%;
+  right: 35%;
+  animation-delay: 1s;
+}
+
+.ravaged-ember-3 {
+  bottom: 12%;
+  left: 70%;
+  animation-delay: 2s;
+}
+
+.ravaged-ember-4 {
+  bottom: 6%;
+  left: 50%;
+  animation-delay: 3s;
+}
+
+.ravaged-heat-wave {
+  position: absolute;
+  inset: 8px;
+  background: radial-gradient(ellipse at bottom, rgba(234, 88, 12, 0.15) 0%, transparent 50%);
+  border-radius: 0.75rem;
+  animation: ravaged-heat-pulse 3s ease-in-out infinite;
+}
+
+.ravaged-core-fire {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 30%;
+  background: linear-gradient(to top, rgba(220, 38, 38, 0.3), rgba(234, 88, 12, 0.2), transparent);
+  border-radius: 50% 50% 0 0;
+  animation: ravaged-core-flicker 2.5s ease-in-out infinite;
+}
+
+@keyframes ravaged-flame-dance {
+  0%, 100% {
+    transform: translateY(0) scale(1) rotate(-2deg);
+    opacity: 0.8;
+  }
+  25% {
+    transform: translateY(-8px) scale(1.1) rotate(2deg);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-12px) scale(0.9) rotate(-1deg);
+    opacity: 0.9;
+  }
+  75% {
+    transform: translateY(-6px) scale(1.05) rotate(1deg);
+    opacity: 1;
+  }
+}
+
+@keyframes ravaged-ember-rise {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-40px) scale(0.8);
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(-80px) scale(0.3);
+    opacity: 0;
+  }
+}
+
+@keyframes ravaged-heat-pulse {
+  0%, 100% {
+    background: radial-gradient(ellipse at bottom, rgba(234, 88, 12, 0.1) 0%, transparent 50%);
+  }
+  50% {
+    background: radial-gradient(ellipse at bottom, rgba(234, 88, 12, 0.2) 0%, transparent 60%);
+  }
+}
+
+@keyframes ravaged-core-flicker {
+  0%, 100% {
+    background: linear-gradient(to top, rgba(220, 38, 38, 0.2), rgba(234, 88, 12, 0.15), transparent);
+  }
+  50% {
+    background: linear-gradient(to top, rgba(220, 38, 38, 0.4), rgba(234, 88, 12, 0.3), transparent);
+  }
+}
+
+.achievement-card:hover .ravaged-flame {
+  animation-duration: 1.5s;
+}
+
+.achievement-card:hover .ravaged-ember {
+  animation-duration: 3s;
+}
+
+.achievement-card:hover .ravaged-heat-wave {
+  animation-duration: 2s;
+}
+
+.achievement-card:hover .ravaged-core-fire {
+  animation-duration: 1.8s;
+}
+
+</style>

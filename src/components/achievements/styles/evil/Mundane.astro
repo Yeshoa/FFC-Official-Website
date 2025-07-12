@@ -1,0 +1,16 @@
+<div class={`absolute inset-0 overflow-hidden pointer-events-none mundane-glow-pulse`}>
+</div>
+<style>
+  .mundane-glow-pulse::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(0, 255, 0, 0.2) 0%, transparent 70%);
+  animation: gentle-glow 3s ease-in-out infinite;
+}
+
+@keyframes gentle-glow { 
+  0%, 100% { opacity: 0.5; } 
+  50% { opacity: 0.8; } 
+}
+</style>

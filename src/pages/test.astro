@@ -1,10 +1,17 @@
 ---
 import App from '@layouts/App.astro';
 import { getCollection } from 'astro:content';
-import AchievementCard from '@components/members/AchievementCard.astro';
 import { dynamicDefs } from '@lib/achievements/dynamics';
-import { RARITIES } from '@lib/achievements/utils';
-import AchievementCardBoosted from '@components/members/AchievementCardBoosted.astro';
+import { type Achievement } from '@lib/achievements/dynamics/index';
+import { CATEGORIES, SUBCATEGORIES, hierarchy } from '@lib/achievements/utils';
+import AchievementCard from '@components/achievements/AchievementCard.astro';
+
+// Función para calcular el nivel en la jerarquía
+const getHierarchyLevel = (id, hierarchy, visited = new Set()) => {
+  if (!hierarchy[id] || hierarchy[id] === '' || visited.has(id)) return 0;
+  visited.add(id);
+  return 1 + getHierarchyLevel(hierarchy[id], hierarchy, visited);
+};
 
 // 1. Todos los achievements estáticos
 const staticAchievements = (await getCollection('achievements')).map(a => ({
@@ -14,14 +21,15 @@ const staticAchievements = (await getCollection('achievements')).map(a => ({
   description: a.data.description,
   rarity: a.data.rarity,
   stars: a.data.stars,
-  skulls: a.data.skulls,
   category: a.data.category,
+  subcategory: a.data.subcategory,
+  alignment: a.data.alignment,
   unique: a.data.unique,
   visible: a.data.visible,
   enabled: a.data.enabled,
 }));
 
-// 2. Todos los achievements dinámicos (sin evaluar, solo definición)
+// 2. Todos los achievements dinámicos
 const dynamicAchievements = dynamicDefs.map(a => ({
   id: a.id,
   name: a.name,
@@ -29,8 +37,9 @@ const dynamicAchievements = dynamicDefs.map(a => ({
   description: a.description,
   rarity: a.rarity,
   stars: a.stars,
-  skulls: a.skulls,
   category: a.category,
+  subcategory: a.subcategory,
+  alignment: a.alignment,
   unique: a.unique,
   visible: a.visible,
   enabled: a.enabled,
@@ -42,26 +51,94 @@ const allAchievements = [
   ...dynamicAchievements.filter(d => !staticAchievements.some(s => s.id === d.id) && d.enabled)
 ];
 
-// 4. Ordenar por rareza según config.ts (de menor a mayor)
+// 4. Ordenar por rareza según config.ts
 allAchievements.sort((a, b) => {
   if (a.rarity !== b.rarity) return a.rarity - b.rarity;
   return a.name.localeCompare(b.name);
 });
+
+// 5. Crear un objeto para mapear categorías a sus índices
+const categoryOrder = CATEGORIES.reduce((acc, category, index) => {
+  acc[category] = index;
+  return acc;
+}, {});
+
+// 6. Crear un objeto para mapear subcategorías a sus índices
+const subcategoryOrder = SUBCATEGORIES.reduce((acc, subcategory, index) => {
+  acc[subcategory] = index;
+  return acc;
+}, { __default: SUBCATEGORIES.length });
+
+// 7. Agrupar por categoría, subcategoría y jerarquía
+const achievementsByCategory = allAchievements.reduce((acc, achievement) => {
+  if (!acc[achievement.category]) {
+    acc[achievement.category] = {};
+  }
+  if (!acc[achievement.category][achievement.subcategory]) {
+    acc[achievement.category][achievement.subcategory] = [];
+  }
+  acc[achievement.category][achievement.subcategory].push(achievement);
+  return acc;
+}, {});
+
+// 8. Ordenar las categorías según el array CATEGORIES
+const sortedCategories = Object.entries(achievementsByCategory).sort(([categoryA], [categoryB]) => {
+  return categoryOrder[categoryA] - categoryOrder[categoryB];
+});
+
+// 9. Ordenar las subcategorías y los achievements
+const sortedAchievements = sortedCategories.map(([category, subcategories]) => {
+  const sortedSubcategories = Object.entries(subcategories).sort(([subcategoryA], [subcategoryB]) => {
+    return (subcategoryOrder[subcategoryA] ?? subcategoryOrder.__default) - 
+           (subcategoryOrder[subcategoryB] ?? subcategoryOrder.__default);
+  });
+
+  const sortedSubcategoriesWithAchievements = sortedSubcategories.map(([subcategory, achievements]) => {
+    const sortedAchievements = achievements.sort((a, b) => {
+      const levelA = getHierarchyLevel(a.id, hierarchy);
+      const levelB = getHierarchyLevel(b.id, hierarchy);
+      if (levelA !== levelB) return levelB - levelA;
+      return a.name.localeCompare(b.name);
+    });
+    return [subcategory, sortedAchievements];
+  });
+
+  return [category, sortedSubcategoriesWithAchievements];
+});
 ---
 
 <App title="FFC - Test: Todos los Achievements">
-  <!-- <div class="container mx-auto p-4">
-    <div class="flex flex-wrap items-center justify-center gap-4">
-      {allAchievements.map((achv, idx) => (
-        <AchievementCard achievement={achv} />
-      ))}
-    </div>
-  </div> -->
   <div class="container mx-auto p-4">
-    <div class="flex flex-wrap items-center justify-center gap-4">
-      {allAchievements.map((achv, idx) => (
-        <AchievementCardBoosted achievement={achv} />
-      ))}
-    </div>
+    {sortedAchievements.map(([category, subcategories]) => (
+      <div class="category-section mb-8">
+        <h2 class="text-3xl font-bold text-gray-200 border-b-2 border-gray-300 pb-2">{category}</h2>
+        <div class="grid grid-cols-2 gap-2">
+          {Array.isArray(subcategories) && subcategories.length > 0 ? (
+            subcategories.map(([subcategory, achievements]) => (
+              <div class="subcategory-section bg-green-1000" key={subcategory}>
+                <h3 class="text-2xl font-semibold text-gray-300 p-2 rounded-lg mb-4">{subcategory}</h3>
+                <div class="flex flex-wrap gap-4 justify-center">
+                  {achievements.map((achv) => (
+                    <AchievementCard achievement={achv} key={achv.id} />
+                  ))}
+                </div>
+              </div>
+            ))
+          ) : (
+            <p class="text-gray-400">No hay subcategorías disponibles.</p>
+          )}
+        </div>
+      </div>
+    ))}
   </div>
 </App>
+
+<style>
+.category-section {
+  padding: 1.5rem;
+}
+
+.subcategory-section {
+  padding: 1rem;
+}
+</style>

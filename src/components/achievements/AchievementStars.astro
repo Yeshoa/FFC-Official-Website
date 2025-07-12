@@ -1,11 +1,10 @@
 ---
-import StarIcon from '@images/icons/star-solid.svg';
-import SkullIcon from '@images/icons/skull-crossbones-solid.svg';
+// import StarIcon from '@images/icons/star-solid.svg';
+// import SkullIcon from '@images/icons/skull-crossbones-solid.svg';
 
-const { count, color, iconType, fullColor } = Astro.props;
-
+const { count, color, IconComponent, fullColor } = Astro.props;
 // Determina qué componente de icono usar
-const IconComponent = iconType === 'skull' ? SkullIcon : StarIcon;
+// const IconComponent = iconType === 'skull' ? SkullIcon : StarIcon;
 ---
 
 {count > 0 && (

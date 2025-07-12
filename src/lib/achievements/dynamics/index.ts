@@ -4,7 +4,7 @@ import { streakAchievements }     from './streaks';
 import { rivalryAchievements }    from './rivalry';
 import { specialAchievements }    from './special';
 import { rankingAchievements } from './ranking';
-import { RARITIES, levelFromRarity, rarityFromLevel, CATEGORIES, type Category, hierarchy } from '../utils';
+import { CATEGORIES, SUBCATEGORIES, ALIGNMENTS, type Category, hierarchy, type Subcategory, type Alignment } from '../utils';
 import { getCollection }          from 'astro:content';
 import type { CollectionEntry }   from 'astro:content';
 import type { ImageMetadata }     from 'astro';
@@ -23,15 +23,14 @@ export interface Achievement {
   description: string;
   rarity: number;         // nivel: -6 .. +6
   category: Category;
+  subcategory: Subcategory;
+  alignment: Alignment;
   unique: boolean;
   visible: boolean;
   enabled: boolean;
   stars?: number;
   suppresses?: string[];
 }
-
-// Orden de rareza para sorting: usamos índices de RARITIES
-const rarityOrderLevels = RARITIES.map((_, idx) => idx);
 
 /** Concatena todos los logros dinámicos y los ordena por nivel y luego nombre */
 export const dynamicDefs = [
@@ -80,11 +79,12 @@ export async function getAchievementsForMember(name: string): Promise<Achievemen
       description: a.data.description,
       rarity:      a.data.rarity,
       category:    a.data.category as Category,
+      subcategory: a.data.subcategory as Subcategory,
+      alignment:   a.data.alignment as Alignment,
       unique:      a.data.unique,
       visible:     a.data.visible,
       enabled:     a.data.enabled,
       stars:       a.data.stars,
-      skulls:      a.data.skulls
     }))
     .sort((a, b) => {  // Ordenar los logros manuales
       if (a.rarity !== b.rarity) return a.rarity - b.rarity;
@@ -139,11 +139,12 @@ export async function getMembersWithAchievement(achievementId: string): Promise<
         description: a.data.description,
         rarity:      a.data.rarity,
         category:    a.data.category as Category,
+        subcategory: a.data.subcategory as Subcategory,
+        alignment:   a.data.alignment as Alignment,
         unique:      a.data.unique,
         visible:     a.data.visible,
         enabled:     a.data.enabled,
         stars:       a.data.stars,
-        skulls:      a.data.skulls
       }));
     const allAchievements = [...dyn, ...man];
     if (allAchievements.some(ach => ach.id === achievementId)) {

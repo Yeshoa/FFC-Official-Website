@@ -1,7 +1,6 @@
 import Trophy from '@images/achievements/king.webp';
 import type { Achievement } from './index';
-import { type Rarity, type Category, CATEGORIES, tiers } from '../utils';
-import { rarityFromLevel } from '../utils';
+import { type Category, CATEGORIES, tiers, ALIGNMENTS, type Subcategory } from '../utils';
 import { getCollection, type CollectionEntry } from 'astro:content';
 import { getAllMatchesByTeam, getMatchWinner } from '@lib/matchUtils';
 import { getMemberByName } from '@lib/memberUtils';
@@ -29,6 +28,8 @@ const makeReachedTierAchievements = (
   stars,
   description: "Reached Tier " + tier + " at least once.",
   category: thisCategory,
+  subcategory: "Reached Tier" as Subcategory,
+  alignment: ALIGNMENTS[0],
   unique: false,
   visible: false,
   enabled: true,
@@ -59,9 +60,9 @@ const makeReachedTierAchievements = (
 });
 
 const reachedTierAchievements: Achievement[] = [
-  makeReachedTierAchievements('tier-s-1', 'Powerhouse', 2, 0, Trophy, 'S'),
-  makeReachedTierAchievements('tier-ss-1', 'Super Team', 3, 0, Trophy, 'SS'),
-  makeReachedTierAchievements('tier-x-1', 'Apex', 5, 0, Trophy, 'X'),
+  makeReachedTierAchievements('reached-tier-s', 'Powerhouse', 2, 1, Trophy, 'S'),
+  makeReachedTierAchievements('reached-tier-ss', 'Super Team', 3, 1, Trophy, 'SS'),
+  makeReachedTierAchievements('reached-tier-x', 'Apex', 5, 1, Trophy, 'X'),
 ]
 
 const makeBeatTierAchievements = (
@@ -77,9 +78,12 @@ const makeBeatTierAchievements = (
   rarity,
   description: "Beaten a Tier " + tier + " team being a lower Tier team.",
   category: thisCategory,
+  subcategory: "Beaten Higher Tier" as Subcategory,
+  alignment: ALIGNMENTS[0],
   unique: false,
   visible: false,
   enabled: true,
+  stars: 1,
   evaluate: function (matches: Match[], _tournaments: Tournament[], member: Member, members: Member[]) {
     const { evaluate, ...base } = this;
     const history = member.data.tierHistory;

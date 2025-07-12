@@ -1,0 +1,148 @@
+---
+import { Image } from 'astro:assets';
+import AchievementStars from '@components/achievements/AchievementStars.astro';
+import { getRarityStyle, type Alignment } from '@lib/achievements/utils';
+import { type Achievement } from '@lib/achievements/dynamics/index';
+import CommonCard from '@components/achievements/styles/CommonCard.astro';
+import Ravage from '@components/achievements/styles/evil/Ravage.astro';
+import Doom from '@components/achievements/styles/evil/Doom.astro';
+import Curse from '@components/achievements/styles/evil/Curse.astro';
+import Broken from '@components/achievements/styles/evil/Broken.astro';
+import Worn from '@components/achievements/styles/evil/Worn.astro';
+import Mundane from '@components/achievements/styles/evil/Mundane.astro';
+import Uncommon from '@components/achievements/styles/neutral/Uncommon.astro';
+import Rare from '@components/achievements/styles/neutral/Rare.astro';
+import UltraRare from '@components/achievements/styles/neutral/UltraRare.astro';
+import Epic from '@components/achievements/styles/neutral/Epic.astro';
+import Legendary from '@components/achievements/styles/neutral/Legendary.astro';
+import Ultimate from '@components/achievements/styles/neutral/Ultimate.astro';
+
+interface Props {
+  achievement: Achievement;
+}
+
+const { achievement } = Astro.props as Props;
+const rarity = getRarityStyle(achievement.rarity, achievement.alignment);
+const animationComponents = {
+  CommonCard,
+  Ravage,
+  Doom,
+  Curse,
+  Broken,
+  Worn,
+  Mundane,
+  Uncommon,
+  Rare,
+  UltraRare,
+  Epic,
+  Legendary,
+  Ultimate
+};
+
+const RarityAnimation = rarity.animationComponent ? animationComponents[rarity.animationComponent] : animationComponents.CommonCard;
+---
+
+<div class="achievement-card group" tabindex="0">
+  <div class="flip-card-inner">
+    <div class={`flip-card-front relative flex flex-col items-center gap-1 p-3 ${rarity.color} ${rarity.border} border-2 ${rarity.shadow} ${rarity.glow} transition-all duration-500 w-[120px] h-[160px] overflow-hidden`}>
+
+      <!-- Animaciones únicas por rareza -->
+      {RarityAnimation && <RarityAnimation />}
+
+      <div class="icon-container relative z-20 group-hover:animate-bounce mt-2">
+        <Image src={achievement.icon} alt={achievement.name} width={80} height={80} class="w-12 h-12 drop-shadow-2xl" />
+      </div>
+
+      <div class="name-container relative z-20 flex-grow flex items-center justify-center text-center px-1 h-8">
+        <span class={`text-center ${rarity.name} font-bold leading-tight ${achievement.name.length > 15 ? 'text-xs' : 'text-sm'}`}>
+          {achievement.name}
+        </span>
+      </div>
+
+      {achievement.stars > 0 && (
+        <AchievementStars count={achievement.stars} color={rarity.icons.color} IconComponent={rarity.icons.component} fullColor={rarity.fullColor} />
+      )}
+
+      <div class={`rarity-badge absolute rounded-xl -top-1 -right-1 px-2 py-0.5 text-xs font-semibold uppercase ${rarity.text} bg-black/60 border ${rarity.border}`}>
+        {rarity.label}
+      </div>
+    </div>
+
+    <!-- Parte trasera -->
+    <div class={`flip-card-back absolute w-full h-full ${rarity.color} ${rarity.border} border-2 p-3 flex flex-col items-center`}>
+      <div class={`inline-block px-2 py-0.5 text-center text-xs font-semibold uppercase ${rarity.text} bg-black/50 rounded-xl border ${rarity.border}`}>
+        {rarity.label}
+      </div>
+      <div class="flex-1 w-full flex items-center justify-center">
+        <p class={`${rarity.text} text-xs leading-relaxed text-center`}>{achievement.description}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* --- ESTRUCTURA DE LA CARTA (CON GIRO) --- */
+.achievement-card {
+  background-color: transparent;
+  width: 120px;
+  height: 160px;
+  perspective: 1000px;
+  cursor: pointer;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.7s;
+  transform-style: preserve-3d;
+  box-shadow: 0 8px 32px 0 rgba(0,0,0,0.3);
+  /* Addded will-change for performance optimization. */
+  will-change: transform;
+}
+
+.achievement-card.is-flipped .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  /* Addded transform for proper layering.  Addded will-change for performance optimization. */
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.flip-card-back {
+  transform: rotateY(180deg);
+}
+
+/* =================== ANIMACIONES ÚNICAS POR RAREZA =================== */
+
+/* =================== ANIMACIONES RAVAGED =================== */
+/* .... mas animaciones entre medio */
+/* =================== ANIMACIONES ULTRA =================== */
+
+/* =================== HOVER EFFECTS para cada rareza =================== */
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const cards = document.querySelectorAll('.achievement-card');
+  cards.forEach(card => {
+    const flipCard = () => {
+      card.classList.toggle('is-flipped');
+    };
+    card.addEventListener('click', flipCard);
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        flipCard();
+      }
+    });
+  });
+});
+</script>
