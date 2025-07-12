@@ -132,7 +132,8 @@ const tier = getMemberTier(points);
       <!-- Achievements Section -->
       {achievements.length > 0 && (
         <div class="bg-black/20 backdrop-blur-md border border-white/10 rounded-3xl p-6 shadow-2xl">
-          <h3 class="mb-4 text-lg font-bold tracking-widest text-gray-400 uppercase text-center">Badges</h3>
+          <h3 class="text-lg font-bold tracking-widest text-gray-300 uppercase text-center">Badges</h3>
+          <h6 class="text-center mb-2 text-gray-400">Tap the badges for details</h6>
           <div class="flex flex-wrap items-center justify-center gap-4">
             {achievements.map((achv: any, index: number) => (
               <AchievementCard achievement={achv} />
@@ -241,7 +242,8 @@ const tier = getMemberTier(points);
       <!-- Achievements (Full Width Below) -->
       {achievements.length > 0 && (
         <div class="col-span-3 mt-8 bg-black/20 backdrop-blur-md border border-white/10 rounded-3xl p-8 shadow-2xl">
-          <h3 class="mb-6 text-lg font-bold tracking-widest text-gray-400 uppercase text-center">Badges</h3>
+          <h3 class="mb-2 text-lg font-bold tracking-widest text-gray-400 uppercase text-center">Badges</h3>
+          <h6 class="text-center mb-4 text-gray-400">Click the badges for details</h6>
           <div class="flex flex-wrap items-center justify-center gap-6">
             {achievements.map((achv: any, index: number) => (
               // <AchievementCard achievement={achv} />
