@@ -157,11 +157,21 @@ export async function getMembersWithAchievement(achievementId: string): Promise<
 /**
  * Identifica los IDs únicos que están duplicados entre miembros.
  */
-async function findDuplicatedUniqueIds(
+let duplicatedUniqueIdsCache: Set<string> | null = null;
+
+export async function findDuplicatedUniqueIds(
   matches: Match[],
   tournaments: Tournament[],
   members: Member[]
 ): Promise<Set<string>> {
+  if (duplicatedUniqueIdsCache) {
+    console.log('[Logros] Reutilizando cache de IDs únicos duplicados');
+    console.log(duplicatedUniqueIdsCache);
+    return duplicatedUniqueIdsCache;
+  }
+
+  console.time('[Logros] Cálculo de IDs únicos duplicados');
+
   const counts = new Map<string, number>();
   for (const member of members) {
     for (const def of dynamicDefs) {
@@ -171,12 +181,25 @@ async function findDuplicatedUniqueIds(
       }
     }
   }
-  return new Set(
+
+  const duplicated = new Set(
     [...counts.entries()]
       .filter(([, count]) => count > 1)
       .map(([id]) => id)
   );
+
+  duplicatedUniqueIdsCache = duplicated;
+
+  console.timeEnd('[Logros] Cálculo de IDs únicos duplicados');
+
+  return duplicated;
 }
+
+// Reinicia la cache de IDs únicos duplicados
+export function clearDuplicatedUniqueIdsCache() {
+  duplicatedUniqueIdsCache = null;
+}
+
 
 /**
  * Dado un array de Achievement (con optional stars),
