@@ -185,6 +185,7 @@ const achievementsCollection = defineCollection({
     alignment: z.enum([...ALIGNMENTS]).default("Neutral"),
     unique: z.boolean().default(false),
     visible: z.boolean().default(true),
+    cardStyle: z.string().optional(),
   }),
 });
 
