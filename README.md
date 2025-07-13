@@ -10,12 +10,12 @@ Website built with **Astro**. Showcases tournaments, match details, and national
   Explain the NationStates community, the Forest lore, and why/how the FFC was founded.
 * **Create key Articles**
 
-  * “How the Website Works” (revise the draft you already have)
+  * “How the Website Works” (actual article is a placeholder)
   * “How to Participate and Sign Up”
   * “How the Ranking Works & How to Earn Points”
   * “Presenting Achievements”
 * **TournamentGrid.astro: Mobile Fix**
-  Make the tournament grid responsive and visually coherent on phones.
+  Make the tournament grid relative? and visually coherent on phones.
 * **Add Ranking Explanation Above Table**
   A short intro with link to the full “How the Ranking Works” article.
 * **Change Forest Cups heroImg's**
@@ -47,7 +47,7 @@ Website built with **Astro**. Showcases tournaments, match details, and national
 * **Create Icons for Each Achievement**
   Design small SVG or PNG badges for every achievement type.
 * **Create More Achievements**
-  Expand your achievement library with new conditions and lore.
+  Expand achievement library with new conditions.
 
 ---
 
