@@ -1,5 +1,5 @@
 ---
-//TODO: Create a Tailwind config for the markdown content(?)
+//TODO: The bullet points colour looks weird
 
 import { getCollection, type CollectionEntry } from 'astro:content';
 import { Image } from 'astro:assets';
@@ -26,13 +26,17 @@ const data = article.data;
   <div class="min-h-screen py-12">
     <div class="container mx-auto px-4 flex justify-center">
       <article class="w-full max-w-3xl bg-green-950/80 rounded-xl p-8 shadow-2xl">
+{ 
+  /*
         <a
           href="/articles"
           class="inline-block mb-4 text-xs font-semibold text-green-300 uppercase tracking-widest hover:underline"
         >
           &larr; Back to articles
         </a>
-       
+  */
+}
+    
         <header class="mb-8">
           <h1 class="mb-4 text-2xl font-extrabold text-white leading-tight md:text-3xl">
             {data.title}
