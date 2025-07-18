@@ -4,6 +4,7 @@ import { streakAchievements }     from './streaks';
 import { rivalryAchievements }    from './rivalry';
 import { specialAchievements }    from './special';
 import { rankingAchievements } from './ranking';
+import { communityAchievements } from './community';
 import { CATEGORIES, SUBCATEGORIES, ALIGNMENTS, type Category, hierarchy, type Subcategory, type Alignment } from '../utils';
 import { getCollection }          from 'astro:content';
 import type { CollectionEntry }   from 'astro:content';
@@ -39,7 +40,8 @@ export const dynamicDefs = [
   ...streakAchievements,
   ...rivalryAchievements,
   // ...specialAchievements,
-  ...rankingAchievements
+  ...rankingAchievements,
+  ...communityAchievements
 ].sort((a, b) => {
   if (a.rarity !== b.rarity) return a.rarity - b.rarity;
   return a.name.localeCompare(b.name);
@@ -104,9 +106,10 @@ export async function getAchievementsForMember(name: string): Promise<Achievemen
       .find(([lower, higher]) => lower === a.id && higher && achievedIds.has(higher));
     return !superior && a.enabled;
   });
-  // 6) Ordenar por rareza y nombre
+  // 6) Ordenar por rareza, estrellas y nombre
   all.sort((a, b) => {
     if (a.rarity !== b.rarity) return a.rarity - b.rarity;
+    if (a.stars !== b.stars) return a.stars - b.stars;
     return a.name.localeCompare(b.name);
   });
   return all;

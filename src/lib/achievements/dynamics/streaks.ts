@@ -4,7 +4,7 @@ import { getAllGoals, getAllMatchesByTeam,
   getAllRedCards, getLossStreak, getMatchWinner,
    getNoGoalStreak, getNoWinStreak, getUnbeatenStreak, 
    getWinStreak, getMatchGoals } from '@lib/matchUtils';
-import { type Category, CATEGORIES, type Subcategory, ALIGNMENTS } from '../utils';
+import { type Category, CATEGORIES, type Subcategory, ALIGNMENTS, type Alignment } from '../utils';
 
 const thisCategory = CATEGORIES[2];
 
@@ -384,25 +384,15 @@ const createNoWinAchievement = (id, name, icon, description, subcategory, alignm
       countFunction: countNoWinStreaks,
       stars
     });
-
-const goalsAchievements = [
-  createGoalsAchievement('10-goals', 'Striker', Trophy, 'Scored 10+ goals.', 'Goals', ALIGNMENTS[0], 0, 10, 1),
-  createGoalsAchievement('20-goals', 'Finisher', Trophy, 'Scored 20+ goals.', 'Goals', ALIGNMENTS[0], 1, 20, 2),
-  createGoalsAchievement('30-goals', 'Sharpshooter', Trophy, 'Scored 30+ goals.', 'Goals', ALIGNMENTS[0], 2, 30, 3),
-  createGoalsAchievement('40-goals', '40 Goals', Trophy, 'Scored 40+ goals.', 'Goals', ALIGNMENTS[0], 3, 40, 4),
-  createGoalsAchievement('50-goals', 'Android', Trophy, 'Scored 50+ goals.', 'Goals', ALIGNMENTS[0], 4, 50, 5),
-  createGoalsAchievement('75-goals', 'Juggernaut', Trophy, 'Scored 75+ goals.', 'Goals', ALIGNMENTS[0], 5, 75, 7),
-  createGoalsAchievement('100-goals', 'All Star', Trophy, 'Scored 100+ goals.', 'Goals', ALIGNMENTS[0], 6, 100, 10), // Ejemplo con estrellas fijas
-];
-
-const winStreakAchievements = [
-  createWinStreakAchievement('3-win-streak', 'Heated', Trophy, 'Won 3 matches in a row.', 'Win Streaks', ALIGNMENTS[0], 1, 3),
-  createWinStreakAchievement('5-win-streak', '5-Win Streak', Trophy, 'Won 5 matches in a row.', 'Win Streaks', ALIGNMENTS[0], 2, 5),
-  createWinStreakAchievement('7-win-streak', '7-Win Streak', Trophy, 'Won 7 matches in a row.', 'Win Streaks', ALIGNMENTS[0], 3, 7),
-  createWinStreakAchievement('10-win-streak', 'Rampant', Trophy, 'Won 10 matches in a row.', 'Win Streaks', ALIGNMENTS[0], 4, 10),
-];
-
-const unbeatenStreakAchievements = [
+    
+    const winStreakAchievements = [
+      createWinStreakAchievement('3-win-streak', 'Heated', Trophy, 'Won 3 matches in a row.', 'Win Streaks', ALIGNMENTS[0], 1, 3),
+      createWinStreakAchievement('5-win-streak', '5-Win Streak', Trophy, 'Won 5 matches in a row.', 'Win Streaks', ALIGNMENTS[0], 2, 5),
+      createWinStreakAchievement('7-win-streak', '7-Win Streak', Trophy, 'Won 7 matches in a row.', 'Win Streaks', ALIGNMENTS[0], 3, 7),
+      createWinStreakAchievement('10-win-streak', 'Rampant', Trophy, 'Won 10 matches in a row.', 'Win Streaks', ALIGNMENTS[0], 4, 10),
+    ];
+    
+    const unbeatenStreakAchievements = [
   createUnbeatenStreakAchievement('7-unbeaten-streak', '7-Unbeaten Streak', Trophy, 'Stayed unbeaten for 7+ matches in a row.', 'Unbeaten Streaks', ALIGNMENTS[0], 1, 7),
   createUnbeatenStreakAchievement('10-unbeaten-streak', '10-Unbeaten Streak', Trophy, 'Stayed unbeaten for 10+ matches in a row.', 'Unbeaten Streaks', ALIGNMENTS[0], 2, 10),
   createUnbeatenStreakAchievement('15-unbeaten-streak', '15-Unbeaten Streak', Trophy, 'Stayed unbeaten for 15+ matches in a row.', 'Unbeaten Streaks', ALIGNMENTS[0], 3, 15),
@@ -426,9 +416,20 @@ const lossStreakAchievements = [
 
 const scorelessStreakAchievements = [
   createScorelessStreakAchievement('5-scoreless-streak', '5-Scoreless Streak', Trophy, 'Scoreless in 5+ matches.', 'Scoreless Streaks', ALIGNMENTS[1], 1, 5),
-  createScorelessStreakAchievement('10-scoreless-streak', '10-Scoreless Streak', Trophy, 'Scoreless in 10+ matches.', 'Scoreless Streaks', ALIGNMENTS[1], 2, 10),
-  createScorelessStreakAchievement('15-scoreless-streak', '15-Scoreless Streak', Trophy, 'Scoreless in 15+ matches.', 'Scoreless Streaks', ALIGNMENTS[1], 3, 15),
-  createScorelessStreakAchievement('20-scoreless-streak', '20-Scoreless Streak', Trophy, 'Scoreless in 20+ matches.', 'Scoreless Streaks', ALIGNMENTS[1], 4, 20),
+  createScorelessStreakAchievement('7-scoreless-streak', '7-Scoreless Streak', Trophy, 'Scoreless in 7+ matches.', 'Scoreless Streaks', ALIGNMENTS[1], 2, 7),
+  createScorelessStreakAchievement('10-scoreless-streak', '10-Scoreless Streak', Trophy, 'Scoreless in 10+ matches.', 'Scoreless Streaks', ALIGNMENTS[1], 3, 10),
+  createScorelessStreakAchievement('15-scoreless-streak', '15-Scoreless Streak', Trophy, 'Scoreless in 15+ matches.', 'Scoreless Streaks', ALIGNMENTS[1], 4, 15),
+  createScorelessStreakAchievement('20-scoreless-streak', '20-Scoreless Streak', Trophy, 'Scoreless in 20+ matches.', 'Scoreless Streaks', ALIGNMENTS[1], 5, 20),
+];
+
+const goalsAchievements = [
+  createGoalsAchievement('10-goals', 'Striker', Trophy, 'Scored 10+ goals.', 'Goals', ALIGNMENTS[0], 0, 10, 1),
+  createGoalsAchievement('20-goals', 'Finisher', Trophy, 'Scored 20+ goals.', 'Goals', ALIGNMENTS[0], 1, 20, 2),
+  createGoalsAchievement('30-goals', 'Sharpshooter', Trophy, 'Scored 30+ goals.', 'Goals', ALIGNMENTS[0], 2, 30, 3),
+  createGoalsAchievement('40-goals', '40 Goals', Trophy, 'Scored 40+ goals.', 'Goals', ALIGNMENTS[0], 3, 40, 4),
+  createGoalsAchievement('50-goals', 'Android', Trophy, 'Scored 50+ goals.', 'Goals', ALIGNMENTS[0], 4, 50, 5),
+  createGoalsAchievement('75-goals', 'Juggernaut', Trophy, 'Scored 75+ goals.', 'Goals', ALIGNMENTS[0], 5, 75, 7),
+  createGoalsAchievement('100-goals', 'All Star', Trophy, 'Scored 100+ goals.', 'Goals', ALIGNMENTS[0], 6, 100, 10), // Ejemplo con estrellas fijas
 ];
 
 // 8. Max stat achievements

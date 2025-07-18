@@ -180,12 +180,22 @@ const achievementsCollection = defineCollection({
     rarity: z.number().int().min(0).default(0),
     stars: z.number().min(0).default(0),
     enabled: z.boolean().default(true),
-    category: z.enum([...CATEGORIES]).default("None"),
-    subcategory: z.enum([...SUBCATEGORIES]).default("None"),
+    category: z.enum([...CATEGORIES]).default("Basic"),
+    subcategory: z.enum([...SUBCATEGORIES]).default("Basic"),
     alignment: z.enum([...ALIGNMENTS]).default("Neutral"),
     unique: z.boolean().default(false),
     visible: z.boolean().default(true),
     cardStyle: z.string().optional(),
+  }),
+});
+
+const sponsorCollection = defineCollection({
+  type: 'content',
+  schema: ({ image }) => z.object({
+    name: z.string(),
+    image: image(),
+    member: z.string().optional(),
+    class: z.string().optional(),
   }),
 });
 
@@ -194,5 +204,6 @@ export const collections = {
   'matches': matchesCollection,
   'members': membersCollection,
   'articles': articlesCollection,
-  'achievements': achievementsCollection
+  'achievements': achievementsCollection,
+  'sponsors': sponsorCollection
 };

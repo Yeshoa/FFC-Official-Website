@@ -63,11 +63,11 @@ const baseAchievements: {
   {
     id: 'host',
     rarity: 1,
-    name: 'Host',
+    name: 'Home sweet home.',
     icon: Trophy,
     description: 'Awarded for hosting a Forest Cup edition.',
     category: thisCategory,
-    subcategory: SUBCATEGORIES[0],
+    subcategory: "Participation" as Subcategory,
     alignment: ALIGNMENTS[0],
     visible: true,
     unique: false,
@@ -322,6 +322,40 @@ const baseAchievements: {
       }; */
     }
   },
+  {
+    id: 'veteran',
+    rarity: 0,
+    name: 'Veteran',
+    icon: Trophy,
+    description: 'Awarded for participating in multiple Forest Cups.',
+    category: thisCategory,
+    subcategory: "Participation" as Subcategory,
+    alignment: ALIGNMENTS[0],
+    visible: true,
+    unique: false,
+    enabled: true,
+    stars: 1,
+
+    evaluate: function (matches, tournaments, member) {
+      const { evaluate, ...base } = this;
+      const participatedTournaments = tournaments.filter(t => t.data.participants.includes(member.data.name));
+
+      const participationCount = participatedTournaments.length;
+
+      if (participationCount < 2) return null;
+
+      const newStars = participationCount;
+      const newRarity = participationCount > 8 ? 6 : participationCount - 2;
+      const newDescription = `Participated in ${participationCount} Forest Cup${participationCount > 1 ? 's' : ''}.`;
+
+      return {
+        ...base,
+        stars: newStars,
+        rarity: newRarity,
+        description: newDescription
+      };
+    }
+  }
 ];
 /* PRIZES */
 const makePrizeAchievement = (

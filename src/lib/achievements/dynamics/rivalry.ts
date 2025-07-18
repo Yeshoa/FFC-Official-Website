@@ -1,6 +1,6 @@
 import Trophy from '@images/achievements/king.webp';
 import type { Achievement } from './index';
-import { type Category, CATEGORIES, ALIGNMENTS, type Subcategory } from '../utils';
+import { type Category, CATEGORIES, ALIGNMENTS, type Subcategory, type Alignment } from '../utils';
 import type { CollectionEntry } from 'astro:content';
 import { getMemberByName } from '@lib/memberUtils';
 import { getGoalsByTeam, getMatchWinnerIncludingPenalties } from '@lib/matchUtils';
@@ -41,7 +41,6 @@ export const baseAchievements: {
     stars: 1,
     evaluate: function (matches, tournaments, member, memberCollection) {
       if (!member.data.verified) return null;
-
       // 1) Verified matches
       const verifiedMatches = matches.filter(m => {
         const t1 = getMemberByName(m.data.team1, memberCollection)?.data.verified;
@@ -81,7 +80,7 @@ export const baseAchievements: {
         for (const ach of difAchievements) {
           const minDif = parseInt(ach.id.split('-')[0], 10);
           if (maxDiff >= minDif) {
-            newRarity = ach.rarity - 1; // Subirle la rareza del logro
+            newRarity = ach.rarity + 1; // Subirle la rareza del logro
             newName = ach.name; // EN ESTE CASO ESPECIFICO NO IMPORTA USAR EL MISMO
           } else {
             // newName = ach.name; // EN ESTE CASO USA EL NOMBRE DEL SIGUIENTE

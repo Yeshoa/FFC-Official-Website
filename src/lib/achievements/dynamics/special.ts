@@ -2,7 +2,7 @@ import Trophy from '@images/achievements/king.webp';
 import type { Achievement } from './index';
 import { getMemberByName } from '@lib/memberUtils';
 import { getGoalsByTeam, getMatchWinner, getMatchWinnerIncludingPenalties } from '@lib/matchUtils';
-import type { Rarity, Category } from '../utils';
+import type { Category } from '../utils';
 
 const thisCategory = 'Special';
 

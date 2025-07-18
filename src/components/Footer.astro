@@ -1,16 +1,7 @@
 ---
 import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
 import FooterImage from '@images/Footer.png';
-import Sponsor1 from '@images/sponsors/bersa.png';
-import Sponsor2 from '@images/sponsors/ecoking.png';
-import Sponsor3 from '@images/sponsors/einsair.png';
-import Sponsor4 from '@images/sponsors/einset royal.png';
-import Sponsor5 from '@images/sponsors/ESN.png';
-import Sponsor6 from '@images/sponsors/frey.png';
-import Sponsor7 from '@images/sponsors/northern wings.png';
-import Sponsor8 from '@images/sponsors/startex.png';
-import Sponsor9 from '@images/sponsors/white island stadium.png';
-import Sponsor10 from '@images/sponsors/tms.png';
 
 import PayPalLogo from '@images/paypal.png';
 import MPLogo from '@images/mercadopago.png';
@@ -21,18 +12,7 @@ import KickLogo from '@images/kick.png';
 const paypalLink = import.meta.env.PUBLIC_PAYPAL_LINK;
 const mpLink = import.meta.env.PUBLIC_MERCADOPAGO_LINK;
 
-const sponsors = [
-  { src: Sponsor1, alt: 'Bersa', class: 'invert' },
-  { src: Sponsor2, alt: 'Ecoking' },
-  { src: Sponsor3, alt: 'Einsair', class: 'invert' },
-  { src: Sponsor4, alt: 'Einset Royal', class: 'invert' },
-  { src: Sponsor5, alt: 'ESN' },
-  { src: Sponsor6, alt: 'Frey', class: 'invert' },
-  { src: Sponsor7, alt: 'Northern Wings', class: 'invert' },
-  { src: Sponsor8, alt: 'Startex', class: 'invert' },
-  { src: Sponsor9, alt: 'White Island Stadium', class: 'invert' },
-  { src: Sponsor10, alt: 'TMS', width: 160 },
-];
+const sponsors = await getCollection('sponsors');
 ---
 <footer class="bg-green-950 border-t border-green-600">
   <div class="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
@@ -137,11 +117,11 @@ const sponsors = [
     <div class="grid grid-cols-3 gap-4 sm:gap-5 sm:grid-cols-10 mt-8">
       {sponsors.map((sponsor) => (
         <div class="flex justify-center items-center">
-          <Image
-            src={sponsor.src}
-            alt={sponsor.alt}
-            width={sponsor.width || 96}
-            class={`w-24 ${sponsor.class ?? ''}`}
+          <Image 
+            src={sponsor.data.image}
+            alt={sponsor.data.name}
+            width={96}
+            class={`w-24 ${sponsor.data.class}`}
             loading="lazy"
             format="webp"
             quality={30}

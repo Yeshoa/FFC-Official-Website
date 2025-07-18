@@ -1,0 +1,272 @@
+<!-- Infernal.astro -->
+<div class="infernal-flame infernal-flame-1"></div>
+<div class="infernal-flame infernal-flame-2"></div>
+<div class="infernal-flame infernal-flame-3"></div>
+<div class="infernal-flame infernal-flame-4"></div>
+<div class="infernal-flame infernal-flame-5"></div>
+<div class="infernal-lava-bubble infernal-lava-bubble-1"></div>
+<div class="infernal-lava-bubble infernal-lava-bubble-2"></div>
+<div class="infernal-lava-bubble infernal-lava-bubble-3"></div>
+<div class="infernal-spark infernal-spark-1"></div>
+<div class="infernal-spark infernal-spark-2"></div>
+<div class="infernal-spark infernal-spark-3"></div>
+<div class="infernal-heat-distortion"></div>
+<div class="infernal-core-magma"></div>
+<div class="infernal-rim-fire"></div>
+
+<style>
+.infernal-flame {
+  position: absolute;
+  width: 8px;
+  height: 16px;
+  background: linear-gradient(to top, #dc2626, #ea580c, #f59e0b, #fbbf24);
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  animation: infernal-flame-dance 1.8s ease-in-out infinite;
+  box-shadow: 0 0 12px rgba(214, 206, 185, 0.8);
+  filter: blur(0.5px);
+}
+
+.infernal-flame-1 {
+  bottom: 8%;
+  left: 15%;
+  animation-delay: 0s;
+  transform: scale(1.2);
+}
+
+.infernal-flame-2 {
+  bottom: 12%;
+  right: 20%;
+  animation-delay: 0.3s;
+  transform: scale(0.9);
+}
+
+.infernal-flame-3 {
+  bottom: 18%;
+  left: 65%;
+  animation-delay: 0.6s;
+  transform: scale(1.1);
+}
+
+.infernal-flame-4 {
+  bottom: 10%;
+  left: 45%;
+  animation-delay: 0.9s;
+  transform: scale(1.3);
+}
+
+.infernal-flame-5 {
+  bottom: 15%;
+  right: 50%;
+  animation-delay: 1.2s;
+  transform: scale(0.8);
+}
+
+.infernal-lava-bubble {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: radial-gradient(circle, #fbbf24, #ea580c, #dc2626);
+  border-radius: 50%;
+  animation: infernal-lava-bubble-rise 3s ease-out infinite;
+  box-shadow: 0 0 8px rgba(251, 191, 36, 0.6);
+}
+
+.infernal-lava-bubble-1 {
+  bottom: 5%;
+  left: 25%;
+  animation-delay: 0s;
+}
+
+.infernal-lava-bubble-2 {
+  bottom: 8%;
+  right: 30%;
+  animation-delay: 1s;
+}
+
+.infernal-lava-bubble-3 {
+  bottom: 12%;
+  left: 60%;
+  animation-delay: 2s;
+}
+
+.infernal-spark {
+  position: absolute;
+  width: 2px;
+  height: 4px;
+  background: linear-gradient(to top, #fbbf24, #ffffff);
+  border-radius: 50%;
+  animation: infernal-spark-burst 2.5s linear infinite;
+  box-shadow: 0 0 4px rgba(255, 255, 255, 0.8);
+}
+
+.infernal-spark-1 {
+  bottom: 20%;
+  left: 35%;
+  animation-delay: 0.5s;
+}
+
+.infernal-spark-2 {
+  bottom: 25%;
+  right: 40%;
+  animation-delay: 1.2s;
+}
+
+.infernal-spark-3 {
+  bottom: 22%;
+  left: 55%;
+  animation-delay: 1.8s;
+}
+
+.infernal-heat-distortion {
+  position: absolute;
+  inset: 6px;
+  background: radial-gradient(ellipse at bottom, rgba(251, 191, 36, 0.2) 0%, rgba(234, 88, 12, 0.1) 30%, transparent 60%);
+  border-radius: 0.75rem;
+  animation: infernal-heat-shimmer 2.2s ease-in-out infinite;
+  filter: blur(1px);
+}
+
+.infernal-core-magma {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  height: 40%;
+  background: linear-gradient(to top, rgba(220, 38, 38, 0.4), rgba(234, 88, 12, 0.3), rgba(251, 191, 36, 0.2), transparent);
+  border-radius: 50% 50% 0 0;
+  animation: infernal-magma-pulse 2.8s ease-in-out infinite;
+  box-shadow: inset 0 0 20px rgba(251, 191, 36, 0.3);
+}
+
+.infernal-rim-fire {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  right: 8px;
+  bottom: 8px;
+  border: 2px solid transparent;
+  border-radius: 0.75rem;
+  background: linear-gradient(45deg, rgba(251, 191, 36, 0.3), rgba(234, 88, 12, 0.2), rgba(220, 38, 38, 0.3), rgba(251, 191, 36, 0.3));
+  background-size: 400% 400%;
+  animation: infernal-rim-glow 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes infernal-flame-dance {
+  0%, 100% {
+    transform: translateY(0) scale(1) rotate(-3deg);
+    opacity: 0.9;
+  }
+  25% {
+    transform: translateY(-10px) scale(1.2) rotate(3deg);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-16px) scale(0.8) rotate(-2deg);
+    opacity: 0.8;
+  }
+  75% {
+    transform: translateY(-8px) scale(1.1) rotate(2deg);
+    opacity: 1;
+  }
+}
+
+@keyframes infernal-lava-bubble-rise {
+  0% {
+    transform: translateY(0) scale(0.5);
+    opacity: 0.8;
+  }
+  30% {
+    transform: translateY(-20px) scale(1);
+    opacity: 1;
+  }
+  60% {
+    transform: translateY(-45px) scale(1.2);
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(-70px) scale(0.3);
+    opacity: 0;
+  }
+}
+
+@keyframes infernal-spark-burst {
+  0% {
+    transform: translateY(0) translateX(0) scale(1);
+    opacity: 1;
+  }
+  30% {
+    transform: translateY(-30px) translateX(-10px) scale(1.5);
+    opacity: 0.8;
+  }
+  60% {
+    transform: translateY(-50px) translateX(15px) scale(0.8);
+    opacity: 0.4;
+  }
+  100% {
+    transform: translateY(-80px) translateX(-20px) scale(0.2);
+    opacity: 0;
+  }
+}
+
+@keyframes infernal-heat-shimmer {
+  0%, 100% {
+    background: radial-gradient(ellipse at bottom, rgba(251, 191, 36, 0.15) 0%, rgba(234, 88, 12, 0.08) 30%, transparent 60%);
+    transform: scale(1);
+  }
+  50% {
+    background: radial-gradient(ellipse at bottom, rgba(251, 191, 36, 0.25) 0%, rgba(234, 88, 12, 0.15) 35%, transparent 65%);
+    transform: scale(1.02);
+  }
+}
+
+@keyframes infernal-magma-pulse {
+  0%, 100% {
+    background: linear-gradient(to top, rgba(220, 38, 38, 0.3), rgba(234, 88, 12, 0.2), rgba(251, 191, 36, 0.15), transparent);
+    box-shadow: inset 0 0 15px rgba(251, 191, 36, 0.2);
+  }
+  50% {
+    background: linear-gradient(to top, rgba(220, 38, 38, 0.5), rgba(234, 88, 12, 0.4), rgba(251, 191, 36, 0.3), transparent);
+    box-shadow: inset 0 0 25px rgba(251, 191, 36, 0.4);
+  }
+}
+
+@keyframes infernal-rim-glow {
+  0%, 100% {
+    background-position: 0% 50%;
+    opacity: 0.6;
+  }
+  50% {
+    background-position: 100% 50%;
+    opacity: 0.8;
+  }
+}
+
+/* Efectos de hover más intensos */
+.achievement-card:hover .infernal-flame {
+  animation-duration: 1.2s;
+  box-shadow: 0 0 16px rgba(251, 191, 36, 1);
+}
+
+.achievement-card:hover .infernal-lava-bubble {
+  animation-duration: 2s;
+}
+
+.achievement-card:hover .infernal-spark {
+  animation-duration: 1.8s;
+}
+
+.achievement-card:hover .infernal-heat-distortion {
+  animation-duration: 1.5s;
+}
+
+.achievement-card:hover .infernal-core-magma {
+  animation-duration: 2s;
+}
+
+.achievement-card:hover .infernal-rim-fire {
+  animation-duration: 2.5s;
+  opacity: 1;
+}
+</style>
