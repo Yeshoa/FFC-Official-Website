@@ -8,8 +8,8 @@ Website built with **Astro**. Showcases tournaments, match details, and national
 
 * **Create “About Us” page**
   Explain the NationStates community, the Forest lore, and why/how the FFC was founded.
-* **Create key Articles**
 
+* **Create key Articles**
   * “How the Website Works” (actual article is a placeholder)
   * “How to Participate and Sign Up”
   * “How the Ranking Works & How to Earn Points”
