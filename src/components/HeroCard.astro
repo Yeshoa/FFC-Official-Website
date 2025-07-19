@@ -218,8 +218,8 @@ const {
     <div class="flex flex-col md:flex-row h-full">
       <!-- Sección pequeña de imagen -->
       <div class={`${imagePosition === 'left' ? 'md:w-1/3 order-1' : 'md:w-1/3 order-2'} min-h-[400px] md:h-full md:min-h-0 w-full relative overflow-hidden`}>
-        <Image 
-          src={image} 
+        <Image
+          src={image}
           alt={title}
           height={500}
           format="webp"
@@ -228,15 +228,15 @@ const {
         />
         <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
       </div>
-      
+
       <!-- Sección grande de contenido -->
       <div class={`${imagePosition === 'left' ? 'md:w-2/3 md:order-2' : 'md:w-2/3 md:order-1'} h-[550px] md:h-full flex items-center justify-center p-12 bg-gradient-to-br ${backgroundColor} relative`}>
         <!-- Elementos decorativos de fondo -->
         <div class="absolute inset-0 opacity-10">
-          <div class="absolute top-0 left-0 w-32 h-32 bg-white transform rotate-45"></div>
-          <div class="absolute bottom-0 right-0 w-24 h-24 bg-white/50 transform -rotate-45"></div>
+          <div class="absolute top-0 left-0 w-32 h-32 bg-white transform rotate-45 group-hover:rotate-90 transition-transform duration-700"></div>
+          <div class="absolute bottom-0 right-0 w-24 h-24 bg-white/50 transform -rotate-45 group-hover:rotate-0 transition-transform duration-700"></div>
         </div>
-        
+
         <div class="max-w-2xl text-white z-10">
           <h2 class="text-4xl md:text-5xl font-black mb-8 leading-tight transform group-hover:translate-y-[-6px] transition-transform duration-500">
             {title}
@@ -244,7 +244,7 @@ const {
           <p class="text-xl md:text-2xl text-gray-100 mb-10 leading-relaxed">
             {description}
           </p>
-          <a 
+          <a
             href={buttonUrl}
             class="inline-flex items-center gap-3 px-10 py-5 bg-white text-gray-900 font-bold text-lg
                    shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all duration-300"
@@ -260,6 +260,7 @@ const {
     </div>
   </div>
 )}
+
 
 <style>
   /* Clips paths para cortes diagonales */
