@@ -1,0 +1,109 @@
+---
+title: "How the Ranking Works & How to Earn Points"
+date: 2025-07-20
+author: "Bolbon"
+tags: [guide, ranking, points]
+summary: "Learn how FFC’s ranking is calculated, how to score points across categories, and what each tier represents."
+image: "/src/assets/images/nysnub3.png"
+---
+
+import { Image } from 'astro:assets';
+import Banner from '@images/articles/welcome/banner.png';
+
+## Overview
+
+The FFC **Ranking** measures each nation’s overall strength by combining:
+
+1. **Player ratings average**  
+2. **Historical performance**  
+3. **Community engagement** and **bonus activities**  
+
+A higher ranking not only shows you’re one of the best teams, it also gives you **priority in group‐stage draws**, a key advantage in Forest Cup.
+
+> Starting with Forest Cup 2026, the **top 24** ranked teams **(who have submitted their update form)** qualify **directly**.  
+> All remaining nations enter a **playoff** for the final 8 spots.
+
+<div class="flex flex-col items-center justify-center my-6">
+  <Image
+    src={Banner}
+    alt="Illustration of teams climbing a ranking ladder"
+    class="rounded-xl shadow-lg h-80 w-full object-cover -mb-4"
+    quality={40}
+    format="webp"
+  />
+  <span class="mt-2 text-xs text-gray-400 font-normal w-full text-left">
+    Climb the ranking to secure your spot and get Pot 1–3 seeding advantages in group draws.
+  </span>
+</div>
+
+---
+
+## 🏅 Points Categories
+
+We break down scoring into three main categories. Each category is **capped** or **weighted** so that no single area dominates your total score. (Values shown as variables for easy tweaking.)
+
+### 1️⃣ Roleplay (max: `MAX_HISTORY_POINTS + MAX_PREV_EDITION_POINTS`)
+
+* **History Points** (`0…H_MAX`):
+  Rewarded for rich football roleplay, defined leagues, team lore, kit designs, dispatches, etc.
+  *Subjective* but applied with clear criteria to maintain consistency.
+
+* **Past Edition Results** (`0…E_MAX`):
+  Points from last Forest Cup editions, with **diminishing returns**:
+
+  * Edition −1: 100% of its points
+  * Edition −2: 50%
+  * Edition −3: 25%
+  * Edition −4: 10%
+  * Edition −5: 5%
+  * Older: 0%
+
+> **Suggestion:** To simplify, consider using a **decay factor** (e.g. multiply each prior edition by 0.5ⁿ) and cap the total at `MAX_PREV_EDITION_POINTS`.
+
+### 2️⃣ Events (max: `MAX_EVENT_POINTS`)
+
+* **Event Edition Results** (`0…EV_MAX`):
+  Works like Past Edition Results, but for community events (poetry contests, mini‑tournaments, etc.).
+* **Individual Event Scores** (`0…EV_MAX`):
+  Each event awards points; we may apply a **normalization factor** so the top performer earns full credit and the rest scale accordingly.
+
+### 3️⃣ Bonus (max: `MAX_BONUS_POINTS`)
+
+* **Host Bonus** (`HOST_POINTS`):
+  Automatic points for hosting a Forest Cup.
+* **Easter Egg Discoveries** (`EGG_POINTS`):
+  Find hidden surprises before the tournaments start to earn secret rewards.
+* **Organizer’s Extra** (`XTR_POINTS`):
+  Subjective rewards for community contributions (media coverage, translations, lore writing).
+
+---
+
+## ➕ Total Score & Tiers
+
+Your **Total Score** = Roleplay + Events + Bonus
+This becomes your **Ranking Value**, which places you into one of nine visual tiers:
+
+| Tier | Score Range       | Description                               |
+| ---- | ----------------- | ----------------------------------------- |
+| F    | 0 – `T_E`         | Amateur level                             |
+| E    | `T_E+1` – `T_D`   | Humble professionals                      |
+| D    | `T_D+1` – `T_C`   | Solid pros, not yet standout              |
+| C    | `T_C+1` – `T_B`   | Competitive contenders                    |
+| B    | `T_B+1` – `T_A`   | Strong teams, past finalists/champions    |
+| A    | `T_A+1` – `T_S`   | Title contenders                          |
+| S    | `T_S+1` – `T_S+`  | Powerhouses                               |
+| S+   | `T_S+1` – `T_X`   | Elite super‑teams                         |
+| X    | `T_X+1` and above | Almost unbeatable; many 95+‑rated players |
+
+> *Threshold constants (`T_E`, `T_D`, etc.) can be adjusted as we finalize scoring caps.*
+
+---
+
+## 🚀 Next Steps
+
+1. **Finalize caps** (`H_MAX`, `E_MAX`, `EV_MAX`, `MAX_BONUS_POINTS`, `Tiers`).
+2. **Publish** the ranking algorithm and example calculations for transparency.
+3. **Update** the ranking page to display live point breakdowns per team.
+
+By understanding and optimizing each category, you’ll maximize your nation’s strength, and your chances of lifting the Forest Cup trophy!
+
