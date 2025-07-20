@@ -4,8 +4,6 @@ import { getCollection } from 'astro:content';
 import type { CollectionEntry } from "astro:content";
 import Star from "@images/icons/star-solid.svg";
 
-// Se asume que 'currentTournament' es el objeto 'data' de la colección.
-// 'champion' sigue siendo la entrada completa de la colección.
 interface Props {
   currentTournament: CollectionEntry<'tournaments'>['data'];
   champion: CollectionEntry<'members'>;
@@ -13,24 +11,23 @@ interface Props {
 
 const { currentTournament, champion } = Astro.props;
 
-// Obtenemos todos los torneos y los ordenamos por su ID para la navegación
 const allTournaments = await getCollection('tournaments');
 const sortedTournaments = allTournaments.sort((a, b) => a.data.id - b.data.id);
 ---
 
 <div class="relative w-full">
-  <nav class="nav-content absolute top-0 left-0 right-0 z-20 bg-green-950/80 backdrop-blur-sm">
+  <nav class="absolute top-0 left-0 right-0 z-20 bg-green-950/80 backdrop-blur-sm">
     <div class="flex justify-center items-center py-3 px-4">
       <div class="flex gap-6 overflow-x-auto scrollbar-hide">
         {sortedTournaments.slice().reverse().map((tournament) => {
           const isActive = tournament.data.id === currentTournament.id;
           return (
-            <a 
+            <a
               href={isActive ? "#" : `/${tournament.data.type}/${tournament.data.edition}`}
               class:list={[
                 "text-sm font-medium whitespace-nowrap transition-all duration-300",
-                isActive 
-                  ? "text-amber-300 border-b-2 border-amber-300 pb-1 pointer-events-none" 
+                isActive
+                  ? "text-amber-300 border-b-2 border-amber-300 pb-1 pointer-events-none"
                   : "text-green-200 hover:text-amber-200"
               ]}
             >
@@ -45,7 +42,7 @@ const sortedTournaments = allTournaments.sort((a, b) => a.data.id - b.data.id);
 
   <section class="relative w-full overflow-hidden text-white">
     <!-- Hero Image (carga primero) -->
-    <div class="absolute inset-0">
+    <div class="absolute inset-0 overflow-hidden">
       <Image
         src={currentTournament.heroImg}
         alt={`Background of ${currentTournament.name}`}
@@ -99,55 +96,40 @@ const sortedTournaments = allTournaments.sort((a, b) => a.data.id - b.data.id);
 </div>
 
 <script>
-  // Función para manejar las animaciones de carga
   function initializeHeroAnimations() {
-    const heroImg = document.querySelector('.hero-img') as HTMLImageElement;
-    const mainContent = document.querySelector('.main-content') as HTMLElement;
-    // const navContent = document.querySelector('.nav-content') as HTMLElement;
-    
-    if (!heroImg || !mainContent /* || !navContent */) return;
+    const heroImg = document.querySelector('.hero-img');
+    const mainContent = document.querySelector('.main-content');
+    if (!heroImg || !mainContent) return;
 
-    // Ocultar contenido inicialmente
     mainContent.style.opacity = '0';
-    // navContent.style.opacity = '0';
-    
-    // Función para animar el contenido
+
+    const animateHeroImg = () => {
+      heroImg.style.filter = 'blur(0px)';
+      heroImg.style.transform = 'scale(1)';
+    };
     const animateContent = () => {
-      // Animar navegación
-      // navContent.style.transition = 'opacity 0.8s ease-in-out';
-      // navContent.style.opacity = '1';
-      
-      // Animar contenido principal con un ligero delay
       setTimeout(() => {
-        mainContent.style.transition = 'opacity 1.2s ease-in-out';
+        mainContent.style.transition = 'opacity 1.2s ease-in-out, transform 1.2s ease-in-out';
         mainContent.style.opacity = '1';
-      }, 200);
+        mainContent.style.transform = 'translateY(0)';
+      }, 800);
     };
 
-    // Si la imagen ya está cargada (cache)
     if (heroImg.complete && heroImg.naturalHeight !== 0) {
-      setTimeout(animateContent, 100); // Pequeño delay para suavidad
+      setTimeout(() => { animateHeroImg(); animateContent(); }, 100);
     } else {
-      // Escuchar cuando la imagen se carga
-      heroImg.addEventListener('load', () => {
-        setTimeout(animateContent, 300); // Delay para asegurar que se renderice
-      });
-      
-      // Fallback en caso de error de carga
-      heroImg.addEventListener('error', () => {
-        setTimeout(animateContent, 100);
-      });
+      heroImg.addEventListener('load', () => setTimeout(() => { animateHeroImg(); animateContent(); }, 300));
+      heroImg.addEventListener('error', () => setTimeout(() => { mainContent.style.opacity = '1'; mainContent.style.transform = 'translateY(0)'; }, 100));
     }
 
-    // Fallback adicional para asegurar que el contenido aparezca
     setTimeout(() => {
       if (mainContent.style.opacity === '0') {
-        animateContent();
+        mainContent.style.opacity = '1';
+        mainContent.style.transform = 'translateY(0)';
       }
-    }, 2000);
+    }, 3000);
   }
 
-  // Ejecutar cuando el DOM esté listo
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initializeHeroAnimations);
   } else {
@@ -159,36 +141,26 @@ const sortedTournaments = allTournaments.sort((a, b) => a.data.id - b.data.id);
   section {
     height: calc(100svh - 72px);
   }
-  
-  /* Optimización para la carga de la imagen hero */
   .hero-img {
-    will-change: transform;
+    will-change: transform, filter;
     backface-visibility: hidden;
-    transform: translateZ(0);
+    transform: translateZ(0) scale(1.1);
+    filter: blur(10px);
+    transition: filter 1.5s ease-out, transform 1.5s ease-out;
   }
-  
-  /* Estados iniciales para evitar FOUC */
+  /* Mantener la animación de respiración sin parallax */
+  @keyframes gentle-breathe {
+    0%, 100% { transform: scale(1) translateY(0); }
+    50% { transform: scale(1.02) translateY(-2px); }
+  }
+  .hero-img:not([style*="blur"]) {
+    animation: gentle-breathe 8s ease-in-out infinite;
+  }
   .main-content {
     opacity: 0;
-    will-change: opacity;
+    will-change: opacity, transform;
+    transform: translateY(20px);
   }
-  
-  /* .nav-content {
-    opacity: 0;
-    will-change: opacity;
-  } */
-  
-  /* Clase para ocultar la barra de scroll en navegadores compatibles */
-  .scrollbar-hide::-webkit-scrollbar {
-    display: none;
-  }
-  .scrollbar-hide {
-    -ms-overflow-style: none; /* IE y Edge */
-    scrollbar-width: none; /* Firefox */
-  }
-  
-  /* Animación más suave para hover en elementos internos */
-  .main-content * {
-    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
-  }
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+  .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
 </style>
