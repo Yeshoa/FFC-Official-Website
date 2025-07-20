@@ -14,7 +14,7 @@ Website built with **Astro**. Showcases tournaments, match details, and national
   * “How to Participate and Sign Up”
   * “How the Ranking Works & How to Earn Points”
   * “Presenting Achievements”
-* **TournamentGrid.astro: Mobile Fix**
+* **TournamentGrid.astro: Mobile Fix** ✅
   Make the tournament grid relative? and visually coherent on phones.
 * **Add Ranking Explanation Above Table**
   A short intro with link to the full “How the Ranking Works” article.
@@ -83,7 +83,7 @@ Website built with **Astro**. Showcases tournaments, match details, and national
   - ❌️ Set up `render` content _discarded_
   - ❌️ ~~Upcoming matches~~ _discarded_
   - ✅ Show a component for **last matches played**
-  - ⚠ Component showing **head-to-head stats** against other national teams (only those they've played)
+  - ✅ Component showing **head-to-head stats** against other national teams (only those they've played)
   - ✅ Show **Forest Cup history** [Example](https://es.wikipedia.org/wiki/Selección_de_fútbol_de_Argentina#Estadísticas)
   - ✅ **Records section** [Example](https://es.wikipedia.org/wiki/Selección_de_fútbol_de_Argentina#Récords_y_notas)
   - ✅ **Achievements**
@@ -94,10 +94,10 @@ Website built with **Astro**. Showcases tournaments, match details, and national
 &nbsp;&nbsp;&nbsp;&nbsp;Improve Tournaments pages:
   - ✅ `Banner`: An image of the champions, with their flag-name and maybe the trophy
   - ✅ `Headlines`: A component with relevant media.
-  - ✅ `Brackets`: Improve bracket match card
-  - ✅ `Groups and Matches`
-  - ⚠ `Knockout Matches`
   - ✅ `Individual Prizes`
+  - ✅ `Groups and Matches`
+  - ✅ `Knockout Matches`
+  - ❌️ `Brackets`: Improve bracket match card
   - ✅ `Overall Table`
   - ❌️ `Team of the Tournament`
   - ❌️ `Minor Stats or gallery`
@@ -105,9 +105,6 @@ Website built with **Astro**. Showcases tournaments, match details, and national
 
  - ⛔️**Elaborate the Matches page (by slug)**_discarded: too heavy for deploy_
 &nbsp;&nbsp;&nbsp;&nbsp;Collection by markdown DONE✅. Page should show all the match info: [Example](https://www.promiedos.com.ar/game/borussia-dortmund-vs-real-madrid/ebcejgh)
-
-- [ ] **Create "sign up" form**  
-&nbsp;&nbsp;&nbsp;&nbsp;A simple form to join the FFC (email submission only, not user login). Previously done with Google Forms. (Keep the google form as alternative). Also it should be an "update info" for already registered teams.
 
 - [ ] **Add "Sponsor Registration" page**  
 &nbsp;&nbsp;&nbsp;&nbsp;Link to this form from the navbar. Name, Logo and... what else?.
@@ -130,9 +127,9 @@ Website built with **Astro**. Showcases tournaments, match details, and national
 &nbsp;&nbsp;&nbsp;&nbsp;Improve layout for various screen sizes, mobile and tablets.
   - ✅ Home (`/`)
   - ✅ Forest Cup (`/forest-cup`)
-    - [ ] FC 2020 (`/forest-cup/2020`)
-    - [ ] FC 2022 (`/forest-cup/2022`)
-    - [ ] FC 2024 (`/forest-cup/2024`)
+    - ✅ FC 2020 (`/forest-cup/2020`)
+    - ✅ FC 2022 (`/forest-cup/2022`)
+    - ✅ FC 2024 (`/forest-cup/2024`)
   - ✅ Members (`/members`)
     - ✅ Member detail (`/members/[slug]`)
   - ✅️ Ranking (`/ranking`)

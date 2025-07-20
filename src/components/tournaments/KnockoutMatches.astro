@@ -41,7 +41,7 @@ const sortedFixtures: string[] = Object.keys(matchesByFixture).sort((a, b) => {
 });
 ---
 <div class="mt-6 w-full px-4 flex justify-center">
-  <div class="flex flex-col justify-center items-center p-4 w-full lg:w-11/12 gap-8 bg-green-950/80 rounded-3xl">
+  <div class="flex flex-col justify-center items-center p-4 w-full lg:w-11/12 gap-8 bg-green-950/30 rounded-3xl">
     {knockoutMatches.length > 0 ? (
       sortedFixtures.map(fixture => {
         const gridClasses = fixture.toLowerCase().includes('round of 16') || fixture.toLowerCase().includes('octavos')

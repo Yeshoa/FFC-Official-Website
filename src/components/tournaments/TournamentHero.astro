@@ -1,63 +1,112 @@
 ---
 import { Image } from "astro:assets";
-import type { ImageMetadata } from "astro";
-import { getMemberImage } from "@lib/memberUtils";
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from "astro:content";
 import Star from "@images/icons/star-solid.svg";
 
+// Se asume que 'currentTournament' es el objeto 'data' de la colección.
+// 'champion' sigue siendo la entrada completa de la colección.
+interface Props {
+  currentTournament: CollectionEntry<'tournaments'>['data'];
+  champion: CollectionEntry<'members'>;
+}
+
 const { currentTournament, champion } = Astro.props;
+
+// Obtenemos todos los torneos y los ordenamos por su ID para la navegación
+const allTournaments = await getCollection('tournaments');
+const sortedTournaments = allTournaments.sort((a, b) => a.data.id - b.data.id);
 ---
 
-<section class="max-custom-high w-full overflow-hidden relative">
-    <div class="flex w-full h-full flex-col lg:flex-row">
-        <article class=" w-full lg:w-1/3 h-1/2 lg:h-full bg-green-950 flex justify-center 2xl:gap-10 flex-col text-center">
-            <div class="flex justify-center mx-auto w-auto max-w-75 lg:max-w-90 max-h-33 2xl:max-w-120 2xl:max-h-45 relative mb-5 after:w-3/5 after:h-1 after:bg-gradient-to-r after:from-transparent after:via-white after:to-transparent after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:rounded-full">
-                <Image
-                    src={currentTournament.banner}
-                    class="w-full h-full relative pb-2 lg:pb-8 2xl:pb-14 after-element"
-                    alt={currentTournament.name}
-                    width={500}
-                    loading={"eager"}
-                    quality={40}
-                    format="webp"
-                />
-            </div>
-            <div class="flex justify-center items-end gap-4 lg:flex-col lg:gap-0 lg:items-center">
-                <div>
-                    <h2 class="text-gray-400 text-xl lg:text-2xl mb-2">CHAMPION</h2>
-                    <a href={`/members/${champion.slug}`} class="font-bold text-2xl lg:text-4xl hover:text-amber-400 transition-all duration-300">{champion.data.name.toUpperCase()}</a>
-                </div>
-                <div>
-                    <Star class="w-8 h-8 mx-auto mt-2 fill-amber-400" />
-                    <div class="">
-                        <Image
-                            src={champion.data.flagPath}
-                            class="w-auto max-w-30 lg:max-w-35 z-8 h-auto max-h-25 lg:max-h-40 mx-auto mt-4 border-2 rounded-xl border-amber-400"
-                            alt={champion.data.name}
-                            width={220}
-                            quality={50}
-                            loading={"eager"}
-                            format="webp"
-                        />
-                    </div>
-                </div>
-            </div>
-        </article>
+<div class="relative w-full">
+  <nav class="absolute top-0 left-0 right-0 z-20 bg-green-950/80 backdrop-blur-sm">
+    <div class="flex justify-center items-center py-3 px-4">
+      <div class="flex gap-6 overflow-x-auto scrollbar-hide">
+        {sortedTournaments.slice().reverse().map((tournament) => {
+          const isActive = tournament.data.id === currentTournament.id;
+          return (
+            <a 
+              href={isActive ? "#" : `/${tournament.data.type}/${tournament.data.edition}`}
+              class:list={[
+                "text-sm font-medium whitespace-nowrap transition-all duration-300",
+                isActive 
+                  ? "text-amber-300 border-b-2 border-amber-300 pb-1 pointer-events-none" 
+                  : "text-green-200 hover:text-amber-200"
+              ]}
+            >
+              <span class="hidden sm:inline">{tournament.data.name}</span>
+              <span class="sm:hidden">{tournament.data.edition}</span>
+            </a>
+          );
+        })}
+      </div>
+    </div>
+  </nav>
+
+  <section class="relative w-full overflow-hidden text-white">
+    <div class="absolute inset-0">
+      <Image
+        src={currentTournament.heroImg}
+        alt={`Background of ${currentTournament.name}`}
+        class="h-full w-full object-cover"
+        loading="eager"
+        format="webp"
+      />
+      <div class="absolute inset-0 bg-gradient-to-t from-green-1000 via-green-950/80 to-green-950/60 lg:bg-gradient-to-r lg:from-green-950 lg:via-green-950/70 lg:to-green-950/30"></div>
+    </div>
+
+    <div class="relative z-10 flex h-full flex-col items-center justify-center p-6 pt-20 text-center lg:w-1/2 lg:items-start lg:pl-16 lg:text-left xl:w-3/4">
+      
+      <div class="mb-8 flex h-32 w-full max-w-sm items-center justify-center lg:h-40 lg:justify-start xl:h-50">
         <Image
-            src={currentTournament.heroImg}
-            class="object-cover w-full lg:w-2/3 h-1/2 lg:h-full"
-            alt={currentTournament.name}
-            quality={90}
-            loading={"eager"}
-            format="webp"
+          src={currentTournament.banner}
+          alt={`Banner of ${currentTournament.name}`}
+          class="h-full w-auto max-w-full object-contain"
+          width={500}
+          loading="eager"
+          quality={50}
+          format="webp"
         />
+      </div>
+
+      <div>
+        <h2 class="text-lg uppercase tracking-widest text-gray-400">
+          Champions
+        </h2>
+        
+        <div class="my-2 flex items-center justify-center gap-4 lg:justify-start">
+          <a href={`/members/${champion.slug}`} class="text-4xl font-extrabold tracking-tight transition hover:text-amber-400 lg:text-6xl">
+            {champion.data.name.toUpperCase()}
+          </a>
+          <Star class="h-8 w-8 flex-shrink-0 fill-amber-400 lg:h-14 lg:w-14 self-center" />
+        </div>
+
+        <Image
+          src={champion.data.flagPath}
+          alt={`Flag of ${champion.data.name}`}
+          class="mx-auto mt-6 h-24 w-auto rounded-lg border-2 border-amber-400/50 lg:mx-0 lg:h-32"
+          width={220}
+          quality={60}
+          format="webp"
+        />
+      </div>
     </div>
-    <div class="absolute w-full h-full top-1/2 lg:top-0 left-0 lg:left-1/3 bg-gradient-to-b lg:bg-gradient-to-r from-green-950 to-15% to-transparent">
-    </div>
-</section>
+
+  </section>
+</div>
+
 
 <style>
-    .max-custom-high {
-        height: calc(100svh - 72px);
-    }
-
+  section {
+    height: calc(100svh - 72px);
+  }
+  
+  /* Clase para ocultar la barra de scroll en navegadores compatibles */
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none; /* IE y Edge */
+    scrollbar-width: none; /* Firefox */
+  }
 </style>
