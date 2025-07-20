@@ -40,7 +40,7 @@ const redCards = getMatchRedCards(match);
   <div class="grid grid-cols-7 items-center w-full gap-2 mb-2">
     {/* Equipo 1 */}
     <div class="flex items-center justify-end col-span-3 gap-2 text-right overflow-visible">
-      <a class={`${winner === match.team1 ? 'font-bold' : 'font-light'} md:text-lg truncate hover:underline`} href={`/members/${team1?.slug}`}>{team1?.data.name}</a>
+      <a class={`${winner === match.team1 ? 'font-bold' : 'font-light'} md:text-lg truncate hover:underline`} href={`/members/${team1?.slug}`}><span class="hidden xs:inline">{team1?.data.name}</span><span class="xs:hidden">{team1?.data.code}</span></a>
       {team1?.data.flagPath || team1?.data.logoPath ? (
         <Image
           src={team1.data.flagPath || team1.data.logoPath}
@@ -60,7 +60,7 @@ const redCards = getMatchRedCards(match);
     {/* Marcador */}
     <div class="text-center">
         {match.status === 'played' ? (
-            <span class="text-lg md:text-xl whitespace-nowrap font-bold">{score1} - {score2}</span>
+            <span class="text-sm xs:text-lg md:text-xl whitespace-nowrap font-bold">{score1} - {score2}</span>
         ) : match.status === 'scheduled' ? (
             <span class="text-sm md:text-base font-light text-gray-300 block">vs</span>
              <span class="text-xs text-gray-400 block mt-0.5">
@@ -90,7 +90,7 @@ const redCards = getMatchRedCards(match);
       ) : (
         <div class="h-5 w-8 md:h-6 md:w-9 bg-gray-600 rounded-sm flex-shrink-0"></div>
       )}
-      <a class={`${winner === match.team2 ? 'font-bold' : 'font-light'} md:text-lg truncate hover:underline`} href={`/members/${team2?.slug}`}>{team2?.data.name}</a>
+      <a class={`${winner === match.team2 ? 'font-bold' : 'font-light'} md:text-lg truncate hover:underline`} href={`/members/${team2?.slug}`}><span class="hidden xs:inline">{team2?.data.name}</span><span class="xs:hidden">{team2?.data.code}</span></a>
     </div>
   </div>
 
@@ -155,7 +155,7 @@ const redCards = getMatchRedCards(match);
       <div class="flex justify-center items-start w-full h-full col-span-1">
         {match.link ? (
           <a href={match.link} target="_blank" rel="noopener noreferrer" title="Watch Match" 
-          class="bg-blue-500/70 hover:bg-blue-400 text-white px-2 py-1 rounded-full text-xs transition-colors">
+          class="bg-blue-500/70 hover:bg-blue-400 text-white px-1 xs:px-2 xs:py-1 rounded-full text-xs transition-colors">
             Watch
           </a>
         ) : (
