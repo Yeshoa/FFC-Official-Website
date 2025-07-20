@@ -19,7 +19,7 @@ const sortedTournaments = allTournaments.sort((a, b) => a.data.id - b.data.id);
 ---
 
 <div class="relative w-full">
-  <nav class="absolute top-0 left-0 right-0 z-20 bg-green-950/80 backdrop-blur-sm">
+  <nav class="nav-content absolute top-0 left-0 right-0 z-20 bg-green-950/80 backdrop-blur-sm">
     <div class="flex justify-center items-center py-3 px-4">
       <div class="flex gap-6 overflow-x-auto scrollbar-hide">
         {sortedTournaments.slice().reverse().map((tournament) => {
@@ -44,18 +44,20 @@ const sortedTournaments = allTournaments.sort((a, b) => a.data.id - b.data.id);
   </nav>
 
   <section class="relative w-full overflow-hidden text-white">
+    <!-- Hero Image (carga primero) -->
     <div class="absolute inset-0">
       <Image
         src={currentTournament.heroImg}
         alt={`Background of ${currentTournament.name}`}
-        class="h-full w-full object-cover"
+        class="h-full w-full object-cover hero-img"
         loading="eager"
         format="webp"
       />
       <div class="absolute inset-0 bg-gradient-to-t from-green-1000 via-green-950/80 to-green-950/60 lg:bg-gradient-to-r lg:from-green-950 lg:via-green-950/70 lg:to-green-950/30"></div>
     </div>
 
-    <div class="relative z-10 flex h-full flex-col items-center justify-center p-6 pt-20 text-center lg:w-1/2 lg:items-start lg:pl-16 lg:text-left xl:w-3/4">
+    <!-- Contenido principal (aparece después con fade-in) -->
+    <div class="main-content relative z-10 flex h-full flex-col items-center justify-center p-6 pt-20 text-center lg:w-1/2 lg:items-start lg:pl-16 lg:text-left xl:w-3/4">
       
       <div class="mb-8 flex h-32 w-full max-w-sm items-center justify-center lg:h-40 lg:justify-start xl:h-50">
         <Image
@@ -63,7 +65,7 @@ const sortedTournaments = allTournaments.sort((a, b) => a.data.id - b.data.id);
           alt={`Banner of ${currentTournament.name}`}
           class="h-full w-auto max-w-full object-contain"
           width={500}
-          loading="eager"
+          loading="lazy"
           quality={50}
           format="webp"
         />
@@ -88,6 +90,7 @@ const sortedTournaments = allTournaments.sort((a, b) => a.data.id - b.data.id);
           width={220}
           quality={60}
           format="webp"
+          loading="lazy"
         />
       </div>
     </div>
@@ -95,11 +98,85 @@ const sortedTournaments = allTournaments.sort((a, b) => a.data.id - b.data.id);
   </section>
 </div>
 
+<script>
+  // Función para manejar las animaciones de carga
+  function initializeHeroAnimations() {
+    const heroImg = document.querySelector('.hero-img') as HTMLImageElement;
+    const mainContent = document.querySelector('.main-content') as HTMLElement;
+    // const navContent = document.querySelector('.nav-content') as HTMLElement;
+    
+    if (!heroImg || !mainContent /* || !navContent */) return;
+
+    // Ocultar contenido inicialmente
+    mainContent.style.opacity = '0';
+    // navContent.style.opacity = '0';
+    
+    // Función para animar el contenido
+    const animateContent = () => {
+      // Animar navegación
+      // navContent.style.transition = 'opacity 0.8s ease-in-out';
+      // navContent.style.opacity = '1';
+      
+      // Animar contenido principal con un ligero delay
+      setTimeout(() => {
+        mainContent.style.transition = 'opacity 1.2s ease-in-out';
+        mainContent.style.opacity = '1';
+      }, 200);
+    };
+
+    // Si la imagen ya está cargada (cache)
+    if (heroImg.complete && heroImg.naturalHeight !== 0) {
+      setTimeout(animateContent, 100); // Pequeño delay para suavidad
+    } else {
+      // Escuchar cuando la imagen se carga
+      heroImg.addEventListener('load', () => {
+        setTimeout(animateContent, 300); // Delay para asegurar que se renderice
+      });
+      
+      // Fallback en caso de error de carga
+      heroImg.addEventListener('error', () => {
+        setTimeout(animateContent, 100);
+      });
+    }
+
+    // Fallback adicional para asegurar que el contenido aparezca
+    setTimeout(() => {
+      if (mainContent.style.opacity === '0') {
+        animateContent();
+      }
+    }, 2000);
+  }
+
+  // Ejecutar cuando el DOM esté listo
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeHeroAnimations);
+  } else {
+    initializeHeroAnimations();
+  }
+</script>
 
 <style>
   section {
     height: calc(100svh - 72px);
   }
+  
+  /* Optimización para la carga de la imagen hero */
+  .hero-img {
+    will-change: transform;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+  }
+  
+  /* Estados iniciales para evitar FOUC */
+  .main-content {
+    opacity: 0;
+    will-change: opacity;
+  }
+  
+  /* .nav-content {
+    opacity: 0;
+    will-change: opacity;
+  } */
   
   /* Clase para ocultar la barra de scroll en navegadores compatibles */
   .scrollbar-hide::-webkit-scrollbar {
@@ -108,5 +185,10 @@ const sortedTournaments = allTournaments.sort((a, b) => a.data.id - b.data.id);
   .scrollbar-hide {
     -ms-overflow-style: none; /* IE y Edge */
     scrollbar-width: none; /* Firefox */
+  }
+  
+  /* Animación más suave para hover en elementos internos */
+  .main-content * {
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
   }
 </style>
