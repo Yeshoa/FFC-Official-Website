@@ -25,9 +25,7 @@ Website built with **Astro**. Showcases tournaments, match details, and national
 
 ## ⚙️ Should Do (Medium Priority)
 
-* **Create “Sign Up” form**
-  A simple email‑only form (with Google Forms fallback) that also lets existing teams update their info.
-* **Add Sponsor Registration page**
+* **Add Sponsor Registration page/form**
   Name, logo upload, roleplay pitch—link it from the navbar.
 * **Fix /forest-cup Hero**
   Brainstorm and implement a compelling hero component for `/forest-cup`.
@@ -62,6 +60,13 @@ Website built with **Astro**. Showcases tournaments, match details, and national
 
 * **Champions League Support**
   Adapt match cards, tournaments pages, etc., to also handle Forestian Champions League editions.
+
+---
+
+## ❌ Discarded
+
+* **Create “Sign Up” form**_Discarded because google forms doesn't accept HTML embedding with file uploads_
+  A simple email‑only form (with Google Forms fallback) that also lets existing teams update their info.
 
 ---
 
