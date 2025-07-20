@@ -39,7 +39,7 @@ const redCards = getMatchRedCards(match);
   {/* Sección Superior: Equipos y Marcador */}
   <div class="grid grid-cols-7 items-center w-full gap-2 mb-2">
     {/* Equipo 1 */}
-    <div class="flex items-center justify-end col-span-3 gap-2 text-right overflow-hidden">
+    <div class="flex items-center justify-end col-span-3 gap-2 text-right overflow-visible">
       <a class={`${winner === match.team1 ? 'font-bold' : 'font-light'} md:text-lg truncate hover:underline`} href={`/members/${team1?.slug}`}>{team1?.data.name}</a>
       {team1?.data.flagPath || team1?.data.logoPath ? (
         <Image
@@ -74,7 +74,7 @@ const redCards = getMatchRedCards(match);
         )}
     </div>
     {/* Equipo 2 */}
-    <div class="flex items-center col-span-3 gap-2 text-left overflow-hidden">
+    <div class="flex items-center col-span-3 gap-2 text-left overflow-visible">
        {team2?.data.flagPath || team2?.data.logoPath ? (
         <Image
           src={team2.data.flagPath || team2.data.logoPath}
