@@ -8,6 +8,8 @@ export default {
       'xs': '400px',
     }
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/typography'),
+  ],
 }
 
