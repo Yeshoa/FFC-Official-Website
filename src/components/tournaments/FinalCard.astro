@@ -60,7 +60,6 @@ const winner = getMatchWinner(match);
             alt={match.team1}
             class={`h-12 w-16 md:h-16 md:w-24 rounded-md object-cover shadow-md ${winner === match.team1 ? 'ring-2 ring-yellow-400' : 'ring-1 ring-gray-600'}`}
             width={96} 
-            height={96}
             loading={"eager"}
             inferSize={true}
             format="webp"
@@ -106,7 +105,6 @@ const winner = getMatchWinner(match);
             alt={team2.data.name}
             class={`h-12 w-16 md:h-16 md:w-24 rounded-md object-cover shadow-md ${winner === match.team2 ? 'ring-2 ring-yellow-400' : 'ring-1 ring-gray-600'}`}
             width={96} 
-            height={96}
             loading={"eager"}
             inferSize={true}
             format="webp"

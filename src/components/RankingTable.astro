@@ -2,7 +2,7 @@
 // src/components/RankingTable.astro
 import type { CollectionEntry } from 'astro:content';
 import { Image } from 'astro:assets';
-import { getRankedMembers } from '@lib/memberUtils';
+import { getRankedMembers } from '@lib/rankingUtils';
 
 interface Props {
   members: CollectionEntry<'members'>[];

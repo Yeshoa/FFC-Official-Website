@@ -130,7 +130,7 @@ function getThirdPlaceResult(tournament: CollectionEntry<'tournaments'>): string
             <td class="px-2 py-3 font-semibold">
               {champion && (
                 <div class="flex items-center gap-1 justify-center">
-                  {champion.data.flagPath && <a href={`/members/${champion.slug}`}><Image src={champion.data.flagPath} alt={champion.data.name} width={28} height={20} class="rounded-sm object-cover max-h-6" loading={'lazy'} quality={40} format={'webp'} /></a>}
+                  {champion.data.flagPath && <a href={`/members/${champion.slug}`}><Image src={champion.data.flagPath} alt={champion.data.name} width={28} class="rounded-sm object-cover max-h-6" loading={'lazy'} quality={40} format={'webp'} /></a>}
                   <a href={`/members/${champion.slug}`} class="hover:underline truncate text-yellow-400">{champion.data.name}</a>
                 </div>
               )}
@@ -141,7 +141,7 @@ function getThirdPlaceResult(tournament: CollectionEntry<'tournaments'>): string
             <td class="px-2 py-3">
               {runnerUp && (
                 <div class="flex items-center gap-1 justify-center">
-                  {runnerUp.data.flagPath && <a href={`/members/${runnerUp.slug}`}><Image src={runnerUp.data.flagPath} alt={runnerUp.data.name} width={28} height={20} class="rounded-sm  object-cover max-h-6" loading={'lazy'} quality={10} format={'webp'} /></a>}
+                  {runnerUp.data.flagPath && <a href={`/members/${runnerUp.slug}`}><Image src={runnerUp.data.flagPath} alt={runnerUp.data.name} width={28} class="rounded-sm  object-cover max-h-6" loading={'lazy'} quality={10} format={'webp'} /></a>}
                   <a href={`/members/${runnerUp.slug}`} class="hover:underline truncate">{runnerUp.data.name}</a>
                 </div>
               )}
@@ -150,7 +150,7 @@ function getThirdPlaceResult(tournament: CollectionEntry<'tournaments'>): string
             <td class="px-2 py-3">
               {third && (
                 <div class="flex items-center gap-1 justify-center">
-                  {third.data.flagPath && <a href={`/members/${third.slug}`}><Image src={third.data.flagPath} alt={third.data.name} width={28} height={20} class="rounded-sm  object-cover max-h-6" loading={'lazy'} quality={10} format={'webp'} /></a>}
+                  {third.data.flagPath && <a href={`/members/${third.slug}`}><Image src={third.data.flagPath} alt={third.data.name} width={28} class="rounded-sm  object-cover max-h-6" loading={'lazy'} quality={10} format={'webp'} /></a>}
                   <a href={`/members/${third.slug}`} class="hover:underline truncate">{third.data.name}</a>
                 </div>
               )}
@@ -161,7 +161,7 @@ function getThirdPlaceResult(tournament: CollectionEntry<'tournaments'>): string
             <td class="px-2 py-3">
               {fourth && (
                 <div class="flex items-center gap-1 justify-center">
-                  {fourth.data.flagPath && <a href={`/members/${fourth.slug}`}><Image src={fourth.data.flagPath} alt={fourth.data.name} width={28} height={20} class="rounded-sm  object-cover max-h-6" loading={'lazy'} quality={10} format={'webp'} /></a>}
+                  {fourth.data.flagPath && <a href={`/members/${fourth.slug}`}><Image src={fourth.data.flagPath} alt={fourth.data.name} width={28} class="rounded-sm  object-cover max-h-6" loading={'lazy'} quality={10} format={'webp'} /></a>}
                   <a href={`/members/${fourth.slug}`} class="hover:underline truncate">{fourth.data.name}</a>
                 </div>
               )}
@@ -173,7 +173,7 @@ function getThirdPlaceResult(tournament: CollectionEntry<'tournaments'>): string
                   const member = getMemberByName(bestPlayer.team, members);
                   return member ? (
                     <div class="flex items-center gap-1 justify-center">
-                      {member.data.flagPath && <Image src={member.data.flagPath} alt={member.data.name} width={20} height={14} class="rounded-sm object-cover max-h-4" loading={'lazy'} quality={10} format={'webp'} />}
+                      {member.data.flagPath && <Image src={member.data.flagPath} alt={member.data.name}  height={14} class="rounded-sm object-cover max-h-4" loading={'lazy'} quality={10} format={'webp'} />}
                       <span class="ml-1 truncate">{bestPlayer.player}</span>
                     </div>
                   ) : (

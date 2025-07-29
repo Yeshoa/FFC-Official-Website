@@ -77,7 +77,7 @@ const { heroImage, heroTitle, heroSubtitle, cta } = Astro.props;
             />
         </div>
         <div class="hero__flex">
-            <Image src={cta.logo} alt="Logo" width={300} height={300} class="hero__logo" format="webp" loading="eager" />
+            <Image src={cta.logo} alt="Logo" height={300} class="hero__logo" format="webp" loading="eager" />
             <div class="hero__text">
                 <h1 class="hero__title">{heroTitle}</h1>
                 <p class="hero__subtitle">{heroSubtitle}</p>

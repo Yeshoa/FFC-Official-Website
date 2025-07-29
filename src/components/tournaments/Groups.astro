@@ -128,7 +128,7 @@ function generateGroupTable(matches) {
                     <td class="px-1 py-1.5 text-left">{team.position}</td>
                     <td class="px-1 py-1.5 text-left flex items-center gap-2 whitespace-nowrap">
                     <Image src={teamObject.data.flagPath || teamObject.data.logoPath} alt={team.team} 
-                    class="h-5 w-8 rounded-md object-cover ring-1 ring-green-600" width={48} height={48} 
+                    class="h-5 w-8 rounded-md object-cover ring-1 ring-green-600" width={48}
                     loading="lazy" inferSize={true} quality={10} format="webp"/>
                     <a href={`/members/${teamObject.slug}`} class="hover:underline">{team.team}</a>
                     </td>

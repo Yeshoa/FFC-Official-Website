@@ -132,7 +132,7 @@ const statsCols = topAssisters.length > 0 ? "grid grid-cols-1 lg:grid-cols-3 gap
             <h4 class="font-bold text-lg mb-2 text-amber-400">Best Player</h4>
             <div class="flex items-center gap-2 p-2 rounded hover:bg-green-800/30 transition">
               <a href={`/members/${member.slug}`} class="flex items-center gap-2 hover:underline">
-                <Image src={member.data.flagPath} alt={member.data.name} class="w-6 h-4 object-cover rounded" height={16} width={24} quality={10} format='webp' loading={"lazy"}/>
+                <Image src={member.data.flagPath} alt={member.data.name} class="w-6 h-4 object-cover rounded" height={16} quality={40} format='webp' loading={"lazy"}/>
                 <span class="font-medium">{bestPlayer.player}</span> ({bestPlayer.team})
               </a>
             </div>
@@ -148,7 +148,7 @@ const statsCols = topAssisters.length > 0 ? "grid grid-cols-1 lg:grid-cols-3 gap
             return (
               <div class="flex items-center gap-2 mb-1 p-2 rounded hover:bg-green-800/30 transition">
                 <a href={`/members/${member.slug}`} class="flex items-center gap-2 hover:underline">
-                  <Image src={member.data.flagPath} alt={member.data.name} class="w-6 h-4 object-cover rounded" height={16} width={24} quality={10} format='webp' loading={"lazy"}/>
+                  <Image src={member.data.flagPath} alt={member.data.name} class="w-6 h-4 object-cover rounded" height={16} quality={40} format='webp' loading={"lazy"}/>
                   <span class="font-medium">{scorer.player}</span> ({scorer.team})
                 </a>
                 <span class="ml-auto font-bold text-green-300">{scorer.goals} Goals</span>
@@ -164,7 +164,7 @@ const statsCols = topAssisters.length > 0 ? "grid grid-cols-1 lg:grid-cols-3 gap
           <h4 class="font-bold text-lg mb-2 text-blue-300">Best Goalkeeper</h4>
            <div class="flex items-center gap-2 p-2 rounded hover:bg-green-800/30 transition">
               <a href={`/members/${member.slug}`} class="flex items-center gap-2 hover:underline">
-                <Image src={member.data.flagPath} loading={"lazy"} alt={member.data.name} class="w-6 h-4 object-cover rounded" height={16} width={24} quality={10} format='webp' />
+                <Image src={member.data.flagPath} loading={"lazy"} alt={member.data.name} class="w-6 h-4 object-cover rounded" height={16} quality={40} format='webp' />
                 <span class="font-medium">{bestGoalkeeper.player}</span> ({bestGoalkeeper.team})
               </a>
           </div>
@@ -208,7 +208,7 @@ const statsCols = topAssisters.length > 0 ? "grid grid-cols-1 lg:grid-cols-3 gap
                     <td class="px-4 py-2 font-semibold truncate">{entry.player}</td>
                     <td class="px-4 py-2">
                       <a href={`/members/${member.slug}`} class="flex items-center gap-2 hover:underline">
-                        <Image src={member.data.flagPath} loading={"lazy"} alt={entry.team} class="w-6 h-4 object-cover rounded" height={16} width={24} quality={10} format='webp' />
+                        <Image src={member.data.flagPath} loading={"lazy"} alt={entry.team} class="w-6 h-4 object-cover rounded" height={16} quality={40} format='webp' />
                         {entry.team}
                       </a>
                     </td>
@@ -243,7 +243,7 @@ const statsCols = topAssisters.length > 0 ? "grid grid-cols-1 lg:grid-cols-3 gap
                     <td class="px-4 py-2 font-semibold truncate">{entry.player}</td>
                      <td class="px-4 py-2">
                         <a href={`/members/${member.slug}`} class="flex items-center gap-2 hover:underline">
-                          <Image src={member.data.flagPath} loading={"lazy"} alt={entry.team} class="w-6 h-4 object-cover rounded" height={16} width={24} quality={10} format='webp' />
+                          <Image src={member.data.flagPath} loading={"lazy"} alt={entry.team} class="w-6 h-4 object-cover rounded" height={16} quality={40} format='webp' />
                           {entry.team}
                         </a>
                     </td>
