@@ -3,14 +3,25 @@
 import { getCollection } from 'astro:content';
 import Layout from '../layouts/App.astro'; // Ajusta la ruta a tu Layout principal
 import RankingTable from '../components/RankingTable.astro'; // Importa el nuevo componente
+import RankingTableNew from '@components/RankingTableNew.astro';
+import RankingTableDetailed from '@components/RankingTableDetailed.astro';
+
 
 const allMembers = await getCollection('members');
+const tournaments = await getCollection('tournaments');
+const matches = await getCollection('matches');
+
+// Opcional: especificar el torneo actual
+const currentTournamentId = 3;
 ---
 <Layout title="FFC - Ranking">
   <main class="">
-    <RankingTable members={allMembers} />
-    <!-- <div class="container mx-auto p-4 md:p-6 bg-green-950 rounded-lg shadow-md mt-6">
-      <p class="text-lg mb-4 text-center">Score determines how strong your team will be. More points means higher chances to win.</p>
-    </div> -->
+    <!-- <RankingTable members={allMembers} /> -->
+    <RankingTableNew
+      members={allMembers}
+      tournaments={tournaments}
+      matches={matches}
+      currentTournamentId={currentTournamentId}
+    />
   </main>
 </Layout>

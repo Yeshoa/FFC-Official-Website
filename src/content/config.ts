@@ -25,7 +25,7 @@ const tournamentsCollection = defineCollection({
     banner: image().optional(), // Banner del torneo
     edition: z.number(),
     loadingType: z.enum(["eager", "lazy"]).optional(), // Carga de imágenes
-    participants: z.array(z.string()), // Referencia a members
+    participants: z.array(z.string()).optional(), // Referencia a members
     heroImg: image().optional(), // Imágenes del torneo
     prizes: z.object({ // Estructura más detallada para premios
       topScorer: z.array(z.object({ player: z.string(), team: z.string(), goals: z.number() })).optional(),
@@ -118,7 +118,7 @@ const membersCollection = defineCollection({
     founded: z.number().optional(),
     affiliation: z.number().optional(),
     verified: z.boolean().default(false),
-    score: z.object({
+    /* score: z.object({
       rp: z.object({
         history: z.number().default(0).describe("History Points"),
         results: z.number().default(0).describe("Previous Results Points"),
@@ -135,7 +135,44 @@ const membersCollection = defineCollection({
         rp: { history: 0, results: 0 },
         events: { lastEditionPoints: 0, poetry: 0 },
         bonus: { host: 0, extra: 0 }
-    }).describe("Detailed member score"),
+    }).describe("Detailed member score"), */
+    // NUEVO: Sistema de puntuación actualizado
+    score: z
+        .object({
+          // 1️⃣ ROLEPLAY CATEGORY
+          rp: z
+            .object({
+              history: z.number().default(0).describe("History Points (manual assignment)"),
+              // ELIMINAR: results - se calculará automáticamente desde torneos
+            })
+            .default({ history: 0 }),
+
+          // 2️⃣ EVENTS CATEGORY - ESTRUCTURA DINÁMICA POR TOURNAMENT ID
+          events: z
+            .record(
+              z.string(), // Tournament ID como string (ej: "2", "3", "4")
+              z.record(
+                z.string(), // Event name (dinámico: "poetry", "quiz", "memories", etc.)
+                z.number(), // Points earned
+              ),
+            )
+            .default({})
+            .describe("Dynamic events by tournament ID: { tournamentId: { eventName: points } }"),
+
+          // 3️⃣ BONUS (mantener igual)
+          bonus: z
+            .object({
+              host: z.number().default(0).describe("Host Points"),
+              extra: z.number().default(0).describe("Extra Points"),
+            })
+            .default({ host: 0, extra: 0 }),
+        })
+        .default({
+          rp: { history: 0 },
+          events: {},
+          bonus: { host: 0, extra: 0 },
+        }),
+
     additionalPoints: z.number().optional().default(0),
     squad: z.object({
       coach: z.string().optional().describe("Head coach name"),

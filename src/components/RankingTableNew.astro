@@ -1,0 +1,167 @@
+---
+import { Image } from 'astro:assets';
+import { getRankedMembers } from '@lib/rankingUtils';
+
+const { members, tournaments, matches, currentTournamentId } = Astro.props;
+
+// Calcular ranking con el nuevo sistema
+const rankedMembers = getRankedMembers(members, tournaments, matches, currentTournamentId);
+
+// Función helper para obtener puntos de un evento específico de la edición actual
+const getCurrentEventPoints = (team, eventName) => {
+  // DEBUG: Verificar estructura
+  console.log(`Getting ${eventName} for ${team.name}:`, team.currentEvents);
+  
+  return team.currentEvents?.[eventName] || 0;
+};
+---
+
+<div class="w-full p-6 pt-11 items-center">
+  <h1 class="text-6xl font-bold mb-5 text-center animate-sladeIn">Ranking</h1>
+  <p class="text-lg mb-10 text-center opacity-0 animate-[slide-in_1s_ease-in-out_forwards_.1s]">
+    Score determines how strong your team will be. More points means higher chances to win.
+  </p>
+
+  <!-- 📋 LEYENDA ACTUALIZADA -->
+  <div class="bg-green-900/30 rounded-lg p-4 mb-6 opacity-0 animate-[slide-in_1s_ease-in-out_forwards_.15s]">
+    <h3 class="text-lg font-semibold mb-3 text-green-300">📊 Column Legend</h3>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-sm text-green-200">
+      <div><strong>Hist:</strong> History & roleplay points</div>
+      <div><strong>Prev:</strong> Past tournament results (with decay)</div>
+      <div><strong>Past Ev:</strong> Past event points (with decay)</div>
+      <div><strong>Poetry:</strong> Current edition poetry contest points</div>
+      <div><strong>Host:</strong> Tournament hosting bonus</div>
+      <div><strong>Extra:</strong> Additional community contributions</div>
+      <div><strong>Total:</strong> Final ranking score</div>
+    </div>
+    <p class="text-xs text-green-400 mt-2">
+      💡 <strong>Current events:</strong> 100% value | <strong>Past events:</strong> Decay (100% → 50% → 25% → 10%)
+    </p>
+  </div>
+
+  <h6 class="md:hidden text-center mb-2">Swipe to see full scores</h6>
+  
+  <div class="overflow-x-auto rounded-lg opacity-0 animate-[slide-in_1s_ease-in-out_forwards_.2s]">
+    <table class="min-w-7xl table-auto border-collapse text-sm w-max md:w-full max-w-7xl mx-auto">
+      <colgroup>
+        <col style="width: 20px;"> <!-- Pos -->
+        <col style="width: 15px;"> <!-- Flag -->
+        <col style="width: 60px;"> <!-- Team -->
+        <col style="width: 50px;"> <!-- Hist -->
+        <col style="width: 50px;"> <!-- Prev -->
+        <col style="width: 50px;"> <!-- Past Events -->
+        <col style="width: 50px;"> <!-- Poetry -->
+        <!-- Aquí puedes agregar más columnas para futuros eventos -->
+        <col style="width: 50px;"> <!-- Host -->
+        <col style="width: 50px;"> <!-- Extra -->
+        <col style="width: 70px;"> <!-- Total -->
+      </colgroup>
+      
+      <thead class="bg-green-800 uppercase">
+        <tr>
+          <th rowspan="2" class="py-3 text-center border-b border-green-600 rounded-tl-xl" title="Position">Pos</th>
+          <th rowspan="2" class="py-3 text-center border-b border-green-600"></th>
+          <th rowspan="2" class="py-3 text-left border-b border-green-600">Team</th>
+          <th colspan="2" class="px-4 py-2 text-center border-b border-l border-green-600">Roleplay</th>
+          <th colspan="2" class="px-4 py-2 text-center border-b border-l border-green-600">Events</th>
+          <!-- Cuando agregues más eventos, cambia el colspan aquí -->
+          <th colspan="2" class="px-4 py-2 text-center border-b border-l border-green-600">Bonus</th>
+          <th rowspan="2" class="px-4 py-3 text-center font-bold border-b border-l border-green-600 rounded-tr-xl">Total</th>
+        </tr>
+        <tr>
+          <th class="px-2 py-2 text-center font-medium border-b border-l border-green-600" title="History Points - Roleplay, lore, dispatches">Hist</th>
+          <th class="px-2 py-2 text-center font-medium border-b border-l border-green-600" title="Previous Tournament Results - Automatic calculation with decay">Prev</th>
+          <th class="px-2 py-2 text-center font-medium border-b border-l border-green-600" title="Past Event Points - Previous editions with decay">Past Ev</th>
+          <th class="px-2 py-2 text-center font-medium border-b border-l border-green-600" title="Poetry Contest Points - Current edition">Poetry</th>
+          <!-- Aquí puedes agregar más headers para futuros eventos -->
+          <!-- <th class="px-2 py-2 text-center font-medium border-b border-l border-green-600" title="Quiz Contest Points - Current edition">Quiz</th> -->
+          <th class="px-2 py-2 text-center font-medium border-b border-l border-green-600" title="Host advantage points">Host</th>
+          <th class="px-2 py-2 text-center font-medium border-b border-l border-green-600" title="Extra community contribution points">Extra</th>
+        </tr>
+      </thead>
+      
+      <tbody class="text-center text-green-300">
+        {rankedMembers.map((team, index) => {
+          const getTotalColorClass = (total) => {
+            if (total >= 110) return "bg-cyan-500/80 text-black font-bold";
+            if (total >= 84) return "bg-red-600/60 text-white font-bold";
+            if (total >= 62) return "bg-orange-600/60 text-white font-bold";
+            if (total >= 42) return "bg-yellow-600/80 text-white font-bold";
+            if (total >= 28) return "bg-green-600/60 text-white font-bold";
+            if (total >= 18) return "bg-blue-600/60 text-white font-bold";
+            if (total >= 10) return "bg-purple-600/60 text-white font-bold";
+            if (total >= 4) return "bg-pink-600/60 text-white font-bold";
+            return "bg-gray-600/80 text-white font-bold";
+          };
+          
+          // Obtener puntos de poetry del evento actual
+          const poetryPoints = getCurrentEventPoints(team, 'poetry');
+          return (
+          <tr class="border-b border-green-700 hover:bg-green-900/30 transition duration-150">
+            <td class="py-2">{index + 1}</td>
+            <td class="py-2 sticky left-0 z-10 bg-green-900 xl:bg-transparent">
+              <Image 
+                src={team.flag || "/placeholder.svg"} 
+                alt={team.name} 
+                quality={20} 
+                format="webp"
+                height={16} 
+                class="h-4 w-auto object-cover rounded inline-block" 
+              />
+            </td>
+            <td class="pl-2 py-2 text-left overflow-hidden text-ellipsis">
+              <a 
+                href={`/members/${team.slug}`} 
+                class="font-semibold hover:underline text-white block overflow-hidden text-ellipsis" 
+                title={team.name}
+              >
+                {team.name}
+              </a>
+            </td>
+            
+            <td class="px-2 py-2" title={`History Points: ${team.scores.historyPoints}`}>
+              {team.scores.historyPoints}
+            </td>
+            <td class="px-2 py-2" title={`Tournament Decay Points: ${team.scores.tournamentDecayPoints}`}>
+              {team.scores.tournamentDecayPoints}
+            </td>
+            <td class="px-2 py-2" title={`Past Event Points: ${team.scores.pastEventPoints}`}>
+              {team.scores.pastEventPoints}
+            </td>
+            <td class="px-2 py-2" title={`Poetry Contest Points: ${poetryPoints}`}>
+              {poetryPoints}
+            </td>
+            <!-- Aquí puedes agregar más columnas para futuros eventos -->
+            <td class="px-2 py-2" title={`Host Bonus: ${team.scores.bonusHost}`}>
+              {team.scores.bonusHost}
+            </td>
+            <td class="px-2 py-2" title={`Extra Bonus: ${team.scores.bonusExtra}`}>
+              {team.scores.bonusExtra}
+            </td>
+            
+            <td class={`px-4 py-2 ${getTotalColorClass(team.totalScore)}`}>
+              {team.totalScore}
+            </td>
+          </tr>
+        )})}
+        
+        {rankedMembers.length === 0 && (
+          <tr>
+            <td colspan="10" class="text-center py-4 text-green-500">
+              No verified members found.
+            </td>
+          </tr>
+        )}
+      </tbody>
+    </table>
+  </div>
+  
+  <div class="mt-6 text-center">
+    <p class="text-xs text-green-500 mb-2">
+      🏆 <strong>Top 24</strong> teams qualify directly for Forest Cup 2026
+    </p>
+    <p class="text-xs text-green-400">
+      💡 Current events count 100%, past events use decay system
+    </p>
+  </div>
+</div>

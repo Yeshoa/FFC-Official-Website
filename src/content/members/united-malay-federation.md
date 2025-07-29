@@ -13,10 +13,10 @@ verified: true
 score:
   rp:
     history: 20
-    results: 11
   events:
-    lastEditionPoints: 18
-    poetry: 0
+    "2": 
+      trivia: 11
+      bonus: 7
   bonus:
     host: 0
     extra: 0

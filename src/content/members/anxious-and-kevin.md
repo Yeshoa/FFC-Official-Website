@@ -15,9 +15,6 @@ score:
   rp:
     history: 20
     results: 4
-  events:
-    lastEditionPoints: 0
-    poetry: 0
   bonus:
     host: 0
     extra: 0

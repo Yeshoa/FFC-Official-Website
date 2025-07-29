@@ -1,5 +1,6 @@
 import type { ImageMetadata } from 'astro';
 import type { CollectionEntry } from 'astro:content';
+import { getMemberTotalScore } from './rankingUtils';
 
 export function getMemberByName(
   name: string,
@@ -32,39 +33,39 @@ export function getMemberLogo(
 }
 
 export function getMemberRank(
-  memberName: string | undefined,
-  members: CollectionEntry<'members'>[]
+  member: CollectionEntry<'members'> | null,
+  members: CollectionEntry<'members'>[],
+  matches: CollectionEntry<'matches'>[],
+  tournaments: CollectionEntry<'tournaments'>[],
+  currentTournamentId?: number
 ): number | null {
-  if (!memberName) return null;
-
-  const member = members.find(m => m.data.name === memberName);
   if (!member) return null;
 
   const rankedMembers = members
     .filter(m => m.data.verified)
     .map(m => ({
       name: m.data.name,
-      totalScore: getMemberTotalScore(m),
+      totalScore: getMemberTotalScore(m, tournaments, matches, currentTournamentId).totalScore,
     }))
     .sort((a, b) => b.totalScore - a.totalScore);
 
-  const rankIndex = rankedMembers.findIndex(m => m.name === memberName);
+  const rankIndex = rankedMembers.findIndex(m => m.name === member.data.name);
   return rankIndex === -1 ? null : rankIndex + 1;
 }
 
-export function getMemberTotalScore(member: CollectionEntry<'members'>): number {
-  const score = member.data.score;
+// export function getMemberTotalScore(member: CollectionEntry<'members'>): number {
+//   const score = member.data.score;
 
-  const rpHistory = score?.rp?.history ?? 0;
-  const rpResults = score?.rp?.results ?? 0;
-  const eventsLastEdition = score?.events?.lastEditionPoints ?? 0;
-  const eventsPoetry = score?.events?.poetry ?? 0;
-  const bonusHost = score?.bonus?.host ?? 0;
-  const bonusExtra = score?.bonus?.extra ?? 0;
+//   const rpHistory = score?.rp?.history ?? 0;
+//   const rpResults = score?.rp?.results ?? 0;
+//   const eventsLastEdition = score?.events?.lastEditionPoints ?? 0;
+//   const eventsPoetry = score?.events?.poetry ?? 0;
+//   const bonusHost = score?.bonus?.host ?? 0;
+//   const bonusExtra = score?.bonus?.extra ?? 0;
 
-  return rpHistory + rpResults + eventsLastEdition + eventsPoetry + bonusHost + bonusExtra;
-}
-
+//   return rpHistory + rpResults + eventsLastEdition + eventsPoetry + bonusHost + bonusExtra;
+// }
+/* 
 export function getRankedMembers(
   members: CollectionEntry<'members'>[]
 ): {
@@ -110,7 +111,7 @@ export function getRankedMembers(
       };
     })
     .sort((a, b) => b.totalScore - a.totalScore);
-}
+} */
 
 export function getTotalColorClass(total: number) {
   if (total >= 110) return "text-cyan-500";

@@ -1,10 +1,14 @@
-import type { CollectionEntry } from 'astro:content';
+import { getCollection, type CollectionEntry } from 'astro:content';
 import { getMatchResult } from './matchUtils';
 
 // 🟢 Tipos
 type TournamentEntry = CollectionEntry<'tournaments'>;
 type MatchEntry = CollectionEntry<'matches'>;
 type MemberEntry = CollectionEntry<'members'>;
+
+const tournaments = await getCollection('tournaments');
+const sortedTournaments = tournaments.sort((a, b) => b.data.id - a.data.id);
+export const CURRENT_TOURNAMENT_ID = sortedTournaments[0]?.data.id ?? null;
 
 // 🟩 Obtener estadísticas por torneo para un equipo
 export function getTeamStatsInTournament(
@@ -57,6 +61,15 @@ export function getTeamStatsInTournament(
     gd: stats.goalsFor - stats.goalsAgainst,
     pr: stats.played > 0 ? ((stats.points / (stats.played * 3)) * 100).toFixed(2) : '0.00',
   };
+}
+
+// 🏆 Obtener los puntos de un equipo en un torneo
+export function getTeamPointsInTournament(
+  teamName: string,
+  tournamentId: number,
+  matches: MatchEntry[]
+) {
+  return getTeamStatsInTournament(teamName, tournamentId, matches).points;
 }
 
 // 🟦 Obtener el máximo goleador del equipo en un torneo
@@ -328,4 +341,55 @@ export function getTeamFinalResult(
   }
 
   return 'Unknown Stage';
+}
+
+// Función para obtener los últimos 4 tournament IDs completados (excluyendo el actual)
+export function getLastFourTournamentIds(tournaments: TournamentEntry[], currentTournamentId?: number): number[] {
+  // Si no se especifica el actual, asumir que es el de mayor ID
+  const current = currentTournamentId ?? Math.max(...tournaments.map((t) => t.data.id))
+
+  return tournaments
+    .filter((t) => t.data.id < current) // Excluir el torneo actual
+    .sort((a, b) => b.data.id - a.data.id) // Ordenar por ID descendente (más reciente primero)
+    .slice(0, 4) // Solo los últimos 4
+    .map((t) => t.data.id)
+}
+
+// Función para calcular puntos de torneos con decay automático
+export function calculateTournamentDecayPoints(
+  teamName: string,
+  tournaments: TournamentEntry[],
+  matches: MatchEntry[],
+  currentTournamentId?: number,
+): {
+  totalPoints: number
+  breakdown: Array<{
+    tournamentId: number
+    tournamentName: string
+    points: number
+    decayFactor: number
+    finalPoints: number
+  }>
+} {
+  const lastFourIds = getLastFourTournamentIds(tournaments, currentTournamentId)
+  const decayFactors = [1.0, 0.5, 0.25, 0.1] // 100%, 50%, 25%, 10%
+
+  const breakdown = lastFourIds.map((tournamentId, index) => {
+    const tournament = tournaments.find((t) => t.data.id === tournamentId)
+    const rawPoints = getTeamPointsInTournament(teamName, tournamentId, matches)
+    const decayFactor = decayFactors[index] || 0
+    const finalPoints = rawPoints * decayFactor
+
+    return {
+      tournamentId,
+      tournamentName: tournament?.data.name || `Tournament ${tournamentId}`,
+      points: rawPoints,
+      decayFactor,
+      finalPoints,
+    }
+  })
+
+  const totalPoints = breakdown.reduce((sum, item) => sum + item.finalPoints, 0)
+
+  return { totalPoints, breakdown }
 }

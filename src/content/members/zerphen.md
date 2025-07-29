@@ -13,10 +13,9 @@ verified: true
 score:
   rp:
     history: 0
-    results: 3
   events:
-    lastEditionPoints: 15
-    poetry: 0
+    "2": 
+      events: 15
   bonus:
     host: 0
     extra: 0
