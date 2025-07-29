@@ -63,7 +63,7 @@ function getTeamFinalResultInTournament(tournamentId: number) {
       </thead>
       <tbody class="">
         {allEditions.sort((b, a) => b.data.edition - a.data.edition).map(t => {
-          const didParticipate = t.data.participants.includes(memberName);
+          const didParticipate = t.data.participants && t.data.participants.includes(memberName);
           const host = getMemberByName(t.data.host, members);
 
           if (!didParticipate) {

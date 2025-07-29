@@ -261,6 +261,5 @@ export function getRarityName(level: number, alignment: Alignment): string {
 /** Devuelve el estilo de la rareza según level + alignment */
 export function getRarityStyle(level: number, alignment: Alignment): RarityStyle {
   const styles = rarityStylesByAlignment[alignment];
-  // console.log({ level, alignment, styles });
   return styles[level] ?? rarityStylesByAlignment.Neutral[0];
 }

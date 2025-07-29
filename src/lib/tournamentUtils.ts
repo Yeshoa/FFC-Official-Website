@@ -127,7 +127,7 @@ export function getTeamPositionInTournament(
   matches: MatchEntry[],
   teamName: string
 ): number | null {
-  const otherTeams = tournament.data.participants;
+  const otherTeams = tournament.data.participants || [];
   
   // Obtener estadísticas y fase más alta para cada equipo
   const standings = otherTeams.map(name => {

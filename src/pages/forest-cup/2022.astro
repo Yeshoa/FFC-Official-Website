@@ -108,7 +108,7 @@ const winner = getMemberByName(FC2022Data.champion, membersCollection);
     
     <Groups
     matches={fc2022Matches}
-    members={membersCollection.filter(member => FC2022Data.participants.includes(member.data.name))}
+    members={membersCollection.filter(member => FC2022Data.participants && FC2022Data.participants.includes(member.data.name))}
     />
     
     <KnockoutMatches
@@ -126,7 +126,7 @@ const winner = getMemberByName(FC2022Data.champion, membersCollection);
       <TournamentStandings
       tournament={tournamentEntry}
       matches={fc2022Matches}
-      members={membersCollection.filter(member => FC2022Data.participants.includes(member.data.name))}
+      members={membersCollection.filter(member => FC2022Data.participants && FC2022Data.participants.includes(member.data.name))}
       />
     </div>
   </main>

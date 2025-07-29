@@ -22,7 +22,7 @@ const allEditions = tournaments
 
 // Función para obtener el equipo según la posición final
 function getTeamByPosition(tournament: CollectionEntry<'tournaments'>, position: number): CollectionEntry<'members'> | null {
-  const participants = tournament.data.participants;
+  const participants = tournament.data.participants || [];
   
   for (const team of participants) {
     const teamPosition = getTeamPositionInTournament(tournament, matches, team);

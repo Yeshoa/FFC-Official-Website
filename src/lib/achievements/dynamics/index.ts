@@ -73,9 +73,9 @@ export async function getAchievementsForMember(name: string): Promise<Achievemen
   // 2) Manuales
   const manualIds: string[] = (member.data as any).manualAchievements || [];
   const manual = staticAch
-    .filter(a => manualIds.includes(a.data.id))
+    .filter(a => a.data && manualIds.includes(a.data.id))
     .map(a => ({
-      id:          a.id,
+      id:          a.data.id,
       name:        a.data.name,
       icon:        a.data.icon,
       description: a.data.description,

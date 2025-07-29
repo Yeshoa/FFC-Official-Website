@@ -9,9 +9,6 @@ const rankedMembers = getRankedMembers(members, tournaments, matches, currentTou
 
 // Función helper para obtener puntos de un evento específico de la edición actual
 const getCurrentEventPoints = (team, eventName) => {
-  // DEBUG: Verificar estructura
-  console.log(`Getting ${eventName} for ${team.name}:`, team.currentEvents);
-  
   return team.currentEvents?.[eventName] || 0;
 };
 ---

@@ -125,7 +125,7 @@ const winner = getMemberByName(FC2024Data.champion, membersCollection);
       <TournamentStandings
       tournament={tournamentEntry}
       matches={fc2024Matches}
-      members={membersCollection.filter(member => FC2024Data.participants.includes(member.data.name))}
+      members={membersCollection.filter(member => FC2024Data.participants && FC2024Data.participants.includes(member.data.name))}
       />
     </div>
   </main>

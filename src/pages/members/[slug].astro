@@ -125,7 +125,6 @@ playedMatches.forEach(match => {
 
 const memberRank = getMemberRank(member, members, matches, tournaments, CURRENT_TOURNAMENT_ID);
 const memberTotalScore = getMemberTotalScore(member, tournaments, matches, CURRENT_TOURNAMENT_ID).totalScore;
-console.log(`Member: ${memberData.name}, Rank: ${memberRank}, Total Score: ${memberTotalScore}`);
 //Get championships won by member
 const titles = tournaments
   .filter(t => t.data.champion === memberData.name)

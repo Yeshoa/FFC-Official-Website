@@ -338,7 +338,7 @@ const baseAchievements: {
 
     evaluate: function (matches, tournaments, member) {
       const { evaluate, ...base } = this;
-      const participatedTournaments = tournaments.filter(t => t.data.participants.includes(member.data.name));
+      const participatedTournaments = tournaments.filter(t => t.data.participants && t.data.participants.includes(member.data.name));
 
       const participationCount = participatedTournaments.length;
 
