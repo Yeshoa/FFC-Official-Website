@@ -15,7 +15,7 @@ export default defineConfig({
     plugins: [tailwindcss()]
   },
 
-  output: 'server',
+  output: 'static',
   adapter: netlify(),
   integrations: [react(), mdx()]
 });
