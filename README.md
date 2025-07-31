@@ -16,10 +16,18 @@ Website built with **Astro**. Showcases tournaments, match details, and national
   * “Presenting Achievements”
 * **TournamentGrid.astro: Mobile Fix** ✅
   Make the tournament grid relative? and visually coherent on phones.
-* **Add Ranking Explanation Above Table**
+* **Add Ranking Explanation Above Table a hero or something**
   A short intro with link to the full “How the Ranking Works” article.
 * **Change Forest Cups heroImg's**
   The current ones are placeholders and not very appealing. (Think of adding images about the Host Nation instead)
+* **Adapt the web for supporting a Forest Cup before being played**
+  - Member Participation Table: It should show "Qualified" of "To be determined" instead of "Didn't participate"
+  - Maybe work in how to include the Qualifiers
+  - In /forest-cup, the history table should show "To be disputed" in future editions
+  - In /forest-cup/2026 there should be a hero adapted to the new edition, showing an image of the host nation
+  - Headlines should be about: the ball, the venues, or news, that link to articles?
+  - There should not be any stats untill the tournament starts
+  - Groups and Knockout Matches should show default placeholders
 
 ---
 
@@ -35,7 +43,11 @@ Website built with **Astro**. Showcases tournaments, match details, and national
   A page with all the achievements of the FFC. Organized by Category->Subcategory. Should show:
   - Owners
   - Not unlocked achievements should not be showed, instead, a mystery card
-
+* **Change "join us" button in the main hero**
+  It should link to somewhere presentating the whole thing, or something like that.
+* **Change the "FC24 all goals" hero**
+  There should be a different hero more intuitive.
+* **Add stadiums to all matches possible, and show them in match cards**
 ---
 
 ## 🎨 Nice to Have (Low Priority)
