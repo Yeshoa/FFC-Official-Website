@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@astrojs/mdx": "^4.3.0",
-    "@astrojs/netlify": "^6.3.0",
+    "@astrojs/netlify": "^6.5.4",
     "@astrojs/react": "^4.2.4",
     "@n8n/chat": "^0.45.0",
     "@tailwindcss/vite": "^4.0.15",
