@@ -1,0 +1,21 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  sponsor: CollectionEntry<'sponsors'>;
+}
+
+const { sponsor } = Astro.props;
+---
+
+<div class="w-32 h-16 border-2 border-gray-300 rounded-lg overflow-hidden" style={`background-color: ${sponsor.data.backgroundColor}`}>
+  <Image 
+    src={sponsor.data.image}
+    alt={sponsor.data.name}
+    class="w-full h-full object-contain p-2"
+    loading="lazy"
+    format="webp"
+    quality={30}
+  />
+</div>

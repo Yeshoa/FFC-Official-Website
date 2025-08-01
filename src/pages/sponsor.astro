@@ -1,0 +1,65 @@
+---
+import App from '../layouts/App.astro';
+import { getCollection } from 'astro:content';
+import SponsorCard from '@components/sponsors/SponsorCard.astro';
+
+const sponsors = await getCollection('sponsors');
+
+// Define tier order and display mapping
+const tierOrder = ['global', 'supplier', 'national'];
+const tierDisplay = {
+  global: 'Official Global Partners',
+  supplier: 'Official Supplier Partner',
+  national: 'Official National Sponsors'
+};
+
+// Group sponsors by tier
+const sponsorsByTier = sponsors.reduce((acc, sponsor) => {
+  const tier = sponsor.data.tier || 'global';
+  if (!acc[tier]) {
+    acc[tier] = [];
+  }
+  acc[tier].push(sponsor);
+  return acc;
+}, {} as Record<string, typeof sponsors>);
+---
+
+<App title="FFC - Sponsors">
+  <main class="flex flex-col items-center pt-5">
+    <div class="flex flex-col items-center w-full max-w-8xl justify-center p-6">
+      <h1 class="text-6xl mb-5 font-bold animate-sladeIn text-center">Official Sponsors</h1>
+      <p class="text-lg mb-10 opacity-0 animate-[slide-in_1s_ease-in-out_forwards_.1s]">Official sponsors of FFC, united in their support for the game.</p>
+      
+      <div class="w-full opacity-0 animate-[slide-in_1s_ease-in-out_forwards_.2s]">
+        {tierOrder.map(tier => {
+          const tierSponsors = sponsorsByTier[tier] || [];
+          if (tierSponsors.length === 0) return null;
+          
+          return (
+            <section class="mb-16">
+              <div class="text-center mb-8">
+                <h2 class="text-2xl md:text-3xl font-bold mb-6">
+                  {tierDisplay[tier]}
+                </h2>
+              </div>
+              
+              <div class="flex flex-wrap justify-center gap-10">
+                {tierSponsors.map(sponsor => (
+                  <SponsorCard sponsor={sponsor} />
+                ))}
+              </div>
+            </section>
+          );
+        })}
+      </div>
+    </div>
+  </main>
+</App>
+
+<style>
+  @media (min-width: 1536px) {
+    .grid-cols-9 {
+      grid-template-columns: repeat(9, minmax(0, 1fr));
+    }
+  }
+</style>
