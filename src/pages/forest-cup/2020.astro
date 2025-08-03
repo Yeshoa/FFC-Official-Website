@@ -1,5 +1,5 @@
 ---
-import { getTournaments, getMatches, getMembers } from '@lib/generalUtils';
+import { getTournaments, getMatches, getMembers, getArticles } from '@lib/generalUtils';
 import App from '@layouts/App.astro'; 
 import Bracket from '@components/tournaments/Bracket.astro'; 
 import Groups from '@components/tournaments/Groups.astro';
@@ -8,6 +8,8 @@ import TournamentStats from '@components/tournaments/TournamentStats.astro';
 import TournamentHero from '@components/tournaments/TournamentHero.astro';
 import Headlines from '@components/tournaments/Headlines.astro';
 import { getMemberByName } from '@lib/memberUtils';
+import { getArticlesByTags } from '@lib/articleUtils';
+import RelatedNews from '@components/articles/RelatedNews.astro';
 
 const tournamentsCollection = await getTournaments();
 const matchesCollection = (await getMatches())
@@ -31,6 +33,13 @@ const fc2020Matches = matchesCollection
   .sort((a, b) => a.data.date.getTime() - b.data.date.getTime()); // Ordenar por fecha
 const knockoutMatches = fc2020Matches.filter(match => match.data.stage === 'knockout');
 
+const articles = await getArticles();
+const filterTags = [
+  "forest-cup",
+  "forest-cup-2020",
+];
+
+const filteredArticles = getArticlesByTags(articles, filterTags);
 import TournamentStandings from '@components/tournaments/TournamentStandings.astro';
 
 const pageTitle = `FFC - ${FC2020Data.name || 'Forest Cup'}`;
@@ -70,5 +79,6 @@ const winner = getMemberByName(FC2020Data.champion, membersCollection);
       members={membersCollection.filter(member => FC2020Data.participants && FC2020Data.participants.includes(member.data.name))}
       />
     </div>
+    <RelatedNews articles={filteredArticles} max={4} />
   </main>
 </App>

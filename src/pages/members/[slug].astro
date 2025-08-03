@@ -1,6 +1,6 @@
 ---
 import { type CollectionEntry } from 'astro:content';
-import { getTournaments, getMatches, getMembers } from '@lib/generalUtils';
+import { getTournaments, getMatches, getMembers, getArticles } from '@lib/generalUtils';
 import { Image } from 'astro:assets';
 import { getMemberRank, getMemberByName } from '@lib/memberUtils';
 import { getMemberTotalScore } from '@lib/rankingUtils';
@@ -12,6 +12,8 @@ import RecordsAndStats from '@components/members/RecordsAndStats.astro';
 import TournamentParticipationTable from '@components/members/TournamentParticipationTable.astro';
 import MemberHero from '@components/members/MemberHero.astro';
 import { CURRENT_TOURNAMENT_ID } from '@lib/tournamentUtils';
+import { getArticlesByTags } from '@lib/articleUtils';
+import RelatedNews from '@components/articles/RelatedNews.astro';
 
 export const prerender = true;
 
@@ -134,6 +136,11 @@ const titles = tournaments
 const hasContent = member?.body && member.body.trim() !== '';
 const achievements = await getAchievementsForMember(memberData.name);
 
+const articles = await getArticles();
+const filterTags = [
+  member.slug,
+];
+const filteredArticles = getArticlesByTags(articles, filterTags);
 ---
 <App title={`FFC - ${memberData.name}`}>
   <div class="md:container m-auto p-4 py-8">
@@ -254,5 +261,8 @@ const achievements = await getAchievementsForMember(memberData.name);
       </div>
     </div>
     <RecordsAndStats member={member} matches={playedMatches} members={members}/>
+    {filteredArticles.length > 0 && (
+      <RelatedNews articles={filteredArticles} max={4} />
+    )}
   </div>
 </App>

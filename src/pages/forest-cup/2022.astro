@@ -8,6 +8,8 @@ import TournamentStandings from '@components/tournaments/TournamentStandings.ast
 import TournamentHero from '@components/tournaments/TournamentHero.astro';
 import Headlines from '@components/tournaments/Headlines.astro';
 import { getMemberByName } from '@lib/memberUtils';
+import { getArticlesByTags } from '@lib/articleUtils';
+import RelatedNews from '@components/articles/RelatedNews.astro';
 
 const tournamentsCollection = await getTournaments();
 const matchesCollection = (await getMatches())
@@ -29,6 +31,13 @@ const fc2022Matches = matchesCollection
   /* .filter(match => match.data.tournament_id === TOURNAMENT_ID) */
   .sort((a, b) => a.data.date.getTime() - b.data.date.getTime()); // Ordenar por fecha
 const knockoutMatches = fc2022Matches.filter(match => match.data.stage === 'knockout');
+
+const articles = await getArticles();
+const filterTags = [
+  "forest-cup",
+  "forest-cup-2024",
+];
+const filteredArticles = getArticlesByTags(articles, filterTags);
 
 // Imagenes
 import Greenaway from '@images/tournaments/2022/greenaway.png';
@@ -123,5 +132,6 @@ const winner = getMemberByName(FC2022Data.champion, membersCollection);
       members={membersCollection.filter(member => FC2022Data.participants && FC2022Data.participants.includes(member.data.name))}
       />
     </div>
+    <RelatedNews articles={filteredArticles} max={4} />
   </main>
 </App>

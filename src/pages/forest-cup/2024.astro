@@ -8,6 +8,10 @@ import KnockoutMatches from '@components/tournaments/KnockoutMatches.astro';
 import TournamentStandings from '@components/tournaments/TournamentStandings.astro';
 import TournamentHero from '@components/tournaments/TournamentHero.astro';
 import Headlines from '@components/tournaments/Headlines.astro';
+import TournamentStats from '@components/tournaments/TournamentStats.astro';
+import { getMemberByName } from '@lib/memberUtils';
+import { getArticlesByTags } from '@lib/articleUtils';
+import RelatedNews from '@components/articles/RelatedNews.astro';
 
 type Tournament = CollectionEntry<'tournaments'>['data'];
 type Match = CollectionEntry<'matches'>['data'];
@@ -34,6 +38,13 @@ const fc2024Matches = matchesCollection
   .sort((a, b) => a.data.date.getTime() - b.data.date.getTime()); // Ordenar por fecha
 const knockoutMatches = fc2024Matches.filter(match => match.data.stage === 'knockout');
 
+const articles = await getArticles();
+const filterTags = [
+  "forest-cup",
+  "forest-cup-2022",
+];
+const filteredArticles = getArticlesByTags(articles, filterTags);
+
 // Imagenes
 import AllGoalsHero from '@images/tournaments/2024/all-goals.png';
 import FinalMatch from '@images/tournaments/2024/final-match.png';
@@ -41,8 +52,6 @@ import NysnubShow from '@images/tournaments/2024/nysnub-show.png';
 import LongestPenalty from '@images/tournaments/2024/longest-penalty.png';
 import BestGoal from '@images/tournaments/2024/best-goal.png';
 import MVPTarasov from '@images/tournaments/2024/mvp-tarasov.png';
-import TournamentStats from '@components/tournaments/TournamentStats.astro';
-import { getMemberByName } from '@lib/memberUtils';
 
 const headlines = [
   {
@@ -125,5 +134,6 @@ const winner = getMemberByName(FC2024Data.champion, membersCollection);
       members={membersCollection.filter(member => FC2024Data.participants && FC2024Data.participants.includes(member.data.name))}
       />
     </div>
+    <RelatedNews articles={filteredArticles} max={4} />
   </main>
 </App>
