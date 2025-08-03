@@ -3,6 +3,7 @@ import Layout from '@layouts/App.astro'
 import RankingTable from '@components/RankingTable.astro';
 import RankingTableNew from '@components/RankingTableNew.astro';
 import RelatedNews from '@components/articles/RelatedNews.astro';
+import RankingLegend from '@components/ranking/RankingLegend.astro';
 
 import { getMembers, getTournaments, getMatches, getArticles } from '@lib/generalUtils';
 import{ getArticlesByTags } from '@lib/articleUtils';
@@ -24,12 +25,18 @@ const currentTournamentId = 3;
 <Layout title="FFC - Ranking">
   <main class="">
     <!-- <RankingTable members={allMembers} /> -->
-    <RankingTableNew
+    <RankingLegend
       members={allMembers}
       tournaments={tournaments}
       matches={matches}
       currentTournamentId={currentTournamentId}
     />
+    <!-- <RankingTableNew
+      members={allMembers}
+      tournaments={tournaments}
+      matches={matches}
+      currentTournamentId={currentTournamentId}
+    /> -->
     <RelatedNews articles={filteredArticles} max={4} />
   </main>
 </Layout>

@@ -14,10 +14,6 @@ Website built with **Astro**. Showcases tournaments, match details, and national
   * “How to Participate and Sign Up”
   * “How the Ranking Works & How to Earn Points”
   * “Presenting Achievements”
-* **TournamentGrid.astro: Mobile Fix** ✅
-  Make the tournament grid relative? and visually coherent on phones.
-* **Add Ranking Explanation Above Table a hero or something**
-  A short intro with link to the full “How the Ranking Works” article.
 * **Change Forest Cups heroImg's**
   The current ones are placeholders and not very appealing. (Think of adding images about the Host Nation instead)
 * **Adapt the web for supporting a Forest Cup before being played**
@@ -33,21 +29,16 @@ Website built with **Astro**. Showcases tournaments, match details, and national
 
 ## ⚙️ Should Do (Medium Priority)
 
-* **Add Sponsor Registration page/form**
-  Name, logo upload, roleplay pitch—link it from the navbar.
+* **Create Sponsor Registration form**
+  Name, logo upload, roleplay.
 * **Fix /forest-cup Hero**
   Brainstorm and implement a compelling hero component for `/forest-cup`.
 * **Bracket Component Rewrite**
   Fully remake the knockout bracket UI from scratch for clarity and responsiveness.
-* **Stylish Achievements Page (test.astro)**
-  A page with all the achievements of the FFC. Organized by Category->Subcategory. Should show:
-  - Owners
-  - Not unlocked achievements should not be showed, instead, a mystery card
 * **Change "join us" button in the main hero**
   It should link to somewhere presentating the whole thing, or something like that.
 * **Change the "FC24 all goals" hero**
   There should be a different hero more intuitive.
-* **Add stadiums to all matches possible, and show them in match cards**
 ---
 
 ## 🎨 Nice to Have (Low Priority)
@@ -58,6 +49,11 @@ Website built with **Astro**. Showcases tournaments, match details, and national
   Design small SVG or PNG badges for every achievement type.
 * **Create More Achievements**
   Expand achievement library with new conditions.
+* **Add stadiums to all matches possible, and show them in match cards**
+* **Stylish Achievements Page (test.astro)**
+  A page with all the achievements of the FFC. Organized by Category->Subcategory. Should show:
+  - Owners
+  - Not unlocked achievements should not be showed, instead, a mystery card
 
 ---
 

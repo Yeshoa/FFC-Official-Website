@@ -1,0 +1,322 @@
+---
+import { Image } from 'astro:assets';
+import { getRankedMembers } from '@lib/rankingUtils';
+
+const { members, tournaments, matches, currentTournamentId } = Astro.props;
+
+// Calcular ranking
+const rankedMembers = getRankedMembers(members, tournaments, matches, currentTournamentId);
+
+// Calcular la próxima edición dinámicamente
+const getNextEdition = () => {
+  if (!tournaments || tournaments.length === 0) return 2026; // Fallback
+  const maxEdition = Math.max(...tournaments.map(t => t.data.edition));
+  return maxEdition;
+};
+
+const nextEdition = getNextEdition();
+
+// Función helper para obtener puntos de eventos específicos
+const getCurrentEventPoints = (team, eventName) => {
+  return team.currentEvents?.[eventName] || 0;
+};
+---
+
+<div class="w-full p-6 pt-11 items-center">
+  <h1 class="text-6xl font-bold mb-5 text-center animate-sladeIn">Ranking</h1>
+  <p class="text-lg mb-10 text-center opacity-0 animate-[slide-in_1s_ease-in-out_forwards_.1s]">
+    Score determines how strong your team will be. More points means higher chances to win.
+  </p>
+
+  <div class="max-w-7xl mx-auto bg-green-900/30 rounded-lg p-6 mb-7 opacity-0 animate-[slide-in_1s_ease-in-out_forwards_.15s]">
+    <h3 class="text-xl font-semibold mb-4 text-green-300 text-center">How Ranking Points Work</h3>
+    
+    <!-- Explicación general -->
+    <div class="bg-green-800/20 rounded-lg p-4 mb-4">
+      <p class="text-sm text-green-200 text-center">
+        Your <strong>Total Score</strong> combines roleplay contributions, tournament performance, community events, and bonuses. 
+        Higher scores mean better seeding and direct qualification!
+      </p>
+    </div>
+
+    <!-- Grid de columnas -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
+      
+      <!-- ROLEPLAY SECTION -->
+      <div class="bg-green-800/10 rounded-lg p-4">
+        <h4 class="font-semibold text-green-300 mb-2 text-center">Roleplay</h4>
+        
+        <div class="space-y-2 text-sm text-green-200">
+          <div class="flex justify-between items-center">
+            <span><strong>Hist:</strong> History</span>
+            <span class="text-xs text-green-400">Manual</span>
+          </div>
+          <p class="text-xs text-green-300">
+            Points for team lore, dispatches, kit designs, league creation, and rich football roleplay.
+          </p>
+          
+          <div class="flex justify-between items-center mt-3">
+            <span><strong>Prev:</strong> Results in previous editions</span>
+            <span class="text-xs text-green-400">Auto</span>
+          </div>
+          <p class="text-xs text-green-300">
+            Tournament results from past editions with <strong>decay system</strong>:
+          </p>
+          <div class="text-xs text-green-400 ml-2">
+            • Last edition: <strong>100%</strong> of points<br>
+            • 2 editions ago: <strong>50%</strong> of points<br>
+            • 3 editions ago: <strong>25%</strong> of points<br>
+            • 4 editions ago: <strong>10%</strong> of points<br>
+            • Older: <strong>0%</strong> (not counted)
+          </div>
+        </div>
+      </div>
+
+      <!-- EVENTS SECTION -->
+      <div class="bg-green-800/10 rounded-lg p-4">
+        <h4 class="font-semibold text-green-300 mb-2 text-center">Events</h4>
+        
+        <div class="space-y-2 text-sm text-green-200">
+          <div class="flex justify-between items-center">
+            <span><strong>Past Ev:</strong> Events in previous editions</span>
+            <span class="text-xs text-green-400">Auto</span>
+          </div>
+          <p class="text-xs text-green-300">
+            Community event points from previous editions using the <strong>same decay system</strong> as tournaments.
+          </p>
+          
+          <div class="flex justify-between items-center mt-3">
+            <span><strong>Events:</strong></span>
+            <span class="text-xs text-green-400">Current</span>
+          </div>
+          <p class="text-xs text-green-300">
+            Points obtained in this edition's poetry contest, Flag & Banner, Murder Mystery, Quiz, Scavenger Hunt and Forest-Themed Connections Grid. Counts at <strong>100%</strong> value.
+          </p>
+        </div>
+      </div>
+
+      <!-- BONUS SECTION -->
+      <div class="bg-green-800/10 rounded-lg p-4">
+        <h4 class="font-semibold text-green-300 mb-2 text-center">Bonus</h4>
+        
+        <div class="space-y-2 text-sm text-green-200">
+          <div class="flex justify-between items-center">
+            <span><strong>Host:</strong></span>
+            <span class="text-xs text-green-400">Auto</span>
+          </div>
+          <p class="text-xs text-green-300">
+            Automatic bonus points awarded for hosting a Forest Cup tournament.
+          </p>
+          
+          <div class="flex justify-between items-center mt-3">
+            <span><strong>Extra:</strong></span>
+            <span class="text-xs text-green-400">Manual</span>
+          </div>
+          <p class="text-xs text-green-300">
+            Special recognition for exceptional community contributions and dedication.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Decay System Explanation -->
+    <div class="bg-gradient-to-r from-green-800/20 to-blue-800/20 rounded-lg p-4">
+      <h4 class="font-semibold text-green-300 mb-2 text-center">How the Decay System Works</h4>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+        <div>
+          <p class="text-green-200 mb-2">
+            <strong>Why decay?</strong> Consistency should be rewarded, but recent performance matters more than ancient history. This keeps the ranking dynamic and rewards current activity.
+          </p>
+          <p class="text-green-300 text-xs">
+            <strong>Example:</strong> If you earned 10 points in the last edition, you get all 10. 
+            If you earned 10 points two editions ago, you only get 5 (50% of 10) from that edition.
+          </p>
+        </div>
+        <div class="text-center">
+          <div class="inline-block bg-green-900/30 rounded-lg p-3">
+            <div class="text-xs text-green-400 space-y-1">
+              <div class="flex justify-between w-32">
+                <span>Edition -1:</span>
+                <span class="text-green-300 font-bold">100%</span>
+              </div>
+              <div class="flex justify-between w-32">
+                <span>Edition -2:</span>
+                <span class="text-yellow-300 font-bold">50%</span>
+              </div>
+              <div class="flex justify-between w-32">
+                <span>Edition -3:</span>
+                <span class="text-orange-300 font-bold">25%</span>
+              </div>
+              <div class="flex justify-between w-32">
+                <span>Edition -4:</span>
+                <span class="text-red-300 font-bold">10%</span>
+              </div>
+              <div class="flex justify-between w-32">
+                <span>Older:</span>
+                <span class="text-gray-400 font-bold">0%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h6 class="2xl:hidden text-center mb-2 opacity-0 animate-[slide-in_1s_ease-in-out_forwards_.3s]">Swipe to see full scores</h6>
+  
+  <div class="overflow-x-auto rounded-lg opacity-0 animate-[slide-in_1s_ease-in-out_forwards_.5s]">
+    <!-- <table class="min-w-7xl table-fixed border-collapse text-sm w-max md:w-full max-w-7xl mx-auto"> -->
+    <table class="table-fixed border-collapse text-sm w-max mx-auto">
+      <colgroup>
+        <col style="width: 65px;"> <!-- Pos -->
+        <col style="width: 65px;"> <!-- Flag -->
+        <col style="width: 330px;"> <!-- Team -->
+        <col style="width: 65px;"> <!-- Hist -->
+        <col style="width: 65px;"> <!-- Prev -->
+        <col style="width: 100px;"> <!-- Past Events -->
+        <col style="width: 65px;"> <!-- Poetry -->
+        <col style="width: 65px;"> <!-- Flag & Banner -->
+        <col style="width: 65px;"> <!-- Murder Mystery -->
+        <col style="width: 65px;"> <!-- Quiz -->
+        <col style="width: 65px;"> <!-- Scavenger Hunt -->
+        <col style="width: 65px;"> <!-- Forest-Themed Connections Grid -->
+        <col style="width: 65px;"> <!-- Host -->
+        <col style="width: 65px;"> <!-- Extra -->
+        <col style="width: 100px;"> <!-- Total -->
+      </colgroup>
+      
+      <thead class="bg-green-800 uppercase">
+        <tr>
+          <th rowspan="2" class="px-4 py-3 text-center border-b border-green-600 rounded-tl-xl" title="Position">Pos</th>
+          <th rowspan="2" class="px-5 py-3 text-center border-b border-green-600"></th>
+          <th rowspan="2" class="py-3 text-left border-b border-green-600">Team</th>
+          <th colspan="2" class="px-4 py-2 text-center border-b border-l border-green-600">Roleplay</th>
+          <th colspan="7" class="px-4 py-2 text-center border-b border-l border-green-600">Events</th>
+          <th colspan="2" class="px-4 py-2 text-center border-b border-l border-green-600">Bonus</th>
+          <th rowspan="2" class="px-3 py-3 text-center font-bold border-b border-l border-green-600 rounded-tr-xl">Total</th>
+        </tr>
+        <tr>
+          <th class="px-2 py-2 text-center font-medium border-b border-l border-green-600" title="History Points - Roleplay, lore, dispatches">Hist</th>
+          <th class="px-2 py-2 text-center font-medium border-b border-l border-green-600" title="Previous Tournament Results - Automatic calculation with decay">Prev</th>
+          <th class="px-2 py-2 text-center font-medium border-b border-l border-green-600" title="Past Event Points - Previous editions with decay">Past Ev</th>
+          <th class="px-2 py-2 text-center font-medium border-b border-l border-green-600" title="Poetry Contest Points - Current edition">Poetry</th>
+          <th class="px-2 py-2 text-center font-medium border-b border-l border-green-600" title="Flag & Banner Points - Current edition">F&B</th>
+          <th class="px-2 py-2 text-center font-medium border-b border-l border-green-600" title="Murder Mystery Points - Current edition">MM</th>
+          <th class="px-2 py-2 text-center font-medium border-b border-l border-green-600" title="Quiz Contest Points - Current edition">Quiz</th>
+          <th class="px-2 py-2 text-center font-medium border-b border-l border-green-600" title="Scavenger Hunt Points - Current edition">SH</th>
+          <th class="px-2 py-2 text-center font-medium border-b border-l border-green-600" title="Forest-Themed Connections Grid Points - Current edition">CG</th>
+          <th class="px-2 py-2 text-center font-medium border-b border-l border-green-600" title="Host advantage points">Host</th>
+          <th class="px-2 py-2 text-center font-medium border-b border-l border-green-600" title="Extra community contribution points">Extra</th>
+        </tr>
+      </thead>
+      
+      <tbody class="text-center text-green-300">
+        {rankedMembers.map((team, index) => {
+          const getTotalColorClass = (total) => {
+            if (total >= 110) return "bg-cyan-500/80 text-black font-bold";
+            if (total >= 84) return "bg-red-600/60 text-white font-bold";
+            if (total >= 62) return "bg-orange-600/60 text-white font-bold";
+            if (total >= 42) return "bg-yellow-600/80 text-white font-bold";
+            if (total >= 28) return "bg-green-600/60 text-white font-bold";
+            if (total >= 18) return "bg-blue-600/60 text-white font-bold";
+            if (total >= 10) return "bg-purple-600/60 text-white font-bold";
+            if (total >= 4) return "bg-pink-600/60 text-white font-bold";
+            return "bg-gray-600/80 text-white font-bold";
+          };
+          
+          const poetryPoints = getCurrentEventPoints(team, 'poetry');
+          const flagBannerPoints = getCurrentEventPoints(team, 'flagBanner');
+          const murderMysteryPoints = getCurrentEventPoints(team, 'murderMystery');
+          const quizPoints = getCurrentEventPoints(team, 'quiz');
+          const scavengerHuntPoints = getCurrentEventPoints(team, 'scavengerHunt');
+          const connectionsGridPoints = getCurrentEventPoints(team, 'connectionsGrid');
+
+          return (
+          <tr class="border-b border-green-700 hover:bg-green-900/30 transition duration-150">
+            <td class="py-2">{index + 1}</td>
+            <td class="py-1 sticky left-0 bg-green-800 xl:bg-transparent">
+              <Image 
+                src={team.flag || "/placeholder.svg"} 
+                alt={team.name} 
+                quality={20} 
+                format="webp"
+                width={50} 
+                class="h-4 w-auto object-cover rounded inline-block" 
+              />
+            </td>
+            <td class="py-2 text-left overflow-hidden text-ellipsis">
+              <a 
+                href={`/members/${team.slug}`} 
+                class="font-semibold hover:underline text-white overflow-hidden text-ellipsis ml-2" 
+                title={team.name}
+              >
+                {team.name}
+              </a>
+            </td>
+            
+            <td class="px-2 py-2" title={`History Points: ${team.scores.historyPoints}`}>
+              {team.scores.historyPoints}
+            </td>
+            <td class="px-2 py-2" title={`Tournament Decay Points: ${team.scores.tournamentDecayPoints}`}>
+              {team.scores.tournamentDecayPoints}
+            </td>
+            <td class="px-2 py-2" title={`Past Event Points: ${team.scores.pastEventPoints}`}>
+              {team.scores.pastEventPoints}
+            </td>
+            <td class="px-2 py-2" title={`Poetry Contest Points: ${poetryPoints}`}>
+              {poetryPoints}
+            </td>
+            <td class="px-2 py-2" title={`Flag & Banner Points: ${flagBannerPoints}`}>
+              {flagBannerPoints}
+            </td>
+            <td class="px-2 py-2" title={`Murder Mystery Points: ${murderMysteryPoints}`}>
+              {murderMysteryPoints}
+            </td>
+            <td class="px-2 py-2" title={`Quiz Points: ${quizPoints}`}>
+              {quizPoints}
+            </td>
+            <td class="px-2 py-2" title={`Scavenger Hunt Points: ${scavengerHuntPoints}`}>
+              {scavengerHuntPoints}
+            </td>
+            <td class="px-2 py-2" title={`Connections Grid Points: ${connectionsGridPoints}`}>
+              {connectionsGridPoints}
+            </td>
+            <td class="px-2 py-2" title={`Host Bonus: ${team.scores.bonusHost}`}>
+              {team.scores.bonusHost}
+            </td>
+            <td class="px-2 py-2" title={`Extra Bonus: ${team.scores.bonusExtra}`}>
+              {team.scores.bonusExtra}
+            </td>
+            
+            <td class={`px-4 py-2 ${getTotalColorClass(team.totalScore)}`}>
+              {team.totalScore}
+            </td>
+          </tr>
+        )})}
+        
+        {rankedMembers.length === 0 && (
+          <tr>
+            <td colspan="10" class="text-center py-4 text-green-500">
+              No verified members found.
+            </td>
+          </tr>
+        )}
+      </tbody>
+    </table>
+  </div>
+  
+  <!-- INFORMACIÓN ADICIONAL CON EDICIÓN DINÁMICA -->
+  <div class="max-w-7xl mx-auto mt-6 text-center">
+    <div class="bg-green-900/20 rounded-lg p-4">
+      <p class="text-sm text-green-300 mb-2">
+        <strong>Top 24</strong> teams qualify directly for <strong>Forest Cup {nextEdition}</strong>
+      </p>
+      <p class="text-xs text-green-400">
+        Points are calculated automatically from tournament results and community events. 
+      </p>
+      <p class="text-xs text-green-500 mt-2">
+        Higher ranking = Better group stage seeding + Direct qualification advantage
+      </p>
+    </div>
+  </div>
+</div>
