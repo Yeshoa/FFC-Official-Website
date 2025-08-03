@@ -1,9 +1,9 @@
 ---
-import { getCollection } from 'astro:content';
 import App from '@layouts/App.astro';
 import ArticleCard from '@components/articles/ArticleCard.astro';
+import { getArticles } from '@lib/generalUtils';
 
-const articles = await getCollection('articles');
+const articles = await getArticles();
 articles.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 ---
 <App title="FFC - Articles">

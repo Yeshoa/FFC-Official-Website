@@ -1,5 +1,6 @@
 ---
-import { getCollection, type CollectionEntry, getEntry } from 'astro:content';
+import { type CollectionEntry } from 'astro:content';
+import { getTournaments, getMatches, getMembers } from '@lib/generalUtils';
 import { Image } from 'astro:assets';
 import { getMemberRank, getMemberByName } from '@lib/memberUtils';
 import { getMemberTotalScore } from '@lib/rankingUtils';
@@ -21,7 +22,7 @@ interface Props {
 }
 
 export async function getStaticPaths() {
-  const members = await getCollection('members');
+  const members = await getMembers();
   return members.map((member: MemberType) => {
     return {
       params: { slug: member.slug }, 
@@ -42,9 +43,9 @@ if (!member) {
 const { Content } = await member.render(); // Obtener el componente para renderizar el Markdown
 const memberData = member.data;
 
-const matches = await getCollection('matches');
-const tournaments = await getCollection('tournaments');
-const members = await getCollection('members');
+const matches = await getMatches();
+const tournaments = await getTournaments();
+const members = await getMembers();
 
 // Filtra partidos jugados donde el miembro actual es team1 o team2
 const playedMatches = matches

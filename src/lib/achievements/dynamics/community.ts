@@ -1,7 +1,8 @@
 import Trophy from '@images/achievements/king.webp';
 import type { Achievement } from './index';
 import { type Category, CATEGORIES, ALIGNMENTS, type Subcategory, type Alignment } from '../utils';
-import { getCollection, type CollectionEntry } from 'astro:content';
+import { type CollectionEntry } from 'astro:content';
+import { getSponsors } from '@lib/generalUtils';
 import { getMemberByName } from '@lib/memberUtils';
 import { getGoalsByTeam, getMatchWinnerIncludingPenalties } from '@lib/matchUtils';
 
@@ -9,7 +10,7 @@ type Tournament = CollectionEntry<'tournaments'>;
 type Member = CollectionEntry<'members'>;
 type Match = CollectionEntry<'matches'>;
 type Sponsor = CollectionEntry<'sponsors'>;
-const sponsorCollection = await getCollection('sponsors');
+const sponsorCollection = await getSponsors();
 
 const thisCategory = CATEGORIES[5];
 

@@ -1,19 +1,16 @@
 ---
 import App from '../layouts/App.astro';
-import { Image } from 'astro:assets';
 import Hero from '@components/Hero.astro';
 import AllGoals from '@images/tournaments/2024/all-goals.png';
 import Petrov from '@images/tournaments/2024/petrov-goal.png';
 import FCHistory from '@images/tournaments/fc-history.png';
 import Logo from '@images/logo.png';
-import Banner from '@images/FFC Banner simple.png';
 import HeroCard from '@components/HeroCard.astro';
 import Members from '@images/members3.png';
-import { getCollection } from 'astro:content';
-import ArticleCard from '@components/articles/ArticleCard.astro';
-import { object } from 'astro:schema';
+import RelatedNews from '@components/articles/RelatedNews.astro';
+import { getArticles } from '@lib/generalUtils';
 
-const articles = await getCollection('articles');
+const articles = await getArticles();
 articles.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 /* default - Diseño limpio y moderno con efectos sutiles
 diagonal - Cortes diagonales dinámicos usando clip-path
@@ -87,7 +84,7 @@ const heroCards = [
         />
       ))}
   </div>
-  <div class="container mx-auto px-4 py-12">
+  <!-- <div class="container mx-auto px-4 py-12">
     <h2 class="text-3xl md:text-4xl font-bold text-white mb-8 text-center">Latest News</h2>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
       {articles.slice(0, 3).map(article => (
@@ -109,6 +106,6 @@ const heroCards = [
     {articles.length === 0 && (
       <p class="text-green-200 mt-8 text-center">No news published yet.</p>
     )}
-  </div>
-
+  </div> -->
+  <RelatedNews articles={articles} max={4} />
 </App>

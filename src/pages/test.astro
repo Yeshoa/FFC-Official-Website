@@ -1,14 +1,13 @@
 ---
 import App from '@layouts/App.astro';
-import { getCollection } from 'astro:content';
+import { getMembers, getAchievements } from '@lib/generalUtils';
 import { dynamicDefs } from '@lib/achievements/dynamics';
-import { type Achievement } from '@lib/achievements/dynamics/index';
 import { CATEGORIES, SUBCATEGORIES, hierarchy } from '@lib/achievements/utils';
 import AchievementCard from '@components/achievements/AchievementCard.astro';
 import { getAchievementsForMember } from '@lib/achievements/dynamics';
 import { Image } from 'astro:assets';
 
-const memberCollection = await getCollection('members');
+const memberCollection = await getMembers();
 
 // Función para calcular el nivel en la jerarquía
 const getHierarchyLevel = (id, hierarchy, visited = new Set()) => {
@@ -51,7 +50,7 @@ const buildAchievementMembersMap = async (members) => {
 };
 
 // 1. Todos los achievements estáticos
-const staticAchievements = (await getCollection('achievements')).map(a => ({
+const staticAchievements = (await getAchievements()).map(a => ({
   id: a.data.id,
   name: a.data.name,
   icon: a.data.icon,

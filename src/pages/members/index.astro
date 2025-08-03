@@ -1,16 +1,15 @@
 ---
 import App from '@layouts/App.astro';
-import { getCollection } from 'astro:content';
+import { getMembers } from '@lib/generalUtils';
+import MemberCard from '@components/members/MemberCard.astro';
 
-// const members = await getCollection('members');
-const members = (await getCollection('members'))
+const members = (await getMembers())
   .filter(entry => entry.data.verified)  
   .sort((a, b) => a.data.id - b.data.id)
   .map((entry) => ({
     ...entry.data,
     slug: entry.slug,
 }));
-import MemberCard from '@components/members/MemberCard.astro';
 ---
 
 <App title="FFC - Members">

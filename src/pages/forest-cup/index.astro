@@ -7,12 +7,12 @@ import FCCard from '@components/tournaments/FCCard.astro';
 import App from '@layouts/App.astro';
 import { Image } from 'astro:assets';
 import FCLogo from '@images/tournaments/forest-cup.png';
-import { getCollection } from 'astro:content';
 import { getMemberByName } from '@lib/memberUtils';
+import { getTournaments, getMatches, getMembers } from '@lib/generalUtils';
 
-const members = await getCollection('members');
-const matchEntries = await getCollection('matches');
-let tournaments = await getCollection('tournaments');
+const members = await getMembers();
+const matchEntries = await getMatches();
+let tournaments = await getTournaments();
 tournaments = tournaments.sort((a, b) => a.data.id - b.data.id);
 
 const matches = matchEntries.map((entry) => entry.data);
@@ -32,7 +32,7 @@ const matches = matchEntries.map((entry) => entry.data);
       <!-- Tournaments -->
       <div class="w-full sm:container px-6 pt-4 pb-10 opacity-0 animate-[slide-in_1s_ease-in-out_forwards_.2s]">
         <div class="flex flex-col gap-6">
-          {tournaments.slice().reverse().map((tournament) => (
+          {tournaments.slice(2).reverse().map((tournament) => (
             <FCCard
               tournament={tournament}
               hostFlag={getMemberByName(tournament.data.host, members)?.data.flagPath}

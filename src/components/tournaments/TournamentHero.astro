@@ -1,6 +1,6 @@
 ---
 import { Image } from "astro:assets";
-import { getCollection } from 'astro:content';
+import { getTournaments } from "@lib/generalUtils";
 import type { CollectionEntry } from "astro:content";
 import Star from "@images/icons/star-solid.svg";
 
@@ -11,7 +11,7 @@ interface Props {
 
 const { currentTournament, champion } = Astro.props;
 
-const allTournaments = await getCollection('tournaments');
+const allTournaments = await getTournaments();
 const sortedTournaments = allTournaments.sort((a, b) => a.data.id - b.data.id);
 ---
 

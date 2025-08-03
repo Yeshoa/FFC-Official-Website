@@ -1,6 +1,6 @@
 ---
 import { Image } from 'astro:assets';
-import { getCollection } from 'astro:content';
+import { getSponsors } from '@lib/generalUtils';
 import FooterImage from '@images/Footer.png';
 import SponsorCard from '@components/sponsors/SponsorCard.astro';
 
@@ -13,7 +13,7 @@ import KickLogo from '@images/kick.png';
 const paypalLink = import.meta.env.PUBLIC_PAYPAL_LINK;
 const mpLink = import.meta.env.PUBLIC_MERCADOPAGO_LINK;
 
-const sponsors = await getCollection('sponsors');
+const sponsors = await getSponsors();
 ---
 <footer class="bg-green-950 border-t border-green-600">
   <div class="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
@@ -116,7 +116,7 @@ const sponsors = await getCollection('sponsors');
       <h3 class="text-lg font-semibold text-white">Sponsors</h3>
     </div>
     <div class="flex flex-wrap justify-center gap-8 mt-4">
-      {sponsors.map((sponsor) => (
+      {sponsors.filter((sponsor) => sponsor.data.tier === 'global').map((sponsor) => (
         <SponsorCard sponsor={sponsor} size="md" />
       ))}
     </div>

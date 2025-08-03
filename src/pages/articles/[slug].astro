@@ -1,5 +1,6 @@
 ---
-import { getCollection, type CollectionEntry } from 'astro:content';
+import { type CollectionEntry } from 'astro:content';
+import { getArticles } from '@lib/generalUtils';
 import { Image } from 'astro:assets';
 import App from '@layouts/App.astro';
 import ArticleProse from '@components/articles/ArticleProse.astro';
@@ -9,7 +10,7 @@ export const prerender = true;
 type ArticleType = CollectionEntry<'articles'>;
 
 export async function getStaticPaths() {
-  const articles = await getCollection('articles');
+  const articles = await getArticles();
   return articles.map((article: ArticleType) => ({
     params: { slug: article.slug },
     props: { article },
@@ -20,7 +21,7 @@ const { article } = Astro.props;
 const { Content } = await article.render();
 const data = article.data;
 
-const allArticles = await getCollection('articles');
+const allArticles = await getArticles();
 const recentArticles = allArticles
   .filter(a => a.slug !== article.slug)
   .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())

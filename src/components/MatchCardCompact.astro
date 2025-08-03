@@ -1,5 +1,6 @@
 ---
-import  {getCollection, type CollectionEntry } from 'astro:content';
+import  { type CollectionEntry } from 'astro:content';
+import { getTournaments } from '@lib/generalUtils';
 import { getMatchResult, getPenaltiesResult } from '@lib/matchUtils.ts';
 import { getMemberImage } from '@lib/memberUtils.ts';
 import { Image } from 'astro:assets';
@@ -9,7 +10,7 @@ interface Props {
   members: CollectionEntry<'members'>[];
 }
 
-const tournaments = await getCollection('tournaments');
+const tournaments = await getTournaments();
 const { match, members } = Astro.props;
 const tournament = tournaments.find(t => t.data.id === match.tournament_id);
 const date = new Date(match.date);

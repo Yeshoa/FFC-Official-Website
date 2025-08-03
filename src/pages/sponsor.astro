@@ -1,9 +1,9 @@
 ---
 import App from '../layouts/App.astro';
-import { getCollection } from 'astro:content';
+import { getSponsors } from '@lib/generalUtils';
 import SponsorCard from '@components/sponsors/SponsorCard.astro';
 
-const sponsors = await getCollection('sponsors');
+const sponsors = await getSponsors();
 
 // Define tier order and display mapping
 const tierOrder = ['global', 'supplier', 'national'];

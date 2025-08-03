@@ -6,7 +6,7 @@ import { specialAchievements }    from './special';
 import { rankingAchievements } from './ranking';
 import { communityAchievements } from './community';
 import { CATEGORIES, SUBCATEGORIES, ALIGNMENTS, type Category, hierarchy, type Subcategory, type Alignment } from '../utils';
-import { getCollection }          from 'astro:content';
+import { getMembers, getAchievements, getMatches, getTournaments } from '@lib/generalUtils';
 import type { CollectionEntry }   from 'astro:content';
 import type { ImageMetadata }     from 'astro';
 
@@ -53,10 +53,10 @@ export const dynamicDefs = [
  */
 export async function getAchievementsForMember(name: string): Promise<Achievement[]> {
   const [staticAch, matches, tournaments, members] = await Promise.all([
-    getCollection('achievements'),
-    getCollection('matches'),
-    getCollection('tournaments'),
-    getCollection('members'),
+    getAchievements(),
+    getMatches(),
+    getTournaments(),
+    getMembers(),
   ]);
   const member = members.find(m => m.data.name === name);
   if (!member) return [];
@@ -120,10 +120,10 @@ export async function getAchievementsForMember(name: string): Promise<Achievemen
  */
 export async function getMembersWithAchievement(achievementId: string): Promise<Member[]> {
   const [members, matches, tournaments, staticAch] = await Promise.all([
-    getCollection('members'),
-    getCollection('matches'),
-    getCollection('tournaments'),
-    getCollection('achievements'),
+    getMembers(),
+    getMatches(),
+    getTournaments(),
+    getAchievements(),
   ]);
   const result: Member[] = [];
   for (const member of members) {

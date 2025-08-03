@@ -1,4 +1,5 @@
-import { getCollection, type CollectionEntry } from 'astro:content';
+import { type CollectionEntry } from 'astro:content';
+import { getTournaments } from './generalUtils';
 import { getMatchResult } from './matchUtils';
 
 // 🟢 Tipos
@@ -6,7 +7,7 @@ type TournamentEntry = CollectionEntry<'tournaments'>;
 type MatchEntry = CollectionEntry<'matches'>;
 type MemberEntry = CollectionEntry<'members'>;
 
-const tournaments = await getCollection('tournaments');
+const tournaments = await getTournaments();
 const sortedTournaments = tournaments.sort((a, b) => b.data.id - a.data.id);
 export const CURRENT_TOURNAMENT_ID = sortedTournaments[0]?.data.id ?? null;
 

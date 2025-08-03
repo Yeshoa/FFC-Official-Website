@@ -1,13 +1,11 @@
 ---
-import { getCollection, type CollectionEntry } from 'astro:content';
-import { Image } from 'astro:assets';
+import { type CollectionEntry } from 'astro:content';
+import { getTournaments, getMatches, getMembers, getArticles } from '@lib/generalUtils';
 import App from '@layouts/App.astro'; 
 import Bracket from '@components/tournaments/Bracket.astro'; 
 import Groups from '@components/tournaments/Groups.astro';
 import KnockoutMatches from '@components/tournaments/KnockoutMatches.astro';
-import TournamentGrid from '@components/tournaments/TournamentGrid.astro'; 
 import TournamentStandings from '@components/tournaments/TournamentStandings.astro';
-import { getMatchWinner } from '@lib/matchUtils.ts';
 import TournamentHero from '@components/tournaments/TournamentHero.astro';
 import Headlines from '@components/tournaments/Headlines.astro';
 
@@ -15,11 +13,10 @@ type Tournament = CollectionEntry<'tournaments'>['data'];
 type Match = CollectionEntry<'matches'>['data'];
 type Member = CollectionEntry<'members'>['data'];
 
-const tournamentsCollection = await getCollection('tournaments');
-// const matchesCollection = await getCollection('matches');
-const matchesCollection = (await getCollection('matches'))
+const tournamentsCollection = await getTournaments();
+const matchesCollection = (await getMatches())
   .filter(match => match.slug.startsWith('forest-cup-2024/'));
-const membersCollection = await getCollection('members');
+const membersCollection = await getMembers();
 
 const TOURNAMENT_ID = 2;
 const tournamentEntry = tournamentsCollection.find(t => t.data.id === TOURNAMENT_ID);
