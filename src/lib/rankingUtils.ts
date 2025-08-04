@@ -1,18 +1,12 @@
 import type { CollectionEntry } from "astro:content"
 import { calculateTournamentDecayPoints, getLastFourTournamentIds } from "@lib/tournamentUtils"
-import { calculateAllEventPoints, calculateEventDecayPoints } from "@lib/eventUtils"
+import { calculateAllEventPoints, calculateEventDecayPoints, EVENT_COUNT } from "@lib/eventUtils"
+import { normalizePoints, SCORING_CONFIG } from "./scoreUtils";
 
 // 🟢 Tipos
 type TournamentEntry = CollectionEntry<'tournaments'>;
 type MatchEntry = CollectionEntry<'matches'>;
 type MemberEntry = CollectionEntry<'members'>;
-
-// Configuración
-const SCORING_CONFIG = {
-  MAX_HISTORY_POINTS: 100,
-  MAX_PREV_EDITION_POINTS: 150, // Para tournament decay
-  MAX_EVENT_POINTS: 100, // Para event decay
-} as const
 
 // Función principal COMPLETAMENTE AUTOMÁTICA
 export function getMemberTotalScore(
@@ -25,6 +19,7 @@ export function getMemberTotalScore(
   breakdown: {
     historyPoints: number
     tournamentDecayPoints: number
+    roleplayPoints: number,
     currentEventPoints: number // NUEVO
     pastEventPoints: number // NUEVO
     totalEventPoints: number // NUEVO
@@ -50,32 +45,41 @@ export function getMemberTotalScore(
   }
 } {
   const score = member.data.score
-  // 1️⃣ HISTORY POINTS (manual, sin cambios)
-  const historyPoints = Math.min(score?.rp?.history ?? 0, SCORING_CONFIG.MAX_HISTORY_POINTS)
+  {/* 🎭 ROLEPLAY */}
+  // 1️⃣ HISTORY POINTS
+  // Normalizar History Points
+  const historyPoints = normalizePoints(score.rp.history, SCORING_CONFIG.H_RAW_MAX, SCORING_CONFIG.H_MAX);
+
   // 2️⃣ TOURNAMENT DECAY POINTS (automático)
+  // Obtener puntos de las ediciones anteriores con decay
   const tournamentResult = calculateTournamentDecayPoints(
     member.data.name, // Nombre del equipo
     tournaments,
     matches,
     currentTournamentId,
   )
-  const tournamentDecayPoints = Math.min(tournamentResult.totalPoints, SCORING_CONFIG.MAX_PREV_EDITION_POINTS)
+  // Normalizar Tournament Decay Points
+  const tournamentDecayPoints = normalizePoints(tournamentResult.totalPoints, SCORING_CONFIG.PED_RAW_MAX, SCORING_CONFIG.PED_MAX);
+
+  const roleplayPoints = historyPoints + tournamentDecayPoints;
+  {/* 🎉 EVENTS */}
   // 3️⃣ EVENT POINTS (automático - ACTUALES + ANTERIORES)
   const lastFourIds = getLastFourTournamentIds(tournaments, currentTournamentId)
-  const eventResult = calculateAllEventPoints(score?.events ?? {}, currentTournamentId ?? 0, lastFourIds)
+  const eventResult = calculateAllEventPoints(score?.events ?? {}, currentTournamentId ?? 0, lastFourIds);
 
   // Aplicar límite al TOTAL de eventos (actuales + anteriores)
-  const totalEventPoints = Math.min(eventResult.totalEventPoints, SCORING_CONFIG.MAX_EVENT_POINTS)
+  const totalEventPoints = eventResult.totalEventPoints;
 
-  // 4️⃣ BONUS (sin cambios)
+  {/* 🎁 BONUS */}
   const bonusHost = score?.bonus?.host ?? 0
   const bonusExtra = score?.bonus?.extra ?? 0
-  const totalScore = historyPoints + tournamentDecayPoints + totalEventPoints + bonusHost + bonusExtra
+  const totalScore = roleplayPoints + totalEventPoints + bonusHost + bonusExtra
   return {
     totalScore,
     breakdown: {
       historyPoints,
       tournamentDecayPoints,
+      roleplayPoints,
       currentEventPoints: eventResult.currentEventPoints,
       pastEventPoints: eventResult.pastEventPoints,
       totalEventPoints,
@@ -103,6 +107,7 @@ export function getRankedMembers(
   scores: {
     historyPoints: number
     tournamentDecayPoints: number
+    roleplayPoints: number,
     currentEventPoints: number
     pastEventPoints: number
     totalEventPoints: number

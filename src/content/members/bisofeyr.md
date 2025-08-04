@@ -11,6 +11,9 @@ verified: true
 score:
   rp:
     history: 0
+  events:
+    "3":
+      quiz: 182
   bonus:
     host: 0
     extra: 0

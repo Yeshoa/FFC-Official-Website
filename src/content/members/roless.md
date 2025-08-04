@@ -18,6 +18,8 @@ score:
     "2": 
       events: 28
       bonus: 14
+    "3":
+      quiz: 248
   bonus:
     host: 0
     extra: 0

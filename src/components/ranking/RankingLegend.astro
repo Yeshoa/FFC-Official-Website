@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import { getRankedMembers } from '@lib/rankingUtils';
+import { getTotalColorClass } from '@lib/scoreUtils';
 
 const { members, tournaments, matches, currentTournamentId } = Astro.props;
 
@@ -168,18 +169,20 @@ const getCurrentEventPoints = (team, eventName) => {
     <!-- <table class="min-w-7xl table-fixed border-collapse text-sm w-max md:w-full max-w-7xl mx-auto"> -->
     <table class="table-fixed border-collapse text-sm w-max mx-auto">
       <colgroup>
-        <col style="width: 65px;"> <!-- Pos -->
+        <col style="width: 30px;"> <!-- Pos -->
         <col style="width: 65px;"> <!-- Flag -->
-        <col style="width: 330px;"> <!-- Team -->
+        <col style="width: 240px;"> <!-- Team -->
         <col style="width: 65px;"> <!-- Hist -->
         <col style="width: 65px;"> <!-- Prev -->
-        <col style="width: 100px;"> <!-- Past Events -->
+        <col style="width: 65px; background-color: #193cb885;"> <!-- RP% -->
+        <col style="width: 65px;"> <!-- Past Events -->
         <col style="width: 65px;"> <!-- Poetry -->
         <col style="width: 65px;"> <!-- Flag & Banner -->
         <col style="width: 65px;"> <!-- Murder Mystery -->
         <col style="width: 65px;"> <!-- Quiz -->
         <col style="width: 65px;"> <!-- Scavenger Hunt -->
         <col style="width: 65px;"> <!-- Forest-Themed Connections Grid -->
+        <col style="width: 65px; background-color: #193cb885;"> <!-- Events% -->
         <col style="width: 65px;"> <!-- Host -->
         <col style="width: 65px;"> <!-- Extra -->
         <col style="width: 100px;"> <!-- Total -->
@@ -187,24 +190,26 @@ const getCurrentEventPoints = (team, eventName) => {
       
       <thead class="bg-green-800 uppercase">
         <tr>
-          <th rowspan="2" class="px-4 py-3 text-center border-b border-green-600 rounded-tl-xl" title="Position">Pos</th>
+          <th rowspan="2" class="px-2 py-3 text-center border-b border-green-600 rounded-tl-xl" title="Position">°</th>
           <th rowspan="2" class="px-5 py-3 text-center border-b border-green-600"></th>
           <th rowspan="2" class="py-3 text-left border-b border-green-600">Team</th>
-          <th colspan="2" class="px-4 py-2 text-center border-b border-l border-green-600">Roleplay</th>
-          <th colspan="7" class="px-4 py-2 text-center border-b border-l border-green-600">Events</th>
+          <th colspan="3" class="px-4 py-2 text-center border-b border-l border-green-600">Roleplay</th>
+          <th colspan="8" class="px-4 py-2 text-center border-b border-l border-green-600">Events</th>
           <th colspan="2" class="px-4 py-2 text-center border-b border-l border-green-600">Bonus</th>
           <th rowspan="2" class="px-3 py-3 text-center font-bold border-b border-l border-green-600 rounded-tr-xl">Total</th>
         </tr>
         <tr>
           <th class="px-2 py-2 text-center font-medium border-b border-l border-green-600" title="History Points - Roleplay, lore, dispatches">Hist</th>
           <th class="px-2 py-2 text-center font-medium border-b border-l border-green-600" title="Previous Tournament Results - Automatic calculation with decay">Prev</th>
-          <th class="px-2 py-2 text-center font-medium border-b border-l border-green-600" title="Past Event Points - Previous editions with decay">Past Ev</th>
-          <th class="px-2 py-2 text-center font-medium border-b border-l border-green-600" title="Poetry Contest Points - Current edition">Poetry</th>
+          <th class="px-2 py-2 text-center font-medium border-b border-l border-green-600" title="Normalized Roleplay Points">Total</th>
+          <th class="px-2 py-2 text-center font-medium border-b border-l border-green-600" title="Past Event Points - Previous editions with decay">PEv</th>
+          <th class="px-2 py-2 text-center font-medium border-b border-l border-green-600" title="Poetry Contest Points - Current edition">POE</th>
           <th class="px-2 py-2 text-center font-medium border-b border-l border-green-600" title="Flag & Banner Points - Current edition">F&B</th>
           <th class="px-2 py-2 text-center font-medium border-b border-l border-green-600" title="Murder Mystery Points - Current edition">MM</th>
           <th class="px-2 py-2 text-center font-medium border-b border-l border-green-600" title="Quiz Contest Points - Current edition">Quiz</th>
           <th class="px-2 py-2 text-center font-medium border-b border-l border-green-600" title="Scavenger Hunt Points - Current edition">SH</th>
           <th class="px-2 py-2 text-center font-medium border-b border-l border-green-600" title="Forest-Themed Connections Grid Points - Current edition">CG</th>
+          <th class="px-2 py-2 text-center font-medium border-b border-l border-green-600" title="Normalized Events Points">Total</th>
           <th class="px-2 py-2 text-center font-medium border-b border-l border-green-600" title="Host advantage points">Host</th>
           <th class="px-2 py-2 text-center font-medium border-b border-l border-green-600" title="Extra community contribution points">Extra</th>
         </tr>
@@ -212,7 +217,7 @@ const getCurrentEventPoints = (team, eventName) => {
       
       <tbody class="text-center text-green-300">
         {rankedMembers.map((team, index) => {
-          const getTotalColorClass = (total) => {
+          /* const getTotalColorClass = (total) => {
             if (total >= 110) return "bg-cyan-500/80 text-black font-bold";
             if (total >= 84) return "bg-red-600/60 text-white font-bold";
             if (total >= 62) return "bg-orange-600/60 text-white font-bold";
@@ -222,7 +227,7 @@ const getCurrentEventPoints = (team, eventName) => {
             if (total >= 10) return "bg-purple-600/60 text-white font-bold";
             if (total >= 4) return "bg-pink-600/60 text-white font-bold";
             return "bg-gray-600/80 text-white font-bold";
-          };
+          }; */
           
           const poetryPoints = getCurrentEventPoints(team, 'poetry');
           const flagBannerPoints = getCurrentEventPoints(team, 'flagBanner');
@@ -260,6 +265,9 @@ const getCurrentEventPoints = (team, eventName) => {
             <td class="px-2 py-2" title={`Tournament Decay Points: ${team.scores.tournamentDecayPoints}`}>
               {team.scores.tournamentDecayPoints}
             </td>
+            <td class="px-2 py-2" title={`Normalized Roleplay Points: ${team.scores.roleplayPoints}`}>
+              {team.scores.roleplayPoints}
+            </td>
             <td class="px-2 py-2" title={`Past Event Points: ${team.scores.pastEventPoints}`}>
               {team.scores.pastEventPoints}
             </td>
@@ -280,6 +288,9 @@ const getCurrentEventPoints = (team, eventName) => {
             </td>
             <td class="px-2 py-2" title={`Connections Grid Points: ${connectionsGridPoints}`}>
               {connectionsGridPoints}
+            </td>
+            <td class="px-2 py-2" title={`Normalized Events Points: ${team.scores.totalEventPoints}`}>
+              {team.scores.totalEventPoints}
             </td>
             <td class="px-2 py-2" title={`Host Bonus: ${team.scores.bonusHost}`}>
               {team.scores.bonusHost}

@@ -19,6 +19,7 @@ score:
       events: 15
     "3": 
       poetry: 22.7
+      quiz: 115
   bonus:
     host: 0
     extra: 0
