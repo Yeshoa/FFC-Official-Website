@@ -1,7 +1,7 @@
 import { MAX_EVENTS_POINTS, SCORING_CONFIG } from "./scoreUtils";
 import { getMembers } from "./generalUtils";
 const members = await getMembers();
-export const EVENT_COUNT = 7;
+export const EVENT_COUNT = 6;
 // Funciones para manejar eventos dinámicos usando tournament IDs
 export function calculateCurrentEventPoints(
   memberEvents: Record<string, Record<string, number>>,
@@ -31,7 +31,7 @@ export function calculateCurrentEventPoints(
     const scores = allScoresByEvent[eventName] || [];
     const maxScore = Math.max(...scores, 0);
     // Si el máximo es 0, todos quedan en 0
-    normalizedEvents[eventName] = maxScore > 0 ? Math.round((points / maxScore) * EV_MAX) : 0;
+    normalizedEvents[eventName] = maxScore > 0 ? Math.ceil((points / maxScore) * EV_MAX) : 0;
   }
 
   const normalizedPoints = Object.values(normalizedEvents).reduce((sum, p) => sum + p, 0);
@@ -88,12 +88,10 @@ export function calculateEventDecayPoints(
     }, 0);
   });
   const maxTotalPoints = Math.max(...allTotals, 1);
-  console.log("Max Total Points:", maxTotalPoints, "Total Points:", totalPoints, "PEV_MAX:", PEV_MAX);
   // 3. Normaliza solo el total
   const normalizedTotalPoints = maxTotalPoints > 0
-    ? Math.round((totalPoints / maxTotalPoints) * PEV_MAX)
+    ? Math.ceil((totalPoints / maxTotalPoints) * PEV_MAX)
     : 0;
-  console.log("Normalized Total Points:", normalizedTotalPoints);
   return {
     totalPoints,
     normalizedTotalPoints,
@@ -106,7 +104,7 @@ export function calculateAllEventPoints(
   memberEvents: Record<string, Record<string, number>>,
   currentTournamentId: number,
   lastFourTournamentIds: number[],
-  EV_MAX: number = MAX_EVENTS_POINTS / EVENT_COUNT
+  EV_MAX: number = SCORING_CONFIG.EV_MAX, // Dos tercios de los puntos de eventos totales, dividido por el número de eventos
 ): {
   currentEventPoints: number
   pastEventPoints: number
@@ -121,7 +119,6 @@ export function calculateAllEventPoints(
   }>
 } {
   const allMembersEvents = members.map(member => member.data.score.events);
-  console.log(MAX_EVENTS_POINTS, EVENT_COUNT, EV_MAX, "EV_MAX");
   // Eventos actuales (100%)
   // const currentResult = calculateCurrentEventPoints(memberEvents, currentTournamentId)
   const currentResult = calculateCurrentEventPoints(
@@ -130,13 +127,13 @@ export function calculateAllEventPoints(
     allMembersEvents, 
     EV_MAX
   );
-  // Eventos anteriores (con decay)
-  const pastResult = calculateEventDecayPoints(memberEvents, lastFourTournamentIds, allMembersEvents, EV_MAX);
+  // Eventos anteriores (con decay). Se divide la mitad de los puntos de eventos totales
+  const pastResult = calculateEventDecayPoints(memberEvents, lastFourTournamentIds, allMembersEvents, SCORING_CONFIG.PEV_MAX);
   return {
     currentEventPoints: currentResult.normalizedPoints,
-    // pastEventPoints: pastResult.totalPoints,
-    pastEventPoints: pastResult.normalizedTotalPoints,
-    totalEventPoints: currentResult.normalizedPoints + pastResult.normalizedTotalPoints,
+    pastEventPoints: pastResult.totalPoints,
+    // pastEventPoints: pastResult.normalizedTotalPoints,
+    totalEventPoints: currentResult.normalizedPoints + pastResult.totalPoints,
     currentEvents: currentResult.events,
     pastBreakdown: pastResult.breakdown,
   }
@@ -182,3 +179,8 @@ export function getEventsForTournament(
 ): Record<string, number> {
   return memberEvents[tournamentId.toString()] || {}
 }
+
+// Función helper para obtener puntos de eventos específicos
+export const getCurrentEventPoints = (team, eventName) => {
+  return team.currentEvents?.[eventName] || 0;
+};

@@ -13,11 +13,14 @@ affiliation: 2024
 verified: true
 score:
   rp:
-    history: 20
-    results: 4
+    "2":
+      history: 20
+      roleplayed: 10
   bonus:
-    host: 0
-    extra: 0
+    "2":
+      host: 10
+manualAchievements: 
+    - "roleplay"
 tierHistory:
   - tier: "B"
     edition: 2024

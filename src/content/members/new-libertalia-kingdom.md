@@ -9,13 +9,11 @@ affiliation: 2024
 verified: true
 score:
   rp:
-    history: 3
+    "2":
+      history: 3
   events:
     "2": 
       chall: 9
-  bonus:
-    host: 0
-    extra: 0
 tierHistory:
   - tier: "D"
     edition: 2024

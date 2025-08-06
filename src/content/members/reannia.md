@@ -13,12 +13,11 @@ affiliation: 2024
 verified: true
 score:
   rp:
-    history: 20
-  bonus:
-    host: 0
-    extra: 0
+    "1":
+      history: 20
+      roleplayed: 10
 manualAchievements: 
-  - "dispatch"
+  - "roleplay"
   - "discord"
   - "powerhouse"
 tierHistory:

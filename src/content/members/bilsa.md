@@ -13,16 +13,15 @@ affiliation: 2024
 verified: true
 score:
   rp:
-    history: 20
+    "2":
+      roleplayed: 10
+      history: 20
   events:
     "2": 
       events: 15
     "3": 
       poetry: 22.7
       quiz: 115
-  bonus:
-    host: 0
-    extra: 0
 squad:
   coach: "Kruretj Bisaza"
   formation: "4-2-3-1"
@@ -99,7 +98,7 @@ squad:
 manualAchievements: 
   - "founder"
   - "sponsor"
-  - "dispatch"
+  - "roleplay"
 tierHistory:
   - tier: "B"
     edition: 2020

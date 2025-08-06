@@ -13,7 +13,9 @@ affiliation: 2024
 verified: true
 score:
   rp:
-    history: 20
+    "2":
+      history: 20
+      roleplayed: 10
   events:
     "2": 
       chall: 5
@@ -21,13 +23,12 @@ score:
     "3":
       quiz: 180
   bonus:
-    host: 0
-    extra: 0
+    "2":
+      extra: 5
 manualAchievements: 
-  - "dispath"
+  - "roleplay"
   - "collaborator"
   - "discord"
-  - "giant-slayer"
 tierHistory:
   - tier: "B"
     edition: 2024

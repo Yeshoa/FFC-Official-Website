@@ -11,10 +11,8 @@ affiliation: 2024
 verified: true
 score:
   rp:
-    history: 12
-  bonus:
-    host: 0
-    extra: 0
+    "2":
+      history: 12
 tierHistory:
   - tier: "D"
     edition: 2024

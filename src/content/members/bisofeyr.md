@@ -9,12 +9,11 @@ founded: 2024
 affiliation: 2024
 verified: true
 score:
-  rp:
-    history: 0
   events:
     "3":
       quiz: 182
-  bonus:
-    host: 0
-    extra: 0
+      flagBanner: 10
+      murderMystery: 10
+      scavengerHunt: 10
+      connectionsGrid: 10
 ---

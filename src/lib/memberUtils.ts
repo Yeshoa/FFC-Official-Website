@@ -1,6 +1,7 @@
 import type { ImageMetadata } from 'astro';
 import type { CollectionEntry } from 'astro:content';
 import { getMemberTotalScore } from './rankingUtils';
+import { TIERS } from './scoreUtils';
 
 export function getMemberByName(
   name: string,
@@ -113,26 +114,24 @@ export function getRankedMembers(
     .sort((a, b) => b.totalScore - a.totalScore);
 } */
 
-export function getTotalColorClass(total: number) {
-  if (total >= 110) return "text-cyan-500";
-  if (total >= 84) return "text-red-500";
-  if (total >= 62) return "text-orange-500";
-  if (total >= 42) return "text-yellow-500";
-  if (total >= 28) return "text-green-500";
-  if (total >= 18) return "text-blue-500";
-  if (total >= 10) return "text-purple-500";
-  if (total >= 4) return "text-pink-500";
-  return "text-gray-500"; // Color predeterminado para valores < 4
-};
+export function getTotalColorClass(total: number): string {
+  if (total >= TIERS["X"]) return "text-cyan-500";
+  if (total >= TIERS["SS"]) return "text-red-500";
+  if (total >= TIERS["S"]) return "text-orange-500";
+  if (total >= TIERS["A"]) return "text-yellow-500";
+  if (total >= TIERS["B"]) return "text-green-500";
+  if (total >= TIERS["C"]) return "text-blue-500";
+  if (total >= TIERS["D"]) return "text-purple-500";
+  if (total >= TIERS["E"]) return "text-pink-500";
+  return "text-gray-500";
+}
 
 export function getMemberTier(total: number): string {
-  if (total >= 110) return "X";
-  if (total >= 84) return "SS";
-  if (total >= 62) return "S";
-  if (total >= 42) return "A";
-  if (total >= 28) return "B";
-  if (total >= 18) return "C";
-  if (total >= 10) return "D";
-  if (total >= 4) return "E";
-  return "F"; // Tier predeterminado para valores < 4
+  const entries = Object.entries(TIERS)
+    .sort((a, b) => b[1] - a[1]); // Orden descendente por valor
+
+    for (const [tier, minScore] of entries) {
+    if (total >= minScore) return tier;
+  }
+  return "F";
 }

@@ -13,18 +13,18 @@ affiliation: 2024
 verified: true
 score:
   rp:
-    history: 20
-  events:
-    "2": 
-      bonus: 6
+    "2":
+      roleplayed: 10
+      history: 20
   bonus:
-    host: 0
-    extra: 0
+    "2":
+      secret A1: 3
+      secret B2: 2
+      secret C1: 1
 manualAchievements: 
   - "founder"
-  - "dispatch"
+  - "roleplay"
   - "discord"
-  - "giant-slayer"
 tierHistory:
   - tier: "B"
     edition: 2022

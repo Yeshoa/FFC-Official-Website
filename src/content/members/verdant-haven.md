@@ -12,16 +12,22 @@ affiliation: 2024
 verified: true
 score:
   rp:
-    history: 20
+    "2":
+      history: 20
+      roleplayed: 10
   events:
     "2": 
       trivia: 33
-      bonus: 15
   bonus:
-    host: 0
-    extra: 0
+    "2":
+      secret A1: 3
+      secret B1: 3
+      secret B2: 2
+      secret C1: 1
+      secret C2: 1
+      extra: 5
 manualAchievements: 
-  - "dispatch"
+  - "roleplay"
   - "discord"
   - "powerhouse"
 tierHistory:

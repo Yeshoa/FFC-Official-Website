@@ -139,38 +139,46 @@ const membersCollection = defineCollection({
     // NUEVO: Sistema de puntuación actualizado
     score: z
         .object({
-          // 1️⃣ ROLEPLAY CATEGORY
+          // 1️⃣ ROLEPLAY CATEGORY - ESTRUCTURA DINÁMICA POR TOURNAMENT ID
           rp: z
-            .object({
-              history: z.number().default(0).describe("History Points (manual assignment)"),
-              // ELIMINAR: results - se calculará automáticamente desde torneos
-            })
-            .default({ history: 0 }),
+            .record(
+              z.string(), // Tournament ID como string (ej: "2", "3", "4")
+              z.record(
+                z.string(), // RP name (dinámico: "updated roster", "menciones en dispatches actualizadas", etc.) or Host/Extra
+                z.number(), // Points earned
+              ),
+            )
+            .default({})
+            .describe("Dynamic roleplay by tournament ID: { tournamentId: { history: points } }"),
 
           // 2️⃣ EVENTS CATEGORY - ESTRUCTURA DINÁMICA POR TOURNAMENT ID
           events: z
             .record(
               z.string(), // Tournament ID como string (ej: "2", "3", "4")
               z.record(
-                z.string(), // Event name (dinámico: "poetry", "quiz", "memories", etc.)
+                z.string(), // Event name (dinámico: "poetry", "quiz", "memories", etc.) or Host/Extra
                 z.number(), // Points earned
               ),
             )
             .default({})
             .describe("Dynamic events by tournament ID: { tournamentId: { eventName: points } }"),
 
-          // 3️⃣ BONUS (mantener igual)
+          // 3️⃣ BONUS - ESTRUCTURA DINÁMICA POR TOURNAMENT ID (igual que events)
           bonus: z
-            .object({
-              host: z.number().default(0).describe("Host Points"),
-              extra: z.number().default(0).describe("Extra Points"),
-            })
-            .default({ host: 0, extra: 0 }),
+            .record(
+              z.string(), // Tournament ID como string
+              z.record(
+                z.string(), // Bonus name (ej: "host", "extra", etc.)
+                z.number(), // Points earned
+              ),
+            )
+            .default({})
+            .describe("Dynamic bonus by tournament ID: { tournamentId: { bonusName: points } }"),
         })
         .default({
-          rp: { history: 0 },
+          rp: {},
           events: {},
-          bonus: { host: 0, extra: 0 },
+          bonus: {},
         }),
 
     additionalPoints: z.number().optional().default(0),

@@ -1,22 +1,31 @@
 // Constantes de configuración del sistema de puntuación
 export const SCORING_CONFIG = {
   // Límites máximos por categoría por porcentaje
-  ROLEPLAY_PERCENTAGE: 40, // Porcentaje por rol
-  EVENTS_PERCENTAGE: 40, // Porcentaje por eventos
+  ROLEPLAY_PERCENTAGE: 30, // Porcentaje por rol
+  EVENTS_PERCENTAGE: 50, // Porcentaje por eventos
   BONUS_PERCENTAGE: 20, // Porcentaje por bonus
 
   MAX_RAW_POINTS: 200, // Puntos brutos máximos
   // Límites individuales
-  H_MAX: 40, // History Points máximo
-  PED_MAX: 40, // Previous Edition Results máximo
+  RP_MAX: 10, // Roleplay Points máximo
+  EV_MAX: 20, // Event Points máximo
+  BO_MAX: 20, // Bonus Points máximo
+
+  // Límites por ediciones anteriores
+  PRP_MAX: 20, // Previous Roleplay Points máximo
   PEV_MAX: 40, // Past Edition Events máximo
-  EV_MAX: 40, // Event Points máximo
+  PBO_MAX: 20, // Previous Bonus Points máximo
+  PED_MAX: 40, // Previous Edition Results máximo
 
   // Maximo puntaje bruto antes de normalizar
-  H_RAW_MAX: 40, // History Points bruto máximo
-  PED_RAW_MAX: 38, // Previous Edition Results bruto máximo
-  // PEV_RAW_MAX: 100, // Past Edition Events bruto máximo
+  // RP_RAW_MAX: 20, // Roleplay Points bruto máximo
   // EV_RAW_MAX: 100, // Event Points bruto máximo
+  // BO_RAW_MAX: 20, // Bonus Points bruto máximo
+
+  // PRP_RAW_MAX: 20, // Previous Edition Results bruto máximo
+  // PEV_RAW_MAX: 100, // Past Edition Events bruto máximo
+  // PBO_RAW_MAX: 20, // Previous Bonus Points bruto máximo
+  // PED_RAW_MAX: 20, // Previous Edition Results bruto máximo
 
   // Factor de decay por edición anterior
   DECAY_FACTORS: {
@@ -28,20 +37,20 @@ export const SCORING_CONFIG = {
   },
 } as const
 
-export const MAX_ROLEPLAY_POINTS = getCategoryMaxPoints(SCORING_CONFIG.ROLEPLAY_PERCENTAGE, SCORING_CONFIG.MAX_RAW_POINTS);
-export const MAX_EVENTS_POINTS = getCategoryMaxPoints(SCORING_CONFIG.EVENTS_PERCENTAGE, SCORING_CONFIG.MAX_RAW_POINTS);
-export const MAX_BONUS_POINTS = getCategoryMaxPoints(SCORING_CONFIG.BONUS_PERCENTAGE, SCORING_CONFIG.MAX_RAW_POINTS);
+export const MAX_ROLEPLAY_POINTS = getCategoryMaxPoints(SCORING_CONFIG.ROLEPLAY_PERCENTAGE);
+export const MAX_EVENTS_POINTS = getCategoryMaxPoints(SCORING_CONFIG.EVENTS_PERCENTAGE);
+export const MAX_BONUS_POINTS = getCategoryMaxPoints(SCORING_CONFIG.BONUS_PERCENTAGE);
 
 export const TIERS: Record<string, number> = {
   F: 0,
   E: 6,
-  D: 12,
-  C: 25,
+  D: 16,
+  C: 27,
   B: 40,
-  A: 60,
-  S: 90,
-  SS: 120,
-  X: 160,
+  A: 63,
+  S: 93,
+  SS: 126,
+  X: 150,
 };
 
 export const getTotalColorClass = (total: number) => {
@@ -58,9 +67,9 @@ export const getTotalColorClass = (total: number) => {
 
 export function normalizePoints(raw: number, rawMax: number, normMax: number): number {
   if (rawMax <= 0) return 0;
-  return Math.round((raw / rawMax) * normMax);
+  return Math.ceil((raw / rawMax) * normMax);
 }
 
 export function getCategoryMaxPoints(percentage: number, maxRawPoints: number = SCORING_CONFIG.MAX_RAW_POINTS): number {
-  return Math.round((percentage / 100) * maxRawPoints);
+  return Math.ceil((percentage / 100) * maxRawPoints);
 }

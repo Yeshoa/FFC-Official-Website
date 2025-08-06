@@ -7,12 +7,6 @@ flagPath: "/src/assets/images/members/cnr_flag.png"
 logoPath: "/src/assets/images/members/cnr_logo.png"
 region: "Forest"
 verified: false
-score:
-  rp:
-    history: 0
-  bonus:
-    host: 0
-    extra: 0
 tierHistory:
   - tier: "A"
     edition: 2020

@@ -10,15 +10,11 @@ affiliation: 2024
 verified: true
 score:
   rp:
-    history: 6
+    "2":
+      history: 6
   events:
     "2": 
       poetry: 27
-  bonus:
-    host: 0
-    extra: 0
-manualAchievements:
-  - "giant-slayer"
 tierHistory:
   - tier: "B"
     edition: 2024

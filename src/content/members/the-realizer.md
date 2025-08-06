@@ -9,16 +9,12 @@ region: "Forest"
 affiliation: 2024
 verified: true
 score:
-  rp:
-    history: 0
   events:
-    "2": 
-      bonus: 20
     "3":
       quiz: 83
   bonus:
-    host: 0
-    extra: 0
+    "2":
+      extra: 20
 manualAchievements: 
   - "founder"
   - "collaborator"

@@ -11,14 +11,12 @@ founded: 2020
 affiliation: 2024
 verified: true
 score:
-  rp:
-    history: 0
   events:
     "2": 
       trivia: 32
   bonus:
-    host: 0
-    extra: 0
+    "3":
+      host: 10
 manualAchievements: 
   - "founder"
   - "powerhouse"

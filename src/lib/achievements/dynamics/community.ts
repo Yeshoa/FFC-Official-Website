@@ -29,32 +29,6 @@ export const baseAchievements: {
   enabled: boolean;
   evaluate: (...args: any[]) => Achievement | null;
 }[] = [
-  /* {
-    id: 'sponsor',
-    rarity: 0,
-    name: 'Bussiness Partner',
-    icon: Trophy,
-    description: 'Provided a sponsor to the Confederation.',
-    category: thisCategory,
-    subcategory: "Basic" as Subcategory,
-    alignment: ALIGNMENTS[0],
-    visible: false,
-    unique: false,
-    enabled: true,
-    stars: 1,
-    evaluate: function (member, sponsorCollection) {
-      const { evaluate, ...base } = this;
-      const sponsors = sponsorCollection.filter(sponsor => sponsor.data.member === member.data.name);
-      const newStars = sponsors.length;
-      const newRarity = newStars/3;
-      return {
-        ...base,
-        description: `Provided ${newStars} sponsor${ newStars === 1 ? '' : 's'}.`,
-        stars: newStars,
-        rarity: newRarity,
-      };
-    }
-  }, */
 ];
 
 const makeSponsorAchievements = (

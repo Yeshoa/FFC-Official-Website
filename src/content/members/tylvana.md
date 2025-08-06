@@ -10,14 +10,9 @@ founded: 2024
 affiliation: 2024
 verified: true
 score:
-  rp:
-    history: 0
   events:
     "2": 
       chall: 12
-  bonus:
-    host: 0
-    extra: 0
 tierHistory:
   - tier: "D"
     edition: 2024

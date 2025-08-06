@@ -11,14 +11,9 @@ founded: 2024
 affiliation: 2024
 verified: true
 score:
-  rp:
-    history: 0
   events:
     "2": 
       events: 15
-  bonus:
-    host: 0
-    extra: 0
 manualAchievements: 
   - "founder"
 tierHistory:
