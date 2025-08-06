@@ -13,7 +13,6 @@ verified: true
 score:
   rp:
     "2":
-      roleplayed: 10
       history: 20
   bonus:
     "2":

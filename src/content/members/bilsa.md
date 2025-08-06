@@ -14,8 +14,9 @@ verified: true
 score:
   rp:
     "2":
-      roleplayed: 10
       history: 20
+    "3":
+      fcm: 10
   events:
     "2": 
       events: 15

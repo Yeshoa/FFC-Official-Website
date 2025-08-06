@@ -14,7 +14,6 @@ score:
   rp:
     "2":
       history: 20
-      roleplayed: 10
   events:
     "2": 
       trivia: 33

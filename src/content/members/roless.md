@@ -15,7 +15,8 @@ score:
   rp:
     "2":
       history: 20
-      roleplayed: 10
+    "3":
+      fcm: 10
   events:
     "2": 
       events: 28
