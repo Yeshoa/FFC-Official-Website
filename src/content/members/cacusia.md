@@ -13,6 +13,8 @@ affiliation: 2024
 verified: true
 score:
   rp:
+    "1":
+      history: 20
     "2":
       history: 20
   bonus:

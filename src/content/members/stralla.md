@@ -10,6 +10,16 @@ region: "Forest"
 founded: 2020
 affiliation: 2024
 verified: true
+score:
+  rp:
+    "3":
+      history: 10
+      fcm: 10
+      roster: 10
+      article: 10
+  bonus:
+    "3":
+      eggs: 20
 manualAchievements: 
   - "founder"
 tierHistory:

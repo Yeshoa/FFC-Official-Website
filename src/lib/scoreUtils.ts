@@ -45,12 +45,12 @@ export const TIERS: Record<string, number> = {
   F: 0,
   E: 6,
   D: 16,
-  C: 27,
-  B: 40,
-  A: 63,
-  S: 93,
+  C: 30,
+  B: 48,
+  A: 70,
+  S: 96,
   SS: 126,
-  X: 150,
+  X: 160,
 };
 
 export const getTotalColorClass = (total: number) => {
@@ -64,6 +64,18 @@ export const getTotalColorClass = (total: number) => {
   if (total >= TIERS["E"]) return "bg-pink-600/70 text-white font-bold";
   return "bg-gray-600 text-white font-bold";
 };
+
+export function getPointsTextColorClass(total: number): string {
+  if (total >= TIERS["X"]) return "text-cyan-500";
+  if (total >= TIERS["SS"]) return "text-red-500";
+  if (total >= TIERS["S"]) return "text-orange-500";
+  if (total >= TIERS["A"]) return "text-yellow-500";
+  if (total >= TIERS["B"]) return "text-green-500";
+  if (total >= TIERS["C"]) return "text-blue-500";
+  if (total >= TIERS["D"]) return "text-purple-500";
+  if (total >= TIERS["E"]) return "text-pink-500";
+  return "text-gray-500";
+}
 
 export function normalizePoints(raw: number, rawMax: number, normMax: number): number {
   if (rawMax <= 0) return 0;

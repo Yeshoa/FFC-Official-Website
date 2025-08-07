@@ -1,26 +1,26 @@
 ---
 title: "How the Ranking Works & How to Earn Points"
-date: 2025-07-20
+date: 2025-08-06
 author: "Bolbon"
 tags: [guide, ranking, points, forest-cup]
-summary: "Learn how FFC’s ranking is calculated, how to score points across categories, and what each tier represents."
+summary: "Learn how FFC ranking is calculated, how to score points across categories, and what each tier represents."
 image: "/src/assets/images/nysnub3.png"
 ---
 
 import { Image } from 'astro:assets';
 import Banner from '@images/articles/welcome/banner.png';
+import { SCORING_CONFIG, TIERS, getPointsTextColorClass } from '@lib/scoreUtils';
 
 ## Overview
 
-The FFC **Ranking** measures each nation’s overall strength by combining:
+The FFC **Ranking** measures each nation's overall contribution to the Forest Cup community by combining:
 
-1. **Player ratings average**  
-2. **Historical performance**  
-3. **Community engagement** and **bonus activities**  
+1. **Roleplay contributions** (dispatches, lore, team updates)
+2. **Community event participation** (contests, activities, puzzles)  
+3. **Bonus** (easter eggs, contributions)
+4. **Past performance** (previous editions participation)
 
-A higher ranking not only shows you’re one of the best teams, it also gives you **priority in group‐stage draws**, a key advantage in Forest Cup.
-
-> Starting with Forest Cup 2026, the **top 24** ranked teams **(who have submitted their update form)** qualify **directly**.  
+> Starting with Forest Cup 2026, the **top 24** ranked teams **(who have submitted their update form)** qualify **directly**.  
 > All remaining nations enter a **playoff** for the final 8 spots.
 
 <div class="flex flex-col items-center justify-center my-6">
@@ -32,77 +32,180 @@ A higher ranking not only shows you’re one of the best teams, it also gives yo
     format="webp"
   />
   <span class="mt-2 text-xs text-gray-400 font-normal w-full text-left">
-    Climb the ranking to secure your spot and get Pot 1–3 seeding advantages in group draws.
+    Climb the ranking to secure your spot and get Pot 1-3 seeding advantages in group draws.
   </span>
 </div>
 
 ---
 
-## 🏅 Points Categories
+# Categories
 
-We break down scoring into three main categories. Each category is **capped** or **weighted** so that no single area dominates your total score. (Values shown as variables for easy tweaking.)
+The ranking system divides points into four main categories:
 
-### 1️⃣ Roleplay (max: `MAX_HISTORY_POINTS + MAX_PREV_EDITION_POINTS`)
+### Roleplay _{SCORING_CONFIG.RP_MAX} points each_
 
-* **History Points** (`0…H_MAX`):
-  Rewarded for rich football roleplay, defined leagues, team lore, kit designs, dispatches, etc.
-  *Subjective* but applied with clear criteria to maintain consistency.
+<div class="my-4">
+  <Image
+    src={Banner}
+    alt="Roleplay contribution art"
+    class="rounded-lg shadow-md w-full h-64 object-cover"
+    quality={40}
+    format="webp"
+  />
+</div>
 
-* **Past Edition Results** (`0…E_MAX`):
-  Points from last Forest Cup editions, with **diminishing returns**:
+Current edition roleplay are worth {SCORING_CONFIG.RP_MAX} points each:
 
-  * Edition −1: 100% of its points
-  * Edition −2: 50%
-  * Edition −3: 25%
-  * Edition −4: 10%
-  * Older: 0%
+**Dispatch in NS (Hist)** _Permanent as long as you don't delete it_: A NationStates dispatch covering your federation history, league, or football lore. This should be substantial content that adds depth to your nation's football identity.
 
-> **Suggestion:** To simplify, consider using a **decay factor** (e.g. multiply each prior edition by 0.5ⁿ) and cap the total at `MAX_PREV_EDITION_POINTS`.
+**Forest Cup Mention (FCM)**: Including something about the Forest Cup 2026 in your dispatch. Can be mentioned in text or, as recommended, a dedicated results section showing your performance across editions, updated up to the current edition.
 
-### 2️⃣ Events (max: `MAX_EVENT_POINTS`)
+**Updated Roster (UR)**: Submitting your current squad list and formation for this edition. This simulates real world squad rotation between tournaments, and avoiding abusing the same players over the seasons to accumulate goals in the overall table. _Restrictions about that may be implemented in the future_.
 
-* **Event Edition Results** (`0…EV_MAX`):
-  Works like Past Edition Results, but for community events (poetry contests, mini‑tournaments, etc.).
-* **Individual Event Scores** (`0…EV_MAX`):
-  Each event awards points; we may apply a **normalization factor** so the top performer earns full credit and the rest scale accordingly.
+**Article (AR)**: Writing one article for the Forest Cup website about your federation. This can cover any aspect of your nation's football culture, or it can be a piece of news!. _Additional articles beyond the first do not accumulate points._
 
-### 3️⃣ Bonus (max: `MAX_BONUS_POINTS`)
+<a href="/articles/article-writing" target="_blank">Tutorial on how to make an article.</a>
 
-* **Host Bonus** (`HOST_POINTS`):
-  Automatic points for hosting a Forest Cup.
-* **Easter Egg Discoveries** (`EGG_POINTS`):
-  Find hidden surprises before the tournaments start to earn secret rewards.
-* **Organizer’s Extra** (`XTR_POINTS`):
-  Subjective rewards for community contributions (media coverage, translations, lore writing).
+>This section is designed to give a strong foundation to those who enjoy the football roleplay, lore, leagues, stories.
+---
+### Events _{SCORING_CONFIG.EV_MAX} points each, normalized_
+
+<div class="my-4">
+  <Image
+    src={Banner}
+    alt="Roleplay contribution art"
+    class="rounded-lg shadow-md w-full h-64 object-cover"
+    quality={40}
+    format="webp"
+  />
+</div>
+
+Community event participation is capped at {SCORING_CONFIG.EV_MAX} points per event through normalization:
+
+> **How normalization works:**  
+> For each event, the participant with the highest raw score receives the full {SCORING_CONFIG.EV_MAX} points.  
+> All other participants receive a proportional score based on their performance relative to the top scorer.  
+> For example, if the top score is 100 and you scored 50, you would receive half the maximum points ({SCORING_CONFIG.EV_MAX} / 2 = {SCORING_CONFIG.EV_MAX / 2}).  
+> This ensures fair scaling and prevents any single event from dominating the overall ranking.
+
+
+**Poetry Fantasia (PF)**: Points from the <a href="https://www.nationstates.net/page=dispatch/id=2664340" target="_blank" class="text-blue-300 hover:text-blue-200">Poetry Fantasia</a>.
+
+**Flag & Banner (FB)**: Points from <a href="#" target="_blank" class="text-blue-300 hover:text-blue-200">Flag & Banner Contest</a>.
+
+**Murder Mystery (MM)**: <a href="#" target="_blank" class="text-blue-300 hover:text-blue-200">Murder Mystery</a> points.
+
+**Quiz**: <a href="#" target="_blank" class="text-blue-300 hover:text-blue-200">Forest-themed knowledge</a> event points.
+
+**Scavenger Hunt (SH)**: <a href="#" target="_blank" class="text-blue-300 hover:text-blue-200">Scavenger Hunt</a> points.
+
+**Connections Grid (CG)**: <a href="#" target="_blank" class="text-blue-300 hover:text-blue-200">Forest-themed Connection Grids</a> puzzle points.
+
+>This section rewards active engagement with the community during last year.
+>You may have been scoring points here without knowing it. 😛
+---
+### Bonus _Variable points_
+
+<div class="my-4">
+  <Image
+    src={Banner}
+    alt="Roleplay contribution art"
+    class="rounded-lg shadow-md w-full h-64 object-cover"
+    quality={40}
+    format="webp"
+  />
+</div>
+
+**Host**: {SCORING_CONFIG.BO_MAX} points automatically awarded for hosting.
+
+**Easter Eggs (Eggs)**: {SCORING_CONFIG.BO_MAX / 5} points for each hidden easter egg discovered! Eggs can be found in mysterious places. If you find one, make sure to <a href="https://www.nationstates.net/nation=bilsa" target="_noblank" >telegram Bilsa</a> to claim it!
+
+>Last edition, finding a secret alone was rewarded with more points, but this time will not be the case, so anyone can accumulate a fair amount of points through Easter Eggs!
+
+**Extra**: Variable points (typically 5-20) for exceptional community contributions beyond normal categories. This includes outstanding roleplay, dedication on details, helping the community with technical aspects or other valuable contributions that enhance the Forest Cup experience.
+
+>Bonus points are the wild card, to give everyone a chance to pick up a few extra points during the weeks before the tournament starts, as the events and past categories are the heaviest ones, and cannot be changed after the announcement of the tournament.
+---
+### Past Performance _Decay applied_
+
+<div class="my-4">
+  <Image
+    src={Banner}
+    alt="Roleplay contribution art"
+    class="rounded-lg shadow-md w-full h-64 object-cover"
+    quality={40}
+    format="webp"
+  />
+</div>
+
+Previous editions contribute through a decay system that values recent activity over past history:
+
+**Roleplay (RP)**: Roleplay points from previous editions. _Past roleplay scores were normalized to prevent unfair advantages from different scoring systems used in earlier editions._
+
+**Events**: Event points from previous editions.
+
+**Bonus**: Bonus points from previous editions.
+
+**Results**: Points earned from actual tournament performance (not ranking table points) in previous editions.
+
+#### Decay System
+
+The decay system works as follows:
+
+| Edition | Percentage Counted |
+|-|--------------------|
+| Last | <span class="text-green-300 font-bold">{SCORING_CONFIG.DECAY_FACTORS[1]*100}%</span> |
+| 2 editions ago | <span class="text-yellow-300 font-bold">{SCORING_CONFIG.DECAY_FACTORS[2]*100}%</span> |
+| 3 editions ago | <span class="text-orange-300 font-bold">{SCORING_CONFIG.DECAY_FACTORS[3]*100}%</span> |
+| 4 editions ago | <span class="text-red-300 font-bold">{SCORING_CONFIG.DECAY_FACTORS[4]*100}%</span> |
+| Older | <span class="text-gray-300 font-bold">0%</span> |
+
+**Example**: If you earned 20 roleplay points in the last edition, all 20 count. If you earned 20 roleplay points two editions ago, only 10 points (50%) count toward your current ranking.
+
+This system rewards consistency while ensuring recent activity matters more than distant achievements.
+
+>Just like in real football, a national team can remain strong across several editions thanks to a solid generation of players. If a team stops participating, it will gradually fade.
+>That's what decay simulates, a realistic drop off in influence when nations go inactive.
 
 ---
 
-## ➕ Total Score & Tiers
+## Total Score Calculation
 
-Your **Total Score** = Roleplay + Events + Bonus
-This becomes your **Ranking Value**, which places you into one of nine visual tiers:
+Your **Total Ranking Score** combines all categories:
 
-| Tier | Score Range       | Description                               |
-| ---- | ----------------- | ----------------------------------------- |
-| F    | 0 – `T_E`         | Amateur level                             |
-| E    | `T_E+1` – `T_D`   | Humble professionals                      |
-| D    | `T_D+1` – `T_C`   | Solid pros, not yet standout              |
-| C    | `T_C+1` – `T_B`   | Competitive contenders                    |
-| B    | `T_B+1` – `T_A`   | Strong teams, past finalists/champions    |
-| A    | `T_A+1` – `T_S`   | Title contenders                          |
-| S    | `T_S+1` – `T_S+`  | Powerhouses                               |
-| S+   | `T_S+1` – `T_X`   | Elite super‑teams                         |
-| X    | `T_X+1` and above | Almost unbeatable; many 95+‑rated players |
+**Current Edition Points** (no decay):
+- Roleplay contributions (0-40 points possible)
+- Event participation (0-120 points possible) 
+- Bonus points (20 points from Easter Eggs, and variable points according dedication)
 
-> *Threshold constants (`T_E`, `T_D`, etc.) can be adjusted as we finalize scoring caps.*
+**Past Performance Points** (with decay):
+- Previous roleplay submissions
+- Previous event participation  
+- Previous bonus points
+- Previous tournament results
+
+The realistic maximum for current edition points is an estimated 200, though it should be only reachable by someone who participated in previous editions, in many of the events, has a dedicated football roleplay, found some easter eggs, and shows enough interest in the event itself. It is super hard, but doing it deserves getting a super team.
 
 ---
 
-## 🚀 Next Steps
+## Ranking Tiers
 
-1. **Finalize caps** (`H_MAX`, `E_MAX`, `EV_MAX`, `MAX_BONUS_POINTS`, `Tiers`).
-2. **Publish** the ranking algorithm and example calculations for transparency.
-3. **Update** the ranking page to display live point breakdowns per team.
+| Tier | Points | Description |
+|------|-|-------------|
+| <span class={`${getPointsTextColorClass(TIERS["X"])} font-bold`}>X</span> |**{TIERS["X"]}**| Legendary status reserved for the most dedicated community members |
+| <span class={`${getPointsTextColorClass(TIERS["SS"])} font-bold`}>S+</span> |**{TIERS["SS"]}**| Elite contributors who consistently excel across all areas |
+| <span class={`${getPointsTextColorClass(TIERS["S"])} font-bold`}>S</span> |**{TIERS["S"]}**| Community pillars with exceptional long-term involvement |
+| <span class={`${getPointsTextColorClass(TIERS["A"])} font-bold`}>A</span> |**{TIERS["A"]}**| Highly engaged members with substantial contributions |
+| <span class={`${getPointsTextColorClass(TIERS["B"])} font-bold`}>B</span> |**{TIERS["B"]}**| Strong community contributors with consistent involvement |
+| <span class={`${getPointsTextColorClass(TIERS["C"])} font-bold`}>C</span> |**{TIERS["C"]}**| Active participants in multiple categories |
+| <span class={`${getPointsTextColorClass(TIERS["D"])} font-bold`}>D</span> |**{TIERS["D"]}**| Regular community members with some engagement |
+| <span class={`${getPointsTextColorClass(TIERS["E"])} font-bold`}>E</span> |**{TIERS["E"]}**| Basic participation, occasional roleplay |
+| <span class={`${getPointsTextColorClass(TIERS["F"])} font-bold`}>F</span> |**{TIERS["F"]}**| New participants, minimal community involvement |
 
-By understanding and optimizing each category, you’ll maximize your nation’s strength, and your chances of lifting the Forest Cup trophy!
+These tiers help visualize your community standing and progression over time.
 
+---
+
+Feel free to contact us if you still have doubts!
+
+Good luck preparing your squad for the Forest Cup! See you in the pitch.

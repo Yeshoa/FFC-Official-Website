@@ -9,6 +9,10 @@ region: "Forest"
 verified: false
 manualAchievements: 
   - "discord"
+score:
+  rp:
+    "1":
+      history: 20
 tierHistory:
   - tier: "B"
     edition: 2022

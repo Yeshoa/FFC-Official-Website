@@ -114,18 +114,6 @@ export function getRankedMembers(
     .sort((a, b) => b.totalScore - a.totalScore);
 } */
 
-export function getTotalColorClass(total: number): string {
-  if (total >= TIERS["X"]) return "text-cyan-500";
-  if (total >= TIERS["SS"]) return "text-red-500";
-  if (total >= TIERS["S"]) return "text-orange-500";
-  if (total >= TIERS["A"]) return "text-yellow-500";
-  if (total >= TIERS["B"]) return "text-green-500";
-  if (total >= TIERS["C"]) return "text-blue-500";
-  if (total >= TIERS["D"]) return "text-purple-500";
-  if (total >= TIERS["E"]) return "text-pink-500";
-  return "text-gray-500";
-}
-
 export function getMemberTier(total: number): string {
   const entries = Object.entries(TIERS)
     .sort((a, b) => b[1] - a[1]); // Orden descendente por valor

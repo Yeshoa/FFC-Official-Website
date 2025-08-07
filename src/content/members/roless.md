@@ -13,10 +13,10 @@ affiliation: 2024
 verified: true
 score:
   rp:
+    "1":
+      history: 20
     "2":
       history: 20
-    # "3":
-      # fcm: 10
   events:
     "2": 
       events: 28
