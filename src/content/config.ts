@@ -208,7 +208,8 @@ const articlesCollection = defineCollection({
   schema: ({ image }) => z.object({
     title: z.string(),
     date: z.date().default(() => new Date()),
-    author: z.string().default('John Doe'),
+    author: z.string().default('Bolbon'),
+    nation: z.string().optional(),
     tags: z.array(z.string()).optional(),
     summary: z.string().optional(),
     image: image().default('/src/assets/images/FFC Banner simple.png'),

@@ -32,6 +32,7 @@ export const SUBCATEGORIES = [
   'Reached Tier', 
   'Beaten Higher Tier',
   'Sponsors',
+  'Articles',
 ] as const;
 
 
@@ -130,6 +131,14 @@ export const hierarchy: Record<string, string> = {
   '10-sponsor': '15-sponsor', //
   '15-sponsor': '20-sponsor', //
   '20-sponsor': '', //
+  '1-article': '3-article', //
+  '3-article': '5-article', //
+  '5-article': '7-article', //
+  '7-article': '10-article', //
+  '10-article': '15-article', //
+  '15-article': '20-article', //
+  '20-article': '50-article', //
+  '50-article': '', //
   // '5-eliminations': '', //
 };
 
