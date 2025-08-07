@@ -26,6 +26,8 @@ score:
   bonus:
     "2":
       extra: 5
+    "3":
+      extra: 15
 manualAchievements: 
   - "roleplay"
   - "collaborator"
