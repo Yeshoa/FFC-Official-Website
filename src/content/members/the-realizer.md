@@ -15,6 +15,8 @@ score:
   bonus:
     "2":
       extra: 20
+    "3":
+      extra: 20
 manualAchievements: 
   - "founder"
   - "collaborator"
