@@ -2,8 +2,9 @@
 import { Image } from 'astro:assets';
 import AchievementStars from '@components/achievements/AchievementStars.astro';
 import { getRarityStyle, type Alignment } from '@lib/achievements/utils';
-import { type Achievement } from '@lib/achievements/dynamics/index';
+import type { Achievement } from '@lib/achievements/types';
 import CommonCard from '@components/achievements/styles/CommonCard.astro';
+import MaxHolderIcon from '@images/icons/ranking-star-solid.svg';
 import Ravage from '@components/achievements/styles/evil/Ravage.astro';
 import Doom from '@components/achievements/styles/evil/Doom.astro';
 import Curse from '@components/achievements/styles/evil/Curse.astro';
@@ -42,11 +43,19 @@ const animationComponents = {
 };
 
 const RarityAnimation = rarity.animationComponent ? animationComponents[rarity.animationComponent] : animationComponents.CommonCard;
+const maxHolderGlow = achievement.isMaxHolder ? 'shadow-yellow-400/80 shadow-lg border-yellow-300' : '';
 ---
 
 <div class="achievement-card group" tabindex="0">
   <div class="flip-card-inner">
-    <div class={`flip-card-front relative flex flex-col items-center justify-end p-3 ${rarity.color} ${rarity.border} border-2 ${rarity.shadow} ${rarity.glow} transition-all duration-500 w-[120px] h-[160px] overflow-hidden`}>
+    <div class={`flip-card-front relative flex flex-col items-center justify-end p-3 ${rarity.color} ${rarity.border} border-2 ${rarity.shadow} ${rarity.glow} ${maxHolderGlow} transition-all duration-500 w-[120px] h-[160px] overflow-hidden`}>
+
+      <!-- Icono de Poseedor Máximo -->
+      {achievement.isMaxHolder && (
+        <div class="absolute top-1 left-1 z-30">
+          <Image src={MaxHolderIcon} alt="Max Holder" width={20} class="w-5 h-5 text-yellow-300" />
+        </div>
+      )}
 
       <!-- Animaciones únicas por rareza -->
       {RarityAnimation && <RarityAnimation />}
