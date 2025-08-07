@@ -12,7 +12,6 @@ Website built with **Astro**. Showcases tournaments, match details, and national
 * **Create key Articles**
   * “How the Website Works” (actual article is a placeholder)
   * “How to Participate and Sign Up”
-  * “How the Ranking Works & How to Earn Points”
   * “Presenting Achievements”
 * **Change Forest Cups heroImg's**
   The current ones are placeholders and not very appealing. (Think of adding images about the Host Nation instead)
@@ -43,8 +42,6 @@ Website built with **Astro**. Showcases tournaments, match details, and national
 
 ## 🎨 Nice to Have (Low Priority)
 
-* **Think of a Roleplay‑Friendly Sponsor Intake**
-  A fun “in‑universe” form or ID‑based method to recruit sponsors.
 * **Create Icons for Each Achievement**
   Design small SVG or PNG badges for every achievement type.
 * **Create More Achievements**
@@ -109,12 +106,12 @@ Website built with **Astro**. Showcases tournaments, match details, and national
   - ✅ `Overall Table`
   - ❌️ `Team of the Tournament`
   - ❌️ `Minor Stats or gallery`
-  - [ ] `Related News`
+  - ✅ `Related News`
 
  - ⛔️**Elaborate the Matches page (by slug)**_discarded: too heavy for deploy_
 &nbsp;&nbsp;&nbsp;&nbsp;Collection by markdown DONE✅. Page should show all the match info: [Example](https://www.promiedos.com.ar/game/borussia-dortmund-vs-real-madrid/ebcejgh)
 
-- [ ] **Add "Sponsor Registration" page**  
+- ❌ **Add "Sponsor Registration" page**  
 &nbsp;&nbsp;&nbsp;&nbsp;Link to this form from the navbar. Name, Logo and... what else?.
 
 - ✅ **Add Rankings page**  
@@ -122,28 +119,6 @@ Website built with **Astro**. Showcases tournaments, match details, and national
 
 - ❌ **Add Champions League page** _Discarded: For another time_ 
 &nbsp;&nbsp;&nbsp;&nbsp;Make a page for the Champions League. It should have a new Layout background, passed through props to define tailwind classes.
-
----
-
-
-## 🎨 Frontend Tasks
-
-- ✅ **Make only one theme, no dark mode**  
-&nbsp;&nbsp;&nbsp;&nbsp;Remove the dark: in tailwind classes.
-
-- [ ] **Make Tailwind designs more responsive**  
-&nbsp;&nbsp;&nbsp;&nbsp;Improve layout for various screen sizes, mobile and tablets.
-  - ✅ Home (`/`)
-  - ✅ Forest Cup (`/forest-cup`)
-    - ✅ FC 2020 (`/forest-cup/2020`)
-    - ✅ FC 2022 (`/forest-cup/2022`)
-    - ✅ FC 2024 (`/forest-cup/2024`)
-  - ✅ Members (`/members`)
-    - ✅ Member detail (`/members/[slug]`)
-  - ✅️ Ranking (`/ranking`)
-
-- ✅ **Use `<Image />` component where possible and optimize their size**  
-&nbsp;&nbsp;&nbsp;&nbsp;Try to optimize image rendering.
 
 ---
 
