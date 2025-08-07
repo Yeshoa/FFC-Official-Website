@@ -55,7 +55,19 @@ export function getMemberTotalScore(
   {/* 🎭 ROLEPLAY */}
   // 1️⃣ ROLEPLAY POINTS (semi-automático - ACTUALES + ANTERIORES)
   const roleplayResult = calculateCurrentRoleplayPoints(score.rp, member, currentTournamentId);
-  const pastRoleplayPoints = calculatePastRoleplayPoints(score.rp, lastFourIds);
+  const pastRoleplayPointsRaw = calculatePastRoleplayPoints(score.rp, lastFourIds);
+  /* ESTO SOLO ES POR ESTA TEMPORADA, LA QUE VIENE NO VA A SER NECESARIOOOOOO
+  ESTO SOLO ES POR ESTA TEMPORADA, LA QUE VIENE NO VA A SER NECESARIOOOOOO
+  ESTO SOLO ES POR ESTA TEMPORADA, LA QUE VIENE NO VA A SER NECESARIOOOOOO
+  ESTO SOLO ES POR ESTA TEMPORADA, LA QUE VIENE NO VA A SER NECESARIOOOOOO
+  ESTO SOLO ES POR ESTA TEMPORADA, LA QUE VIENE NO VA A SER NECESARIOOOOOO
+  ESTO SOLO ES POR ESTA TEMPORADA, LA QUE VIENE NO VA A SER NECESARIOOOOOO
+  ESTO SOLO ES POR ESTA TEMPORADA, LA QUE VIENE NO VA A SER NECESARIOOOOOO
+  */
+  // Normalizar puntos de roleplay anteriores
+  const pastRoleplayPoints = normalizePoints(pastRoleplayPointsRaw, SCORING_CONFIG.PRP_RAW_MAX, SCORING_CONFIG.PRP_MAX);
+  // const pastRoleplayPoints = calculatePastRoleplayPoints(score.rp, lastFourIds);
+
   const roleplayPoints = roleplayResult.totalPoints;
 
   {/* 🎉 EVENTS */}

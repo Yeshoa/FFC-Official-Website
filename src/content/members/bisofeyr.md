@@ -12,8 +12,4 @@ score:
   events:
     "3":
       quiz: 182
-      flagBanner: 10
-      murderMystery: 10
-      scavengerHunt: 10
-      connectionsGrid: 10
 ---

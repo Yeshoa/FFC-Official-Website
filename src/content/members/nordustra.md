@@ -15,8 +15,8 @@ score:
   rp:
     "2":
       history: 20
-    "3":
-      fcm: 10
+    # "3":
+      # fcm: 10
 manualAchievements: 
   - "roleplay"
 tierHistory:

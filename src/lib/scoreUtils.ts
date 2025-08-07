@@ -12,7 +12,7 @@ export const SCORING_CONFIG = {
   BO_MAX: 20, // Bonus Points máximo
 
   // Límites por ediciones anteriores
-  PRP_MAX: 20, // Previous Roleplay Points máximo
+  PRP_MAX: 10, // Previous Roleplay Points máximo
   PEV_MAX: 40, // Past Edition Events máximo
   PBO_MAX: 20, // Previous Bonus Points máximo
   PED_MAX: 40, // Previous Edition Results máximo
@@ -22,7 +22,7 @@ export const SCORING_CONFIG = {
   // EV_RAW_MAX: 100, // Event Points bruto máximo
   // BO_RAW_MAX: 20, // Bonus Points bruto máximo
 
-  // PRP_RAW_MAX: 20, // Previous Edition Results bruto máximo
+  PRP_RAW_MAX: 20, // Previous Edition Results bruto máximo
   // PEV_RAW_MAX: 100, // Past Edition Events bruto máximo
   // PBO_RAW_MAX: 20, // Previous Bonus Points bruto máximo
   // PED_RAW_MAX: 20, // Previous Edition Results bruto máximo
@@ -55,14 +55,14 @@ export const TIERS: Record<string, number> = {
 
 export const getTotalColorClass = (total: number) => {
   if (total >= TIERS["X"]) return "bg-cyan-500/80 text-black font-bold";
-  if (total >= TIERS["SS"]) return "bg-red-600/60 text-white font-bold";
-  if (total >= TIERS["S"]) return "bg-orange-600/60 text-white font-bold";
-  if (total >= TIERS["A"]) return "bg-yellow-600/80 text-white font-bold";
-  if (total >= TIERS["B"]) return "bg-green-600/60 text-white font-bold";
-  if (total >= TIERS["C"]) return "bg-blue-600/60 text-white font-bold";
-  if (total >= TIERS["D"]) return "bg-purple-600/60 text-white font-bold";
-  if (total >= TIERS["E"]) return "bg-pink-600/60 text-white font-bold";
-  return "bg-gray-600/80 text-white font-bold";
+  if (total >= TIERS["SS"]) return "bg-red-600/70 text-white font-bold";
+  if (total >= TIERS["S"]) return "bg-orange-600/70 text-white font-bold";
+  if (total >= TIERS["A"]) return "bg-yellow-600/90 text-white font-bold";
+  if (total >= TIERS["B"]) return "bg-green-600/70 text-white font-bold";
+  if (total >= TIERS["C"]) return "bg-blue-600/70 text-white font-bold";
+  if (total >= TIERS["D"]) return "bg-purple-600/70 text-white font-bold";
+  if (total >= TIERS["E"]) return "bg-pink-600/70 text-white font-bold";
+  return "bg-gray-600 text-white font-bold";
 };
 
 export function normalizePoints(raw: number, rawMax: number, normMax: number): number {

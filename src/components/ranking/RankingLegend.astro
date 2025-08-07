@@ -21,137 +21,222 @@ const getNextEdition = () => {
 const nextEdition = getNextEdition();
 ---
 
-<div class="w-full p-6 pt-11 items-center">
-  <h1 class="text-6xl font-bold mb-5 text-center animate-sladeIn">Ranking</h1>
-  <p class="text-lg mb-10 text-center opacity-0 animate-[slide-in_1s_ease-in-out_forwards_.1s]">
+<div class="w-full p-6 items-center">
+  <h1 class="text-6xl font-bold mb-6 text-center animate-sladeIn">Ranking</h1>
+  <!-- <p class="text-lg mb-4 text-center opacity-0 animate-[slide-in_1s_ease-in-out_forwards_.1s]">
     Score determines how strong your team will be. More points means higher chances to win.
-  </p>
+  </p> -->
 
-  <div class="max-w-7xl mx-auto bg-green-900/30 rounded-lg p-6 mb-7 opacity-0 animate-[slide-in_1s_ease-in-out_forwards_.15s]">
-    <h3 class="text-xl font-semibold mb-4 text-green-300 text-center">How Ranking Points Work</h3>
-    
-    <!-- Explicación general -->
-    <div class="bg-green-800/20 rounded-lg p-4 mb-4">
+  <div class="max-w-7xl mx-auto bg-green-900/30 rounded-lg p-6 pt-2 mb-7 opacity-0 animate-[slide-in_1s_ease-in-out_forwards_.15s]">
+    <div class="bg-green-800/20 rounded-lg p-2 mb-4">
       <p class="text-sm text-green-200 text-center">
-        Your <strong>Total Score</strong> combines roleplay contributions, tournament performance, community events, and bonuses. 
-        Higher scores mean better seeding and direct qualification!
+        Your <strong>Total Score</strong> combines roleplay contributions, community events, bonus achievements, and past performance with decay. 
+        <br>
+        Higher scores mean higher chances to win, better seeding and direct qualification!
       </p>
+      <div class="text-center mt-3">
+        <a href="/articles/ranking" class="inline-flex items-center px-4 py-2 bg-green-700/50 hover:bg-green-600/50 text-green-200 rounded-lg transition-colors duration-200 text-sm font-medium">
+          Read Full Detailed Explanation
+        </a>
+      </div>
     </div>
 
-    <!-- Grid de columnas -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
       
-      <!-- ROLEPLAY SECTION -->
       <div class="bg-green-800/10 rounded-lg p-4">
         <h4 class="font-semibold text-green-300 mb-2 text-center">Roleplay</h4>
         
         <div class="space-y-2 text-sm text-green-200">
           <div class="flex justify-between items-center">
-            <span><strong>Hist:</strong> History</span>
-            <span class="text-xs text-green-400">Manual</span>
+            <span><strong>Hist:</strong></span>
+            <span class="text-xs text-green-400">10 Pts.</span>
           </div>
-          <p class="text-xs text-green-300">
-            Points for team lore, dispatches, kit designs, league creation, and rich football roleplay.
+          <p class="text-xs text-green-300 mb-3">
+            A NationStates dispatch covering team history, league creation, or football lore.
           </p>
           
-          <div class="flex justify-between items-center mt-3">
-            <span><strong>Prev:</strong> Results in previous editions</span>
-            <span class="text-xs text-green-400">Auto</span>
+          <div class="flex justify-between items-center">
+            <span><strong>FCM:</strong></span>
+            <span class="text-xs text-green-400">10 Pts.</span>
+          </div>
+          <p class="text-xs text-green-300 mb-3">
+            Forest Cup mention in your dispatch for this edition, either in text or results section.
+          </p>
+
+          <div class="flex justify-between items-center">
+            <span><strong>UR:</strong></span>
+            <span class="text-xs text-green-400">10 Pts.</span>
+          </div>
+          <p class="text-xs text-green-300 mb-3">
+            Updated roster submission with current squad and formation for this edition.
+          </p>
+
+          <div class="flex justify-between items-center">
+            <span><strong>AR:</strong></span>
+            <span class="text-xs text-green-400">10 Pts.</span>
           </div>
           <p class="text-xs text-green-300">
-            Tournament results from past editions with <strong>decay system</strong>:
+            One article for the website about your federation. Additional articles do not accumulate points.
           </p>
-          <div class="text-xs text-green-400 ml-2">
-            • Last edition: <strong>100%</strong> of points<br>
-            • 2 editions ago: <strong>50%</strong> of points<br>
-            • 3 editions ago: <strong>25%</strong> of points<br>
-            • 4 editions ago: <strong>10%</strong> of points<br>
-            • Older: <strong>0%</strong> (not counted)
-          </div>
         </div>
       </div>
 
-      <!-- EVENTS SECTION -->
       <div class="bg-green-800/10 rounded-lg p-4">
         <h4 class="font-semibold text-green-300 mb-2 text-center">Events</h4>
         
         <div class="space-y-2 text-sm text-green-200">
           <div class="flex justify-between items-center">
-            <span><strong>Past Ev:</strong> Events in previous editions</span>
-            <span class="text-xs text-green-400">Auto</span>
+            <span><strong>PF:</strong></span>
+            <span class="text-xs text-green-400">Max 20 Pts.</span>
           </div>
-          <p class="text-xs text-green-300">
-            Community event points from previous editions using the <strong>same decay system</strong> as tournaments.
+          <p class="text-xs text-green-300 mb-2">
+            <a href="https://www.nationstates.net/page=dispatch/id=2664340" target="_blank" class="text-blue-300 hover:text-blue-200">Poetry Fantasia</a> contest points
           </p>
           
-          <div class="flex justify-between items-center mt-3">
-            <span><strong>Events:</strong></span>
-            <span class="text-xs text-green-400">Current</span>
+          <div class="flex justify-between items-center">
+            <span><strong>FB:</strong></span>
+            <span class="text-xs text-green-400">Max 20 Pts.</span>
+          </div>
+          <p class="text-xs text-green-300 mb-2">
+            <a href="#" class="text-blue-300 hover:text-blue-200">Flag & Banner</a> design points
+          </p>
+
+          <div class="flex justify-between items-center">
+            <span><strong>MM:</strong></span>
+            <span class="text-xs text-green-400">Max 20 Pts.</span>
+          </div>
+          <p class="text-xs text-green-300 mb-2">
+            <a href="#" class="text-blue-300 hover:text-blue-200">Murder Mystery</a> event points
+          </p>
+
+          <div class="flex justify-between items-center">
+            <span><strong>Quiz:</strong></span>
+            <span class="text-xs text-green-400">Max 20 Pts.</span>
+          </div>
+          <p class="text-xs text-green-300 mb-2">
+            <a href="#" class="text-blue-300 hover:text-blue-200">Forest Quiz</a> points
+          </p>
+
+          <div class="flex justify-between items-center">
+            <span><strong>SH:</strong></span>
+            <span class="text-xs text-green-400">Max 20 Pts.</span>
+          </div>
+          <p class="text-xs text-green-300 mb-2">
+            <a href="#" class="text-blue-300 hover:text-blue-200">Scavenger Hunt</a> challenge points
+          </p>
+
+          <div class="flex justify-between items-center">
+            <span><strong>CG:</strong></span>
+            <span class="text-xs text-green-400">Max 20 Pts.</span>
           </div>
           <p class="text-xs text-green-300">
-            Points obtained in this edition's poetry contest, Flag & Banner, Murder Mystery, Quiz, Scavenger Hunt and Forest-Themed Connections Grid. Counts at <strong>100%</strong> value.
+            <a href="#" class="text-blue-300 hover:text-blue-200">Forest Connections Grid</a> puzzle points
           </p>
         </div>
       </div>
 
-      <!-- BONUS SECTION -->
       <div class="bg-green-800/10 rounded-lg p-4">
         <h4 class="font-semibold text-green-300 mb-2 text-center">Bonus</h4>
         
         <div class="space-y-2 text-sm text-green-200">
           <div class="flex justify-between items-center">
             <span><strong>Host:</strong></span>
-            <span class="text-xs text-green-400">Auto</span>
+            <span class="text-xs text-green-400">10 Pts.</span>
           </div>
-          <p class="text-xs text-green-300">
-            Automatic bonus points awarded for hosting a Forest Cup tournament.
+          <p class="text-xs text-green-300 mb-3">
+            10 points for hosting a Forest Cup tournament edition.
           </p>
           
-          <div class="flex justify-between items-center mt-3">
+          <div class="flex justify-between items-center">
+            <span><strong>Eggs:</strong></span>
+            <span class="text-xs text-green-400">Max 20 Pts.</span>
+          </div>
+          <p class="text-xs text-green-300 mb-3">
+            4 points per easter egg discovered throughout the edition.
+          </p>
+
+          <div class="flex justify-between items-center">
             <span><strong>Extra:</strong></span>
-            <span class="text-xs text-green-400">Manual</span>
+            <span class="text-xs text-green-400">Variable</span>
           </div>
           <p class="text-xs text-green-300">
-            Special recognition for exceptional community contributions and dedication.
+            Variable points for exceptional community contributions and dedication.
+          </p>
+        </div>
+      </div>
+
+      <div class="bg-green-800/10 rounded-lg p-4">
+        <h4 class="font-semibold text-green-300 mb-2 text-center">Past Performance</h4>
+        
+        <div class="space-y-2 text-sm text-green-200">
+          <div class="flex justify-between items-center">
+            <span><strong>RP:</strong></span>
+            <span class="text-xs text-green-400">Decay</span>
+          </div>
+          <p class="text-xs text-green-300 mb-2">
+            Decayed roleplay points from previous editions
+          </p>
+          
+          <div class="flex justify-between items-center">
+            <span><strong>Events:</strong></span>
+            <span class="text-xs text-green-400">Decay</span>
+          </div>
+          <p class="text-xs text-green-300 mb-2">
+            Decayed event points from previous editions
+          </p>
+
+          <div class="flex justify-between items-center">
+            <span><strong>Bonus:</strong></span>
+            <span class="text-xs text-green-400">Decay</span>
+          </div>
+          <p class="text-xs text-green-300 mb-2">
+            Decayed bonus points from previous editions
+          </p>
+
+          <div class="flex justify-between items-center">
+            <span><strong>Results:</strong></span>
+            <span class="text-xs text-green-400">Decay</span>
+          </div>
+          <p class="text-xs text-green-300">
+            Decayed tournament performance points from previous editions
           </p>
         </div>
       </div>
     </div>
 
-    <!-- Decay System Explanation -->
     <div class="bg-gradient-to-r from-green-800/20 to-blue-800/20 rounded-lg p-4">
-      <h4 class="font-semibold text-green-300 mb-2 text-center">How the Decay System Works</h4>
+      <h4 class="font-semibold text-green-300 mb-2 text-center">Understanding the Decay System</h4>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
         <div>
           <p class="text-green-200 mb-2">
-            <strong>Why decay?</strong> Consistency should be rewarded, but recent performance matters more than ancient history. This keeps the ranking dynamic and rewards current activity.
+            <strong>Purpose:</strong> Recent activity weighs more than ancient achievements. This keeps rankings dynamic and rewards current participation over old glory.
           </p>
           <p class="text-green-300 text-xs">
-            <strong>Example:</strong> If you earned 10 points in the last edition, you get all 10. 
-            If you earned 10 points two editions ago, you only get 5 (50% of 10) from that edition.
+            <strong>Example:</strong> 10 points from last edition count as 10 points. 
+            The same 10 points from two editions ago only count as 5 points (50% decay).
           </p>
         </div>
         <div class="text-center">
           <div class="inline-block bg-green-900/30 rounded-lg p-3">
             <div class="text-xs text-green-400 space-y-1">
               <div class="flex justify-between w-32">
-                <span>Edition -1:</span>
+                <span>Last edition:</span>
                 <span class="text-green-300 font-bold">100%</span>
               </div>
               <div class="flex justify-between w-32">
-                <span>Edition -2:</span>
+                <span>2 editions ago:</span>
                 <span class="text-yellow-300 font-bold">50%</span>
               </div>
               <div class="flex justify-between w-32">
-                <span>Edition -3:</span>
+                <span>3 editions ago:</span>
                 <span class="text-orange-300 font-bold">25%</span>
               </div>
               <div class="flex justify-between w-32">
-                <span>Edition -4:</span>
+                <span>4 editions ago:</span>
                 <span class="text-red-300 font-bold">10%</span>
               </div>
               <div class="flex justify-between w-32">
-                <span>Older:</span>
+                <span>Older than 4:</span>
                 <span class="text-gray-400 font-bold">0%</span>
               </div>
             </div>
@@ -173,6 +258,7 @@ const nextEdition = getNextEdition();
         <col style="width: 65px;"> <!-- Has Dispatch/History -->
         <col style="width: 65px;" > <!-- Has FC mentions in Dispatch -->
         <col style="width: 65px;"> <!-- Updated Roster -->
+        <col style="width: 65px;"> <!-- Article -->
         <col style="width: 65px;"> <!-- Poetry -->
         <col style="width: 65px;"> <!-- Flag & Banner -->
         <col style="width: 65px;"> <!-- Murder Mystery -->
@@ -180,11 +266,12 @@ const nextEdition = getNextEdition();
         <col style="width: 65px;"> <!-- Scavenger Hunt -->
         <col style="width: 65px;"> <!-- Forest-Themed Connections Grid -->
         <col style="width: 65px;"> <!-- Host -->
+        <col style="width: 65px;"> <!-- Eggs -->
         <col style="width: 65px;"> <!-- Extra -->
-        <col style="width: 65px; background-color: #193cb885;"> <!-- RP -->
-        <col style="width: 65px; background-color: #193cb885;"> <!-- Events -->
-        <col style="width: 65px; background-color: #193cb885;"> <!-- Bonus -->
-        <col style="width: 65px; background-color: #193cb885;"> <!-- Results -->
+        <col style="width: 65px;" class="bg-gradient-to-r from-blue-800/30 to-blue-800/60"> <!-- RP -->
+        <col style="width: 65px;" class="bg-gradient-to-r from-blue-800/30 to-blue-800/60"> <!-- Events -->
+        <col style="width: 65px;" class="bg-gradient-to-r from-blue-800/30 to-blue-800/60"> <!-- Bonus -->
+        <col style="width: 65px;" class="bg-gradient-to-r from-blue-800/30 to-blue-800/60"> <!-- Results -->
         <col style="width: 30px;"> <!-- Total -->
       </colgroup>
       
@@ -193,9 +280,9 @@ const nextEdition = getNextEdition();
           <th rowspan="2" class="px-2 py-3 text-center border-b border-green-600 rounded-tl-xl" title="Position">°</th>
           <th rowspan="2" class="px-5 py-3 text-center border-b border-green-600"></th>
           <th rowspan="2" class="py-3 text-left border-b border-green-600">Team</th>
-          <th colspan="3" class="px-4 py-2 text-center border-b border-l border-green-600">Roleplay</th>
+          <th colspan="4" class="px-4 py-2 text-center border-b border-l border-green-600">Roleplay</th>
           <th colspan="6" class="px-4 py-2 text-center border-b border-l border-green-600">Events</th>
-          <th colspan="2" class="px-4 py-2 text-center border-b border-l border-green-600">Bonus</th>
+          <th colspan="3" class="px-4 py-2 text-center border-b border-l border-green-600">Bonus</th>
           <th colspan="4" class="px-4 py-2 text-center border-b border-l border-green-600">Past</th>
           <th rowspan="2" class="px-3 py-3 text-center font-bold border-b border-l border-green-600 rounded-tr-xl">Pts</th>
         </tr>
@@ -203,17 +290,19 @@ const nextEdition = getNextEdition();
           <th class="px-2 py-2 text-center font-medium border-b border-l border-green-600" title="History Points - Roleplay, lore, dispatches">Hist</th>
           <th class="px-2 py-2 text-center font-medium border-b border-l border-green-600" title="FC Mentions - Mentions in dispatches">FCM</th>
           <th class="px-2 py-2 text-center font-medium border-b border-l border-green-600" title="Updated Roster - Updated roster for the current edition">UR</th>
-          <th class="px-2 py-2 text-center font-medium border-b border-l border-green-600" title="Poetry Contest Points - Current edition">POE</th>
-          <th class="px-2 py-2 text-center font-medium border-b border-l border-green-600" title="Flag & Banner Points - Current edition">F&B</th>
-          <th class="px-2 py-2 text-center font-medium border-b border-l border-green-600" title="Murder Mystery Points - Current edition">MM</th>
-          <th class="px-2 py-2 text-center font-medium border-b border-l border-green-600" title="Quiz Contest Points - Current edition">Quiz</th>
-          <th class="px-2 py-2 text-center font-medium border-b border-l border-green-600" title="Scavenger Hunt Points - Current edition">SH</th>
-          <th class="px-2 py-2 text-center font-medium border-b border-l border-green-600" title="Forest-Themed Connections Grid Points - Current edition">CG</th>
+          <th class="px-2 py-2 text-center font-medium border-b border-l border-green-600" title="Article Points">AR</th>
+          <th class="px-2 py-2 text-center font-medium border-b border-l border-green-600" title="Poetry Fantasia Points">PF</th>
+          <th class="px-2 py-2 text-center font-medium border-b border-l border-green-600" title="Flag & Banner Points">F&B</th>
+          <th class="px-2 py-2 text-center font-medium border-b border-l border-green-600" title="Murder Mystery Points">MM</th>
+          <th class="px-2 py-2 text-center font-medium border-b border-l border-green-600" title="Quiz Contest Points">Quiz</th>
+          <th class="px-2 py-2 text-center font-medium border-b border-l border-green-600" title="Scavenger Hunt Points">SH</th>
+          <th class="px-2 py-2 text-center font-medium border-b border-l border-green-600" title="Forest-Themed Connections Grid Points">CG</th>
           <th class="px-2 py-2 text-center font-medium border-b border-l border-green-600" title="Host advantage points">Host</th>
+          <th class="px-2 py-2 text-center font-medium border-b border-l border-green-600" title="Flag & Banner Points">Eggs</th>
           <th class="px-2 py-2 text-center font-medium border-b border-l border-green-600" title="Extra community contribution points">Extra</th>
           <th class="px-2 py-2 text-center font-medium border-b border-l border-green-600" title="Past Roleplay Points - Previous editions with decay">RP</th>
           <th class="px-2 py-2 text-center font-medium border-b border-l border-green-600" title="Past Event Points - Previous editions with decay">Events</th>
-          <th class="px-2 py-2 text-center font-medium border-b border-l border-green-600" title="Total Points">Bonus</th>
+          <th class="px-2 py-2 text-center font-medium border-b border-l border-green-600" title="Past Bonus Points - Previous editions with decay">Bonus</th>
           <th class="px-2 py-2 text-center font-medium border-b border-l border-green-600" title="Previous Tournament Results - Automatic calculation with decay">Results</th>
         </tr>
       </thead>
@@ -223,6 +312,7 @@ const nextEdition = getNextEdition();
           const historyPoints = getCurrentRoleplayPoints(team, 'dispatch');
           const fcMentions = getCurrentRoleplayPoints(team, 'fcm');
           const updatedRoster = getCurrentRoleplayPoints(team, 'roster');
+          const articlePoints = getCurrentRoleplayPoints(team, 'article');
           const poetryPoints = getCurrentEventPoints(team, 'poetry');
           const flagBannerPoints = getCurrentEventPoints(team, 'fb');
           const murderMysteryPoints = getCurrentEventPoints(team, 'mm');
@@ -230,6 +320,7 @@ const nextEdition = getNextEdition();
           const scavengerHuntPoints = getCurrentEventPoints(team, 'sh');
           const connectionsGridPoints = getCurrentEventPoints(team, 'cg');
           const hostPoints = getCurrentBonusPoints(team, 'host');
+          const eggsPoints = getCurrentBonusPoints(team, 'eggs');
           const extraPoints = getCurrentBonusPoints(team, 'extra');
 
           return (
@@ -264,6 +355,9 @@ const nextEdition = getNextEdition();
             <td class="px-2 py-2" title={`Updated Roster: ${updatedRoster}`}>
               {updatedRoster}
             </td>
+            <td class="px-2 py-2" title={`Article Points: ${articlePoints}`}>
+              {articlePoints}
+            </td>
             <td class="px-2 py-2" title={`Poetry Contest Points: ${poetryPoints}`}>
               {poetryPoints}
             </td>
@@ -284,6 +378,9 @@ const nextEdition = getNextEdition();
             </td>
             <td class="px-2 py-2" title={`Host Bonus: ${hostPoints}`}>
               {hostPoints}
+            </td>
+            <td class="px-2 py-2" title={`Eggs Points: ${eggsPoints}`}>
+              {eggsPoints}
             </td>
             <td class="px-2 py-2" title={`Extra Bonus: ${extraPoints}`}>
               {extraPoints}
