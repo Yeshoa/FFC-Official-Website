@@ -25,10 +25,11 @@ const {
     banner,
     image,
     heroImg,
+    cardImg,
     loadingType, 
 } = data;
 
-const mainImage = heroImg;
+const mainImage = cardImg || heroImg;
 const tournamentLink = `/${type}/${edition}`;
 ---
 

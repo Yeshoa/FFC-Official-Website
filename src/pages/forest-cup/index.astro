@@ -34,12 +34,12 @@ const filteredArticles = getArticlesByTags(articles, filterTags);
           <div class="flex justify-center items-center after:w-30 after:h-1 mb-4 animate-sladeIn after:bg-green-700 after:rounded-full after:absolute after:bottom-0 after:mx-auto relative">
             <Image src={FCLogo} alt="Forest Cup" width={500} class="w-2xl" loading={"eager"} format={"webp"} quality={50}/>
           </div>
-          <p class="text-sm sm:text-lg text-gray-200 px-8 sm:px-0 text-center opacity-0 animate-[slide-in_1s_ease-in-out_forwards_.1s]">Here you can find all the information about the Forest Cup</p>
+          <!-- <p class="text-sm sm:text-lg text-gray-200 px-8 sm:px-0 text-center opacity-0 animate-[slide-in_1s_ease-in-out_forwards_.1s]">Here you can find all the information about the Forest Cup</p> -->
       </div>
       <!-- Tournaments -->
       <div class="w-full sm:container px-6 pt-4 pb-10 opacity-0 animate-[slide-in_1s_ease-in-out_forwards_.2s]">
         <div class="flex flex-col gap-6">
-          {tournaments.slice(2).reverse().map((tournament) => (
+          {tournaments.slice(0, -1).reverse().map((tournament) => (
             <FCCard
               tournament={tournament}
               hostFlag={getMemberByName(tournament.data.host, members)?.data.flagPath}

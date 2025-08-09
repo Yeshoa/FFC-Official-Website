@@ -7,6 +7,7 @@ champion: "Atsvea"
 image: "src/assets/images/tournaments/2022/logo.png"
 banner: "src/assets/images/tournaments/2022/logo.png"
 heroImg: "src/assets/images/tournaments/2022/atsvea-champions.png"
+cardImg: "src/assets/images/tournaments/2022/cardImg.png"
 edition: 2022
 participants:
   - "Bilsa"
