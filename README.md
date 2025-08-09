@@ -16,32 +16,28 @@ Website built with **Astro**. Showcases tournaments, match details, and national
 * **Change Forest Cups heroImg's**
   The current ones are placeholders and not very appealing. (Think of adding images about the Host Nation instead)
 * **Adapt the web for supporting a Forest Cup before being played**
-  - Member Participation Table: It should show "Qualified" of "To be determined" instead of "Didn't participate"
   - Maybe work in how to include the Qualifiers
   - In /forest-cup, the history table should show "To be disputed" in future editions
   - In /forest-cup/2026 there should be a hero adapted to the new edition, showing an image of the host nation
   - Headlines should be about: the ball, the venues, or news, that link to articles?
-  - There should not be any stats untill the tournament starts
-  - Groups and Knockout Matches should show default placeholders
 
 ---
 
 ## ⚙️ Should Do (Medium Priority)
 
-* **Create Sponsor Registration form**
-  Name, logo upload, roleplay.
+* **Include Sponsor Registration form somewhere**
 * **Fix /forest-cup Hero**
   Brainstorm and implement a compelling hero component for `/forest-cup`.
-* **Bracket Component Rewrite**
-  Fully remake the knockout bracket UI from scratch for clarity and responsiveness.
 * **Change "join us" button in the main hero**
   It should link to somewhere presentating the whole thing, or something like that.
 * **Change the "FC24 all goals" hero**
-  There should be a different hero more intuitive.
+  There should be a hero about the FC26.
 ---
 
 ## 🎨 Nice to Have (Low Priority)
 
+* **Bracket Component Rewrite**
+  Fully remake the knockout bracket UI from scratch for clarity and responsiveness.
 * **Create Icons for Each Achievement**
   Design small SVG or PNG badges for every achievement type.
 * **Create More Achievements**
@@ -65,6 +61,8 @@ Website built with **Astro**. Showcases tournaments, match details, and national
 
 * **Champions League Support**
   Adapt match cards, tournaments pages, etc., to also handle Forestian Champions League editions.
+* **Player content collection**
+  Include them in 'members/[slug]/squad', make playercards with name, rating, team, age, image, etc.
 
 ---
 

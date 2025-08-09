@@ -1,5 +1,8 @@
 import { getCollection } from 'astro:content';
 
+export const NEW_MEMBERS_FORM_LINK = 'https://docs.google.com/forms/d/e/1FAIpQLScR44EQbFVoiMEaVJKN8tOy2JiNISN_OUTtorWkOUR6pAc6Xg/viewform?usp=dialog';
+export const FFC_MEMBERS_FORM_LINK = 'https://docs.google.com/forms/d/e/1FAIpQLSeRMcQ7UNr0wXewbL6OMqv60DMpvHTuA8XRclmYljGunNX-Ng/viewform?usp=dialog';
+
 let membersCache: any[] | null = null;
 let tournamentsCache: any[] | null = null;
 let matchesCache: any[] | null = null;

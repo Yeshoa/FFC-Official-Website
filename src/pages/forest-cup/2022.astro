@@ -35,7 +35,7 @@ const knockoutMatches = fc2022Matches.filter(match => match.data.stage === 'knoc
 const articles = await getArticles();
 const filterTags = [
   "forest-cup",
-  "forest-cup-2024",
+  "forest-cup-" + FC2022Data.edition,
 ];
 const filteredArticles = getArticlesByTags(articles, filterTags);
 

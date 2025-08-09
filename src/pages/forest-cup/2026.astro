@@ -1,0 +1,131 @@
+---
+import { type CollectionEntry } from 'astro:content';
+import { getTournaments, getMatches, getMembers, getArticles } from '@lib/generalUtils';
+import App from '@layouts/App.astro'; 
+import Bracket from '@components/tournaments/Bracket.astro'; 
+import Groups from '@components/tournaments/Groups.astro';
+import KnockoutMatches from '@components/tournaments/KnockoutMatches.astro';
+import TournamentStandings from '@components/tournaments/TournamentStandings.astro';
+import TournamentHero from '@components/tournaments/TournamentHero.astro';
+import Headlines from '@components/tournaments/Headlines.astro';
+import TournamentStats from '@components/tournaments/TournamentStats.astro';
+import { getMemberByName } from '@lib/memberUtils';
+import { getArticlesByTags } from '@lib/articleUtils';
+import RelatedNews from '@components/articles/RelatedNews.astro';
+
+type Tournament = CollectionEntry<'tournaments'>['data'];
+type Match = CollectionEntry<'matches'>['data'];
+type Member = CollectionEntry<'members'>['data'];
+
+const tournamentsCollection = await getTournaments();
+const matchesCollection = (await getMatches())
+  .filter(match => match.slug.startsWith('forest-cup-2026/'));
+const membersCollection = await getMembers();
+
+const TOURNAMENT_ID = 3;
+const tournamentEntry = tournamentsCollection.find(t => t.data.id === TOURNAMENT_ID);
+
+if (!tournamentEntry) {
+  // throw new Error(`Torneo con ID "${TOURNAMENT_ID}" no encontrado en la colección 'tournaments'.`);
+  return Astro.redirect('/404');
+}
+
+const FCData = tournamentEntry.data;
+
+// Matches
+const fcMatches = matchesCollection
+  /* .filter(match => match.data.tournament_id === TOURNAMENT_ID) */
+  .sort((a, b) => a.data.date.getTime() - b.data.date.getTime()); // Ordenar por fecha
+const knockoutMatches = fcMatches.filter(match => match.data.stage === 'knockout');
+
+const articles = await getArticles();
+const filterTags = [
+  "forest-cup",
+  "forest-cup-" + FCData.edition,
+];
+const filteredArticles = getArticlesByTags(articles, filterTags);
+
+// Imagenes
+import AllGoalsHero from '@images/tournaments/2024/all-goals.png';
+import FinalMatch from '@images/tournaments/2024/final-match.png';
+import NysnubShow from '@images/tournaments/2024/nysnub-show.png';
+import LongestPenalty from '@images/tournaments/2024/longest-penalty.png';
+import BestGoal from '@images/tournaments/2024/best-goal.png';
+import MVPTarasov from '@images/tournaments/2024/mvp-tarasov.png';
+
+const headlines = [
+  {
+    title: 'Revive the Final',
+    image: FinalMatch,
+    link: 'https://www.youtube.com/live/XJPwf45Eh4w?si=8Akzbug1jY6sOFv9&t=297',
+    noblank: true,
+  },
+  {
+    title: 'Watch All Goals',
+    image: AllGoalsHero,
+    link: 'https://www.youtube.com/watch?v=iddBpQbe7ak',
+    noblank: true,
+  },
+  {
+    title: 'Tarasov wins the Golden Ball',
+    image: MVPTarasov,
+    link: '#prizes',
+    noblank: false,
+  },
+  {
+    title: 'Nysnub Show: 4 goals in one match',
+    image: NysnubShow,
+    link: 'https://youtube.com/shorts/vzUKv51dzuU',
+    class: 'object-top',
+    noblank: true,
+  },
+  {
+    title: 'Cacusia outstanding play',
+    image: BestGoal,
+    link: 'https://youtube.com/clip/UgkxhC53IxiU-6hjxn5H_XDy_XJsLO-ki5wE?si=c3TqUN6alOi30lv2',
+    noblank: true,
+  },
+  {
+    title: 'Longest penalty shootout ever!',
+    image: LongestPenalty,
+    link: 'https://youtube.com/clip/UgkxpY5l94Lpkwctfl8yymRpTlVJimy-HAQN?si=mt_yHADNDHSYjEXZ',
+    noblank: true,
+  },
+]
+
+const pageTitle = `FFC - ${FCData.name || 'Forest Cup'}`;
+const winner = getMemberByName(FCData.champion, membersCollection) || null; 
+---
+
+<App title={pageTitle}>
+  <main class="flex flex-col items-center relative">
+    <div class="flex flex-col justify-center items-center w-full bg-gradient-to-b from-transparent to-green-900/80">
+      <!-- <TournamentGrid currentTournament={FCData}/> -->
+      <TournamentHero currentTournament={FCData} champion={winner} />
+    </div>
+    <!-- News -->
+    <Headlines headlines={headlines}/>
+    
+    {fcMatches.filter(match => match.data.status === 'played').length > 0 && <TournamentStats
+    tournament={tournamentEntry}
+    matches={fcMatches}
+    members={membersCollection}
+    />}
+    <Groups
+    matches={fcMatches}
+    members={membersCollection}
+    />
+    <KnockoutMatches
+    knockoutMatches={knockoutMatches}
+    members={membersCollection}
+    />
+    <div class="w-full flex flex-col items-center px-6 max-w-8xl">
+      <TournamentStandings
+      tournament={tournamentEntry}
+      matches={fcMatches}
+      members={membersCollection.filter(member => FCData.participants && FCData.participants.includes(member.data.name))}
+      />
+    </div>
+    <RelatedNews articles={filteredArticles} max={4} />
+  </main>
+</App>

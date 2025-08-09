@@ -2,6 +2,7 @@
 const currentPath = Astro.url.pathname;
 import { Image } from 'astro:assets';
 import FFCLogo from '../../assets/images/Logo.png';
+import { NEW_MEMBERS_FORM_LINK } from '@lib/generalUtils';
 ---
 <nav class="bg-green-950 w-full z-20 top-0 start-0 border-b border-green-600">
   <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
@@ -51,7 +52,7 @@ import FFCLogo from '../../assets/images/Logo.png';
           </a>
         </li>
         <li class="">
-          <a href="https://forms.gle/Qn2d5kFwCg8pndnK9" target="_blank" class={`block py-2 px-2 bg-white rounded-lg text-green-950 hover:bg-green-600 hover:text-white`}>
+          <a href={NEW_MEMBERS_FORM_LINK} target="_blank" class={`block py-2 px-2 bg-white rounded-lg text-green-950 hover:bg-green-600 hover:text-white`}>
             Join<span class="hidden lg:inline"> FFC</span>
           </a>
         </li>

@@ -9,6 +9,7 @@ import Cup from '@images/icons/trophy-solid.svg';
 import Join from '@images/icons/user-solid.svg';
 import XMark from '@images/icons/circle-xmark-solid.svg';
 import Search from '@images/icons/magnifying-glass-solid.svg';
+import { NEW_MEMBERS_FORM_LINK } from '@lib/generalUtils';
 ---
 <div class="main__cont">
   <nav class="bg-green-1000 w-full z-20 top-0 start-0 border-b border-green-600">
@@ -64,7 +65,7 @@ import Search from '@images/icons/magnifying-glass-solid.svg';
             </a>
           </li>
           <li class="group">
-            <a href="https://forms.gle/Qn2d5kFwCg8pndnK9" target="_blank" class={`flex gap-2 items-center py-2 px-3 bg-white rounded-lg text-green-950 group-hover:bg-green-600 group-hover:text-white`}>
+            <a href={NEW_MEMBERS_FORM_LINK} target="_blank" class={`flex gap-2 items-center py-2 px-3 bg-white rounded-lg text-green-950 group-hover:bg-green-600 group-hover:text-white`}>
               <Join width={15} class={"fill-green-950 group-hover:fill-white"} />
               Join FFC
             </a>
@@ -120,7 +121,7 @@ import Search from '@images/icons/magnifying-glass-solid.svg';
         </a>
       </li>
       <li class="group">
-        <a href="https://forms.gle/Qn2d5kFwCg8pndnK9" target="_blank" class={`flex gap-2 items-center py-2 px-3 bg-white rounded-md text-green-950 group-hover:bg-green-600 group-hover:text-white`}>
+        <a href={NEW_MEMBERS_FORM_LINK} target="_blank" class={`flex gap-2 items-center py-2 px-3 bg-white rounded-md text-green-950 group-hover:bg-green-600 group-hover:text-white`}>
           <Join width={15} class={"fill-green-950 group-hover:fill-white"} />
           Join FFC
         </a>

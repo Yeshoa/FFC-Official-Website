@@ -5,6 +5,7 @@ import { getMemberByName } from '@lib/memberUtils';
 import { getMatchResult } from '@lib/matchUtils';
 import { Image } from 'astro:assets';
 import { getTeamStatsInTournament, getTeamFinalResult, getTopScorerOfTeamInTournament, getTeamPositionInTournament} from '../../lib/tournamentUtils';
+import { CURRENT_TOURNAMENT_ID } from '../../lib/tournamentUtils';
 
 interface Props {
   member: CollectionEntry<'members'>;
@@ -63,20 +64,38 @@ function getTeamFinalResultInTournament(tournamentId: number) {
       </thead>
       <tbody class="">
         {allEditions.sort((b, a) => b.data.edition - a.data.edition).map(t => {
-          const didParticipate = t.data.participants && t.data.participants.includes(memberName);
           const host = getMemberByName(t.data.host, members);
+          
+          const didParticipate = t.data.participants && t.data.participants.includes(memberName);
+          const isFutureOrCurrent = t.data.id >= CURRENT_TOURNAMENT_ID;
 
-          if (!didParticipate) {
+          if (!didParticipate && !isFutureOrCurrent) {
             return (
-              <tr class="border-b border-green-700 bg-red-900/10 text-red-300 italic">
+              <tr class="border-b border-green-700 italic bg-red-900/10 text-red-300">
                 <td class="px-2 py-2 flex flex-col items-center gap-1 justify-center">
                   {host && <a href={`/members/${host.slug}`} class="flex-shrink-0"><Image src={host.data.flagPath} alt={host.data.name} height={20} class="rounded-sm max-h-14" loading={'lazy'} quality={10} format={'webp'} /></a>}
                   <a href={`/${type}/${t.data.edition}`} class="hover:underline">{t.data.edition}</a>
                 </td>
-                <td colspan="12" class="py-2">Didn't participate</td>
+                <td colspan="12" class="py-2">
+                  Didn't participate
+                </td>
+              </tr>
+            );
+          } else if (isFutureOrCurrent) {
+            return (
+              <tr class="border-b border-green-700 italic bg-blue-800/10 text-green-300">
+                <td class="px-2 py-2 flex flex-col items-center gap-1 justify-center">
+                  {host && <a href={`/members/${host.slug}`} class="flex-shrink-0"><Image src={host.data.flagPath} alt={host.data.name} height={20} class="rounded-sm max-h-14" loading={'lazy'} quality={10} format={'webp'} /></a>}
+                  <a href={`/${type}/${t.data.edition}`} class="hover:underline">{t.data.edition}</a>
+                </td>
+                <td colspan="12" class="py-2">
+                  {didParticipate ? "Qualified" : "To be determined"}
+                </td>
               </tr>
             );
           }
+
+
   
           const stats = getStatsForTournament(t.data.id);
           const topScorer = getTopScorerInTournament(t.data.id);

@@ -4,7 +4,7 @@ import type { CollectionEntry } from 'astro:content';
 import { getMemberByName } from '@lib/memberUtils';
 import { areThereScorers, getMatchWinner, getMatchResult, getMatchRedCards } from '@lib/matchUtils';
 import GoalIcon from '@images/goal.png';
-
+import defaultFlag from '@images/tournaments/default-flag.png';
 interface Props { 
   match: CollectionEntry<'matches'>['data'];
   members: any[];
@@ -27,8 +27,8 @@ if (hasPenaltyShootout) {
   penaltyInfo = `(${penaltyScore1}-${penaltyScore2})`;
 }
 
-const team1 = getMemberByName(match.team1, members);
-const team2 = getMemberByName(match.team2, members);
+const team1 = getMemberByName(match.team1, members) || match.team1;
+const team2 = getMemberByName(match.team2, members) || match.team2;
 
 const winner = getMatchWinner(match);
 const redCards = getMatchRedCards(match);
@@ -39,10 +39,10 @@ const redCards = getMatchRedCards(match);
   <div class="grid grid-cols-7 items-center w-full gap-2 mb-2">
     {/* Equipo 1 */}
     <div class="flex items-center justify-end col-span-3 gap-2 text-right overflow-visible">
-      <a class={`${winner === match.team1 ? 'font-bold' : 'font-light'} md:text-lg truncate hover:underline`} href={`/members/${team1?.slug}`}><span class="hidden xs:inline">{team1?.data.name}</span><span class="xs:hidden">{team1?.data.code}</span></a>
-      {team1?.data.flagPath || team1?.data.logoPath ? (
+      <a class={`${winner === match.team1 ? 'font-bold' : 'font-light'} md:text-lg truncate hover:underline`} href={team1.data ? `/members/${team1?.slug}` : '#'}><span class="hidden xs:inline">{team1?.data ? team1?.data.name : team1}</span><span class="xs:hidden">{team1.data ? team1?.data.code : team1}</span></a>
+      {team1.data && team1?.data.flagPath ? (
         <Image
-          src={team1.data.flagPath || team1.data.logoPath}
+          src={team1.data.flagPath || defaultFlag}
           alt={team1.data.name}
           class="h-5 w-8 md:h-6 md:w-9 rounded-sm object-cover ring-1 ring-gray-500 flex-shrink-0"
           height={48}
@@ -51,8 +51,17 @@ const redCards = getMatchRedCards(match);
           format="webp"
           quality={10}
         />
-       ) : (
-         <div class="h-5 w-8 md:h-6 md:w-9 bg-gray-600 rounded-sm flex-shrink-0"></div>
+       ) : ( 
+         <Image
+          src={defaultFlag}
+          alt="Default Flag"
+          class="h-5 w-8 md:h-6 md:w-9 rounded-sm object-cover ring-1 ring-gray-500 flex-shrink-0"
+          height={48}
+          loading={"lazy"}
+          inferSize={true}
+          format="webp"
+          quality={10}
+        />
        )}
     </div>
     {/* Marcador */}
@@ -73,9 +82,9 @@ const redCards = getMatchRedCards(match);
     </div>
     {/* Equipo 2 */}
     <div class="flex items-center col-span-3 gap-2 text-left overflow-visible">
-       {team2?.data.flagPath || team2?.data.logoPath ? (
+       {team2.data && team2?.data.flagPath ? (
         <Image
-          src={team2.data.flagPath || team2.data.logoPath}
+          src={team2.data.flagPath || defaultFlag}
           alt={team2.data.name}
           class="h-5 w-8 md:h-6 md:w-9 rounded-sm object-cover ring-1 ring-gray-500 flex-shrink-0"
           height={48}
@@ -85,9 +94,18 @@ const redCards = getMatchRedCards(match);
           quality={10}
         />
       ) : (
-        <div class="h-5 w-8 md:h-6 md:w-9 bg-gray-600 rounded-sm flex-shrink-0"></div>
+        <Image
+          src={defaultFlag}
+          alt="Default Flag"
+          class="h-5 w-8 md:h-6 md:w-9 rounded-sm object-cover ring-1 ring-gray-500 flex-shrink-0"
+          height={48}
+          loading={"lazy"}
+          inferSize={true}
+          format="webp"
+          quality={10}
+        />
       )}
-      <a class={`${winner === match.team2 ? 'font-bold' : 'font-light'} md:text-lg truncate hover:underline`} href={`/members/${team2?.slug}`}><span class="hidden xs:inline">{team2?.data.name}</span><span class="xs:hidden">{team2?.data.code}</span></a>
+      <a class={`${winner === match.team2 ? 'font-bold' : 'font-light'} md:text-lg truncate hover:underline`} href={team2.data ? `/members/${team2?.slug}` : '#'}><span class="hidden xs:inline">{team2.data ? team2?.data.name : team2}</span><span class="xs:hidden">{team2.data ? team2?.data.code : team2}</span></a>
     </div>
   </div>
 

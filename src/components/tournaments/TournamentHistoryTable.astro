@@ -2,7 +2,7 @@
 // TournamentHistoryTable.astro
 import type { CollectionEntry } from 'astro:content';
 import { Image } from 'astro:assets';
-import { getTeamPositionInTournament } from '@lib/tournamentUtils';
+import { CURRENT_TOURNAMENT_ID, getTeamPositionInTournament } from '@lib/tournamentUtils';
 import { getMemberImage, getMemberByName } from '@lib/memberUtils';
 import { getMatchResult } from '@lib/matchUtils';
 
@@ -108,7 +108,22 @@ function getThirdPlaceResult(tournament: CollectionEntry<'tournaments'>): string
     </thead>
     <tbody>
       {allEditions.sort((b, a) => b.data.edition - a.data.edition).map(tournament => {
+        const isFutureOrCurrent = tournament.data.id >= CURRENT_TOURNAMENT_ID;
+        
         const host = getMemberByName(tournament.data.host, members);
+        if (isFutureOrCurrent) {
+          return (
+            <tr class="border-b border-green-700 bg-blue-900/10 text-green-300 italic">
+              <td class="px-2 py-3 flex flex-col items-center gap-1 justify-center">
+                {host?.data.flagPath && <a href={`/members/${host.slug}`} class="flex-shrink-0"><Image src={host.data.flagPath} alt={host.data.name} height={20} class="rounded-sm object-cover max-h-6" loading={'lazy'} quality={40} format={'webp'} /></a>}
+                <a href={`/${type}/${tournament.data.edition}`} class="hover:underline">{tournament.data.edition}</a>
+              </td>
+              <td colspan="8" class="py-3">
+                To be disputed
+              </td>
+            </tr>
+          );
+        }
         const champion = getTeamByPosition(tournament, 1);
         const runnerUp = getTeamByPosition(tournament, 2);
         const third = getTeamByPosition(tournament, 3);

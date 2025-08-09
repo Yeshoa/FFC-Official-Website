@@ -8,7 +8,7 @@ import Logo from '@images/logo.png';
 import HeroCard from '@components/HeroCard.astro';
 import Members from '@images/members3.png';
 import RelatedNews from '@components/articles/RelatedNews.astro';
-import { getArticles } from '@lib/generalUtils';
+import { getArticles, NEW_MEMBERS_FORM_LINK } from '@lib/generalUtils';
 
 const articles = await getArticles();
 articles.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
@@ -67,7 +67,7 @@ const heroCards = [
 		heroImage={{ src: Petrov, alt: 'Partido de fútbol' }}
 		heroTitle="Welcome to the FFC"
 		heroSubtitle="Join the Football Community of Forest"
-		cta={{ text: 'Join us', href: 'https://forms.gle/Qn2d5kFwCg8pndnK9', noblank: true, logo: Logo }}
+		cta={{ text: 'Join us', href: NEW_MEMBERS_FORM_LINK, noblank: true, logo: Logo }}
 	/>
   <div class="h-full">
       {heroCards.map((card, index) => (

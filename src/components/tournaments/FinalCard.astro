@@ -5,6 +5,7 @@ import type { ImageMetadata } from 'astro';
 import { getMemberByName } from '@lib/memberUtils';
 import { areThereScorers, getMatchWinner, getMatchResult } from '@lib/matchUtils';
 import GoalIcon from '@images/goal.png';
+import defaultFlag from '@images/tournaments/default-flag.png';
 
 interface Props {
   match: CollectionEntry<'matches'>['data'];
@@ -29,8 +30,8 @@ if (hasPenaltyShootout) {
   penaltyInfo = `(${penaltyScore1}-${penaltyScore2})`;
 }
 
-const team1 = getMemberByName(match.team1, members);
-const team2 = getMemberByName(match.team2, members);
+const team1 = getMemberByName(match.team1, members) || "-";
+const team2 = getMemberByName(match.team2, members) || "-";
 
 const winner = getMatchWinner(match);
 ---
@@ -54,23 +55,32 @@ const winner = getMatchWinner(match);
     <div class="grid grid-cols-3 items-center w-full gap-2 mb-4 z-10 mt-4">
       <!-- Team 1 -->
       <div class={`flex flex-col items-center justify-center text-center ${winner === match.team1 ? 'scale-105' : ''} transition-transform duration-300`}>
-        {team1.data.flagPath || team1.data.logoPath ? (
+        {team1 !== "-" && team1.data.flagPath ? (
           <Image
-            src={team1.data.flagPath || team1.data.logoPath}
+            src={team1.data.flagPath || defaultFlag}
             alt={match.team1}
             class={`h-12 w-16 md:h-16 md:w-24 rounded-md object-cover shadow-md ${winner === match.team1 ? 'ring-2 ring-yellow-400' : 'ring-1 ring-gray-600'}`}
             width={96} 
-            loading={"eager"}
+            loading={"lazy"}
             inferSize={true}
             format="webp"
             quality={70}
           />
         ) : (
-          <div class="h-12 w-16 md:h-16 md:w-24 bg-gray-700 rounded-md"></div>
+          <Image
+            src={defaultFlag}
+            alt={match.team1}
+            class={`h-12 w-16 md:h-16 md:w-24 rounded-md object-cover shadow-md ${winner === match.team1 ? 'ring-2 ring-yellow-400' : 'ring-1 ring-gray-600'}`}
+            width={96} 
+            loading={"lazy"}
+            inferSize={true}
+            format="webp"
+            quality={70}
+          />
         )}
         <a 
           class={`mt-2 font-medium md:text-lg hover:underline ${winner === match.team1 ? 'text-yellow-300 font-bold' : 'text-white'}`} 
-          href={`/members/${team1?.slug}`}
+          href={team1 !== "-" ? `/members/${team1?.slug}` : '#'}
         >
           {match.team1}
         </a>
@@ -99,23 +109,32 @@ const winner = getMatchWinner(match);
       
       <!-- Team 2 -->
       <div class={`flex flex-col items-center justify-center text-center ${winner === match.team2 ? 'scale-105' : ''} transition-transform duration-300`}>
-        {team2.data.flagPath || team2.data.logoPath ? (
+        {team2 !== "-" && team2.data.flagPath ? (
           <Image
-            src={team2.data.flagPath || team2.data.logoPath}
+            src={team2.data.flagPath || defaultFlag}
             alt={team2.data.name}
             class={`h-12 w-16 md:h-16 md:w-24 rounded-md object-cover shadow-md ${winner === match.team2 ? 'ring-2 ring-yellow-400' : 'ring-1 ring-gray-600'}`}
             width={96} 
-            loading={"eager"}
+            loading={"lazy"}
             inferSize={true}
             format="webp"
             quality={70}
           />
         ) : (
-          <div class="h-12 w-16 md:h-16 md:w-24 bg-gray-700 rounded-md"></div>
+          <Image
+            src={defaultFlag}
+            alt={match.team2}
+            class={`h-12 w-16 md:h-16 md:w-24 rounded-md object-cover shadow-md ${winner === match.team2 ? 'ring-2 ring-yellow-400' : 'ring-1 ring-gray-600'}`}
+            width={96} 
+            loading={"lazy"}
+            inferSize={true}
+            format="webp"
+            quality={70}
+          />
         )}
         <a 
           class={`mt-2 font-medium md:text-lg hover:underline ${winner === match.team2 ? 'text-yellow-300 font-bold' : 'text-white'}`} 
-          href={`/members/${team2?.slug}`}
+          href={team2 !== "-" ? `/members/${team2?.slug}` : '#'}
         >
           {match.team2}
         </a>

@@ -3,13 +3,18 @@ import { Image } from "astro:assets";
 import { getTournaments } from "@lib/generalUtils";
 import type { CollectionEntry } from "astro:content";
 import Star from "@images/icons/star-solid.svg";
+import defaulFlag from "@images/tournaments/default-flag.png";
 
 interface Props {
   currentTournament: CollectionEntry<'tournaments'>['data'];
-  champion: CollectionEntry<'members'>;
+  champion?: CollectionEntry<'members'>;
 }
 
 const { currentTournament, champion } = Astro.props;
+
+const flagPath = champion ? champion.data.flagPath : defaulFlag;
+const name = champion ? champion.data.name : 'TBD';
+const href = champion ? `/members/${champion.slug}` : '#';
 
 const allTournaments = await getTournaments();
 const sortedTournaments = allTournaments.sort((a, b) => a.data.id - b.data.id);
@@ -62,7 +67,7 @@ const sortedTournaments = allTournaments.sort((a, b) => a.data.id - b.data.id);
           alt={`Banner of ${currentTournament.name}`}
           class="h-full w-auto max-w-full object-contain"
           width={500}
-          loading="lazy"
+          loading="eager"
           quality={50}
           format="webp"
         />
@@ -74,20 +79,19 @@ const sortedTournaments = allTournaments.sort((a, b) => a.data.id - b.data.id);
         </h2>
         
         <div class="my-2 flex items-center justify-center gap-4 lg:justify-start">
-          <a href={`/members/${champion.slug}`} class="text-4xl font-extrabold tracking-tight transition hover:text-amber-400 lg:text-6xl">
-            {champion.data.name.toUpperCase()}
+          <a href={href} class="text-4xl font-extrabold tracking-tight transition hover:text-amber-400 lg:text-6xl">
+            {name.toUpperCase()}
           </a>
-          <Star class="h-8 w-8 flex-shrink-0 fill-amber-400 lg:h-14 lg:w-14 self-center" />
+          {champion && <Star class="h-8 w-8 flex-shrink-0 fill-amber-400 lg:h-14 lg:w-14 self-center" />}
         </div>
-
         <Image
-          src={champion.data.flagPath}
-          alt={`Flag of ${champion.data.name}`}
+          src={flagPath}
+          alt={`Flag of ${name}`}
           class="mx-auto mt-6 h-24 w-auto rounded-lg border-2 border-amber-400/50 lg:mx-0 lg:h-32"
           width={220}
           quality={60}
           format="webp"
-          loading="lazy"
+          loading="eager"
         />
       </div>
     </div>

@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import MatchCard from '../MatchCard.astro'; // Asegúrate de importar el componente necesario
 import { getMemberByName } from '@lib/memberUtils';
+import defaultFlag from '@images/tournaments/default-flag.png';
 
 // Props:
 interface Props {
@@ -122,15 +123,15 @@ function generateGroupTable(matches) {
               </thead>
               <tbody>
                 {table.map(team => {
-                  const teamObject = getMemberByName(team.team, members);
+                  const teamObject = getMemberByName(team.team, members) || {};
                   return (
                   <tr class="border-b border-green-700 last:border-b-0">
                     <td class="px-1 py-1.5 text-left">{team.position}</td>
                     <td class="px-1 py-1.5 text-left flex items-center gap-2 whitespace-nowrap">
-                    <Image src={teamObject.data.flagPath || teamObject.data.logoPath} alt={team.team} 
+                    <Image src={teamObject.data ? teamObject.data.flagPath : defaultFlag} alt={team.team} 
                     class="h-5 w-8 rounded-md object-cover ring-1 ring-green-600" width={48}
                     loading="lazy" inferSize={true} quality={10} format="webp"/>
-                    <a href={`/members/${teamObject.slug}`} class="hover:underline">{team.team}</a>
+                    <a href={teamObject.slug && `/members/${teamObject.slug}` || "#"} class="hover:underline">{team.team}</a>
                     </td>
                     <td class="px-1 py-1.5 font-semibold">{team.points}</td>
                     <td class="px-1 py-1.5 hidden sm:table-cell">{team.wins}</td>
