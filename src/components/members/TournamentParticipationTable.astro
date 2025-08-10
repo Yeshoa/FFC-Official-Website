@@ -65,6 +65,7 @@ function getTeamFinalResultInTournament(tournamentId: number) {
       <tbody class="">
         {allEditions.sort((b, a) => b.data.edition - a.data.edition).map(t => {
           const host = getMemberByName(t.data.host, members);
+          const hostClass = t.data.host === memberName ? 'text-amber-400 font-bold' : '';
           
           const didParticipate = t.data.participants && t.data.participants.includes(memberName);
           const isFutureOrCurrent = t.data.id >= CURRENT_TOURNAMENT_ID;
@@ -72,9 +73,9 @@ function getTeamFinalResultInTournament(tournamentId: number) {
           if (!didParticipate && !isFutureOrCurrent) {
             return (
               <tr class="border-b border-green-700 italic bg-red-900/10 text-red-300">
-                <td class="px-2 py-2 flex flex-col items-center gap-1 justify-center">
+                <td class={`px-2 py-2 flex flex-col items-center gap-1 justify-center`}>
                   {host && <a href={`/members/${host.slug}`} class="flex-shrink-0"><Image src={host.data.flagPath} alt={host.data.name} height={20} class="rounded-sm max-h-14" loading={'lazy'} quality={10} format={'webp'} /></a>}
-                  <a href={`/${type}/${t.data.edition}`} class="hover:underline">{t.data.edition}</a>
+                  <a href={`/${type}/${t.data.edition}`} class={`hover:underline ${hostClass}`}>{t.data.edition}</a>
                 </td>
                 <td colspan="12" class="py-2">
                   Didn't participate
@@ -86,7 +87,7 @@ function getTeamFinalResultInTournament(tournamentId: number) {
               <tr class="border-b border-green-700 italic bg-blue-800/10 text-green-300">
                 <td class="px-2 py-2 flex flex-col items-center gap-1 justify-center">
                   {host && <a href={`/members/${host.slug}`} class="flex-shrink-0"><Image src={host.data.flagPath} alt={host.data.name} height={20} class="rounded-sm max-h-14" loading={'lazy'} quality={10} format={'webp'} /></a>}
-                  <a href={`/${type}/${t.data.edition}`} class="hover:underline">{t.data.edition}</a>
+                  <a href={`/${type}/${t.data.edition}`} class={`hover:underline ${hostClass}`}>{t.data.edition}</a>
                 </td>
                 <td colspan="12" class="py-2">
                   {didParticipate ? "Qualified" : "To be determined"}
@@ -99,7 +100,6 @@ function getTeamFinalResultInTournament(tournamentId: number) {
   
           const stats = getStatsForTournament(t.data.id);
           const topScorer = getTopScorerInTournament(t.data.id);
-          const hostClass = t.data.host === memberName ? 'text-amber-400 font-bold' : '';
           const position = getTeamPositionInTournamentById(t.data.id);
           const resultClass =  position === 1 ? 'text-amber-400 font-bold' : position === 2 ? 'text-sky-300 font-bold' : position === 3 ? 'text-amber-600 font-bold' : '';
           return (

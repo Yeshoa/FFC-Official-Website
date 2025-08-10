@@ -17,19 +17,22 @@ Website built with **Astro**. Showcases tournaments, match details, and national
   The current ones are placeholders and not very appealing. (Think of adding images about the Host Nation instead)
 * **Adapt the web for supporting a Forest Cup before being played**
   - Maybe work in how to include the Qualifiers
-  - In /forest-cup, the history table should show "To be disputed" in future editions
   - In /forest-cup/2026 there should be a hero adapted to the new edition, showing an image of the host nation
   - Headlines should be about: the ball, the venues, or news, that link to articles?
 
 ---
 
 ## ⚙️ Should Do (Medium Priority)
-
+* **To do articles:**
+  * “How to write an article”
+  * "How players are generated"
+  * "FC 2020 explanation"
+  * "FC 2022 summary" and other FC 22 articles
+  * "FC 2024 summary" and other FC 24 articles
+  * "Announcing FC 2026 host, meet dates, venues and more"
 * **Include Sponsor Registration form somewhere**
 * **Fix /forest-cup Hero**
-  Brainstorm and implement a compelling hero component for `/forest-cup`.
-* **Change "join us" button in the main hero**
-  It should link to somewhere presentating the whole thing, or something like that.
+  Brainstorm and implement a compelling hero component for `/forest-cup`. It should promote the current FC edition.
 * **Change the "FC24 all goals" hero**
   There should be a hero about the FC26.
 ---
@@ -38,11 +41,11 @@ Website built with **Astro**. Showcases tournaments, match details, and national
 
 * **Bracket Component Rewrite**
   Fully remake the knockout bracket UI from scratch for clarity and responsiveness.
+* **Add stadiums to all matches possible, and show them in match cards**
 * **Create Icons for Each Achievement**
   Design small SVG or PNG badges for every achievement type.
 * **Create More Achievements**
   Expand achievement library with new conditions.
-* **Add stadiums to all matches possible, and show them in match cards**
 * **Stylish Achievements Page (test.astro)**
   A page with all the achievements of the FFC. Organized by Category->Subcategory. Should show:
   - Owners
