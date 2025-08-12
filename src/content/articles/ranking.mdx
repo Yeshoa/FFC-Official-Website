@@ -2,41 +2,32 @@
 title: "How the Ranking Works & How to Earn Points"
 date: 2025-08-07
 author: "Bolbon"
-tags: [guide, ranking, points, forest-cup]
+tags: [ranking, points, forest-cup]
 summary: "Learn how FFC ranking is calculated, how to score points across categories, and what each tier represents."
 image: "/src/assets/images/articles/ranking/tiers.png"
 ---
 
 import { Image } from 'astro:assets';
 import Banner from '@images/articles/welcome/banner.png';
+import { NEW_MEMBERS_FORM_LINK, FFC_MEMBERS_FORM_LINK} from '@lib/generalUtils';
 import { SCORING_CONFIG, TIERS, getPointsTextColorClass } from '@lib/scoreUtils';
+import Arrow from '@images/icons/arrow-up-right-from-square-solid.svg';
 
 ## Overview
 
-The FFC **Ranking** measures each nation's overall contribution to the Forest Cup community by combining:
+The FFC **Ranking** is a points-based system that measures each nation's overall participation in Forest by combining:
 
-1. **Roleplay contributions** (dispatches, lore, team updates)
-2. **Community event participation** (contests, activities, puzzles)  
+1. **Football Roleplay** (dispatches, lore, team updates)
+2. **Regional events participation** (contests, activities, puzzles)  
 3. **Bonus** (easter eggs, contributions)
 4. **Past performance** (previous editions participation)
 
-> Starting with Forest Cup 2026, the **top 24** ranked teams **(who have submitted their update form)** qualify **directly**.  
+Participants can earn points by completing any of the listed category items.
+
+_Points earned in the current edition will only be applied if the participant submits the form for this season._
+
+> Starting with Forest Cup 2026, the **top 24** ranked teams **(<a href={NEW_MEMBERS_FORM_LINK} target="_noblank">who have submitted their current form <Arrow class="inline w-3 h-3 fill-green-400 ml-1" /></a>)** qualify **directly**.  
 > All remaining nations enter a **playoff** for the final 8 spots.
-
-<div class="flex flex-col items-center justify-center my-6">
-  <Image
-    src={Banner}
-    alt="Illustration of teams climbing a ranking ladder"
-    class="rounded-xl shadow-lg h-80 w-full object-cover -mb-4"
-    width={800}
-    quality={40}
-    format="webp"
-  />
-  <span class="mt-2 text-xs text-gray-400 font-normal w-full text-left">
-    Climb the ranking to secure your spot and get Pot 1-3 seeding advantages in group draws.
-  </span>
-</div>
-
 ---
 
 # Categories
@@ -44,17 +35,6 @@ The FFC **Ranking** measures each nation's overall contribution to the Forest Cu
 The ranking system divides points into four main categories:
 
 ### Roleplay _{SCORING_CONFIG.RP_MAX} points each_
-
-<div class="my-4">
-  <Image
-    src={Banner}
-    alt="Roleplay contribution art"
-    class="rounded-lg shadow-md w-full h-64 object-cover"
-    width={800}
-    quality={40}
-    format="webp"
-  />
-</div>
 
 Current edition roleplay are worth {SCORING_CONFIG.RP_MAX} points each:
 
@@ -72,18 +52,7 @@ Current edition roleplay are worth {SCORING_CONFIG.RP_MAX} points each:
 ---
 ### Events _{SCORING_CONFIG.EV_MAX} points each, normalized_
 
-<div class="my-4">
-  <Image
-    src={Banner}
-    alt="Roleplay contribution art"
-    class="rounded-lg shadow-md w-full h-64 object-cover"
-    width={800}
-    quality={40}
-    format="webp"
-  />
-</div>
-
-Community event participation is capped at {SCORING_CONFIG.EV_MAX} points per event through normalization:
+Regional event participation is capped at {SCORING_CONFIG.EV_MAX} points per event through normalization:
 
 > **How normalization works:**  
 > For each event, the participant with the highest raw score receives the full {SCORING_CONFIG.EV_MAX} points.  
@@ -92,33 +61,22 @@ Community event participation is capped at {SCORING_CONFIG.EV_MAX} points per ev
 > This ensures fair scaling and prevents any single event from dominating the overall ranking.
 
 
-**Poetry Fantasia (PF)**: Points from the <a href="https://www.nationstates.net/page=dispatch/id=2664340" target="_blank" class="text-blue-300 hover:text-blue-200">Poetry Fantasia</a>.
+**Poetry Fantasia (PF)**: Points from the <a href="https://www.nationstates.net/page=dispatch/id=2664340" target="_blank" class="text-blue-300 hover:text-blue-200">Poetry Fantasia <Arrow class="inline w-3 h-3 fill-green-400 ml-1" /></a>.
 
-**Flag & Banner (FB)**: Points from <a href="#" target="_blank" class="text-blue-300 hover:text-blue-200">Flag & Banner Contest</a>.
+**Flag & Banner (FB)**: Points from <a href="https://www.nationstates.net/page=rmb/postid=60040670" target="_blank" class="text-blue-300 hover:text-blue-200">Flag & Banner Contest <Arrow class="inline w-3 h-3 fill-green-400 ml-1" /></a>.
 
-**Murder Mystery (MM)**: <a href="#" target="_blank" class="text-blue-300 hover:text-blue-200">Murder Mystery</a> points.
+**Murder Mystery (MM)**: <a href="https://www.nationstates.net/page=dispatch/id=2687574" target="_blank" class="text-blue-300 hover:text-blue-200">Murder Mystery <Arrow class="inline w-3 h-3 fill-green-400 ml-1" /></a> points.
 
-**Quiz**: <a href="#" target="_blank" class="text-blue-300 hover:text-blue-200">Forest-themed knowledge</a> event points.
+**Quiz**: <a href="https://www.nationstates.net/page=rmb/postid=60040670" target="_blank" class="text-blue-300 hover:text-blue-200">Forestian quiz <Arrow class="inline w-3 h-3 fill-green-400 ml-1" /></a> event points.
 
-**Scavenger Hunt (SH)**: <a href="#" target="_blank" class="text-blue-300 hover:text-blue-200">Scavenger Hunt</a> points.
+**Scavenger Hunt (SH)**: <a href="#" target="_blank" class="text-blue-300 hover:text-blue-200">Scavenger Hunt <Arrow class="inline w-3 h-3 fill-green-400 ml-1" /></a> points.
 
-**Connections Grid (CG)**: <a href="#" target="_blank" class="text-blue-300 hover:text-blue-200">Forest-themed Connection Grids</a> puzzle points.
+**Connections Grid (CG)**: <a href="https://www.nationstates.net/page=dispatch/id=2689546" target="_blank" class="text-blue-300 hover:text-blue-200">Forest-themed Connection Grids <Arrow class="inline w-3 h-3 fill-green-400 ml-1" /></a> puzzle points.
 
 >This section rewards active engagement with the community during last year.
 >You may have been scoring points here without knowing it. 😛
 ---
 ### Bonus _Variable points_
-
-<div class="my-4">
-  <Image
-    src={Banner}
-    alt="Roleplay contribution art"
-    class="rounded-lg shadow-md w-full h-64 object-cover"
-    width={800}
-    quality={40}
-    format="webp"
-  />
-</div>
 
 **Host**: {SCORING_CONFIG.BO_MAX} points automatically awarded for hosting.
 
@@ -126,22 +84,11 @@ Community event participation is capped at {SCORING_CONFIG.EV_MAX} points per ev
 
 >Last edition, finding a secret alone was rewarded with more points, but this time will not be the case, so anyone can accumulate a fair amount of points through Easter Eggs!
 
-**Extra**: Variable points (typically 5-20) for exceptional community contributions beyond normal categories. This includes outstanding roleplay, dedication on details, helping the community with technical aspects or other valuable contributions that enhance the Forest Cup experience.
+**Extra**: Variable points (typically 5-20) for exceptional contributions beyond normal categories. This includes outstanding roleplay, dedication on details, helping the community with technical aspects or other valuable contributions that enhance the Forest Cup experience.
 
 >Bonus points are the wild card, to give everyone a chance to pick up a few extra points during the weeks before the tournament starts, as the events and past categories are the heaviest ones, and cannot be changed after the announcement of the tournament.
 ---
 ### Past Performance _Decay applied_
-
-<div class="my-4">
-  <Image
-    src={Banner}
-    alt="Roleplay contribution art"
-    class="rounded-lg shadow-md w-full h-64 object-cover"
-    width={800}
-    quality={40}
-    format="webp"
-  />
-</div>
 
 Previous editions contribute through a decay system that values recent activity over past history:
 
@@ -179,7 +126,7 @@ This system rewards consistency while ensuring recent activity matters more than
 Your **Total Ranking Score** combines all categories:
 
 **Current Edition Points** (no decay):
-- Roleplay contributions (0-40 points possible)
+- Football Roleplay (0-40 points possible)
 - Event participation (0-120 points possible) 
 - Bonus points (20 points from Easter Eggs, and variable points according dedication)
 
@@ -197,20 +144,28 @@ The realistic maximum for current edition points is an estimated 200, though it 
 
 | Tier | Points | Description |
 |------|-|-------------|
-| <span class={`${getPointsTextColorClass(TIERS["X"])} font-bold`}>X</span> |**{TIERS["X"]}**| Legendary status reserved for the most dedicated community members |
+| <span class={`${getPointsTextColorClass(TIERS["X"])} font-bold`}>X</span> |**{TIERS["X"]}**| Legendary status reserved for the most dedicated members |
 | <span class={`${getPointsTextColorClass(TIERS["SS"])} font-bold`}>S+</span> |**{TIERS["SS"]}**| Elite contributors who consistently excel across all areas |
-| <span class={`${getPointsTextColorClass(TIERS["S"])} font-bold`}>S</span> |**{TIERS["S"]}**| Community pillars with exceptional long-term involvement |
-| <span class={`${getPointsTextColorClass(TIERS["A"])} font-bold`}>A</span> |**{TIERS["A"]}**| Highly engaged members with substantial contributions |
-| <span class={`${getPointsTextColorClass(TIERS["B"])} font-bold`}>B</span> |**{TIERS["B"]}**| Strong community contributors with consistent involvement |
+| <span class={`${getPointsTextColorClass(TIERS["S"])} font-bold`}>S</span> |**{TIERS["S"]}**| Pillars with exceptional long-term involvement |
+| <span class={`${getPointsTextColorClass(TIERS["A"])} font-bold`}>A</span> |**{TIERS["A"]}**| Highly engaged members with substantial participation |
+| <span class={`${getPointsTextColorClass(TIERS["B"])} font-bold`}>B</span> |**{TIERS["B"]}**| Strong contributors with consistent involvement |
 | <span class={`${getPointsTextColorClass(TIERS["C"])} font-bold`}>C</span> |**{TIERS["C"]}**| Active participants in multiple categories |
-| <span class={`${getPointsTextColorClass(TIERS["D"])} font-bold`}>D</span> |**{TIERS["D"]}**| Regular community members with some engagement |
+| <span class={`${getPointsTextColorClass(TIERS["D"])} font-bold`}>D</span> |**{TIERS["D"]}**| Regular members with some engagement |
 | <span class={`${getPointsTextColorClass(TIERS["E"])} font-bold`}>E</span> |**{TIERS["E"]}**| Basic participation, occasional roleplay |
-| <span class={`${getPointsTextColorClass(TIERS["F"])} font-bold`}>F</span> |**{TIERS["F"]}**| New participants, minimal community involvement |
-
-These tiers help visualize your community standing and progression over time.
+| <span class={`${getPointsTextColorClass(TIERS["F"])} font-bold`}>F</span> |**{TIERS["F"]}**| New participants, minimal involvement |
 
 ---
 
-Feel free to contact us if you still have doubts!
+## How do these points actually affect my team's performance?
 
-Good luck preparing your squad for the Forest Cup! See you in the pitch.
+In short, the points you earn are used in a "random" (not actually) generator for each of your players. The higher your score, the greater the chance of getting better players.
+
+This is explained in detail <a href="#" class="text-blue-300 hover:text-blue-200">here</a>.
+
+**Rembemer**: Points earned in the current edition will only be applied if the participant submits the <a href={NEW_MEMBERS_FORM_LINK} target="_noblank">form for this season <Arrow class="inline w-3 h-3 fill-green-400 ml-1" /></a>.
+
+---
+
+##### Good luck preparing your squad for the Forest Cup! See you in the pitch.
+
+Feel free to <a href="#" class="text-blue-300 hover:text-blue-200">contact us</a> if you still have doubts!
