@@ -11,8 +11,7 @@ Website built with **Astro**. Showcases tournaments, match details, and national
 
 * **Create key Articles**
   * “How the Website Works” (actual article is a placeholder)
-  * “How to Participate and Sign Up”
-  * “Presenting Achievements”
+  * "How players are generated"
 * **Change Forest Cups heroImg's**
   The current ones are placeholders and not very appealing. (Think of adding images about the Host Nation instead)
 * **Adapt the web for supporting a Forest Cup before being played**
@@ -25,7 +24,7 @@ Website built with **Astro**. Showcases tournaments, match details, and national
 ## ⚙️ Should Do (Medium Priority)
 * **To do articles:**
   * “How to write an article”
-  * "How players are generated"
+  * “Presenting Achievements”
   * "FC 2020 explanation"
   * "FC 2022 summary" and other FC 22 articles
   * "FC 2024 summary" and other FC 24 articles
