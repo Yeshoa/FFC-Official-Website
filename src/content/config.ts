@@ -243,9 +243,11 @@ const sponsorCollection = defineCollection({
     name: z.string(),
     image: image(),
     member: z.string().optional(),
-    class: z.string().optional(),
+    // class: z.string().optional(),
     backgroundColor: z.string().default('#ffffff'),
     tier: z.enum(['global', 'supplier', 'national']).default('global'),
+    description: z.string().optional(),
+    type: z.string().optional(),
   }),
 });
 

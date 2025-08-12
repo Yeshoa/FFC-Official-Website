@@ -1,0 +1,18 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import SponsorRow from '@components/sponsors/SponsorRow.astro';
+
+interface Props {
+  sponsors: CollectionEntry<'sponsors'>[];
+  layout?: 'grid' | 'list';
+}
+
+const { sponsors = [], layout = 'grid' } = Astro.props;
+---
+<section class="w-full bg-green-950/90 p-6 rounded-3xl">
+  <div class={layout === 'grid' ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6' : 'flex flex-col gap-4'}>
+    {sponsors.map(sponsor => (
+      <SponsorRow sponsor={sponsor} />
+    ))}
+  </div>
+</section>

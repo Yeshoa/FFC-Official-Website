@@ -1,7 +1,8 @@
 ---
 import App from '../layouts/App.astro';
-import { getSponsors } from '@lib/generalUtils';
+import { getSponsors, SPONSOR_FORM_LINK } from '@lib/generalUtils';
 import SponsorCard from '@components/sponsors/SponsorCard.astro';
+import SponsorShowcase from '@components/sponsors/SponsorShowcase.astro';
 
 const sponsors = await getSponsors();
 
@@ -29,7 +30,7 @@ const sponsorsByTier = sponsors.reduce((acc, sponsor) => {
     <div class="flex flex-col items-center w-full max-w-8xl justify-center p-6">
       <h1 class="text-6xl mb-5 font-bold animate-sladeIn text-center">Official Sponsors</h1>
       <p class="text-lg mb-10 opacity-0 animate-[slide-in_1s_ease-in-out_forwards_.1s]">Official sponsors of FFC, united in their support for the game.</p>
-      
+      <!-- <a href={SPONSOR_FORM_LINK} class="bg-green-800 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full text-lg mb-10 opacity-0 animate-[slide-in_1s_ease-in-out_forwards_.2s]">Sponsor Us!</a> -->
       <div class="w-full opacity-0 animate-[slide-in_1s_ease-in-out_forwards_.2s]">
         {tierOrder.map(tier => {
           const tierSponsors = sponsorsByTier[tier] || [];
@@ -42,12 +43,12 @@ const sponsorsByTier = sponsors.reduce((acc, sponsor) => {
                   {tierDisplay[tier]}
                 </h2>
               </div>
-              
-              <div class="flex flex-wrap justify-center gap-10">
+              {/* <div class="flex flex-wrap justify-center gap-10">
                 {tierSponsors.map(sponsor => (
                   <SponsorCard sponsor={sponsor} />
                 ))}
-              </div>
+              </div> */}
+              <SponsorShowcase sponsors={tierSponsors} />
             </section>
           );
         })}
