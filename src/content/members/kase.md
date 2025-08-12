@@ -7,7 +7,9 @@ flagPath: "/src/assets/images/members/kas_flag.png"
 logoPath: "/src/assets/images/members/kas_logo.png"
 region: "Forest"
 verified: false
+founder: true
 manualAchievements: 
+  - "founder"
   - "discord"
 score:
   rp:

@@ -1,9 +1,8 @@
 ---
 import Navbar from "@components/Navbar.astro";
 import Footer from "@components/Footer.astro";
-import Chatbot from "@components/Chatbot.tsx";
 import { ClientRouter } from "astro:transitions";
-import "../styles/global.css";
+import "@styles/global.css";
 
 // const ViteWebhook = import.meta.env.VITE_WEBHOOK_URL;
 
@@ -25,16 +24,6 @@ const {title} = Astro.props;
 <body class="bg-gradient-to-br from-green-1000 to-green-900 to-80% text-white">
   <Navbar />
     <slot />
-    <!-- <Chatbot client:load /> -->
   <Footer />
 </body>
-<!-- <script type="module">
-  import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
-
-	createChat({
-		// webhookUrl: 'http://localhost:5678/webhook/6bd366cc-c817-4108-bea4-bc5f8fd6f145/chat'
-    // webhookUrl: ViteWebhook
-    webhookUrl: 'https://n8n-1-onbo.onrender.com/webhook/a889d2ae-2159-402f-b326-5f61e90f602e/chat',
-	});
-</script> -->
 </html>

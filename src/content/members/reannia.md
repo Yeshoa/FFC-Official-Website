@@ -11,12 +11,14 @@ region: "Forest"
 founded: 1556
 affiliation: 2024
 verified: true
+founder: true
 score:
   rp:
     "1":
       history: 20
       roleplayed: 10
 manualAchievements: 
+  - "founder"
   - "roleplay"
   - "discord"
   - "powerhouse"

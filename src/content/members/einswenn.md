@@ -10,6 +10,7 @@ feddispatch: "https://www.nationstates.net/page=dispatch/id=2533546"
 region: "Forest"
 affiliation: 2024
 verified: true
+founder: true
 score:
   rp:
     "1":

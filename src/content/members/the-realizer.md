@@ -8,6 +8,7 @@ logoPath: "/src/assets/images/members/the_realizer_logo.png"
 region: "Forest"
 affiliation: 2024
 verified: true
+founder: true
 score:
   events:
     "3":

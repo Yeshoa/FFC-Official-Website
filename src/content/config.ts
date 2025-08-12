@@ -119,6 +119,7 @@ const membersCollection = defineCollection({
     founded: z.number().optional(),
     affiliation: z.number().optional(),
     verified: z.boolean().default(false),
+    founder: z.boolean().default(false),
     /* score: z.object({
       rp: z.object({
         history: z.number().default(0).describe("History Points"),

@@ -7,11 +7,13 @@ flagPath: "/src/assets/images/members/tre_flag.png"
 logoPath: "/src/assets/images/members/tre_logo.png"
 region: "Forest"
 verified: false
+founder: true
 score:
   bonus:
     "1":
       extra: 10
 manualAchievements: 
+  - "founder"
   - "discord"
 tierHistory:
   - tier: "B"

@@ -10,6 +10,7 @@ region: "Forest"
 founded: 2020
 affiliation: 2024
 verified: true
+founder: true
 manualAchievements: 
   - "founder"
 tierHistory:

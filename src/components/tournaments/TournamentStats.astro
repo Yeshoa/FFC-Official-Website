@@ -114,6 +114,7 @@ const prizes = tournament.data.prizes;
 const officialTopScorers = prizes?.topScorer; // Puede ser un array
 const bestPlayer = prizes?.bestPlayer;
 const bestGoalkeeper = prizes?.bestGoalkeeper;
+const bestGoal = prizes?.bestGoal;
 
 const statsCols = topAssisters.length > 0 ? "grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8" : "grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8";
 ---
@@ -166,6 +167,20 @@ const statsCols = topAssisters.length > 0 ? "grid grid-cols-1 lg:grid-cols-3 gap
               <a href={`/members/${member.slug}`} class="flex items-center gap-2 hover:underline">
                 <Image src={member.data.flagPath} loading={"lazy"} alt={member.data.name} class="w-6 h-4 object-cover rounded" height={16} quality={40} format='webp' />
                 <span class="font-medium">{bestGoalkeeper.player}</span> ({bestGoalkeeper.team})
+              </a>
+          </div>
+        </div>
+      )})}
+
+      {bestGoal && (() => {
+        const member = getMemberByName(bestGoal.team, members);
+        return (
+        <div>
+          <h4 class="font-bold text-lg mb-2 text-red-300">Best Goal</h4>
+           <div class="flex items-center gap-2 p-2 rounded hover:bg-green-800/30 transition">
+              <a href={`/members/${member.slug}`} class="flex items-center gap-2 hover:underline">
+                <Image src={member.data.flagPath} loading={"lazy"} alt={member.data.name} class="w-6 h-4 object-cover rounded" height={16} quality={40} format='webp' />
+                <span class="font-medium">{bestGoal.player}</span> ({bestGoal.team})
               </a>
           </div>
         </div>

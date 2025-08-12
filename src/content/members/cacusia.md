@@ -11,6 +11,7 @@ region: "Forest"
 founded: 1877
 affiliation: 2024
 verified: true
+founder: true
 score:
   rp:
     "1":

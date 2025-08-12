@@ -46,7 +46,7 @@ const RarityAnimation = rarity.animationComponent ? animationComponents[rarity.a
 
 <div class="achievement-card group" tabindex="0">
   <div class="flip-card-inner">
-    <div class={`flip-card-front relative flex flex-col items-center justify-end p-3 ${rarity.color} ${rarity.border} border-2 ${rarity.shadow} ${rarity.glow} transition-all duration-500 w-[120px] h-[160px] overflow-hidden`}>
+    <div class={`flip-card-front relative rounded-lg flex flex-col items-center justify-end p-3 ${rarity.color} ${rarity.border} border-2 ${rarity.shadow} ${rarity.glow} transition-all duration-500 w-[120px] h-[160px] overflow-hidden`}>
 
       <!-- Animaciones únicas por rareza -->
       {RarityAnimation && <RarityAnimation />}
@@ -72,7 +72,7 @@ const RarityAnimation = rarity.animationComponent ? animationComponents[rarity.a
 
 
     <!-- Parte trasera -->
-    <div class={`flip-card-back absolute w-full h-full ${rarity.color} ${rarity.border} border-2 p-3 flex flex-col items-center`}>
+    <div class={`flip-card-back absolute w-full rounded-lg h-full ${rarity.color} ${rarity.border} border-2 p-3 flex flex-col items-center`}>
       <div class={`inline-block px-2 py-0.5 text-center text-xs font-semibold uppercase ${rarity.text} bg-black/50 rounded-xl border ${rarity.border}`}>
         {rarity.label}
       </div>

@@ -33,33 +33,6 @@ const baseAchievements: {
   enabled: boolean;
   evaluate: (...args: any[]) => Achievement | null;
 }[] = [
-  /* {
-    id: 'host',
-    rarity: 1,
-    name: 'Host',
-    icon: Trophy,
-    description: 'Awarded for hosting a Forest Cup edition.',
-    category: thisCategory,
-    visible: true,
-    unique: false,
-    enabled: true,
-    evaluate: function (matches, tournaments, member) {
-      const h = tournaments.filter(t => t.data.host === member.data.name);
-      if (h.length < 1) return null;
-      const { evaluate, ...base } = this;
-
-      const newStars = h.length;
-      const displayStars = ((newStars - 1) % 8) + 1;; // max 8 estrellas
-
-      const list = h.map((t, i, arr) => i === arr.length - 1 && arr.length > 1 ? ` and ${t.data.edition}` : t.data.edition).join(', ');
-      const newDescription = newStars === 1 ? "Hosted the Forest Cup in " + list + "." : "Hosted the Forest Cup " + newStars + " times (" + list + ").";
-      return {
-        ...base,
-        stars: displayStars,
-        description: newDescription
-      };
-    }
-  }, */
   {
     id: 'host',
     rarity: 1,
@@ -333,7 +306,7 @@ const baseAchievements: {
     alignment: ALIGNMENTS[0],
     visible: true,
     unique: false,
-    enabled: true,
+    enabled: false,
     stars: 1,
 
     evaluate: function (matches, tournaments, member) {

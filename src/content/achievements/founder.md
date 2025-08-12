@@ -7,5 +7,5 @@ rarity: 1
 category: "Community"
 unique: false
 visible: false
-enabled: true
+enabled: false
 ---
