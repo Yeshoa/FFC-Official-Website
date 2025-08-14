@@ -5,10 +5,6 @@ Website built with **Astro**. Showcases tournaments, match details, and national
 ---
 
 ## 🚨 Must Do (High Priority)
-
-* **Create “About Us” page**
-  Explain the NationStates community, the Forest lore, and why/how the FFC was founded.
-
 * **Create key Articles**
   * “How the Website Works” (actual article is a placeholder)
   * "How players are generated"
@@ -22,6 +18,8 @@ Website built with **Astro**. Showcases tournaments, match details, and national
 ---
 
 ## ⚙️ Should Do (Medium Priority)
+* **Create “About Us” page**
+  Explain the NationStates community, the Forest lore, and why/how the FFC was founded.
 * **To do articles:**
   * “How to write an article”
   * “Presenting Achievements”
