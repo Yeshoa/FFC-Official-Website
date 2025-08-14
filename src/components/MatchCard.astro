@@ -5,6 +5,7 @@ import { getMemberByName } from '@lib/memberUtils';
 import { areThereScorers, getMatchWinner, getMatchResult, getMatchRedCards } from '@lib/matchUtils';
 import GoalIcon from '@images/goal.png';
 import defaultFlag from '@images/tournaments/default-flag.png';
+import { LOCALE } from '@lib/generalUtils';
 interface Props { 
   match: CollectionEntry<'matches'>['data'];
   members: any[];
@@ -71,7 +72,7 @@ const redCards = getMatchRedCards(match);
         ) : match.status === 'scheduled' ? (
             <span class="text-sm md:text-base font-light text-gray-300 block">vs</span>
              <span class="text-xs text-gray-400 block mt-0.5">
-                 {match.date.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit'})}
+                 {match.date.toLocaleTimeString(LOCALE, {hour12: false, hour: 'numeric', minute: 'numeric'})}
              </span>
         ) : (
             <span class="text-sm font-light text-red-400">VS</span>
@@ -233,7 +234,7 @@ const redCards = getMatchRedCards(match);
   {/* Mostrar Fecha si está programado */}
   {match.status === 'scheduled' && (
     <div class="text-center text-xs text-gray-400 mt-2">
-      {match.date.toLocaleDateString('es-ES', { day: 'numeric', month: 'short' })}
+      {match.date.toLocaleDateString(LOCALE, { day: 'numeric', month: 'long' })}
     </div>
   )}
 </div>

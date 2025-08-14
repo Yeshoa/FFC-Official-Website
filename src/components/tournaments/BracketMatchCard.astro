@@ -4,6 +4,7 @@ import type { ImageMetadata } from 'astro';
 import type { CollectionEntry } from 'astro:content';
 import { getMemberByName, getMemberImage } from '@lib/memberUtils';
 import { getMatchResult, getMatchWinnerIncludingPenalties } from '@lib/matchUtils';
+import { LOCALE } from '@lib/generalUtils';
 
 interface Goal {
   team: string;
@@ -67,7 +68,7 @@ const team2 = getMemberByName(match.data.team2, members);
 
 // Formatear la fecha si el partido está programado
 const formattedDate = match.data.status === 'scheduled' 
-  ? match.data.date.toLocaleDateString('es-ES', { day: '2-digit', month: 'short' })
+  ? match.data.date.toLocaleDateString(LOCALE, { day: '2-digit', month: 'short' })
   : null;
 ---
 <div class="bg-green-950/70 rounded-lg p-4 w-full hover:bg-black/30">

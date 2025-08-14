@@ -1,6 +1,6 @@
 ---
 import  { type CollectionEntry } from 'astro:content';
-import { getTournaments } from '@lib/generalUtils';
+import { getTournaments, LOCALE } from '@lib/generalUtils';
 import { getMatchResult, getPenaltiesResult } from '@lib/matchUtils.ts';
 import { getMemberImage } from '@lib/memberUtils.ts';
 import { Image } from 'astro:assets';
@@ -32,7 +32,7 @@ const penaltyText = penalties
       <span class="font-semibold">{tournament?.data.type === 'forest-cup' ? 'Forest Cup' : 'Champions League'} {tournament?.data.edition}</span>
       <span>{match.group ? 'Groups' : match.fixture ? match.fixture : ''}</span>
     </div>
-    <span>{date.toLocaleDateString()}</span>
+    <span>{date.toLocaleDateString(LOCALE, { day: 'numeric', month: 'short', year: 'numeric' })}</span>
   </div>
   <div class="w-full flex items-center justify-center gap-2 text-sm text-white">
     <!-- Team 1 -->
