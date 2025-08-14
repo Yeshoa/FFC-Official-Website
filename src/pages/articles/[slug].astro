@@ -90,10 +90,11 @@ const recentArticles = allArticles
           <div class="mb-8">
             <Image 
               src={data.image} 
-              alt={`Featured image for ${data.title}`}
+              alt={`Image of ${data.title}`}
               class="rounded-xl shadow-lg h-80 w-full object-cover"
               quality={70}
               width={800}
+              loading={"eager"}
               format="webp"
             />
           </div>
