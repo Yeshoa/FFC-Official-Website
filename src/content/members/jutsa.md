@@ -18,7 +18,7 @@ score:
     "3":
       poetry: 27.7
       quiz: 135
-      mm:1
+      mm: 1
 manualAchievements: 
   - "founder"
 tierHistory:
