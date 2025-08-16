@@ -24,6 +24,7 @@ score:
     "3": 
       poetry: 22.7
       quiz: 115
+      mm: 1
 squad:
   coach: "Kruretj Bisaza"
   formation: "4-2-3-1"
