@@ -231,3 +231,138 @@ export function getAllGoals(memberName: string, allMatches: Match[]) {
   }
   return goals;
 }
+
+// Encuentra el partido con más goles totales
+export function getHighestScoringMatch(matches: Match[]): Match | null {
+  if (matches.length === 0) return null;
+  
+  return matches.reduce((highest, current) => {
+    const currentGoals = getTotalGoals(current);
+    const highestGoals = getTotalGoals(highest);
+    return currentGoals > highestGoals ? current : highest;
+  });
+}
+
+// Encuentra la mayor goleada (diferencia de goles)
+export function getBiggestBlowout(matches: Match[]): { match: Match; goalDifference: number } | null {
+  if (matches.length === 0) return null;
+  
+  let biggestBlowout = { match: matches[0], goalDifference: 0 };
+  
+  matches.forEach(match => {
+    const result = getMatchResult(match);
+    const difference = Math.abs(result.team1 - result.team2);
+    
+    if (difference > biggestBlowout.goalDifference) {
+      biggestBlowout = { match, goalDifference: difference };
+    }
+  });
+  
+  return biggestBlowout.goalDifference > 0 ? biggestBlowout : null;
+}
+
+// Encuentra el partido con más penales ejecutados
+export function getMatchWithMostPenalties(matches: Match[]): { match: Match; penaltyCount: number } | null {
+  if (matches.length === 0) return null;
+  
+  let maxPenalties = { match: matches[0], penaltyCount: 0 };
+  
+  matches.forEach(match => {
+    const penaltyCount = match.data.penalties?.length || 0;
+    
+    if (penaltyCount > maxPenalties.penaltyCount) {
+      maxPenalties = { match, penaltyCount };
+    }
+  });
+  
+  return maxPenalties.penaltyCount > 0 ? maxPenalties : null;
+}
+
+// Encuentra la mayor remontada (equipo que iba perdiendo y terminó ganando)
+export function getBiggestComeback(matches: Match[]): { match: Match; comebackSize: number } | null {
+  if (matches.length === 0) return null;
+  
+  let biggestComeback = { match: matches[0], comebackSize: 0 };
+  
+  matches.forEach(match => {
+    if (!match.data.goals || match.data.goals.length === 0) return;
+    
+    const finalResult = getMatchResult(match);
+    const goals = [...match.data.goals].sort((a, b) => (a.minute || 0) - (b.minute || 0));
+    
+    let team1Score = 0;
+    let team2Score = 0;
+    let maxDeficit = 0;
+    let comebackTeam = null;
+    
+    goals.forEach(goal => {
+      if (goal.team === match.data.team1) {
+        team1Score++;
+      } else {
+        team2Score++;
+      }
+      
+      const currentDeficit = Math.abs(team1Score - team2Score);
+      const leadingTeam = team1Score > team2Score ? match.data.team1 : match.data.team2;
+      
+      if (currentDeficit > maxDeficit) {
+        maxDeficit = currentDeficit;
+        comebackTeam = leadingTeam === match.data.team1 ? match.data.team2 : match.data.team1;
+      }
+    });
+    
+    // Verificar si hubo remontada
+    const winner = finalResult.team1 > finalResult.team2 ? match.data.team1 : 
+                   finalResult.team2 > finalResult.team1 ? match.data.team2 : null;
+    
+    if (winner === comebackTeam && maxDeficit > biggestComeback.comebackSize) {
+      biggestComeback = { match, comebackSize: maxDeficit };
+    }
+  });
+  
+  return biggestComeback.comebackSize > 0 ? biggestComeback : null;
+}
+
+// Encuentra el jugador con más goles en un solo partido
+export function getPlayerWithMostGoalsInMatch(matches: Match[]): { match: Match; player: string; goals: number } | null {
+  if (matches.length === 0) return null;
+  
+  let maxGoalsInMatch = { match: matches[0], player: '', goals: 0 };
+  
+  matches.forEach(match => {
+    const goalScorers = getGoalScorers(match);
+    
+    Object.entries(goalScorers).forEach(([player, goals]) => {
+      if (goals > maxGoalsInMatch.goals) {
+        maxGoalsInMatch = { match, player, goals };
+      }
+    });
+  });
+  
+  return maxGoalsInMatch.goals > 0 ? maxGoalsInMatch : null;
+}
+
+// Encuentra partidos de final por tipo de torneo
+export function getFinalMatches(matches: Match[]): Match[] {
+  return matches.filter(match => {
+    const matchFixture = match.data.fixture.toLowerCase();
+    return matchFixture.includes('final') && !matchFixture.includes('semi') && !matchFixture.includes('quarter');
+  });
+}
+
+// Encuentra el partido con más tarjetas
+export function getMatchWithMostCards(matches: Match[]): { match: Match; cardCount: number } | null {
+  if (matches.length === 0) return null;
+  
+  let maxCards = { match: matches[0], cardCount: 0 };
+  
+  matches.forEach(match => {
+    const cardCount = match.data.cards?.length || 0;
+    
+    if (cardCount > maxCards.cardCount) {
+      maxCards = { match, cardCount };
+    }
+  });
+  
+  return maxCards.cardCount > 0 ? maxCards : null;
+}

@@ -6,6 +6,7 @@ import { calculateCurrentBonusPoints, calculatePastBonusPoints } from "./bonusUt
 import { CURRENT_TOURNAMENT_ID } from "@lib/tournamentUtils";
 import { calculateCurrentRoleplayPoints, calculatePastRoleplayPoints } from "./roleplayUtils";
 import { getTournaments } from '@lib/collections';
+import { getMemberTier } from "./memberUtils";
 
 // 🟢 Tipos
 type TournamentEntry = CollectionEntry<'tournaments'>;
@@ -143,6 +144,7 @@ export async function getRankedMembers(
   currentEvents: Record<string, number>
   currentBonus: Record<string, number>
   totalScore: number
+  tier: string
 }>> {
   const ranked = await Promise.all(
     members
@@ -159,9 +161,20 @@ export async function getRankedMembers(
           currentEvents: result.details.currentEvents,
           currentBonus: result.details.currentBonus,
           totalScore: result.totalScore,
+          tier: getMemberTier(result.totalScore),
         };
       })
   );
 
   return ranked.sort((a, b) => b.totalScore - a.totalScore);
+}
+
+export function getRankClass(ranking: number): string {
+  return ranking === 1
+    ? 'text-amber-300 drop-shadow-[0_0_10px_rgba(252,211,77,0.8)]'
+    : ranking === 2
+    ? 'text-slate-300 drop-shadow-[0_0_10px_rgba(203,213,225,0.7)]'
+    : ranking === 3
+    ? 'text-orange-400 drop-shadow-[0_0_10px_rgba(251,146,60,0.7)]'
+    : 'text-green-400';
 }

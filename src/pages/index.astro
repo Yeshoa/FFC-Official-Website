@@ -1,22 +1,74 @@
 ---
 import App from '../layouts/App.astro';
 import Hero from '@components/Hero.astro';
-import type { Article } from '@components/Hero.astro'; // Importamos el tipo
+import FeaturedGrid from '@components/FeaturedGrid.astro';
+import FeaturedGrid2Col from '@components/FeaturedGrid2Col.astro';
+import type { Article } from '@components/FeaturedGrid.astro';
 import KeySections from '@components/KeySections.astro';
+import MatchesSidebar from '@components/MatchesSidebar.astro';
 import type { SectionCard } from '@components/KeySections.astro';
 import AllGoals from '@images/tournaments/2024/cardImg.png';
 import Petrov from '@images/tournaments/2024/petrov-goal.png';
 import FCHistory from '@images/tournaments/fc-history.png';
 import FC26Logo from '@images/tournaments/2026/logo.png';
+import FFCBanner from '@images/FFC Banner simple.png';
 import Logo from '@images/logo.png';
 import HeroCard from '@components/HeroCard.astro';
 import Members from '@images/members3.png';
 import RelatedNews from '@components/articles/RelatedNews.astro';
 import Signup from '@images/articles/sign-up/inscription.jpg';
-import { getArticles, getMatches } from '@lib/collections';
+import { getArticles, getMatches, getMembers } from '@lib/collections';
 import { LINKS } from '@config/links';
 import MatchCard from '@components/matches/MatchCard.astro';
 import MatchCardDetailed from '@components/matches/MatchCardDetailed.astro';
+
+import CarrouselImgTwo from '@images/tournaments/2022/atsvea-champions.png';
+import CarrouselImgThree from '@images/tournaments/trophy_panoramic.png';
+import CarrouselImgFour from '@images/tournaments/2020/rui_champions.png';
+import CarrouselImgFive from '@images/tournaments/2024/darrow_dribble.png';
+import CarrouselImgSix from '@images/nysnub3.png';
+import RankingPreview from '@components/ranking/RankingPreview.astro';
+import { ROUTES } from '@config/routes';
+
+// Datos para el carrusel del Hero (ahora dinámico)
+const carouselImages = [
+  {
+    src: CarrouselImgTwo,
+    alt: 'Atsvea Champion',
+    className: '', // Opcional
+    priority: false,
+  },
+  {
+    src: Petrov, // Esta era tu heroImage original
+    alt: 'Partido de fútbol',
+    className: 'object-[35%_-2rem] lg:object-center',
+    priority: true, // Carga eager para la principal
+  },
+  {
+    src: CarrouselImgFive,
+    alt: 'Darrow Dribble',
+    className: 'object-[55%_center] lg:object-center',
+    priority: false,
+  },
+  {
+    src: CarrouselImgSix,
+    alt: 'Nysnub Holding Ball',
+    className: '',
+    priority: false,
+  },
+  // {
+  //   src: CarrouselImgFour,
+  //   alt: 'Rui Champions',
+  //   className: 'object-[35%_center] lg:object-center',
+  //   priority: false,
+  // },
+  {
+    src: CarrouselImgThree,
+    alt: 'Trophy Panoramic',
+    className: '',
+    priority: false,
+  },
+];
 
 // --- Datos para el Grid de Noticias ---
 const featuredGridArticles: Article[] = [
@@ -24,7 +76,7 @@ const featuredGridArticles: Article[] = [
     title: "--- confirmed host for Forest Cup 2026",
     description: "",
     image: Petrov,
-    url: "/articles",
+    url: ROUTES.articles.detail("confirmed-host-for-forest-cup-2026"),
   },
   {
     title: "Anxious & Kevin 2024: All goals",
@@ -34,22 +86,22 @@ const featuredGridArticles: Article[] = [
   {
     title: "Forest Cup History",
     image: FCHistory,
-    url: "/forest-cup",
+    url: ROUTES.forestCup.index,
   },
   {
     title: "Meet the members",
     image: Members,
-    url: "/members",
+    url: ROUTES.members.index,
   },
   {
     title: "How to participate",
     image: Signup,
-    url: "/articles/signup",
+    url: ROUTES.articles.detail("signup"),
   },
   {
     title: "Collaborate with us",
-    image: Logo,
-    url: "https://discord.com/invite/EX4sGhjbgU",
+    image: FFCBanner,
+    url: LINKS.social.discordFFC,
   },
 ];
 
@@ -80,7 +132,7 @@ const keySectionsData: SectionCard[] = [
     buttonUrl: LINKS.forms.newMember,
   }
 ];
-
+const members = await getMembers();
 const matches = await getMatches();
 const nextMatches = matches.filter(match => match.data.status === 'scheduled').reverse().slice(0, 4);
 const last4Matches = matches.filter(match => match.data.status === 'played').slice(0, 4);
@@ -90,9 +142,35 @@ articles.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 ---
 
 <App title="FFC - Forestian Football Confederation">
-	<Hero articles={featuredGridArticles} />
+  <Hero
+    heroTitle="Welcome to the FFC"
+    heroSubtitle="Explore the Football Community of Forest"
+    cta={{ text: 'Join us', href: LINKS.forms.newMember, noblank: true, logo: Logo }}
+    carouselImages={carouselImages}
+  />
+  <div class="sm:container mx-auto px-4 py-8">
+    <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8 items-start">
+      {/* Columna 1 y 2: Featured Grid (2 columnas) */}
+      <div class="col-span-1 xl:col-span-2">
+        <FeaturedGrid2Col articles={featuredGridArticles} />
+        <RankingPreview 
+          members={members} 
+          showTopCount={7}
+        />
+      </div>
+      
+      {/* Columna 3: Matches Sidebar */}
+      <div class="lg:col-span-1">
+        <MatchesSidebar 
+          lastMatches={last4Matches} 
+          nextMatches={nextMatches} 
+        />
+      </div>
+    </div>
+  </div>
+	<!-- <FeaturedGrid articles={featuredGridArticles} />
   {last4Matches.length > 0 &&
-    <div class="container mx-auto px-4 py-8 space-y-8 bg-gradient-to-b from-transparent to-green-950 rounded-3xl ">
+    <div class="container mx-auto px-4 py-8 space-y-8 bg-gradient-to-b from-transparent to-green-950 rounded-xl ">
       <h2 class="text-4xl font-bold text-center mb-10">Latest Matches</h1>
       <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-4">
         {last4Matches.map(match => (
@@ -109,21 +187,11 @@ articles.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
       </div>
     </div>
   }
-  <KeySections title="Explore the confederation" sections={keySectionsData} />
-  <!-- <div class="h-full">
-      {heroCards.map((card, index) => (
-        <HeroCard
-          title={card.title}
-          description={card.description}
-          image={card.image}
-          buttonText={card.buttonText}
-          buttonUrl={card.buttonUrl}
-          backgroundColor={card.backgroundColor}
-          imagePosition={card.imagePosition}
-          variant={card.variant}
-          noblank={card.noblank}
-        />
-      ))}
-  </div> -->
+  <RankingPreview 
+    members={members} 
+    showTopCount={5}
+  /> -->
+  <!-- <KeySections title="Explore the confederation" sections={keySectionsData} /> -->
+  <!-- <EpicMoments /> -->
   <RelatedNews articles={articles} max={12} title='Latest News'/>
 </App>

@@ -4,6 +4,7 @@ import StarIcon from '@images/icons/star-solid.svg';
 import type { CollectionEntry } from 'astro:content';
 import { getMemberTier } from '@lib/memberUtils';
 import { getPointsTextColorClass } from '@lib/scoreUtils';
+import { getRankClass } from '@lib/rankingUtils';
 import AchievementCard from '@components/achievements/AchievementCard.astro';
 import defaultLogo from '@images/members/default_logo.png';
 import Arrow from '@images/icons/arrow-up-right-from-square-solid.svg';
@@ -13,12 +14,6 @@ const { titles = [], achievements = [], memberData, ranking, points } = Astro.pr
 const { name, logoPath, flagPath, founded, affiliation, feddispatch, nslink, code, region, federation } = memberData;
 // --- DYNAMIC STYLES ---
 const logoToShow = logoPath || defaultLogo;
-
-const rankClass =
-  ranking === 1 ? 'text-amber-300 drop-shadow-[0_0_10px_rgba(252,211,77,0.8)]' :
-  ranking === 2 ? 'text-slate-300 drop-shadow-[0_0_10px_rgba(203,213,225,0.7)]' :
-  ranking === 3 ? 'text-orange-400 drop-shadow-[0_0_10px_rgba(251,146,60,0.7)]' :
-  'text-green-400';
 
 const tierClass = getPointsTextColorClass(points);
 const tier = getMemberTier(points);
@@ -91,7 +86,7 @@ const isFounder = memberData.founder === true;
           <div class="grid grid-cols-3 gap-4 text-center">
             <div>
               <p class="text-xs tracking-widest text-gray-400 uppercase mb-1">Rank</p>
-              <p class={`text-2xl sm:text-3xl font-bold ${rankClass}`}>{ranking ?? 'N/A'}</p>
+              <p class={`text-2xl sm:text-3xl font-bold ${getRankClass(ranking)}`}>{ranking ?? 'N/A'}</p>
             </div>
             <div>
               <p class="text-xs tracking-widest text-gray-400 uppercase mb-1">Score</p>
@@ -218,7 +213,7 @@ const isFounder = memberData.founder === true;
           <div class="grid grid-cols-3 text-center">
             <div>
               <p class="text-xs tracking-widest text-gray-400 uppercase mb-2">Rank</p>
-              <p class={`text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold ${rankClass}`}>{ranking ?? 'N/A'}</p>
+              <p class={`text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold ${getRankClass(ranking)}`}>{ranking ?? 'N/A'}</p>
             </div>
             <div>
               <p class="text-xs tracking-widest text-gray-400 uppercase mb-2">Score</p>

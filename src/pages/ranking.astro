@@ -1,14 +1,17 @@
 ---
 import Layout from '@layouts/App.astro'
-import RankingTable from '@components/RankingTable.astro';
-import RankingTableNew from '@components/RankingTableNew.astro';
+import RankingTable from '@components/ranking/RankingTable.astro';
+import RankingTableNew from '@components/ranking/RankingTableNew.astro';
 import RelatedNews from '@components/articles/RelatedNews.astro';
 import RankingLegend from '@components/ranking/RankingLegend.astro';
+import Legend from '@components/ranking/Legend.astro';
+import Table from '@components/ranking/Table.astro';
 
 import { getMembers, getTournaments, getMatches, getArticles } from '@lib/collections';
 import{ getArticlesByTags } from '@lib/articleUtils';
+import { CURRENT_TOURNAMENT_ID } from '@lib/tournamentUtils';
 
-const allMembers = await getMembers();
+const members = await getMembers();
 const tournaments = await getTournaments();
 const matches = await getMatches();
 const articles = await getArticles();
@@ -20,19 +23,25 @@ const filterTags = [
 const filteredArticles = getArticlesByTags(articles, filterTags);
 
 // Opcional: especificar el torneo actual
-const currentTournamentId = 3;
+const currentTournamentId = CURRENT_TOURNAMENT_ID;
 ---
 <Layout title="FFC - Ranking">
-  <main class="">
-    <!-- <RankingTable members={allMembers} /> -->
-    <RankingLegend
-      members={allMembers}
+  <main class="w-full p-6 items-center">
+    <h1 class="text-6xl font-bold mb-6 text-center animate-sladeIn">Ranking</h1>
+    <!-- <p class="text-lg mb-4 text-center opacity-0 animate-[slide-in_1s_ease-in-out_forwards_.1s]">
+      Score determines how strong your team will be. More points means higher chances to win.
+    </p> -->
+    <Legend tournaments={tournaments} />
+    <Table members={members} currentTournamentId={currentTournamentId} />
+    <!-- <RankingTable members={members} /> -->
+    <!-- <RankingLegend
+      members={members}
       tournaments={tournaments}
       matches={matches}
       currentTournamentId={currentTournamentId}
-    />
+    /> -->
     <!-- <RankingTableNew
-      members={allMembers}
+      members={members}
       tournaments={tournaments}
       matches={matches}
       currentTournamentId={currentTournamentId}

@@ -128,7 +128,7 @@ for (const match of playedMatches) {
   }
 }
 
-const memberRank = getMemberRank(member, CURRENT_TOURNAMENT_ID);
+const memberRank = await getMemberRank(member, CURRENT_TOURNAMENT_ID);
 const memberTotalScoreResult = await getMemberTotalScore(member, CURRENT_TOURNAMENT_ID);
 const memberTotalScore = memberTotalScoreResult.totalScore;
 const titles = tournaments

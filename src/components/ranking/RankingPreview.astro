@@ -1,0 +1,109 @@
+---
+import { Image } from 'astro:assets';
+import { getRankedMembers, getRankClass } from '@lib/rankingUtils';
+import { getPointsTextColorClass } from '@lib/scoreUtils';
+import { CURRENT_TOURNAMENT_ID } from '@lib/tournamentUtils';
+import defaultFlag from '@images/tournaments/default-flag.png';
+import { ROUTES } from '@config/routes';
+const { members, showTopCount = 10 } = Astro.props;
+
+const rankedMembers = await getRankedMembers(members, CURRENT_TOURNAMENT_ID);
+const topMembers = rankedMembers.slice(0, showTopCount);
+---
+
+<div class="sm:container mx-auto py-8">
+  <div class="text-center mb-8">
+    <h2 class="text-4xl font-bold mb-4">Current Ranking</h2>
+    <p class="text-lg text-green-300 mb-6">
+      The strongest teams in the confederation right now
+    </p>
+  </div>
+
+  <div class="max-w-4xl mx-auto">
+      {/* Top 3 */}
+      <div class="grid md:grid-cols-3 gap-6 mb-8">
+        {topMembers.slice(0, 3).map((team, index) => {
+          const position = index + 1;
+          const isFirst = position === 1;
+          const medalColors = ['text-yellow-400', 'text-gray-300', 'text-amber-600'];
+          const bgColors = ['bg-gradient-to-br from-yellow-500/20 to-yellow-600/10', 'bg-gradient-to-br from-gray-400/20 to-gray-500/10', 'bg-gradient-to-br from-amber-600/20 to-amber-700/10'];
+          
+          return (
+            <div class={`${bgColors[index]} rounded-lg p-4 border ${isFirst ? 'border-yellow-500/30 transform scale-105' : 'border-green-700/30'} transition-transform hover:scale-110 duration-300`}>
+              <div class="text-center">
+                <div class={`text-3xl font-bold ${getRankClass(position)} mb-2`}>
+                  {position}°
+                </div>
+                <Image 
+                  src={team.flag || defaultFlag} 
+                  alt={team.name} 
+                  quality={30} 
+                  format="webp"
+                  width={60} 
+                  class="h-8 w-auto object-cover rounded mx-auto mb-2" 
+                />
+                <a href={`${ROUTES.members.detail(team.slug)}`} class="font-bold text-white mb-2 hover:underline">{team.name}</a>
+                <div class={`text-2xl font-bold w-fit mx-auto p-2`}>
+                  <span>{team.totalScore}</span> 
+                  <span class="text-sm text-green-300 font-medium">pts</span>
+                  <span class={`${getPointsTextColorClass(team.totalScore)}`}>
+                    {team.tier}
+                  </span>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Resto del Top */}
+      {topMembers.length > 3 && (
+        <div class="space-y-3">
+          {topMembers.slice(3).map((team, index) => {
+            const position = index + 4;
+            return (
+              <div class="flex items-center justify-between bg-green-800/20 rounded-lg p-4 hover:bg-green-700/30 transition-colors duration-200">
+                <div class="flex items-center gap-2 md:gap-4">
+                  <div class="text-xl font-bold text-green-300 w-fit">
+                    {position}°
+                  </div>
+                  <Image 
+                    src={team.flag || defaultFlag} 
+                    alt={team.name} 
+                    quality={20} 
+                    format="webp"
+                    width={40} 
+                    class="h-6 w-auto object-cover rounded" 
+                  />
+                  <a href={`${ROUTES.members.detail(team.slug)}`} class="font-semibold text-white hover:underline">{team.name}</a>
+                </div>
+                <div class={`text-xl font-bold`}>
+                  <span>{team.totalScore}</span> 
+                  <span class="text-sm text-green-300 font-medium hidden sm:inline">pts</span>
+                  <span class={`${getPointsTextColorClass(team.totalScore)}`}>
+                    {team.tier}
+                  </span>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
+
+      {/* Call to action */}
+      <div class="text-center mt-8 pt-6 border-t border-green-700/30">
+        <p class="text-green-300 mb-4">
+          Want to see the complete ranking and understand how points work?
+        </p>
+        <a 
+          href={ROUTES.ranking} 
+          class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-500 hover:to-green-600 text-white font-semibold rounded-lg transition-all duration-300 transform hover:scale-105"
+        >
+          View Full Ranking
+          <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </a>
+      </div>
+  </div>
+</div>

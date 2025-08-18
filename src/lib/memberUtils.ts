@@ -46,19 +46,23 @@ export function getMemberLogo(
   return member?.data.logoPath ?? null;
 }
 
-export function getMemberRank(
+export async function getMemberRank(
   member: CollectionEntry<'members'> | null,
   currentTournamentId: number = CURRENT_TOURNAMENT_ID
-): number | null {
+): Promise<number | null> {
   if (!member) return null;
 
-  const rankedMembers = members
-    .filter(m => m.data.verified)
-    .map(m => ({
-      name: m.data.name,
-      totalScore: getMemberTotalScore(m, tournaments, matches, currentTournamentId).totalScore,
-    }))
-    .sort((a, b) => b.totalScore - a.totalScore);
+  // esperar a que se resuelvan todos los scores
+  const rankedMembers = (
+    await Promise.all(
+      members
+        .filter(m => m.data.verified)
+        .map(async m => ({
+          name: m.data.name,
+          totalScore: (await getMemberTotalScore(m, currentTournamentId)).totalScore,
+        }))
+    )
+  ).sort((a, b) => b.totalScore - a.totalScore);
 
   const rankIndex = rankedMembers.findIndex(m => m.name === member.data.name);
   return rankIndex === -1 ? null : rankIndex + 1;

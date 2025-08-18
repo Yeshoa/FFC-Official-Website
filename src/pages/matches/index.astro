@@ -1,0 +1,197 @@
+---
+import App from '@layouts/App.astro';
+import { getMatches, getTournaments } from '@lib/collections';
+import MatchCardDetailed from '@components/matches/MatchCardDetailed.astro';
+
+const matches = await getMatches();
+const tournaments = await getTournaments();
+
+// Calcular estadísticas globales
+const playedMatches = matches.filter(m => m.data.status === 'played');
+const totalMatches = matches.length;
+const totalPlayedMatches = playedMatches.length;
+const totalScheduledMatches = matches.filter(m => m.data.status === 'scheduled').length;
+
+// Calcular goles totales
+const totalGoals = playedMatches.reduce((total, match) => {
+  return total + (match.data.goals?.length || 0);
+}, 0);
+
+// Calcular promedio de goles por partido
+const avgGoalsPerMatch = totalPlayedMatches > 0 ? (totalGoals / totalPlayedMatches).toFixed(2) : '0.00';
+
+// Calcular tarjetas totales
+const totalCards = playedMatches.reduce((total, match) => {
+  return total + (match.data.cards?.length || 0);
+}, 0);
+
+const yellowCards = playedMatches.reduce((total, match) => {
+  return total + (match.data.cards?.filter(card => card.type === 'yellow').length || 0);
+}, 0);
+
+const redCards = playedMatches.reduce((total, match) => {
+  return total + (match.data.cards?.filter(card => card.type === 'red').length || 0);
+}, 0);
+
+// Calcular partidos con penales
+const matchesWithPenalties = playedMatches.filter(match => match.data.penalties && match.data.penalties.length > 0).length;
+
+// Agrupar partidos por torneo
+const matchesByTournament = tournaments.reverse().map(tournament => {
+  return {
+    tournament,
+    matches: matches.filter(m => m.data.tournament_id === tournament.data.id),
+  };
+});
+
+const finalMatches = matches.filter(m => m.data.fixture === 'Final' && m.data.status === 'played');
+---
+
+<App title="FFC - Matches">
+  <main class="flex flex-col items-center pt-5">
+    <div class="flex flex-col items-center w-full max-w-8xl justify-center p-6">
+      <h1 class="text-6xl mb-5 font-bold animate-sladeIn text-center">All FFC Matches</h1>
+      <p class="text-lg mb-8 opacity-0 text-center animate-[slide-in_1s_ease-in-out_forwards_.1s]">
+        This is a list of all the matches ever played in FFC competitions.
+      </p>
+
+      <!-- Sección de Estadísticas Globales -->
+      <section class="w-full mb-12 opacity-0 animate-[slide-in_1s_ease-in-out_forwards_.2s]">
+        <h2 class="text-4xl font-bold mb-8 text-center">
+          Global Statistics
+        </h2>
+        
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <!-- Total de Partidos -->
+          <!-- <div class="bg-green-900 rounded-xl p-6 text-center shadow-md hover:shadow-lg transition-shadow">
+            <div class="text-3xl font-bold text-blue-400 mb-2">
+              {totalMatches}
+            </div>
+            <div class="text-sm text-slate-300 font-medium">
+              Total Matches
+            </div>
+          </div> -->
+
+          <!-- Partidos Jugados -->
+          <div class="bg-green-900 rounded-xl p-6 text-center shadow-md hover:shadow-lg transition-shadow">
+            <div class="text-3xl font-bold text-green-500 mb-2">
+              {totalPlayedMatches}
+            </div>
+            <div class="text-sm text-slate-300 font-medium">
+              Played Matches
+            </div>
+          </div>
+
+          <!-- Partidos Programados -->
+          <div class="bg-green-900 rounded-xl p-6 text-center shadow-md hover:shadow-lg transition-shadow">
+            <div class="text-3xl font-bold text-orange-500 mb-2">
+              {totalScheduledMatches}
+            </div>
+            <div class="text-sm text-slate-300 font-medium">
+              Scheduled
+            </div>
+          </div>
+
+          <!-- Total de Torneos -->
+          <!-- <div class="bg-green-900 rounded-xl p-6 text-center shadow-md hover:shadow-lg transition-shadow">
+            <div class="text-3xl font-bold text-purple-400 mb-2">
+              {tournaments.length}
+            </div>
+            <div class="text-sm text-slate-300 font-medium">
+              Tournaments
+            </div>
+          </div> -->
+
+          <!-- Goles Totales -->
+          <div class="bg-green-900 rounded-xl p-6 text-center shadow-md hover:shadow-lg transition-shadow">
+            <div class="text-3xl font-bold text-red-500 mb-2">
+              {totalGoals}
+            </div>
+            <div class="text-sm text-slate-300 font-medium">
+              Total Goals
+            </div>
+          </div>
+
+          <!-- Promedio de Goles -->
+          <div class="bg-green-900 rounded-xl p-6 text-center shadow-md hover:shadow-lg transition-shadow">
+            <div class="text-3xl font-bold text-cyan-500 mb-2">
+              {avgGoalsPerMatch}
+            </div>
+            <div class="text-sm text-slate-300 font-medium">
+              Goals per Match
+            </div>
+          </div>
+
+          {/*<!-- Tarjetas Amarillas -->
+          <div class="bg-green-900 rounded-xl p-6 text-center shadow-md hover:shadow-lg transition-shadow">
+            <div class="text-3xl font-bold text-yellow-400 mb-2">
+              {yellowCards}
+            </div>
+            <div class="text-sm text-slate-300 font-medium">
+              Yellow Cards
+            </div>
+          </div>
+
+          <!-- Tarjetas Rojas -->
+          <div class="bg-green-900 rounded-xl p-6 text-center shadow-md hover:shadow-lg transition-shadow">
+            <div class="text-3xl font-bold text-red-500 mb-2">
+              {redCards}
+            </div>
+            <div class="text-sm text-slate-300 font-medium">
+              Red Cards
+            </div>
+          </div>
+        </div>
+
+        <!-- Estadísticas adicionales en una fila separada -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+          <!-- Partidos con Penales -->
+          <div class="bg-green-900 rounded-xl p-6 text-center shadow-md hover:shadow-lg transition-shadow">
+            <div class="text-3xl font-bold text-cyan-400 mb-2">
+              {matchesWithPenalties}
+            </div>
+            <div class="text-sm text-slate-300 font-medium">
+              Matches with Penalties
+            </div>
+          </div>
+
+          <!-- Total de Tarjetas -->
+          <div class="bg-green-900 rounded-xl p-6 text-center shadow-md hover:shadow-lg transition-shadow">
+            <div class="text-3xl font-bold text-slate-400 mb-2">
+              {totalCards}
+            </div>
+            <div class="text-sm text-slate-300 font-medium">
+              Total Cards
+            </div>
+          </div>
+        </div>*/}
+      </section>
+      <!-- Finales -->
+      {finalMatches.length > 0 && (
+      <section class="w-full mb-12 opacity-0 animate-[slide-in_1s_ease-in-out_forwards_.8s]">
+        <h2 class="text-3xl font-bold mb-6 text-center text-yellow-400">
+          The Finals
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+          {finalMatches.map(finalMatch => (
+            <MatchCardDetailed match={finalMatch} />
+          ))}
+        </div>
+      </section>
+      )}
+      <!-- Sección de Partidos por Torneo -->
+      {matchesByTournament.map(({ tournament, matches }) => (
+        <section class="w-full mb-12 opacity-0 animate-[slide-in_1s_ease-in-out_forwards_.8s]">
+          <h2 class="text-3xl font-bold mb-6 text-center">
+            {tournament.data.type === 'forest-cup' ? 'Forest Cup' : 'Champions League'} {tournament.data.name}
+          </h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+            {matches.map(match => (
+              <MatchCardDetailed match={match} />
+            ))}
+          </div>
+        </section>
+      ))}
+    </div>
+  </main>
+</App>

@@ -24,8 +24,8 @@ export async function calculatePastBonusPoints(
     const tournamentIdStr = tournamentId.toString();
     const bonuses = memberBonus[tournamentIdStr] || {};
     const totalTournamentBonus = Object.values(bonuses).reduce((s, p) => s + p, 0);
-    // Automatic calculation
-    const hostPoints = tournaments.find((t) => t.data.id === tournamentId)?.data.host === member.data.name ? SCORING_CONFIG.BO_MAX : 0;
+    // Automatic calculation, deny Bilsa 2 first hosts
+    const hostPoints = member.data.name === 'Bilsa' ? 0 : tournaments.find((t) => t.data.id === tournamentId)?.data.host === member.data.name ? SCORING_CONFIG.BO_MAX : 0;
 
     const decayFactor = decayFactors[index] || 0;
     return sum + (totalTournamentBonus + hostPoints) * decayFactor;

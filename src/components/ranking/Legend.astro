@@ -1,0 +1,249 @@
+---
+import { SCORING_CONFIG } from '@lib/scoreUtils';
+import Arrow from '@images/icons/arrow-up-right-from-square-solid.svg';
+
+const { tournaments } = Astro.props;
+
+// Calcular la próxima edición dinámicamente
+const getNextEdition = () => {
+  if (!tournaments || tournaments.length === 0) return 2026; // Fallback
+  const maxEdition = Math.max(...tournaments.map(t => t.data.edition));
+  return maxEdition;
+};
+
+const nextEdition = getNextEdition();
+---
+
+<div class="max-w-7xl mx-auto bg-green-900/30 rounded-lg p-6 mb-7 opacity-0 animate-[slide-in_1s_ease-in-out_forwards_.15s]">
+  <div class="bg-green-800/20 rounded-lg p-2 mb-4">
+    <p class="text-sm text-green-200 text-center">
+      Your <strong>Total Score</strong> combines roleplay, events, bonuses, and past performance with decay. 
+      <br>
+      Higher scores mean higher chances to win, better seeding and direct qualification!
+    </p>
+    <div class="text-center mt-3">
+      <a href="/articles/ranking" class="inline-flex items-center px-4 py-2 bg-green-700/50 hover:bg-green-600/50 text-green-200 rounded-lg transition-colors duration-200 text-sm font-medium">
+        Read Full Detailed Explanation
+      </a>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+    
+    <div class="bg-green-800/10 rounded-lg p-4">
+      <h4 class="font-semibold text-green-300 mb-2 text-center">Roleplay</h4>
+      
+      <div class="space-y-2 text-sm text-green-200">
+        <div class="flex justify-between items-center">
+          <span><strong>Hist:</strong></span>
+          <span class="text-xs text-green-400">{SCORING_CONFIG.RP_MAX} Pts.</span>
+        </div>
+        <p class="text-xs text-green-300 mb-3">
+          A NationStates dispatch covering team history, league creation, or football lore.
+        </p>
+        
+        <div class="flex justify-between items-center">
+          <span><strong>FCM:</strong></span>
+          <span class="text-xs text-green-400">{SCORING_CONFIG.RP_MAX} Pts.</span>
+        </div>
+        <p class="text-xs text-green-300 mb-3">
+          Any roleplay about this edition of the Forest Cup, or a mention in your dispatch for this edition, either in text or results section.
+        </p>
+
+        <div class="flex justify-between items-center">
+          <span><strong>UR:</strong></span>
+          <span class="text-xs text-green-400">{SCORING_CONFIG.RP_MAX} Pts.</span>
+        </div>
+        <p class="text-xs text-green-300 mb-3">
+          Updated roster submission with current squad and formation for this edition.
+        </p>
+
+        <div class="flex justify-between items-center">
+          <span><strong>AR:</strong></span>
+          <span class="text-xs text-green-400">{SCORING_CONFIG.RP_MAX} Pts.</span>
+        </div>
+        <p class="text-xs text-green-300">
+          One article for the website about anything (football related of course). Additional articles do not accumulate points.
+        </p>
+      </div>
+    </div>
+
+    <div class="bg-green-800/10 rounded-lg p-4">
+      <h4 class="font-semibold text-green-300 mb-2 text-center">Events</h4>
+      
+      <div class="space-y-2 text-sm text-green-200">
+        <div class="flex justify-between items-center">
+          <span><strong>PF:</strong></span>
+          <span class="text-xs text-green-400">Max {SCORING_CONFIG.EV_MAX} Pts.</span>
+        </div>
+        <p class="text-xs text-green-300 mb-2">
+          <a href="https://www.nationstates.net/page=dispatch/id=2664340" target="_blank" class="text-blue-300 hover:text-blue-200">Poetry Fantasia <Arrow class="inline w-3 h-3 fill-blue-400 ml-1" /></a> contest points
+        </p>
+        
+        <div class="flex justify-between items-center">
+          <span><strong>FB:</strong></span>
+          <span class="text-xs text-green-400">Max {SCORING_CONFIG.EV_MAX} Pts.</span>
+        </div>
+        <p class="text-xs text-green-300 mb-2">
+          <a href="https://www.nationstates.net/page=rmb/postid=60040670" class="text-blue-300 hover:text-blue-200">Flag & Banner <Arrow class="inline w-3 h-3 fill-blue-400 ml-1" /></a> design points
+        </p>
+
+        <div class="flex justify-between items-center">
+          <span><strong>MM:</strong></span>
+          <span class="text-xs text-green-400">Max {SCORING_CONFIG.EV_MAX} Pts.</span>
+        </div>
+        <p class="text-xs text-green-300 mb-2">
+          <a href="https://www.nationstates.net/page=dispatch/id=2687574" class="text-blue-300 hover:text-blue-200">Murder Mystery <Arrow class="inline w-3 h-3 fill-blue-400 ml-1" /></a> event points
+        </p>
+
+        <div class="flex justify-between items-center">
+          <span><strong>Quiz:</strong></span>
+          <span class="text-xs text-green-400">Max {SCORING_CONFIG.EV_MAX} Pts.</span>
+        </div>
+        <p class="text-xs text-green-300 mb-2">
+          <a href="https://www.nationstates.net/page=rmb/postid=60040670" class="text-blue-300 hover:text-blue-200">Forest Quiz <Arrow class="inline w-3 h-3 fill-blue-400 ml-1" /></a> points
+        </p>
+
+        <div class="flex justify-between items-center">
+          <span><strong>SH:</strong></span>
+          <span class="text-xs text-green-400">Max {SCORING_CONFIG.EV_MAX} Pts.</span>
+        </div>
+        <p class="text-xs text-green-300 mb-2">
+          <a href="#" class="text-blue-300 hover:text-blue-200">Scavenger Hunt <Arrow class="inline w-3 h-3 fill-blue-400 ml-1" /></a> challenge points
+        </p>
+
+        <div class="flex justify-between items-center">
+          <span><strong>CG:</strong></span>
+          <span class="text-xs text-green-400">Max {SCORING_CONFIG.EV_MAX} Pts.</span>
+        </div>
+        <p class="text-xs text-green-300">
+          <a href="https://www.nationstates.net/page=dispatch/id=2689546" class="text-blue-300 hover:text-blue-200">Forest Connections Grid <Arrow class="inline w-3 h-3 fill-blue-400 ml-1" /></a> puzzle points
+        </p>
+      </div>
+    </div>
+
+    <div class="bg-green-800/10 rounded-lg p-4">
+      <h4 class="font-semibold text-green-300 mb-2 text-center">Bonus</h4>
+      
+      <div class="space-y-2 text-sm text-green-200">
+        <div class="flex justify-between items-center">
+          <span><strong>Host:</strong></span>
+          <span class="text-xs text-green-400">{SCORING_CONFIG.BO_MAX} Pts.</span>
+        </div>
+        <p class="text-xs text-green-300 mb-3">
+          {SCORING_CONFIG.BO_MAX} points for hosting a Forest Cup tournament edition.
+        </p>
+        
+        <div class="flex justify-between items-center">
+          <span><strong>Eggs:</strong></span>
+          <span class="text-xs text-green-400">Max 20 Pts.</span>
+        </div>
+        <p class="text-xs text-green-300 mb-3">
+          4 points per easter egg discovered throughout the edition.
+        </p>
+
+        <div class="flex justify-between items-center">
+          <span><strong>Extra:</strong></span>
+          <span class="text-xs text-green-400">Variable</span>
+        </div>
+        <p class="text-xs text-green-300">
+          Variable points for exceptional contributions and dedication.
+        </p>
+      </div>
+    </div>
+
+    <div class="bg-green-800/10 rounded-lg p-4">
+      <h4 class="font-semibold text-green-300 mb-2 text-center">Past Performance</h4>
+      
+      <div class="space-y-2 text-sm text-green-200">
+        <div class="flex justify-between items-center">
+          <span><strong>RP:</strong></span>
+          <span class="text-xs text-green-400">Decay</span>
+        </div>
+        <p class="text-xs text-green-300 mb-2">
+          Decayed roleplay points from previous editions
+        </p>
+        
+        <div class="flex justify-between items-center">
+          <span><strong>Events:</strong></span>
+          <span class="text-xs text-green-400">Decay</span>
+        </div>
+        <p class="text-xs text-green-300 mb-2">
+          Decayed event points from previous editions
+        </p>
+
+        <div class="flex justify-between items-center">
+          <span><strong>Bonus:</strong></span>
+          <span class="text-xs text-green-400">Decay</span>
+        </div>
+        <p class="text-xs text-green-300 mb-2">
+          Decayed bonus points from previous editions
+        </p>
+
+        <div class="flex justify-between items-center">
+          <span><strong>Results:</strong></span>
+          <span class="text-xs text-green-400">Decay</span>
+        </div>
+        <p class="text-xs text-green-300">
+          Decayed tournament performance points from previous editions
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-gradient-to-r from-green-800/20 to-blue-800/20 rounded-lg p-4">
+    <h4 class="font-semibold text-green-300 mb-2 text-center">Understanding the Decay System</h4>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+      <div>
+        <p class="text-green-200 mb-2">
+          <strong>Purpose:</strong> Recent activity weighs more than ancient achievements. This keeps rankings dynamic and rewards current participation over old glory.
+        </p>
+        <p class="text-green-300 text-xs">
+          <strong>Example:</strong> 10 points from last edition count as 10 points. 
+          The same 10 points from two editions ago only count as 5 points (50% decay).
+        </p>
+      </div>
+      <div class="text-center">
+        <div class="inline-block bg-green-900/30 rounded-lg p-3">
+          <div class="text-xs text-green-400 space-y-1">
+            <div class="flex justify-between w-32">
+              <span>Last edition:</span>
+              <span class="text-green-300 font-bold">100%</span>
+            </div>
+            <div class="flex justify-between w-32">
+              <span>2 editions ago:</span>
+              <span class="text-yellow-300 font-bold">50%</span>
+            </div>
+            <div class="flex justify-between w-32">
+              <span>3 editions ago:</span>
+              <span class="text-orange-300 font-bold">25%</span>
+            </div>
+            <div class="flex justify-between w-32">
+              <span>4 editions ago:</span>
+              <span class="text-red-300 font-bold">10%</span>
+            </div>
+            <div class="flex justify-between w-32">
+              <span>Older than 4:</span>
+              <span class="text-gray-400 font-bold">0%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INFORMACIÓN ADICIONAL CON EDICIÓN DINÁMICA -->
+  <div class="mt-6 text-center">
+    <div class="bg-green-900/20 rounded-lg p-4">
+      <p class="text-sm text-green-300 mb-2">
+        <strong>Top 24</strong> teams qualify directly for <strong>Forest Cup {nextEdition}</strong>
+      </p>
+      <p class="text-xs text-green-400">
+        Points are calculated automatically from tournament results and events. 
+      </p>
+      <p class="text-xs text-green-500 mt-2">
+        Higher ranking = Better group stage seeding + Direct qualification advantage
+      </p>
+    </div>
+  </div>
+</div>
