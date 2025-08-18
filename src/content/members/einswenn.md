@@ -12,17 +12,6 @@ founded: 2014
 affiliation: 2024
 verified: true
 founder: true
-score:
-  rp:
-    "1":
-      history: 20
-    "2":
-      history: 20
-  bonus:
-    "2":
-      secret A1: 3
-      secret A2: 10
-      extra: 5
 manualAchievements: 
   - "founder"
   - "roleplay"

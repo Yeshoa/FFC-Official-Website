@@ -9,10 +9,6 @@ region: "Forest"
 founded: 2020
 affiliation: 2024
 verified: true
-score:
-  events:
-    "2": 
-      trivia: 15
 tierHistory:
   - tier: "S"
     edition: 2020

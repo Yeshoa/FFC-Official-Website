@@ -1,0 +1,28 @@
+[
+  {
+    "id": "bonus-fc24-1",
+    "name": "Anfitrión del Torneo",
+    "abbreviation": "Anfitrión",
+    "edition": 2024,
+    "max_score": 10,
+    "participants": [
+      {
+        "member_name": "Aeterno Tranquillitas",
+        "score": 10
+      }
+    ]
+  },
+  {
+    "id": "bonus-fc22-1",
+    "name": "Premio Fair Play",
+    "abbreviation": "Fair Play",
+    "edition": 2022,
+    "max_score": 5,
+    "participants": [
+      {
+        "member_name": "Candelwhisper Archive",
+        "score": 5
+      }
+    ]
+  }
+]

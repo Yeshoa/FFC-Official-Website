@@ -11,10 +11,6 @@ founded: 2024
 affiliation: 2024
 verified: true
 founder: true
-score:
-  events:
-    "2": 
-      events: 15
 manualAchievements: 
   - "founder"
 tierHistory:

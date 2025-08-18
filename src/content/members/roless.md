@@ -12,24 +12,6 @@ founded: 1986
 affiliation: 2024
 verified: true
 founder: true
-score:
-  rp:
-    "1":
-      history: 20
-    "2":
-      history: 20
-  events:
-    "2": 
-      events: 28
-    "3":
-      quiz: 248
-  bonus:
-    "2":
-      secret A1: 3
-      secret B1: 3
-      secret B2: 2
-      secret C1: 1
-      extra: 5
 manualAchievements: 
   - "founder"
   - "roleplay"

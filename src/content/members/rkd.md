@@ -9,10 +9,6 @@ region: "Quiet Cottage on the Edge of the Cosmos"
 founded: 2024
 affiliation: 2024
 verified: true
-score:
-  rp:
-    "2":
-      history: 6
 tierHistory:
   - tier: "E"
     edition: 2024

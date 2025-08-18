@@ -8,13 +8,6 @@ region: "Europe"
 founded: 2024
 affiliation: 2024
 verified: true
-score:
-  rp:
-    "2":
-      history: 6
-  events:
-    "2": 
-      poetry: 27
 tierHistory:
   - tier: "B"
     edition: 2024

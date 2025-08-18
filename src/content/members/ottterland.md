@@ -9,10 +9,6 @@ region: "Europe"
 founded: 2024
 affiliation: 2024
 verified: true
-score:
-  rp:
-    "2":
-      history: 12
 tierHistory:
   - tier: "D"
     edition: 2024

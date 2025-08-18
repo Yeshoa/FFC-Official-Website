@@ -12,17 +12,6 @@ founded: 1877
 affiliation: 2024
 verified: true
 founder: true
-score:
-  rp:
-    "1":
-      history: 20
-    "2":
-      history: 20
-  bonus:
-    "2":
-      secret A1: 3
-      secret B2: 2
-      secret C1: 1
 manualAchievements: 
   - "founder"
   - "roleplay"

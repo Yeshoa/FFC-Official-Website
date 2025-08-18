@@ -1,6 +1,6 @@
 import type { CollectionEntry } from "astro:content"
 import { calculateTournamentDecayPoints, getLastFourTournamentIds } from "@lib/tournamentUtils"
-import { calculateAllEventPoints, calculateEventDecayPoints, EVENT_COUNT } from "@lib/eventUtils"
+import { calculateAllEventPoints } from "@lib/eventUtils"
 import { MAX_ROLEPLAY_POINTS, normalizePoints, SCORING_CONFIG } from "./scoreUtils";
 import { calculateCurrentBonusPoints, calculatePastBonusPoints } from "./bonusUtils";
 import { CURRENT_TOURNAMENT_ID } from "@lib/tournamentUtils";
@@ -51,13 +51,12 @@ export async function getMemberTotalScore(
     }>
   }
 }> {
-  const score = member.data.score
   const lastFourIds = getLastFourTournamentIds(tournaments, currentTournamentId)
 
   {/* 🎭 ROLEPLAY */}
   // 1️⃣ ROLEPLAY POINTS (semi-automático - ACTUALES + ANTERIORES)
-  const roleplayResult = calculateCurrentRoleplayPoints(score.rp, member, currentTournamentId);
-  const pastRoleplayPointsRaw = calculatePastRoleplayPoints(score.rp, lastFourIds);
+  const roleplayResult = calculateCurrentRoleplayPoints(member, currentTournamentId);
+  const pastRoleplayPointsRaw = calculatePastRoleplayPoints(member.data.name, lastFourIds);
   /* ESTO SOLO ES POR ESTA TEMPORADA, LA QUE VIENE NO VA A SER NECESARIOOOOOO
   ESTO SOLO ES POR ESTA TEMPORADA, LA QUE VIENE NO VA A SER NECESARIOOOOOO
   ESTO SOLO ES POR ESTA TEMPORADA, LA QUE VIENE NO VA A SER NECESARIOOOOOO
@@ -74,7 +73,7 @@ export async function getMemberTotalScore(
 
   {/* 🎉 EVENTS */}
   // 2️⃣ EVENT POINTS (automático - ACTUALES + ANTERIORES)
-  const eventResult = calculateAllEventPoints(score?.events ?? {}, currentTournamentId, lastFourIds);
+  const eventResult = calculateAllEventPoints(member.data.name, currentTournamentId, lastFourIds);
   const currentEventPoints = eventResult.currentEventPoints;
   const pastEventPoints = eventResult.pastEventPoints;
   // Aplicar al TOTAL de eventos (actuales + anteriores)
@@ -82,9 +81,9 @@ export async function getMemberTotalScore(
   
   {/* 🎁 BONUS */}
   // 3️⃣ BONUS POINTS (actuales + anteriores)
-  const bonusResult = await calculateCurrentBonusPoints(score.bonus, member, currentTournamentId);
+  const bonusResult = calculateCurrentBonusPoints(member.data.name, currentTournamentId);
   const currentBonus = bonusResult.totalPoints;
-  const pastBonus = await calculatePastBonusPoints(score.bonus, member, lastFourIds);
+  const pastBonus = calculatePastBonusPoints(member.data.name, lastFourIds);
   const bonusPoints = currentBonus + pastBonus;
 
   {/* 🏆 TOURNAMENT DECAY POINTS */}

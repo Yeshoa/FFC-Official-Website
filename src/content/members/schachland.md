@@ -7,10 +7,6 @@ flagPath: "/src/assets/images/members/sch_flag.png"
 region: "Europe"
 affiliation: 2024
 verified: true
-score:
-  rp:
-    "2":
-      history: 6
 tierHistory:
   - tier: "E"
     edition: 2024

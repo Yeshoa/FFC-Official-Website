@@ -11,10 +11,6 @@ region: "Democratic Socialist Assembly"
 founded: 2020
 affiliation: 2024
 verified: true
-score:
-  rp:
-    "2":
-      history: 20
 tierHistory:
   - tier: "C"
     edition: 2024

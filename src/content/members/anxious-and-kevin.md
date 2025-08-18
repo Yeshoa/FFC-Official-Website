@@ -11,15 +11,6 @@ region: "Forest"
 founded: 2002
 affiliation: 2024
 verified: true
-score:
-  rp:
-    "2":
-      history: 20
-    # "3":
-      # fcm: 10
-  # bonus:
-  #   "2":
-  #     host: 10
 manualAchievements: 
     - "roleplay"
 tierHistory:

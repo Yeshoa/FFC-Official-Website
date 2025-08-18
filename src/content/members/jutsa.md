@@ -11,14 +11,6 @@ founded: 2022
 affiliation: 2024
 verified: true
 founder: true
-score:
-  events:
-    "2": 
-      events: 38
-    "3":
-      poetry: 27.7
-      quiz: 135
-      mm: 1
 manualAchievements: 
   - "founder"
 tierHistory:

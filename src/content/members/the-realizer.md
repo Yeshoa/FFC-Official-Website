@@ -9,15 +9,6 @@ region: "Forest"
 affiliation: 2024
 verified: true
 founder: true
-score:
-  events:
-    "3":
-      quiz: 83
-  bonus:
-    "2":
-      extra: 20
-    "3":
-      extra: 20
 manualAchievements: 
   - "founder"
   - "collaborator"

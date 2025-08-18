@@ -11,10 +11,6 @@ founded: 2020
 affiliation: 2024
 verified: true
 founder: true
-score:
-  events:
-    "2": 
-      trivia: 32
 manualAchievements: 
   - "founder"
   - "powerhouse"

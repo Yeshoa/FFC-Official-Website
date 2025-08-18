@@ -11,14 +11,6 @@ region: "Democratic Socialist Assembly"
 founded: 1920
 affiliation: 2024
 verified: true
-score:
-  rp:
-    "2":
-      history: 20
-  bonus:
-    "2":
-      secret A1: 3
-      secret C2: 1
 tierHistory:
   - tier: "C"
     edition: 2024

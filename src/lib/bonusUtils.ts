@@ -1,54 +1,58 @@
 import type { CollectionEntry } from "astro:content";
 import { CURRENT_TOURNAMENT_ID } from "./tournamentUtils";
-import { SCORING_CONFIG } from "./scoreUtils";
-import { getTournaments } from '@lib/collections';
+import bonusData from "@content/bonus.json";
+import easterEggData from "@content/easter-eggs.json";
 
-type MemberEntry = CollectionEntry<'members'>;
-type TournamentEntry = CollectionEntry<'tournaments'>;
+// Combine bonus and easter egg data into one array.
+const allBonusItems = [...bonusData, ...easterEggData];
 
-const tournaments = await getTournaments();
-
-// Función helper para obtener puntos de eventos específicos
-export const getCurrentBonusPoints = (team, bonusName: string) => {
-  return team.currentBonus?.[bonusName] || 0;
-};
-
-// Obtener el total de bonus anteriores con decay
-export async function calculatePastBonusPoints(
-  memberBonus: Record<string, Record<string, number>>,
-  member: MemberEntry,
+// Calculates past bonus and easter egg points with decay
+export function calculatePastBonusPoints(
+  memberName: string,
   lastFourTournamentIds: number[],
   decayFactors: number[] = [1.0, 0.5, 0.25, 0.1]
-): Promise<number> {
-  return Math.ceil(lastFourTournamentIds.reduce((sum, tournamentId, index) => {
-    const tournamentIdStr = tournamentId.toString();
-    const bonuses = memberBonus[tournamentIdStr] || {};
-    const totalTournamentBonus = Object.values(bonuses).reduce((s, p) => s + p, 0);
-    // Automatic calculation, deny Bilsa 2 first hosts
-    const hostPoints = member.data.name === 'Bilsa' ? 0 : tournaments.find((t) => t.data.id === tournamentId)?.data.host === member.data.name ? SCORING_CONFIG.BO_MAX : 0;
+): number {
+  const totalPastPoints = lastFourTournamentIds.reduce((sum, tournamentId, index) => {
+    // Find all bonus/ee for the member in the given past tournament
+    const pastItems = allBonusItems.filter(
+      item => item.edition === tournamentId && item.participants.some(p => p.member_name === memberName)
+    );
+
+    // Sum scores for that tournament
+    const totalTournamentBonus = pastItems.reduce((tournamentSum, item) => {
+      const participant = item.participants.find(p => p.member_name === memberName);
+      return tournamentSum + (participant ? participant.score : 0);
+    }, 0);
 
     const decayFactor = decayFactors[index] || 0;
-    return sum + (totalTournamentBonus + hostPoints) * decayFactor;
-  }, 0));
+    return sum + totalTournamentBonus * decayFactor;
+  }, 0);
+
+  return Math.ceil(totalPastPoints);
 }
-export async function calculateCurrentBonusPoints(
-  memberBonus: Record<string, Record<string, number>>,
-  member: MemberEntry,
+
+// Calculates current bonus and easter egg points
+export function calculateCurrentBonusPoints(
+  memberName: string,
   currentTournamentId: number = CURRENT_TOURNAMENT_ID
-): Promise<{
-  totalPoints: number
-  bonuses: Record<string, number>
-}> {
-  const currentTournamentIdStr = currentTournamentId.toString();
-  const currentBonuses = memberBonus[currentTournamentIdStr] || {};
+): {
+  totalPoints: number;
+  bonuses: Record<string, number>;
+} {
+  // Get all bonus/ee scores for the current edition from the JSON files
+  const currentItems = allBonusItems.filter(
+    item => item.edition === currentTournamentId && item.participants.some(p => p.member_name === memberName)
+  );
 
-  // Automatic calculation
-  const hostPoints = tournaments.find((t) => t.data.id === currentTournamentId)?.data.host === member.data.name ? SCORING_CONFIG.BO_MAX : 0;
+  const bonuses: Record<string, number> = {};
   
-  // Record de bonus por tipo
-  const bonuses: Record<string, number> = { ...currentBonuses, host: hostPoints };
+  currentItems.forEach(item => {
+    const participant = item.participants.find(p => p.member_name === memberName);
+    if (participant) {
+      bonuses[item.abbreviation] = participant.score;
+    }
+  });
 
-  // Total crudo de bonus actuales
   const totalPoints = Object.values(bonuses).reduce((sum, points) => sum + points, 0);
 
   return {
@@ -56,3 +60,8 @@ export async function calculateCurrentBonusPoints(
     bonuses,
   };
 }
+
+// Helper to get points for a specific bonus from a calculated breakdown
+export const getCurrentBonusPoints = (team: { currentBonus?: Record<string, number> }, bonusName: string): number => {
+  return team.currentBonus?.[bonusName] || 0;
+};

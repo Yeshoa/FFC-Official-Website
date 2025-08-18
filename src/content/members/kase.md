@@ -11,10 +11,6 @@ founder: true
 manualAchievements: 
   - "founder"
   - "discord"
-score:
-  rp:
-    "1":
-      history: 20
 tierHistory:
   - tier: "B"
     edition: 2022

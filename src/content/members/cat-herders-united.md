@@ -8,10 +8,6 @@ logoPath: "/src/assets/images/members/chu_logo.png"
 region: "Forest"
 verified: false
 founder: true
-score:
-  rp:
-    "0":
-      roleplayed: 10
 manualAchievements:
   - "founder"
   - "roleplay"

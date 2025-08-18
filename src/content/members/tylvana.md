@@ -9,10 +9,6 @@ region: "Forest"
 founded: 2024
 affiliation: 2024
 verified: true
-score:
-  events:
-    "2": 
-      chall: 12
 tierHistory:
   - tier: "D"
     edition: 2024

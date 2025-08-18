@@ -10,20 +10,6 @@ logoPath: "/src/assets/images/members/united_malay_federation_logo.png"
 region: "Forest"
 affiliation: 2024
 verified: true
-score:
-  rp:
-    "2":
-      history: 20
-    # "3":
-      # fcm: 10
-  events:
-    "2": 
-      trivia: 11
-      bonus: 7
-  bonus:
-    "2":
-      extra: 5
-      poll: 2
 manualAchievements: 
   - "roleplay"
   - "voter"
