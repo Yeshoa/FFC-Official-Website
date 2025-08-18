@@ -9,7 +9,9 @@ import Cup from '@images/icons/trophy-solid.svg';
 import Join from '@images/icons/user-solid.svg';
 import XMark from '@images/icons/circle-xmark-solid.svg';
 import Search from '@images/icons/magnifying-glass-solid.svg';
-import { NEW_MEMBERS_FORM_LINK } from '@lib/generalUtils';
+import { LINKS } from '@config/links';
+import { ROUTES } from '@config/routes';
+import { FEATURES } from '@config/features';
 ---
 <div class="main__cont">
   <nav class="bg-green-1000 w-full z-20 top-0 start-0 border-b border-green-600">
@@ -19,7 +21,7 @@ import { NEW_MEMBERS_FORM_LINK } from '@lib/generalUtils';
         <span class="bar"></span>
         <span class="bar"></span>
       </div>
-      <a href="/" class="flex items-center m-auto space-x-3 rtl:space-x-reverse md:m-0">
+      <a href={ROUTES.home} class="flex items-center m-auto space-x-3 rtl:space-x-reverse md:m-0">
           <!-- <img src="https://i.ibb.co/Rjf5DpJ/IMG-3057.png" class="h-8" alt="FFC Logo" loading="eager"> -->
           <Image src={FFCLogo} alt="FFC Logo"  loading="eager" height={100} quality={70} format="webp" class="navbar__logo"/>
           <!-- <span class="self-center text-2xl font-semibold whitespace-nowrap text-white hover:text-green-300">FFC</span> -->
@@ -35,37 +37,40 @@ import { NEW_MEMBERS_FORM_LINK } from '@lib/generalUtils';
       <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
         <ul class="flex flex-col p-4 md:p-0 mt-4 font-medium border rounded-lg md:space-x-4 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 border-gray-700">
           <li class="group">
-            <a href="/" class={`py-2 px-3 rounded-sm flex gap-2 items-center ${currentPath === "/" ? "text-green-600" : "text-white group-hover:text-green-300"}`}>
-              <Home width={20}  class={`${currentPath === "/" ? "fill-green-600" : "fill-white group-hover:fill-green-300"}`}/>
+            <a href={ROUTES.home} class={`py-2 px-3 rounded-sm flex gap-2 items-center ${currentPath === ROUTES.home ? "text-green-600" : "text-white group-hover:text-green-300"}`}>
+              <Home width={20}  class={`${currentPath === ROUTES.home ? "fill-green-600" : "fill-white group-hover:fill-green-300"}`}/>
               Home
             </a>
           </li>
           <li class="group">
-            <a href="/forest-cup" class={`flex gap-2 items-center py-2 px-3 rounded-sm ${currentPath.includes("/forest-cup") ? "text-green-600" : "text-white group-hover:text-green-300"}`}>
-              <Cup width={20} class={`${currentPath.includes("/forest-cup") ? "fill-green-600" : "fill-white group-hover:fill-green-300"}`} />
+            <a href={ROUTES.forestCup.index} class={`flex gap-2 items-center py-2 px-3 rounded-sm ${currentPath.includes(ROUTES.forestCup.index) ? "text-green-600" : "text-white group-hover:text-green-300"}`}>
+              <Cup width={20} class={`${currentPath.includes(ROUTES.forestCup.index) ? "fill-green-600" : "fill-white group-hover:fill-green-300"}`} />
               Forest Cup
             </a>
           </li>
-          <!-- <li>
-            <a href="/champions-league" class={`block py-2 px-3 rounded-sm ${currentPath === "/champions-league" ? "text-green-600 font-bold" : "text-white hover:text-green-300"}`}>
+          {FEATURES.championsLeague && 
+          <li>
+            <a href={ROUTES.championsLeague} class={`block py-2 px-3 rounded-sm ${currentPath === ROUTES.championsLeague ? "text-green-600 font-bold" : "text-white hover:text-green-300"}`}>
+              <Cup width={20} class={`${currentPath.includes(ROUTES.championsLeague) ? "fill-green-600" : "fill-white group-hover:fill-green-300"}`} />
               <span class="inline lg:hidden">FCL</span>
               <span class="hidden lg:inline">Champions League</span>
             </a>
-          </li> -->
+          </li>
+          }
           <li class="group">
-            <a href="/members" class={`flex gap-2 items-center py-2 px-3 rounded-sm ${currentPath.includes("/members") ? "text-green-600" : "text-white group-hover:text-green-300"}`}>
-              <Members width={16} class={`${currentPath.includes("/members") ? "fill-green-600" : "fill-white group-hover:fill-green-300"}`} />
+            <a href={ROUTES.members.index} class={`flex gap-2 items-center py-2 px-3 rounded-sm ${currentPath.includes(ROUTES.members.index) ? "text-green-600" : "text-white group-hover:text-green-300"}`}>
+              <Members width={16} class={`${currentPath.includes(ROUTES.members.index) ? "fill-green-600" : "fill-white group-hover:fill-green-300"}`} />
               Members
             </a>
           </li>
           <li class="group">
-            <a href="/ranking" class={`flex gap-2 items-center py-2 px-3 rounded-sm ${currentPath === "/ranking" ? "text-green-600" : "text-white group-hover:text-green-300"}`}>
-              <Ranking width={20} class={`${currentPath === "/ranking" ? "fill-green-600" : "fill-white group-hover:fill-green-300"}`} />
+            <a href={ROUTES.ranking} class={`flex gap-2 items-center py-2 px-3 rounded-sm ${currentPath === ROUTES.ranking ? "text-green-600" : "text-white group-hover:text-green-300"}`}>
+              <Ranking width={20} class={`${currentPath === ROUTES.ranking ? "fill-green-600" : "fill-white group-hover:fill-green-300"}`} />
               Ranking
             </a>
           </li>
           <li class="group">
-            <a href={NEW_MEMBERS_FORM_LINK} target="_blank" class={`flex gap-2 items-center py-2 px-3 bg-white rounded-lg text-green-950 group-hover:bg-green-600 group-hover:text-white`}>
+            <a href={LINKS.forms.newMember} target="_blank" class={`flex gap-2 items-center py-2 px-3 bg-white rounded-lg text-green-950 group-hover:bg-green-600 group-hover:text-white`}>
               <Join width={15} class={"fill-green-950 group-hover:fill-white"} />
               Join FFC
             </a>
@@ -77,7 +82,7 @@ import { NEW_MEMBERS_FORM_LINK } from '@lib/generalUtils';
   <div class="navbar border-r-1 border-green-600 flex flex-col" id="navbar-sticky">
     <header class="navbar__header py-8 px-4 flex items-center justify-between border-b-1 border-green-600">
       <div class="navbar__header__logo">
-        <a href="/">
+        <a href={ROUTES.home}>
           <Image src={FFCLogo} alt="FFC Logo"  loading="eager" height={100} quality={70} format="webp" class="navbar__phone__logo"/>
         </a>
       </div>
@@ -91,14 +96,14 @@ import { NEW_MEMBERS_FORM_LINK } from '@lib/generalUtils';
     </div> -->
     <ul class="flex flex-col p-4 font-medium gap-3">
       <li class="group">
-        <a href="/" class={`py-2 px-3 rounded-sm flex gap-2 items-center ${currentPath === "/" ? "text-green-600" : "text-white group-hover:text-green-300"}`}>
-          <Home width={20}  class={`${currentPath === "/" ? "fill-green-600" : "fill-white group-hover:fill-green-300"}`}/>
+        <a href={ROUTES.home} class={`py-2 px-3 rounded-sm flex gap-2 items-center ${currentPath === ROUTES.home ? "text-green-600" : "text-white group-hover:text-green-300"}`}>
+          <Home width={20}  class={`${currentPath === ROUTES.home ? "fill-green-600" : "fill-white group-hover:fill-green-300"}`}/>
           Home
         </a>
       </li>
       <li class="group">
-        <a href="/forest-cup" class={`flex gap-2 items-center py-2 px-3 rounded-sm ${currentPath.includes("/forest-cup") ? "text-green-600" : "text-white group-hover:text-green-300"}`}>
-          <Cup width={20} class={`${currentPath.includes("/forest-cup") ? "fill-green-600" : "fill-white group-hover:fill-green-300"}`} />
+        <a href={ROUTES.forestCup.index} class={`flex gap-2 items-center py-2 px-3 rounded-sm ${currentPath.includes(ROUTES.forestCup.index) ? "text-green-600" : "text-white group-hover:text-green-300"}`}>
+          <Cup width={20} class={`${currentPath.includes(ROUTES.forestCup.index) ? "fill-green-600" : "fill-white group-hover:fill-green-300"}`} />
           Forest Cup
         </a>
       </li>
@@ -109,19 +114,19 @@ import { NEW_MEMBERS_FORM_LINK } from '@lib/generalUtils';
         </a>
       </li> -->
       <li class="group">
-        <a href="/members" class={`flex gap-2 items-center py-2 px-3 rounded-sm ${currentPath.includes("/members") ? "text-green-600" : "text-white group-hover:text-green-300"}`}>
-          <Members width={16} class={`${currentPath.includes("/members") ? "fill-green-600" : "fill-white group-hover:fill-green-300"}`} />
+        <a href={ROUTES.members.index} class={`flex gap-2 items-center py-2 px-3 rounded-sm ${currentPath.includes(ROUTES.members.index) ? "text-green-600" : "text-white group-hover:text-green-300"}`}>
+          <Members width={16} class={`${currentPath.includes(ROUTES.members.index) ? "fill-green-600" : "fill-white group-hover:fill-green-300"}`} />
           Members
         </a>
       </li>
       <li class="group">
-        <a href="/ranking" class={`flex gap-2 items-center py-2 px-3 rounded-sm ${currentPath === "/ranking" ? "text-green-600" : "text-white group-hover:text-green-300"}`}>
-          <Ranking width={20} class={`${currentPath === "/ranking" ? "fill-green-600" : "fill-white group-hover:fill-green-300"}`} />
+        <a href={ROUTES.ranking} class={`flex gap-2 items-center py-2 px-3 rounded-sm ${currentPath === ROUTES.ranking ? "text-green-600" : "text-white group-hover:text-green-300"}`}>
+          <Ranking width={20} class={`${currentPath === ROUTES.ranking ? "fill-green-600" : "fill-white group-hover:fill-green-300"}`} />
           Ranking
         </a>
       </li>
       <li class="group">
-        <a href={NEW_MEMBERS_FORM_LINK} target="_blank" class={`flex gap-2 items-center py-2 px-3 bg-white rounded-md text-green-950 group-hover:bg-green-600 group-hover:text-white`}>
+        <a href={LINKS.forms.newMember} target="_blank" class={`flex gap-2 items-center py-2 px-3 bg-white rounded-md text-green-950 group-hover:bg-green-600 group-hover:text-white`}>
           <Join width={15} class={"fill-green-950 group-hover:fill-white"} />
           Join FFC
         </a>

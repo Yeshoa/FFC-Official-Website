@@ -3,51 +3,57 @@ import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 import { getMemberByName } from '@lib/memberUtils';
 import { areThereScorers, getMatchWinner, getMatchResult, getMatchRedCards } from '@lib/matchUtils';
-import GoalIcon from '@images/goal.png';
+import GoalIcon from '@images/icons/futbol-regular-full.svg';
+import PenaltyIcon from '@images/icons/penalty.svg';
 import defaultFlag from '@images/tournaments/default-flag.png';
-import { LOCALE } from '@lib/generalUtils';
+import { LOCALE } from '@config/constants';
+
 interface Props { 
-  match: CollectionEntry<'matches'>['data'];
-  members: any[];
+  match: CollectionEntry<'matches'>;
 }
 
-const { match, members } = Astro.props;
+const { match } = Astro.props;
 
-const goals = match.goals ?? [];
-const { team1: score1, team2: score2 } = getMatchResult(match);
+const goals = match.data.goals ?? [];
+const { team1: score1, team2: score2 } = getMatchResult(match.data);
 
-const penalties = match.penalties ?? [];
-const hasPenaltyShootout = penalties.length > 0 && match.status === 'played';
+const penalties = match.data.penalties ?? [];
+const hasPenaltyShootout = penalties.length > 0 && match.data.status === 'played';
 let penaltyScore1 = 0;
 let penaltyScore2 = 0;
 let penaltyInfo = '';
 
 if (hasPenaltyShootout) {
-  penaltyScore1 = penalties.filter(p => p.team === match.team1 && p.scored).length;
-  penaltyScore2 = penalties.filter(p => p.team === match.team2 && p.scored).length;
+  penaltyScore1 = penalties.filter(p => p.team === match.data.team1 && p.scored).length;
+  penaltyScore2 = penalties.filter(p => p.team === match.data.team2 && p.scored).length;
   penaltyInfo = `(${penaltyScore1}-${penaltyScore2})`;
 }
-
-const team1 = getMemberByName(match.team1, members) || match.team1;
-const team2 = getMemberByName(match.team2, members) || match.team2;
-
-const winner = getMatchWinner(match);
-const redCards = getMatchRedCards(match);
+const team1 = await getMemberByName(match.data.team1) || { data: { name: match.data.team1, code: match.data.team1 } };
+const team2 = await getMemberByName(match.data.team2) || { data: { name: match.data.team2, code: match.data.team2 } };
+const winner = getMatchWinner(match.data);
+const redCards = getMatchRedCards(match.data);
+const date = match.data.date.toLocaleDateString(LOCALE, { day: 'numeric', month: 'long' , hour: 'numeric', minute: 'numeric' });
 ---
 
-<div class="flex flex-col justify-center items-center w-full max-w-5xl bg-gradient-to-br from-green-900/80 to-green-950/70 py-3 px-4 rounded-2xl shadow-md text-white hover:bg-green-700/90">
+<div class="flex flex-col justify-start items-center w-full max-w-5xl bg-gradient-to-br from-green-900/80 to-green-950/70 py-3 px-4 rounded-2xl shadow-md text-white hover:bg-green-700/90">
+  <div class="text-xs text-green-300 font-light mb-2">
+    {date}
+  </div>
   {/* Sección Superior: Equipos y Marcador */}
   <div class="grid grid-cols-7 items-center w-full gap-2 mb-2">
     {/* Equipo 1 */}
     <div class="flex items-center justify-end col-span-3 gap-2 text-right overflow-visible">
-      <a class={`${winner === match.team1 ? 'font-bold' : 'font-light'} md:text-lg truncate hover:underline`} href={team1.data ? `/members/${team1?.slug}` : '#'}><span class="hidden xs:inline">{team1?.data ? team1?.data.name : team1}</span><span class="xs:hidden">{team1.data ? team1?.data.code : team1}</span></a>
-      {team1.data && team1?.data.flagPath ? (
+      <a class={`${winner === match.data.team1 ? 'font-bold' : 'font-light'} md:text-lg truncate hover:underline`} href={team1?.data ? `/members/${team1?.slug}` : '#'}>
+        <span class="hidden xs:inline">{team1?.data ? team1?.data.name : match.data.team1}</span>
+        <span class="xs:hidden">{team1?.data ? team1?.data.code : match.data.team1}</span>
+      </a>
+      {team1?.data?.flagPath ? (
         <Image
           src={team1.data.flagPath || defaultFlag}
           alt={team1.data.name}
           class="h-5 w-8 md:h-6 md:w-9 rounded-sm object-cover ring-1 ring-gray-500 flex-shrink-0"
           height={48}
-          loading={"lazy"}
+          loading="lazy"
           inferSize={true}
           format="webp"
           quality={10}
@@ -58,7 +64,7 @@ const redCards = getMatchRedCards(match);
           alt="Default Flag"
           class="h-5 w-8 md:h-6 md:w-9 rounded-sm object-cover ring-1 ring-gray-500 flex-shrink-0"
           height={48}
-          loading={"lazy"}
+          loading="lazy"
           inferSize={true}
           format="webp"
           quality={10}
@@ -67,13 +73,13 @@ const redCards = getMatchRedCards(match);
     </div>
     {/* Marcador */}
     <div class="text-center">
-        {match.status === 'played' ? (
+        {match.data.status === 'played' ? (
             <span class="text-sm xs:text-lg md:text-xl whitespace-nowrap font-bold">{score1} - {score2}</span>
-        ) : match.status === 'scheduled' ? (
+        ) : match.data.status === 'scheduled' ? (
             <span class="text-sm md:text-base font-light text-gray-300 block">vs</span>
-             <span class="text-xs text-gray-400 block mt-0.5">
-                 {match.date.toLocaleTimeString(LOCALE, {hour12: false, hour: 'numeric', minute: 'numeric'})}
-             </span>
+            <span class="text-xs text-gray-400 block mt-0.5">
+                {match.data.date.toLocaleTimeString(LOCALE, {hour12: false, hour: 'numeric', minute: 'numeric'})}
+            </span>
         ) : (
             <span class="text-sm font-light text-red-400">VS</span>
         )}
@@ -83,13 +89,13 @@ const redCards = getMatchRedCards(match);
     </div>
     {/* Equipo 2 */}
     <div class="flex items-center col-span-3 gap-2 text-left overflow-visible">
-       {team2.data && team2?.data.flagPath ? (
+       {team2?.data?.flagPath ? (
         <Image
           src={team2.data.flagPath || defaultFlag}
           alt={team2.data.name}
           class="h-5 w-8 md:h-6 md:w-9 rounded-sm object-cover ring-1 ring-gray-500 flex-shrink-0"
           height={48}
-          loading={"lazy"}
+          loading="lazy"
           inferSize={true}
           format="webp"
           quality={10}
@@ -100,27 +106,27 @@ const redCards = getMatchRedCards(match);
           alt="Default Flag"
           class="h-5 w-8 md:h-6 md:w-9 rounded-sm object-cover ring-1 ring-gray-500 flex-shrink-0"
           height={48}
-          loading={"lazy"}
+          loading="lazy"
           inferSize={true}
           format="webp"
           quality={10}
         />
       )}
-      <a class={`${winner === match.team2 ? 'font-bold' : 'font-light'} md:text-lg truncate hover:underline`} href={team2.data ? `/members/${team2?.slug}` : '#'}><span class="hidden xs:inline">{team2.data ? team2?.data.name : team2}</span><span class="xs:hidden">{team2.data ? team2?.data.code : team2}</span></a>
+      <a class={`${winner === match.data.team2 ? 'font-bold' : 'font-light'} md:text-lg truncate hover:underline`} href={team2?.data ? `/members/${team2?.slug}` : '#'}>
+        <span class="hidden xs:inline">{team2?.data ? team2?.data.name : match.data.team2}</span>
+        <span class="xs:hidden">{team2?.data ? team2?.data.code : match.data.team2}</span>
+      </a>
     </div>
   </div>
 
-   {/* Separador Opcional */}
-   {/* <hr class="border-gray-700 w-3/4 my-1"/> */}
-
   {/* Sección Inferior: Goles y Detalles - Solo si se jugó */}
-  {match.status === 'played' && areThereScorers(match) && (
+  {match.data.status === 'played' && areThereScorers(match.data) && (
     <div class="grid grid-cols-7 items-start w-full gap-2 mt-1 text-xs md:text-sm">
       {/* Goles Equipo 1 */}
       <div class="flex flex-col w-full col-span-3 items-end justify-start text-right pr-1">
-        {goals.filter(g => g.team === match.team1).length > 0 ? (
+        {goals.filter(g => g.team === match.data.team1).length > 0 ? (
           goals
-            .filter(g => g.team === match.team1)
+            .filter(g => g.team === match.data.team1)
             .sort((a, b) => {
               // Ordenar por minuto + tiempo agregado
               const minuteA = (a.minute || 0) + (a.aggregate || 0) / 100;
@@ -128,12 +134,14 @@ const redCards = getMatchRedCards(match);
               return minuteA - minuteB;
             })
             .map((goal, idx) => (
-              <div key={`team1-goal-${idx}-${goal.player}-${goal.minute}`} class="flex items-center gap-1.5 justify-end">
-                <span class="truncate" title={goal.player}>{goal.player}</span>
-                <Image src={GoalIcon} alt="Goal" class="w-3 h-3 flex-shrink-0" loading={"lazy"} format="webp" quality={1} />
-                <span>
+              <div key={`team1-goal-${idx}-${goal.player}-${goal.minute}`} class="flex items-center justify-end">
+                <span class="truncate me-1" title={goal.player}>{goal.player}</span>
+                {/* <Image src={GoalIcon} alt="Goal" class="w-3 h-3 flex-shrink-0" loading="lazy" format="webp" quality={1} /> */}
+                <GoalIcon class="w-4 h-4 flex-shrink-0 fill-green-400" />
+                {goal.penalty ? <PenaltyIcon class="w-4 h-4 flex-shrink-0 fill-yellow-400" /> : ""}
+                <span class="ms-1">
                   {goal.minute}{goal.aggregate !== undefined ? `+${goal.aggregate}` : ""}'
-                  {goal.penalty ? " (P)" : ""}
+                  {/* {goal.penalty ? " (P)" : ""} */}
                   {goal.ownGoal ? " (OG)" : ""}
                 </span>
               </div>
@@ -149,29 +157,13 @@ const redCards = getMatchRedCards(match);
             <span>{card.minute}'</span>
           </div>
         ))}
-        {/* Penales equipo 1 */}
-        {/* {hasPenaltyShootout && penalties.filter(p => p.team === match.team1).length > 0 && (
-          <div class="flex flex-col mt-1">
-            <span class="text-yellow-300 font-semibold mb-0.5">Penalties</span>
-            {penalties.filter(p => p.team === match.team1).map((pk, idx) => (
-              <div key={`team1-pk-${idx}-${pk.player}`} class="flex items-center gap-1.5 justify-end">
-                <span class="truncate" title={pk.player}>{pk.player}</span>
-                {pk.scored ? (
-                  <Image src={GoalIcon} alt="Goal" class="w-3 h-3 flex-shrink-0" loading={"lazy"} format="webp" quality={1} />
-                ) : (
-                  <span class="text-red-400 text-lg">❌</span>
-                )}
-              </div>
-            ))}
-          </div>
-        )} */}
       </div>
 
       {/* Enlace Detalles/Video */}
       <div class="flex justify-center items-start w-full h-full col-span-1">
-        {match.link ? (
-          <a href={match.link} target="_blank" rel="noopener noreferrer" title="Watch Match" 
-          class="bg-blue-500/70 hover:bg-blue-400 text-white px-1 xs:px-2 xs:py-1 rounded-full text-xs transition-colors">
+        {match.data.link ? (
+          <a href={match.data.link} target="_blank" rel="noopener noreferrer" title="Watch Match" 
+            class="bg-blue-500/70 hover:bg-blue-400 text-white px-1 xs:px-2 xs:py-1 rounded-full text-xs transition-colors">
             Watch
           </a>
         ) : (
@@ -181,9 +173,9 @@ const redCards = getMatchRedCards(match);
 
       {/* Goles Equipo 2 */}
       <div class="flex flex-col w-full col-span-3 justify-start text-left pl-1">
-        {goals.filter(g => g.team === match.team2).length > 0 ? (
+        {goals.filter(g => g.team === match.data.team2).length > 0 ? (
           goals
-            .filter(g => g.team === match.team2)
+            .filter(g => g.team === match.data.team2)
             .sort((a, b) => {
               // Ordenar por minuto + tiempo agregado
               const minuteA = (a.minute || 0) + (a.aggregate || 0) / 100;
@@ -191,12 +183,14 @@ const redCards = getMatchRedCards(match);
               return minuteA - minuteB;
             })
             .map((goal, idx) => (
-              <div key={`team2-goal-${idx}-${goal.player}-${goal.minute}`} class="flex items-center gap-1.5 justify-start">
-                <span class="truncate" title={goal.player}>{goal.player}</span>
-                <Image src={GoalIcon} alt="Goal" class="w-3 h-3 flex-shrink-0" loading={"lazy"} format="webp" quality={1} />
-                <span>
+              <div key={`team2-goal-${idx}-${goal.player}-${goal.minute}`} class="flex items-center justify-start">
+                <span class="truncate me-1" title={goal.player}>{goal.player}</span>
+                {/* <Image src={GoalIcon} alt="Goal" class="w-3 h-3 flex-shrink-0" loading="lazy" format="webp" quality={1} /> */}
+                <GoalIcon class="w-4 h-4 flex-shrink-0 fill-green-400" />
+                {goal.penalty ? <PenaltyIcon class="w-4 h-4 flex-shrink-0 fill-yellow-400" /> : ""}
+                <span class="ms-1">
                   {goal.minute}{goal.aggregate !== undefined ? `+${goal.aggregate}` : ""}'
-                  {goal.penalty ? " (P)" : ""}
+                  {/* {goal.penalty ? " (P)" : ""} */}
                   {goal.ownGoal ? " (OG)" : ""}
                 </span>
               </div>
@@ -212,29 +206,13 @@ const redCards = getMatchRedCards(match);
             <span>{card.minute}'</span>
           </div>
         ))}
-        {/* Penales equipo 2 */}
-        {/* {hasPenaltyShootout && penalties.filter(p => p.team === match.team2).length > 0 && (
-          <div class="flex flex-col mt-1">
-            <span class="text-yellow-300 font-semibold mb-0.5">Penalties</span>
-            {penalties.filter(p => p.team === match.team2).map((pk, idx) => (
-              <div key={`team2-pk-${idx}-${pk.player}`} class="flex items-center gap-1.5 justify-start">
-                <span class="truncate" title={pk.player}>{pk.player}</span>
-                {pk.scored ? (
-                  <Image src={GoalIcon} alt="Goal" class="w-3 h-3 flex-shrink-0" loading={"lazy"} format="webp" quality={1} />
-                ) : (
-                  <span class="text-red-400 text-lg">❌</span>
-                )}
-              </div>
-            ))}
-          </div>
-        )} */}
       </div>
     </div>
   )}
   {/* Mostrar Fecha si está programado */}
-  {match.status === 'scheduled' && (
+  {match.data.status === 'scheduled' && (
     <div class="text-center text-xs text-gray-400 mt-2">
-      {match.date.toLocaleDateString(LOCALE, { day: 'numeric', month: 'long' })}
+      {match.data.date.toLocaleDateString(LOCALE, { day: 'numeric', month: 'long' })}
     </div>
   )}
 </div>

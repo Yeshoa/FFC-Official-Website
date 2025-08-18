@@ -8,14 +8,14 @@ image: "/src/assets/images/articles/sign-up/inscription.jpg"
 ---
 
 import { Image } from 'astro:assets';
-import { NEW_MEMBERS_FORM_LINK, FFC_MEMBERS_FORM_LINK} from '@lib/generalUtils';
+import { LINKS } from '@config/links';
 
 ## Welcome to FFC Registration! 
 
 Whether you’re **new to the FFC** or a **member**, this form has you covered:
 
-- **New members**: complete **all sections** to join for the first time. <a href={NEW_MEMBERS_FORM_LINK} target="_blank">Link here</a> 
-- **Members**: skip straight to the sections you need to **update**. <a href={FFC_MEMBERS_FORM_LINK} target="_blank">Link here</a> 
+- **New members**: complete **all sections** to join for the first time. <a href={LINKS.forms.newMember} target="_blank">Link here</a> 
+- **Members**: skip straight to the sections you need to **update**. <a href={LINKS.forms.ffcMember} target="_blank">Link here</a> 
 
 > Anyone who doesn’t submit will keep last season’s points and can still fight for a spot via playoffs.
 

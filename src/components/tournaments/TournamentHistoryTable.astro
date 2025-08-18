@@ -1,94 +1,62 @@
 ---
-// TournamentHistoryTable.astro
 import type { CollectionEntry } from 'astro:content';
 import { Image } from 'astro:assets';
-import { CURRENT_TOURNAMENT_ID, getTeamPositionInTournament } from '@lib/tournamentUtils';
-import { getMemberImage, getMemberByName } from '@lib/memberUtils';
+import { CURRENT_TOURNAMENT_ID, getTeamPositionInTournament, getTeamByPosition, getFinalResult, getThirdPlaceResult } from '@lib/tournamentUtils';
+import { getMemberByName } from '@lib/memberUtils';
 import { getMatchResult } from '@lib/matchUtils';
 
 interface Props {
   tournaments: CollectionEntry<'tournaments'>[];
   matches: CollectionEntry<'matches'>[];
-  members: CollectionEntry<'members'>[];
   type: 'forest-cup' | 'forestian-champions-league';
 }
 
-const { tournaments, matches, members, type } = Astro.props;
+const { tournaments, matches, type } = Astro.props;
 
 // Filtrar los torneos por tipo y ordenarlos
 const allEditions = tournaments
   .filter(t => t.data.type === type)
   .sort((a, b) => b.data.edition - a.data.edition);
 
-// Función para obtener el equipo según la posición final
-function getTeamByPosition(tournament: CollectionEntry<'tournaments'>, position: number): CollectionEntry<'members'> | null {
-  const participants = tournament.data.participants || [];
-  
-  for (const team of participants) {
-    const teamPosition = getTeamPositionInTournament(tournament, matches, team);
-    if (teamPosition === position) {
-      return getMemberByName(team, members);
-    }
-  }
-  
-  return null;
-}
+// Precompute data for each tournament
+const tournamentData = await Promise.all(
+  allEditions.map(async (tournament) => {
+    const isFutureOrCurrent = tournament.data.id >= CURRENT_TOURNAMENT_ID;
+    const host = await getMemberByName(tournament.data.host);
+    const champion = await getTeamByPosition(tournament, 1);
+    const runnerUp = await getTeamByPosition(tournament, 2);
+    const third = await getTeamByPosition(tournament, 3);
+    const fourth = await getTeamByPosition(tournament, 4);
+    const finalResult = champion ? await getFinalResult(tournament, 1) : "";
+    const thirdPlaceResult = await getThirdPlaceResult(tournament);
+    const prizes = tournament.data.prizes;
+    const bestPlayer = prizes?.bestPlayer
+      ? { ...prizes.bestPlayer, member: await getMemberByName(prizes.bestPlayer.team) }
+      : null;
+    const topScorers = Array.isArray(prizes?.topScorer) && prizes?.topScorer.length > 0
+      ? await Promise.all(
+          prizes.topScorer.map(async (scorer) => ({
+            ...scorer,
+            member: await getMemberByName(scorer.team),
+          }))
+        )
+      : [];
 
-// Función para obtener el resultado del equipo (goles a favor/goles en contra en la final)
-function getFinalResult(tournament: CollectionEntry<'tournaments'>, teamPosition: number): string {
-  if (teamPosition > 2) return ""; // Solo mostramos resultados para posiciones 1 y 2 (final)
-  
-  const teamName = getTeamByPosition(tournament, teamPosition)?.data.name;
-  if (!teamName) return "";
-  
-  const finalMatch = matches.find(match => 
-    match.data.tournament_id === tournament.data.id && 
-    match.data.fixture === "Final" && 
-    (match.data.team1 === teamName || match.data.team2 === teamName)
-  );
-  
-  if (!finalMatch) return "";
-  
-  const { team1: goalsT1, team2: goalsT2 } = getMatchResult(finalMatch.data);
-  // Si el equipo es el ganador (posición 1), mostramos el resultado normalmente
-  // Si es el perdedor (posición 2), invertimos los goles
-  if (teamPosition === 1) {
-    if (finalMatch.data.team1 === teamName) {
-      return `${goalsT1}-${goalsT2}`;
-    } else {
-      return `${goalsT2}-${goalsT1}`;
-    }
-  } else {
-    if (finalMatch.data.team1 === teamName) {
-      return `${goalsT1}-${goalsT2}`;
-    } else {
-      return `${goalsT2}-${goalsT1}`;
-    }
-  }
-}
-
-// Función para obtener el resultado del partido por el tercer puesto
-function getThirdPlaceResult(tournament: CollectionEntry<'tournaments'>): string {
-  const thirdPlace = getTeamByPosition(tournament, 3)?.data.name;
-  const fourthPlace = getTeamByPosition(tournament, 4)?.data.name;
-
-  if (!thirdPlace || !fourthPlace) return "";
-  
-  const thirdPlaceMatch = matches.find(match => 
-    match.data.tournament_id === tournament.data.id && 
-    match.data.fixture === "Third Place" && 
-    ((match.data.team1 === thirdPlace && match.data.team2 === fourthPlace) || 
-     (match.data.team1 === fourthPlace && match.data.team2 === thirdPlace))
-  );
-  
-  if (!thirdPlaceMatch) return "N/A";
-  const { team1: goalsT1, team2: goalsT2 } = getMatchResult(thirdPlaceMatch.data);
-  if (thirdPlaceMatch.data.team1 === thirdPlace) {
-    return `${goalsT1}-${goalsT2}`;
-  } else {
-    return `${goalsT2}-${goalsT1}`;
-  }
-}
+    return {
+      tournament,
+      isFutureOrCurrent,
+      host,
+      champion,
+      runnerUp,
+      third,
+      fourth,
+      finalResult,
+      thirdPlaceResult,
+      bestPlayer,
+      topScorers,
+    };
+  })
+);
 ---
 
 <h2 class="text-4xl text-center font-bold py-6">{type === 'forest-cup' ? 'Forest Cup' : 'Forestian Champions League'} History</h2>
@@ -107,94 +75,88 @@ function getThirdPlaceResult(tournament: CollectionEntry<'tournaments'>): string
       </tr>
     </thead>
     <tbody>
-      {allEditions.sort((b, a) => b.data.edition - a.data.edition).map(tournament => {
-        const isFutureOrCurrent = tournament.data.id >= CURRENT_TOURNAMENT_ID;
-        
-        const host = getMemberByName(tournament.data.host, members);
-        if (isFutureOrCurrent) {
-          return (
-            <tr class="border-b border-green-700 bg-blue-900/10 text-green-300 italic">
-              <td class="px-2 py-3 flex flex-col items-center gap-1 justify-center">
-                {host?.data.flagPath && <a href={`/members/${host.slug}`} class="flex-shrink-0"><Image src={host.data.flagPath} alt={host.data.name} height={20} class="rounded-sm object-cover max-h-6" loading={'lazy'} quality={40} format={'webp'} /></a>}
-                <a href={`/${type}/${tournament.data.edition}`} class="hover:underline">{tournament.data.edition}</a>
-              </td>
-              <td colspan="8" class="py-3">
-                To be disputed
-              </td>
-            </tr>
-          );
-        }
-        const champion = getTeamByPosition(tournament, 1);
-        const runnerUp = getTeamByPosition(tournament, 2);
-        const third = getTeamByPosition(tournament, 3);
-        const fourth = getTeamByPosition(tournament, 4);
-        
-        const finalResult = champion ? getFinalResult(tournament, 1) : "";
-        const thirdPlaceResult = getThirdPlaceResult(tournament);
-        const prizes = tournament.data.prizes;
-        const bestPlayer = prizes?.bestPlayer;
-        const topScorers = prizes?.topScorer;
-
-        return (
-          <tr class="border-b border-green-700 hover:bg-green-900/20">
+      {tournamentData.sort((b, a) => b.tournament.data.edition - a.tournament.data.edition).map(({ tournament, isFutureOrCurrent, host, champion, runnerUp, third, fourth, finalResult, /* thirdPlaceResult, */ bestPlayer, topScorers }) => (
+        isFutureOrCurrent ? (
+          <tr class="border-b border-green-700 bg-blue-900/10 text-green-300 italic" key={tournament.data.id}>
             <td class="px-2 py-3 flex flex-col items-center gap-1 justify-center">
-              {host?.data.flagPath && <a href={`/members/${host.slug}`} class="flex-shrink-0"><Image src={host.data.flagPath} alt={host.data.name} height={20} class="rounded-sm object-cover max-h-6" loading={'lazy'} quality={40} format={'webp'} /></a>}
+              {host?.data?.flagPath && (
+                <a href={`/members/${host.slug}`} class="flex-shrink-0">
+                  <Image src={host.data.flagPath} alt={host.data.name} height={20} class="rounded-sm object-cover max-h-6" loading="lazy" quality={40} format="webp" />
+                </a>
+              )}
               <a href={`/${type}/${tournament.data.edition}`} class="hover:underline">{tournament.data.edition}</a>
             </td>
-            
+            <td colSpan={8} class="py-3">
+              To be disputed
+            </td>
+          </tr>
+        ) : (
+          <tr class="border-b border-green-700 hover:bg-green-900/20" key={tournament.data.id}>
+            <td class="px-2 py-3 flex flex-col items-center gap-1 justify-center">
+              {host?.data?.flagPath && (
+                <a href={`/members/${host.slug}`} class="flex-shrink-0">
+                  <Image src={host.data.flagPath} alt={host.data.name} height={20} class="rounded-sm object-cover max-h-6" loading="lazy" quality={40} format="webp" />
+                </a>
+              )}
+              <a href={`/${type}/${tournament.data.edition}`} class="hover:underline">{tournament.data.edition}</a>
+            </td>
             <td class="px-2 py-3 font-semibold">
               {champion && (
                 <div class="flex items-center gap-1 justify-center">
-                  {champion.data.flagPath && <a href={`/members/${champion.slug}`}><Image src={champion.data.flagPath} alt={champion.data.name} height={18} class="rounded-sm object-cover max-h-6" loading={'lazy'} quality={40} format={'webp'} /></a>}
+                  {champion.data?.flagPath && (
+                    <a href={`/members/${champion.slug}`}>
+                      <Image src={champion.data.flagPath} alt={champion.data.name} height={18} class="rounded-sm object-cover max-h-6" loading="lazy" quality={40} format="webp" />
+                    </a>
+                  )}
                   <a href={`/members/${champion.slug}`} class="hover:underline truncate text-yellow-400">{champion.data.name}</a>
                 </div>
               )}
             </td>
-            
             <td class="px-2 py-3 font-bold">{finalResult}</td>
-            
             <td class="px-2 py-3">
               {runnerUp && (
                 <div class="flex items-center gap-1 justify-center">
-                  {runnerUp.data.flagPath && <a href={`/members/${runnerUp.slug}`}><Image src={runnerUp.data.flagPath} alt={runnerUp.data.name} height={18} class="rounded-sm  object-cover max-h-6" loading={'lazy'} quality={10} format={'webp'} /></a>}
+                  {runnerUp.data?.flagPath && (
+                    <a href={`/members/${runnerUp.slug}`}>
+                      <Image src={runnerUp.data.flagPath} alt={runnerUp.data.name} height={18} class="rounded-sm object-cover max-h-6" loading="lazy" quality={10} format="webp" />
+                    </a>
+                  )}
                   <a href={`/members/${runnerUp.slug}`} class="hover:underline truncate">{runnerUp.data.name}</a>
                 </div>
               )}
             </td>
-            
             <td class="px-2 py-3">
               {third && (
                 <div class="flex items-center gap-1 justify-center">
-                  {third.data.flagPath && <a href={`/members/${third.slug}`}><Image src={third.data.flagPath} alt={third.data.name} height={18} class="rounded-sm  object-cover max-h-6" loading={'lazy'} quality={10} format={'webp'} /></a>}
+                  {third.data?.flagPath && (
+                    <a href={`/members/${third.slug}`}>
+                      <Image src={third.data.flagPath} alt={third.data.name} height={18} class="rounded-sm object-cover max-h-6" loading="lazy" quality={10} format="webp" />
+                    </a>
+                  )}
                   <a href={`/members/${third.slug}`} class="hover:underline truncate">{third.data.name}</a>
                 </div>
               )}
             </td>
-            
-            {/* <td class={`px-2 py-3 ${thirdPlaceResult === "N/A" ? "text-gray-300 italic font-extralight" : "font-bold"}`}>{thirdPlaceResult}</td> */}
-            
             <td class="px-2 py-3">
               {fourth && (
                 <div class="flex items-center gap-1 justify-center">
-                  {fourth.data.flagPath && <a href={`/members/${fourth.slug}`}><Image src={fourth.data.flagPath} alt={fourth.data.name} height={18} class="rounded-sm  object-cover max-h-6" loading={'lazy'} quality={10} format={'webp'} /></a>}
+                  {fourth.data?.flagPath && (
+                    <a href={`/members/${fourth.slug}`}>
+                      <Image src={fourth.data.flagPath} alt={fourth.data.name} height={18} class="rounded-sm object-cover max-h-6" loading="lazy" quality={10} format="webp" />
+                    </a>
+                  )}
                   <a href={`/members/${fourth.slug}`} class="hover:underline truncate">{fourth.data.name}</a>
                 </div>
               )}
             </td>
-            
             <td class="px-2 py-3">
               {bestPlayer ? (
-                (() => {
-                  const member = getMemberByName(bestPlayer.team, members);
-                  return member ? (
-                    <div class="flex items-center gap-1 justify-center">
-                      {member.data.flagPath && <Image src={member.data.flagPath} alt={member.data.name}  height={14} class="rounded-sm object-cover max-h-4" loading={'lazy'} quality={10} format={'webp'} />}
-                      <span class="ml-1 truncate">{bestPlayer.player}</span>
-                    </div>
-                  ) : (
-                    <span>{bestPlayer.player} ({bestPlayer.team})</span>
-                  );
-                })()
+                <div class="flex items-center gap-1 justify-center">
+                  {bestPlayer.member?.data?.flagPath && (
+                    <Image src={bestPlayer.member.data.flagPath} alt={bestPlayer.member.data.name} height={14} class="rounded-sm object-cover max-h-4" loading="lazy" quality={10} format="webp" />
+                  )}
+                  <span class="ml-1 truncate">{bestPlayer.player}</span>
+                </div>
               ) : (
                 <span class="text-gray-400 italic">N/A</span>
               )}
@@ -203,15 +165,14 @@ function getThirdPlaceResult(tournament: CollectionEntry<'tournaments'>): string
               {topScorers && topScorers.length > 0 ? (
                 (() => {
                   const top = topScorers[0];
-                  const member = getMemberByName(top.team, members);
-                  return member ? (
+                  return (
                     <div class="flex items-center gap-1 justify-center">
-                      {member.data.flagPath && <Image src={member.data.flagPath} alt={member.data.name} width={20} height={14} class="rounded-sm object-cover max-h-4" loading={'lazy'} quality={10} format={'webp'} />}
+                      {top.member?.data?.flagPath && (
+                        <Image src={top.member.data.flagPath} alt={top.member.data.name} width={20} height={14} class="rounded-sm object-cover max-h-4" loading="lazy" quality={10} format="webp" />
+                      )}
                       <span class="ml-1 truncate">{top.player}</span>
                       <span class="ml-1 text-green-300 font-bold">({top.goals})</span>
                     </div>
-                  ) : (
-                    <span>{top.player} ({top.team}) <span class="text-green-300 font-bold">({top.goals})</span></span>
                   );
                 })()
               ) : (
@@ -219,8 +180,8 @@ function getThirdPlaceResult(tournament: CollectionEntry<'tournaments'>): string
               )}
             </td>
           </tr>
-        );
-      })}
+        )
+      ))}
     </tbody>
   </table>
 </div>

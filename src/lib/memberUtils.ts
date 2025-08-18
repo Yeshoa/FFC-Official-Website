@@ -2,22 +2,36 @@ import type { ImageMetadata } from 'astro';
 import type { CollectionEntry } from 'astro:content';
 import { getMemberTotalScore } from './rankingUtils';
 import { TIERS } from './scoreUtils';
+import { getMembers, getTournaments, getMatches } from '@lib/collections';
+import { CURRENT_TOURNAMENT_ID } from './tournamentUtils';
 
-export function getMemberByName(
+const members = await getMembers();
+const tournaments = await getTournaments();
+const matches = await getMatches();
+
+// Cache para evitar múltiples llamadas
+const memberCache = new Map<string, CollectionEntry<'members'> | null>();
+
+export async function getMemberByName(
   name: string,
-  members: CollectionEntry<'members'>[]
-): CollectionEntry<'members'> | null {
-  return members.find(m => m.data.name === name) ?? null;
+): Promise<CollectionEntry<'members'> | null> {
+  if (memberCache.has(name)) {
+    return memberCache.get(name)!;
+  }
+
+  const member = members.find(m => m.data.name === name) ?? null;
+  memberCache.set(name, member);
+
+  return member;
 }
-export function getMemberBySlug(
+
+export async function getMemberBySlug(
   slug: string,
-  members: CollectionEntry<'members'>[]
-): CollectionEntry<'members'> | null {
+): Promise<CollectionEntry<'members'> | null> {
   return members.find(m => m.slug === slug) ?? null;
 }
 export function getMemberImage(
   memberName: string | undefined,
-  members: CollectionEntry<'members'>[]
 ): ImageMetadata | null {
   if (!memberName) return null;
   const member = members.find(m => m.data.name === memberName);
@@ -26,7 +40,6 @@ export function getMemberImage(
 
 export function getMemberLogo(
   memberName: string | undefined,
-  members: CollectionEntry<'members'>[]
 ): ImageMetadata | null {
   if (!memberName) return null;
   const member = members.find(m => m.data.name === memberName);
@@ -35,10 +48,7 @@ export function getMemberLogo(
 
 export function getMemberRank(
   member: CollectionEntry<'members'> | null,
-  members: CollectionEntry<'members'>[],
-  matches: CollectionEntry<'matches'>[],
-  tournaments: CollectionEntry<'tournaments'>[],
-  currentTournamentId?: number
+  currentTournamentId: number = CURRENT_TOURNAMENT_ID
 ): number | null {
   if (!member) return null;
 

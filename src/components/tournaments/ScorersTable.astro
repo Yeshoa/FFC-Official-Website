@@ -6,38 +6,26 @@ import type { CollectionEntry } from 'astro:content';
 
 interface Props {
   members: CollectionEntry<'members'>[];
-  matches: {
-    tournament_id: number;
-    team1: string;
-    team2: string;
-    goals?: {
-      team: string;
-      player: string;
-      minute: number;
-      penalty?: boolean;
-      ownGoal?: boolean;
-      assist?: string;
-    }[];
-  }[];
-  tournamentId?: number; // Para filtrar por torneo específico (opcional)
+  matches: CollectionEntry<'matches'>[];
+  tournamentId?: number;
 }
 
 const { members, matches, tournamentId } = Astro.props;
 
 const filteredMatches = tournamentId
-  ? matches.filter(m => m.tournament_id === tournamentId)
+  ? matches.filter(m => m.data.tournament_id === tournamentId)
   : matches;
 
 type MemberEntry = CollectionEntry<'members'>;
 const goalStats = new Map<string, { player: string; team: MemberEntry | string; goals: number; assists: number }>();
 const assistStats = new Map<string, { player: string; team: MemberEntry | string; assists: number; goals: number }>();
 
-const singleTeam = members.length === 1 ? members[0].data.name : null; // Si hay un solo miembro, filtrar por su nombre
+const singleTeam = members.length === 1 ? members[0].data.name : null; // Si hay un solo miembro, filtrar por nombre
 
 for (const match of filteredMatches) {
-  if (!match.goals) continue;
+  if (!match.data.goals) continue;
 
-  for (const goal of match.goals) {
+  for (const goal of match.data.goals) {
     if (singleTeam && goal.team !== singleTeam || goal.player === undefined) continue; // Si hay un solo miembro, no mostrar goles de otros equipos o jugadores sin nombre
     const key = `${goal.player}-${goal.team}`;
     // Goleadores
@@ -45,7 +33,7 @@ for (const match of filteredMatches) {
       if (!goalStats.has(key)) {
         goalStats.set(key, {
           player: goal.player,
-          team: getMemberByName(goal.team, members),
+          team: await getMemberByName(goal.team),
           goals: 1,
           assists: 0,
         });
@@ -65,7 +53,7 @@ for (const match of filteredMatches) {
       if (!assistStats.has(assistKey)) {
         assistStats.set(assistKey, {
           player: goal.assist,
-          team: getMemberByName(goal.team, members),
+          team: await getMemberByName(goal.team),
           assists: 1,
           goals: 0,
         });
@@ -95,6 +83,7 @@ const topAssisters = Array.from(assistStats.values())
     b.goals - a.goals
   )
   .slice(0, 10);
+
 ---
 
 {topScorers.length >= 1 && (

@@ -7,9 +7,9 @@ export const SCORING_CONFIG = {
 
   MAX_RAW_POINTS: 200, // Puntos brutos máximos
   // Límites individuales
-  RP_MAX: 10, // Roleplay Points máximo
-  EV_MAX: 20, // Event Points máximo
-  BO_MAX: 20, // Bonus Points máximo
+  RP_MAX: 15, // Roleplay Points máximo
+  EV_MAX: 15, // Event Points máximo
+  BO_MAX: 15, // Bonus Points máximo
 
   // Límites por ediciones anteriores
   PRP_MAX: 10, // Previous Roleplay Points máximo

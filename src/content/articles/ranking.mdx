@@ -9,7 +9,7 @@ image: "/src/assets/images/articles/ranking/tiers.png"
 
 import { Image } from 'astro:assets';
 import Banner from '@images/articles/welcome/banner.png';
-import { NEW_MEMBERS_FORM_LINK, FFC_MEMBERS_FORM_LINK} from '@lib/generalUtils';
+import { LINKS } from '@config/links';
 import { SCORING_CONFIG, TIERS, getPointsTextColorClass } from '@lib/scoreUtils';
 import Arrow from '@images/icons/arrow-up-right-from-square-solid.svg';
 
@@ -26,7 +26,7 @@ Participants can earn points by completing any of the listed category items.
 
 _Points earned in the current edition will only be applied if the participant submits the form for this season._
 
-> Starting with Forest Cup 2026, the **top 24** ranked teams **(<a href={NEW_MEMBERS_FORM_LINK} target="_noblank">who have submitted their current form <Arrow class="inline w-3 h-3 fill-green-400 ml-1" /></a>)** qualify **directly**.  
+> Starting with Forest Cup 2026, the **top 24** ranked teams **(<a href={LINKS.forms.newMember} target="_noblank">who have submitted their current form <Arrow class="inline w-3 h-3 fill-green-400 ml-1" /></a>)** qualify **directly**.  
 > All remaining nations enter a **playoff** for the final 8 spots.
 ---
 
@@ -80,7 +80,7 @@ Regional event participation is capped at {SCORING_CONFIG.EV_MAX} points per eve
 
 **Host**: {SCORING_CONFIG.BO_MAX} points automatically awarded for hosting.
 
-**Easter Eggs (Eggs)**: {SCORING_CONFIG.BO_MAX / 5} points for each hidden easter egg discovered! Eggs can be found in mysterious places. If you find one, make sure to <a href="https://www.nationstates.net/nation=bilsa" target="_noblank" >telegram Bilsa</a> to claim it!
+**Easter Eggs (Eggs)**: 4 points for each hidden easter egg discovered! Eggs can be found in mysterious places. If you find one, make sure to <a href={LINKS.nationStates.bilsa} target="_noblank" >telegram Bilsa</a> to claim it!
 
 >Last edition, finding a secret alone was rewarded with more points, but this time will not be the case, so anyone can accumulate a fair amount of points through Easter Eggs!
 
@@ -142,18 +142,17 @@ The realistic maximum for current edition points is an estimated 200, though it 
 
 ## Ranking Tiers
 
-| Tier | Points | Description |
-|------|-|-------------|
-| <span class={`${getPointsTextColorClass(TIERS["X"])} font-bold`}>X</span> |**{TIERS["X"]}**| Legendary status reserved for the most dedicated members |
-| <span class={`${getPointsTextColorClass(TIERS["SS"])} font-bold`}>S+</span> |**{TIERS["SS"]}**| Elite contributors who consistently excel across all areas |
-| <span class={`${getPointsTextColorClass(TIERS["S"])} font-bold`}>S</span> |**{TIERS["S"]}**| Pillars with exceptional long-term involvement |
-| <span class={`${getPointsTextColorClass(TIERS["A"])} font-bold`}>A</span> |**{TIERS["A"]}**| Highly engaged members with substantial participation |
-| <span class={`${getPointsTextColorClass(TIERS["B"])} font-bold`}>B</span> |**{TIERS["B"]}**| Strong contributors with consistent involvement |
-| <span class={`${getPointsTextColorClass(TIERS["C"])} font-bold`}>C</span> |**{TIERS["C"]}**| Active participants in multiple categories |
-| <span class={`${getPointsTextColorClass(TIERS["D"])} font-bold`}>D</span> |**{TIERS["D"]}**| Regular members with some engagement |
-| <span class={`${getPointsTextColorClass(TIERS["E"])} font-bold`}>E</span> |**{TIERS["E"]}**| Basic participation, occasional roleplay |
-| <span class={`${getPointsTextColorClass(TIERS["F"])} font-bold`}>F</span> |**{TIERS["F"]}**| New participants, minimal involvement |
-
+| Tier | Points | Description | Real Example |
+|------|-|-------------|-|
+| <span class={`${getPointsTextColorClass(TIERS["F"])} font-bold`}>F</span> |**{TIERS["F"]}**| New participants, minimal involvement | San Marino
+| <span class={`${getPointsTextColorClass(TIERS["E"])} font-bold`}>E</span> |**{TIERS["E"]}**| Basic participation, occasional roleplay | Latvia
+| <span class={`${getPointsTextColorClass(TIERS["D"])} font-bold`}>D</span> |**{TIERS["D"]}**| Regular members with some engagement | Bulgaria
+| <span class={`${getPointsTextColorClass(TIERS["C"])} font-bold`}>C</span> |**{TIERS["C"]}**| Active participants in multiple categories | Scotland
+| <span class={`${getPointsTextColorClass(TIERS["B"])} font-bold`}>B</span> |**{TIERS["B"]}**| Strong contributors with consistent involvement | Denmark
+| <span class={`${getPointsTextColorClass(TIERS["A"])} font-bold`}>A</span> |**{TIERS["A"]}**| Highly engaged members with substantial participation | Netherlands
+| <span class={`${getPointsTextColorClass(TIERS["S"])} font-bold`}>S</span> |**{TIERS["S"]}**| Pillars with exceptional long-term involvement | Argentina
+| <span class={`${getPointsTextColorClass(TIERS["SS"])} font-bold`}>S+</span> |**{TIERS["SS"]}**| Elite contributors who consistently excel across all areas | Brazil '70
+| <span class={`${getPointsTextColorClass(TIERS["X"])} font-bold`}>???</span> |**???**{/***{TIERS["SS"]}***/}| ???{/*Legendary status reserved for the most dedicated members*/} | Unrealistic Superteam
 ---
 
 ## How do these points actually affect my team's performance?
@@ -162,7 +161,7 @@ In short, the points you earn are used in a "random" (not actually) generator fo
 
 This is explained in detail <a href="#" class="text-blue-300 hover:text-blue-200">here</a>.
 
-**Rembemer**: Points earned in the current edition will only be applied if the participant submits the <a href={NEW_MEMBERS_FORM_LINK} target="_noblank">form for this season <Arrow class="inline w-3 h-3 fill-green-400 ml-1" /></a>.
+**Rembemer**: Points earned in the current edition will only be applied if the participant submits the <a href={LINKS.forms.newMember} target="_noblank">form for this season <Arrow class="inline w-3 h-3 fill-green-400 ml-1" /></a>.
 
 ---
 

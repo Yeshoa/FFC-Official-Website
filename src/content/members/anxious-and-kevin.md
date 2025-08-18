@@ -17,9 +17,9 @@ score:
       history: 20
     # "3":
       # fcm: 10
-  bonus:
-    "2":
-      host: 10
+  # bonus:
+  #   "2":
+  #     host: 10
 manualAchievements: 
     - "roleplay"
 tierHistory:

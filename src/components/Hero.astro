@@ -1,326 +1,66 @@
 ---
-// --- Astro Component Script ---
-// Importaciones necesarias
 import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
-import JoinImg from '@images/icons/right-to-bracket-solid.svg';
-import CarrouselImgTwo from '@images/tournaments/2022/atsvea-champions.png';
-import CarrouselImgThree from '@images/tournaments/trophy_panoramic.png';
-import CarrouselImgFour from '@images/tournaments/2020/rui_champions.png';
-import CarrouselImgFive from '@images/tournaments/2024/darrow_dribble.png';
-import CarrouselImgSix from '@images/nysnub3.png';
 
-// Definimos las props para el componente, manteniendo la estructura original
-interface Props {
-  heroImage: { src: ImageMetadata; alt: string };
-  heroTitle: string;
-  heroSubtitle: string;
-  cta: { text: string; href: string; noblank?: boolean, logo: ImageMetadata };
+export interface Article {
+  title: string;
+  url: string;
+  image: ImageMetadata;
+  description?: string; 
 }
 
-// Obtenemos las props
-const { heroImage, heroTitle, heroSubtitle, cta } = Astro.props;
+interface Props {
+  articles: Article[];
+}
+
+const { articles } = Astro.props;
+
+if (!articles || articles.length === 0) return null;
+
+const mainArticle = articles[0];
+const secondaryArticles = articles.slice(1, 6);
 ---
 
-<section class="hero z-0">
-    <div class="hero__cont">
-        <div class="hero__carrousel">
-            <Image 
-                src={CarrouselImgTwo} 
-                alt="Atsvea Champion" 
-                width={1200} 
-                class="hero__img" 
-                format="webp"
-                loading="lazy"
-            />
-            <Image
-                src={heroImage.src}
-                alt={heroImage.alt}
-                width={1200}
-                quality={90}
-                class="hero__img object-[35%_-2rem] lg:object-center"
-                format="webp"
-                priority
-                loading="eager"
-            />
-            <Image 
-                src={CarrouselImgFive} 
-                alt="Darrow Dribble" 
-                width={1200} 
-                class="hero__img object-[55%_center] lg:object-center" 
-                format="webp"
-                loading="lazy"
-            />
-            <Image 
-                src={CarrouselImgSix} 
-                alt="Nysnub Holding Ball" 
-                width={1200} 
-                class="hero__img" 
-                format="webp"
-                loading="lazy"
-            />
-            <Image 
-                src={CarrouselImgFour} 
-                alt="Rui Champions" 
-                width={1200} 
-                class="hero__img object-[35%_center] lg:object-center" 
-                format="webp"
-                loading="lazy"
-            />
-            <Image 
-                src={CarrouselImgThree} 
-                alt="Trophy Panoramic" 
-                width={1200} 
-                class="hero__img" 
-                format="webp"
-                loading="lazy"
-            />
+<section class="p-4 md:p-8">
+  <div class="grid grid-cols-1 lg:grid-cols-3 lg:grid-rows-2 gap-4 max-w-8xl mx-auto h-[calc(100svh-136px)]">
+    <a href={mainArticle.url} class="group relative block lg:col-span-2 lg:row-span-2 rounded-lg overflow-hidden shadow-lg">
+      <Image src={mainArticle.image} alt={mainArticle.title} class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-105" 
+      quality={80}
+      height={480}
+      />
+      <div class="absolute inset-0 bg-gradient-to-t from-green-950/90 via-green-950/50 to-transparent"></div>
+      <div class="absolute bottom-0 left-0 p-6 text-white">
+        <h2 class="text-3xl md:text-4xl font-bold mb-2 text-shadow">
+          {mainArticle.title}
+        </h2>
+        {mainArticle.description && (
+          <p class="text-lg opacity-90 text-shadow">
+            {mainArticle.description}
+          </p>
+        )}
+      </div>
+    </a>
+
+    {secondaryArticles.map(article => (
+      <a href={article.url} class="group relative block rounded-lg overflow-hidden shadow-lg h-full min-h-[200px]">
+        <Image src={article.image} alt={article.title} class="absolute inset-0 w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
+        quality={80}
+        height={240}   
+        format='webp'
+      />
+        <div class="absolute inset-0 bg-gradient-to-t from-green-950/80 via-green-950/40 to-transparent"></div>
+        <div class="absolute bottom-0 left-0 p-4 text-white">
+          <h3 class="text-xl font-bold text-shadow">
+            {article.title}
+          </h3>
         </div>
-        <div class="hero__flex">
-            <Image src={cta.logo} alt="Logo" height={300} class="hero__logo" format="webp" loading="eager" />
-            <div class="hero__text">
-                <h1 class="hero__title">{heroTitle}</h1>
-                <p class="hero__subtitle">{heroSubtitle}</p>
-                <div class="hero__btn__cont">
-                    <a href={cta.href} class="hero__btn" target={cta.noblank ? "_blank" : "_self"}>
-                        <JoinImg width={20} class="hero__btn__icon" fill={"#fff"} />{cta.text}
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="hero__overlay"></div>
-        <div class="hero__blur"></div>
-    </div>
+      </a>
+    ))}
+  </div>
 </section>
 
- 
-  <style>
-    .hero {
-        height: calc(100svh - 72px);
-        overflow: hidden;
-        .hero__cont {
-            position: relative;
-        }
-        .hero__carrousel {
-            position: relative;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100svh;
-            overflow: hidden;
-        }
-        .hero__img {
-            width: 100%;
-            height: 100svh;
-            object-fit: cover;
-            position: absolute;
-            transition: opacity .5s ease-in-out;
-            &:nth-child(2) {
-                will-change: transform;
-                animation: slowMotion 11s linear infinite forwards;
-                z-index: 2;
-            }
-            &:nth-child(3) {
-                z-index: 1;
-            }
-        }
-        .hero__img--active {
-            animation: slowMotion 11s linear infinite forwards;
-        }
-        .hero__img--hidden {
-            opacity: 0;
-        }
-        .hero__overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100svh;
-            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) , rgba(0, 0, 0, .85) 80%);
-            will-change: opacity;
-            animation: showIn 1.5s ease-in-out .4s forwards;
-            opacity: 0;
-            z-index: 3;
-        }
-        .hero__flex {
-            position: absolute;
-            z-index: 20;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -70%);
-            text-align: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 3rem;
-            width: 100%;
-        }
-        .hero__blur {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100svh;
-            will-change: backdrop-filter;
-            animation: blurIn 1.5s ease-in-out .4s forwards;
-            opacity: 1;
-            backdrop-filter: blur(2px);
-            z-index: 2;
-        }
-        .hero__text {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-        }
-        .hero__logo {
-            will-change: transform, opacity;
-            animation: fadeIn 1.5s ease-in-out .4s forwards;
-            opacity: 0;
-            width: 230px;
-        }
-        .hero__title {
-            font-size: 4rem;
-            font-weight: bold;
-            will-change: transform, opacity;
-            animation: fadeIn 1s ease-in-out  .4s forwards;
-            opacity: 0;
-            margin: 0;
-            line-height: .9;
-        }
-        .hero__subtitle {
-            font-size: 1.3rem;
-            will-change: transform, opacity;
-            animation: fadeIn 1s ease-in-out .6s forwards;
-            opacity: 0;
-            margin: 0;
-            line-height: 1;
-        }
-        .hero__btn {
-            background-color: var(--color-green-700);
-            padding: 1rem 2.5rem;
-            font-size: 1.1rem;
-            font-weight: 500;
-            display: inline-block;
-            align-self: center;
-            transition: all .2s ease-in-out;
-            display: flex;
-            align-items: center;
-            width: fit-content;
-            gap: 1rem;
-            overflow: hidden;
-            .hero__btn__icon {
-                transform: translateX(-10px);
-                transition: transform .2s ease-in-out;
-            }
-            &:hover {
-                background-color: var(--color-green-600);
-                transform: scale(1.05);
-                box-shadow: 0 3px 8px rgba(0, 0, 0, .2);
-            }
-            &:hover .hero__btn__icon {
-                transform: translateX(0) scale(1.2);
-            }
-        }
-        .hero__btn__cont {
-            will-change: transform, opacity; 
-            animation: fadeIn 1s ease-in-out .8s forwards;
-            display: flex;
-            justify-content: center;
-            opacity: 0;
-        }
-    }
-
-    @keyframes fadeIn {
-        0% {
-            transform: scale(.9);
-            opacity: 0;
-        }
-        100% {
-            transform: scale(1);
-            opacity: 1;
-        }
-    }
-    @keyframes showIn {
-        0% {
-            opacity: 0;
-        }
-        100% {
-            opacity: 1;
-        }
-    }
-    @keyframes blurIn {
-        15% {
-            backdrop-filter: blur(3px);
-        }
-        50% {
-            backdrop-filter: blur(6px);
-        }
-        80% {
-            backdrop-filter: blur(0);
-        }
-        100% {
-            backdrop-filter: blur(0);
-        }
-    }
-    @keyframes slowMotion {
-        from {
-            transform: translateX(0) scale(1);
-        }
-        to {
-            transform: translateX(-2%) scale(1.05);
-        }
-    }
-
-    @media (width < 768px) {
-        .hero {
-            .hero__flex {
-                flex-direction: column;
-                gap: 2rem;
-            }
-            .hero__title {
-                font-size: 2.6rem;
-            }
-            .hero__text {
-                gap: 1rem;
-            }
-            .hero__flex {
-                padding: 0 1rem;
-            }
-            .hero__btn {
-                margin-top: 1rem;
-                font-size: 1.2rem;
-            }
-        }
-    }
-  </style>
-
-  <script>
-
-    function showNextImage() {
-        const carrouselImages = document.querySelectorAll('.hero__img');
-        const carrousel = document.querySelector('.hero__carrousel');
-        const first = carrouselImages[0];
-        const second = carrouselImages[1];
-
-        
-        second.classList.add('hero__img--hidden');
-        addAnimation(second.nextElementSibling)
-        
-        setTimeout(() => {
-            carrousel?.appendChild(first);
-            second.classList.remove('hero__img--hidden');
-        }, 500);
-    }
-
-    function addAnimation(elem: HTMLElement) {
-        elem.classList.add('hero__img--active');
-        setTimeout(() => {
-            elem.classList.remove('hero__img--active');
-        }, 11000); 
-    }
-
-    setInterval(() => {
-        showNextImage();
-    }, 10000);
-
-  </script>
+<style>
+  .text-shadow {
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+  }
+</style>

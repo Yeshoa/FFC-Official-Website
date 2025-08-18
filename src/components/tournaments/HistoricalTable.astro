@@ -2,28 +2,26 @@
 import type { CollectionEntry } from "astro:content";
 import { Image } from 'astro:assets';
 import { getMemberByName } from "@lib/memberUtils";
-import {
-  getMatchResult,
-  getGoalsByTeam,
-} from '@lib/matchUtils.ts';
+import { getMembers } from "@lib/collections";
+import { getMatchResult } from '@lib/matchUtils.ts';
+import defaultFlag from '@images/tournaments/default-flag.png';
+const members = await getMembers();
 
 interface Props {
-  members: CollectionEntry<'members'>[];
   matches: CollectionEntry<'matches'>[];
 }
 
-// Extraemos props
-const { members, matches } = Astro.props;
+const { matches } = Astro.props;
 
-// Creamos un mapa de estadísticas por equipo
 type TeamStats = {
   id: number;
   name: string;
+  slug?: string;
   code?: string;
-  flagPath?: ImageMetadata;
+  flagPath?: string;
+  logoPath?: string;
   additionalPoints: number;
   tournamentsPlayed: Set<number>;
-  // tournamentsWon: number;
   played: number;
   won: number;
   draw: number;
@@ -33,59 +31,62 @@ type TeamStats = {
   goalsAgainst: number;
   performance: number;
   totalPoints: number;
-  verified: boolean
+  verified: boolean;
 };
 
 const teamStats: Record<string, TeamStats> = {};
-// Recorremos los miembros y los inicializamos en el mapa de estadísticas
-for (const member of members) {
-  teamStats[member.data.name] = {
-    id: member.data.id,
-    name: member.data.name,
-    code: member.data.code,
-    flagPath: member.data.flagPath,
-    additionalPoints: member.data.additionalPoints || 0,
-    tournamentsPlayed: new Set<number>(),
-    // tournamentsWon: 0,
-    played: 0,
-    won: 0,
-    draw: 0,
-    lost: 0,
-    points: 0,
-    goalsFor: 0,
-    goalsAgainst: 0,
-    performance: 0,
-    totalPoints: 0,
-    verified: member.data.verified
-  };
-}
+
+// Precompute member data for each team
+await Promise.all(
+  members.map(async (member) => {
+    const memberData = await getMemberByName(member.data.name);
+    teamStats[member.data.name] = {
+      id: member.data.id,
+      name: member.data.name,
+      slug: memberData?.slug || '',
+      code: member.data.code,
+      flagPath: memberData?.data.flagPath || defaultFlag,
+      logoPath: memberData?.data.logoPath || defaultFlag,
+      additionalPoints: member.data.additionalPoints || 0,
+      tournamentsPlayed: new Set<number>(),
+      played: 0,
+      won: 0,
+      draw: 0,
+      lost: 0,
+      points: 0,
+      goalsFor: 0,
+      goalsAgainst: 0,
+      performance: 0,
+      totalPoints: 0,
+      verified: member.data.verified,
+    };
+  })
+);
 // Recorremos los partidos y actualizamos las estadísticas de cada equipo
 for (const match of matches) {
-  
-  if (match.status !== "played") continue;
+  if (match.data.status !== "played") continue;
 
-  const { team1, team2, goals } = match;
-
+  const { team1, team2 } = match.data;
   const team1Stats = teamStats[team1];
   const team2Stats = teamStats[team2];
-  
+
   if (!team1Stats || !team2Stats) continue;
-  
+
   // Por cada partido jugado, sumamos 1 a los partidos jugados de cada equipo
   team1Stats.played++;
   team2Stats.played++;
-  
+
   // Por cada partido jugado, sumamos los goles de cada equipo
-  const { team1: goalsT1, team2: goalsT2 } = getMatchResult(match);
-  
+  const { team1: goalsT1, team2: goalsT2 } = getMatchResult(match.data);
+
   team1Stats.goalsFor += goalsT1;
   team2Stats.goalsFor += goalsT2;
   team1Stats.goalsAgainst += goalsT2;
   team2Stats.goalsAgainst += goalsT1;
 
   // Añadimos el torneo a los torneos jugados de cada equipo
-  team1Stats.tournamentsPlayed.add(match.tournament_id);
-  team2Stats.tournamentsPlayed.add(match.tournament_id);
+  team1Stats.tournamentsPlayed.add(match.data.tournament_id);
+  team2Stats.tournamentsPlayed.add(match.data.tournament_id);
 
   if (goalsT1 > goalsT2) {
     team1Stats.won++;
@@ -110,28 +111,30 @@ for (const team of Object.values(teamStats)) {
 }
 
 // Ordenamos por total de puntos (score + additionalPoints + puntos obtenidos en partidos)
-const sortedStats = Object.values(teamStats).filter(stat => stat.verified).sort((a, b) => {
-  // Total de puntos
-  const totalA = a.totalPoints;
-  const totalB = b.totalPoints;
-  if (totalB !== totalA) return totalB - totalA;
-  
-  // Torneos jugados (mayor cantidad)
-  if (b.tournamentsPlayed.size !== a.tournamentsPlayed.size) {
-    return b.tournamentsPlayed.size - a.tournamentsPlayed.size;
-  }
+const sortedStats = Object.values(teamStats)
+  .filter(stat => stat.verified)
+  .sort((a, b) => {
+    // Total de puntos
+    const totalA = a.totalPoints;
+    const totalB = b.totalPoints;
+    if (totalB !== totalA) return totalB - totalA;
 
-  // Diferencia de gol (goles a favor - goles en contra)
-  const diffA = a.goalsFor - a.goalsAgainst;
-  const diffB = b.goalsFor - b.goalsAgainst;
-  if (diffB !== diffA) return diffB - diffA;
+    // Torneos jugados (mayor cantidad)
+    if (b.tournamentsPlayed.size !== a.tournamentsPlayed.size) {
+      return b.tournamentsPlayed.size - a.tournamentsPlayed.size;
+    }
 
-  // Performance (porcentaje)
-  if (b.performance !== a.performance) return b.performance - a.performance;
+    // Diferencia de gol (goles a favor - goles en contra)
+    const diffA = a.goalsFor - a.goalsAgainst;
+    const diffB = b.goalsFor - b.goalsAgainst;
+    if (diffB !== diffA) return diffB - diffA;
 
-  // Goles a favor (mayor cantidad)
-  return b.goalsFor - a.goalsFor;
-});
+    // Performance (porcentaje)
+    if (b.performance !== a.performance) return b.performance - a.performance;
+
+    // Goles a favor (mayor cantidad)
+    return b.goalsFor - a.goalsFor;
+  });
 ---
 
 <h1 class="text-3xl font-bold py-6">Historical Table</h1>
@@ -152,24 +155,27 @@ const sortedStats = Object.values(teamStats).filter(stat => stat.verified).sort(
         <th class="px-2 py-2 text-center" title="Goals for">GF</th>
         <th class="px-2 py-2 text-center" title="Goals against">GA</th>
         <th class="px-2 py-2 text-center" title="Goal difference">GD</th>
-        <!-- <th class="px-2 py-2 text-center" title="Tournaments Won">TW</th> -->
         <th class="px-4 text-center rounded-tr-lg" title="Performance">PR</th>
       </tr>
     </thead>
     <tbody class="text-center">
-      {sortedStats.map((team, index) => { 
-        const teamObject = getMemberByName(team.name, members);
-        return (
-        <tr class="border-b border-green-700 hover:bg-green-900/30 transition duration-150">
+      {sortedStats.map((team, index) => (
+        <tr class="border-b border-green-700 hover:bg-green-900/30 transition duration-150" key={team.name}>
           <td class="px-2 py-2">{index + 1}°</td>
           <td class="py-2 sticky left-0 z-10 bg-green-900 md:bg-transparent">
-            <Image src={teamObject.data.flagPath || teamObject.data.logoPath} alt={team.name} 
-            width={42} 
-            class="h-5 max-w-9 object-cover rounded inline-block 2xl:h-6 2xl:w-9" 
-            loading={"lazy"} 
-            quality={80} format="webp"/>
+            <Image
+              src={team.flagPath || defaultFlag}
+              alt={team.name}
+              width={42}
+              class="h-5 max-w-9 object-cover rounded inline-block 2xl:h-6 2xl:w-9"
+              loading="lazy"
+              quality={80}
+              format="webp"
+            />
           </td>
-          <td class="px-2 py-2 text-left"><a href={`/members/${teamObject.slug}`} class="font-semibold hover:underline truncate">{team.name}</a></td>
+          <td class="px-2 py-2 text-left">
+            <a href={`/members/${team.slug}`} class="font-semibold hover:underline truncate">{team.name}</a>
+          </td>
           <td class="px-2 py-2 text-green-200">{team.tournamentsPlayed.size}</td>
           <td class="px-2 py-2 font-bold">{team.totalPoints}{team.additionalPoints > 0 && '*'}</td>
           <td class="px-2 py-2 text-green-200">{team.played}</td>
@@ -179,10 +185,9 @@ const sortedStats = Object.values(teamStats).filter(stat => stat.verified).sort(
           <td class="px-2 py-2 text-green-200">{team.goalsFor}</td>
           <td class="px-2 py-2 text-green-200">{team.goalsAgainst}</td>
           <td class="px-2 py-2 text-green-200">{team.goalsFor - team.goalsAgainst}</td>
-          {/* <td class="px-2 py-2">{team.tournamentsWon}</td> */}
           <td class="px-2 py-2">{team.performance.toFixed(2)}%</td>
         </tr>
-      )})}
+      ))}
     </tbody>
   </table>
 </div>

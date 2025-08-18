@@ -1,18 +1,17 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import { getMatchResult, getMatchWinner } from '../../lib/matchUtils.ts';
-import MatchCardCompact from '../MatchCardCompact.astro';
+import MatchCardCompact from '@components/matches/MatchCardCompact.astro';
 
 interface Props {
   member: CollectionEntry<'members'>;
-  members: CollectionEntry<'members'>[];
-  matches: CollectionEntry<'matches'>['data'][];
+  matches: CollectionEntry<'matches'>[];
 }
 
-const { member, matches, members } = Astro.props;
+const { member, matches } = Astro.props;
 const teamName = member.data.name;
 
-const sortedMatches = matches.slice().reverse(); // cronológico
+const sortedMatches = matches.map(match => match.data).slice().reverse(); // cronológico
 
 let firstMatch = sortedMatches.at(0);
 let cleanSheets = 0;
@@ -93,18 +92,18 @@ for (const match of sortedMatches) {
       
       <div class="space-y-2">
         <h3 class="font-semibold text-white">First Match:</h3>
-        <MatchCardCompact match={firstMatch} members={members} />
+        <MatchCardCompact match={firstMatch} />
       </div>
       <div class="space-y-2">
         <h3 class="font-semibold text-white">Biggest Win{biggestWins.length > 1 ? 's' : ''}:</h3>
         {biggestWins.map(m => (
-          <MatchCardCompact key={m.id} match={m} members={members} />
+          <MatchCardCompact key={m.id} match={m} />
         ))}
       </div>
       <div class="space-y-2">
         <h3 class="font-semibold text-white">Worst Defeat{biggestLosses.length > 1 ? 's' : ''}:</h3>
         {biggestLosses.map(m => (
-          <MatchCardCompact key={m.id} match={m} members={members} />
+          <MatchCardCompact key={m.id} match={m} />
         ))}
       </div>
       <div class="text-sm text-gray-200 space-y-2">

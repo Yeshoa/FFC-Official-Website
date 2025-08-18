@@ -4,17 +4,17 @@ import type { CollectionEntry } from 'astro:content';
 import type { ImageMetadata } from 'astro';
 import { getMemberByName } from '@lib/memberUtils';
 import { areThereScorers, getMatchWinner, getMatchResult } from '@lib/matchUtils';
-import GoalIcon from '@images/goal.png';
+import PenaltyIcon from '@images/icons/penalty.svg';
+import GoalIcon from '@images/icons/futbol-regular-full.svg';
 import defaultFlag from '@images/tournaments/default-flag.png';
-import { LOCALE } from '@lib/generalUtils';
+import { LOCALE } from '@config/constants';
 
 interface Props {
   match: CollectionEntry<'matches'>['data'];
-  members: any[];
   tournamentName?: string; // Optional tournament name to display
 }
 
-const { match, members } = Astro.props;
+const { match } = Astro.props;
 
 const goals = match.goals ?? [];
 const { team1: score1, team2: score2 } = getMatchResult(match);
@@ -31,9 +31,8 @@ if (hasPenaltyShootout) {
   penaltyInfo = `(${penaltyScore1}-${penaltyScore2})`;
 }
 
-const team1 = getMemberByName(match.team1, members) || "-";
-const team2 = getMemberByName(match.team2, members) || "-";
-
+const team1 = await getMemberByName(match.team1) || match.team1;
+const team2 = await getMemberByName(match.team2) || match.team2;
 const winner = getMatchWinner(match);
 ---
 
@@ -56,7 +55,7 @@ const winner = getMatchWinner(match);
     <div class="grid grid-cols-3 items-center w-full gap-2 mb-4 z-10 mt-4">
       <!-- Team 1 -->
       <div class={`flex flex-col items-center justify-center text-center ${winner === match.team1 ? 'scale-105' : ''} transition-transform duration-300`}>
-        {team1 !== "-" && team1.data.flagPath ? (
+        {team1?.data?.flagPath ? (
           <Image
             src={team1.data.flagPath || defaultFlag}
             alt={match.team1}
@@ -110,7 +109,7 @@ const winner = getMatchWinner(match);
       
       <!-- Team 2 -->
       <div class={`flex flex-col items-center justify-center text-center ${winner === match.team2 ? 'scale-105' : ''} transition-transform duration-300`}>
-        {team2 !== "-" && team2.data.flagPath ? (
+        {team2?.data?.flagPath ? (
           <Image
             src={team2.data.flagPath || defaultFlag}
             alt={team2.data.name}
@@ -160,13 +159,15 @@ const winner = getMatchWinner(match);
                 return minuteA - minuteB;
               })
               .map((goal, idx) => (
-                <div key={`team1-goal-${idx}-${goal.player}-${goal.minute}`} class="text-xs sm:text-base flex xs:flex-row flex-col items-center gap-2 justify-center mb-1">
-                  <span class="font-medium truncate">{goal.player}</span>
-                  <div class="flex items-center gap-1">
-                    <Image src={GoalIcon} alt="Goal" class="w-4 h-4 flex-shrink-0" loading={"lazy"} format="webp" quality={1} />
-                    <span>
+                <div key={`team1-goal-${idx}-${goal.player}-${goal.minute}`} class="text-xs sm:text-base flex xs:flex-row flex-col items-center gap-1 justify-center mb-1">
+                  <span class="font-medium truncate me-1">{goal.player}</span>
+                  <div class="flex items-center">
+                    {/* <Image src={GoalIcon} alt="Goal" class="w-4 h-4 flex-shrink-0" loading={"lazy"} format="webp" quality={1} /> */}
+                    <GoalIcon class="w-4 h-4 flex-shrink-0 fill-green-400" />
+                    {goal.penalty ? <PenaltyIcon class="w-4 h-4 flex-shrink-0 fill-yellow-400" /> : ""}
+                    <span class="ms-1">
                       {goal.minute}{goal.aggregate !== undefined ? `+${goal.aggregate}` : ""}'
-                      {goal.penalty ? " (P)" : ""}
+                      {/* {goal.penalty ? " (P)" : ""} */}
                       {goal.ownGoal ? " (OG)" : ""}
                     </span>
                   </div>
@@ -206,13 +207,15 @@ const winner = getMatchWinner(match);
                 return minuteA - minuteB;
               })
               .map((goal, idx) => (
-                <div key={`team2-goal-${idx}-${goal.player}-${goal.minute}`} class="text-xs sm:text-base flex xs:flex-row flex-col items-center gap-2 justify-center mb-1">
-                  <span class="font-medium truncate">{goal.player}</span>
-                  <div class="flex items-center gap-1">
-                    <Image src={GoalIcon} alt="Goal" class="w-4 h-4 flex-shrink-0" loading={"lazy"} format="webp" quality={1} />
-                    <span>
+                <div key={`team2-goal-${idx}-${goal.player}-${goal.minute}`} class="text-xs sm:text-base flex xs:flex-row flex-col items-center gap-1 justify-center mb-1">
+                  <span class="font-medium truncate me-1">{goal.player}</span>
+                  <div class="flex items-center">
+                    {/* <Image src={GoalIcon} alt="Goal" class="w-4 h-4 flex-shrink-0" loading={"lazy"} format="webp" quality={1} /> */}
+                    <GoalIcon class="w-4 h-4 flex-shrink-0 fill-green-400" />
+                    {goal.penalty ? <PenaltyIcon class="w-4 h-4 flex-shrink-0 fill-yellow-400" /> : ""}
+                    <span class="ms-1">
                       {goal.minute}{goal.aggregate !== undefined ? `+${goal.aggregate}` : ""}'
-                      {goal.penalty ? " (P)" : ""}
+                      {/* {goal.penalty ? " (P)" : ""} */}
                       {goal.ownGoal ? " (OG)" : ""}
                     </span>
                   </div>

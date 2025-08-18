@@ -1,6 +1,9 @@
 ---
 import { Image } from 'astro:assets';
-import { getSponsors, ENABLE_DONATIONS } from '@lib/generalUtils';
+import { getSponsors } from '@lib/collections';
+import { FEATURES } from '@config/features';
+import { LINKS } from '@config/links';
+import { ROUTES } from '@config/routes';
 import FooterImage from '@images/Footer.png';
 import SponsorCard from '@components/sponsors/SponsorCard.astro';
 
@@ -9,9 +12,6 @@ import MPLogo from '@images/mercadopago.png';
 import YTLogo from '@images/youtube.png';
 import TwitchLogo from '@images/twitch.png';
 import KickLogo from '@images/kick.png';
-
-const paypalLink = import.meta.env.PUBLIC_PAYPAL_LINK;
-const mpLink = import.meta.env.PUBLIC_MERCADOPAGO_LINK;
 
 const sponsors = await getSponsors();
 ---
@@ -29,9 +29,9 @@ const sponsors = await getSponsors();
           <div class="">
             <h2 class="mb-4 text-sm font-semibold uppercase text-white">Community</h2>
             <ul class="text-gray-400 font-medium space-y-4">
-              <li><a href="https://www.nationstates.net/region=forest" target="_blank" class="hover:underline">Forest</a></li>
-              <li><a href="https://discord.gg/c2Uw6MN" target="_blank" class="hover:underline">Forest Discord Server</a></li>
-              <li><a href="https://discord.com/invite/EX4sGhjbgU" target="_blank" class="hover:underline">FFC Discord Server</a></li>
+              <li><a href={LINKS.nationStates.forest} target="_blank" class="hover:underline">Forest</a></li>
+              <li><a href={LINKS.social.discordForest} target="_blank" class="hover:underline">Forest Discord Server</a></li>
+              <li><a href={LINKS.social.discordFFC} target="_blank" class="hover:underline">FFC Discord Server</a></li>
             </ul>
           </div>
 
@@ -40,19 +40,19 @@ const sponsors = await getSponsors();
             <h2 class="mb-4 text-sm font-semibold uppercase text-white">Follow us</h2>
             <ul class="text-gray-400 font-medium space-y-4">
               <li>
-                <a href="https://www.youtube.com/@Bolbon" target="_blank" class="hover:underline">
+                <a href={LINKS.social.youtube} target="_blank" class="hover:underline">
                   <Image src={YTLogo} alt="YouTube" class="inline-block h-auto mr-2" width={16} quality={60} format="webp"/>
                   YouTube
                 </a>
               </li>
               <li>
-                <a href="https://www.twitch.tv/bolbon_" target="_blank" class="hover:underline">
+                <a href={LINKS.social.twitch} target="_blank" class="hover:underline">
                   <Image src={TwitchLogo} alt="Twitch" class="inline-block h-4 mr-2" width={16} quality={60} format="webp"/>
                   Twitch
                 </a>
               </li>
               <li>
-                <a href="https://kick.com/bolbon" target="_blank" class="hover:underline">
+                <a href={LINKS.social.kick} target="_blank" class="hover:underline">
                   <Image src={KickLogo} alt="Kick" class="inline-block h-4 mr-2" width={16} quality={60} format="webp"/>
                   Kick
                 </a>
@@ -64,18 +64,18 @@ const sponsors = await getSponsors();
           <div class="">
             <h2 class="mb-4 text-sm font-semibold uppercase text-white">Support</h2>
             <ul class="text-gray-400 font-medium space-y-4">
-              <li><a href="/sponsor" class="hover:underline">Sponsor us (Roleplay)</a></li>
+              <li><a href={ROUTES.sponsor} class="hover:underline">Sponsor us (Roleplay)</a></li>
             </ul>
           </div>
 
           <!-- 4. Donate -->
-          {ENABLE_DONATIONS && 
+          {FEATURES.donations && 
           <div class="">
             <h2 class="mb-4 text-sm font-semibold uppercase text-white">Donate</h2>
             <ul class="text-gray-400 font-medium space-y-4">
               <li>  
                 <a
-                  href={paypalLink}
+                  href={LINKS.donations.paypal}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Donate via PayPal"
@@ -83,7 +83,7 @@ const sponsors = await getSponsors();
               </li>
               <li>
                 <a
-                  href={mpLink}
+                  href={LINKS.donations.mercadopago}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Donate via MercadoPago"
@@ -93,7 +93,7 @@ const sponsors = await getSponsors();
             {/*<div class="md:flex md:flex-col items-start space-y-4">
               <!-- PayPal -->
                <a
-                href={paypalLink}
+                href={LINKS.donations.paypal}
                 target="_blank"
                 rel="noopener noreferrer"
                 class="transition-opacity hover:opacity-80 bg-white rounded px-3 flex items-center justify-center h-[40px] overflow-hidden"
@@ -110,7 +110,7 @@ const sponsors = await getSponsors();
                 </a> 
               <!-- MercadoPago -->
                <a
-                href={mpLink}
+                href={LINKS.donations.mercadopago}
                 target="_blank"
                 rel="noopener noreferrer"
                 class="transition-opacity hover:opacity-80 bg-white rounded flex items-center justify-center h-[40px] overflow-hidden"
@@ -138,7 +138,7 @@ const sponsors = await getSponsors();
     </div>
     <div class="flex flex-wrap justify-center gap-8 mt-4">
       {sponsors.filter((sponsor) => sponsor.data.tier !== 'national').map((sponsor) => (
-        <SponsorCard sponsor={sponsor} size="md" />
+        <SponsorCard sponsor={sponsor} />
       ))}
     </div>
   </div>

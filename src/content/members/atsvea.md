@@ -15,9 +15,6 @@ score:
   events:
     "2": 
       trivia: 32
-  bonus:
-    "3":
-      host: 20
 manualAchievements: 
   - "founder"
   - "powerhouse"

@@ -1,5 +1,5 @@
 import { MAX_EVENTS_POINTS, SCORING_CONFIG } from "./scoreUtils";
-import { getMembers } from "./generalUtils";
+import { getMembers } from '@lib/collections';
 const members = await getMembers();
 export const EVENT_COUNT = 6;
 // Funciones para manejar eventos dinámicos usando tournament IDs

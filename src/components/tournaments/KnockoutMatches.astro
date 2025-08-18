@@ -1,7 +1,6 @@
 ---
-import MatchCard from '../MatchCard.astro';
-import FinalCard from '../tournaments/FinalCard.astro';
-import type { CollectionEntry } from 'astro:content'; // Asumo que usas Astro Content Collections
+import MatchCard from '@components/matches/MatchCard.astro';
+import FinalCard from '@components/matches/FinalCard.astro';
 
 interface MatchData {
   tournament_id: number;
@@ -21,12 +20,10 @@ interface MatchData {
 
 interface Props {
   knockoutMatches: Array<{ id?: string; data: MatchData }>;
-  members: CollectionEntry<'members'>[];
 }
 
-const { knockoutMatches, members } = Astro.props as Props;
+const { knockoutMatches } = Astro.props as Props;
 
-// Agrupar partidos por fixture
 const matchesByFixture: Record<string, Array<{ id?: string; data: MatchData }>> = knockoutMatches.reduce((acc, match) => {
   const fixture = match.data.fixture || 'Unknown';
   if (!acc[fixture]) acc[fixture] = [];
@@ -34,7 +31,6 @@ const matchesByFixture: Record<string, Array<{ id?: string; data: MatchData }>> 
   return acc;
 }, {});
 
-// Ordenar fixtures
 const sortedFixtures: string[] = Object.keys(matchesByFixture).sort((a, b) => {
   const order = ['Round of 16', 'Quarter Finals', 'Semi Finals', 'Final'];
   return order.indexOf(a) - order.indexOf(b);
@@ -63,12 +59,11 @@ const sortedFixtures: string[] = Object.keys(matchesByFixture).sort((a, b) => {
               {matchesByFixture[fixture]
                 .sort((a, b) => new Date(a.data.date).getTime() - new Date(b.data.date).getTime())
                 .map(match => (fixture === 'Final' ? (
-                  <FinalCard key={match.id || `${match.data.team1}-${match.data.team2}`} match={match.data} members={members} />
+                  <FinalCard key={match.id || `${match.data.team1}-${match.data.team2}`} match={match.data}/>
                 ) :
                   <MatchCard
                     key={match.id || `${match.data.team1}-${match.data.team2}`}
-                    match={match.data}
-                    members={members} 
+                    match={match}
                   />
                 ))}
             </div>

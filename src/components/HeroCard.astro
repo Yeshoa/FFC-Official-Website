@@ -11,7 +11,7 @@ export interface Props {
   imagePosition?: 'left' | 'right';
   backgroundColor?: string;
   noblank?: boolean;
-  variant?: 'default' | 'diagonal' | 'overlay' | 'floating' | 'split';
+  variant?: 'default' | 'stripe' | 'overlay' | 'floating' | 'split';
 }
 
 const { 
@@ -71,48 +71,65 @@ const {
   </div>
 )}
 
-<!-- Variant: Diagonal - Corte diagonal dinámico -->
-{variant === 'diagonal' && (
-  <div class="relative w-full h-full md:h-[500px] overflow-hidden shadow-2xl bg-gradient-to-br from-gray-900 to-gray-800 group">
-    <div class="relative h-full">
-      <!-- Imagen con corte diagonal -->
-      <div class={`absolute inset-0 ${imagePosition === 'left' ? 'clip-path-diagonal-left' : 'clip-path-diagonal-right'}`}>
-        <Image 
-          src={image} 
+<!-- Variant: Stripe - Franja compacta MEJORADA -->
+{variant === 'stripe' && (
+  <div class="relative w-full bg-gradient-to-r from-green-1000 via-green-950 to-green-900 shadow-2xl overflow-hidden group">
+    {/* Elementos decorativos de fondo */}
+    <div class="absolute inset-0 opacity-5">
+      <div class="absolute top-0 left-0 w-16 h-16 bg-green-500 transform rotate-45 group-hover:rotate-90 transition-transform duration-700"></div>
+      <div class="absolute bottom-0 right-0 w-12 h-12 bg-green-200/50 transform -rotate-45 group-hover:rotate-0 transition-transform duration-700"></div>
+    </div>
+    
+    {/* Overlay con gradiente dinámico */}
+    <div class={`absolute inset-0 bg-gradient-to-r from-transparent via-transparent ${backgroundColor} opacity-20`}></div>
+    
+    <div class={`flex flex-col ${imagePosition === 'left' ? 'md:flex-row' : 'md:flex-row-reverse'} items-center justify-between gap-8 md:gap-12 p-8 md:p-12 relative z-10`}>
+      
+      {/* Imagen con efectos mejorados */}
+      <div class="w-40 h-40 md:w-48 md:h-48 xl:h-60 xl:w-60 flex-shrink-0 relative group/image">
+        <div class="absolute inset-0 bg-gradient-to-br from-green/20 to-transparent z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+        <Image
+          src={image}
           alt={title}
-          height={500}
+          height={200}
           format="webp"
           quality={80}
-          class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
+          class="w-full h-full transform group-hover:scale-110 transition-transform duration-700"
         />
       </div>
       
-      <!-- Fondo con corte diagonal opuesto -->
-      <div class={`absolute inset-0 bg-gradient-to-br ${backgroundColor} ${imagePosition === 'left' ? 'clip-path-diagonal-right' : 'clip-path-diagonal-left'}`}></div>
-      
-      <!-- Contenido superpuesto -->
-      <div class={`absolute inset-0 flex items-center ${imagePosition === 'left' ? 'justify-end pr-16' : 'justify-start pl-16'}`}>
-        <div class="max-w-md text-white z-10 text-center">
-          <h2 class="text-5xl font-black mb-6 leading-tight drop-shadow-2xl transform group-hover:scale-105 transition-transform duration-500">
-            {title}
-          </h2>
-          <p class="text-xl text-gray-100 mb-8 leading-relaxed drop-shadow-lg">
-            {description}
-          </p>
-          <a 
-            href={buttonUrl}
-            class="inline-flex items-center gap-2 px-10 py-5 bg-white text-gray-900 font-bold
-                   shadow-2xl hover:shadow-3xl transform hover:scale-110 transition-all duration-300"
-            target={noblank ? "_self" : "_blank"}
-          >
-            {buttonText}
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-            </svg>
-          </a>
-        </div>
+      {/* Contenido mejorado */}
+      <div class="flex-1 text-center md:text-left text-white relative">
+        <h2 class="text-3xl md:text-4xl lg:text-5xl font-black mb-4 leading-tight transform group-hover:translate-y-[-2px] transition-transform duration-500">
+          {title}
+        </h2>
+        
+        {/* Línea decorativa */}
+        <div class="w-12 h-1 bg-white/60 mx-auto md:mx-0 mb-4 transform group-hover:w-20 transition-all duration-500"></div>
+        
+        <p class="text-lg md:text-xl text-gray-100 mb-6 leading-relaxed max-w-2xl">
+          {description}
+        </p>
+        
+        <a 
+          href={buttonUrl}
+          class="inline-flex items-center gap-3 px-8 py-4 bg-white/10 backdrop-blur-sm border border-white/30 
+                 text-white font-bold hover:bg-white hover:text-gray-900 
+                 transform hover:scale-105 hover:shadow-2xl transition-all duration-300
+                 shadow-lg hover:border-white/60"
+          target={noblank ? "_self" : "_blank"}
+        >
+          {buttonText}
+          <svg class="w-5 h-5 transform group-hover:translate-x-1 transition-transform duration-300" 
+               fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+          </svg>
+        </a>
       </div>
     </div>
+    
+    {/* Efecto de brillo sutil */}
+    <div class="absolute inset-0 bg-gradient-to-r from-transparent via-green-700/5 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out"></div>
   </div>
 )}
 
@@ -162,33 +179,33 @@ const {
   </div>
 )}
 
-<!-- Variant: Floating - Elementos flotantes y superpuestos -->
+<!-- Variant: Floating - Elementos flotantes y superpuestos ARREGLADA -->
 {variant === 'floating' && (
   <div class="relative w-full flex flex-col items-center gap-5 justify-center md:justify-around md:gap-0 md:flex-row h-[800px] md:h-[500px] overflow-hidden shadow-2xl bg-gradient-to-br from-gray-900 to-gray-800 group">
     <!-- Fondo degradado -->
     <div class={`absolute inset-0 bg-gradient-to-br ${backgroundColor}`}></div>
     
     <!-- Imagen flotante -->
-    <div class="w-80 h-80 transform group-hover:scale-110 group-hover:rotate-3 transition-all duration-700">
-      <div class="w-full h-full overflow-hidden" style="filter: drop-shadow(10px 10px 10px rgba(0, 0, 0, 0.5));">
+    <div class="w-48 lg:w-60 lg:h-60 transform group-hover:scale-110 group-hover:rotate-3 transition-all duration-700 z-10">
+      <div class="w-full h-full flex items-center justify-center" style="filter: drop-shadow(10px 10px 10px rgba(0, 0, 0, 0.5));">
         <Image
           src={image}
           alt={title}
           height={400}
           format="webp"
           quality={80}
-          class="w-full h-full object-cover"
+          class="w-full"
         />
       </div>
     </div>
     
     <!-- Contenido -->
-    <div class="px-12 md:p-0">
-      <div class="max-w-lg text-white z-10">
-        <h2 class="text-5xl font-black mb-6 leading-tight transform group-hover:translate-x-2 transition-transform duration-500">
+    <div class="px-12 md:p-0 relative z-20">
+      <div class="max-w-lg text-white">
+        <h2 class="text-5xl font-black mb-6 leading-tight transform group-hover:translate-y-[-2px] transition-transform duration-500">
           {title}
         </h2>
-        <p class="text-xl text-gray-100 mb-8 leading-relaxed sticky">
+        <p class="text-xl text-gray-100 mb-8 leading-relaxed">
           {description}
         </p>
         <a 
@@ -207,8 +224,8 @@ const {
     </div>
     
     <!-- Elementos decorativos -->
-    <div class="absolute bottom-8 left-8 w-16 h-16 bg-white/10 transform rotate-45 group-hover:rotate-90 transition-transform duration-500"></div>
-    <div class="absolute top-8 right-8 w-8 h-8 bg-white/20 transform group-hover:scale-150 transition-transform duration-500"></div>
+    <div class="absolute bottom-8 left-8 w-16 h-16 bg-white/10 transform rotate-45 group-hover:rotate-90 transition-transform duration-500 z-0"></div>
+    <div class="absolute top-8 right-8 w-8 h-8 bg-white/20 transform group-hover:scale-150 transition-transform duration-500 z-0"></div>
   </div>
 )}
 

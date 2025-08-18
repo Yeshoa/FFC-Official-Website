@@ -1,25 +1,25 @@
 ---
 import  { type CollectionEntry } from 'astro:content';
-import { getTournaments, LOCALE } from '@lib/generalUtils';
+import { getTournaments } from '@lib/collections';
+import { LOCALE } from '@config/constants';
 import { getMatchResult, getPenaltiesResult } from '@lib/matchUtils.ts';
 import { getMemberImage } from '@lib/memberUtils.ts';
 import { Image } from 'astro:assets';
 
 interface Props {
   match: CollectionEntry<'matches'>['data'];
-  members: CollectionEntry<'members'>[];
 }
 
 const tournaments = await getTournaments();
-const { match, members } = Astro.props;
+const { match } = Astro.props;
 const tournament = tournaments.find(t => t.data.id === match.tournament_id);
 const date = new Date(match.date);
 const { team1, team2 } = match;
 const { team1: score1, team2: score2 } = getMatchResult(match);
 const penalties = getPenaltiesResult(match);
 
-const team1Image = getMemberImage(team1, members);
-const team2Image = getMemberImage(team2, members);
+const team1Image = getMemberImage(team1);
+const team2Image = getMemberImage(team2);
 
 // Texto de penales si aplica
 const penaltyText = penalties

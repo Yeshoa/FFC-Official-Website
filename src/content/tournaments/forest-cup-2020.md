@@ -6,8 +6,8 @@ host: "Bilsa"
 champion: "Ruinenlust"
 image: "src/assets/images/tournaments/2020/logo2.png"
 banner: "src/assets/images/tournaments/2020/logo2.png"
-heroImg: "src/assets/images/tournaments/2020/rui_champions.png"
-cardImg: "src/assets/images/tournaments/2020/rui_champions.png"
+heroImg: "src/assets/images/tournaments/2020/heroImg.png"
+cardImg: "src/assets/images/tournaments/2020/heroImg.png"
 edition: 2020
 participants:
   - "Cannibaland"

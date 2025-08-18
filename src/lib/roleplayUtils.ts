@@ -1,3 +1,4 @@
+import { SCORING_CONFIG } from "./scoreUtils";
 import { CURRENT_TOURNAMENT_ID } from "./tournamentUtils";
 
 // Función helper para obtener puntos de eventos específicos
@@ -18,7 +19,7 @@ export function calculateCurrentRoleplayPoints(
   const currentRoleplay = memberRoleplay[currentTournamentIdStr] || {};
 
   // Caso particular: incluye dispatchPoints si el equipo tiene fedDispatch
-  const dispatchPoints = team.data?.feddispatch ? 10 : 0;
+  const dispatchPoints = team.data?.feddispatch ? SCORING_CONFIG.RP_MAX : 0;
   const roleplay: Record<string, number> = { ...currentRoleplay, dispatch: dispatchPoints };
 
   const totalPoints = Object.values(roleplay).reduce((sum, points) => sum + points, 0);

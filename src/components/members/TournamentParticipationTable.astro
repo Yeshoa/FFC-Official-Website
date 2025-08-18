@@ -4,39 +4,62 @@ import type { CollectionEntry } from 'astro:content';
 import { getMemberByName } from '@lib/memberUtils';
 import { getMatchResult } from '@lib/matchUtils';
 import { Image } from 'astro:assets';
-import { getTeamStatsInTournament, getTeamFinalResult, getTopScorerOfTeamInTournament, getTeamPositionInTournament} from '../../lib/tournamentUtils';
+import { getTeamStatsInTournament, getTeamFinalResult, getTopScorerOfTeamInTournament, getTeamPositionInTournament, getTeamByPosition, getFinalResult, getThirdPlaceResult} from '../../lib/tournamentUtils';
 import { CURRENT_TOURNAMENT_ID } from '../../lib/tournamentUtils';
+import { getTournaments } from '@lib/collections';
+
+const tournaments = await getTournaments();
 
 interface Props {
   member: CollectionEntry<'members'>;
-  tournaments: CollectionEntry<'tournaments'>[];
   matches: CollectionEntry<'matches'>[];
-  members: CollectionEntry<'members'>[];
   type: 'forest-cup' | 'forestian-champions-league';
 }
 // Member para mostrar los datos del miembro, tournaments y matches para obtener los datos de los torneos, members para las ediciones
-const { member, tournaments, matches, members, type } = Astro.props;
+const { member, matches, type } = Astro.props;
 const memberName = member.data.name;
 // Filtrar los torneos por tipo
 const allEditions = tournaments
   .filter(t => t.data.type === type)
-  .sort((a, b) => b.data.edition - a.data.edition);
+  .sort((a, b) => a.data.edition - b.data.edition);
 // Función auxiliar para obtener las estadísticas de un torneo
-
+const tournamentsData = await Promise.all(
+  allEditions.map(async (t) => {
+    const isFutureOrCurrent = t.data.id >= CURRENT_TOURNAMENT_ID;
+    const host = await getMemberByName(t.data.host || '') || null;
+    const hostClass = t.data.host === memberName ? 'text-amber-400 font-bold' : '';
+    const didParticipate = t.data.participants && t.data.participants.includes(memberName);
+    const stats = await getStatsForTournament(t.data.id);
+    const topScorer = await getTopScorerInTournament(t.data.id);
+    const position = await getTeamPositionInTournamentById(t.data.id);
+    const resultClass = position === 1 ? 'text-amber-400 font-bold' : position === 2 ? 'text-sky-300 font-bold' : position === 3 ? 'text-amber-600 font-bold' : '';
+    return {
+      t,
+      isFutureOrCurrent,
+      host,
+      hostClass,
+      didParticipate,
+      stats,
+      topScorer,
+      position,
+      resultClass
+    };
+  })
+);
 function getStatsForTournament(tournamentId: number) {
-  return getTeamStatsInTournament(memberName, tournamentId, matches);
+  return getTeamStatsInTournament(memberName, tournamentId);
 }
 // Función auxiliar para obtener el máximo goleador del equipo de un torneo
 function getTopScorerInTournament(tournamentId: number) {
-  return getTopScorerOfTeamInTournament(memberName, tournamentId, matches);
+  return getTopScorerOfTeamInTournament(memberName, tournamentId);
 }
 
 function getTeamPositionInTournamentById(tournamentId: number) {
-  return getTeamPositionInTournament(tournaments.find(t => t.data.id === tournamentId)!, matches, memberName);
+  return getTeamPositionInTournament(tournaments.find(t => t.data.id === tournamentId)!, memberName);
 }
 
 function getTeamFinalResultInTournament(tournamentId: number) {
-  return getTeamFinalResult(memberName, tournaments.find(t => t.data.id === tournamentId)!, matches);
+  return getTeamFinalResult(memberName, tournaments.find(t => t.data.id === tournamentId)!);
 }
 ---
 
@@ -63,8 +86,55 @@ function getTeamFinalResultInTournament(tournamentId: number) {
         </tr>
       </thead>
       <tbody class="">
-        {allEditions.sort((b, a) => b.data.edition - a.data.edition).map(t => {
-          const host = getMemberByName(t.data.host, members);
+        {tournamentsData.map(t => {
+          if (!t.didParticipate && !t.isFutureOrCurrent) {
+            return (
+              <tr class="border-b border-green-700 italic bg-red-900/10 text-red-300">
+                <td class={`px-2 py-2 flex flex-col items-center gap-1 justify-center`}>
+                  {t.host && <a href={`/members/${t.host.slug}`} class="flex-shrink-0"><Image src={t.host.data.flagPath} alt={t.host.data.name} height={20} class="rounded-sm max-h-14" loading={'lazy'} quality={10} format={'webp'} /></a>}
+                  <a href={`/${type}/${t.t.data.edition}`} class={`hover:underline ${t.hostClass}`}>{t.t.data.edition}</a>
+                </td>
+                <td colspan="12" class="py-2">
+                  Didn't participate
+                </td>
+              </tr>
+            );
+          } else if (t.isFutureOrCurrent) {
+            return (
+              <tr class="border-b border-green-700 italic bg-blue-800/10 text-green-300">
+                <td class="px-2 py-2 flex flex-col items-center gap-1 justify-center">
+                  {t.host && <a href={`/members/${t.host.slug}`} class="flex-shrink-0"><Image src={t.host.data.flagPath} alt={t.host.data.name} height={20} class="rounded-sm max-h-14" loading={'lazy'} quality={10} format={'webp'} /></a>}
+                  <a href={`/${type}/${t.t.data.edition}`} class={`hover:underline ${t.hostClass}`}>{t.t.data.edition}</a>
+                </td>
+                <td colspan="12" class="py-2">
+                  {t.didParticipate ? "Qualified" : "To be determined"}
+                </td>
+              </tr>
+            );
+          }
+          return (
+            <tr class="border-b border-green-700 hover:bg-green-900/20">
+              <td class={`px-2 py-2 flex flex-col items-center gap-1 justify-center ${t.hostClass}`}>
+                {t.host && <a href={`/members/${t.host.slug}`} class="flex-shrink-0"><Image src={t.host.data.flagPath} alt={t.host.data.name} height={20} class="rounded-sm max-h-14" quality={10} format={'webp'} /></a>}
+                <a href={`/${type}/${t.t.data.edition}`} class={`hover:underline`}>{t.t.data.edition}</a>
+              </td>
+              <td class={`px-2 py-2 ${t.resultClass}`}>{getTeamFinalResultInTournament(t.t.data.id)}</td> {/* Placeholder para resultado final */}
+              <td class="px-2 py-2 font-black">{t.position}°</td> {/* Placeholder para posición */}
+              <td class="px-2 py-2">{t.stats.played}</td>
+              <td class="px-2 py-2">{t.stats.won}</td>
+              <td class="px-2 py-2">{t.stats.draw}</td>
+              <td class="px-2 py-2">{t.stats.lost}</td>
+              <td class="px-2 py-2">{t.stats.goalsFor}</td>
+              <td class="px-2 py-2">{t.stats.goalsAgainst}</td>
+              <td class="px-2 py-2">{t.stats.gd}</td>
+              <td class="px-2 py-2 font-bold">{t.stats.points}</td>
+              <td class="px-2 py-2">{t.stats.pr}%</td>
+              <td class="px-2 py-2 truncate">{t.topScorer}</td>
+            </tr>
+          );
+        })}
+        <!-- {allEditions.sort((b, a) => b.data.edition - a.data.edition).map(t => {
+          const host = getMemberByName(t.data.host);
           const hostClass = t.data.host === memberName ? 'text-amber-400 font-bold' : '';
           
           const didParticipate = t.data.participants && t.data.participants.includes(memberName);
@@ -122,7 +192,7 @@ function getTeamFinalResultInTournament(tournamentId: number) {
               <td class="px-2 py-2 truncate">{topScorer}</td>
             </tr>
           );
-        })}
+        })} -->
       </tbody>
     </table>
   </div>

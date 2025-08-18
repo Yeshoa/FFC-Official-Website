@@ -1,6 +1,7 @@
 ---
 import { type CollectionEntry } from 'astro:content';
-import { getArticles, LOCALE } from '@lib/generalUtils';
+import { LOCALE } from '@config/constants';
+import { getArticles } from '@lib/collections';
 import { Image } from 'astro:assets';
 import App from '@layouts/App.astro';
 import ArticleProse from '@components/articles/ArticleProse.astro';

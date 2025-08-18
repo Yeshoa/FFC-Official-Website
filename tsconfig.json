@@ -19,6 +19,8 @@
       "@content/*": ["src/content/*"],
       "@images/*": ["src/assets/images/*"],
       "@styles/*": ["src/styles/*"],
+      "@types/*": ["src/types/*"],
+      "@config/*": ["src/config/*"]
     }
   }
 }

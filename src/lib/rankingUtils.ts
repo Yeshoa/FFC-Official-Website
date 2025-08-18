@@ -5,19 +5,20 @@ import { MAX_ROLEPLAY_POINTS, normalizePoints, SCORING_CONFIG } from "./scoreUti
 import { calculateCurrentBonusPoints, calculatePastBonusPoints } from "./bonusUtils";
 import { CURRENT_TOURNAMENT_ID } from "@lib/tournamentUtils";
 import { calculateCurrentRoleplayPoints, calculatePastRoleplayPoints } from "./roleplayUtils";
+import { getTournaments } from '@lib/collections';
 
 // 🟢 Tipos
 type TournamentEntry = CollectionEntry<'tournaments'>;
 type MatchEntry = CollectionEntry<'matches'>;
 type MemberEntry = CollectionEntry<'members'>;
 
+const tournaments = await getTournaments()
+
 // Función principal COMPLETAMENTE AUTOMÁTICA
-export function getMemberTotalScore(
+export async function getMemberTotalScore(
   member: MemberEntry,
-  tournaments: TournamentEntry[],
-  matches: MatchEntry[],
   currentTournamentId: number = CURRENT_TOURNAMENT_ID,
-): {
+): Promise<{
   totalScore: number
   breakdown: {
     currentRoleplay: number,
@@ -48,7 +49,7 @@ export function getMemberTotalScore(
       finalPoints: number
     }>
   }
-} {
+}> {
   const score = member.data.score
   const lastFourIds = getLastFourTournamentIds(tournaments, currentTournamentId)
 
@@ -80,18 +81,17 @@ export function getMemberTotalScore(
   
   {/* 🎁 BONUS */}
   // 3️⃣ BONUS POINTS (actuales + anteriores)
-  const bonusResult = calculateCurrentBonusPoints(score.bonus, currentTournamentId);
+  const bonusResult = await calculateCurrentBonusPoints(score.bonus, member, currentTournamentId);
   const currentBonus = bonusResult.totalPoints;
-  const pastBonus = calculatePastBonusPoints(score.bonus, lastFourIds);
+  const pastBonus = await calculatePastBonusPoints(score.bonus, member, lastFourIds);
   const bonusPoints = currentBonus + pastBonus;
 
   {/* 🏆 TOURNAMENT DECAY POINTS */}
   // 4️⃣ TOURNAMENT DECAY POINTS (automático)
   // Obtener puntos de las ediciones anteriores con decay
-  const tournamentResult = calculateTournamentDecayPoints(
+  const tournamentResult = await calculateTournamentDecayPoints(
     member.data.name, // Nombre del equipo
     tournaments,
-    matches,
     currentTournamentId,
   )
   // Normalizar Tournament Decay Points
@@ -122,13 +122,10 @@ export function getMemberTotalScore(
   }
 }
 
-// Función para obtener miembros rankeados (actualizada)
-export function getRankedMembers(
+export async function getRankedMembers(
   members: MemberEntry[],
-  tournaments: TournamentEntry[],
-  matches: MatchEntry[],
   currentTournamentId?: number,
-): Array<{
+): Promise<Array<{
   slug: string
   name: string
   flag: any
@@ -146,22 +143,25 @@ export function getRankedMembers(
   currentEvents: Record<string, number>
   currentBonus: Record<string, number>
   totalScore: number
-}> {
-  return members
-    .filter((member) => member.data.verified)
-    .map((member) => {
-      const result = getMemberTotalScore(member, tournaments, matches, currentTournamentId)
+}>> {
+  const ranked = await Promise.all(
+    members
+      .filter((member) => member.data.verified)
+      .map(async (member) => {
+        const result = await getMemberTotalScore(member, currentTournamentId);
 
-      return {
-        slug: member.slug,
-        name: member.data.name,
-        flag: member.data.flagPath,
-        scores: result.breakdown,
-        currentRoleplay: result.details.currentRoleplay,
-        currentEvents: result.details.currentEvents,
-        currentBonus: result.details.currentBonus,
-        totalScore: result.totalScore,
-      }
-    })
-    .sort((a, b) => b.totalScore - a.totalScore)
+        return {
+          slug: member.slug,
+          name: member.data.name,
+          flag: member.data.flagPath,
+          scores: result.breakdown,
+          currentRoleplay: result.details.currentRoleplay,
+          currentEvents: result.details.currentEvents,
+          currentBonus: result.details.currentBonus,
+          totalScore: result.totalScore,
+        };
+      })
+  );
+
+  return ranked.sort((a, b) => b.totalScore - a.totalScore);
 }

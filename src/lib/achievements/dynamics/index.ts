@@ -6,7 +6,7 @@ import { specialAchievements }    from './special';
 import { rankingAchievements } from './ranking';
 import { communityAchievements } from './community';
 import { CATEGORIES, SUBCATEGORIES, ALIGNMENTS, type Category, hierarchy, type Subcategory, type Alignment } from '../utils';
-import { getMembers, getAchievements, getMatches, getTournaments } from '@lib/generalUtils';
+import { getMembers, getAchievements, getMatches, getTournaments } from '@lib/collections';
 import type { CollectionEntry }   from 'astro:content';
 import type { ImageMetadata }     from 'astro';
 

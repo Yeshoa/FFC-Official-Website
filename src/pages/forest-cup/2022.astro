@@ -1,5 +1,5 @@
 ---
-import { getTournaments, getMatches, getMembers, getArticles } from '@lib/generalUtils';
+import { getTournaments, getMatches, getMembers, getArticles } from '@lib/collections';
 import App from '@layouts/App.astro'; 
 import Groups from '@components/tournaments/Groups.astro';
 import KnockoutMatches from '@components/tournaments/KnockoutMatches.astro';
@@ -91,7 +91,7 @@ const headlines = [
 ];
 
 const pageTitle = `FFC - ${FC2022Data.name || 'Forest Cup'}`;
-const winner = getMemberByName(FC2022Data.champion, membersCollection);
+const winner = await getMemberByName(FC2022Data.champion);
 ---
 
 <App title={pageTitle}>
@@ -106,17 +106,14 @@ const winner = getMemberByName(FC2022Data.champion, membersCollection);
     <TournamentStats
     tournament={tournamentEntry}
     matches={fc2022Matches}
-    members={membersCollection}
     />
     
     <Groups
     matches={fc2022Matches}
-    members={membersCollection.filter(member => FC2022Data.participants && FC2022Data.participants.includes(member.data.name))}
     />
     
     <KnockoutMatches
     knockoutMatches={knockoutMatches}
-    members={membersCollection}
     />
    <!--  <div class="flex flex-col justify-center items-center w-full gap-4 py-4">
       <Bracket matches={fc2022Matches} tournament={FC2022Data} members={membersCollection} />
@@ -129,7 +126,6 @@ const winner = getMemberByName(FC2022Data.champion, membersCollection);
       <TournamentStandings
       tournament={tournamentEntry}
       matches={fc2022Matches}
-      members={membersCollection.filter(member => FC2022Data.participants && FC2022Data.participants.includes(member.data.name))}
       />
     </div>
     <RelatedNews articles={filteredArticles} max={4} />

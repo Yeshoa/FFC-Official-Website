@@ -1,16 +1,16 @@
 ---
 import { Image } from 'astro:assets';
 import { getRankedMembers } from '@lib/rankingUtils';
-import { getTotalColorClass } from '@lib/scoreUtils';
+import { getTotalColorClass, SCORING_CONFIG } from '@lib/scoreUtils';
 import { getCurrentEventPoints } from '@lib/eventUtils';
 import { getCurrentBonusPoints } from '@lib/bonusUtils';
 import { getCurrentRoleplayPoints } from '@lib/roleplayUtils';
 import Arrow from '@images/icons/arrow-up-right-from-square-solid.svg';
 
-const { members, tournaments, matches, currentTournamentId } = Astro.props;
+const { members, tournaments, currentTournamentId } = Astro.props;
 
 // Calcular ranking
-const rankedMembers = getRankedMembers(members, tournaments, matches, currentTournamentId);
+const rankedMembers = await getRankedMembers(members, currentTournamentId);
 
 // Calcular la próxima edición dinámicamente
 const getNextEdition = () => {
@@ -31,7 +31,7 @@ const nextEdition = getNextEdition();
   <div class="max-w-7xl mx-auto bg-green-900/30 rounded-lg p-6 mb-7 opacity-0 animate-[slide-in_1s_ease-in-out_forwards_.15s]">
     <div class="bg-green-800/20 rounded-lg p-2 mb-4">
       <p class="text-sm text-green-200 text-center">
-        Your <strong>Total Score</strong> combines roleplay contributions, community events, bonus achievements, and past performance with decay. 
+        Your <strong>Total Score</strong> combines roleplay, events, bonuses, and past performance with decay. 
         <br>
         Higher scores mean higher chances to win, better seeding and direct qualification!
       </p>
@@ -50,7 +50,7 @@ const nextEdition = getNextEdition();
         <div class="space-y-2 text-sm text-green-200">
           <div class="flex justify-between items-center">
             <span><strong>Hist:</strong></span>
-            <span class="text-xs text-green-400">10 Pts.</span>
+            <span class="text-xs text-green-400">{SCORING_CONFIG.RP_MAX} Pts.</span>
           </div>
           <p class="text-xs text-green-300 mb-3">
             A NationStates dispatch covering team history, league creation, or football lore.
@@ -58,15 +58,15 @@ const nextEdition = getNextEdition();
           
           <div class="flex justify-between items-center">
             <span><strong>FCM:</strong></span>
-            <span class="text-xs text-green-400">10 Pts.</span>
+            <span class="text-xs text-green-400">{SCORING_CONFIG.RP_MAX} Pts.</span>
           </div>
           <p class="text-xs text-green-300 mb-3">
-            Forest Cup mention in your dispatch for this edition, either in text or results section.
+            Any roleplay about this edition of the Forest Cup, or a mention in your dispatch for this edition, either in text or results section.
           </p>
 
           <div class="flex justify-between items-center">
             <span><strong>UR:</strong></span>
-            <span class="text-xs text-green-400">10 Pts.</span>
+            <span class="text-xs text-green-400">{SCORING_CONFIG.RP_MAX} Pts.</span>
           </div>
           <p class="text-xs text-green-300 mb-3">
             Updated roster submission with current squad and formation for this edition.
@@ -74,10 +74,10 @@ const nextEdition = getNextEdition();
 
           <div class="flex justify-between items-center">
             <span><strong>AR:</strong></span>
-            <span class="text-xs text-green-400">10 Pts.</span>
+            <span class="text-xs text-green-400">{SCORING_CONFIG.RP_MAX} Pts.</span>
           </div>
           <p class="text-xs text-green-300">
-            One article for the website about your federation. Additional articles do not accumulate points.
+            One article for the website about anything (football related of course). Additional articles do not accumulate points.
           </p>
         </div>
       </div>
@@ -88,7 +88,7 @@ const nextEdition = getNextEdition();
         <div class="space-y-2 text-sm text-green-200">
           <div class="flex justify-between items-center">
             <span><strong>PF:</strong></span>
-            <span class="text-xs text-green-400">Max 20 Pts.</span>
+            <span class="text-xs text-green-400">Max {SCORING_CONFIG.EV_MAX} Pts.</span>
           </div>
           <p class="text-xs text-green-300 mb-2">
             <a href="https://www.nationstates.net/page=dispatch/id=2664340" target="_blank" class="text-blue-300 hover:text-blue-200">Poetry Fantasia <Arrow class="inline w-3 h-3 fill-blue-400 ml-1" /></a> contest points
@@ -96,7 +96,7 @@ const nextEdition = getNextEdition();
           
           <div class="flex justify-between items-center">
             <span><strong>FB:</strong></span>
-            <span class="text-xs text-green-400">Max 20 Pts.</span>
+            <span class="text-xs text-green-400">Max {SCORING_CONFIG.EV_MAX} Pts.</span>
           </div>
           <p class="text-xs text-green-300 mb-2">
             <a href="https://www.nationstates.net/page=rmb/postid=60040670" class="text-blue-300 hover:text-blue-200">Flag & Banner <Arrow class="inline w-3 h-3 fill-blue-400 ml-1" /></a> design points
@@ -104,7 +104,7 @@ const nextEdition = getNextEdition();
 
           <div class="flex justify-between items-center">
             <span><strong>MM:</strong></span>
-            <span class="text-xs text-green-400">Max 20 Pts.</span>
+            <span class="text-xs text-green-400">Max {SCORING_CONFIG.EV_MAX} Pts.</span>
           </div>
           <p class="text-xs text-green-300 mb-2">
             <a href="https://www.nationstates.net/page=dispatch/id=2687574" class="text-blue-300 hover:text-blue-200">Murder Mystery <Arrow class="inline w-3 h-3 fill-blue-400 ml-1" /></a> event points
@@ -112,7 +112,7 @@ const nextEdition = getNextEdition();
 
           <div class="flex justify-between items-center">
             <span><strong>Quiz:</strong></span>
-            <span class="text-xs text-green-400">Max 20 Pts.</span>
+            <span class="text-xs text-green-400">Max {SCORING_CONFIG.EV_MAX} Pts.</span>
           </div>
           <p class="text-xs text-green-300 mb-2">
             <a href="https://www.nationstates.net/page=rmb/postid=60040670" class="text-blue-300 hover:text-blue-200">Forest Quiz <Arrow class="inline w-3 h-3 fill-blue-400 ml-1" /></a> points
@@ -120,7 +120,7 @@ const nextEdition = getNextEdition();
 
           <div class="flex justify-between items-center">
             <span><strong>SH:</strong></span>
-            <span class="text-xs text-green-400">Max 20 Pts.</span>
+            <span class="text-xs text-green-400">Max {SCORING_CONFIG.EV_MAX} Pts.</span>
           </div>
           <p class="text-xs text-green-300 mb-2">
             <a href="#" class="text-blue-300 hover:text-blue-200">Scavenger Hunt <Arrow class="inline w-3 h-3 fill-blue-400 ml-1" /></a> challenge points
@@ -128,7 +128,7 @@ const nextEdition = getNextEdition();
 
           <div class="flex justify-between items-center">
             <span><strong>CG:</strong></span>
-            <span class="text-xs text-green-400">Max 20 Pts.</span>
+            <span class="text-xs text-green-400">Max {SCORING_CONFIG.EV_MAX} Pts.</span>
           </div>
           <p class="text-xs text-green-300">
             <a href="https://www.nationstates.net/page=dispatch/id=2689546" class="text-blue-300 hover:text-blue-200">Forest Connections Grid <Arrow class="inline w-3 h-3 fill-blue-400 ml-1" /></a> puzzle points
@@ -142,10 +142,10 @@ const nextEdition = getNextEdition();
         <div class="space-y-2 text-sm text-green-200">
           <div class="flex justify-between items-center">
             <span><strong>Host:</strong></span>
-            <span class="text-xs text-green-400">10 Pts.</span>
+            <span class="text-xs text-green-400">{SCORING_CONFIG.BO_MAX} Pts.</span>
           </div>
           <p class="text-xs text-green-300 mb-3">
-            10 points for hosting a Forest Cup tournament edition.
+            {SCORING_CONFIG.BO_MAX} points for hosting a Forest Cup tournament edition.
           </p>
           
           <div class="flex justify-between items-center">
@@ -161,7 +161,7 @@ const nextEdition = getNextEdition();
             <span class="text-xs text-green-400">Variable</span>
           </div>
           <p class="text-xs text-green-300">
-            Variable points for exceptional community contributions and dedication.
+            Variable points for exceptional contributions and dedication.
           </p>
         </div>
       </div>
@@ -300,7 +300,7 @@ const nextEdition = getNextEdition();
           <th class="px-2 py-2 text-center font-medium border-b border-l border-green-600" title="Forest-Themed Connections Grid Points">CG</th>
           <th class="px-2 py-2 text-center font-medium border-b border-l border-green-600" title="Host advantage points">Host</th>
           <th class="px-2 py-2 text-center font-medium border-b border-l border-green-600" title="Flag & Banner Points">Eggs</th>
-          <th class="px-2 py-2 text-center font-medium border-b border-l border-green-600" title="Extra community contribution points">Extra</th>
+          <th class="px-2 py-2 text-center font-medium border-b border-l border-green-600" title="Extra contribution points">Extra</th>
           <th class="px-2 py-2 text-center font-medium border-b border-l border-green-600" title="Past Roleplay Points - Previous editions with decay">RP</th>
           <th class="px-2 py-2 text-center font-medium border-b border-l border-green-600" title="Past Event Points - Previous editions with decay">Events</th>
           <th class="px-2 py-2 text-center font-medium border-b border-l border-green-600" title="Past Bonus Points - Previous editions with decay">Bonus</th>
@@ -422,7 +422,7 @@ const nextEdition = getNextEdition();
         <strong>Top 24</strong> teams qualify directly for <strong>Forest Cup {nextEdition}</strong>
       </p>
       <p class="text-xs text-green-400">
-        Points are calculated automatically from tournament results and community events. 
+        Points are calculated automatically from tournament results and events. 
       </p>
       <p class="text-xs text-green-500 mt-2">
         Higher ranking = Better group stage seeding + Direct qualification advantage

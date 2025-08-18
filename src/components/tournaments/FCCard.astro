@@ -6,13 +6,14 @@ import Star from "@images/icons/star-solid.svg";
 import House from "@images/icons/house-solid.svg";
 import People from "@images/icons/people-group-solid.svg";
 import type { ImageMetadata } from 'astro';
+import { getMemberImage } from '@lib/memberUtils';
+import defaultFlag from '@images/tournaments/default-flag.png';
 
 interface Props {
   tournament: CollectionEntry<'tournaments'>;
-  hostFlag?: ImageMetadata
 }
 
-const { tournament, hostFlag } = Astro.props;
+const { tournament } = Astro.props;
 const { data, slug } = tournament;
 
 const {
@@ -31,6 +32,7 @@ const {
 
 const mainImage = cardImg || heroImg;
 const tournamentLink = `/${type}/${edition}`;
+const hostFlag = await getMemberImage(host) || defaultFlag;
 ---
 
 <!-- Contenedor principal con diseño horizontal completo -->

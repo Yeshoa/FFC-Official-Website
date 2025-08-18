@@ -1,15 +1,16 @@
 ---
 import { Image } from 'astro:assets';
-import MatchCard from '../MatchCard.astro'; // Asegúrate de importar el componente necesario
+import MatchCard from '@components/matches/MatchCard.astro';
+import MatchCardDetailed from '@components/matches/MatchCardDetailed.astro';
 import { getMemberByName } from '@lib/memberUtils';
 import defaultFlag from '@images/tournaments/default-flag.png';
 
 // Props:
 interface Props {
   matches: any[]; // Lista de partidos del torneo
-  members: any[];
 }
-const { matches, members } = Astro.props;
+const { matches } = Astro.props;
+
 // Filtrar partidos de fase de grupos
 const groupStageMatches = matches.filter(m => m.data.stage?.toLowerCase().includes('group'));
 
@@ -22,7 +23,7 @@ const matchesByGroup = groupStageMatches.reduce((acc, match) => {
 }, {});
 
 // Calcular tabla de posiciones por grupo
-function generateGroupTable(matches) {
+async function generateGroupTable(matches) {
   const table = {};
 
   for (const match of matches) {
@@ -31,8 +32,14 @@ function generateGroupTable(matches) {
     // Inicializar si no existe
     for (const team of [team1, team2]) {
       if (!table[team]) {
+        const teamObject = await getMemberByName(team) || {}; // Resolve async here
         table[team] = {
           team,
+          teamObject: {
+            slug: teamObject.slug || '',
+            flagPath: teamObject.data?.flagPath || defaultFlag,
+            name: teamObject.data?.name || team
+          },
           wins: 0,
           draws: 0,
           losses: 0,
@@ -80,88 +87,100 @@ function generateGroupTable(matches) {
   }
 
   // Convertir a array y calcular GD
-  return Object.values(table).map(team => ({
-    ...team,
-    goals_difference: team.goals_for - team.goals_against,
-  })).sort((a, b) =>
-    b.points - a.points ||
-    b.goals_difference - a.goals_difference ||
-    b.goals_for - a.goals_for ||
-    a.red_cards - b.red_cards ||
-    a.yellow_cards - b.yellow_cards
-  ).map((team, index) => ({
-    ...team,
-    position: index + 1,
-  }));
+  return Object.values(table)
+    .map(team => ({
+      ...team,
+      goals_difference: team.goals_for - team.goals_against,
+    }))
+    .sort((a, b) =>
+      b.points - a.points ||
+      b.goals_difference - a.goals_difference ||
+      b.goals_for - a.goals_for ||
+      a.red_cards - b.red_cards ||
+      a.yellow_cards - b.yellow_cards
+    )
+    .map((team, index) => ({
+      ...team,
+      position: index + 1,
+    }));
 }
+
+// Precompute tables for all groups
+const groupTables = await Promise.all(
+  Object.entries(matchesByGroup).map(async ([groupName, groupMatches]) => ({
+    groupName,
+    matches: groupMatches,
+    table: await generateGroupTable(groupMatches),
+  }))
+);
 ---
 
-{/* Contenedor principal con margen/padding - FUERA DEL MAP */}
 <div class="mt-6 w-full px-4">
-  {/* Contenedor de la CUADRÍCULA - FUERA DEL MAP */}
   <div class="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-4 gap-4 w-full">
-    {Object.entries(matchesByGroup).map(([groupName, groupMatches]) => {
-      const table = generateGroupTable(groupMatches);
-      return (
-        // ESTE div es el elemento individual de la cuadrícula (un grupo)
-        <div class="flex flex-col justify-start items-center text-center bg-green-950/30 p-4 rounded-2xl w-full">
-          <h4 class="text-4xl font-bold text-white mb-3">Group {groupName}</h4>
-          {table.length > 0 ? (
-            <table class="w-full text-sm mb-2">
-              <thead>
-                <tr class="border-b border-green-600">
-                  <th class="px-1 py-1 text-left" title="Position">#</th>
-                  <th class="px-1 py-1 text-left" title="Team">Team</th>
-                  <th class="px-1 py-1" title="Points">Pts</th>
-                  <th class="px-1 py-1 hidden sm:table-cell" title="Wins">W</th>
-                  <th class="px-1 py-1 hidden sm:table-cell" title="Draws">D</th>
-                  <th class="px-1 py-1 hidden sm:table-cell" title="Losses">L</th>
-                  <th class="px-1 py-1 hidden md:table-cell" title="Goals for">GF</th>
-                  <th class="px-1 py-1 hidden md:table-cell" title="Goals against">GA</th>
-                  <th class="px-1 py-1" title="Goal difference">GD</th>
+    {groupTables.map(({ groupName, matches, table }) => (
+      <div class="flex flex-col justify-start items-center text-center bg-green-950/30 p-4 rounded-2xl w-full">
+        <h4 class="text-4xl font-bold text-white mb-3">Group {groupName}</h4>
+        {table.length > 0 ? (
+          <table class="w-full text-sm mb-2">
+            <thead>
+              <tr class="border-b border-green-600">
+                <th class="px-1 py-1 text-left" title="Position">°</th>
+                <th class="px-1 py-1 text-left" title="Team">Team</th>
+                <th class="px-1 py-1" title="Points">Pts</th>
+                <th class="px-1 py-1 hidden sm:table-cell" title="Wins">W</th>
+                <th class="px-1 py-1 hidden sm:table-cell" title="Draws">D</th>
+                <th class="px-1 py-1 hidden sm:table-cell" title="Losses">L</th>
+                <th class="px-1 py-1 hidden md:table-cell" title="Goals for">GF</th>
+                <th class="px-1 py-1 hidden md:table-cell" title="Goals against">GA</th>
+                <th class="px-1 py-1" title="Goal difference">GD</th>
+              </tr>
+            </thead>
+            <tbody>
+              {table.map(team => (
+                <tr class="border-b border-green-700 last:border-b-0" key={team.team}>
+                  <td class="px-1 py-1.5 text-left">{team.position}</td>
+                  <td class="px-1 py-1.5 text-left flex items-center gap-2 whitespace-nowrap">
+                    <Image
+                      src={team.teamObject.flagPath}
+                      alt={team.teamObject.name}
+                      class="h-5 w-8 rounded-md object-cover ring-1 ring-green-600"
+                      width={48}
+                      loading="lazy"
+                      inferSize={true}
+                      quality={10}
+                      format="webp"
+                    />
+                    <a
+                      href={team.teamObject.slug ? `/members/${team.teamObject.slug}` : '#'}
+                      class="hover:underline"
+                    >
+                      {team.team}
+                    </a>
+                  </td>
+                  <td class="px-1 py-1.5 font-semibold">{team.points}</td>
+                  <td class="px-1 py-1.5 hidden sm:table-cell">{team.wins}</td>
+                  <td class="px-1 py-1.5 hidden sm:table-cell">{team.draws}</td>
+                  <td class="px-1 py-1.5 hidden sm:table-cell">{team.losses}</td>
+                  <td class="px-1 py-1.5 hidden md:table-cell">{team.goals_for}</td>
+                  <td class="px-1 py-1.5 hidden md:table-cell">{team.goals_against}</td>
+                  <td class="px-1 py-1.5">{team.goals_difference}</td>
                 </tr>
-              </thead>
-              <tbody>
-                {table.map(team => {
-                  const teamObject = getMemberByName(team.team, members) || {};
-                  return (
-                  <tr class="border-b border-green-700 last:border-b-0">
-                    <td class="px-1 py-1.5 text-left">{team.position}</td>
-                    <td class="px-1 py-1.5 text-left flex items-center gap-2 whitespace-nowrap">
-                    <Image src={teamObject.data ? teamObject.data.flagPath : defaultFlag} alt={team.team} 
-                    class="h-5 w-8 rounded-md object-cover ring-1 ring-green-600" width={48}
-                    loading="lazy" inferSize={true} quality={10} format="webp"/>
-                    <a href={teamObject.slug && `/members/${teamObject.slug}` || "#"} class="hover:underline">{team.team}</a>
-                    </td>
-                    <td class="px-1 py-1.5 font-semibold">{team.points}</td>
-                    <td class="px-1 py-1.5 hidden sm:table-cell">{team.wins}</td>
-                    <td class="px-1 py-1.5 hidden sm:table-cell">{team.draws}</td>
-                    <td class="px-1 py-1.5 hidden sm:table-cell">{team.losses}</td>
-                    <td class="px-1 py-1.5 hidden md:table-cell">{team.goals_for}</td>
-                    <td class="px-1 py-1.5 hidden md:table-cell">{team.goals_against}</td>
-                    <td class="px-1 py-1.5">{team.goals_difference}</td>
-                  </tr>
-                )})}
-              </tbody>
-            </table>
-          ) : (
-            <p class="text-gray-400 italic">No data available.</p>
-          )}
-          {/* Matches */}
-          {groupMatches.length > 0 ? (
-            <div class="grid grid-rows-1 gap-2 w-full  items-center mt-5">
-              {groupMatches.map(match => (
-                <MatchCard
-                  match={match.data}
-                  members={members}
-                />
               ))}
-            </div>
-          ) : (
-             <p class="text-gray-400 italic text-center w-full">No matches found for this group.</p>
-          )}
-        </div> // Fin del div de un grupo
-      );
-    })} {/* Fin del .map */}
-  </div> {/* Fin del div de la cuadrícula */}
-</div> {/* Fin del div contenedor principal */}
+            </tbody>
+          </table>
+        ) : (
+          <p class="text-gray-400 italic">No data available.</p>
+        )}
+        {matches.length > 0 ? (
+          <div class="grid grid-rows-1 gap-2 w-full items-center mt-5">
+            {matches.map(match => (
+              <MatchCard match={match} />
+            ))}
+          </div>
+        ) : (
+          <p class="text-gray-400 italic text-center w-full">No matches found for this group.</p>
+        )}
+      </div>
+    ))}
+  </div>
+</div>

@@ -1,5 +1,4 @@
 ---
-// import HistoricalTable from '../components/react/HistoricalTable';
 import Table from '@components/tournaments/HistoricalTable.astro';
 import ScorersTable from '@components/tournaments/ScorersTable.astro';
 import TournamentHistoryTable from '@components/tournaments/TournamentHistoryTable.astro';
@@ -8,15 +7,15 @@ import App from '@layouts/App.astro';
 import { Image } from 'astro:assets';
 import FCLogo from '@images/tournaments/forest-cup.png';
 import { getMemberByName } from '@lib/memberUtils';
-import { getTournaments, getMatches, getMembers, getArticles } from '@lib/generalUtils';
+import { getTournaments, getMatches, getMembers, getArticles } from '@lib/collections';
 import { getArticlesByTags } from '@lib/articleUtils';
 import RelatedNews from '@components/articles/RelatedNews.astro';
 
 const members = await getMembers();
-const matchEntries = await getMatches();
+const matches = await getMatches();
 let tournaments = await getTournaments();
 tournaments = tournaments.sort((a, b) => a.data.id - b.data.id);
-const matches = matchEntries.map((entry) => entry.data);
+const matchDatas = matches.map((entry) => entry.data);
 
 const articles = await getArticles();
 const filterTags = [
@@ -42,7 +41,6 @@ const filteredArticles = getArticlesByTags(articles, filterTags);
           {tournaments.slice(0, -1).reverse().map((tournament) => (
             <FCCard
               tournament={tournament}
-              hostFlag={getMemberByName(tournament.data.host, members)?.data.flagPath}
             />
           ))}
         </div>
@@ -50,7 +48,7 @@ const filteredArticles = getArticlesByTags(articles, filterTags);
     </header>
     <!-- List tournaments -->
     <div class="max-w-8xl border-t border-green-600 items-start w-full px-2 md:px-6">
-      <TournamentHistoryTable tournaments={tournaments} matches={matchEntries} members={members} type="forest-cup" />
+      <TournamentHistoryTable tournaments={tournaments} matches={matches} members={members} type="forest-cup" />
     </div>
     <!-- Stats and Top Scorers -->
     <div class="grid grid-cols-1 xl:grid-cols-2 gap-6 mb-12 items-start justify-between w-full max-w-8xl px-2 md:px-6">
@@ -61,8 +59,6 @@ const filteredArticles = getArticlesByTags(articles, filterTags);
         <ScorersTable members={members} matches={matches} />
       </section>
     </div>
-    <!-- Table -->
-    <!-- <HistoricalTable members={members} matches={matches}/> -->
     <RelatedNews articles={filteredArticles} max={4} />
 
   </main>

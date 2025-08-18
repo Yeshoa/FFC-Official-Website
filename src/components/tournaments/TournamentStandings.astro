@@ -5,130 +5,24 @@ type TournamentEntry = CollectionEntry<'tournaments'>;
 
 import { Image } from 'astro:assets';
 import { getMemberByName } from "@lib/memberUtils"; 
-import { getMatchResult } from '@lib/matchUtils';      
-import { getTeamStatsInTournament } from '@lib/tournamentUtils'; 
+import { getTournamentStandings } from '@lib/tournamentUtils'; 
 
 interface Props {
   tournament: TournamentEntry;
-  matches: MatchEntry[];     // Partidos SOLO de este torneo
-  members: CollectionEntry<'members'>[];
+  matches: MatchEntry[];     // Partidos SOLO de este torneo (opcional ahora)
 }
 
-const { tournament, matches: tournamentMatches, members } = Astro.props; 
-const tournamentId = tournament.data.id;
-const participantNames = tournament.data.participants;
+const { tournament } = Astro.props; // Ya no necesitamos matches porque getTournamentStandings maneja todo
 
-// --- Paso 1: Calcular Stats y Fase más alta para cada equipo ---
-const standingsData = participantNames.map(name => {
-  // Usamos la función utilitaria para obtener las estadísticas base
-  const stats = getTeamStatsInTournament(name, tournamentId, tournamentMatches);
+// 🚀 SIMPLE: Una línea reemplaza toda la lógica compleja
+const finalSortedStats = await getTournamentStandings(tournament);
 
-  // Replicamos la lógica para determinar la fase más alta desde getTeamPositionInTournament
-  let highestPhase = "Group Stage"; // Default
+// Obtener los objetos de equipo para mostrar logos/flags
+const teamObjects = await Promise.all(finalSortedStats.map(async (team) => {
+  const teamObject = await getMemberByName(team.name);
+  return teamObject;
+}));
 
-  const playedMatches = tournamentMatches.filter(match =>
-      match.data.status === "played" &&
-      (match.data.team1 === name || match.data.team2 === name)
-  );
-
-  // Función auxiliar para verificar si el equipo jugó en una fase específica
-  const playedInFixture = (fixtureName: string): boolean => {
-      return playedMatches.some(match => match.data.fixture === fixtureName);
-  }
-
-  // Verificar Final
-  const finalMatch = playedMatches.find(match => match.data.fixture === "Final");
-  if (finalMatch) {
-    const { team1: g1, team2: g2 } = getMatchResult(finalMatch.data);
-    const isTeam1 = finalMatch.data.team1 === name;
-    if ((isTeam1 && g1 > g2) || (!isTeam1 && g2 > g1)) {
-      highestPhase = "Champion";
-    } else {
-      highestPhase = "Final";
-    }
-  } else if (playedInFixture("Semi Finals")) {
-    highestPhase = "Semi Finals";
-  } else if (playedInFixture("Quarter Finals")) {
-    highestPhase = "Quarter Finals";
-  } else if (playedInFixture("Round of 16")) {
-    highestPhase = "Round of 16";
-  } else if (playedInFixture("Round of 32")) {
-    highestPhase = "Round of 32";
-  }
-  // Si no entró en ninguna fase eliminatoria, se queda como "Group Stage"
-
-  return {
-    name,
-    highestPhase,
-    ...stats // Incluye: played, won, draw, lost, goalsFor, goalsAgainst, points, gd, pr
-  };
-});
-
-
-// --- Paso 2: Ordenar según la lógica de getTeamPositionInTournament ---
-
-// Separar equipos por fase
-const champions = standingsData.filter(team => team.highestPhase === "Champion");
-const finalists = standingsData.filter(team => team.highestPhase === "Final");
-const semifinalists = standingsData.filter(team => team.highestPhase === "Semi Finals");
-const quarterfinalists = standingsData.filter(team => team.highestPhase === "Quarter Finals");
-const r16teams = standingsData.filter(team => team.highestPhase === "Round of 16");
-const r32teams = standingsData.filter(team => team.highestPhase === "Round of 32");
-const groupStageTeams = standingsData.filter(team => team.highestPhase === "Group Stage");
-
-// Criterio de ordenación estándar (Puntos -> DG -> GF)
-const sortByStandardCriteria = (a, b) => {
-  if (b.points !== a.points) return b.points - a.points;
-  if (b.gd !== a.gd) return b.gd - a.gd; // Usamos el GD calculado por getTeamStatsInTournament
-  return b.goalsFor - a.goalsFor;
-};
-
-// Ordenar cada grupo de fase eliminatoria (excepto campeón/finalista/semifinalista que tienen orden especial)
-const sortedQuarterfinalists = [...quarterfinalists].sort(sortByStandardCriteria);
-const sortedR16teams = [...r16teams].sort(sortByStandardCriteria);
-const sortedR32teams = [...r32teams].sort(sortByStandardCriteria);
-const sortedGroupStageTeams = [...groupStageTeams].sort(sortByStandardCriteria);
-
-// Determinar 3º y 4º puesto entre semifinalistas
-let sorted3rdAnd4th = [...semifinalists];
-if (semifinalists.length === 2) {
-  const thirdPlaceMatch = tournamentMatches.find(match =>
-    match.data.fixture === "Third Place" &&
-    match.data.status === "played" &&
-    (match.data.team1 === semifinalists[0].name || match.data.team1 === semifinalists[1].name) &&
-    (match.data.team2 === semifinalists[0].name || match.data.team2 === semifinalists[1].name)
-  );
-
-  if (thirdPlaceMatch) {
-    const { team1: g1, team2: g2 } = getMatchResult(thirdPlaceMatch.data);
-    const team1Won = (thirdPlaceMatch.data.team1 === semifinalists[0].name && g1 > g2) ||
-                     (thirdPlaceMatch.data.team2 === semifinalists[0].name && g2 > g1);
-    sorted3rdAnd4th = team1Won ? [semifinalists[0], semifinalists[1]] : [semifinalists[1], semifinalists[0]];
-  } else {
-    // No hay partido por el 3er puesto, ordenar por criterios estándar
-    sorted3rdAnd4th.sort(sortByStandardCriteria);
-  }
-} else if (semifinalists.length > 0) {
-    // Si hay más o menos de 2 semifinalistas (raro, pero por si acaso), ordenar por criterios std
-    sorted3rdAnd4th.sort(sortByStandardCriteria);
-}
-
-// Combinar todos los equipos en el orden final
-const finalSortedStats = [
-  ...champions,             // 1er lugar
-  ...finalists,             // 2do lugar
-  ...sorted3rdAnd4th,       // 3er y 4to lugar
-  ...sortedQuarterfinalists,// 5to al 8vo
-  ...sortedR16teams,        // 9no al 16to
-  ...sortedR32teams,        // 17mo al 32do
-  ...sortedGroupStageTeams  // Resto
-];
-
-// --- Paso 3: Preparar datos para la tabla (ya están listos en finalSortedStats) ---
-
-const getMemberSlug = (teamName: string): string | undefined => {
-  return members.find(m => m.data.name === teamName)?.slug;
-}
 ---
 <h2 class="text-2xl font-bold py-6 text-center">Standings</h2>
 <h6 class="md:hidden text-center mb-2">Swipe to see full standings</h6>
@@ -152,7 +46,7 @@ const getMemberSlug = (teamName: string): string | undefined => {
     </thead>
     <tbody class="text-center">
       {finalSortedStats.map((team, index) => { 
-        const teamObject = getMemberByName(team.name, members);
+        const teamObject = teamObjects[index];
         return (
         <tr class="border-b border-green-700 hover:bg-green-900/30 transition duration-150">
           <td class="px-2 py-2">{index + 1}°</td>
@@ -171,7 +65,7 @@ const getMemberSlug = (teamName: string): string | undefined => {
           <td class="px-2 py-2 text-green-200">{team.goalsFor}</td>
           <td class="px-2 py-2 text-green-200">{team.goalsAgainst}</td>
           <td class="px-2 py-2 text-green-100 font-medium">{team.gd}</td>
-          <td class="px-2 py-2 text-green-100 font-medium">{team.pr}%</td> {/* Valor de Performance */}
+          <td class="px-2 py-2 text-green-100 font-medium">{team.pr}%</td>
         </tr>
       )})}
       {finalSortedStats.length === 0 && (

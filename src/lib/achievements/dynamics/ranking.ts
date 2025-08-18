@@ -4,7 +4,7 @@ import { type Category, CATEGORIES, tiers, ALIGNMENTS, type Subcategory } from '
 import { type CollectionEntry } from 'astro:content';
 import { getAllMatchesByTeam, getMatchWinner } from '@lib/matchUtils';
 import { getMemberByName } from '@lib/memberUtils';
-import { getMembers } from '@lib/generalUtils';
+import { getMembers } from '@lib/collections';
 
 type Tournament = CollectionEntry<'tournaments'>;
 type Member = CollectionEntry<'members'>;
@@ -85,7 +85,7 @@ const makeBeatTierAchievements = (
   visible: false,
   enabled: true,
   stars: 1,
-  evaluate: function (matches: Match[], _tournaments: Tournament[], member: Member, members: Member[]) {
+  evaluate: async function (matches: Match[], _tournaments: Tournament[], member: Member, members: Member[]) {
     const { evaluate, ...base } = this;
     const history = member.data.tierHistory;
     if (!history) return null;
@@ -101,8 +101,8 @@ const makeBeatTierAchievements = (
       if (!selfRecord) continue;
 
       const opponentName = m.data.team1 === member.data.name ? m.data.team2 : m.data.team1;
-      const oppMember = getMemberByName(opponentName, members);
-      const oppHistory = oppMember?.data.tierHistory ?? [];
+      const oppMember = await getMemberByName(opponentName);
+      const oppHistory = oppMember?.data?.tierHistory ?? [];
       const oppRecord = oppHistory.find(h => h.edition === edition);
       if (!oppRecord || oppRecord.tier !== tier) continue;
 

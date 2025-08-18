@@ -1,6 +1,6 @@
 ---
 import App from '@layouts/App.astro';
-import { getMembers } from '@lib/generalUtils';
+import { getMembers } from '@lib/collections';
 import MemberCard from '@components/members/MemberCard.astro';
 
 const members = (await getMembers())

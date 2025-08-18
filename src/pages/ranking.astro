@@ -5,7 +5,7 @@ import RankingTableNew from '@components/RankingTableNew.astro';
 import RelatedNews from '@components/articles/RelatedNews.astro';
 import RankingLegend from '@components/ranking/RankingLegend.astro';
 
-import { getMembers, getTournaments, getMatches, getArticles } from '@lib/generalUtils';
+import { getMembers, getTournaments, getMatches, getArticles } from '@lib/collections';
 import{ getArticlesByTags } from '@lib/articleUtils';
 
 const allMembers = await getMembers();

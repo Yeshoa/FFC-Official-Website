@@ -3,7 +3,7 @@ tournament_id: 3
 stage: "knockout"
 fixture: "Final"
 team1: "Winner SF1"
-team2: "Winner F2"
+team2: "Winner SF2"
 # status: "played"
 date: 2026-3-15T17:00:00Z
 # link: ""
