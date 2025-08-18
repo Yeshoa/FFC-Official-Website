@@ -27,6 +27,7 @@ import CarrouselImgThree from '@images/tournaments/trophy_panoramic.png';
 import CarrouselImgFour from '@images/tournaments/2020/rui_champions.png';
 import CarrouselImgFive from '@images/tournaments/2024/darrow_dribble.png';
 import CarrouselImgSix from '@images/nysnub3.png';
+import RankingImage from '@images/articles/ranking/tiers.png';
 import RankingPreview from '@components/ranking/RankingPreview.astro';
 import { ROUTES } from '@config/routes';
 
@@ -99,6 +100,11 @@ const featuredGridArticles: Article[] = [
     url: ROUTES.articles.detail("signup"),
   },
   {
+    title: "Ranking",
+    image: RankingImage,
+    url: ROUTES.articles.detail("ranking"),
+  },
+  {
     title: "Collaborate with us",
     image: FFCBanner,
     url: LINKS.social.discordFFC,
@@ -134,8 +140,8 @@ const keySectionsData: SectionCard[] = [
 ];
 const members = await getMembers();
 const matches = await getMatches();
-const showTopCount = 9;
-const totalMatches = 10;
+const showTopCount = 7;
+const totalMatches = 12;
 const totalNextMatches = totalMatches ? Math.ceil(totalMatches/2) : 4;
 const totalLastMatches = totalMatches ? totalMatches/2 : 4;
 const nextMatches = matches.filter(match => match.data.status === 'scheduled').reverse().slice(0, totalNextMatches);

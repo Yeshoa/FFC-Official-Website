@@ -19,7 +19,7 @@ const { articles } = Astro.props;
 if (!articles || articles.length === 0) return null;
 
 const mainArticle = articles[0];
-const secondaryArticles = articles.slice(1, 5); // Reducimos a 4 artículos secundarios
+const secondaryArticles = articles.slice(1); // Obtenemos todos los artículos secundarios, excepto el primero
 ---
 
 <section class="">
