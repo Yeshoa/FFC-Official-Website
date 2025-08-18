@@ -134,8 +134,12 @@ const keySectionsData: SectionCard[] = [
 ];
 const members = await getMembers();
 const matches = await getMatches();
-const nextMatches = matches.filter(match => match.data.status === 'scheduled').reverse().slice(0, 4);
-const last4Matches = matches.filter(match => match.data.status === 'played').slice(0, 4);
+const showTopCount = 9;
+const totalMatches = 10;
+const totalNextMatches = totalMatches ? Math.ceil(totalMatches/2) : 4;
+const totalLastMatches = totalMatches ? totalMatches/2 : 4;
+const nextMatches = matches.filter(match => match.data.status === 'scheduled').reverse().slice(0, totalNextMatches);
+const lastMatches = matches.filter(match => match.data.status === 'played').slice(0, totalLastMatches);
 const articles = await getArticles();
 articles.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 
@@ -153,16 +157,18 @@ articles.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
       {/* Columna 1 y 2: Featured Grid (2 columnas) */}
       <div class="col-span-1 xl:col-span-2">
         <FeaturedGrid2Col articles={featuredGridArticles} />
+        <div class="mt-8 border-t border-green-700/30">
+        </div>
         <RankingPreview 
           members={members} 
-          showTopCount={7}
+          showTopCount={showTopCount}
         />
       </div>
       
       {/* Columna 3: Matches Sidebar */}
       <div class="lg:col-span-1">
         <MatchesSidebar 
-          lastMatches={last4Matches} 
+          lastMatches={lastMatches} 
           nextMatches={nextMatches} 
         />
       </div>

@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
+import { ROUTES } from '@config/routes';
 
 export interface Article {
   title: string;
@@ -63,7 +64,6 @@ const secondaryArticles = articles.slice(1, 5); // Reducimos a 4 artículos secu
     </div>
   </div>
 </section>
-
 <style>
   .text-shadow {
     text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
