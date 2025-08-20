@@ -1,26 +1,30 @@
 ---
-import App from '../layouts/App.astro';
-import Hero from '@components/Hero.astro';
-import FeaturedGrid from '@components/FeaturedGrid.astro';
-import FeaturedGrid2Col from '@components/FeaturedGrid2Col.astro';
-import type { Article } from '@components/FeaturedGrid.astro';
-import KeySections from '@components/KeySections.astro';
-import MatchesSidebar from '@components/MatchesSidebar.astro';
-import type { SectionCard } from '@components/KeySections.astro';
+import { getArticles, getMatches, getMembers } from '@lib/collections';
+import { LINKS } from '@config/links';
+import { ROUTES } from '@config/routes';
+
+import App from '@layouts/App.astro';
+import Hero from '@components/index/Hero.astro';
+import FeaturedGrid from '@components/index/FeaturedGrid.astro';
+import FeaturedGrid2Col from '@components/index/FeaturedGrid2Col.astro';
+import type { Article } from '@components/index/FeaturedGrid.astro';
+import KeySections from '@components/index/KeySections.astro';
+import MatchesSidebar from '@components/index/MatchesSidebar.astro';
+import type { SectionCard } from '@components/index/KeySections.astro';
+import HeroCard from '@components/index/HeroCard.astro';
+import MatchCard from '@components/matches/MatchCard.astro';
+import MatchCardDetailed from '@components/matches/MatchCardDetailed.astro';
+import RelatedNews from '@components/articles/RelatedNews.astro';
+import RankingPreview from '@components/ranking/RankingPreview.astro';
+
 import AllGoals from '@images/tournaments/2024/cardImg.png';
 import Petrov from '@images/tournaments/2024/petrov-goal.png';
 import FCHistory from '@images/tournaments/fc-history.png';
 import FC26Logo from '@images/tournaments/2026/logo.png';
 import FFCBanner from '@images/FFC Banner simple.png';
 import Logo from '@images/logo.png';
-import HeroCard from '@components/HeroCard.astro';
 import Members from '@images/members3.png';
-import RelatedNews from '@components/articles/RelatedNews.astro';
 import Signup from '@images/articles/sign-up/inscription.jpg';
-import { getArticles, getMatches, getMembers } from '@lib/collections';
-import { LINKS } from '@config/links';
-import MatchCard from '@components/matches/MatchCard.astro';
-import MatchCardDetailed from '@components/matches/MatchCardDetailed.astro';
 
 import CarrouselImgTwo from '@images/tournaments/2022/atsvea-champions.png';
 import CarrouselImgThree from '@images/tournaments/trophy_panoramic.png';
@@ -28,8 +32,6 @@ import CarrouselImgFour from '@images/tournaments/2020/rui_champions.png';
 import CarrouselImgFive from '@images/tournaments/2024/darrow_dribble.png';
 import CarrouselImgSix from '@images/nysnub3.png';
 import RankingImage from '@images/articles/ranking/tiers.png';
-import RankingPreview from '@components/ranking/RankingPreview.astro';
-import { ROUTES } from '@config/routes';
 
 // Datos para el carrusel del Hero (ahora dinámico)
 const carouselImages = [
@@ -140,12 +142,11 @@ const keySectionsData: SectionCard[] = [
 ];
 const members = await getMembers();
 const matches = await getMatches();
-const showTopCount = 7;
-const totalMatches = 12;
-const totalNextMatches = totalMatches ? Math.ceil(totalMatches/2) : 4;
-const totalLastMatches = totalMatches ? totalMatches/2 : 4;
-const nextMatches = matches.filter(match => match.data.status === 'scheduled').reverse().slice(0, totalNextMatches);
+const showTopCount = 3;
+const totalLastMatches = 3;
+const totalNextMatches = 8;
 const lastMatches = matches.filter(match => match.data.status === 'played').slice(0, totalLastMatches);
+const nextMatches = matches.filter(match => match.data.status === 'scheduled').reverse().slice(0, totalNextMatches);
 const articles = await getArticles();
 articles.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 

@@ -32,12 +32,17 @@ const team1 = await getMemberByName(match.data.team1) || { data: { name: match.d
 const team2 = await getMemberByName(match.data.team2) || { data: { name: match.data.team2, code: match.data.team2 } };
 const winner = getMatchWinner(match.data);
 const redCards = getMatchRedCards(match.data);
-const date = match.data.date.toLocaleDateString(LOCALE, { day: 'numeric', month: 'long' , hour: 'numeric', minute: 'numeric' });
+const date = match.data.date.toLocaleDateString(LOCALE, { day: 'numeric', month: 'long' , hour: 'numeric', minute: 'numeric', hour12: false });
 ---
 
 <div class="flex flex-col justify-start items-center w-full max-w-5xl bg-gradient-to-br from-green-900/80 to-green-950/70 py-3 px-4 rounded-2xl shadow-md text-white hover:bg-green-700/90">
-  <div class="text-xs text-green-300 font-light mb-2">
-    {date}
+  <div class="flex flex-col sm:flex-row items-center justify-between w-full mb-2 pb-2 border-b border-green-700/50">
+    <div class="flex items-center gap-2 text-xs md:text-sm text-green-200">
+        <span class="font-medium">Stadium</span>
+    </div>
+    <div class="text-xs text-green-300 font-light mt-1 sm:mt-0">
+      {date}
+    </div>
   </div>
   {/* Sección Superior: Equipos y Marcador */}
   <div class="grid grid-cols-7 items-center w-full gap-2 mb-2">
@@ -76,10 +81,10 @@ const date = match.data.date.toLocaleDateString(LOCALE, { day: 'numeric', month:
         {match.data.status === 'played' ? (
             <span class="text-sm xs:text-lg md:text-xl whitespace-nowrap font-bold">{score1} - {score2}</span>
         ) : match.data.status === 'scheduled' ? (
-            <span class="text-sm md:text-base font-light text-gray-300 block">vs</span>
-            <span class="text-xs text-gray-400 block mt-0.5">
-                {match.data.date.toLocaleTimeString(LOCALE, {hour12: false, hour: 'numeric', minute: 'numeric'})}
-            </span>
+            <span class="text-sm xs:text-lg  md:text-xl font-bold italic text-gray-300 block">vs</span>
+            // <span class="text-xs text-gray-400 block mt-0.5">
+            //     {match.data.date.toLocaleTimeString(LOCALE, {hour12: false, hour: 'numeric', minute: 'numeric'})}
+            // </span>
         ) : (
             <span class="text-sm font-light text-red-400">VS</span>
         )}
@@ -207,12 +212,6 @@ const date = match.data.date.toLocaleDateString(LOCALE, { day: 'numeric', month:
           </div>
         ))}
       </div>
-    </div>
-  )}
-  {/* Mostrar Fecha si está programado */}
-  {match.data.status === 'scheduled' && (
-    <div class="text-center text-xs text-gray-400 mt-2">
-      {match.data.date.toLocaleDateString(LOCALE, { day: 'numeric', month: 'long' })}
     </div>
   )}
 </div>

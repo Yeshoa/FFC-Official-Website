@@ -96,12 +96,7 @@ const winner = getMatchWinner(match);
             )}
           </div>
         ) : match.status === 'scheduled' ? (
-          <div>
-            <span class="text-xl md:text-2xl font-light text-gray-300 block">VS</span>
-            <span class="text-sm text-gray-300 block mt-1">
-              {match.date.toLocaleTimeString(LOCALE, { hour: '2-digit', minute: '2-digit'})}
-            </span>
-          </div>
+          <span class="text-xl md:text-2xl text-white italic font-black block">VS</span>
         ) : (
           <span class="text-xl font-light text-red-400">VS</span>
         )}
@@ -179,14 +174,14 @@ const winner = getMatchWinner(match);
         </div>
         
         <!-- Video Link -->
-        <div class="flex justify-center items-start w-full h-full col-span-1">
+        <div class="text-center mt-3 bg-black/20 px-4 py-2 rounded-lg z-10">
           {match.link ? (
             <a 
               href={match.link} 
               target="_blank" 
               rel="noopener noreferrer" 
               title="Watch Match" 
-              class="bg-blue-500 hover:bg-blue-400 text-white px-3 py-1 rounded-full text-sm transition-colors"
+              class="text-yellow-400 font-bold"
             >
               Watch
             </a>
@@ -232,7 +227,7 @@ const winner = getMatchWinner(match);
     {match.status === 'scheduled' && (
       <div class="text-center mt-3 bg-black/20 px-4 py-2 rounded-lg z-10">
         <span class="text-lg text-yellow-300 font-medium">
-          {match.date.toLocaleDateString(LOCALE, { weekday: 'long', day: 'numeric', month: 'long' })}
+          {match.date.toLocaleDateString(LOCALE, { weekday: 'long', day: 'numeric', month: 'long', hour: 'numeric', minute: 'numeric', hour12: false })}
         </span>
       </div>
     )}

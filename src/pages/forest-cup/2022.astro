@@ -122,12 +122,10 @@ const winner = await getMemberByName(FC2022Data.champion);
        <h2 class="text-2xl font-semibold mb-4 text-gray-900 dark:text-white border-b pb-2 border-gray-200 dark:border-green-600">Tournament Notes</h2>
        <Content />
     </div> -->
-    <div class="w-full flex flex-col items-center px-6 max-w-8xl">
-      <TournamentStandings
-      tournament={tournamentEntry}
-      matches={fc2022Matches}
-      />
-    </div>
+    <TournamentStandings
+    tournament={tournamentEntry}
+    matches={fc2022Matches}
+    />
     <RelatedNews articles={filteredArticles} max={4} />
   </main>
 </App>

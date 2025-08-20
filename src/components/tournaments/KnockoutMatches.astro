@@ -1,6 +1,7 @@
 ---
 import MatchCard from '@components/matches/MatchCard.astro';
 import FinalCard from '@components/matches/FinalCard.astro';
+import Title from '@components/Title.astro';
 
 interface MatchData {
   tournament_id: number;
@@ -40,13 +41,13 @@ const sortedFixtures: string[] = Object.keys(matchesByFixture).sort((a, b) => {
   <div class="flex flex-col justify-center items-center p-4 w-full lg:w-11/12 gap-8 bg-green-950/30 rounded-3xl">
     {knockoutMatches.length > 0 ? (
       sortedFixtures.map(fixture => {
-        const gridClasses = fixture.toLowerCase().includes('round of 16') || fixture.toLowerCase().includes('octavos')
+        const gridClasses = fixture.toLowerCase().includes('round of 16')
           ? 'grid grid-cols-1 md:grid-cols-2 gap-4'
-          : fixture.toLowerCase().includes('round of 32') || fixture.toLowerCase().includes('dieciseisavos')
+          : fixture.toLowerCase().includes('round of 32')
           ? 'grid grid-cols-1 md:grid-cols-4 gap-4'
-          : fixture.toLowerCase().includes('quarter') || fixture.toLowerCase().includes('cuartos')
+          : fixture.toLowerCase().includes('quarter')
           ? 'grid grid-cols-1 md:grid-cols-2 gap-4'
-          : fixture.toLowerCase().includes('semi') || fixture.toLowerCase().includes('semifinales')
+          : fixture.toLowerCase().includes('semi')
           ? 'grid grid-cols-1 md:grid-cols-2 gap-4'
           : fixture.toLowerCase().includes('final')
           ? 'flex justify-center items-center'

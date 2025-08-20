@@ -40,6 +40,7 @@ const tournamentUrl = tournament ? `/${tournament.data.type}/${tournament.data.e
 const tournamentName = tournament?.data.name ?? '';
 const fixture = match.data.group ? `Group ${match.data.group} - ${match.data.fixture}` : match.data.fixture ?? 'Unknown';
 const date = match.data.date.toLocaleDateString(LOCALE);
+const hour = match.data.date.toLocaleTimeString(LOCALE, {hour12: false, hour: 'numeric', minute: 'numeric'});
 ---
 
 <div class="flex flex-col justify-start items-center w-full max-w-5xl bg-gradient-to-br from-green-900/80 to-green-950/70 py-3 px-4 rounded-2xl shadow-md text-white hover:bg-green-700/90">
@@ -62,6 +63,10 @@ const date = match.data.date.toLocaleDateString(LOCALE);
     </div>
     <div class="text-xs text-green-300 font-light mt-1 sm:mt-0">
       {date}
+      {match.data.status === 'scheduled' &&
+        <span class="text-green-400">•</span>
+        <span class="font-light">{hour}</span>
+      }
     </div>
   </div>
 
@@ -102,10 +107,10 @@ const date = match.data.date.toLocaleDateString(LOCALE);
         {match.data.status === 'played' ? (
             <span class="text-sm xs:text-lg md:text-xl whitespace-nowrap font-bold">{score1} - {score2}</span>
         ) : match.data.status === 'scheduled' ? (
-            <span class="text-sm md:text-base font-light text-gray-300 block">vs</span>
-            <span class="text-xs text-gray-400 block mt-0.5">
-                {match.data.date.toLocaleTimeString(LOCALE, {hour12: false, hour: 'numeric', minute: 'numeric'})}
-            </span>
+            <span class="text-sm xs:text-lg md:text-xl font-bold italic text-gray-300 block">vs</span>
+            // <span class="text-xs text-gray-400 block mt-0.5">
+            //     {match.data.date.toLocaleTimeString(LOCALE, {hour12: false, hour: 'numeric', minute: 'numeric'})}
+            // </span>
         ) : (
             <span class="text-sm font-light text-red-400">VS</span>
         )}
@@ -229,13 +234,6 @@ const date = match.data.date.toLocaleDateString(LOCALE);
           </div>
         ))}
       </div>
-    </div>
-  )}
-  
-  {/* Mostrar solo la hora si está programado (la fecha ya está en el header) */}
-  {match.data.status === 'scheduled' && (
-    <div class="text-center text-xs text-gray-400 mt-2">
-      Scheduled for {match.data.date.toLocaleTimeString(LOCALE, { hour: '2-digit', minute: '2-digit', hour12: false })}
     </div>
   )}
 </div>

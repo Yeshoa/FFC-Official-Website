@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
+import { SVH } from '@config/constants';
 
 export interface Article {
   title: string;
@@ -22,7 +23,7 @@ const secondaryArticles = articles.slice(1, 6);
 ---
 
 <section class="p-4 md:p-8">
-  <div class="grid grid-cols-1 lg:grid-cols-3 lg:grid-rows-2 gap-4 max-w-8xl mx-auto lg:h-[calc(100svh-136px)]">
+  <div class={`grid grid-cols-1 lg:grid-cols-3 lg:grid-rows-2 gap-4 max-w-8xl mx-auto lg:${SVH}`}>
     <a 
       href={mainArticle.url} 
       class="group relative block lg:col-span-2 lg:row-span-2 rounded-lg overflow-hidden shadow-lg min-h-[300px] lg:min-h-0"

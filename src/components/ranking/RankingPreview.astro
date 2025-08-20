@@ -5,6 +5,8 @@ import { getPointsTextColorClass } from '@lib/scoreUtils';
 import { CURRENT_TOURNAMENT_ID } from '@lib/tournamentUtils';
 import defaultFlag from '@images/tournaments/default-flag.png';
 import { ROUTES } from '@config/routes';
+import Button from '@components/Button.astro';
+import Title from '@components/Title.astro';
 const { members, showTopCount = 10 } = Astro.props;
 
 const rankedMembers = await getRankedMembers(members, CURRENT_TOURNAMENT_ID);
@@ -12,12 +14,10 @@ const topMembers = rankedMembers.slice(0, showTopCount);
 ---
 
 <div class="sm:container mx-auto py-8">
-  <div class="text-center mb-8">
-    <h2 class="text-4xl font-bold mb-4">Current Ranking</h2>
-    <p class="text-lg text-green-300 mb-6">
-      The strongest teams in the confederation right now
-    </p>
-  </div>
+  <Title size="text-4xl">
+    Current Ranking
+    <span slot="subtitle">The strongest teams in the confederation right now</span>
+  </Title>
 
   <div class="max-w-4xl mx-auto">
       {/* Top 3 */}
@@ -95,15 +95,7 @@ const topMembers = rankedMembers.slice(0, showTopCount);
         <p class="text-green-300 mb-4">
           Want to see the complete ranking and understand how points work?
         </p>
-        <a 
-          href={ROUTES.ranking} 
-          class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-500 hover:to-green-600 text-white font-semibold rounded-lg transition-all duration-300 transform hover:scale-105"
-        >
-          View Full Ranking
-          <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-          </svg>
-        </a>
+        <Button link={ROUTES.ranking}>View Full Ranking</Button>
       </div>
   </div>
 </div>

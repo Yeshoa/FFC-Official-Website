@@ -116,12 +116,10 @@ const winner = await getMemberByName(FCData.champion, membersCollection) || null
     <KnockoutMatches
     knockoutMatches={knockoutMatches}
     />
-    <div class="w-full flex flex-col items-center px-6 max-w-8xl">
-      <TournamentStandings
+    <TournamentStandings
       tournament={tournamentEntry}
       matches={fcMatches}
-      />
-    </div>
+    />  
     <RelatedNews articles={filteredArticles} max={4} />
   </main>
 </App>

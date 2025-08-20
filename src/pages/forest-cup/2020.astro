@@ -71,12 +71,10 @@ const winner = await getMemberByName(FC2020Data.champion, membersCollection);
       <Bracket matches={fc2020Matches} members={membersCollection} />
     </div> -->
     
-    <div class="w-full flex flex-col items-center px-6 max-w-8xl">
-      <TournamentStandings
-      tournament={tournamentEntry}
-      matches={fc2020Matches}
-      />
-    </div>
+    <TournamentStandings
+    tournament={tournamentEntry}
+    matches={fc2020Matches}
+    />
     <RelatedNews articles={filteredArticles} max={4} />
   </main>
 </App>

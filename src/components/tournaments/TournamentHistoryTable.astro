@@ -4,6 +4,7 @@ import { Image } from 'astro:assets';
 import { CURRENT_TOURNAMENT_ID, getTeamPositionInTournament, getTeamByPosition, getFinalResult, getThirdPlaceResult } from '@lib/tournamentUtils';
 import { getMemberByName } from '@lib/memberUtils';
 import { getMatchResult } from '@lib/matchUtils';
+import Title from '@components/Title.astro';
 
 interface Props {
   tournaments: CollectionEntry<'tournaments'>[];
@@ -57,9 +58,12 @@ const tournamentData = await Promise.all(
     };
   })
 );
+const title = type === 'forest-cup' ? 'Forest Cup History' : 'Forestian Champions League History';
 ---
 
-<h2 class="text-4xl text-center font-bold py-6">{type === 'forest-cup' ? 'Forest Cup' : 'Forestian Champions League'} History</h2>
+<Title size="text-4xl mt-6">
+    {title}
+</Title>
 <div class="pb-6 overflow-x-auto">
   <table class="min-w-[1000px] w-full text-md text-center border-collapse rounded-2xl table-fixed">
     <thead class="bg-green-800 text-white">

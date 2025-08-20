@@ -2,6 +2,7 @@
 import App from '@layouts/App.astro';
 import { getMatches, getTournaments } from '@lib/collections';
 import MatchCardDetailed from '@components/matches/MatchCardDetailed.astro';
+import Title from '@components/Title.astro';
 
 const matches = await getMatches();
 const tournaments = await getTournaments();
@@ -50,16 +51,20 @@ const finalMatches = matches.filter(m => m.data.fixture === 'Final' && m.data.st
 <App title="FFC - Matches">
   <main class="flex flex-col items-center pt-5">
     <div class="flex flex-col items-center w-full max-w-8xl justify-center p-6">
-      <h1 class="text-6xl mb-5 font-bold animate-sladeIn text-center">All FFC Matches</h1>
+      <!-- <h1 class="text-6xl mb-5 font-bold animate-sladeIn text-center">All FFC Matches</h1>
       <p class="text-lg mb-8 opacity-0 text-center animate-[slide-in_1s_ease-in-out_forwards_.1s]">
         This is a list of all the matches ever played in FFC competitions.
-      </p>
+      </p> -->
+      <Title slideIn={true}>All FFC Matches
+        <span slot="subtitle">This is a list of all the matches ever played in FFC competitions.</span>
+      </Title>
 
       <!-- Sección de Estadísticas Globales -->
       <section class="w-full mb-12 opacity-0 animate-[slide-in_1s_ease-in-out_forwards_.2s]">
-        <h2 class="text-4xl font-bold mb-8 text-center">
+        <!-- <h2 class="text-4xl font-bold mb-8 text-center">
           Global Statistics
-        </h2>
+        </h2> -->
+        <!-- <Title size="text-4xl">Global Statistics</Title> -->
         
         <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
           <!-- Total de Partidos -->
@@ -169,9 +174,10 @@ const finalMatches = matches.filter(m => m.data.fixture === 'Final' && m.data.st
       <!-- Finales -->
       {finalMatches.length > 0 && (
       <section class="w-full mb-12 opacity-0 animate-[slide-in_1s_ease-in-out_forwards_.8s]">
-        <h2 class="text-3xl font-bold mb-6 text-center text-yellow-400">
+        {/* <h2 class="text-3xl font-bold mb-6 text-center text-yellow-400">
           The Finals
-        </h2>
+        </h2> */}
+        <Title size="text-4xl" color='text-yellow-400'>The Finals</Title>
         <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
           {finalMatches.map(finalMatch => (
             <MatchCardDetailed match={finalMatch} />
@@ -182,9 +188,10 @@ const finalMatches = matches.filter(m => m.data.fixture === 'Final' && m.data.st
       <!-- Sección de Partidos por Torneo -->
       {matchesByTournament.map(({ tournament, matches }) => (
         <section class="w-full mb-12 opacity-0 animate-[slide-in_1s_ease-in-out_forwards_.8s]">
-          <h2 class="text-3xl font-bold mb-6 text-center">
+          {/* <h2 class="text-3xl font-bold mb-6 text-center">
             {tournament.data.type === 'forest-cup' ? 'Forest Cup' : 'Champions League'} {tournament.data.name}
-          </h2>
+          </h2> */}
+          <Title size="text-4xl">{tournament.data.type === 'forest-cup' ? 'Forest Cup' : 'Champions League'} - {tournament.data.name}</Title>
           <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
             {matches.map(match => (
               <MatchCardDetailed match={match} />

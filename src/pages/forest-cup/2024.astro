@@ -124,12 +124,10 @@ const winner = await getMemberByName(FC2024Data.champion);
        <Content />
     </div> -->
 
-    <div class="w-full flex flex-col items-center px-6 max-w-8xl">
-      <TournamentStandings
-        tournament={tournamentEntry}
-        matches={fc2024Matches}
-      />
-    </div>
+    <TournamentStandings
+      tournament={tournamentEntry}
+      matches={fc2024Matches}
+    />
     <RelatedNews articles={filteredArticles} max={4} />
   </main>
 </App>

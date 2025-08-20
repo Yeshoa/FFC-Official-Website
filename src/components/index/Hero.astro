@@ -4,6 +4,8 @@
 import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 import JoinImg from '@images/icons/right-to-bracket-solid.svg';
+import Button from '@components/Button.astro';
+import { LINKS } from '@config/links';
 
 // Definimos las props para el componente
 interface Props {
@@ -48,9 +50,9 @@ if (carouselImages.length === 0) {
         <h1 class="hero__title">{heroTitle}</h1>
         <p class="hero__subtitle">{heroSubtitle}</p>
         <div class="hero__btn__cont">
-          <a href={cta.href} class="hero__btn" target={cta.noblank ? "_self" : "_blank"}>
-            <JoinImg width={20} class="hero__btn__icon" fill={"#fff"} />{cta.text}
-          </a>
+          <Button hideArrow={true} link={LINKS.forms.newMember} self={!cta.noblank} customClass="hero__btn">
+            <JoinImg width={18} class="hero__btn__icon mr-2" fill={"#fff"} />{cta.text}
+          </Button>
         </div>
       </div>
     </div>
@@ -162,26 +164,26 @@ if (carouselImages.length === 0) {
       line-height: 1;
     }
     .hero__btn {
-      background-color: var(--color-green-700);
-      padding: 1rem 2.5rem;
-      font-size: 1.1rem;
-      font-weight: 500;
-      display: inline-block;
-      align-self: center;
+      /* background-color: var(--color-green-700); */
+      /* padding: 1rem 2.5rem; */
+      /* font-size: 1.1rem; */
+      /* font-weight: 500; */
+      /* display: inline-block; */
+      /* align-self: center; */
       transition: all .2s ease-in-out;
-      display: flex;
-      align-items: center;
-      width: fit-content;
-      gap: 1rem;
-      overflow: hidden;
+      /* display: flex; */
+      /* align-items: center; */
+      /* width: fit-content; */
+      /* gap: 1rem; */
+      /* overflow: hidden; */
       .hero__btn__icon {
         transform: translateX(-10px);
         transition: transform .2s ease-in-out;
       }
       &:hover {
-        background-color: var(--color-green-600);
+        /* background-color: var(--color-green-600); */
         transform: scale(1.05);
-        box-shadow: 0 3px 8px rgba(0, 0, 0, .2);
+        /* box-shadow: 0 3px 8px rgba(0, 0, 0, .2); */
       }
       &:hover .hero__btn__icon {
         transform: translateX(0) scale(1.2);

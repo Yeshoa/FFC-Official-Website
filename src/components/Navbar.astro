@@ -9,129 +9,220 @@ import Cup from '@images/icons/trophy-solid.svg';
 import Join from '@images/icons/user-solid.svg';
 import XMark from '@images/icons/circle-xmark-solid.svg';
 import Search from '@images/icons/magnifying-glass-solid.svg';
+import Handshake from '@images/icons/handshake-solid-full.svg';
+import Newspaper from '@images/icons/newspaper-solid-full.svg';
+import YTLogo from '@images/youtube.png';
+import TwitchLogo from '@images/twitch.png';
+import KickLogo from '@images/kick.png';
+import FooterImage from '@images/Footer.png';
+
 import { LINKS } from '@config/links';
 import { ROUTES } from '@config/routes';
 import { FEATURES } from '@config/features';
+
+const NAV_LINKS = {
+  home: {
+    href: ROUTES.home,
+    label: 'Home',
+    icon: Home,
+    iconWidth: 20
+  },
+  forestCup: {
+    href: ROUTES.forestCup.index,
+    label: 'Forest Cup',
+    icon: Cup,
+    iconWidth: 20
+  },
+  championsLeague: {
+    href: ROUTES.championsLeague,
+    label: 'Champions League',
+    shortLabel: 'FCL',
+    icon: Cup,
+    iconWidth: 20,
+    enabled: FEATURES.championsLeague
+  },
+  members: {
+    href: ROUTES.members.index,
+    label: 'Members',
+    icon: Members,
+    iconWidth: 16
+  },
+  ranking: {
+    href: ROUTES.ranking,
+    label: 'Ranking',
+    shortLabel: 'Rank',
+    icon: Ranking,
+    iconWidth: 20
+  },
+  articles: {
+    href: ROUTES.articles.index,
+    label: 'Articles',
+    shortLabel: 'News',
+    icon: Newspaper,
+    iconWidth: 20
+  },
+  sponsor: {
+    href: ROUTES.sponsor,
+    label: 'Sponsors',
+    icon: Handshake,
+    iconWidth: 20
+  },
+  joinFFC: {
+    href: LINKS.forms.newMember,
+    label: 'Join FFC',
+    shortLabel: 'Join',
+    icon: Join,
+    iconWidth: 15,
+    external: true,
+    special: true
+  }
+};
+
+const isActiveLink = (linkHref: string, currentPath: string) => {
+  if (linkHref === ROUTES.home) {
+    return currentPath === linkHref;
+  }
+  return currentPath.includes(linkHref);
+};
+
+const getLinkClasses = (link: any, isActive: boolean) => {
+  if (link.special) {
+    return "flex gap-2 items-center py-2 px-3 bg-white rounded-lg text-green-950 group-hover:bg-green-600 group-hover:text-white";
+  }
+  return `py-2 px-3 rounded-sm flex gap-2 items-center ${isActive ? "text-green-600" : "text-white group-hover:text-green-300"}`;
+};
+
+const getIconClasses = (link: any, isActive: boolean) => {
+  if (link.special) {
+    return "fill-green-950 group-hover:fill-white";
+  }
+  return `${isActive ? "fill-green-600" : "fill-white group-hover:fill-green-300"}`;
+};
 ---
+
 <div class="main__cont">
-  <nav class="bg-green-1000 w-full z-20 top-0 start-0 border-b border-green-600">
-    <div class="navbar__cont max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-3">
+  <!-- NAVBAR TOP -->
+  <nav class="navbar__top bg-green-1000 w-full z-20 top-0 start-0 border-b border-green-600">
+    <div class="navbar__cont max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-3 gap-2">
       <div class="hamburger flex md:hidden">
         <span class="bar"></span>
         <span class="bar"></span>
         <span class="bar"></span>
       </div>
-      <a href={ROUTES.home} class="flex items-center m-auto space-x-3 rtl:space-x-reverse md:m-0">
-          <!-- <img src="https://i.ibb.co/Rjf5DpJ/IMG-3057.png" class="h-8" alt="FFC Logo" loading="eager"> -->
-          <Image src={FFCLogo} alt="FFC Logo"  loading="eager" height={100} quality={70} format="webp" class="navbar__logo"/>
-          <!-- <span class="self-center text-2xl font-semibold whitespace-nowrap text-white hover:text-green-300">FFC</span> -->
+      <a href={NAV_LINKS.home.href} class="flex items-center m-auto space-x-3 rtl:space-x-reverse md:m-0 flex-shrink-0">
+        <Image src={FFCLogo} alt="FFC Logo" loading="eager" height={100} quality={70} format="webp" class="navbar__logo"/>
       </a>
-      <!-- <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-        <button data-collapse-toggle="navbar-sticky" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm rounded-lg md:hidden focus:outline-none focus:ring-2 text-gray-400 hover:bg-gray-700 focus:ring-gray-600" aria-controls="navbar-sticky" aria-expanded="false">
-          <span class="sr-only">Open main menu</span>
-          <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
-              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
-          </svg>
-        </button>
-      </div> -->
+      
       <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
-        <ul class="flex flex-col p-4 md:p-0 mt-4 font-medium border rounded-lg md:space-x-4 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 border-gray-700">
-          <li class="group">
-            <a href={ROUTES.home} class={`py-2 px-3 rounded-sm flex gap-2 items-center ${currentPath === ROUTES.home ? "text-green-600" : "text-white group-hover:text-green-300"}`}>
-              <Home width={20}  class={`${currentPath === ROUTES.home ? "fill-green-600" : "fill-white group-hover:fill-green-300"}`}/>
-              Home
-            </a>
-          </li>
-          <li class="group">
-            <a href={ROUTES.forestCup.index} class={`flex gap-2 items-center py-2 px-3 rounded-sm ${currentPath.includes(ROUTES.forestCup.index) ? "text-green-600" : "text-white group-hover:text-green-300"}`}>
-              <Cup width={20} class={`${currentPath.includes(ROUTES.forestCup.index) ? "fill-green-600" : "fill-white group-hover:fill-green-300"}`} />
-              Forest Cup
-            </a>
-          </li>
-          {FEATURES.championsLeague && 
-          <li>
-            <a href={ROUTES.championsLeague} class={`block py-2 px-3 rounded-sm ${currentPath === ROUTES.championsLeague ? "text-green-600 font-bold" : "text-white hover:text-green-300"}`}>
-              <Cup width={20} class={`${currentPath.includes(ROUTES.championsLeague) ? "fill-green-600" : "fill-white group-hover:fill-green-300"}`} />
-              <span class="inline lg:hidden">FCL</span>
-              <span class="hidden lg:inline">Champions League</span>
-            </a>
-          </li>
-          }
-          <li class="group">
-            <a href={ROUTES.members.index} class={`flex gap-2 items-center py-2 px-3 rounded-sm ${currentPath.includes(ROUTES.members.index) ? "text-green-600" : "text-white group-hover:text-green-300"}`}>
-              <Members width={16} class={`${currentPath.includes(ROUTES.members.index) ? "fill-green-600" : "fill-white group-hover:fill-green-300"}`} />
-              Members
-            </a>
-          </li>
-          <li class="group">
-            <a href={ROUTES.ranking} class={`flex gap-2 items-center py-2 px-3 rounded-sm ${currentPath === ROUTES.ranking ? "text-green-600" : "text-white group-hover:text-green-300"}`}>
-              <Ranking width={20} class={`${currentPath === ROUTES.ranking ? "fill-green-600" : "fill-white group-hover:fill-green-300"}`} />
-              Ranking
-            </a>
-          </li>
-          <li class="group">
-            <a href={LINKS.forms.newMember} target="_blank" class={`flex gap-2 items-center py-2 px-3 bg-white rounded-lg text-green-950 group-hover:bg-green-600 group-hover:text-white`}>
-              <Join width={15} class={"fill-green-950 group-hover:fill-white"} />
-              Join FFC
-            </a>
-          </li>
+        <ul class="flex flex-col p-4 md:p-0 mt-4 font-medium border rounded-lg md:space-x-1 lg:space-x-4 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 border-gray-700">
+          {Object.entries(NAV_LINKS).map(([key, link]) => {
+            if (link.enabled === false) return null;
+            const isActive = isActiveLink(link.href, currentPath);
+            const Icon = link.icon;
+            return (
+              <li class="group" key={key}>
+                <a 
+                  href={link.href} 
+                  class={`${getLinkClasses(link, isActive)} ${link.special ? 'md:px-2 lg:px-3' : 'md:px-1 lg:px-3'} text-sm lg:text-base whitespace-nowrap`}
+                  target={link.external ? "_blank" : undefined}
+                >
+                  <Icon 
+                    width={link.iconWidth} 
+                    class={getIconClasses(link, isActive)}
+                  />
+                  {link.shortLabel && link.label ? (
+                    <>
+                      <span class="inline xl:hidden">{link.shortLabel}</span>
+                      <span class="hidden xl:inline">{link.label}</span>
+                    </>
+                  ) : (
+                    <span class="inline">{link.label}</span>
+                  )}
+                </a>
+              </li>
+            );
+          })}
         </ul>
       </div>
     </div>
   </nav>
+  
+  <!-- NAVBAR MOBILE -->
   <div class="navbar border-r-1 border-green-600 flex flex-col" id="navbar-sticky">
     <header class="navbar__header py-8 px-4 flex items-center justify-between border-b-1 border-green-600">
       <div class="navbar__header__logo">
-        <a href={ROUTES.home}>
-          <Image src={FFCLogo} alt="FFC Logo"  loading="eager" height={100} quality={70} format="webp" class="navbar__phone__logo"/>
+        <a href={NAV_LINKS.home.href}>
+          <Image src={FFCLogo} alt="FFC Logo" loading="eager" height={100} quality={70} format="webp" class="navbar__phone__logo"/>
         </a>
       </div>
       <XMark width={30} class="fill-white cursor-pointer close__btn" />
     </header>
-    <!-- <div class="focus-within:outline-green-700 focus-within:outline-2 searchbar flex items-center rounded-md bg-green-800 w-7/8 place-self-center mt-10">
-      <a href="" class="searchbar__btn p-3 bg-green-100 h-full flex items-center rounded-l-md justify-center" >
-        <Search width={20} class="fill-green-950" />
-      </a>
-      <input type="text" placeholder="Search..." class="w-full p-2 outline-none text-white" />
-    </div> -->
+    
     <ul class="flex flex-col p-4 font-medium gap-3">
-      <li class="group">
-        <a href={ROUTES.home} class={`py-2 px-3 rounded-sm flex gap-2 items-center ${currentPath === ROUTES.home ? "text-green-600" : "text-white group-hover:text-green-300"}`}>
-          <Home width={20}  class={`${currentPath === ROUTES.home ? "fill-green-600" : "fill-white group-hover:fill-green-300"}`}/>
-          Home
-        </a>
-      </li>
-      <li class="group">
-        <a href={ROUTES.forestCup.index} class={`flex gap-2 items-center py-2 px-3 rounded-sm ${currentPath.includes(ROUTES.forestCup.index) ? "text-green-600" : "text-white group-hover:text-green-300"}`}>
-          <Cup width={20} class={`${currentPath.includes(ROUTES.forestCup.index) ? "fill-green-600" : "fill-white group-hover:fill-green-300"}`} />
-          Forest Cup
-        </a>
-      </li>
-      <!-- <li>
-        <a href="/champions-league" class={`block py-2 px-3 rounded-sm ${currentPath === "/champions-league" ? "text-green-600 font-bold" : "text-white hover:text-green-300"}`}>
-          <span class="inline lg:hidden">FCL</span>
-          <span class="hidden lg:inline">Champions League</span>
-        </a>
-      </li> -->
-      <li class="group">
-        <a href={ROUTES.members.index} class={`flex gap-2 items-center py-2 px-3 rounded-sm ${currentPath.includes(ROUTES.members.index) ? "text-green-600" : "text-white group-hover:text-green-300"}`}>
-          <Members width={16} class={`${currentPath.includes(ROUTES.members.index) ? "fill-green-600" : "fill-white group-hover:fill-green-300"}`} />
-          Members
-        </a>
-      </li>
-      <li class="group">
-        <a href={ROUTES.ranking} class={`flex gap-2 items-center py-2 px-3 rounded-sm ${currentPath === ROUTES.ranking ? "text-green-600" : "text-white group-hover:text-green-300"}`}>
-          <Ranking width={20} class={`${currentPath === ROUTES.ranking ? "fill-green-600" : "fill-white group-hover:fill-green-300"}`} />
-          Ranking
-        </a>
-      </li>
-      <li class="group">
-        <a href={LINKS.forms.newMember} target="_blank" class={`flex gap-2 items-center py-2 px-3 bg-white rounded-md text-green-950 group-hover:bg-green-600 group-hover:text-white`}>
-          <Join width={15} class={"fill-green-950 group-hover:fill-white"} />
-          Join FFC
-        </a>
-      </li>
+      {Object.entries(NAV_LINKS).map(([key, link]) => {
+        if (link.enabled === false || key === 'championsLeague') return null;
+        const isActive = isActiveLink(link.href, currentPath);
+        const Icon = link.icon;
+        return (
+          <li class="group" key={key}>
+            <a 
+              href={link.href} 
+              class={getLinkClasses(link, isActive).replace('rounded-lg', 'rounded-md')}
+              target={link.external ? "_blank" : undefined}
+            >
+              <Icon 
+                width={link.iconWidth} 
+                class={getIconClasses(link, isActive)}
+              />
+              {link.label}
+            </a>
+          </li>
+        );
+      })}
     </ul>
+    <div class="mt-auto flex flex-col md:flex-row p-4 border-t border-green-600 gap-6">
+      <div class="flex gap-3">
+        <!-- Community -->
+        <div class="flex-1">
+          <h2 class="text-sm font-semibold uppercase text-white mb-3">Community</h2>
+          <ul class="space-y-2 text-gray-400 text-sm">
+            <li><a href={LINKS.nationStates.forest} target="_blank" class="hover:underline">Forest</a></li>
+            <li><a href={LINKS.social.discordForest} target="_blank" class="hover:underline">Forest Discord</a></li>
+            <li><a href={LINKS.social.discordFFC} target="_blank" class="hover:underline">FFC Discord</a></li>
+          </ul>
+        </div>
+  
+        <!-- Follow us -->
+        <div class="flex-1">
+          <h2 class="text-sm font-semibold uppercase text-white mb-3">Follow us</h2>
+          <div class="flex gap-4">
+            <a href={LINKS.social.youtube} target="_blank">
+              <Image src={YTLogo} alt="YouTube" width={20} class="hover:opacity-80" />
+            </a>
+            <a href={LINKS.social.twitch} target="_blank">
+              <Image src={TwitchLogo} alt="Twitch" width={20} class="hover:opacity-80" />
+            </a>
+            <a href={LINKS.social.kick} target="_blank">
+              <Image src={KickLogo} alt="Kick" width={20} class="hover:opacity-80" />
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Logo -->
+      <div class="flex justify-center md:justify-end">
+        <a href="https://www.nationstates.net/page=dispatch/id=2525675" target="_blank" class="flex items-center">
+          <Image 
+            src={FooterImage} 
+            width={200} 
+            alt="Forestian Football Confederation"
+            quality={60} 
+            format="webp"
+            class="max-w-[200px] h-auto"
+          />
+        </a>
+      </div>
+    </div>
   </div>
   <div class="navbar__overlay"></div>
 </div>
@@ -198,6 +289,16 @@ import { FEATURES } from '@config/features';
     position: relative;
     z-index: 40;
   }
+
+  /* Hide-on-scroll */
+  .navbar__top {
+    position: fixed;
+    top: 0;
+    transition: transform 0.2s ease-in-out;
+  }
+  .navbar__top--hidden {
+    transform: translateY(-100%);
+  }
 </style>
 
 <script>
@@ -205,10 +306,11 @@ import { FEATURES } from '@config/features';
   const navbar = document.querySelector(".navbar");
   const closeBtn = document.querySelector(".close__btn");
   const overlay = document.querySelector(".navbar__overlay");
+  const navbarTop = document.querySelector(".navbar__top");
 
   menu.addEventListener("click", () => {
     navbar.classList.toggle("navbar--active");
-    overlay.classList.toggle("overlay--active");;
+    overlay.classList.toggle("overlay--active");
   });
   closeBtn.addEventListener("click", () => {
     navbar.classList.remove("navbar--active");
@@ -219,4 +321,17 @@ import { FEATURES } from '@config/features';
     overlay.classList.remove("overlay--active");
   });
 
+  // Hide-on-scroll
+  let lastScroll = 0;
+  window.addEventListener("scroll", () => {
+    const currentScroll = window.scrollY;
+
+    if (currentScroll > lastScroll && currentScroll > 72) {
+      navbarTop.classList.add("navbar__top--hidden");
+    } else {
+      navbarTop.classList.remove("navbar__top--hidden");
+    }
+
+    lastScroll = currentScroll;
+  });
 </script>

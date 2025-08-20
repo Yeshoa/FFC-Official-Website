@@ -10,6 +10,8 @@ import Table from '@components/ranking/Table.astro';
 import { getMembers, getTournaments, getMatches, getArticles } from '@lib/collections';
 import{ getArticlesByTags } from '@lib/articleUtils';
 import { CURRENT_TOURNAMENT_ID } from '@lib/tournamentUtils';
+import Title from '@components/Title.astro';
+import { LOCALE } from '@config/constants';
 
 const members = await getMembers();
 const tournaments = await getTournaments();
@@ -24,10 +26,17 @@ const filteredArticles = getArticlesByTags(articles, filterTags);
 
 // Opcional: especificar el torneo actual
 const currentTournamentId = CURRENT_TOURNAMENT_ID;
+const date = new Date().toLocaleString(LOCALE, { month: 'long', day: 'numeric', year: 'numeric' });
 ---
 <Layout title="FFC - Ranking">
   <main class="w-full p-6 items-center">
-    <h1 class="text-6xl font-bold mb-6 text-center animate-sladeIn">Ranking</h1>
+    <!-- <h1 class="text-6xl font-bold mb-6 text-center animate-sladeIn">Ranking</h1> -->
+    <Title slideIn={true}>
+      Ranking
+      <span slot="subtitle">
+       Last updated {date}
+      </span>
+    </Title>
     <!-- <p class="text-lg mb-4 text-center opacity-0 animate-[slide-in_1s_ease-in-out_forwards_.1s]">
       Score determines how strong your team will be. More points means higher chances to win.
     </p> -->

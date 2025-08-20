@@ -1,5 +1,8 @@
 ---
 import ArticleCard from '@components/articles/ArticleCard.astro';
+import Button from '@components/Button.astro';
+import Title from '@components/Title.astro';
+import { ROUTES } from '@config/routes';
 
 interface Props {
   articles: Array<{
@@ -15,12 +18,13 @@ interface Props {
   max?: number;
   title?: string;
 }
-
 const { articles, max = 3, title = 'Related News'} = Astro.props;
 ---
 
-<div class="container mx-auto px-4 py-12">
-  <h2 class="text-3xl md:text-4xl font-bold text-white mb-8 text-center">{title}</h2>
+<div class="container mx-auto px-4 py-8 border-t border-green-700">
+  <Title size="text-4xl">
+      {title}
+  </Title>
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
     {articles.slice(0, max).map(article => (
       <ArticleCard
@@ -29,14 +33,12 @@ const { articles, max = 3, title = 'Related News'} = Astro.props;
         date={article.data.date}
         summary={article.data.summary}
         tags={article.data.tags}
-        href={`/articles/${article.slug}`}
+        href={ROUTES.articles.detail(article.slug)}
       />
     ))}
   </div>
   <div class="flex justify-center mt-8">
-    <a href="/articles" class="inline-block px-8 py-3 bg-green-700 hover:bg-green-600 text-white font-semibold rounded-full shadow-lg transition-all duration-200">
-      View All Articles
-    </a>
+    <Button link={ROUTES.articles.index}>View All Articles</Button>
   </div>
   {articles.length === 0 && (
     <p class="text-green-200 mt-8 text-center">No news published yet.</p>

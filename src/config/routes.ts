@@ -1,29 +1,29 @@
 export const ROUTES = {
   home: "/",
   articles: {
-    index: "/articles",
+    index: "/articles/",
     detail: (slug: string) => `/articles/${slug}`,
   },
   donate: {
-    index: "/donate",
+    index: "/donate/",
     cancel: "/donate/cancel",
     complete: "/donate/complete",
   },
   forestCup: {
-    index: "/forest-cup",
+    index: "/forest-cup/",
     edition: (edition: number) => `/forest-cup/${edition}`,
   },
   members: {
-    index: "/members",
+    index: "/members/",
     detail: (slug: string) => `/members/${slug}`,
   },
   matches: {
-    index: "/matches",
+    index: "/matches/",
     detail: (slug: string) => `/matches/${slug}`, 
   },
-  championsLeague: "/champions-league", // Disabled
-  ranking: "/ranking",
-  sponsor: "/sponsor",
-  test: "/test",
-  notFound: "/404",
+  championsLeague: "/champions-league/", // Disabled
+  ranking: "/ranking/",
+  sponsor: "/sponsor/",
+  test: "/test/",
+  notFound: "/404/",
 } as const;

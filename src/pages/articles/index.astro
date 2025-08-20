@@ -2,6 +2,7 @@
 import App from '@layouts/App.astro';
 import ArticleCard from '@components/articles/ArticleCard.astro';
 import { getArticles } from '@lib/collections';
+import { ROUTES } from '@config/routes';
 
 const articles = await getArticles();
 articles.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
@@ -17,7 +18,7 @@ articles.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
           date={article.data.date}
           summary={article.data.summary}
           tags={article.data.tags}
-          href={`/articles/${article.slug}`}
+          href={ROUTES.articles.detail(article.slug)}
         />
       ))}
     </div>

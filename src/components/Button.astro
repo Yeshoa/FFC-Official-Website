@@ -1,0 +1,26 @@
+---
+interface Props {
+  link?: string;
+  color?: string;
+  self?: boolean;
+  customClass?: string;
+  hideArrow?: boolean;
+}
+
+const { link = '#', color = 'green', self = true, customClass, hideArrow = false } = Astro.props;
+---
+<a 
+  href={link} 
+  target={self ? '_self' : '_blank'}
+  class={`inline-flex items-center px-6 py-3 
+  bg-gradient-to-r from-${color}-600 to-${color}-700 
+  hover:from-${color}-500 hover:to-${color}-600 
+  text-white font-semibold rounded-lg 
+  transition-all duration-300 transform hover:scale-105
+  ${customClass}`}
+>
+  <slot />
+  {!hideArrow && <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+  </svg>}
+</a>
