@@ -79,10 +79,17 @@ const NAV_LINKS = {
 };
 
 const isActiveLink = (linkHref: string, currentPath: string) => {
+  // Para la página de inicio, debe coincidir exactamente
   if (linkHref === ROUTES.home) {
     return currentPath === linkHref;
   }
-  return currentPath.includes(linkHref);
+  
+  // Para rutas específicas, verificar que la ruta actual comience con el linkHref
+  // y que el siguiente carácter sea '/' o el final de la cadena
+  const normalizedLinkHref = linkHref.endsWith('/') ? linkHref : linkHref + '/';
+  const normalizedCurrentPath = currentPath.endsWith('/') ? currentPath : currentPath + '/';
+  
+  return normalizedCurrentPath.startsWith(normalizedLinkHref);
 };
 
 const getLinkClasses = (link: any, isActive: boolean) => {
