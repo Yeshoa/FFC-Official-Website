@@ -174,19 +174,26 @@ const winner = getMatchWinner(match);
         </div>
         
         <!-- Video Link -->
-        <div class="text-center mt-3 bg-black/20 px-4 py-2 rounded-lg z-10">
+        <div class="flex w-full col-span-1 justify-center">
           {match.link ? (
-            <a 
-              href={match.link} 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              title="Watch Match" 
-              class="text-yellow-400 font-bold"
+            <a
+              href={match.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              title="Watch Match"
+              class="text-yellow-400 font-bold bg-black/20 px-4 py-2 rounded-lg
+              text-center
+              text-xs sm:text-base w-20 sm:w-24"
             >
               Watch
             </a>
           ) : (
-            <span class="text-gray-500 text-sm" title="No link available">Watch</span>
+            <span
+              class="text-gray-500 text-sm px-4 py-2 rounded-lg w-20 sm:w-24"
+              title="No link available"
+            >
+              Watch
+            </span>
           )}
         </div>
         

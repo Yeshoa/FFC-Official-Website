@@ -183,7 +183,7 @@ const getIconClasses = (link: any, isActive: boolean) => {
     <div class="mt-auto flex flex-col md:flex-row p-4 border-t border-green-600 gap-6">
       <div class="flex gap-3">
         <!-- Community -->
-        <div class="flex-1">
+        <div class="flex-1 text-center">
           <h2 class="text-sm font-semibold uppercase text-white mb-3">Community</h2>
           <ul class="space-y-2 text-gray-400 text-sm">
             <li><a href={LINKS.nationStates.forest} target="_blank" class="hover:underline">Forest</a></li>
@@ -193,19 +193,28 @@ const getIconClasses = (link: any, isActive: boolean) => {
         </div>
   
         <!-- Follow us -->
-        <div class="flex-1">
+        <div class="flex-1 text-center">
           <h2 class="text-sm font-semibold uppercase text-white mb-3">Follow us</h2>
-          <div class="flex gap-4">
-            <a href={LINKS.social.youtube} target="_blank">
-              <Image src={YTLogo} alt="YouTube" width={20} class="hover:opacity-80" />
-            </a>
-            <a href={LINKS.social.twitch} target="_blank">
-              <Image src={TwitchLogo} alt="Twitch" width={20} class="hover:opacity-80" />
-            </a>
-            <a href={LINKS.social.kick} target="_blank">
-              <Image src={KickLogo} alt="Kick" width={20} class="hover:opacity-80" />
-            </a>
-          </div>
+          <ul class="space-y-2 text-gray-400 text-sm">
+            <li>
+              <a href={LINKS.social.youtube} target="_blank" class="hover:underline flex justify-center gap-2 items-center">
+                <Image src={YTLogo} alt="YouTube" width={20} format='webp' quality={50} loading={"lazy"} class="hover:opacity-80" />
+                YouTube
+              </a>
+            </li>
+            <li>
+              <a href={LINKS.social.twitch} target="_blank" class="hover:underline flex justify-center gap-2 items-center">
+                <Image src={TwitchLogo} alt="Twitch" width={20} format='webp' quality={50} loading={"lazy"} class="hover:opacity-80" />
+                Twitch
+              </a>
+            </li>
+            <li>
+              <a href={LINKS.social.kick} target="_blank" class="hover:underline flex justify-center gap-2 items-center">
+                <Image src={KickLogo} alt="Kick" width={20} format='webp' quality={50} loading={"lazy"} class="hover:opacity-80" />
+                Kick
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
 
@@ -214,7 +223,7 @@ const getIconClasses = (link: any, isActive: boolean) => {
         <a href="https://www.nationstates.net/page=dispatch/id=2525675" target="_blank" class="flex items-center">
           <Image 
             src={FooterImage} 
-            width={200} 
+            width={300} 
             alt="Forestian Football Confederation"
             quality={60} 
             format="webp"

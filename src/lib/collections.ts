@@ -33,6 +33,7 @@ export async function getAchievements() {
 
 export async function getArticles() {
   if (!articlesCache) articlesCache = await getCollection('articles');
+  articlesCache.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
   return articlesCache;
 }
 

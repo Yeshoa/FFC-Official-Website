@@ -1,31 +1,41 @@
 ---
 import { Image } from 'astro:assets';
+// Collections
 import { getSponsors } from '@lib/collections';
+const sponsors = await getSponsors();
+// Config
 import { FEATURES } from '@config/features';
 import { LINKS } from '@config/links';
 import { ROUTES } from '@config/routes';
-import FooterImage from '@images/Footer.png';
+// Components
 import SponsorCard from '@components/sponsors/SponsorCard.astro';
-
+// Logos
+import FooterImage from '@images/Footer.png';
 import PayPalLogo from '@images/paypal.png';
 import MPLogo from '@images/mercadopago.png';
 import YTLogo from '@images/youtube.png';
 import TwitchLogo from '@images/twitch.png';
 import KickLogo from '@images/kick.png';
 
-const sponsors = await getSponsors();
+//If donations, change to 4, GRID COLS
+const cols = FEATURES.donations ? 4 : 3;
 ---
 <footer class="bg-green-950 border-t border-green-600">
   <div class="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
-      <div class="md:flex md:justify-between">
-        <div class="mb-6 md:mb-0 flex justify-center">
-            <a href="https://www.nationstates.net/page=dispatch/id=2525675" target="_blank" class="flex items-center">
-              <Image src={FooterImage} width={800} alt="Forestian Football Confederation"
-              quality={1} format="webp"/>
-            </a>
-        </div>
-        <div class="grid grid-cols-2 gap-8 md:grid-cols-4 mb-6 text-center md:text-left">
-          <!-- 1. Community -->
+      <div class="md:flex md:justify-around">
+        <!-- CHANGE TO GRID COLS 4 IF DONATIONS -->
+        <div class={`grid grid-cols-2 gap-4 md:grid-cols-${cols} mb-6 text-center md:text-left md:order-2`}>
+          
+          <!-- Roleplay -->
+          <div class="">
+            <h2 class="mb-4 text-sm font-semibold uppercase text-white">Roleplay</h2>
+            <ul class="text-gray-400 font-medium space-y-4">
+              <li><a href={ROUTES.sponsor} class="hover:underline">Sponsors</a></li>
+              <li><a href={ROUTES.articles.index} class="hover:underline">Articles</a></li>
+            </ul>
+          </div>
+
+          <!-- Community -->
           <div class="">
             <h2 class="mb-4 text-sm font-semibold uppercase text-white">Community</h2>
             <ul class="text-gray-400 font-medium space-y-4">
@@ -35,7 +45,7 @@ const sponsors = await getSponsors();
             </ul>
           </div>
 
-          <!-- 2. Follow us -->
+          <!-- Follow us -->
           <div class="">
             <h2 class="mb-4 text-sm font-semibold uppercase text-white">Follow us</h2>
             <ul class="text-gray-400 font-medium space-y-4">
@@ -57,14 +67,6 @@ const sponsors = await getSponsors();
                   Kick
                 </a>
               </li>
-            </ul>
-          </div>
-
-          <!-- 3. Support (Sponsor) -->
-          <div class="">
-            <h2 class="mb-4 text-sm font-semibold uppercase text-white">Support</h2>
-            <ul class="text-gray-400 font-medium space-y-4">
-              <li><a href={ROUTES.sponsor} class="hover:underline">Sponsor us (Roleplay)</a></li>
             </ul>
           </div>
 
@@ -90,45 +92,17 @@ const sponsors = await getSponsors();
                 >Mercadopago</a>
               </li>
             </ul>
-            {/*<div class="md:flex md:flex-col items-start space-y-4">
-              <!-- PayPal -->
-               <a
-                href={LINKS.donations.paypal}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="transition-opacity hover:opacity-80 bg-white rounded px-3 flex items-center justify-center h-[40px] overflow-hidden"
-                aria-label="Donate via PayPal"
-                >
-                <Image
-                src={PayPalLogo}
-                alt="PayPal"
-                class="h-full object-cover"
-                width={75}
-                quality={40}
-                format="webp"
-                />
-                </a> 
-              <!-- MercadoPago -->
-               <a
-                href={LINKS.donations.mercadopago}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="transition-opacity hover:opacity-80 bg-white rounded flex items-center justify-center h-[40px] overflow-hidden"
-                aria-label="Donate via MercadoPago"
-              >
-                <Image
-                  src={MPLogo}
-                  alt="MercadoPago"
-                  class="h-full object-cover"
-                  width={100}
-                  quality={40}
-                  format="webp"
-                />
-              </a> 
-            </div>
-            */}
           </div>
           }
+        </div>
+        <!-- Logo -->
+        <div class="md:mx-12 flex justify-center md:order-1">
+            <a href="https://www.nationstates.net/page=dispatch/id=2525675" target="_blank" class="flex items-center">
+              <Image src={FooterImage} width={400} alt="Forestian Football Confederation"
+              quality={1} format="webp"
+              class="max-w-[200px] xs:max-w-[300px] sm:max-w-[400px] md:max-w-[200px] lg:max-w-[300px] xl:max-w-max h-auto self-center"
+              /> 
+            </a>
         </div>
     </div>
   </div>

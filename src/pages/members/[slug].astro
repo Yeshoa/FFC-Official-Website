@@ -20,6 +20,7 @@ import { getMemberRank, getMemberByName } from '@lib/memberUtils';
 import { getArticlesByTags } from '@lib/articleUtils';
 import { getAchievementsForMember } from '@lib/achievements/dynamics/index';
 import { FEATURES } from '@config/features';
+import { ROUTES } from '@config/routes';
 
 
 type MemberType = CollectionEntry<'members'>; // Should use @types/collections.d.ts
@@ -185,10 +186,13 @@ const filteredArticles = getArticlesByTags(articles, filterTags);
         <h2 class="text-2xl font-semibold mb-4 text-white border-b pb-2 border-green-600">Historic Head-to-Head</h2>
         {Object.keys(h2hStats).length > 0 ? (
           <div class="overflow-x-auto pb-0">
-            <table class="min-w-full border border-green-700 overflow-hidden rounded-lg text-sm">
+            <table class="min-w-full border border-green-700 overflow-hidden rounded-lg text-xs xs:text-sm">
               <thead>
                 <tr class="bg-green-800 text-white">
-                  <th scope="col" class="px-4 py-2 text-left tracking-wider">Opponent</th>
+                  <th scope="col" class="px-4 py-2 text-left tracking-wider">
+                    <span class="hidden xs:inline">Opponent</span>
+                    <span class="xs:hidden">Opp</span>
+                  </th>
                   <th scope="col" class="px-1 py-2 text-center tracking-wider" title="Difference">Dif</th>
                   <th scope="col" class="px-1 py-2 text-center tracking-wider" title="Matches Played">Pld</th>
                   <th scope="col" class="px-1 py-2 text-center tracking-wider" title="Wins">W</th>
@@ -211,8 +215,9 @@ const filteredArticles = getArticlesByTags(articles, filterTags);
                   })
                   .map(([opponentName, stats]) => (
                     <tr key={opponentName} class="border-b border-green-700 hover:bg-green-900/30 transition duration-150">
-                      <td class="px-4 py-2 whitespace-nowrap font-medium text-white">
-                        <a href={`/members/${stats.opponentData?.slug || '#'}`} class="flex items-center gap-2 hover:underline truncate">
+                      <td class="px-1 xs:px-4 py-2 whitespace-nowrap font-medium text-white">
+                        <a href={`${stats.opponentData?.slug ? ROUTES.members.detail(stats.opponentData?.slug) : '#'}`} 
+                        class="flex items-center gap-2 hover:underline truncate">
                           <Image
                             src={stats.opponentData?.data.flagPath || '/images/tournaments/default-flag.png'}
                             alt={opponentName}
@@ -222,7 +227,8 @@ const filteredArticles = getArticlesByTags(articles, filterTags);
                             quality={10}
                             format="webp"
                           />
-                          {opponentName}
+                          <span class="truncate hidden sm:inline">{opponentName}</span>
+                          <span class="sm:hidden">{stats.opponentData?.data.code}</span>
                         </a>
                       </td>
                       <td class={`px-1 py-2 whitespace-nowrap text-center text-green-200 font-bold

@@ -142,14 +142,12 @@ const keySectionsData: SectionCard[] = [
 ];
 const members = await getMembers();
 const matches = await getMatches();
-const showTopCount = 3;
-const totalLastMatches = 3;
+const showTopCount = 10;
+const totalLastMatches = 7;
 const totalNextMatches = 8;
 const lastMatches = matches.filter(match => match.data.status === 'played').slice(0, totalLastMatches);
 const nextMatches = matches.filter(match => match.data.status === 'scheduled').reverse().slice(0, totalNextMatches);
 const articles = await getArticles();
-articles.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
-
 ---
 
 <App title="FFC - Forestian Football Confederation">

@@ -2,7 +2,7 @@ export const ROUTES = {
   home: "/",
   articles: {
     index: "/articles/",
-    detail: (slug: string) => `/articles/${slug}`,
+    detail: (slug: string) => `/articles/${slug}/`,
   },
   donate: {
     index: "/donate/",
@@ -11,19 +11,19 @@ export const ROUTES = {
   },
   forestCup: {
     index: "/forest-cup/",
-    edition: (edition: number) => `/forest-cup/${edition}`,
+    edition: (edition: number) => `/forest-cup/${edition}/`,
   },
   championsLeague:{
     index: "/champions-league/",
-    edition: (edition: number) => `/champions-league/${edition}`,
+    edition: (edition: number) => `/champions-league/${edition}/`,
   },
   members: {
     index: "/members/",
-    detail: (slug: string) => `/members/${slug}`,
+    detail: (slug: string) => `/members/${slug}/`,
   },
   matches: {
     index: "/matches/",
-    detail: (slug: string) => `/matches/${slug}`, 
+    detail: (slug: string) => `/matches/${slug}/`, 
   },
   ranking: "/ranking/",
   sponsor: "/sponsor/",
