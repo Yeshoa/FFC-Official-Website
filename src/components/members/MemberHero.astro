@@ -1,23 +1,29 @@
 ---
 import { Image } from 'astro:assets';
-import StarIcon from '@images/icons/star-solid.svg'; 
-import type { CollectionEntry } from 'astro:content';
+// Achievements (should make a component specific for achievements)
+import AchievementCard from '@components/achievements/AchievementCard.astro';
+// Utils
 import { getMemberTier } from '@lib/memberUtils';
 import { getPointsTextColorClass } from '@lib/scoreUtils';
 import { getRankClass } from '@lib/rankingUtils';
-import AchievementCard from '@components/achievements/AchievementCard.astro';
+// Icons
+import StarIcon from '@images/icons/star-solid.svg'; 
 import defaultLogo from '@images/members/default_logo.png';
 import Arrow from '@images/icons/arrow-up-right-from-square-solid.svg';
 
 // --- PROPS DEFINITION ---
 const { titles = [], achievements = [], memberData, ranking, points } = Astro.props;
 const { name, logoPath, flagPath, founded, affiliation, feddispatch, nslink, code, region, federation } = memberData;
-// --- DYNAMIC STYLES ---
+
+// Show default logo if no logo is provided
 const logoToShow = logoPath || defaultLogo;
 
-const tierClass = getPointsTextColorClass(points);
-const tier = getMemberTier(points);
-const isFounder = memberData.founder === true;
+const tier = getMemberTier(points); // Get the member tier
+
+/* I should change the function to recieve a tier instead */
+const tierClass = getPointsTextColorClass(points); // Text color for the tier
+
+const isFounder = memberData.founder === true; // If the member is a founder, has a special badge
 ---
 
 <section class="hero-member relative mb-8 flex items-center justify-center w-full min-h-[calc(100svh-135px)] bg-green-950 text-white overflow-hidden">
@@ -36,6 +42,7 @@ const isFounder = memberData.founder === true;
       <div class="bg-black/20 backdrop-blur-md border border-white/10 rounded-3xl p-6 sm:p-8 mb-6 shadow-2xl">
         <!-- Flag and Logo Row -->
         <div class="flex items-center justify-center gap-6 mb-6">
+          <!-- Flag -->
           <div class="flex-shrink-0">
             <Image
               src={flagPath}
@@ -47,6 +54,7 @@ const isFounder = memberData.founder === true;
               format="webp"
             />
           </div>
+          <!-- Logo -->
           <div class="flex-shrink-0">
             <Image
               src={logoToShow}
@@ -68,7 +76,7 @@ const isFounder = memberData.founder === true;
           {federation && (
             <h2 class="text-sm sm:text-lg md:text-xl text-gray-300 font-light">{federation}</h2>
           )}
-          <!-- Titles Section -->
+          <!-- Titles Section (STARS) -->
           {titles.length > 0 && (
             <div class="flex flex-wrap items-center justify-center gap-4 mb-6">
               {titles.map((title: any) => (
@@ -103,7 +111,9 @@ const isFounder = memberData.founder === true;
         <div class="space-y-3 text-center text-sm text-gray-300">
           <div class="flex flex-wrap items-center justify-center gap-2">
             <span class="px-2 py-1 bg-gray-800/50 rounded-full">Code: <span class="font-semibold">{code}</span></span>
+            <!-- Show region if not Forestian -->
             {region && region !== 'Forest' && <span class="px-2 py-1 bg-gray-800/50 rounded-full">Region: <span class="font-semibold">{region}</span></span>}
+            <!-- Founder badge -->
             {isFounder && (
               <span class="px-3 py-1 font-semibold bg-gradient-to-r via-40% from-fuchsia-700 via-teal-700 to-cyan-700 text-amber-50 rounded-full shadow-lg">
                 Founder
@@ -171,7 +181,7 @@ const isFounder = memberData.founder === true;
         {federation && (
           <h2 class="text-xl xl:text-2xl 2xl:text-3xl text-gray-300 font-light">{federation}</h2>
         )}
-        <!-- Titles -->
+        <!-- Titles (STARS) -->
         {titles.length > 0 && (
           <div class="flex flex-wrap justify-center gap-4 -mt-2 -mb-4">
               {titles.map((title: any) => (

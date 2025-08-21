@@ -2,12 +2,16 @@
 // src/components/TournamentCard.astro
 import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
+// Icons
 import Star from "@images/icons/star-solid.svg";
 import House from "@images/icons/house-solid.svg";
 import People from "@images/icons/people-group-solid.svg";
-import type { ImageMetadata } from 'astro';
+
+
 import { getMemberImage } from '@lib/memberUtils';
 import defaultFlag from '@images/tournaments/default-flag.png';
+import { LINKS } from '@config/links';
+import { ROUTES } from '@config/routes';
 
 interface Props {
   tournament: CollectionEntry<'tournaments'>;
@@ -30,19 +34,21 @@ const {
     loadingType, 
 } = data;
 
-const mainImage = cardImg || heroImg;
-const tournamentLink = `/${type}/${edition}`;
-const hostFlag = await getMemberImage(host) || defaultFlag;
+const mainImage = cardImg || heroImg; // CardImg
+/* Route redirect depending on the tournament type */
+// const tournamentLink = `/${type}/${edition}`;
+const tournamentLink = type === 'forestian-champions-league' ? ROUTES.championsLeague.edition(edition) : ROUTES.forestCup.edition(edition);
+const hostFlag = await getMemberImage(host) || defaultFlag; // If there is no host yet, use the default flag
 ---
 
-<!-- Contenedor principal con diseño horizontal completo -->
+<!-- Main Container with horizontal design -->
 <a 
   href={tournamentLink} 
   class="group block w-full rounded-2xl overflow-hidden bg-gradient-to-br from-gray-900 via-gray-800 to-black border border-emerald-500/20 shadow-2xl hover:shadow-emerald-400/30 transition-all duration-500 ease-out hover:scale-[1.02] hover:border-emerald-400/40"
 >
   <div class="relative w-full min-h-[200px] md:min-h-[240px] lg:min-h-[280px]">
     
-    <!-- Imagen de fondo con efectos -->
+    <!-- Background image with enhanced gradient -->
     {mainImage ? (
       <Image
         src={mainImage}
@@ -61,17 +67,17 @@ const hostFlag = await getMemberImage(host) || defaultFlag;
       </div>
     )}
     
-    <!-- Overlay con gradientes múltiples para mejor legibilidad -->
+    <!-- Overlay with multiple gradients for better readability -->
     <div class="absolute inset-0 bg-gradient-to-r from-green-950 via-green-950/50 to-transparent from-33% via-50%"></div>
     <div class="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/20"></div>
     
-    <!-- Contenido principal en columna -->
+    <!-- Main Content in Column -->
     <div class="relative h-full flex flex-col justify-between p-6 md:p-8 lg:p-10 text-white">
       
-      <!-- Sección superior: Logo, Edición y Badge -->
+      <!-- Superior Section: Logo, Edition, HostFlag -->
       <div class="flex flex-col gap-4">
         <div class="flex items-start justify-between">
-          <!-- Logo con efecto glassmorphism -->
+          <!-- Logo -->
           <div class="relative group/logo">
             <div class="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-60 lg:h-60 transition-all duration-300 group-hover:scale-105 group-hover:rotate-3">
               <Image
@@ -87,26 +93,27 @@ const hostFlag = await getMemberImage(host) || defaultFlag;
           </div>
         </div>
         
-        <!-- Título principal -->
+        <!-- Flag and Name -->
         <div class="space-y-2">
           <div class="flex flex-col md:flex-row md:items-center gap-2">
-            {hostFlag && <Image src={hostFlag} alt="Host Flag" class="max-w-6 sm:max-w-10 md:max-w-11 h-4 sm:h-6 md:mt-1 md:h-7 lg:h-9 lg:max-w-14 xl:max-w-auto rounded-md object-cover" 
-            width={100}
-            quality={70}
-            format="webp"
-            loading={loadingType || "lazy"}
+            {hostFlag && 
+            <Image src={hostFlag} alt="Host Flag" class="max-w-6 sm:max-w-10 md:max-w-11 h-4 sm:h-6 md:mt-1 md:h-7 lg:h-9 lg:max-w-14 xl:max-w-auto rounded-md object-cover" 
+              width={100}
+              quality={70}
+              format="webp"
+              loading={loadingType || "lazy"}
             />}
             <h2 class="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white via-emerald-200 to-white leading-tight">
               {name}
             </h2>
           </div>
           
-          <!-- Línea decorativa -->
+          <!-- Decorative line -->
           <div class="w-20 h-1 bg-gradient-to-r from-emerald-400 via-blue-400 to-emerald-400 rounded-full transform group-hover:w-32 transition-all duration-500"></div>
         </div>
       </div>
       
-      <!-- Sección inferior: Información y stats -->
+      <!-- Discarded stats section -->
       {/*<div class="space-y-4 mt-2">
          <div class="flex flex-wrap gap-4 md:gap-6">
           {champion && (
@@ -138,7 +145,7 @@ const hostFlag = await getMemberImage(host) || defaultFlag;
           </div>
         </div>*/}
         
-        <!-- Indicador de hover -->
+        <!-- Hover indicator -->
         <div class="flex items-center gap-2 mt-2 text-emerald-300/60 group-hover:text-emerald-300 transition-all duration-300">
           <span class="text-sm font-medium">View Details</span>
           <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -148,7 +155,7 @@ const hostFlag = await getMemberImage(host) || defaultFlag;
       </div>
     </div>
     
-    <!-- Efecto de brillo que se mueve -->
+    <!-- Brightness effect that moves -->
     <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none">
       <div class="absolute top-0 left-0 w-full h-full">
         <div class="absolute top-0 left-0 w-32 h-full bg-gradient-to-r from-transparent via-white/10 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out"></div>

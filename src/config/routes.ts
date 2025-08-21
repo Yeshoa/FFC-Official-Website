@@ -13,6 +13,10 @@ export const ROUTES = {
     index: "/forest-cup/",
     edition: (edition: number) => `/forest-cup/${edition}`,
   },
+  championsLeague:{
+    index: "/champions-league/",
+    edition: (edition: number) => `/champions-league/${edition}`,
+  },
   members: {
     index: "/members/",
     detail: (slug: string) => `/members/${slug}`,
@@ -21,7 +25,6 @@ export const ROUTES = {
     index: "/matches/",
     detail: (slug: string) => `/matches/${slug}`, 
   },
-  championsLeague: "/champions-league/", // Disabled
   ranking: "/ranking/",
   sponsor: "/sponsor/",
   test: "/test/",

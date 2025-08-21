@@ -1,29 +1,34 @@
 ---
-import { type CollectionEntry } from 'astro:content';
-import { getTournaments, getMatches, getMembers, getArticles } from '@lib/collections';
 import { Image } from 'astro:assets';
-import { getMemberRank, getMemberByName } from '@lib/memberUtils';
-import { getMemberTotalScore } from '@lib/rankingUtils';
-import { getAchievementsForMember } from '@lib/achievements/dynamics/index';
+import { type CollectionEntry } from 'astro:content';
+// Components
 import App from '@layouts/App.astro';
-import ScorersTable from '@components/tournaments/ScorersTable.astro';
-import MatchCard from '@components/matches/MatchCard.astro';
-import MatchCardDetailed from '@components/matches/MatchCardDetailed.astro';
-import RecordsAndStats from '@components/members/RecordsAndStats.astro';
-import TournamentParticipationTable from '@components/members/TournamentParticipationTable.astro';
 import MemberHero from '@components/members/MemberHero.astro';
-import { CURRENT_TOURNAMENT_ID } from '@lib/tournamentUtils';
-import { getArticlesByTags } from '@lib/articleUtils';
+import TournamentParticipationTable from '@components/members/TournamentParticipationTable.astro';
+import MatchCard from '@components/matches/MatchCard.astro'; //Match card with stadium
+import MatchCardDetailed from '@components/matches/MatchCardDetailed.astro';// Match card with tournament
+import ScorersTable from '@components/tournaments/ScorersTable.astro'; //This one shows both scorers and assists
+import RecordsAndStats from '@components/members/RecordsAndStats.astro';
 import RelatedNews from '@components/articles/RelatedNews.astro';
+// Collections ASYNC, NEED AWAIT
+import { getTournaments, getMatches, getMembers, getArticles } from '@lib/collections';
 
-export const prerender = true;
+// Utils
+import { CURRENT_TOURNAMENT_ID } from '@lib/tournamentUtils'; // Global constant for current tournament
+import { getMemberTotalScore } from '@lib/rankingUtils';
+import { getMemberRank, getMemberByName } from '@lib/memberUtils';
+import { getArticlesByTags } from '@lib/articleUtils';
+import { getAchievementsForMember } from '@lib/achievements/dynamics/index';
+import { FEATURES } from '@config/features';
 
-type MemberType = CollectionEntry<'members'>;
+
+type MemberType = CollectionEntry<'members'>; // Should use @types/collections.d.ts
 
 interface Props {
   member: MemberType;
 }
-
+// Static Paths (URLs: members/[slug])
+export const prerender = true; 
 export async function getStaticPaths() {
   const members = await getMembers();
   return members.map((member: MemberType) => ({
@@ -32,21 +37,22 @@ export async function getStaticPaths() {
   }));
 }
 
-// --- Parámetro de URL y Miembro Actual ---
+// --- Member that will be rendered as specified in the URL ---
 const { member } = Astro.props;
-
+// If the inserted path doesn't exist, redirect to 404 (member/asdfasdf)
 if (!member) {
   return Astro.redirect('/404');
 }
 
-const { Content } = await member.render(); // Obtener el componente para renderizar el Markdown
-const memberData = member.data;
-
+const { Content } = await member.render(); // Markdown content of the member
+const memberData = member.data; // Member data
+// Collections
 const matches = await getMatches();
 const tournaments = await getTournaments();
 const members = await getMembers();
 
-// Filtra partidos jugados donde el miembro actual es team1 o team2
+// Filter played matches where the current member is team1 or team2
+/* SHOULD BE IN A UTIL */
 const playedMatches = matches
   .filter(match => match.data.status === 'played' && (match.data.team1 === memberData.name || match.data.team2 === memberData.name))
   .map(match => {
@@ -68,10 +74,10 @@ const playedMatches = matches
       penaltiesInfo,
     };
   });
-
+// Sort played matches by date
 playedMatches.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 
-// --- Lógica para Head-to-Head (H2H) ---
+// --- Head-to-Head Logic ---
 interface H2HStats {
   difference: number;
   played: number;
@@ -83,7 +89,7 @@ interface H2HStats {
   opponentData: CollectionEntry<'members'> | null;
 }
 
-// Inicializar y precomputar estadísticas H2H
+// Initialize and precompute H2H stats
 const h2hStats: Record<string, H2HStats> = {};
 
 for (const match of playedMatches) {
@@ -127,7 +133,7 @@ for (const match of playedMatches) {
     h2hStats[opponentName].draws++;
   }
 }
-
+// this is for the member hero
 const memberRank = await getMemberRank(member, CURRENT_TOURNAMENT_ID);
 const memberTotalScoreResult = await getMemberTotalScore(member, CURRENT_TOURNAMENT_ID);
 const memberTotalScore = memberTotalScoreResult.totalScore;
@@ -135,10 +141,18 @@ const titles = tournaments
   .filter(t => t.data.champion === memberData.name)
   .map(t => ({ year: t.data.edition }));
 
+// This is the markdown content. If it is empty, it will not be rendered
 const hasContent = member?.body && member.body.trim() !== '';
-const achievements = [];
+/*
+  This is for the achievements EMPTY IF FEATURES.achievements IS FALSE
+  TODO:
+  getAchievementsForMember should recieve a full member, not the name 
+*/
+const achievements = FEATURES.achievements ? await getAchievementsForMember(memberData.name) : [];
+
+// Articles
 const articles = await getArticles();
-const filterTags = [member.slug];
+const filterTags = [member.slug]; // the articles should have the nation slug as tag to be shown
 const filteredArticles = getArticlesByTags(articles, filterTags);
 ---
 
@@ -151,8 +165,9 @@ const filteredArticles = getArticlesByTags(articles, filterTags);
       matches={matches} 
       type="forest-cup" 
     />
-    
+    <!-- Middle Section -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+      <!-- Left: Last Matches -->
       <div class="bg-green-950/80 shadow-lg rounded-lg p-6">
         <h2 class="text-2xl font-semibold mb-4 text-white border-b pb-2 border-green-600">Last Matches Played</h2>
         {playedMatches.length > 0 ? (
@@ -165,7 +180,7 @@ const filteredArticles = getArticlesByTags(articles, filterTags);
           <p class="text-gray-400 italic">This National Team hasn't played any matches yet.</p>
         )}
       </div>
-
+      <!-- Right: Historic Head-to-Head -->
       <div class="bg-green-950/80 shadow-lg rounded-lg p-6">
         <h2 class="text-2xl font-semibold mb-4 text-white border-b pb-2 border-green-600">Historic Head-to-Head</h2>
         {Object.keys(h2hStats).length > 0 ? (
@@ -229,12 +244,15 @@ const filteredArticles = getArticlesByTags(articles, filterTags);
         ) : (
           <p class="text-gray-400 italic">There are no stats to show for this National Team</p>
         )}
+        <!-- Right: Below H2H, Scorers and Assists -->
         <section class="flex justify-center items-center flex-col">
           <ScorersTable members={members.filter(m => m.slug === member.slug)} matches={playedMatches} />
         </section>
       </div>
     </div>
+    <!-- Bottom: Records and Stats -->
     <RecordsAndStats member={member} matches={playedMatches} />
+    <!-- Related News only if there exists -->
     {filteredArticles.length > 0 && (
       <RelatedNews articles={filteredArticles} max={4} />
     )}
