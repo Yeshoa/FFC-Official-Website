@@ -37,10 +37,10 @@ const { articles, max = 3, title = 'Related News'} = Astro.props;
       />
     ))}
   </div>
+  {articles.length === 0 && (
+    <p class="text-green-200 text-center">No news published yet.</p>
+  )}
   <div class="flex justify-center mt-8">
     <Button link={ROUTES.articles.index}>View All Articles</Button>
   </div>
-  {articles.length === 0 && (
-    <p class="text-green-200 mt-8 text-center">No news published yet.</p>
-  )}
 </div>
