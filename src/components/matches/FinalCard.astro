@@ -2,8 +2,8 @@
 import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 import type { ImageMetadata } from 'astro';
-import { getMemberByName } from '@lib/memberUtils';
-import { areThereScorers, getMatchWinner, getMatchResult } from '@lib/matchUtils';
+import { getMemberByName } from 'src/utils/memberUtils';
+import { areThereScorers, getMatchWinner, getMatchResult } from 'src/utils/matchUtils';
 import PenaltyIcon from '@images/icons/penalty.svg';
 import GoalIcon from '@images/icons/futbol-regular-full.svg';
 import defaultFlag from '@images/tournaments/default-flag.png';

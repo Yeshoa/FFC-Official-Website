@@ -1,9 +1,9 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import { Image } from 'astro:assets';
-import { CURRENT_TOURNAMENT_ID, getTeamPositionInTournament, getTeamByPosition, getFinalResult, getThirdPlaceResult } from '@lib/tournamentUtils';
-import { getMemberByName } from '@lib/memberUtils';
-import { getMatchResult } from '@lib/matchUtils';
+import { CURRENT_TOURNAMENT_ID, getTeamPositionInTournament, getTeamByPosition, getFinalResult, getThirdPlaceResult } from 'src/utils/tournamentUtils';
+import { getMemberByName } from 'src/utils/memberUtils';
+import { getMatchResult } from 'src/utils/matchUtils';
 import Title from '@components/Title.astro';
 
 interface Props {

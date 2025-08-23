@@ -9,6 +9,7 @@ let matchesCache: CollectionEntry<'matches'>[] | null = null;
 let achievementsCache: any[] | null = null;
 let articlesCache: CollectionEntry<'articles'>[] | null = null;
 let sponsorsCache: CollectionEntry<'sponsors'>[] | null = null;
+let stadiumsCache: CollectionEntry<'stadiums'>[] | null = null;
 
 // GETTERS
 export async function getMembers() {
@@ -40,4 +41,9 @@ export async function getArticles() {
 export async function getSponsors() {
   if (!sponsorsCache) sponsorsCache = await getCollection('sponsors');
   return sponsorsCache;
+}
+
+export async function getStadiums() {
+  if (!stadiumsCache) stadiumsCache = await getCollection('stadiums');
+  return stadiumsCache;
 }

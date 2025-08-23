@@ -3,8 +3,8 @@ import { Image } from 'astro:assets';
 import BracketMatchCard from '@components/tournamentsmatches/BracketmatchCard.astro';
 import MatchCardCompact from '@components/matches/MatchCardCompact.astro';
 import trophy from '@images/tournaments/trophy.png';
-import { getMemberByName } from '@lib/memberUtils';
-import { getMatchWinner } from '@lib/matchUtils';
+import { getMemberByName } from 'src/utils/memberUtils';
+import { getMatchWinner } from 'src/utils/matchUtils';
 
 interface Props {
   matches: any[]; // Lista de partidos del torneo

@@ -41,14 +41,31 @@ const matchesCollection = defineCollection({
   type: 'content',
   schema: z.object({
     tournament_id: z.number(), // Referencia al torneo
+    match_id: z.number().optional(),
+    // Tournament structure
     stage: z.string().optional(), // Group Stage, Knockout Stage, etc.
     group: z.string().optional(), // Referencia al grupo
     fixture: z.string(), // Fixture del partido (ej: "MatchDay 1" o "Semi-Final")
+    round: z.number().optional(),
+    leg: z.enum(["1", "2", "single"]).default("single"), // 1, 2 o single
+    // Teams
     team1: z.string(),
     team2: z.string(),
+    stadium_id: z.number().optional(),
+    neutralVenue: z.boolean().default(true),
+    // Status and date
     status: z.enum(["scheduled", "played", "canceled"]).default("scheduled"),
     date: z.date(),
-    link: z.string().url().optional(), // Enlace al video del partido
+
+    attendance: z.number().optional(),
+    // weather: z.string().optional(),
+    // temperature: z.number().optional(), //
+    // referee: z.string().optional(),
+    // assistantReferees: z.array(z.string()).optional(), // 
+    // fourthOfficial: z.string().optional(), // 
+    // var: z.boolean().default(false), // 
+
+    // Match info
     goals: z.array(
       z.object({
         team: z.string(),
@@ -60,6 +77,7 @@ const matchesCollection = defineCollection({
         assist: z.string().optional(),
       })
     ).optional(),
+
     penalties: z.array(
       z.object({
         order: z.number(), // Orden de ejecución
@@ -68,14 +86,27 @@ const matchesCollection = defineCollection({
         scored: z.boolean(), // true si convirtió
       })
     ).optional(),
+
     cards: z.array(
       z.object({
         team: z.string(),
         player: z.string().optional(),
         minute: z.number(),
-        type: z.enum(["yellow", "red"])
+        aggregate: z.number().optional(),
+        type: z.enum(["yellow", "red", "second-yellow"]),
       })
     ).optional(),
+
+    substitutions: z.array(
+      z.object({
+        team: z.string(),
+        playerOut: z.string(),
+        playerIn: z.string(),
+        minute: z.number(),
+        aggregate: z.number().optional(),
+      })
+    ).optional(),
+
     lineup: z.object({
       team1: z.object({
         coach: z.string().optional().describe("Coach for team1"),
@@ -85,6 +116,8 @@ const matchesCollection = defineCollection({
             number: z.number().describe("Jersey number"),
             name: z.string().describe("Player name"),
             position: z.string().describe("Field position"),
+            captain: z.boolean().default(false),
+            starter: z.boolean().default(true), 
           }).passthrough()
         ).optional(),
       }).optional(),
@@ -97,48 +130,50 @@ const matchesCollection = defineCollection({
             number: z.number().describe("Jersey number"),
             name: z.string().describe("Player name"),
             position: z.string().describe("Field position"),
+            captain: z.boolean().default(false),
+            starter: z.boolean().default(true), 
           }).passthrough()
         ).optional(),
       }).optional(),
     }).optional().describe("Lineups by team"),
+
+    stats: z.object({
+      possession: z.object({ team1: z.number(), team2: z.number() }).optional(),
+      shots: z.object({ team1: z.number(), team2: z.number() }).optional(),
+      shotsOnTarget: z.object({ team1: z.number(), team2: z.number() }).optional(),
+      corners: z.object({ team1: z.number(), team2: z.number() }).optional(),
+      fouls: z.object({ team1: z.number(), team2: z.number() }).optional(),
+      offsides: z.object({ team1: z.number(), team2: z.number() }).optional(),
+    }).optional(),
+
+    // Media and links
+    link: z.string().url().optional(), // Enlace al video del partido
   }),
 });
 
 const membersCollection = defineCollection({
   type: 'content',
   schema: ({ image }) => z.object({
+    // General
     id: z.number(),
     code: z.string().optional(),
     name: z.string(),
-    nslink: z.string().url(),
+    // Images
     flagPath: image().optional(),
-    federation: z.string().optional(),
     logoPath: image().optional(),
-    feddispatch: z.string().url().optional(),
+    // Info
+    federation: z.string().optional(),
     region: z.string(),
     founded: z.number().optional(),
     affiliation: z.number().optional(),
+    // Status
     verified: z.boolean().default(false),
     founder: z.boolean().default(false),
-    /* score: z.object({
-      rp: z.object({
-        history: z.number().default(0).describe("History Points"),
-        results: z.number().default(0).describe("Previous Results Points"),
-      }).default({ history: 0, results: 0 }).optional(), 
-      events: z.object({
-        lastEditionPoints: z.number().default(0).describe("Points owned in last FC edition"),
-        poetry: z.number().default(0).describe("Forest Poetry Fantasia"),
-      }).default({ lastEditionPoints: 0, poetry: 0 }).optional(), 
-      bonus: z.object({
-        host: z.number().default(0).describe("Host Points"),
-        extra: z.number().default(0).describe("Extra Points"),
-      }).default({ host: 0, extra: 0 }).optional(), 
-    }).default({ 
-        rp: { history: 0, results: 0 },
-        events: { lastEditionPoints: 0, poetry: 0 },
-        bonus: { host: 0, extra: 0 }
-    }).describe("Detailed member score"), */
-    // NUEVO: Sistema de puntuación actualizado
+
+    // Links
+    nslink: z.string().url(),
+    feddispatch: z.string().url().optional(),
+
     score: z
         .object({
           // 1️⃣ ROLEPLAY CATEGORY - ESTRUCTURA DINÁMICA POR TOURNAMENT ID
@@ -184,24 +219,29 @@ const membersCollection = defineCollection({
         }),
 
     additionalPoints: z.number().optional().default(0),
-    squad: z.object({
-      coach: z.string().optional().describe("Head coach name"),
-      formation: z.string().optional().describe("Preferred team formation, e.g. 4-3-3"),
-      players: z.array(
-        z.object({
-          number: z.number().describe("Jersey number"),
-          name: z.string().describe("Player name"),
-          position: z.string().describe("Position on the field"),
-        }).passthrough() 
-      ).optional().describe("List of squad members"),
-    }).optional().describe("Squad configuration"),
-    manualAchievements: z.array(z.string()).optional(),
+
     tierHistory: z.array(
       z.object({
         tier: z.string(),
         edition: z.number(),
       })
     ).optional(),
+    
+    squad: z.object({
+      coach: z.string().optional().describe("Head coach name"),
+      formation: z.string().optional().describe("Preferred team formation, e.g. 4-3-3"),
+      captain: z.string().optional(),
+      players: z.array(
+        z.object({
+          number: z.number().describe("Jersey number"),
+          name: z.string().describe("Player name"),
+          position: z.string().describe("Position on the field"),
+          age: z.number().optional(),
+
+        }).passthrough() 
+      ).optional().describe("List of squad members"),
+    }).optional().describe("Squad configuration"),
+    manualAchievements: z.array(z.string()).optional(),
   }),
 });
 
@@ -215,6 +255,7 @@ const articlesCollection = defineCollection({
     tags: z.array(z.string()).optional(),
     summary: z.string().optional(),
     image: image().default('/src/assets/images/FFC Banner simple.png'),
+    status: z.enum(["draft", "published", "archived", "featured"]).default("published"),
   }),
 });
 
@@ -251,11 +292,34 @@ const sponsorCollection = defineCollection({
   }),
 });
 
+const stadiumsCollection = defineCollection({
+  type: 'content',
+  schema: ({ image }) => z.object({
+    id: z.number(),
+    name: z.string(),
+    city: z.string(),
+    nation: z.string(),
+    capacity: z.number().optional(),
+    opened: z.number().optional(), // Year founded
+    image: image().optional(),
+    // surface: z.enum(['grass', 'artificial', 'hybrid']).optional(),
+    // coordinates: z.object({
+    //   lat: z.number(),
+    //   lng: z.number(),
+    // }).optional(),
+    description: z.string().optional(),
+    // nickname: z.string().optional(), // Apodo del estadio
+    owner: z.string().optional(), // Team owner
+    architect: z.string().optional(),
+  }),
+});
+
 export const collections = {
   'tournaments': tournamentsCollection,
   'matches': matchesCollection,
   'members': membersCollection,
   'articles': articlesCollection,
   'achievements': achievementsCollection,
-  'sponsors': sponsorCollection
+  'sponsors': sponsorCollection,
+  'stadiums': stadiumsCollection
 };

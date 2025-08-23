@@ -4,8 +4,8 @@ type MatchEntry = CollectionEntry<'matches'>;
 type TournamentEntry = CollectionEntry<'tournaments'>;
 
 import { Image } from 'astro:assets';
-import { getMemberByName } from "@lib/memberUtils"; 
-import { getTournamentStandings } from '@lib/tournamentUtils'; 
+import { getMemberByName } from "src/utils/memberUtils"; 
+import { getTournamentStandings } from 'src/utils/tournamentUtils'; 
 import Title from '@components/Title.astro';
 
 interface Props {

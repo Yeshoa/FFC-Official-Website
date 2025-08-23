@@ -1,12 +1,12 @@
 import type { CollectionEntry } from "astro:content"
-import { calculateTournamentDecayPoints, getLastFourTournamentIds } from "@lib/tournamentUtils"
+import { calculateTournamentDecayPoints, getLastFourTournamentIds } from "src/utils/tournamentUtils"
 import { calculateAllEventPoints, calculateEventDecayPoints, EVENT_COUNT } from "@lib/eventUtils"
 import { MAX_ROLEPLAY_POINTS, normalizePoints, SCORING_CONFIG } from "./scoreUtils";
 import { calculateCurrentBonusPoints, calculatePastBonusPoints } from "./bonusUtils";
-import { CURRENT_TOURNAMENT_ID } from "@lib/tournamentUtils";
+import { CURRENT_TOURNAMENT_ID } from "src/utils/tournamentUtils";
 import { calculateCurrentRoleplayPoints, calculatePastRoleplayPoints } from "./roleplayUtils";
 import { getTournaments } from '@lib/collections';
-import { getMemberTier } from "./memberUtils";
+import { getMemberTier } from "../utils/memberUtils";
 
 // 🟢 Tipos
 type TournamentEntry = CollectionEntry<'tournaments'>;

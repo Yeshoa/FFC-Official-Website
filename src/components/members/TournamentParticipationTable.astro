@@ -1,11 +1,11 @@
 ---
 // TournamentParticipationTable.astro
 import type { CollectionEntry } from 'astro:content';
-import { getMemberByName } from '@lib/memberUtils';
-import { getMatchResult } from '@lib/matchUtils';
+import { getMemberByName } from 'src/utils/memberUtils';
+import { getMatchResult } from 'src/utils/matchUtils';
 import { Image } from 'astro:assets';
-import { getTeamStatsInTournament, getTeamFinalResult, getTopScorerOfTeamInTournament, getTeamPositionInTournament, getTeamByPosition, getFinalResult, getThirdPlaceResult} from '../../lib/tournamentUtils';
-import { CURRENT_TOURNAMENT_ID } from '../../lib/tournamentUtils';
+import { getTeamStatsInTournament, getTeamFinalResult, getTopScorerOfTeamInTournament, getTeamPositionInTournament, getTeamByPosition, getFinalResult, getThirdPlaceResult} from '../../utils/tournamentUtils';
+import { CURRENT_TOURNAMENT_ID } from '../../utils/tournamentUtils';
 import { getTournaments } from '@lib/collections';
 
 const tournaments = await getTournaments();

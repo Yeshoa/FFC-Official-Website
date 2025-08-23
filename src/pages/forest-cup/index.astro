@@ -6,9 +6,9 @@ import FCCard from '@components/tournaments/FCCard.astro';
 import App from '@layouts/App.astro';
 import { Image } from 'astro:assets';
 import FCLogo from '@images/tournaments/forest-cup.png';
-import { getMemberByName } from '@lib/memberUtils';
+import { getMemberByName } from 'src/utils/memberUtils';
 import { getTournaments, getMatches, getMembers, getArticles } from '@lib/collections';
-import { getArticlesByTags } from '@lib/articleUtils';
+import { getArticlesByTags } from 'src/utils/articleUtils';
 import RelatedNews from '@components/articles/RelatedNews.astro';
 
 const members = await getMembers();

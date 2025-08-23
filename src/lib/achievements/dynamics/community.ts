@@ -3,8 +3,8 @@ import type { Achievement } from './index';
 import { type Category, CATEGORIES, ALIGNMENTS, type Subcategory, type Alignment } from '../utils';
 import { type CollectionEntry } from 'astro:content';
 import { getSponsors, getArticles } from '@lib/collections';
-import { getMemberByName } from '@lib/memberUtils';
-import { getGoalsByTeam, getMatchWinnerIncludingPenalties } from '@lib/matchUtils';
+import { getMemberByName } from 'src/utils/memberUtils';
+import { getGoalsByTeam, getMatchWinnerIncludingPenalties } from 'src/utils/matchUtils';
 
 type Tournament = CollectionEntry<'tournaments'>;
 type Member = CollectionEntry<'members'>;

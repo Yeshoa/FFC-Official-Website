@@ -1,7 +1,7 @@
 import type { ImageMetadata } from 'astro';
 import type { CollectionEntry } from 'astro:content';
-import { getMemberTotalScore } from './rankingUtils';
-import { TIERS } from './scoreUtils';
+import { getMemberTotalScore } from '../lib/rankingUtils';
+import { TIERS } from '../lib/scoreUtils';
 import { getMembers, getTournaments, getMatches } from '@lib/collections';
 import { CURRENT_TOURNAMENT_ID } from './tournamentUtils';
 

@@ -1,5 +1,5 @@
 import type { CollectionEntry } from "astro:content";
-import { CURRENT_TOURNAMENT_ID } from "./tournamentUtils";
+import { CURRENT_TOURNAMENT_ID } from "../utils/tournamentUtils";
 import { SCORING_CONFIG } from "./scoreUtils";
 import { getTournaments } from '@lib/collections';
 

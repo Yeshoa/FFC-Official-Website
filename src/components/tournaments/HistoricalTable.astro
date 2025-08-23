@@ -1,9 +1,9 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import { Image } from 'astro:assets';
-import { getMemberByName } from "@lib/memberUtils";
+import { getMemberByName } from "src/utils/memberUtils";
 import { getMembers } from "@lib/collections";
-import { getMatchResult } from '@lib/matchUtils.ts';
+import { getMatchResult } from 'src/utils/matchUtils';
 import defaultFlag from '@images/tournaments/default-flag.png';
 const members = await getMembers();
 

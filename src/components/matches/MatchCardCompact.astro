@@ -2,8 +2,8 @@
 import  { type CollectionEntry } from 'astro:content';
 import { getTournaments } from '@lib/collections';
 import { LOCALE } from '@config/constants';
-import { getMatchResult, getPenaltiesResult } from '@lib/matchUtils.ts';
-import { getMemberImage } from '@lib/memberUtils.ts';
+import { getMatchResult, getPenaltiesResult } from 'src/utils/matchUtils';
+import { getMemberImage } from 'src/utils/memberUtils';
 import { Image } from 'astro:assets';
 
 interface Props {

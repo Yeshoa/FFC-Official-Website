@@ -1,5 +1,5 @@
 import { SCORING_CONFIG } from "./scoreUtils";
-import { CURRENT_TOURNAMENT_ID } from "./tournamentUtils";
+import { CURRENT_TOURNAMENT_ID } from "../utils/tournamentUtils";
 
 // Función helper para obtener puntos de eventos específicos
 export const getCurrentRoleplayPoints = (team, roleplayName: string) => {

@@ -2,8 +2,8 @@ import Trophy from '@images/achievements/king.webp';
 import type { Achievement } from './index';
 import { type Category, CATEGORIES, ALIGNMENTS, type Subcategory, type Alignment } from '../utils';
 import type { CollectionEntry } from 'astro:content';
-import { getMemberByName } from '@lib/memberUtils';
-import { getGoalsByTeam, getMatchWinnerIncludingPenalties } from '@lib/matchUtils';
+import { getMemberByName } from 'src/utils/memberUtils';
+import { getGoalsByTeam, getMatchWinnerIncludingPenalties } from 'src/utils/matchUtils';
 
 type Tournament = CollectionEntry<'tournaments'>;
 type Member = CollectionEntry<'members'>;

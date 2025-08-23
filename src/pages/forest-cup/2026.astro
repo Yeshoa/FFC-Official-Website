@@ -9,8 +9,8 @@ import TournamentStandings from '@components/tournaments/TournamentStandings.ast
 import TournamentHero from '@components/tournaments/TournamentHero.astro';
 import Headlines from '@components/tournaments/Headlines.astro';
 import TournamentStats from '@components/tournaments/TournamentStats.astro';
-import { getMemberByName } from '@lib/memberUtils';
-import { getArticlesByTags } from '@lib/articleUtils';
+import { getMemberByName } from 'src/utils/memberUtils';
+import { getArticlesByTags } from 'src/utils/articleUtils';
 import RelatedNews from '@components/articles/RelatedNews.astro';
 
 type Tournament = CollectionEntry<'tournaments'>['data'];

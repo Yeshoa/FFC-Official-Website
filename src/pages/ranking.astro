@@ -8,8 +8,8 @@ import Legend from '@components/ranking/Legend.astro';
 import Table from '@components/ranking/Table.astro';
 
 import { getMembers, getTournaments, getMatches, getArticles } from '@lib/collections';
-import{ getArticlesByTags } from '@lib/articleUtils';
-import { CURRENT_TOURNAMENT_ID } from '@lib/tournamentUtils';
+import{ getArticlesByTags } from 'src/utils/articleUtils';
+import { CURRENT_TOURNAMENT_ID } from 'src/utils/tournamentUtils';
 import Title from '@components/Title.astro';
 import { LOCALE } from '@config/constants';
 

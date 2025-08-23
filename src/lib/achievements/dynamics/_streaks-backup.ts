@@ -1,6 +1,6 @@
 import Trophy from '@images/achievements/king.webp';
 import type { Achievement } from './index';
-import { getAllGoals, getAllMatchesByTeam, getAllRedCards, getLossStreak, getMatchWinner, getNoGoalStreak, getNoWinStreak, getUnbeatenStreak, getWinStreak } from '@lib/matchUtils';
+import { getAllGoals, getAllMatchesByTeam, getAllRedCards, getLossStreak, getMatchWinner, getNoGoalStreak, getNoWinStreak, getUnbeatenStreak, getWinStreak } from 'src/utils/matchUtils';
 import { type Category, CATEGORIES } from '../utils';
 
 const thisCategory = CATEGORIES[2];

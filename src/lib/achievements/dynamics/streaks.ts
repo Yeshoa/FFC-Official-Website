@@ -3,7 +3,7 @@ import type { Achievement } from './index';
 import { getAllGoals, getAllMatchesByTeam, 
   getAllRedCards, getLossStreak, getMatchWinner,
    getNoGoalStreak, getNoWinStreak, getUnbeatenStreak, 
-   getWinStreak, getMatchGoals } from '@lib/matchUtils';
+   getWinStreak, getMatchGoals } from 'src/utils/matchUtils';
 import { type Category, CATEGORIES, type Subcategory, ALIGNMENTS, type Alignment } from '../utils';
 
 const thisCategory = CATEGORIES[2];
