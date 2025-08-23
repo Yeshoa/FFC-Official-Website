@@ -4,6 +4,7 @@ stage: "knockout"
 fixture: "Quarter Finals"
 team1: "Atsvea"
 team2: "Einswenn"
+stadium_id: 3
 status: "played"
 date: 2022-12-16T16:20:00Z
 link: "https://youtu.be/vZ7o6dRT740?si=NSa61YYMNUys4sBx&t=416"

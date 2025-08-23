@@ -1,12 +1,14 @@
 ---
 import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
-import { getMemberByName } from 'src/utils/memberUtils';
-import { areThereScorers, getMatchWinner, getMatchResult, getMatchRedCards } from 'src/utils/matchUtils';
 import GoalIcon from '@images/icons/futbol-regular-full.svg';
 import PenaltyIcon from '@images/icons/penalty.svg';
 import defaultFlag from '@images/tournaments/default-flag.png';
 import { LOCALE } from '@config/constants';
+import { ROUTES } from '@config/routes';
+import { getMemberByName } from 'src/utils/memberUtils';
+import { areThereScorers, getMatchWinner, getMatchResult, getMatchRedCards } from 'src/utils/matchUtils';
+import { getStadiumById } from '@utils/stadiumUtils';
 
 interface Props { 
   match: CollectionEntry<'matches'>;
@@ -30,18 +32,32 @@ if (hasPenaltyShootout) {
 }
 const team1 = await getMemberByName(match.data.team1) || { data: { name: match.data.team1, code: match.data.team1 } };
 const team2 = await getMemberByName(match.data.team2) || { data: { name: match.data.team2, code: match.data.team2 } };
+
 const winner = getMatchWinner(match.data);
+
 const redCards = getMatchRedCards(match.data);
-const date = match.data.date.toLocaleDateString(LOCALE, { day: 'numeric', month: 'long' , hour: 'numeric', minute: 'numeric', hour12: false });
+
+const date = match.data.date.toLocaleDateString(LOCALE, { day: 'numeric', month: 'long' });
+const hour = match.data.date.toLocaleTimeString(LOCALE, {hour12: false, hour: 'numeric', minute: 'numeric'});
+
+const stadium = match.data.stadium_id ? (await getStadiumById(match.data.stadium_id)) : null;
+const stadiumName = stadium?.data.name || null;
+const stadiumHref = stadium ? ROUTES.stadiums.detail(stadium.slug) : null;
 ---
 
 <div class="flex flex-col justify-start items-center w-full max-w-5xl bg-gradient-to-br from-green-900/80 to-green-950/70 py-3 px-4 rounded-2xl shadow-md text-white hover:bg-green-700/90">
   <div class="flex flex-col xs:flex-row items-center justify-between w-full mb-2 pb-2 border-b border-green-700/50">
-    <div class="flex items-center gap-2 text-xs md:text-sm text-green-200">
-        <span class="font-medium">Stadium</span>
-    </div>
-    <div class="text-xs text-green-300 font-light mt-1 sm:mt-0">
-      {date}
+    {<div class="flex items-center gap-2 text-xs md:text-sm text-green-200">
+        <a href={stadiumHref} class="font-medium truncate max-w-[200px] hover:underline">{stadiumName}</a>
+    </div>}
+    <div class="text-xs text-green-300 font-light mt-1 xs:mt-0">
+      <div class="flex items-center gap-1 overflow-hidden">
+        <span class="flex-shrink-0">{date}</span>
+          <>
+            <span class="text-green-400 flex-shrink-0">•</span>
+            <span class="font-light flex-shrink-0">{hour}</span>
+          </>
+      </div>
     </div>
   </div>
   {/* Sección Superior: Equipos y Marcador */}
@@ -126,7 +142,7 @@ const date = match.data.date.toLocaleDateString(LOCALE, { day: 'numeric', month:
 
   {/* Sección Inferior: Goles y Detalles - Solo si se jugó */}
   {match.data.status === 'played' && areThereScorers(match.data) && (
-    <div class="grid grid-cols-7 items-start w-full gap-2 mt-1 text-xs md:text-sm">
+    <div class="grid grid-cols-7 items-start w-full gap-2 mt-1 text-[10px] xs:text-xs md:text-sm">
       {/* Goles Equipo 1 */}
       <div class="flex flex-col w-full col-span-3 items-end justify-start text-right pr-1">
         {goals.filter(g => g.team === match.data.team1).length > 0 ? (

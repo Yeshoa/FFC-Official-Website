@@ -32,7 +32,16 @@ const tournamentsData = await Promise.all(
     const stats = await getStatsForTournament(t.data.id);
     const topScorer = await getTopScorerInTournament(t.data.id);
     const position = await getTeamPositionInTournamentById(t.data.id);
-    const resultClass = position === 1 ? 'text-amber-400 font-bold' : position === 2 ? 'text-sky-300 font-bold' : position === 3 ? 'text-amber-600 font-bold' : '';
+    const result = await getTeamFinalResultInTournament(t.data.id);
+    const resultClass = 
+    result === 'Champion' ? 'text-amber-400 font-black' :
+    result === 'Finalist' ? 'text-sky-300 font-bold' :
+    result === 'Third-Place' ? 'text-amber-500 font-bold' :
+    result === 'Semifinalist' ? 'text-green-400 font-semibold' :
+    result === 'Quarterfinalist' ? 'text-green-400' :
+    result === 'Round of 16' ? 'text-green-300' :
+    result === 'Round of 32' ? 'text-green-200' :
+    '';
     return {
       t,
       isFutureOrCurrent,
@@ -42,6 +51,7 @@ const tournamentsData = await Promise.all(
       stats,
       topScorer,
       position,
+      result,
       resultClass
     };
   })
@@ -118,7 +128,7 @@ function getTeamFinalResultInTournament(tournamentId: number) {
                 {t.host && <a href={`/members/${t.host.slug}`} class="flex-shrink-0"><Image src={t.host.data.flagPath} alt={t.host.data.name} height={20} class="rounded-sm max-h-14" quality={10} format={'webp'} /></a>}
                 <a href={`/${type}/${t.t.data.edition}`} class={`hover:underline`}>{t.t.data.edition}</a>
               </td>
-              <td class={`px-2 py-2 ${t.resultClass}`}>{getTeamFinalResultInTournament(t.t.data.id)}</td> {/* Placeholder para resultado final */}
+              <td class={`px-2 py-2 ${t.resultClass}`}>{t.result}</td>
               <td class="px-2 py-2 font-black">{t.position}°</td> {/* Placeholder para posición */}
               <td class="px-2 py-2">{t.stats.played}</td>
               <td class="px-2 py-2">{t.stats.won}</td>

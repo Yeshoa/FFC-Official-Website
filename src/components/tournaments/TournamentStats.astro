@@ -127,7 +127,6 @@ const bestPlayer = prizes?.bestPlayer;
 const bestGoalkeeper = prizes?.bestGoalkeeper;
 const bestGoal = prizes?.bestGoal;
 
-console.log('officialTopScorers', officialTopScorers);
 const resolvedPrizes = {
   bestPlayer: bestPlayer ? { ...bestPlayer, member: await getMemberByName(bestPlayer.team) } : null,
   bestGoalkeeper: bestGoalkeeper ? { ...bestGoalkeeper, member: await getMemberByName(bestGoalkeeper.team) } : null,

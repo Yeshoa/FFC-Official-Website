@@ -4,6 +4,7 @@ stage: "knockout"
 fixture: "Quarter Finals"
 team1: "Daarwyrth"
 team2: "Bunkaiia"
+stadium_id: 4
 status: "played"
 date: 2022-12-16T15:40:00Z
 link: "https://youtu.be/vZ7o6dRT740?si=YzEd3IYB9niEMv1h"

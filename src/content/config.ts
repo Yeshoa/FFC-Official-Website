@@ -18,6 +18,7 @@ const tournamentsCollection = defineCollection({
     id: z.number(),
     type: z.enum(["forest-cup", "forestian-champions-league"]),
     name: z.string(),
+    shortName: z.string().optional(),
     host: z.string().optional(), // País anfitrión
     final: z.string().optional(), // Sede de la final
     image: image(),

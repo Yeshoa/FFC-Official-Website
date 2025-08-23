@@ -4,6 +4,7 @@ stage: "knockout"
 fixture: "Semi Finals"
 team1: "Daarwyrth"
 team2: "Cacusia"
+stadium_id: 4
 status: "played"
 date: 2022-12-16T18:40:00Z
 link: "https://youtu.be/rc8UYbxFyRw?si=cTTwYFVmPbZWAg2y"

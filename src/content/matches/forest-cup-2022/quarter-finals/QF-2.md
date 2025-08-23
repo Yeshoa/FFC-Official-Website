@@ -4,6 +4,7 @@ stage: "knockout"
 fixture: "Quarter Finals"
 team1: "Cacusia"
 team2: "Jutsa"
+stadium_id: 1
 status: "played"
 date: 2022-12-16T16:00:00Z
 link: "https://youtu.be/vZ7o6dRT740?si=Cot8L5BXvccFjrN-&t=220"

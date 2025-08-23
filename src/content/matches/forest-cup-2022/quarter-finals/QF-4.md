@@ -4,6 +4,7 @@ stage: "knockout"
 fixture: "Quarter Finals"
 team1: "Reannia"
 team2: "Roless"
+stadium_id: 5
 status: "played"
 date: 2022-12-16T17:00:00Z
 link: "https://youtu.be/vZ7o6dRT740?si=rr-2uoXMJCbXK0e3&t=677"

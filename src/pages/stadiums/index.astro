@@ -1,0 +1,119 @@
+---
+import { Image } from 'astro:assets';
+import defaultFlag from '@images/tournaments/default-flag.png';
+
+import App from '@layouts/App.astro';
+import { ROUTES } from '@config/routes';
+import { getStadiums, getArticles, getMembers } from '@lib/collections';
+import { getArticlesByTags } from '@utils/articleUtils';
+
+import StadiumCard from '@components/stadiums/StadiumCard.astro';
+import Title from '@components/Title.astro';
+import RelatedNews from '@components/articles/RelatedNews.astro';
+
+const stadiums = await getStadiums();
+const articles = await getArticles();
+const members = await getMembers();
+
+const filterTags = [
+  "stadium",
+]
+const filteredArticles = getArticlesByTags(articles, filterTags);
+
+const stadiumsByNation = stadiums.reduce((acc, stadium) => {
+  const nation = stadium.data.nation || 'Unknown';
+  if (!acc[nation]) {
+    acc[nation] = [];
+  }
+  acc[nation].push(stadium);
+  return acc;
+}, {} as Record<string, typeof stadiums>);
+
+const sortedNations = Object.keys(stadiumsByNation).sort((a, b) => {
+  // Poner "Unknown" al final
+  if (a === 'Unknown') return 1;
+  if (b === 'Unknown') return -1;
+  return a.localeCompare(b);
+});
+
+Object.values(stadiumsByNation).forEach(nationStadiums => {
+  nationStadiums.sort((a, b) => a.data.name.localeCompare(b.data.name));
+});
+---
+
+<App title="FFC - Stadiums">
+  <main class="flex flex-col items-center pt-5">
+    <div class="flex flex-col items-center w-full max-w-8xl justify-center p-6">
+      <Title slideIn={true}>
+        Stadiums in Forest
+        <span slot="subtitle">All the stadiums in the Confederation</span>
+      </Title>
+      
+      {stadiums.length > 0 && (
+        <div class="w-full opacity-0 animate-[slide-in_1s_ease-in-out_forwards_.2s]">
+          
+          {sortedNations.map((nation, nationIndex) => {
+            const member = members.find(member => member.data.name === nation);
+            const hasValidMember = member?.slug && nation !== 'Unknown';
+            
+            return (
+              <section class="mb-12 last:mb-0" key={nation}>
+                <div class="flex items-center gap-3 mb-6">
+                  {hasValidMember ? (
+                    <a 
+                      href={ROUTES.members.detail(member.slug)}
+                      class="bg-green-900 hover:bg-green-700 px-4 py-2 rounded-lg font-bold group flex items-center transition-colors duration-200"
+                    >
+                      <Image
+                        src={member.data.flagPath || defaultFlag}
+                        alt={nation}
+                        class="w-10 h-6 object-cover rounded-sm inline-block mr-2"
+                        loading="lazy"
+                        width={24}
+                        height={24}
+                        format="webp"
+                        quality={70}
+                      />
+                      <span class="group-hover:underline text-white">{nation}</span>
+                    </a>
+                  ) : (
+                    <div class="bg-gray-700 px-4 py-2 rounded-lg font-bold flex items-center">
+                      <Image
+                        src={defaultFlag}
+                        alt={nation}
+                        class="w-10 h-6 object-cover rounded-sm inline-block mr-2"
+                        loading="lazy"
+                        width={24}
+                        height={24}
+                        format="webp"
+                        quality={70}
+                      />
+                      <span class="text-white">{nation}</span>
+                    </div>
+                  )}
+                  
+                  <div class="text-sm text-white/60">
+                    {stadiumsByNation[nation].length} stadium{stadiumsByNation[nation].length !== 1 ? 's' : ''}
+                  </div>
+                  <div class="flex-1 h-px bg-gradient-to-r from-green-500/50 to-transparent"></div>
+                </div>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-4">
+                  {stadiumsByNation[nation].map((stadium) => (
+                    <StadiumCard stadium={stadium} />
+                  ))}
+                </div>
+              </section>
+            );
+          })}
+          
+        </div>
+      )}
+    </div>
+    
+    <!-- Related News -->
+    {filteredArticles.length > 0 && (
+      <RelatedNews articles={filteredArticles} max={4} />
+    )}
+  </main>
+</App>

@@ -2,6 +2,7 @@
 id: 2
 type: "forest-cup"
 name: "Anxious & Kevin 2024"
+shortName: "A&K 2024"
 host: "Anxious and Kevin"
 champion: "Nardin"
 image: "src/assets/images/tournaments/2024/logo.png"

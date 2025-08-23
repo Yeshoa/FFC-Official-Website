@@ -8,6 +8,8 @@ import PenaltyIcon from '@images/icons/penalty.svg';
 import GoalIcon from '@images/icons/futbol-regular-full.svg';
 import defaultFlag from '@images/tournaments/default-flag.png';
 import { LOCALE } from '@config/constants';
+import { getStadiumById } from '@utils/stadiumUtils';
+import { ROUTES } from '@config/routes';
 
 interface Props {
   match: CollectionEntry<'matches'>['data'];
@@ -34,10 +36,13 @@ if (hasPenaltyShootout) {
 const team1 = await getMemberByName(match.team1) || match.team1;
 const team2 = await getMemberByName(match.team2) || match.team2;
 const winner = getMatchWinner(match);
+const stadium = match.stadium_id ? (await getStadiumById(match.stadium_id)) : null;
+const stadiumName = stadium?.data.name || null;
+const stadiumHref = stadium ? ROUTES.stadiums.detail(stadium.slug) : null;
 ---
 
 <div class="relative overflow-hidden w-full max-w-5xl border-3 border-yellow-500 rounded-2xl">
-  <!-- Decorative Corner Elements (MOVED AND FIXED)-->
+  <!-- Decorative Corner Elements -->
   <div class="absolute top-1.5 left-1.5 w-8 h-8 border-t-3 border-l-3 border-yellow-500 rounded-tl-xl pointer-events-none"></div>
   <div class="absolute top-1.5 right-1.5 w-8 h-8 border-t-3 border-r-3 border-yellow-500 rounded-tr-xl pointer-events-none"></div>
   <div class="absolute bottom-1.5 left-1.5 w-8 h-8 border-b-3 border-l-3 border-yellow-500 rounded-bl-xl pointer-events-none"></div>
@@ -47,6 +52,13 @@ const winner = getMatchWinner(match);
   <div class="absolute top-4 left-1/2 transform -translate-x-1/2 bg-yellow-500 text-black font-bold px-8 py-1 rounded-lg z-10 shadow-lg text-center">
     <span class="text-sm md:text-xl lg:text-3xl tracking-wider">FINAL</span>
   </div>
+
+  <!-- Stadium Info - Discrete corner placement -->
+  {stadiumName && (
+    <div class="absolute top-2 right-2 bg-black/20 px-2 py-1 rounded text-xs text-yellow-400 z-10">
+      <a href={stadiumHref} class="hover:underline">{stadiumName}</a>
+    </div>
+  )}
   
   <!-- Main Card with Golden Border -->
   <div class="flex flex-col justify-center items-center w-full bg-gradient-to-br from-green-900 to-green-950 py-8 px-5 rounded-2xl shadow-xl text-white hover:from-green-800 hover:to-green-900 transition-all duration-300">
@@ -138,7 +150,7 @@ const winner = getMatchWinner(match);
     
     <!-- Decorative Divider -->
     <div class="w-3/4 h-px bg-gradient-to-r from-transparent via-yellow-500 to-transparent my-3"></div>
-    
+
     <!-- Goals and Match Details Section -->
     {match.status === 'played' && areThereScorers(match) && (
       <div class="grid grid-cols-7 items-start w-full gap-2 mt-2 text-sm md:text-base z-10">
@@ -157,12 +169,10 @@ const winner = getMatchWinner(match);
                 <div key={`team1-goal-${idx}-${goal.player}-${goal.minute}`} class="text-xs sm:text-base flex xs:flex-row flex-col items-center gap-1 justify-center mb-1">
                   <span class="font-medium truncate me-1">{goal.player}</span>
                   <div class="flex items-center">
-                    {/* <Image src={GoalIcon} alt="Goal" class="w-4 h-4 flex-shrink-0" loading={"lazy"} format="webp" quality={1} /> */}
                     <GoalIcon class="w-4 h-4 flex-shrink-0 fill-green-400" />
                     {goal.penalty ? <PenaltyIcon class="w-4 h-4 flex-shrink-0 fill-yellow-400" /> : ""}
                     <span class="ms-1">
                       {goal.minute}{goal.aggregate !== undefined ? `+${goal.aggregate}` : ""}'
-                      {/* {goal.penalty ? " (P)" : ""} */}
                       {goal.ownGoal ? " (OG)" : ""}
                     </span>
                   </div>
@@ -189,7 +199,7 @@ const winner = getMatchWinner(match);
             </a>
           ) : (
             <span
-              class="text-gray-500 text-sm px-4 py-2 rounded-lg w-20 sm:w-24"
+              class="text-gray-500 text-sm px-4 py-2 rounded-lg w-20 sm:w-24 text-center"
               title="No link available"
             >
               Watch
@@ -212,12 +222,10 @@ const winner = getMatchWinner(match);
                 <div key={`team2-goal-${idx}-${goal.player}-${goal.minute}`} class="text-xs sm:text-base flex xs:flex-row flex-col items-center gap-1 justify-center mb-1">
                   <span class="font-medium truncate me-1">{goal.player}</span>
                   <div class="flex items-center">
-                    {/* <Image src={GoalIcon} alt="Goal" class="w-4 h-4 flex-shrink-0" loading={"lazy"} format="webp" quality={1} /> */}
                     <GoalIcon class="w-4 h-4 flex-shrink-0 fill-green-400" />
                     {goal.penalty ? <PenaltyIcon class="w-4 h-4 flex-shrink-0 fill-yellow-400" /> : ""}
                     <span class="ms-1">
                       {goal.minute}{goal.aggregate !== undefined ? `+${goal.aggregate}` : ""}'
-                      {/* {goal.penalty ? " (P)" : ""} */}
                       {goal.ownGoal ? " (OG)" : ""}
                     </span>
                   </div>

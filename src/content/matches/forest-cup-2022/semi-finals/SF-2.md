@@ -4,6 +4,7 @@ stage: "knockout"
 fixture: "Semi Finals"
 team1: "Atsvea"
 team2: "Reannia"
+stadium_id: 3
 status: "played"
 date: 2022-12-16T19:00:00Z
 link: "https://youtu.be/rc8UYbxFyRw?si=HgVC8CBcBfoiKPuJ&t=159"
