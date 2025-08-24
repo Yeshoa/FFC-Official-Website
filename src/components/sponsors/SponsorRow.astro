@@ -10,42 +10,57 @@ const { sponsor } = Astro.props;
 const { name, image, member, backgroundColor, description, type } = sponsor.data;
 const imageBg = backgroundColor || '#ffffff';
 ---
-<article class="w-full bg-white/4 border border-white/6 rounded-2xl p-3 flex items-center gap-4 shadow-sm backdrop-blur-sm">
-  <div class="flex-shrink-0">
-    <div
-      class="w-28 h-20 md:w-32 md:h-24 rounded-lg flex items-center justify-center overflow-hidden"
-      style={`background-color: ${imageBg}`}
-      aria-hidden="false"
-    >
-      <Image
-        src={image}
-        alt={name}
-        class="max-w-full max-h-full object-contain p-2"
-        loading="lazy"
-        format="webp"
-        quality={60}
-        width={400}
-      />
-    </div>
-  </div>
-
-  <div class="flex-1 min-h-0">
-    <div class="flex items-start justify-between gap-3">
-      <h3 class="text-base md:text-lg font-bold text-white leading-tight">{name}</h3>
+<article class="w-full bg-white/4 border border-white/6 rounded-2xl shadow-sm backdrop-blur-sm">
+  <div class="p-3 sm:p-4">
+    <!-- Header con nombre y tipo -->
+    <div class="flex items-start justify-between gap-3 mb-3">
+      <h3 class="text-base sm:text-lg font-bold text-white leading-tight flex-1 min-w-0">
+        {name}
+      </h3>
       {type && (
-        <span class="text-xs md:text-sm px-2 py-1 rounded-full bg-white/8 text-white/90 font-semibold">
+        <span class="text-xs sm:text-sm px-2.5 py-1 rounded-full bg-white/10 text-white/90 font-medium whitespace-nowrap flex-shrink-0">
           {type}
         </span>
       )}
     </div>
 
-    {member && (
-      <p class="text-sm text-white/80 mt-1">From: <span class="font-semibold text-white">{member}</span></p>
-    )}
+    <!-- Contenido principal -->
+    <div class="flex flex-col sm:flex-row items-start gap-4">
+      <!-- Imagen -->
+      <div class="flex-shrink-0 w-full sm:w-auto">
+        <div
+          class="w-full h-20 sm:w-28 sm:h-20 md:w-32 md:h-24 rounded-lg flex items-center justify-center overflow-hidden"
+          style={`background-color: ${imageBg}`}
+          aria-hidden="false"
+        >
+          <Image
+            src={image}
+            alt={name}
+            class="max-w-full max-h-full object-contain p-2"
+            loading="lazy"
+            format="webp"
+            quality={60}
+            width={400}
+          />
+        </div>
+      </div>
 
-    {description && (
-      <p class="text-sm text-white/80 mt-2 line-clamp-3">{description}</p>
-    )}
+      <!-- Información -->
+      <div class="flex-1 min-w-0 w-full sm:w-auto">
+        {member && (
+          <p class="text-sm text-white/80 mb-2">
+            <span class="text-white/60">From:</span> 
+            <span class="font-semibold text-white ml-1">{member}</span>
+          </p>
+        )}
+
+        {description && (
+          <p class="text-sm text-white/80 leading-relaxed line-clamp-3">
+            {description}
+          </p>
+        )}
+      </div>
+    </div>
   </div>
 </article>
 
@@ -55,5 +70,12 @@ const imageBg = backgroundColor || '#ffffff';
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+/* Mejoras para textos en móvil */
+@media (max-width: 640px) {
+  .line-clamp-3 {
+    -webkit-line-clamp: 2;
+  }
 }
 </style>

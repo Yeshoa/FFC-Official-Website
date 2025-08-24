@@ -40,8 +40,19 @@ export async function getArticles() {
 
 export async function getSponsors() {
   if (!sponsorsCache) sponsorsCache = await getCollection('sponsors');
-  return sponsorsCache;
+
+  // Separar los sponsors con member definido de los que no lo tienen
+  const sponsorsWithMember = sponsorsCache.filter(sponsor => sponsor.data.member);
+  const sponsorsWithoutMember = sponsorsCache.filter(sponsor => !sponsor.data.member);
+
+  // Ordenar aleatoriamente los sponsors con member
+  const shuffledSponsors = sponsorsWithMember
+  .sort((a, b) => a.data.type && b.data.type ? a.data.type.localeCompare(b.data.type) : 1);
+
+  // Concatenar los sponsors sin member al final
+  return [...shuffledSponsors, ...sponsorsWithoutMember];
 }
+
 
 export async function getStadiums() {
   if (!stadiumsCache) stadiumsCache = await getCollection('stadiums');

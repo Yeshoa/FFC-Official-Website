@@ -1,5 +1,5 @@
 ---
-import App from '../layouts/App.astro';
+import App from '@layouts/App.astro';
 import { LINKS } from '@config/links';
 import { getSponsors, getArticles } from '@lib/collections';
 import { getArticlesByTags } from '@utils/articleUtils';
@@ -46,7 +46,7 @@ const sponsorsByTier = sponsors.reduce((acc, sponsor) => {
       </Title>
       <!-- <h1 class="text-6xl mb-5 font-bold animate-sladeIn text-center">Official Sponsors</h1>
       <p class="text-lg mb-10 opacity-0 text-center animate-[slide-in_1s_ease-in-out_forwards_.1s]">Official sponsors of FFC, united in their support for the game.</p> -->
-      <Button link={LINKS.forms.sponsor} customClass='mb-6'>Sponsor Us</Button>
+      <Button link={LINKS.forms.sponsor} self={false} customClass='mb-6'>Sponsor Us</Button>
       <div class="w-full opacity-0 animate-[slide-in_1s_ease-in-out_forwards_.2s]">
         {tierOrder.map(tier => {
           const tierSponsors = sponsorsByTier[tier] || [];

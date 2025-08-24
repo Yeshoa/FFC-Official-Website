@@ -29,8 +29,11 @@ export const ROUTES = {
     index: "/stadiums/",
     detail: (slug: string) => `/stadiums/${slug}/`,
   },
+  sponsors: {
+    index: "/sponsors/",
+    // detail: (slug: string) => `/sponsors/${slug}/`,
+  },
   ranking: "/ranking/",
-  sponsor: "/sponsor/",
   test: "/test/",
   notFound: "/404/",
 } as const;
