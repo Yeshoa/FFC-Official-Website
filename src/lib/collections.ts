@@ -1,5 +1,6 @@
 import { getCollection } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
+import events from '@data/events/events.json';
 // import type { Member, Tournament, Match, Achievement, Article, Sponsor } from 'collections';
 
 // CACHES
@@ -10,6 +11,7 @@ let achievementsCache: any[] | null = null;
 let articlesCache: CollectionEntry<'articles'>[] | null = null;
 let sponsorsCache: CollectionEntry<'sponsors'>[] | null = null;
 let stadiumsCache: CollectionEntry<'stadiums'>[] | null = null;
+// let eventsCache: CollectionEntry<'events'>[] | null = null;
 
 // GETTERS
 export async function getMembers() {
@@ -57,4 +59,10 @@ export async function getSponsors() {
 export async function getStadiums() {
   if (!stadiumsCache) stadiumsCache = await getCollection('stadiums');
   return stadiumsCache;
+}
+
+export function getEvents() {
+  // if (!eventsCache) eventsCache = await getCollection('events');
+  // return eventsCache;
+  return events;
 }

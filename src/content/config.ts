@@ -315,6 +315,21 @@ const stadiumsCollection = defineCollection({
   }),
 });
 
+/* const eventsCollection = defineCollection({
+  type: 'data',
+  schema: z.object({
+    id: z.string().optional(),
+    enabled: z.boolean().default(true),
+    name: z.string(),
+    description: z.string().optional(),
+    edition: z.number().int(),
+    type: z.string(),
+    maxScore: z.number(),
+    date: z.string().datetime().optional(),
+    participants: z.record(z.string(), z.number()), // participantName -> finalScore
+  })
+}); */
+
 export const collections = {
   'tournaments': tournamentsCollection,
   'matches': matchesCollection,
@@ -322,5 +337,6 @@ export const collections = {
   'articles': articlesCollection,
   'achievements': achievementsCollection,
   'sponsors': sponsorCollection,
-  'stadiums': stadiumsCollection
+  'stadiums': stadiumsCollection,
+  // 'events': eventsCollection
 };

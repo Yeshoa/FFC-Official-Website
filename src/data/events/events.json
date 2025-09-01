@@ -1,0 +1,132 @@
+[
+  {
+    "id": "connection-grids-2025",
+    "name": "Connection Grids",
+    "edition": 3,
+    "type": "connection_grids",
+    "maxScore": 330,
+    "participants": {
+      "Jutsa": 330,
+      "Roless": 325,
+      "Kawastyselir": 255,
+      "Furilisca": 230,
+      "The Realizer": 125
+    }
+  },
+  {
+    "id": "quiz-2025",
+    "name": "Quiz",
+    "edition": 3,
+    "type": "quiz",
+    "maxScore": 248,
+    "participants": {
+      "Roless": 248,
+      "Jutsa": 135,
+      "Lumiose": 180,
+      "Bilsa": 115,
+      "The Realizer": 83,
+      "Bisofeyr": 182
+    }
+  },
+  {
+    "id": "murder-mystery-2025",
+    "name": "Murder Mystery",
+    "edition": 3,
+    "type": "murder_mystery",
+    "maxScore": 104,
+    "participants": {
+      "Jutsa": 1,
+      "Bilsa": 1
+    }
+  },
+  {
+    "id": "poetry-fantasia-2025",
+    "name": "Poetry Fantasia",
+    "edition": 3,
+    "type": "poetry_fantasia",
+    "maxScore": 27.7,
+    "participants": {
+      "Jutsa": 27.7,
+      "Bilsa": 22.7
+    }
+  },
+  {
+    "id": "participation-2024",
+    "name": "Participation",
+    "edition": 2,
+    "type": "participation",
+    "maxScore": 12,
+    "participants": {
+      "Verdant Haven": 3,
+      "Atsvea": 3,
+      "Roless": 9,
+      "Furilisca": 3,
+      "Ruinenlust": 3,
+      "Jutsa": 9,
+      "Bilsa": 6,
+      "United Malay Federation": 3,
+      "Orcuo": 3,
+      "Zerphen": 6,
+      "Tylvana": 3,
+      "New Libertalia Kingdom": 3,
+      "Nardin": 3,
+      "Lumiose": 3
+    }
+  },
+  {
+    "id": "trivia-2024",
+    "name": "Trivia",
+    "edition": 2,
+    "type": "trivia",
+    "maxScore": 36,
+    "participants": {
+      "Verdant Haven": 29.5,
+      "Atsvea": 29,
+      "Roless": 15,
+      "Furilisca": 14,
+      "Ruinenlust": 12,
+      "Jutsa": 8.5,
+      "Bilsa": 8,
+      "United Malay Federation": 8,
+      "Orcuo": 3,
+      "Zerphen": 2.5
+    }
+  },
+  {
+    "id": "poetry-fantasia-2024",
+    "name": "Poetry Fantasia",
+    "edition": 2,
+    "type": "poetry_fantasia",
+    "maxScore": 30,
+    "participants": {
+      "Nardin": 23.5
+    }
+  },
+  {
+    "id": "chess-2024",
+    "name": "Chess",
+    "edition": 2,
+    "type": "chess",
+    "maxScore": 74,
+    "participants": {
+      "Jutsa": 30,
+      "Roless": 9,
+      "Zerphen": 19
+    }
+  },
+  {
+    "id": "challenge-cup-2024",
+    "name": "Challenge Cup",
+    "edition": 2,
+    "type": "challenge_cup",
+    "maxScore": 15,
+    "participants": {
+      "Jutsa": 10,
+      "Bilsa": 1,
+      "Lumiose": 2,
+      "Tylvana": 9,
+      "Roless": 1,
+      "New Libertalia Kingdom": 6
+    }
+  }
+]
