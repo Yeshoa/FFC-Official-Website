@@ -6,41 +6,32 @@
     "code": "FH",
     "edition": 3,
     "type": "football_history",
-    "maxScore": 20,
+    "maxScore": 1,
     "participants": {
-      "Bilsa": 20,
-      "Roless": 20,
-      "Verdant Haven": 20,
-      "Lumiose": 20,
-      "Einswenn": 20,
-      "Cacusia": 20,
-      "Reannia": 20,
-      "Anxious and Kevin": 20,
-      "Nordustra": 20,
-      "Freistaat Ostpreussen": 20,
-      "Washeyye": 20
+      "Bilsa": 1,
+      "Roless": 1,
+      "Verdant Haven": 1,
+      "Lumiose": 1,
+      "Einswenn": 1,
+      "Cacusia": 1,
+      "Reannia": 1,
+      "Anxious and Kevin": 1,
+      "Nordustra": 1,
+      "Freistaat Ostpreussen": 1,
+      "Washeyye": 1,
+      "Republic of Yucatan": 1
     }
   },
   {
     "id": "roleplay-2025",
-    "name": "Any Roleplay",
-    "description": "RP or mention the Forest Cup in a dispatch (text or results section).",
+    "name": "Roleplay",
+    "description": "- Any kind of roleplay about the FC '26: 5 pts.\n- Updated roster for this edition: 5 pts.\n- Mention FC '26 in the dispatch: 5 pts.",
     "code": "RP",
     "edition": 3,
     "type": "football_roleplay",
-    "maxScore": 1,
+    "maxScore": 3,
     "participants": {
-    }
-  },
-  {
-    "id": "roster-2025",
-    "name": "Updated Roster",
-    "description": "Updated roster submission with current squad and formation for this edition.",
-    "code": "UR",
-    "edition": 3,
-    "type": "updated_roster",
-    "maxScore": 1,
-    "participants": {
+      "Bilsa": 1
     }
   },
   {

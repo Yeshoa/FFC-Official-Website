@@ -11,6 +11,7 @@ type MemberEntry = CollectionEntry<'members'>;
 const matches = await getMatches();
 const tournaments = await getTournaments();
 const sortedTournaments = tournaments.sort((a, b) => b.data.id - a.data.id);
+// export const CURRENT_TOURNAMENT_ID = 4;
 export const CURRENT_TOURNAMENT_ID = sortedTournaments[0]?.data.id ?? null;
 
 export async function getTeamMatchesInTournament(teamName: string, tournamentId: number) {

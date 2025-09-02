@@ -148,10 +148,10 @@ const headerCellClass = "px-2 py-2 text-center font-medium border-b border-l bor
             <td class="px-2 py-2">{eggsPoints}</td>
             <td class="px-2 py-2">{extraPoints}</td>
 
-            <td class="px-2 py-2 border-l border-green-700">{team.scores.pastRoleplay}</td>
-            <td class="px-2 py-2">{team.scores.pastEventPoints}</td>
-            <td class="px-2 py-2">{team.scores.pastBonus}</td>
-            <td class="px-2 py-2">{team.scores.tournamentDecayPoints}</td>
+            <td class="px-2 py-2 border-l border-green-700" title={`Past Roleplay Points: ${team.scores.pastRoleplay}`}>{team.scores.pastRoleplay}</td>
+            <td class="px-2 py-2" title={`Past Event Points: ${team.scores.pastEventPoints}`}>{team.scores.pastEventPoints}</td>
+            <td class="px-2 py-2" title={`Past Bonus Points: ${team.scores.pastBonus}`}>{team.scores.pastBonus}</td>
+            <td class="px-2 py-2" title={`Tournament Decay Points: ${team.scores.tournamentDecayPoints}`}>{team.scores.tournamentDecayPoints}</td>
 
               <td class={`px-4 py-2 ${getTotalColorClass(team.totalScore)}`}>
                 {team.totalScore}

@@ -34,7 +34,7 @@
   {
     "id": "murder-mystery-2025",
     "name": "Murder Mystery",
-    "description": "Solve a 20-year-old Forest crime: Uncover the killers, motive, and the missing tree!",
+    "description": "Solve a Forest crime: Uncover the killers, motive, and the missing tree!",
     "code": "MM",
     "edition": 3,
     "type": "murder_mystery",
