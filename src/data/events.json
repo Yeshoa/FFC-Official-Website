@@ -1,21 +1,23 @@
 [
   {
-    "id": "connection-grids-2025",
-    "name": "Connection Grids",
+    "id": "poetry-fantasia-2025",
+    "name": "Poetry Fantasia",
+    "description": "The second edition of the Forest Poetry Fantasia.",
+    "code": "PF",
     "edition": 3,
-    "type": "connection_grids",
-    "maxScore": 330,
+    "type": "poetry_fantasia",
+    "maxScore": 27.7,
     "participants": {
-      "Jutsa": 330,
-      "Roless": 325,
-      "Kawastyselir": 255,
-      "Furilisca": 230,
-      "The Realizer": 125
-    }
+      "Jutsa": 27.7,
+      "Bilsa": 22.7
+    },
+    "link": "https://www.nationstates.net/page=dispatch/id=2664340"
   },
   {
     "id": "quiz-2025",
     "name": "Quiz",
+    "description": "Anniversary trivia quiz challenge.",
+    "code": "QZ",
     "edition": 3,
     "type": "quiz",
     "maxScore": 248,
@@ -26,34 +28,72 @@
       "Bilsa": 115,
       "The Realizer": 83,
       "Bisofeyr": 182
-    }
+    },
+    "link": "https://www.nationstates.net/page=rmb/postid=60040670"
   },
   {
     "id": "murder-mystery-2025",
     "name": "Murder Mystery",
+    "description": "Solve a 20-year-old Forest crime: Uncover the killers, motive, and the missing tree!",
+    "code": "MM",
     "edition": 3,
     "type": "murder_mystery",
-    "maxScore": 104,
+    "maxScore": 1,
     "participants": {
       "Jutsa": 1,
       "Bilsa": 1
-    }
+    },
+    "link": "https://www.nationstates.net/page=dispatch/id=2687574"
   },
   {
-    "id": "poetry-fantasia-2025",
-    "name": "Poetry Fantasia",
+    "id": "connection-grids-2025",
+    "name": "Connection Grids",
+    "description": "Forest-themed connections grids.",
+    "code": "CG", 
     "edition": 3,
-    "type": "poetry_fantasia",
-    "maxScore": 27.7,
+    "enabled": true,
+    "type": "connection_grids",
+    "maxScore": 330,
     "participants": {
-      "Jutsa": 27.7,
-      "Bilsa": 22.7
-    }
+      "Jutsa": 330,
+      "Roless": 325,
+      "Kawastyselir": 255,
+      "Furilisca": 230,
+      "The Realizer": 125
+    },
+    "link": "https://www.nationstates.net/page=dispatch/id=2689546"
+  },
+  {
+    "id": "scavenger-hunt-2025",
+    "name": "Scavenger Hunt",
+    "description": "Hunt for secrets in Forest's exploration event!",
+    "code": "SH", 
+    "edition": 3,
+    "type": "scavenger_hunt",
+    "maxScore": 10,
+    "participants": {
+      "Bilsa": 0
+    },
+    "link": "#"
+  },
+  {
+    "id": "flag-banner-2025",
+    "name": "Flag & Banner Contest",
+    "description": "A contest showcasing the flag and banners proposals.",
+    "code": "FB",
+    "edition": 3,
+    "enabled": false,
+    "type": "flag_banner",
+    "maxScore": 1,
+    "participants": {
+    },
+    "link": "#"
   },
   {
     "id": "participation-2024",
     "name": "Participation",
     "edition": 2,
+    "code": "PP",
     "type": "participation",
     "maxScore": 12,
     "participants": {
@@ -76,6 +116,7 @@
   {
     "id": "trivia-2024",
     "name": "Trivia",
+    "code": "TR",
     "edition": 2,
     "type": "trivia",
     "maxScore": 36,
@@ -95,6 +136,7 @@
   {
     "id": "poetry-fantasia-2024",
     "name": "Poetry Fantasia",
+    "code": "PF",
     "edition": 2,
     "type": "poetry_fantasia",
     "maxScore": 30,
@@ -105,8 +147,10 @@
   {
     "id": "chess-2024",
     "name": "Chess",
+    "code": "CH",
     "edition": 2,
     "type": "chess",
+    "weight": 0.337837837837837,
     "maxScore": 74,
     "participants": {
       "Jutsa": 30,
@@ -117,6 +161,7 @@
   {
     "id": "challenge-cup-2024",
     "name": "Challenge Cup",
+    "code": "CC",
     "edition": 2,
     "type": "challenge_cup",
     "maxScore": 15,

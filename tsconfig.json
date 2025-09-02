@@ -20,7 +20,7 @@
       "@data/*": ["src/data/*"],
       "@images/*": ["src/assets/images/*"],
       "@styles/*": ["src/styles/*"],
-      "@types/*": ["src/types/*"],
+      "@ty/*": ["src/types/*"],
       "@config/*": ["src/config/*"],
       "@utils/*": ["src/utils/*"]
     }

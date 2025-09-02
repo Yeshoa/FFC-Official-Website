@@ -56,8 +56,10 @@ export async function getMemberTotalScore(
 
   {/* 🎭 ROLEPLAY */}
   // 1️⃣ ROLEPLAY POINTS (semi-automático - ACTUALES + ANTERIORES)
-  const roleplayResult = calculateCurrentRoleplayPoints(score.rp, member, currentTournamentId);
-  const pastRoleplayPointsRaw = calculatePastRoleplayPoints(score.rp, lastFourIds);
+  // const roleplayResult = calculateCurrentRoleplayPoints(score.rp, member, currentTournamentId);
+  // const pastRoleplayPointsRaw = calculatePastRoleplayPoints(score.rp, lastFourIds);
+  const roleplayResult = calculateCurrentRoleplayPoints(member.data.name);
+  const pastRoleplayPointsRaw = calculatePastRoleplayPoints(member.data.name, lastFourIds);
   /* ESTO SOLO ES POR ESTA TEMPORADA, LA QUE VIENE NO VA A SER NECESARIOOOOOO
   ESTO SOLO ES POR ESTA TEMPORADA, LA QUE VIENE NO VA A SER NECESARIOOOOOO
   ESTO SOLO ES POR ESTA TEMPORADA, LA QUE VIENE NO VA A SER NECESARIOOOOOO
@@ -74,7 +76,8 @@ export async function getMemberTotalScore(
 
   {/* 🎉 EVENTS */}
   // 2️⃣ EVENT POINTS (automático - ACTUALES + ANTERIORES)
-  const eventResult = calculateAllEventPoints(score?.events ?? {}, currentTournamentId, lastFourIds);
+  // const eventResult = calculateAllEventPoints(score?.events ?? {}, currentTournamentId, lastFourIds);
+  const eventResult = calculateAllEventPoints(member.data.name, currentTournamentId, lastFourIds);
   const currentEventPoints = eventResult.currentEventPoints;
   const pastEventPoints = eventResult.pastEventPoints;
   // Aplicar al TOTAL de eventos (actuales + anteriores)

@@ -1,0 +1,94 @@
+[
+  {
+    "id": "host-2025",
+    "name": "Host nation",
+    "description": "Base points for hosting a Forest Cup tournament edition.",
+    "code": "Host",
+    "edition": 3,
+    "type": "host",
+    "maxScore": 1,
+    "participants": {
+      "Cacusia": 1
+    }
+  },
+  {
+    "id": "host-2024",
+    "name": "Host nation",
+    "description": "Base points for hosting a Forest Cup tournament edition.",
+    "code": "Host",
+    "edition": 2,
+    "type": "host",
+    "maxScore": 1,
+    "participants": {
+      "Anxious and Kevin": 1
+    }
+  },
+  {
+    "id": "eggs-2025",
+    "name": "Easter Eggs",
+    "description": "Points per easter egg discovered throughout the edition.",
+    "code": "Eggs",
+    "edition": 3,
+    "type": "eggs",
+    "maxScore": 20,
+    "participants": {
+    }
+  },
+  {
+    "id": "extra-2025",
+    "name": "Extra",
+    "description": "Variable points for exceptional contributions and dedication.",
+    "code": "XT",
+    "edition": 3,
+    "type": "extra",
+    "maxScore": "Variable",
+    "participants": {
+      "Lumiose": 15,
+      "The Realizer": 20
+    }
+  },
+  {
+    "id": "extra-2024",
+    "name": "Extra",
+    "description": "Variable points for exceptional contributions and dedication.",
+    "code": "XT",
+    "edition": 2,
+    "type": "extra",
+    "maxScore": "variable",
+    "participants": {
+      "Lumiose": 5,
+      "Einswenn": 5,
+      "The Realizer": 20,
+      "Roless": 5,
+      "United Malay Federation": 5,
+      "Verdant Haven": 5
+    }
+  },
+  {
+    "id": "poll-2024",
+    "name": "Poll Participation",
+    "description": "Points for participating in the logo poll.",
+    "code": "Poll",
+    "edition": 2,
+    "type": "poll",
+    "maxScore": 2,
+    "participants": {
+      "Orcuo": 2,
+      "Furilisca": 2,
+      "Nordustra": 2
+    }
+  },
+  {
+    "id": "extra-2022",
+    "name": "Extra",
+    "description": "Variable points for exceptional contributions and dedication.",
+    "code": "XT",
+    "edition": 1,
+    "type": "extra",
+    "maxScore": "variable",
+    "participants": {
+      "Trebenia": 10,
+      "Verdant Haven": 5
+    }
+  }
+]

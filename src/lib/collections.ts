@@ -1,16 +1,19 @@
 import { getCollection } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
-import events from '@data/events/events.json';
-// import type { Member, Tournament, Match, Achievement, Article, Sponsor } from 'collections';
+import events from '@data/events.json';
+import roleplays from '@data/roleplays.json';
+import bonuses from '@data/bonuses.json';
+
+import type { Member, Tournament, Match, Achievement, Article, Sponsor, Stadium } from '@ty/collections';
 
 // CACHES
-let membersCache: CollectionEntry<'members'>[] | null = null;
-let tournamentsCache: CollectionEntry<'tournaments'>[] | null = null;
-let matchesCache: CollectionEntry<'matches'>[] | null = null;
-let achievementsCache: any[] | null = null;
-let articlesCache: CollectionEntry<'articles'>[] | null = null;
-let sponsorsCache: CollectionEntry<'sponsors'>[] | null = null;
-let stadiumsCache: CollectionEntry<'stadiums'>[] | null = null;
+let membersCache: Member[] | null = null;
+let tournamentsCache: Tournament[] | null = null;
+let matchesCache: Match[] | null = null;
+let achievementsCache: Achievement[] | null = null;
+let articlesCache: Article[] | null = null;
+let sponsorsCache: Sponsor[] | null = null;
+let stadiumsCache: Stadium[] | null = null;
 // let eventsCache: CollectionEntry<'events'>[] | null = null;
 
 // GETTERS
@@ -65,4 +68,12 @@ export function getEvents() {
   // if (!eventsCache) eventsCache = await getCollection('events');
   // return eventsCache;
   return events;
+}
+
+export function getRoleplays() {
+  return roleplays;
+}
+
+export function getBonuses() {
+  return bonuses;
 }

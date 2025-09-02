@@ -19,7 +19,6 @@ score:
   events:
     "2": 
       trivia: 11
-      bonus: 7
   bonus:
     "2":
       extra: 5

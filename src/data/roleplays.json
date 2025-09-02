@@ -1,0 +1,129 @@
+[
+  {
+    "id": "football-history-2025",
+    "name": "Football History",
+    "description": "A NationStates dispatch covering team history, league creation, or football lore.",
+    "code": "FH",
+    "edition": 3,
+    "type": "football_history",
+    "maxScore": 20,
+    "participants": {
+      "Bilsa": 20,
+      "Roless": 20,
+      "Verdant Haven": 20,
+      "Lumiose": 20,
+      "Einswenn": 20,
+      "Cacusia": 20,
+      "Reannia": 20,
+      "Anxious and Kevin": 20,
+      "Nordustra": 20,
+      "Freistaat Ostpreussen": 20,
+      "Washeyye": 20
+    }
+  },
+  {
+    "id": "roleplay-2025",
+    "name": "Any Roleplay",
+    "description": "RP or mention the Forest Cup in a dispatch (text or results section).",
+    "code": "RP",
+    "edition": 3,
+    "type": "football_roleplay",
+    "maxScore": 1,
+    "participants": {
+    }
+  },
+  {
+    "id": "roster-2025",
+    "name": "Updated Roster",
+    "description": "Updated roster submission with current squad and formation for this edition.",
+    "code": "UR",
+    "edition": 3,
+    "type": "updated_roster",
+    "maxScore": 1,
+    "participants": {
+    }
+  },
+  {
+    "id": "article-2025",
+    "name": "Upload an Article",
+    "description": "Write a football-themed article for the website (or NS dispatch). Only one article counts for points.",
+    "code": "AR",
+    "edition": 3,
+    "type": "articles",
+    "maxScore": 1,
+    "participants": {
+    }
+  },
+  {
+    "id": "football-history-2024",
+    "name": "Football History",
+    "description": "A NationStates dispatch covering team history, league creation, or football lore.",
+    "code": "FH",
+    "edition": 2,
+    "type": "football_history",
+    "maxScore": 20,
+    "participants": {
+      "Verdant Haven": 20,
+      "Roless": 20,
+      "Furilisca": 20,
+      "Bilsa": 20,
+      "United Malay Federation": 20,
+      "Lumiose": 20,
+      "Einswenn": 20,
+      "Anxious and Kevin": 20,
+      "Cacusia": 20,
+      "Republic of Yucatan": 20,
+      "Freistaat Ostpreussen": 20,
+      "Nordustra": 20,
+      "Washeyye": 20,
+      "Cat Army": 12,
+      "Ottterland": 12,
+      "Nardin": 6,
+      "RKD": 6,
+      "Schachland": 6,
+      "New Libertalia Kingdom": 3,
+      "Orcuo": 3
+    }
+  },
+  {
+    "id": "football-history-2022",
+    "name": "Football History",
+    "description": "A NationStates dispatch covering team history, league creation, or football lore.",
+    "code": "FH",
+    "edition": 1,
+    "type": "football_history",
+    "maxScore": 20,
+    "participants": {
+      "Roless": 20,
+      "Reannia": 20,
+      "Einswenn": 20,
+      "Cacusia": 20,
+      "Kase": 20,
+      "Bunkaiia": 20
+    }
+  },
+  {
+    "id": "roleplay-2022",
+    "name": "Any Roleplay",
+    "description": "RP or mention the Forest Cup in a dispatch (text or results section).",
+    "code": "RP",
+    "edition": 1,
+    "type": "football_roleplay",
+    "maxScore": 10,
+    "participants": {
+      "Reannia": 10
+    }
+  },
+  {
+    "id": "roleplay-2020",
+    "name": "Any Roleplay",
+    "description": "RP or mention the Forest Cup in a dispatch (text or results section).",
+    "code": "RP",
+    "edition": 0,
+    "type": "football_roleplay",
+    "maxScore": 10,
+    "participants": {
+      "Cat-Herders United": 10
+    }
+  }
+]

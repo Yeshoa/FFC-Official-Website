@@ -20,7 +20,6 @@ score:
   events:
     "2": 
       chall: 5
-      bonus: 5
     "3":
       quiz: 180
   bonus:

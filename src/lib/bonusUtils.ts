@@ -1,12 +1,14 @@
-import type { CollectionEntry } from "astro:content";
 import { CURRENT_TOURNAMENT_ID } from "../utils/tournamentUtils";
 import { SCORING_CONFIG } from "./scoreUtils";
 import { getTournaments } from '@lib/collections';
+import { getBonuses } from '@lib/collections';
+import type { Bonus, Bonuses, Member, Tournament } from '@ty/collections';
 
-type MemberEntry = CollectionEntry<'members'>;
-type TournamentEntry = CollectionEntry<'tournaments'>;
+type MemberEntry = Member;
+type TournamentEntry = Tournament;
 
 const tournaments = await getTournaments();
+const bonuses = getBonuses();
 
 // Función helper para obtener puntos de eventos específicos
 export const getCurrentBonusPoints = (team, bonusName: string) => {
@@ -55,4 +57,8 @@ export async function calculateCurrentBonusPoints(
     totalPoints,
     bonuses,
   };
+}
+
+export const getCurrentBonuses = (): Bonuses => {
+  return bonuses.filter(bonus => bonus.edition === CURRENT_TOURNAMENT_ID);
 }
