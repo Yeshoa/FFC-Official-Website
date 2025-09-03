@@ -1,9 +1,6 @@
 ---
 import Layout from '@layouts/App.astro'
-import RankingTable from '@components/ranking/RankingTable.astro';
-import RankingTableNew from '@components/ranking/RankingTableNew.astro';
 import RelatedNews from '@components/articles/RelatedNews.astro';
-import RankingLegend from '@components/ranking/RankingLegend.astro';
 import Legend from '@components/ranking/Legend.astro';
 import Table from '@components/ranking/Table.astro';
 
@@ -30,31 +27,14 @@ const date = new Date().toLocaleString(LOCALE, { month: 'long', day: 'numeric', 
 ---
 <Layout title="FFC - Ranking">
   <main class="w-full p-6 items-center">
-    <!-- <h1 class="text-6xl font-bold mb-6 text-center animate-sladeIn">Ranking</h1> -->
     <Title slideIn={true}>
       Ranking
       <span slot="subtitle">
        Last updated {date}
       </span>
     </Title>
-    <!-- <p class="text-lg mb-4 text-center opacity-0 animate-[slide-in_1s_ease-in-out_forwards_.1s]">
-      Score determines how strong your team will be. More points means higher chances to win.
-    </p> -->
-    <Legend tournaments={tournaments} />
+    <Legend />
     <Table members={members} currentTournamentId={currentTournamentId} />
-    <!-- <RankingTable members={members} /> -->
-    <!-- <RankingLegend
-      members={members}
-      tournaments={tournaments}
-      matches={matches}
-      currentTournamentId={currentTournamentId}
-    /> -->
-    <!-- <RankingTableNew
-      members={members}
-      tournaments={tournaments}
-      matches={matches}
-      currentTournamentId={currentTournamentId}
-    /> -->
     <RelatedNews articles={filteredArticles} max={4} />
   </main>
 </Layout>

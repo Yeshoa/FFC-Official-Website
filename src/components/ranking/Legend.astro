@@ -1,18 +1,18 @@
 ---
 import { SCORING_CONFIG } from '@lib/scoreUtils';
 import Arrow from '@images/icons/arrow-up-right-from-square-solid.svg';
+import { getTournaments } from '@lib/collections';
 import { getCurrentEvents } from '@lib/eventUtils'
 import { getCurrentRoleplays } from '@lib/roleplayUtils';
 import { getCurrentBonuses } from '@lib/bonusUtils';
 import { CURRENT_TOURNAMENT_ID } from '@utils/tournamentUtils';
 
-const { tournaments } = Astro.props;
-
 const currentEvents = getCurrentEvents();
 const currentRoleplays = getCurrentRoleplays();
 const currentBonuses = getCurrentBonuses();
 
-const nextEdition = CURRENT_TOURNAMENT_ID;
+const tournaments = await getTournaments();
+const nextEdition = tournaments.filter(t => t.data.id === CURRENT_TOURNAMENT_ID)[0].data.edition;
 ---
 
 <div class="max-w-7xl mx-auto bg-green-900/30 rounded-lg p-6 mb-7 opacity-0 animate-[slide-in_1s_ease-in-out_forwards_.15s]">
