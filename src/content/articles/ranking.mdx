@@ -26,8 +26,10 @@ Participants can earn points by completing any of the listed category items.
 
 _Points earned in the current edition will only be applied if the participant submits the form for this season._
 
-> Starting with Forest Cup 2026, the **top 24** ranked teams **(<a href={LINKS.forms.newMember} target="_noblank">who have submitted their current form <Arrow class="inline w-3 h-3 fill-green-400 ml-1" /></a>)** qualify **directly**.  
-> All remaining nations enter a **playoff** for the final 8 spots.
+> Starting with Forest Cup 2026, the **first 24 teams to sign up** qualify **directly**. 
+> The ranking of these 24 teams will determine their **seeding pots**.
+> The remaining teams, whether they play playoffs or not, will be placed in Pot 4.
+
 ---
 
 # Categories
@@ -38,11 +40,15 @@ The ranking system divides points into four main categories:
 
 Current edition roleplay are worth {SCORING_CONFIG.RP_MAX} points each:
 
-**Dispatch in NS (Hist)** _Permanent as long as you don't delete it_: A NationStates dispatch covering your federation history, league, or football lore. This should be substantial content that adds depth to your nation's football identity.
+**Football History (FH)**: 
+A NationStates dispatch covering your federation history, league creation, or football lore.
+This should be substantial content that adds depth to your nation's football identity.
+_Permanent as long as you don't delete it._
 
-**Forest Cup Mention (FCM)**: Roleplay something about this edition of the Forest Cup, it can be a video, a dispatch, or simply including something about it in your federation dispatch. Can be mentioned in text or, as recommended, a dedicated results section showing your performance across editions, updated up to the current edition.
-
-**Updated Roster (UR)**: Submitting your current squad list and formation for this edition. This simulates real world squad rotation between tournaments, and avoiding abusing the same players over the seasons to accumulate goals in the overall table. _Restrictions about that may be implemented in the future_.
+**Football Roleplay (RP)** **5 Points each**
+- Any kind of roleplay about Forest Cup '26: A match story, a press conference, a player diary, a video, even a poem or a meme, whatever.
+- Updated roster for this edition: Submitting your current squad list and formation for this edition. This simulates real world squad rotation between tournaments, and avoiding abusing the same players over the seasons to accumulate goals in the overall table. _Restrictions about that may be implemented in the future_.
+- Mention Forest Cup '26 in your dispatch: Can be mentioned in text or, as recommended, a dedicated results section showing your performance across editions, updated up to the current edition.
 
 **Article (AR)**: Writing one article for the Forest Cup website about your federation. This can cover any aspect of your nation's football culture, or it can be a piece of news!. _Additional articles beyond the first do not accumulate points._
 
@@ -63,15 +69,13 @@ Regional event participation is capped at {SCORING_CONFIG.EV_MAX} points per eve
 
 **Poetry Fantasia (PF)**: Points from the <a href="https://www.nationstates.net/page=dispatch/id=2664340" target="_blank" class="text-blue-300 hover:text-blue-200">Poetry Fantasia <Arrow class="inline w-3 h-3 fill-green-400 ml-1" /></a>.
 
-**Flag & Banner (FB)**: Points from <a href="https://www.nationstates.net/page=rmb/postid=60040670" target="_blank" class="text-blue-300 hover:text-blue-200">Flag & Banner Contest <Arrow class="inline w-3 h-3 fill-green-400 ml-1" /></a>.
-
 **Murder Mystery (MM)**: <a href="https://www.nationstates.net/page=dispatch/id=2687574" target="_blank" class="text-blue-300 hover:text-blue-200">Murder Mystery <Arrow class="inline w-3 h-3 fill-green-400 ml-1" /></a> points.
 
 **Quiz**: <a href="https://www.nationstates.net/page=rmb/postid=60040670" target="_blank" class="text-blue-300 hover:text-blue-200">Forestian quiz <Arrow class="inline w-3 h-3 fill-green-400 ml-1" /></a> event points.
 
-**Scavenger Hunt (SH)**: <a href="#" target="_blank" class="text-blue-300 hover:text-blue-200">Scavenger Hunt <Arrow class="inline w-3 h-3 fill-green-400 ml-1" /></a> points.
-
 **Connections Grid (CG)**: <a href="https://www.nationstates.net/page=dispatch/id=2689546" target="_blank" class="text-blue-300 hover:text-blue-200">Forest-themed Connection Grids <Arrow class="inline w-3 h-3 fill-green-400 ml-1" /></a> puzzle points.
+
+**Scavenger Hunt (SH)**: <a href="#" target="_blank" class="text-blue-300 hover:text-blue-200">Scavenger Hunt <Arrow class="inline w-3 h-3 fill-green-400 ml-1" /></a> points.
 
 >This section rewards active engagement with the community during last year.
 >You may have been scoring points here without knowing it. 😛
@@ -126,8 +130,8 @@ This system rewards consistency while ensuring recent activity matters more than
 Your **Total Ranking Score** combines all categories:
 
 **Current Edition Points** (no decay):
-- Football Roleplay (0-{SCORING_CONFIG.RP_MAX*4} points possible)
-- Event participation (0-{SCORING_CONFIG.EV_MAX*6} points possible) 
+- Football Roleplay (0-{SCORING_CONFIG.RP_MAX*3} points possible)
+- Event participation (0-{SCORING_CONFIG.EV_MAX*5} points possible) 
 - Bonus points (4 points from Easter Eggs, and variable points)
 
 **Past Performance Points** (with decay):
@@ -150,7 +154,7 @@ The realistic maximum for current edition points is an estimated 200, though it 
 | <span class={`${getPointsTextColorClass(TIERS["C"])} font-bold`}>C</span> |**{TIERS["C"]}**| Active participants in multiple categories | Scotland
 | <span class={`${getPointsTextColorClass(TIERS["B"])} font-bold`}>B</span> |**{TIERS["B"]}**| Strong contributors with consistent involvement | Denmark
 | <span class={`${getPointsTextColorClass(TIERS["A"])} font-bold`}>A</span> |**{TIERS["A"]}**| Highly engaged members with substantial participation | Netherlands
-| <span class={`${getPointsTextColorClass(TIERS["S"])} font-bold`}>S</span> |**{TIERS["S"]}**| Pillars with exceptional long-term involvement | Argentina
+| <span class={`${getPointsTextColorClass(TIERS["S"])} font-bold`}>S</span> |**{TIERS["S"]}**| Pillars with exceptional long-term involvement | Spain
 | <span class={`${getPointsTextColorClass(TIERS["SS"])} font-bold`}>S+</span> |**{TIERS["SS"]}**| Elite contributors who consistently excel across all areas | Brazil '70
 | <span class={`${getPointsTextColorClass(TIERS["X"])} font-bold`}>???</span> |**???**{/***{TIERS["SS"]}***/}| ???{/*Legendary status reserved for the most dedicated members*/} | Unrealistic Superteam
 ---
