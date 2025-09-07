@@ -4,14 +4,15 @@ import type { CollectionEntry } from 'astro:content';
 import { getMemberByName } from 'src/utils/memberUtils';
 import { getMatchResult } from 'src/utils/matchUtils';
 import { Image } from 'astro:assets';
-import { getTeamStatsInTournament, getTeamFinalResult, getTopScorerOfTeamInTournament, getTeamPositionInTournament, getTeamByPosition, getFinalResult, getThirdPlaceResult} from '../../utils/tournamentUtils';
+import { getTeamStatsInTournament, getTeamFinalResult, getTopScorerOfTeamInTournament, getTeamPositionInTournament, getTeamByPosition, getFinalResult, getThirdPlaceResult, getAllParticipants} from '../../utils/tournamentUtils';
 import { CURRENT_TOURNAMENT_ID } from '../../utils/tournamentUtils';
 import { getTournaments } from '@lib/collections';
+import type { Member } from '@ty/collections';
 
 const tournaments = await getTournaments();
 
 interface Props {
-  member: CollectionEntry<'members'>;
+  member: Member;
   matches: CollectionEntry<'matches'>[];
   type: 'forest-cup' | 'forestian-champions-league';
 }
@@ -28,7 +29,7 @@ const tournamentsData = await Promise.all(
     const isFutureOrCurrent = t.data.id >= CURRENT_TOURNAMENT_ID;
     const host = await getMemberByName(t.data.host || '') || null;
     const hostClass = t.data.host === memberName ? 'text-amber-400 font-bold' : '';
-    const didParticipate = t.data.participants && t.data.participants.includes(memberName);
+    const didParticipate = getAllParticipants(t).includes(memberName);
     const stats = await getStatsForTournament(t.data.id);
     const topScorer = await getTopScorerInTournament(t.data.id);
     const position = await getTeamPositionInTournamentById(t.data.id);

@@ -2,6 +2,7 @@ import Trophy from '@images/achievements/king.webp';
 import type { Achievement } from './index';
 import { type Category, CATEGORIES, type Subcategory, SUBCATEGORIES, type Alignment, ALIGNMENTS } from '../utils';
 import type { CollectionEntry } from 'astro:content';
+import { getAllParticipants } from '@utils/tournamentUtils';
 
 type Tournament = CollectionEntry<'tournaments'>;
 type Member = CollectionEntry<'members'>;
@@ -311,7 +312,7 @@ const baseAchievements: {
 
     evaluate: function (matches, tournaments, member) {
       const { evaluate, ...base } = this;
-      const participatedTournaments = tournaments.filter(t => t.data.participants && t.data.participants.includes(member.data.name));
+      const participatedTournaments = tournaments.filter(t => getAllParticipants(t).includes(member.data.name));
 
       const participationCount = participatedTournaments.length;
 

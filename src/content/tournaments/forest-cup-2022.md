@@ -9,23 +9,31 @@ banner: "src/assets/images/tournaments/2022/logo.png"
 heroImg: "src/assets/images/tournaments/2022/atsvea-champions.png"
 cardImg: "src/assets/images/tournaments/2022/cardImg.png"
 edition: 2022
-participants:
-  - "Bilsa"
-  - "Einswenn"
-  - "Atsvea"
-  - "Cacusia"
-  - "Roless"
-  - "Reannia"
-  - "Kase"
-  - "Cat-Herders United"
-  - "Daarwyrth"
-  - "Terrawynn"
-  - "Bunkaiia"
-  - "Trebenia"
-  - "Stralla"
-  - "Novian Republics"
-  - "Turbeaux"
-  - "Jutsa"
+pots:
+  - pot: 1
+    teams:
+      - "Atsvea"
+      - "Einswenn"
+      - "Roless"
+      - "Reannia"
+  - pot: 2
+    teams:
+      - "Cacusia"
+      - "Bilsa"
+      - "Kase"
+      - "Cat-Herders United"
+  - pot: 3
+    teams:
+      - "Jutsa"
+      - "Daarwyrth"
+      - "Bunkaiia"
+      - "Trebenia"
+  - pot: 4
+    teams:
+      - "Stralla"
+      - "Terrawynn"
+      - "Novian Republics"
+      - "Turbeaux"
 prizes:
   topScorer:
     - player: "M. Dartmouth"

@@ -2,6 +2,7 @@ import { type CollectionEntry } from 'astro:content';
 import { getTournaments, getMatches } from '@lib/collections';
 import { getMatchResult } from './matchUtils';
 import { getMemberByName } from './memberUtils';
+import type { Tournament } from '@ty/collections';
 
 // 🟢 Tipos
 type TournamentEntry = CollectionEntry<'tournaments'>;
@@ -315,7 +316,7 @@ async function generateTournamentStandings(
     return tournamentStandingsCache.get(tournamentId)!;
   }
 
-  const participants = tournament.data.participants || [];
+  const participants = getAllParticipants(tournament) || [];
   
   // Generar estadísticas para todos los equipos
   const standings = await Promise.all(
@@ -411,7 +412,7 @@ export async function getTeamPositionInTournament(
   teamName: string
 ): Promise<number | null> {
   // Verificar si el equipo participa en el torneo
-  if (!tournament.data.participants?.includes(teamName)) {
+  if (!getAllParticipants(tournament).includes(teamName)) {
     return null;
   }
 
@@ -552,7 +553,7 @@ export async function calculateTournamentDecayPoints(
 /* TODO: REVISAR PARTICIPANTS ESTA HARDCODEADO */
 /* TODO: REVISAR PARTICIPANTS ESTA HARDCODEADO */
 export async function getTeamByPosition(tournament: CollectionEntry<'tournaments'>, position: number): Promise<CollectionEntry<'members'> | null> {
-  const participants = tournament.data.participants || [];
+  const participants = getAllParticipants(tournament);
   for (const team of participants) {
     const teamPosition = await getTeamPositionInTournament(tournament, team);
     if (teamPosition === position) {
@@ -622,4 +623,17 @@ export async function getThirdPlaceResult(tournament: CollectionEntry<'tournamen
   } else {
     return `${goalsT2}-${goalsT1}`;
   }
+}
+
+export function getAllParticipants(tournament: TournamentEntry) {
+  if (!tournament.data.pots) return [];
+  return tournament.data.pots.flatMap(pot => pot.teams);
+}
+
+export function getTeamsByPot(tournament: any, potNumber: number) {
+  return tournament.pots?.find(p => p.pot === potNumber)?.teams ?? [];
+}
+
+export function getTournamentById(tournamentId: number): TournamentEntry | null {
+  return tournaments.find(t => t.data.id === tournamentId) ?? null;
 }
