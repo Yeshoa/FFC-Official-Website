@@ -15,7 +15,7 @@ pots:
       - "Ruinenlust"
       - "Tauride"
       - "Eryndlynd"
-      - "Frieden-und Freudenland"
+      - "Frieden Und Freudenland"
       - "Cannibaland"
       - "Victoriaans Nederlands"
       - "Canaltia"
