@@ -31,7 +31,7 @@ pots:
 
   - pot: 2
     teams:
-      - "The New Bluestocking Homeland"
+      - "Bluestocking Homeland"
       - "Elundris"
       - "Aeterno Tranquillitas"
       - "Palos Heights"
