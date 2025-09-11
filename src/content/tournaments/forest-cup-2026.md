@@ -14,4 +14,39 @@ pots:
       - "Cacusia"
       - "Bilsa"
       - "Lumiose"
+      - "Anxious and Kevin"
+      - "Roless"
+      - "Verdant Haven"
+      - "Atsvea"
+      - "Einswenn"
+  - pot: 2
+    teams:
+      - "Furilisca"
+      - "United Malay Federation"
+      - "Nardin"
+      - "Jutsa"
+      - "Republic of Yucatan"
+      - "Washeyye"
+      - "Nordustra"
+      - "The Realizer"
+  - pot: 3
+    teams:
+      - "Freistaat Ostpreussen"
+      - "Cat Army"
+      - "Ruinenlust"
+      - "Zerphen"
+      - "Tylvana"
+      - "New Libertalia Kingdom"
+      - "Ottterland"
+      - "Orcuo"
+  - pot: 4
+    teams:
+      - "RKD"
+      - "Schachland"
+      - "Columbiqash"
+      - "Sehir"
+      - "Stralla"
+      - "Mozolephies"
+      - "Clown Town City"
+      - "Aresetia"
 ---

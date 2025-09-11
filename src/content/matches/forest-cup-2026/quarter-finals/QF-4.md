@@ -2,6 +2,7 @@
 tournament_id: 3
 stage: "knockout"
 fixture: "Quarter Finals"
+stadium_id: 13
 team1: "Winner R16 7"
 team2: "Winner R16 8"
 # status: "played"
