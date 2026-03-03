@@ -38,7 +38,7 @@ const filteredArticles = getArticlesByTags(articles, filterTags);
       <!-- Tournaments -->
       <div class="w-full sm:container px-6 pt-4 pb-10 opacity-0 animate-[slide-in_1s_ease-in-out_forwards_.2s]">
         <div class="flex flex-col gap-6">
-          {tournaments.slice(0, -1).reverse().map((tournament) => (
+          {tournaments.reverse().map((tournament) => (
             <FCCard
               tournament={tournament}
             />
