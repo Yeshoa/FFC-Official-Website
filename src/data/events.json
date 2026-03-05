@@ -1,5 +1,25 @@
 [
   {
+    "id": "wonders-2026",
+    "name": "Wonders Event 2026",
+    "description": "The wonders event of 2026 featuring Waldeinsamkeit.",
+    "code": "WO",
+    "edition": 3,
+    "type": "wonders",
+    "maxScore": 11730,
+    "participants": {
+      "The Ankhalic Vaspriot": 11730,
+      "Canaltia": 7348,
+      "The Realizer": 4588,
+      "Ruinenlust": 4043,
+      "New Eestiball": 2337,
+      "Ownzone": 1348,
+      "Sweway": 1230,
+      "Nardin": 724
+    },
+    "link": "https://www.nationstates.net/page=rmb/postid=61336600"
+  },
+  {
     "id": "poetry-fantasia-2025",
     "name": "Poetry Fantasia",
     "description": "The second edition of the Forest Poetry Fantasia.",
@@ -69,6 +89,7 @@
     "description": "Hunt for secrets in Forest's exploration event!",
     "code": "SH", 
     "edition": 3,
+    "enabled": false,
     "type": "scavenger_hunt",
     "maxScore": 10,
     "participants": {
