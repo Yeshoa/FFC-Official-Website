@@ -39,7 +39,7 @@ const tournamentsData = await Promise.all(
     const result = await getTeamFinalResultInTournament(t.data.id);
     const resultLabel =
       result.status === 'not_participated' ? null :
-      result.status === 'in_progress' ? `🔴 ${result.currentStage}` :
+      result.status === 'in_progress' ? `${result.currentStage}` :
       result.result;
     const resultClass =
       result.status === 'not_participated' ? '' :
@@ -121,7 +121,18 @@ function getTeamFinalResultInTournament(tournamentId: number) {
               </tr>
             );
           }
-
+          // No se sabe
+          if (t.result.status === 'upcoming') {
+            return (
+              <tr class="border-b border-green-700 italic bg-blue-800/10 text-green-300">
+                <td class="px-2 py-2 flex flex-col items-center gap-1 justify-center">
+                  {t.host && <a href={`/members/${t.host.slug}`} class="flex-shrink-0"><Image src={t.host.data.flagPath} alt={t.host.data.name} height={20} class="rounded-sm max-h-14" loading={'lazy'} quality={10} format={'webp'} /></a>}
+                  <a href={`/${type}/${t.t.data.edition}`} class={`hover:underline ${t.hostClass}`}>{t.t.data.edition}</a>
+                </td>
+                <td colspan="12" class="py-2">To be determined</td>
+              </tr>
+            );
+          }
           // En progreso (partido pendiente)
           if (t.result.status === 'in_progress') {
             return (

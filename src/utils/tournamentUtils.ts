@@ -439,6 +439,7 @@ export async function getTournamentStandings(tournament: TournamentEntry) {
 // 🟥 Obtener la ronda final alcanzada por el equipo
 export type TeamTournamentStatus =
   | { status: 'not_participated' }
+  | { status: 'upcoming' }
   | { status: 'in_progress'; currentStage: string }
   | { status: 'eliminated' | 'finished'; result: string };
 
@@ -448,8 +449,22 @@ export async function getTeamFinalResult(
 ): Promise<TeamTournamentStatus> {
   const relevantMatches = await getTeamMatchesInTournament(teamName, tournament.data.id);
 
-  // No participó en el torneo
-  if (relevantMatches.length === 0) return { status: 'not_participated' };
+  // Si no tiene partidos en el torneo
+  if (relevantMatches.length === 0) {
+    // Si el torneo es futuro
+    if (tournament.data.id > CURRENT_TOURNAMENT_ID) {
+      return { status: 'upcoming' };          
+    // Si el torneo es actual
+    } else if (tournament.data.id === CURRENT_TOURNAMENT_ID) {
+      // El primer partido aún no se jugó?
+      const isFuture = await getTournamentFirstMatch(CURRENT_TOURNAMENT_ID);
+      // Si no se jugó, to be determined, de lo contrario, no participó
+      return isFuture ? { status: 'upcoming' } : { status: 'not_participated' };
+    // Si el torneo es pasado
+    } else {
+      return { status: 'not_participated' };
+    }
+  }
 
   const TOURNAMENT_STAGE_MAP = [
     { key: 'playoff', label: 'Playoff' },
@@ -678,7 +693,6 @@ export async function getAllParticipants(tournament: TournamentEntry) {
       }
     })
   );
-  console.log("teams", teams);
   return Array.from(teams);
 }
 
@@ -697,4 +711,9 @@ export async function lostLastPlayoff(tournamentId: number, teamName: string): P
   return getMatchWinnerIncludingPenalties(playoffMatches[playoffMatches.length - 1].data) !== teamName;
 }
 
+async function getTournamentFirstMatch(tournamentId: number) {
+  const matches = await getMatchesByTournament(tournamentId);
+  const firstMatch = matches.find(m => m.data.group === 'A');
+  return firstMatch?.data.status === 'scheduled';
+}
   
