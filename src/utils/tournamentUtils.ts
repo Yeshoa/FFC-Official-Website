@@ -320,7 +320,6 @@ async function generateTournamentStandings(
   }
 
   const participants = await getAllParticipants(tournament) || [];
-  
   // Generar estadísticas para todos los equipos
   const standings = await Promise.all(
     participants.map(async (teamName) => {
@@ -667,10 +666,19 @@ export async function getThirdPlaceResult(tournament: CollectionEntry<'tournamen
 export async function getAllParticipants(tournament: TournamentEntry) {
   const matches = await getMatchesByTournament(tournament.data.id);
   const teams = new Set<string>();
-  matches.forEach(match => {
-    teams.add(match.data.team1);
-    teams.add(match.data.team2);
-  });
+  await Promise.all(
+    matches.map(async (match) => {
+      const team1 = await getMemberByName(match.data.team1);
+      const team2 = await getMemberByName(match.data.team2);
+      if (team1?.data.name) {
+        teams.add(match.data.team1);
+      }
+      if (team2?.data.name) {
+        teams.add(match.data.team2);
+      }
+    })
+  );
+  console.log("teams", teams);
   return Array.from(teams);
 }
 

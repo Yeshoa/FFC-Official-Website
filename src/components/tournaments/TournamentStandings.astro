@@ -7,6 +7,7 @@ import { Image } from 'astro:assets';
 import { getMemberByName } from "src/utils/memberUtils"; 
 import { getTournamentStandings } from 'src/utils/tournamentUtils'; 
 import Title from '@components/Title.astro';
+import defaulFlag from "@images/tournaments/default-flag.png";
 
 interface Props {
   tournament: TournamentEntry;
@@ -53,7 +54,7 @@ const teamObjects = await Promise.all(finalSortedStats.map(async (team) => {
           <tr class="border-b border-green-700 hover:bg-green-900/30 transition duration-150">
             <td class="px-2 py-2">{index + 1}°</td>
             <td class="py-2 sticky left-0 z-10 bg-green-900 md:bg-transparent">
-              <Image src={teamObject?.data.flagPath || teamObject?.data.logoPath} alt={team.name} loading={"lazy"}
+              <Image src={teamObject?.data.flagPath || teamObject?.data.logoPath || defaulFlag} alt={team.name} loading={"lazy"}
                       width={50}  class="h-6 w-10 object-cover rounded inline-block" quality={50} format="webp"/>
             </td>
             <td class="px-2 py-2 text-left">

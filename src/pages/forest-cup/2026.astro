@@ -97,7 +97,7 @@ const headlines = [
 ]
 
 const pageTitle = `FFC - ${FCData.name || 'Forest Cup'}`;
-const winner = await getMemberByName(FCData.champion, membersCollection) || null; 
+const winner = await getMemberByName(FCData.champion) || undefined; 
 ---
 
 <App title={pageTitle}>
