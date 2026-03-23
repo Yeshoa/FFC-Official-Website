@@ -4,7 +4,9 @@ import type { CollectionEntry } from 'astro:content';
 import { getMemberByName } from 'src/utils/memberUtils';
 import { getMatchResult } from 'src/utils/matchUtils';
 import { Image } from 'astro:assets';
-import { getTeamStatsInTournament, getTeamFinalResult, getTopScorerOfTeamInTournament, getTeamPositionInTournament, getTeamByPosition, getFinalResult, getThirdPlaceResult, getAllParticipants} from '../../utils/tournamentUtils';
+import { getTeamStatsInTournament, getTeamFinalResult, getTopScorerOfTeamInTournament, 
+  getTeamPositionInTournament, getTeamByPosition, getFinalResult, getThirdPlaceResult, 
+  getAllParticipants, lostLastPlayoff } from '../../utils/tournamentUtils';
 import { CURRENT_TOURNAMENT_ID } from '../../utils/tournamentUtils';
 import { getTournaments } from '@lib/collections';
 import type { Member } from '@ty/collections';
@@ -29,20 +31,27 @@ const tournamentsData = await Promise.all(
     const isFutureOrCurrent = t.data.id >= CURRENT_TOURNAMENT_ID;
     const host = await getMemberByName(t.data.host || '') || null;
     const hostClass = t.data.host === memberName ? 'text-amber-400 font-bold' : '';
-    const didParticipate = getAllParticipants(t).includes(memberName);
+    const didParticipate = await getAllParticipants(t).then(teams => teams.includes(memberName));
     const stats = await getStatsForTournament(t.data.id);
     const topScorer = await getTopScorerInTournament(t.data.id);
     const position = await getTeamPositionInTournamentById(t.data.id);
+    const lostPlayoff = await lostLastPlayoff(t.data.id, memberName);
     const result = await getTeamFinalResultInTournament(t.data.id);
-    const resultClass = 
-    result === 'Champion' ? 'text-amber-400 font-black' :
-    result === 'Finalist' ? 'text-sky-300 font-bold' :
-    result === 'Third-Place' ? 'text-amber-500 font-bold' :
-    result === 'Semifinalist' ? 'text-green-400 font-semibold' :
-    result === 'Quarterfinalist' ? 'text-green-400' :
-    result === 'Round of 16' ? 'text-green-300' :
-    result === 'Round of 32' ? 'text-green-200' :
-    '';
+    const resultLabel =
+      result.status === 'not_participated' ? null :
+      result.status === 'in_progress' ? `🔴 ${result.currentStage}` :
+      result.result;
+    const resultClass =
+      result.status === 'not_participated' ? '' :
+      result.status === 'in_progress' ? 'text-red-400 animate-pulse' :
+      result.result === 'Champion' ? 'text-amber-400 font-black' :
+      result.result === 'Finalist' ? 'text-sky-300 font-bold' :
+      result.result === 'Third-Place' ? 'text-amber-500 font-bold' :
+      result.result === 'Semifinalist' ? 'text-green-400 font-semibold' :
+      result.result === 'Quarterfinalist' ? 'text-green-400' :
+      result.result === 'Round of 16' ? 'text-green-300' :
+      result.result === 'Round of 32' ? 'text-green-200' :
+      '';
     return {
       t,
       isFutureOrCurrent,
@@ -52,7 +61,9 @@ const tournamentsData = await Promise.all(
       stats,
       topScorer,
       position,
+      lostPlayoff,
       result,
+      resultLabel,
       resultClass
     };
   })
@@ -98,19 +109,21 @@ function getTeamFinalResultInTournament(tournamentId: number) {
       </thead>
       <tbody class="">
         {tournamentsData.map(t => {
-          if (!t.didParticipate && !t.isFutureOrCurrent) {
+          // No participó
+          if (t.result.status === 'not_participated') {
             return (
               <tr class="border-b border-green-700 italic bg-red-900/10 text-red-300">
                 <td class={`px-2 py-2 flex flex-col items-center gap-1 justify-center`}>
                   {t.host && <a href={`/members/${t.host.slug}`} class="flex-shrink-0"><Image src={t.host.data.flagPath} alt={t.host.data.name} height={20} class="rounded-sm max-h-14" loading={'lazy'} quality={10} format={'webp'} /></a>}
                   <a href={`/${type}/${t.t.data.edition}`} class={`hover:underline ${t.hostClass}`}>{t.t.data.edition}</a>
                 </td>
-                <td colspan="12" class="py-2">
-                  Didn't participate
-                </td>
+                <td colspan="12" class="py-2">Didn't participate</td>
               </tr>
             );
-          } else if (t.isFutureOrCurrent) {
+          }
+
+          // En progreso (partido pendiente)
+          if (t.result.status === 'in_progress') {
             return (
               <tr class="border-b border-green-700 italic bg-blue-800/10 text-green-300">
                 <td class="px-2 py-2 flex flex-col items-center gap-1 justify-center">
@@ -118,19 +131,33 @@ function getTeamFinalResultInTournament(tournamentId: number) {
                   <a href={`/${type}/${t.t.data.edition}`} class={`hover:underline ${t.hostClass}`}>{t.t.data.edition}</a>
                 </td>
                 <td colspan="12" class="py-2">
-                  {t.didParticipate ? "Qualified" : "To be determined"}
+                  {t.result.currentStage}
                 </td>
               </tr>
             );
           }
+
+          // Perdió el playoff (eliminado en fase de grupos/playoff)
+          if (t.result.status === 'eliminated' && t.result.result === 'Playoff') {
+            return (
+              <tr class="border-b border-green-700 italic bg-red-900/10 text-red-300">
+                <td class={`px-2 py-2 flex flex-col items-center gap-1 justify-center`}>
+                  {t.host && <a href={`/members/${t.host.slug}`} class="flex-shrink-0"><Image src={t.host.data.flagPath} alt={t.host.data.name} height={20} class="rounded-sm max-h-14" loading={'lazy'} quality={10} format={'webp'} /></a>}
+                  <a href={`/${type}/${t.t.data.edition}`} class={`hover:underline ${t.hostClass}`}>{t.t.data.edition}</a>
+                </td>
+                <td colspan="12" class="py-2">Didn't qualify</td>
+              </tr>
+            );
+          }
+
           return (
             <tr class="border-b border-green-700 hover:bg-green-900/20">
               <td class={`px-2 py-2 flex flex-col items-center gap-1 justify-center ${t.hostClass}`}>
                 {t.host && <a href={`/members/${t.host.slug}`} class="flex-shrink-0"><Image src={t.host.data.flagPath} alt={t.host.data.name} height={20} class="rounded-sm max-h-14" quality={10} format={'webp'} /></a>}
                 <a href={`/${type}/${t.t.data.edition}`} class={`hover:underline`}>{t.t.data.edition}</a>
               </td>
-              <td class={`px-2 py-2 ${t.resultClass}`}>{t.result}</td>
-              <td class="px-2 py-2 font-black">{t.position}°</td> {/* Placeholder para posición */}
+              <td class={`px-2 py-2 ${t.resultClass}`}>{t.resultLabel}</td>
+              <td class="px-2 py-2 font-black">{t.position}°</td>
               <td class="px-2 py-2">{t.stats.played}</td>
               <td class="px-2 py-2">{t.stats.won}</td>
               <td class="px-2 py-2">{t.stats.draw}</td>

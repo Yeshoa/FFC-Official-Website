@@ -1,8 +1,9 @@
 import { type CollectionEntry } from 'astro:content';
 import { getTournaments, getMatches } from '@lib/collections';
-import { getMatchResult } from './matchUtils';
+import { getMatchResult, getMatchWinnerIncludingPenalties } from './matchUtils';
 import { getMemberByName } from './memberUtils';
 import type { Tournament } from '@ty/collections';
+import { getMatchesByTournament } from '@lib/_collections';
 
 // 🟢 Tipos
 type TournamentEntry = CollectionEntry<'tournaments'>;
@@ -19,7 +20,7 @@ export async function getTeamMatchesInTournament(teamName: string, tournamentId:
   return matches.filter(
     m =>
       m.data.tournament_id === tournamentId &&
-      m.data.status === 'played' &&
+      // m.data.status === 'played' &&
       (m.data.team1 === teamName || m.data.team2 === teamName)
   ).sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 }
@@ -29,7 +30,8 @@ export async function getTeamStatsInTournament(
   teamName: string,
   tournamentId: number,
 ) {
-  const relevantMatches = await getTeamMatchesInTournament(teamName, tournamentId);
+  const relevantMatches = (await getTeamMatchesInTournament(teamName, tournamentId))
+  .filter(match => match.data.stage !== 'playoff');
 
   let stats = {
     played: 0,
@@ -89,6 +91,7 @@ export async function getTopScorerOfTeamInTournament(
   const relevantGoals = relevantMatches.flatMap(match => {
     if (
       match.data.tournament_id !== tournamentId ||
+      match.data.stage === 'playoff' ||
       match.data.status !== 'played' ||
       !match.data.goals
     ) return [];
@@ -316,7 +319,7 @@ async function generateTournamentStandings(
     return tournamentStandingsCache.get(tournamentId)!;
   }
 
-  const participants = getAllParticipants(tournament) || [];
+  const participants = await getAllParticipants(tournament) || [];
   
   // Generar estadísticas para todos los equipos
   const standings = await Promise.all(
@@ -412,7 +415,7 @@ export async function getTeamPositionInTournament(
   teamName: string
 ): Promise<number | null> {
   // Verificar si el equipo participa en el torneo
-  if (!getAllParticipants(tournament).includes(teamName)) {
+  if (!(await getAllParticipants(tournament)).includes(teamName)) {
     return null;
   }
 
@@ -435,15 +438,22 @@ export async function getTournamentStandings(tournament: TournamentEntry) {
 }
 
 // 🟥 Obtener la ronda final alcanzada por el equipo
+export type TeamTournamentStatus =
+  | { status: 'not_participated' }
+  | { status: 'in_progress'; currentStage: string }
+  | { status: 'eliminated' | 'finished'; result: string };
+
 export async function getTeamFinalResult(
   teamName: string,
   tournament: TournamentEntry,
-): Promise<string> {
+): Promise<TeamTournamentStatus> {
   const relevantMatches = await getTeamMatchesInTournament(teamName, tournament.data.id);
 
-  if (relevantMatches.length === 0) return 'Unknown Stage';
-  
+  // No participó en el torneo
+  if (relevantMatches.length === 0) return { status: 'not_participated' };
+
   const TOURNAMENT_STAGE_MAP = [
+    { key: 'playoff', label: 'Playoff' },
     { key: 'group', label: 'First Round' },
     { key: 'Round of 32', label: 'Round of 32' },
     { key: 'Round of 16', label: 'Round of 16' },
@@ -452,47 +462,71 @@ export async function getTeamFinalResult(
     { key: 'Final', label: 'Finalist' },
   ];
 
+  const hasPendingMatch = relevantMatches.some(m => m.data.status === 'scheduled');
+
   // Obtener todas las etapas reales jugadas
   const playedStages = new Set<string>();
   for (const match of relevantMatches) {
-    if (match.data.stage === 'group') { // Si es un partido de fase de grupos
+    if (match.data.status === 'scheduled') continue; // ignorar partidos pendientes para determinar etapa
+
+    if (match.data.stage === 'group' || match.data.stage === 'playoff') {
       playedStages.add(match.data.stage.trim());
-    } else if (match.data.fixture) { // Si no es un partido de fase de grupos
+    } else if (match.data.fixture) {
       playedStages.add(match.data.fixture.trim());
     }
+  }
+
+  if (playedStages.size === 0 && hasPendingMatch) {
+    const nextMatch = relevantMatches.find(m => m.data.status === 'scheduled');
+    const nextStage = nextMatch?.data.stage === 'playoff' ? "Playoff" : 'Qualified';
+    return { status: 'in_progress', currentStage: nextStage };
   }
 
   // Buscar la etapa más lejana alcanzada
   for (let i = TOURNAMENT_STAGE_MAP.length - 1; i >= 0; i--) {
     const stage = TOURNAMENT_STAGE_MAP[i];
+
     if (playedStages.has(stage.key)) {
       if (stage.key === 'Final') {
         const finalMatch = relevantMatches.find(
-          m =>
-            m.data.stage === 'Final' ||
-            m.data.fixture.trim() === 'Final'
+          m => m.data.stage === 'Final' || m.data.fixture?.trim() === 'Final',
         );
 
         if (finalMatch) {
+          if (finalMatch.data.status === 'scheduled') {
+            return { status: 'in_progress', currentStage: 'Final' };
+          }
+
           const result = getMatchResult(finalMatch.data);
           const isWinner =
             (finalMatch.data.team1 === teamName && result.team1 > result.team2) ||
             (finalMatch.data.team2 === teamName && result.team2 > result.team1);
 
-          return isWinner ? 'Champion' : 'Finalist';
+          return {
+            status: 'finished',
+            result: isWinner ? 'Champion' : 'Finalist',
+          };
         }
       }
 
       if (stage.key === 'Semi Finals') {
+        if (hasPendingMatch) {
+          return { status: 'in_progress', currentStage: 'Semi Finals' };
+        }
         const position = await getTeamPositionInTournament(tournament, teamName);
-        if (position === 3) return 'Third-Place';
+        if (position === 3) return { status: 'finished', result: 'Third-Place' };
       }
 
-      return stage.label;
+      return hasPendingMatch
+        ? { status: 'in_progress', currentStage: stage.label }
+        : { status: 'eliminated', result: stage.label };
     }
   }
 
-  return 'Unknown Stage';
+  // Participó pero no se pudo determinar la etapa
+  return hasPendingMatch
+    ? { status: 'in_progress', currentStage: 'Unknown Stage' }
+    : { status: 'eliminated', result: 'Unknown Stage' };
 }
 
 // Función para obtener los últimos 4 tournament IDs completados (excluyendo el actual)
@@ -553,7 +587,7 @@ export async function calculateTournamentDecayPoints(
 /* TODO: REVISAR PARTICIPANTS ESTA HARDCODEADO */
 /* TODO: REVISAR PARTICIPANTS ESTA HARDCODEADO */
 export async function getTeamByPosition(tournament: CollectionEntry<'tournaments'>, position: number): Promise<CollectionEntry<'members'> | null> {
-  const participants = getAllParticipants(tournament);
+  const participants = await getAllParticipants(tournament);
   for (const team of participants) {
     const teamPosition = await getTeamPositionInTournament(tournament, team);
     if (teamPosition === position) {
@@ -625,9 +659,19 @@ export async function getThirdPlaceResult(tournament: CollectionEntry<'tournamen
   }
 }
 
-export function getAllParticipants(tournament: TournamentEntry) {
-  if (!tournament.data.pots) return [];
-  return tournament.data.pots.flatMap(pot => pot.teams);
+// export function getAllParticipants(tournament: TournamentEntry) {
+//   if (!tournament.data.pots) return [];
+//   return tournament.data.pots.flatMap(pot => pot.teams);
+// }
+
+export async function getAllParticipants(tournament: TournamentEntry) {
+  const matches = await getMatchesByTournament(tournament.data.id);
+  const teams = new Set<string>();
+  matches.forEach(match => {
+    teams.add(match.data.team1);
+    teams.add(match.data.team2);
+  });
+  return Array.from(teams);
 }
 
 export function getTeamsByPot(tournament: any, potNumber: number) {
@@ -637,3 +681,12 @@ export function getTeamsByPot(tournament: any, potNumber: number) {
 export function getTournamentById(tournamentId: number): TournamentEntry | null {
   return tournaments.find(t => t.data.id === tournamentId) ?? null;
 }
+
+export async function lostLastPlayoff(tournamentId: number, teamName: string): Promise<boolean> {
+  const matches = await getMatchesByTournament(tournamentId);
+  const playoffMatches = matches.filter(m => m.data.stage === 'playoff');
+  if (playoffMatches.length === 0) return false;
+  return getMatchWinnerIncludingPenalties(playoffMatches[playoffMatches.length - 1].data) !== teamName;
+}
+
+  

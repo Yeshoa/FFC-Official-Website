@@ -3,6 +3,7 @@ import { type CollectionEntry } from 'astro:content';
 import { getTournaments, getMatches, getMembers, getArticles } from '@lib/collections';
 import App from '@layouts/App.astro'; 
 import Bracket from '@components/tournaments/Bracket.astro'; 
+import Playoffs from '@components/tournaments/Playoffs.astro';
 import Groups from '@components/tournaments/Groups.astro';
 import KnockoutMatches from '@components/tournaments/KnockoutMatches.astro';
 import TournamentStandings from '@components/tournaments/TournamentStandings.astro';
@@ -36,7 +37,9 @@ const FCData = tournamentEntry.data;
 const fcMatches = matchesCollection
   /* .filter(match => match.data.tournament_id === TOURNAMENT_ID) */
   .sort((a, b) => a.data.date.getTime() - b.data.date.getTime()); // Ordenar por fecha
+const groupMatches = fcMatches.filter(match => match.data.stage === 'group');
 const knockoutMatches = fcMatches.filter(match => match.data.stage === 'knockout');
+const playoffMatches = fcMatches.filter(match => match.data.stage === 'playoff');
 
 const articles = await getArticles();
 const filterTags = [
@@ -110,12 +113,20 @@ const winner = await getMemberByName(FCData.champion, membersCollection) || null
     tournament={tournamentEntry}
     matches={fcMatches}
     />}
+    {playoffMatches.length > 0 &&
+      <Playoffs
+      playoffMatches={playoffMatches}
+      />
+    }
+    {groupMatches.length > 0 &&
     <Groups
-    matches={fcMatches}
+    matches={groupMatches}
     />
+    }
+    {knockoutMatches.length > 0 &&
     <KnockoutMatches
     knockoutMatches={knockoutMatches}
-    />
+    />}
     <TournamentStandings
       tournament={tournamentEntry}
       matches={fcMatches}
