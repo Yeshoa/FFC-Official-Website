@@ -18,7 +18,7 @@ import RelatedNews from '@components/articles/RelatedNews.astro';
 import RankingPreview from '@components/ranking/RankingPreview.astro';
 
 import AllGoals from '@images/tournaments/2024/cardImg.png';
-import Petrov from '@images/tournaments/2024/petrov-goal.png';
+import Roless from '@images/roless-shoot.png';
 import FCHistory from '@images/tournaments/fc-history.png';
 import FC26Logo from '@images/tournaments/2026/logo.png';
 import FFCBanner from '@images/FFC Banner simple.png';
@@ -29,7 +29,6 @@ import Signup from '@images/articles/sign-up/inscription.jpg';
 import CarrouselImgTwo from '@images/tournaments/2022/atsvea-champions.png';
 import CarrouselImgThree from '@images/tournaments/trophy_panoramic.png';
 import CarrouselImgFour from '@images/tournaments/2020/rui_champions.png';
-import CarrouselImgFive from '@images/tournaments/2024/darrow_dribble.png';
 import CarrouselImgSix from '@images/nysnub3.png';
 import RankingImage from '@images/articles/ranking/tiers.png';
 
@@ -42,32 +41,20 @@ const carouselImages = [
     priority: false,
   },
   {
-    src: Petrov, // Esta era tu heroImage original
-    alt: 'Partido de fútbol',
+    src: CarrouselImgThree,
+    alt: 'Trophy Panoramic',
+    className: '',
+    priority: false,
+  },
+  {
+    src: Roless, // Esta era tu heroImage original
+    alt: 'Match',
     className: 'object-[35%_-2rem] lg:object-center',
     priority: true, // Carga eager para la principal
   },
   {
-    src: CarrouselImgFive,
-    alt: 'Darrow Dribble',
-    className: 'object-[55%_center] lg:object-center',
-    priority: false,
-  },
-  {
     src: CarrouselImgSix,
     alt: 'Nysnub Holding Ball',
-    className: '',
-    priority: false,
-  },
-  // {
-  //   src: CarrouselImgFour,
-  //   alt: 'Rui Champions',
-  //   className: 'object-[35%_center] lg:object-center',
-  //   priority: false,
-  // },
-  {
-    src: CarrouselImgThree,
-    alt: 'Trophy Panoramic',
     className: '',
     priority: false,
   },
@@ -78,7 +65,7 @@ const featuredGridArticles: Article[] = [
   {
     title: "Cacusia confirmed host for Forest Cup 2026",
     description: "The new edition of the Forest Cup will be held in Cacusia, first time that hosts the tournament.",
-    image: Petrov,
+    image: Roless,
     url: ROUTES.articles.detail("confirmed-host-for-forest-cup-2026"),
   },
   {
