@@ -6,6 +6,7 @@ import Groups from '@components/tournaments/Groups.astro';
 import KnockoutMatches from '@components/tournaments/KnockoutMatches.astro';
 import TournamentStats from '@components/tournaments/TournamentStats.astro';
 import TournamentHero from '@components/tournaments/TournamentHero.astro';
+import TournamentStandings from '@components/tournaments/TournamentStandings.astro';
 import Headlines from '@components/tournaments/Headlines.astro';
 import { getMemberByName } from 'src/utils/memberUtils';
 import { getArticlesByTags } from 'src/utils/articleUtils';
@@ -40,7 +41,25 @@ const filterTags = [
 ];
 
 const filteredArticles = getArticlesByTags(articles, filterTags);
-import TournamentStandings from '@components/tournaments/TournamentStandings.astro';
+
+import AllGoalsHero from '@images/tournaments/2024/all-goals.png';
+import FinalMatch from '@images/tournaments/2020/final-match.png';
+import Bilsa from '@images/tournaments/2020/waving-flag.png';
+
+const headlines = [
+  {
+    title: 'Ruinenlust champions of the first Forest Cup',
+    image: FinalMatch,
+    link: '#final',
+    noblank: true,
+  },
+  {
+    title: 'Bilsa to organize a Forestian Football Cup for the first time.',
+    image: Bilsa,
+    link: '/articles/fc-2020',
+    noblank: false,
+  },
+]
 
 const pageTitle = `FFC - ${FC2020Data.name || 'Forest Cup'}`;
 const winner = await getMemberByName(FC2020Data.champion, membersCollection);
@@ -53,7 +72,7 @@ const winner = await getMemberByName(FC2020Data.champion, membersCollection);
       <TournamentHero currentTournament={FC2020Data} champion={winner} />
     </div>
 
-    <!-- <Headlines headlines={headlines}/> -->
+    <Headlines headlines={headlines}/>
 
     <TournamentStats
     tournament={tournamentEntry}
