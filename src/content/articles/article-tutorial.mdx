@@ -1,0 +1,275 @@
+---
+title: "How to Write an Article for the FFC Website"
+date: 2025-08-12
+author: "Bolbon"
+tags: [guide, articles, writing]
+summary: "A step-by-step guide on how to write and submit an article for the Forest Cup website, with examples of everything you can use."
+image: "/src/assets/images/articles/ranking/tiers.png"
+---
+import { LINKS } from '@config/links';
+
+## Overview
+
+Writing an article for the FFC website is simple. You do not need to know how to code.
+All you need is to write a plain text file following a few rules, and send it over.
+
+_Please don't abuse of articles, a max of 3 is enough :P_
+
+This guide covers everything you can use: headings, text formatting, quotes, tables, colored text, and more.
+
+---
+
+## Step 1 - The File
+
+Your article must be a plain text file. You can write it in any basic text editor:
+
+- **Windows**: Notepad
+- **Mac**: TextEdit (set to plain text mode)
+- **Any device**: Google Docs, then copy-paste the content
+
+Save the file with the extension **.mdx** (for example: `my-article.mdx`).
+
+---
+
+## Step 2 - The Header
+
+Every article starts with a header block at the very top. Copy this and fill in your details:
+
+```
+---
+title: "Your Article Title Here"
+date: 2025-08-07
+author: "Fictional Author Name"
+nation: "YourNationName"
+tags: [tag1, tag2]
+summary: "A short one-line description of your article."
+image: "/src/assets/images/articles/your-image.png"
+---
+```
+
+**Title**: The name of your article.
+**Date**: The date you are submitting it.
+**Author**: A fictional Author name.
+**Nation**: Your nation name.
+**Tags**: A few keywords that describe the article (no capitals, no spaces).
+**Summary**: One sentence that describes the article. This appears in the article preview cards.
+**Image**: The banner image at the top. If you do not have one, leave the field empty or ask us.
+
+---
+
+## Step 3 - Writing the Content
+
+Everything below the header is your article. Here is what you can use:
+
+---
+
+### Headings
+
+Use `#` symbols to create headings. More symbols means smaller heading.
+
+```
+# Big Title (H1)
+## Section Title (H2)
+### Subsection (H3)
+```
+
+Result:
+
+# Big Title
+## Section Title
+### Subsection
+
+---
+
+### Text Formatting
+
+You can make text **bold**, _italic_, or ~~strikethrough~~.
+
+```
+**This is bold**
+_This is italic_
+~~This is strikethrough~~
+```
+
+---
+
+### Quotes
+
+Use `>` to create a highlighted quote block. Good for notes, warnings, or important information.
+
+```
+> This is a quote block. Use it to highlight something important.
+
+> **Note**: This is a nested quote.
+> It can span multiple lines.
+```
+
+Result:
+
+> This is a quote block. Use it to highlight something important.
+
+You can also nest quotes:
+
+> **Note**: This is a nested quote.
+> It can span multiple lines.
+
+---
+
+### Lists
+
+**Unordered list** (bullet points):
+
+```
+- First item
+- Second item
+- Third item
+```
+
+Result:
+
+- First item
+- Second item
+- Third item
+
+**Ordered list** (numbered):
+
+```
+1. First step
+2. Second step
+3. Third step
+```
+
+Result:
+
+1. First step
+2. Second step
+3. Third step
+
+---
+
+### Tables
+
+Tables use `|` to separate columns and `-` for the header divider.
+
+```
+| Column A | Column B | Column C |
+|----------|----------|----------|
+| Value 1  | Value 2  | Value 3  |
+| Value 4  | Value 5  | Value 6  |
+```
+
+Result:
+
+| Column A | Column B | Column C |
+|----------|----------|----------|
+| Value 1  | Value 2  | Value 3  |
+| Value 4  | Value 5  | Value 6  |
+
+A real example, like a squad list:
+
+| Position | Player | Caps |
+|----------|--------|------|
+| GK | Ksatsthas | 34 |
+| CMF | R. Grimes | 21 |
+| CF | M. Dartmouth  | 58 |
+
+---
+
+### Colored Text
+
+You can use colored text inside tables or headings using HTML `<span>` tags with Tailwind classes.
+
+```
+<span class="text-green-300">This text is green</span>
+<span class="text-red-400">This text is red</span>
+<span class="text-yellow-300">This text is yellow</span>
+<span class="text-blue-300">This text is blue</span>
+```
+
+Result:
+
+<span class="text-green-300">This text is green</span>
+<span class="text-red-400">This text is red</span>
+<span class="text-yellow-300">This text is yellow</span>
+<span class="text-blue-300">This text is blue</span>
+
+You can also combine with bold:
+
+```
+<span class="text-green-300 font-bold">Bold green text</span>
+```
+
+Result: <span class="text-green-300 font-bold">Bold green text</span>
+
+---
+
+### Links
+
+To add a clickable link:
+
+```
+<a href="https://www.nationstates.net" target="_blank">Click here</a>
+```
+---
+
+### Horizontal Dividers
+
+Use `---` on its own line to add a visual divider between sections.
+
+```
+---
+```
+
+---
+
+### Images
+
+This is complicated so, for images, just add:
+
+```
+[IMAGE: "Image 1"]
+```
+
+And we will add the image in that place, of course you have to send us it, jpg or png is ok.
+
+---
+
+## Step 4 - Send It
+
+Once your article is ready, send it to **Bolbon** via <a href={LINKS.nationStates.bilsa} target="_blank">NationStates</a> telegram or <a href="https://www.discord.gg/EX4sGhjbgU" target="_blank">Discord</a>.
+
+Include the following:
+- The `.mdx` file
+- Any images you want included (optional)
+- _Optional_: Additional notes.
+
+Articles will be reviewed before publishing. We may make small formatting adjustments, but the content will remain yours.
+
+All submitted articles **must be directly related to football or the FFC.** Unrelated articles will not be approved.
+
+> **Examples of acceptable topics:**
+> - A major announcement or event from your football federation (e.g., new regulations, tournaments, or initiatives).
+> - Significant football news in your country (e.g., national team achievements, league updates, or player milestones).
+> - Analysis or commentary on football-related developments (e.g., tactical innovations, youth programs, or infrastructure projects).
+
+---
+
+## Quick Reference
+
+| Element | Syntax |
+|---------|--------|
+| Bold | `**text**` |
+| Italic | `_text_` |
+| Strikethrough | `~~text~~` |
+| Heading 1 | `# Title` |
+| Heading 2 | `## Title` |
+| Heading 3 | `### Title` |
+| Quote block | `> text` |
+| Bullet list | `- item` |
+| Numbered list | `1. item` |
+| Table | `\| col \| col \|` |
+| Green text | `<span class="text-green-300">text</span>` |
+| Link | `<a href="url">text</a>` |
+| Divider | `---` |
+
+---
