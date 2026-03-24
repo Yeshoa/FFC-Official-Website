@@ -4,14 +4,18 @@ date: 2025-08-12
 author: "Bolbon"
 tags: [guide, articles, writing]
 summary: "A step-by-step guide on how to write and submit an article for the Forest Cup website, with examples of everything you can use."
-image: "/src/assets/images/articles/ranking/tiers.png"
+image: "/src/assets/images/articles/article-tutorial/newspaper.png"
 ---
+import { Image } from 'astro:assets';
 import { LINKS } from '@config/links';
+import Example from '@images/FFC Banner simple.png'
 
 ## Overview
 
 Writing an article for the FFC website is simple. You do not need to know how to code.
 All you need is to write a plain text file following a few rules, and send it over.
+
+If you don't feel comfortable with MDX, you can write a dispatch in NS, and then ask us to replicate it here!
 
 _Please don't abuse of articles, a max of 3 is enough :P_
 
@@ -224,13 +228,26 @@ Use `---` on its own line to add a visual divider between sections.
 
 ### Images
 
-This is complicated so, for images, just add:
+This is complicated to do in mdx, so just add:
 
 ```
 [IMAGE: "Image 1"]
 ```
 
-And we will add the image in that place, of course you have to send us it, jpg or png is ok.
+And we will add the image in that place, of course you have to send it to us, jpg or png is ok.
+
+<div className="flex flex-col items-center justify-center my-2">
+  <Image
+    src={Example}
+    alt="Example image"
+    className="rounded-xl shadow-lg h-40 w-full object-cover -mb-4"
+    quality={40}
+    format="webp"
+  />
+  <span className="mt-2 text-xs text-green-100 font-normal w-full text-left">
+    Example
+  </span>
+</div>
 
 ---
 
