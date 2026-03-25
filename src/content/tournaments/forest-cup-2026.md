@@ -5,7 +5,7 @@ name: "Cacusia 2026"
 host: "Cacusia"
 image: "src/assets/images/tournaments/2026/logo.png"
 banner: "src/assets/images/tournaments/2026/banner.png"
-heroImg: "src/assets/images/tournaments/trophy_panoramic.png"
+heroImg: "src/assets/images/tournaments/2026/heroImg.png"
 edition: 2026
 loadingType: "eager"
 pots:
