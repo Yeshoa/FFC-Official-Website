@@ -3,6 +3,8 @@ import Table from '@components/tournaments/HistoricalTable.astro';
 import ScorersTable from '@components/tournaments/ScorersTable.astro';
 import TournamentHistoryTable from '@components/tournaments/TournamentHistoryTable.astro';
 import FCCard from '@components/tournaments/FCCard.astro';
+import FCCardSmall from '@components/tournaments/FCCard-small.astro';
+import FCCardMini from '@components/tournaments/FCCard-mini.astro';
 import App from '@layouts/App.astro';
 import { Image } from 'astro:assets';
 import FCLogo from '@images/tournaments/forest-cup.png';
@@ -29,20 +31,26 @@ const filteredArticles = getArticlesByTags(articles, filterTags);
   <main class="flex flex-col items-center">
     <!-- Banner -->
     <header class="bg-gradient-to-r from-green-950 to-green-1000 w-full flex flex-col items-center">
-      <div class="container flex flex-col justify-center items-center pt-10">
+      <!-- <div class="container flex flex-col justify-center items-center pt-10">
           <div class="flex justify-center items-center after:w-30 after:h-1 mb-4 animate-sladeIn after:bg-green-700 after:rounded-full after:absolute after:bottom-0 after:mx-auto relative">
             <Image src={FCLogo} alt="Forest Cup" width={500} class="w-2xl" loading={"eager"} format={"webp"} quality={50}/>
           </div>
-          <!-- <p class="text-sm sm:text-lg text-gray-200 px-8 sm:px-0 text-center opacity-0 animate-[slide-in_1s_ease-in-out_forwards_.1s]">Here you can find all the information about the Forest Cup</p> -->
-      </div>
+      </div> -->
       <!-- Tournaments -->
       <div class="w-full sm:container px-6 pt-4 pb-10 opacity-0 animate-[slide-in_1s_ease-in-out_forwards_.2s]">
-        <div class="flex flex-col gap-6">
-          {tournaments.reverse().map((tournament) => (
-            <FCCard
-              tournament={tournament}
-            />
-          ))}
+        <div class="flex flex-col gap-4">
+          <FCCard tournament={tournaments[tournaments.length - 1]} />
+          <div class="hidden lg:grid grid-cols-3 gap-4">
+            {tournaments.slice(-4, -1).reverse().map((tournament) => (
+              <FCCardSmall tournament={tournament} />
+            ))}
+          </div>
+
+          <div class="lg:hidden grid grid-cols-1 sm:grid-cols-3 gap-3 mt-4">
+            {tournaments.slice(-4, -1).reverse().map((tournament) => (
+              <FCCardMini tournament={tournament} />
+            ))}
+          </div>
         </div>
       </div>
     </header>

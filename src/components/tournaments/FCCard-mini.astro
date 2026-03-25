@@ -1,0 +1,54 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import { getMemberImage } from 'src/utils/memberUtils';
+import defaultFlag from '@images/tournaments/default-flag.png';
+import { ROUTES } from '@config/routes';
+
+interface Props {
+  tournament: CollectionEntry<'tournaments'>;
+}
+
+const { tournament } = Astro.props;
+const { data } = tournament;
+const { type, edition, name, host, image, loadingType } = data;
+
+const tournamentLink = type === 'forestian-champions-league' ? ROUTES.championsLeague.edition(edition) : ROUTES.forestCup.edition(edition);
+const hostFlag = await getMemberImage(host) || defaultFlag;
+
+---
+<a
+  href={tournamentLink}
+  class="group block w-full rounded-xl overflow-hidden bg-gradient-to-br from-green-800 to-green-950 border border-emerald-500/20 shadow-lg hover:shadow-emerald-400/20 transition-all duration-300 hover:scale-[1.01]"
+>
+  <div class="relative w-full h-32 sm:h-40 flex flex-col items-center justify-center p-2">
+
+    <!-- Logo -->
+    <div class="w-16 h-16 sm:w-20 sm:h-20 mb-2">
+      <Image
+        src={image}
+        alt={`${name} Logo`}
+        class="w-full h-full object-contain"
+        width={100}
+        loading={loadingType || "lazy"}
+      />
+    </div>
+
+    <div class="flex items-center gap-2">
+      {hostFlag && (
+        <Image
+          src={hostFlag}
+          alt="Host Flag"
+          class="w-8 h-5 rounded-sm object-cover"
+          width={50}
+          quality={70}
+          format="webp"
+          loading={loadingType || "lazy"}
+        />
+      )}
+      <h4 class="text-sm sm:text-base font-semibold text-white max-w-[160px]">
+        {name}
+      </h4>
+    </div>
+  </div>
+</a>
