@@ -2,9 +2,11 @@
 
 export const LINKS = {
   forms: {
-    newMember: "https://docs.google.com/forms/d/e/1FAIpQLScR44EQbFVoiMEaVJKN8tOy2JiNISN_OUTtorWkOUR6pAc6Xg/viewform?usp=dialog",
-    ffcMember: "https://docs.google.com/forms/d/e/1FAIpQLSeRMcQ7UNr0wXewbL6OMqv60DMpvHTuA8XRclmYljGunNX-Ng/viewform?usp=dialog",
+    // newMember: "https://docs.google.com/forms/d/e/1FAIpQLScR44EQbFVoiMEaVJKN8tOy2JiNISN_OUTtorWkOUR6pAc6Xg/viewform?usp=dialog",
+    // ffcMember: "https://docs.google.com/forms/d/e/1FAIpQLSeRMcQ7UNr0wXewbL6OMqv60DMpvHTuA8XRclmYljGunNX-Ng/viewform?usp=dialog",
+    fc26: "https://docs.google.com/forms/d/e/1FAIpQLSfGaAiwaEHogKSeGgWN46sbt5HNYpWFTMCl_9oYE3SLA9Lo-w/viewform?usp=dialog",
     sponsor: "https://docs.google.com/forms/d/e/1FAIpQLSfKC5ptPjarwqpH0_KkGyhXrgB2ekWj6fHyMbhGyqf0pjDzsA/viewform?usp=dialog",
+    survey: "https://docs.google.com/forms/d/e/1FAIpQLSf42RFn-CrW_D9p12Z16FYfW3l4qHte_7c5ofsonxaaOUuvVA/viewform?usp=publish-editor",
   },
   nationStates: {
     forest: "https://www.nationstates.net/region=forest",

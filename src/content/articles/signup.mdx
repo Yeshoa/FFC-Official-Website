@@ -1,116 +1,115 @@
 ---
-title: "How to Register & Participate in the FFC"
-date: 2025-07-19
+title: "How to Register & Participate"
+date: 2026-03-25
 author: "Bolbon"
-tags: [registration, guide, forest-cup]
-summary: "Step-by-step instructions for both new and FFC members to register, update their team details, and secure their spot for next Forest Cup."
+tags: [registration, guide]
+summary: "Step-by-step instructions for both new and returning FFC members to register, update their team details, and secure their spot for the next Forest Cup."
 image: "/src/assets/images/articles/sign-up/inscription.jpg"
 ---
 
-import { Image } from 'astro:assets';
 import { LINKS } from '@config/links';
+import { ROUTES } from '@config/routes';
 
-## Welcome to FFC Registration! 
+## Index
 
-Whether you’re **new to the FFC** or a **member**, this form has you covered:
+- Section 1 - Nation Info
+- Section 2 - Football History & Team Builder
+- Section 3 - Upload Kit
+- Section 4 - Player Names
+- Section 5 - Confirmation
 
-- **New members**: complete **all sections** to join for the first time. <a href={LINKS.forms.newMember} target="_blank">Link here</a> 
-- **Members**: skip straight to the sections you need to **update**. <a href={LINKS.forms.ffcMember} target="_blank">Link here</a> 
+You can sign via <a href={LINKS.forms.fc26} target="_blank">register form</a>, via <a href={LINKS.nationStates.bilsa} target="_blank">telegram</a> or via Discord DM.
 
-> Anyone who doesn’t submit will keep last season’s points and can still fight for a spot via playoffs.
-
----
-
-## Form Navigation
-
-Each section (except Confirmation) ends with a **menu** so you can jump around or finish early:
-
-- **1 - Identity & Culture**  
-- **2 - Visuals**  
-- **3 - Squad Rotation**  
-- **4 - Football History & Last Season**  
-- **5 - Confirmation**
-
->Below some sections I’ve added a short explanation for every item so readers know **why** they’re filling it out and **how** it helps.
+I highly recommend you using the form.
 
 ---
 
-### Identity & Culture
+## Section 1 - Nation Info
 
-**New teams must fill every field; returning teams can skip unchanged items.** This section establishes your nation’s identity and sets the tone for your roleplay.
+This section covers the basics used for graphics, scoreboards, and overlays. If you are a returning member, leave blank any field that has not changed.
 
-* **Nation Name** (as in NationStates)
-  We need your official name to ensure consistency across all materials and avoid duplicate entries.
-* **Display Name**
-  This is the name displayed during the events, on graphics, scoreboards, and Twitch overlays
-* **Abbreviation** (2-3 letters)
-  Short code to display in scoreboards.
-* **Flag** (upload new if changed) - The game uses a 512x512 pixels file, so if it is smaller _(in width, unless your flag is vertical, which I don't recommend)_, it will be pixelated.
-* **Cultural Notes** (language, traditions, lore)
-  These details guide me to generate the players names and appearances, or other items.
+**NationStates Name**: Your official nation name as it appears in NationStates.
 
-<small class="text-gray-500">Choose: \[Finish] \[Go to Visuals] \[Go to Squad Rotation] \[Go to History]</small>
+**Display Name**: The name shown ingame, on graphics, and on stream. It can match your NationStates name or be a shorter version.
 
----
+**Abbreviation**: A 2 or 3 letter code for scoreboards. Examples: USA, ENG, RUS.
 
-### Visuals
+**Flag**: Upload a high quality image. The recommended minimum is 500px wide or 350px tall. If empty, your NationStates flag (as of today) will be used instead but it will look pixelated.
 
-Here you define how your nation **looks** on‑field and online.
+**Info**: Anything useful for generating player names and appearances. You can link dispatches, describe your nation's culture or language.
 
-* **Upload Logo** (SVG/PNG)
-    Emblem for kits.
-* **Upload Kit Textures** (Home & Away)
-    Your home and away jerseys bring your colors to life ingame.
-* **No graphics? Choose a design or describe your kit**
-    If you don’t have files, you can choose a brand to outfit your team, and describe main features: stripes, patterns, themes, etc.
+At the end of this section you choose how to continue:
 
-<small class="text-gray-500">Choose: \[Finish] \[Go to Squad Rotation] \[Go to History]</small>
+- **Customize Team**: goes to Section 2, fully set up the team.
+- **I only want to name my players**: skips to Section 4.
+- **Finish**: jumps straight to confirmation. Leaves everything to us.
 
 ---
 
-### Squad Rotation
+## Section 2 - Football History & Team Builder
 
-Keep your roster up to date as players retire or are promoted.
+**Football History**: Links to NationStates dispatches or any other material related to football in your nation. Leagues, tournaments, lore, match stories, anything counts. This contributes to your ranking points.
 
-* **Text field for squad notes**
-    Insert in plain text the list of players, or the exact names you want the players to have, along with any details about their skills or appearance.
-    <small class="text-gray-500">_Not needed if you send a file in the next item_</small>
-* **Upload Roster File** (Excel/CSV/TXT or any file with new squad list)
-    Upload a sheet instead, with your squad and details.
-* **Extra Notes**
-    Additional information we need to know.
+**Logo**: Your federation emblem.
 
-> Rotating between 5 and 10 players between editions will add realism, but you are free to retain most of your previous roster. _However, in future editions, we may restrict repeated player participation over time._
+**Squad**: This is where you define your 26-player roster: 3 goalkeepers, 11 starters, 12 substitutes, and 3 reserves. The recommended way to fill this out is using the team builder tool linked in the form. Here is what it includes:
 
-<small class="text-gray-500">Choose: \[Finish] \[Go to Visuals] \[Go to History & Last Season]</small>
+- **Presets**: Pre-loaded squads from previous editions (some). A good starting point if you want to make small adjustments rather than building from scratch, simulating realistic squad rotation between tournaments.
+- **Team configuration**: Nation name, preferred formation, and a name generator option. The built-in generator is a placeholder and not recommended. For better results, assign names manually or use <a href="https://www.behindthename.com/random/" target="_blank">this name generator</a>.
+- **Race distribution**: Sliders to define the racial makeup of your squad. If you want a custom race not listed, select custom and contact us directly to configure it.
+- **Squad age**: Buttons to increase or decrease all player ages by one year. Useful when working from a preset to reflect time passing since the last edition.
+- **Players**: The full player list. Each entry can have a shirt number, position, height, and other details. The **KEY** checkbox marks a player as the main reference for the highest rating on the team. Mark this sparingly. There are also buttons to swap players between positions or clear a slot for a new signing. At the bottom you can assign penalty and free kick takers, which affects the set piece stats of those players.
+- **Copy to clipboard**: Once done, use this to copy the result and paste it into the form field.
 
----
+> Try to keep the average height of your starters between 180 and 185 cm. Setting unrealistic heights is an unfair advantage.
 
-### Football History
+**Kit**: Describe your home and away kit designs and colors. A selection of pre-made kits is available at the link in the form. Check if one already exists for your nation. If you want to upload your own kit files, continue to Section 3.
 
-This section powers both the **lore** and **score**.
-
-* Share your nation’s Football History: championships, league, landmark matches.
-
-* **Upload Files** (notes, screenshots, spreadsheets)
-  
-* **Text** if you have a **Dispatch** or lack files
-
-<small class="text-gray-500">Choose: \[Finish] \[Go to Visuals] \[Go to Squad Rotation]</small>
-
-> A Champions League can appear all of a sudden, you won't like to miss it!
+**Other**: Any additional information that does not fit elsewhere.
 
 ---
 
-### Confirmation
+## Section 3 - Upload Kit
 
-Finalize your submission:
+This section is for participants who want to submit custom kit textures. A few things to keep in mind:
 
-* **Streaming Alias** (YouTube/Twitch/Kick)
-    So we can recognize you during live broadcasts.
-* **Submit**
+- Kits must be FTEX textures made in PESMaster.
+- Do not use real life brand logos. Replace them with your own or remove them entirely.
+- National teams do not have sponsors. Do not include them on the kit.
+- Home and away kits must be visually distinct. The goalkeeper kit must also differ clearly from both.
+- If you move the name or number positions from the default, show us where.
+- Do not change the shininess setting. Default shininess will be applied to all kits for consistency ingame.
+
+**Font**: The font used for player names and numbers. Only fonts available in Photopea are accepted. If you want a custom font, upload the .ttf file in the files section.
 
 ---
 
-**All set!**
-Lock in your updates, apply new‑season points, and secure your place in the next Forest Cup!
+## Section 4 - Player Names
+
+This section is for participants who skipped the full customization and only want to submit player names. You will need 26 names in total.
+
+You can paste names directly or use the team builder linked in the form.
+
+---
+
+## Section 5 - Confirmation
+
+The first 24 nations to submit will secure a direct place in the group stage. Remaining teams may enter a playoff round to compete for the final spots, depending on total registrations.
+
+**YouTube / Twitch / Kick ID** _(optional)_: Your streaming username, used to recognize you in chat during live broadcasts.
+
+---
+
+## What to do after registering
+
+Once you are in, there is more you can do before the tournament starts.
+
+- **Earn ranking points**: There are several ways to accumulate points across roleplay, events, and bonus categories. The full breakdown is in the <a href={ROUTES.articles.detail("ranking")} target="_blank">ranking article</a> and you can track your current score on the <a href={ROUTES.ranking} target="_blank">ranking page</a>.
+- **Write an article**: Cover your nation's football history, leagues, or any story related. It counts toward your ranking and adds to Forest RP lore. See the <a href={ROUTES.articles.detail("article-tutorial")} target="_blank">article writing guide</a> for instructions.
+- **Fill out the survey**: Share your thoughts and help us improve. <a href={LINKS.forms.survey} target="_blank">Survey here</a>.
+- **Join Discord**: Follow the progress, stay updated. <a href={LINKS.social.discordForest} target="_blank">Forest Discord</a>, <a href={LINKS.social.discordFFC} target="_blank">FFC Discord</a>.
+- **Explore this site**: Discover our history, stats, past editions, and the stories that make this tournament unique. Immerse and feel part of Forest Football!
+
+---
+
+##### Done. Submit the form and your spot is in. More details about the tournament will be announced closer to the start date.

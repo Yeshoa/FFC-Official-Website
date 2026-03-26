@@ -28,7 +28,11 @@ const nextEdition = tournaments.filter(t => t.data.id === CURRENT_TOURNAMENT_ID)
       </a>
     </div>
   </div>
-
+  <div class="mb-4 text-center">
+    <p class="text-sm text-green-300 font-medium">
+      Points can be earned in all categories <strong>until the deadline</strong>.
+    </p>
+  </div>
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
       
     <div class="bg-green-800/10 rounded-lg p-5">
@@ -143,12 +147,12 @@ const nextEdition = tournaments.filter(t => t.data.id === CURRENT_TOURNAMENT_ID)
   </div>
 
 
-  <div class="bg-gradient-to-r from-green-800/20 to-blue-800/20 rounded-lg p-4">
+  <div class="bg-gradient-to-r from-green-800/20 to-green-900/20 rounded-lg p-4">
     <h4 class="font-semibold text-green-300 mb-2 text-center">Understanding the Decay System</h4>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
       <div>
         <p class="text-green-200 mb-2">
-          <strong>Purpose:</strong> Recent activity weighs more than ancient achievements. This keeps rankings dynamic and rewards current participation over old glory.
+          <strong>Purpose:</strong> Recent activity weighs more than old one. This keeps rankings dynamic and rewards current participation. The purpose of doing this is to simulate realistic consistency.
         </p>
         <p class="text-green-300 text-xs">
           <strong>Example:</strong> 10 points from last edition count as 10 points. 
@@ -188,13 +192,13 @@ const nextEdition = tournaments.filter(t => t.data.id === CURRENT_TOURNAMENT_ID)
   <div class="mt-6 text-center">
     <div class="bg-green-900/20 rounded-lg p-4">
       <p class="text-sm text-green-300 mb-2">
-        The <strong>first 24 teams to sign up</strong> qualify directly for <strong>Forest Cup {nextEdition}</strong>.
+        The <strong>first 24 Forestian teams to sign up</strong> qualify directly for the <strong>Group Stage</strong>.
       </p>
       <p class="text-xs text-green-400">
         The <strong>ranking</strong> does not determine classification, but rather the <strong>pot</strong> in which each team will be placed during the draw.
       </p>
       <p class="text-xs text-green-500 mt-2">
-        Teams that signs up after the first 24 will be placed in the <strong>last pot</strong>.
+        Teams that signs up after the first 24 will be placed in the <strong>last pot and may have to play playoffs</strong>.
       </p>
     </div>
   </div>

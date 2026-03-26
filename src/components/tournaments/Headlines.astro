@@ -7,7 +7,7 @@ const { headlines } = Astro.props;
     <!-- Headlines -->
     <div class="w-full items-center flex justify-center p-6">
         <div class="2xl:max-w-10/12 flex h-full flex-col lg:flex-row justify-center items-stretch">
-            <a href={headlines[0].link} target={headlines[0].noblank ? '_self' : '_blank'}
+            <a href={headlines[0].link} target={headlines[0].noblank ? '_blank' : '_self'}
             class="relative overflow-hidden lg:rounded-tr-none rounded-t-2xl lg:rounded-l-2xl h-80 sm:h-1/2 sm:max-h-110 lg:h-auto lg:max-h-[577px] w-full group">
                 <Image src={headlines[0].image} 
                     alt="Final Match" 

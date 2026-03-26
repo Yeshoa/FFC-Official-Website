@@ -1,5 +1,5 @@
 ---
-title: "How to Write an Article for the FFC Website"
+title: "How to Write an Article"
 date: 2026-03-24
 author: "Bolbon"
 tags: [guide, articles, writing]
@@ -12,12 +12,16 @@ import Example from '@images/FFC Banner simple.png'
 
 ## Overview
 
-Writing an article for the FFC website is simple. You do not need to know how to code.
-All you need is to write a plain text file following a few rules, and send it over.
+There are two ways to write an article, one is by simply making a dispatch in NS and asking us to replicate it here. Otherwise, here I made a guide to write an article in MDX.
 
-If you don't feel comfortable with MDX, you can write a dispatch in NS, and then ask us to replicate it here!
+Articles will be reviewed before publishing. We may make small formatting adjustments, but the content will remain yours.
 
-_Please don't abuse of articles, a max of 3 is enough :P_
+All submitted articles **must be directly related to football or the FFC.** Unrelated articles will not be approved.
+
+> **Examples of acceptable topics:**
+> - A major announcement or event from your football federation (new regulations, tournaments, or initiatives).
+> - Significant football news in your country (national team achievements, new shirt, league updates, or player milestones).
+> - Analysis or commentary on football developments (tactical innovations, youth programs, or infrastructure projects).
 
 This guide covers everything you can use: headings, text formatting, quotes, tables, colored text, and more.
 
@@ -25,13 +29,9 @@ This guide covers everything you can use: headings, text formatting, quotes, tab
 
 ## Step 1 - The File
 
-Your article must be a plain text file. You can write it in any basic text editor:
+Your article must be a plain text file. You can write it in any text editor, I recommend a code IDE with MDX extension.
 
-- **Windows**: Notepad
-- **Mac**: TextEdit (set to plain text mode)
-- **Any device**: Google Docs, then copy-paste the content
-
-Save the file with the extension **.mdx** (for example: `my-article.mdx`).
+Save the file with the extension **.mdx** (`my-article.mdx`).
 
 ---
 
@@ -42,23 +42,14 @@ Every article starts with a header block at the very top. Copy this and fill in 
 ```
 ---
 title: "Your Article Title Here"
-date: 2025-08-07
+date: 2026-04-01
 author: "Fictional Author Name"
 nation: "YourNationName"
 tags: [tag1, tag2]
 summary: "A short one-line description of your article."
-image: "/src/assets/images/articles/your-image.png"
+image: "/src/assets/images/articles/your-article/banner.png"
 ---
 ```
-
-**Title**: The name of your article.
-**Date**: The date you are submitting it.
-**Author**: A fictional Author name.
-**Nation**: Your nation name.
-**Tags**: A few keywords that describe the article (no capitals, no spaces).
-**Summary**: One sentence that describes the article. This appears in the article preview cards.
-**Image**: The banner image at the top. If you do not have one, leave the field empty or ask us.
-
 ---
 
 ## Step 3 - Writing the Content
@@ -212,8 +203,9 @@ Result: <span class="text-green-300 font-bold">Bold green text</span>
 To add a clickable link:
 
 ```
-<a href="https://www.nationstates.net" target="_blank">Click here</a>
+<a href="https://www.nationstates.net/region=forest" target="_blank">Click here</a>
 ```
+<a href="https://www.nationstates.net/region=forest" target="_blank">Click here</a>
 ---
 
 ### Horizontal Dividers
@@ -255,19 +247,7 @@ And we will add the image in that place, of course you have to send it to us, jp
 
 Once your article is ready, send it to **Bolbon** via <a href={LINKS.nationStates.bilsa} target="_blank">NationStates</a> telegram or <a href="https://www.discord.gg/EX4sGhjbgU" target="_blank">Discord</a>.
 
-Include the following:
-- The `.mdx` file
-- Any images you want included (optional)
-- _Optional_: Additional notes.
-
-Articles will be reviewed before publishing. We may make small formatting adjustments, but the content will remain yours.
-
-All submitted articles **must be directly related to football or the FFC.** Unrelated articles will not be approved.
-
-> **Examples of acceptable topics:**
-> - A major announcement or event from your football federation (e.g., new regulations, tournaments, or initiatives).
-> - Significant football news in your country (e.g., national team achievements, league updates, or player milestones).
-> - Analysis or commentary on football-related developments (e.g., tactical innovations, youth programs, or infrastructure projects).
+Include the `.mdx` file, the images you want included and additional notes.
 
 ---
 

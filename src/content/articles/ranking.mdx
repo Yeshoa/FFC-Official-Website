@@ -24,9 +24,7 @@ The FFC **Ranking** is a points-based system that measures each nation's overall
 
 Participants can earn points by completing any of the listed category items.
 
-_Points earned in the current edition will only be applied if the participant submits the form for this season._
-
-> Starting with Forest Cup 2026, the **first 24 teams to sign up** qualify **directly**. 
+> Starting with Forest Cup 2026, the **first 24 Forestians teams to sign up** qualify **directly**. 
 > The ranking of these 24 teams will determine their **seeding pots**.
 > The remaining teams, whether they play playoffs or not, will be placed in Pot 4.
 
@@ -161,14 +159,16 @@ The realistic maximum for current edition points is an estimated 200, though it 
 
 ## How do these points actually affect my team's performance?
 
-In short, the points you earn are used in a "random" (not actually) generator for each of your players. The higher your score, the greater the chance of getting better players.
+The points you earn are used to calculate the average overall rating of your squad.
 
-This is explained in detail <a href="#" class="text-blue-300 hover:text-blue-200">here</a>.
+The formula uses a logarithmic function, meaning the rating grows quickly at first but slows down as points increase. This makes it easier for the lower teams in the table to get better players. The result is two numbers: the average rating of your 11 starters, and a lower average for the substitutes.
 
-**Rembemer**: Points earned in the current edition will only be applied if the participant submits the <a href={LINKS.forms.newMember} target="_noblank">form for this season <Arrow class="inline w-3 h-3 fill-green-400 ml-1" /></a>.
+From those two numbers, 26 individual ratings are generated and assigned to your players. If you marked any players as **KEY**, those will receive the highest ratings in the squad first. Everything else is distributed from there.
+
+In short: more points means a stronger squad.
 
 ---
 
 ##### Good luck preparing your squad for the Forest Cup! See you in the pitch.
 
-Feel free to <a href="#" class="text-blue-300 hover:text-blue-200">contact us</a> if you still have doubts!
+Feel free to contact us if you still have doubts!
