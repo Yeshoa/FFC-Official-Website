@@ -9,6 +9,7 @@ import{ getArticlesByTags } from 'src/utils/articleUtils';
 import { CURRENT_TOURNAMENT_ID } from 'src/utils/tournamentUtils';
 import Title from '@components/Title.astro';
 import { LOCALE } from '@config/constants';
+import Sidebar from '@components/ranking/Sidebar.astro';
 
 const members = await getMembers();
 const tournaments = await getTournaments();
@@ -21,20 +22,35 @@ const filterTags = [
 
 const filteredArticles = getArticlesByTags(articles, filterTags);
 
-// Opcional: especificar el torneo actual
 const currentTournamentId = CURRENT_TOURNAMENT_ID;
 const date = new Date().toLocaleString(LOCALE, { month: 'long', day: 'numeric', year: 'numeric' });
 ---
 <Layout title="FFC - Ranking">
-  <main class="w-full p-6 items-center">
+  <main class="w-full p-6 items-center justify-center">
     <Title slideIn={true}>
       Ranking
-      <span slot="subtitle">
+      <!-- <span slot="subtitle">
        Last updated {date}
-      </span>
+      </span> -->
     </Title>
-    <Legend />
-    <Table members={members} currentTournamentId={currentTournamentId} />
+    <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+      <!-- Sidebar + Legend column: md/lg appear on left -->
+      <div class="col-span-1 order-2 md:order-1 flex flex-col gap-4">
+        <Sidebar currentTournamentId={currentTournamentId} />
+        <div class="xl:hidden">
+          <Legend />
+        </div>
+      </div>
+
+      <!-- Table: First in mobile (order-1) -->
+      <Table members={members} currentTournamentId={currentTournamentId} />
+
+      <!-- Legend: Only on xl to the right -->
+      <div class="hidden xl:block order-3">
+        <Legend />
+      </div>
+    </div>
+    
     <RelatedNews articles={filteredArticles} max={4} />
   </main>
 </Layout>

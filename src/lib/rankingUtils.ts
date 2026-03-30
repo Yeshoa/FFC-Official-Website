@@ -132,6 +132,7 @@ export async function getRankedMembers(
 ): Promise<Array<{
   slug: string
   name: string
+  code: string
   flag: any
   scores: {
     currentRoleplay: number,
@@ -158,6 +159,7 @@ export async function getRankedMembers(
         return {
           slug: member.slug,
           name: member.data.name,
+          code: member.data.code,
           flag: member.data.flagPath,
           scores: result.breakdown,
           currentRoleplay: result.details.currentRoleplay,

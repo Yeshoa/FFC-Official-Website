@@ -1,0 +1,19 @@
+---
+import { TIERS, getTotalColorClass } from '@lib/scoreUtils';
+
+const tierEntries = Object.entries(TIERS) as [string, number][];
+// Reverse so X shows first (highest to lowest)
+const tierEntriesDesc = [...tierEntries];
+---
+
+<div class="max-w-7xl mx-auto mb-6 px-2">
+  <div class="flex flex-wrap items-center gap-2 justify-center">
+    <span class="text-xs text-green-500 mr-1">Score tiers:</span>
+    <!-- Hide X tier manually -->
+    {tierEntriesDesc.splice(0, tierEntriesDesc.length-1).map(([tier, minPts]) => (
+      <span class={`text-xs px-2 py-0.5 rounded ${getTotalColorClass(minPts)}`}>
+        {tier} ≥{minPts}
+      </span>
+    ))}
+  </div>
+</div>

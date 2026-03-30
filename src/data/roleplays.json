@@ -2,7 +2,7 @@
   {
     "id": "football-history-2025",
     "name": "Football History",
-    "description": "A NationStates dispatch covering team history, league creation, or football lore.",
+    "description": "A NS dispatch covering football lore.",
     "code": "FH",
     "edition": 3,
     "type": "football_history",
@@ -25,7 +25,7 @@
   {
     "id": "roleplay-2025",
     "name": "Roleplay",
-    "description": "- Any kind of roleplay about the FC '26: 5 pts.\n- Updated roster for this edition: 5 pts.\n- Mention FC '26 in the dispatch: 5 pts.",
+    "description": "- Any roleplay about the FC '26: 5 pts.\n- Updated roster for this edition: 5 pts.\n- Mention FC '26 in the dispatch: 5 pts.",
     "code": "RP",
     "edition": 3,
     "type": "football_roleplay",

@@ -6,6 +6,8 @@ import { getCurrentEvents } from '@lib/eventUtils'
 import { getCurrentRoleplays } from '@lib/roleplayUtils';
 import { getCurrentBonuses } from '@lib/bonusUtils';
 import { CURRENT_TOURNAMENT_ID } from '@utils/tournamentUtils';
+import Button from '@components/Button.astro';
+import { ROUTES } from '@config/routes';
 
 const currentEvents = getCurrentEvents();
 const currentRoleplays = getCurrentRoleplays();
@@ -15,191 +17,149 @@ const tournaments = await getTournaments();
 const nextEdition = tournaments.filter(t => t.data.id === CURRENT_TOURNAMENT_ID)[0].data.edition;
 ---
 
-<div class="max-w-7xl mx-auto bg-green-900/30 rounded-lg p-6 mb-7 opacity-0 animate-[slide-in_1s_ease-in-out_forwards_.15s]">
-  <div class="bg-green-800/20 rounded-lg p-2 mb-4">
-    <p class="text-sm text-green-200 text-center">
-      Your <strong>Total Score</strong> combines roleplay, events, bonuses, and past performance with decay. 
-      <br>
-      Higher scores mean higher chances to win and better seeding!
-    </p>
-    <div class="text-center mt-3">
-      <a href="/articles/ranking" class="inline-flex items-center px-4 py-2 bg-green-700/50 hover:bg-green-600/50 text-green-200 rounded-lg transition-colors duration-200 text-sm font-medium">
-        Read Full Detailed Explanation
-      </a>
-    </div>
-  </div>
-  <div class="mb-4 text-center">
-    <p class="text-sm text-green-300 font-medium">
-      Points can be earned in all categories <strong>until the deadline</strong>.
-    </p>
-  </div>
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
-      
-    <div class="bg-green-800/10 rounded-lg p-5">
-      <h4 class="font-semibold text-green-300 mb-4 text-center">Roleplay</h4>
-      
-      <div class="space-y-4 text-sm text-green-200">
-        {currentRoleplays.map(rp => (
-          <div class="space-y-1">
-            <div class="flex justify-between items-center">
-              <span>
-                <strong>{rp.code || rp.name.slice(0,4)}</strong>: 
-                <span class="text-green-400 text-xs ml-1">{rp.name}</span>
-              </span>
-              <span class="text-xs text-green-400">{SCORING_CONFIG.RP_MAX} Pts.</span>
+<aside class="shrink-0 opacity-0 animate-[slide-in_1s_ease-in-out_forwards_.5s] order-3 mb-6">
+  <div class="bg-green-900/30 border border-green-700/30 rounded-lg p-4 text-sm items-center">
+    <!-- Intro banner -->
+      <p class="text-sm text-green-200 text-center">
+        Your <strong>Total Score</strong> combines roleplay, events, bonuses, and past performance with decay.
+        Higher scores mean higher chances to win and better seeding!
+      </p>
+      <!-- <div class="text-center mt-3">
+        <Button link={ROUTES.articles.detail('ranking')}>
+          Read Full Detailed Guide
+        </Button>
+      </div> -->
+
+    <!-- Categories grid -->
+    {/* <div class="flex flex-col gap-3 mb-4">
+
+      <!-- ROLEPLAY -->
+      <div class="bg-green-800/10 border border-green-700/20 rounded-lg p-3">
+        <p class="text-xs font-semibold text-green-500 uppercase tracking-wider mb-2">Roleplay</p>
+        <div class="space-y-2">
+          {currentRoleplays.map(rp => (
+            <div>
+              <div class="flex items-baseline justify-between gap-2">
+                <span class="text-green-200 text-xs">
+                  <strong class="text-green-100">{rp.code || rp.name.slice(0, 4)}</strong>
+                  <span class="text-green-400 ml-1">{rp.name}</span>
+                </span>
+                <span class="text-green-500 text-xs shrink-0">{SCORING_CONFIG.RP_MAX}</span>
+              </div>
+              {rp.description && (
+                <p class="text-xs text-green-500 mt-0.5 whitespace-pre-line">{rp.description}</p>
+              )}
             </div>
-            <p class="text-xs text-green-300 whitespace-pre-line">{rp.description}</p>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-    </div>
 
-    <div class="bg-green-800/10 rounded-lg p-5">
-      <h4 class="font-semibold text-green-300 mb-4 text-center">Events</h4>
-      
-      <div class="space-y-4 text-sm text-green-200">
-        {currentEvents.map(event => (
-          <div class="space-y-1">
-            <div class="flex justify-between items-center">
-              <span>
-                <strong>{event.code || event.name.slice(0,4)}</strong>: 
-                {event.link ? (
-                  <a 
-                    href={event.link || '#'}
-                    target="_blank"
-                    class="text-blue-300 hover:text-blue-200 ml-1"
-                  >
-                    <span class="text-xs">{event.name}</span>
-                    <Arrow class="inline w-3 h-3 fill-blue-400 ml-1 mb-1" />
-                  </a>
-                ) : (
-                  <span class="text-green-400 text-xs ml-1">{event.name}</span>
-                )}
-              </span>
-              <span class="text-xs text-green-400">Max {SCORING_CONFIG.EV_MAX} Pts.</span>
+      <!-- EVENTS -->
+      <div class="bg-green-800/10 border border-green-700/20 rounded-lg p-3">
+        <p class="text-xs font-semibold text-green-500 uppercase tracking-wider mb-2">Events</p>
+        <div class="space-y-2">
+          {currentEvents.map(event => (
+            <div>
+              <div class="flex items-baseline justify-between gap-2">
+                <span class="text-green-200 text-xs">
+                  <strong class="text-green-100">{event.code || event.name.slice(0, 4)}</strong>
+                  {event.link ? (
+                    <a href={event.link} target="_blank" class="text-blue-400 hover:text-blue-300 ml-1 transition-colors">
+                      {event.name}
+                      <Arrow class="inline w-2.5 h-2.5 fill-blue-400 ml-0.5 mb-0.5" />
+                    </a>
+                  ) : (
+                    <span class="text-green-400 ml-1">{event.name}</span>
+                  )}
+                </span>
+                <span class="text-green-500 text-xs shrink-0">{SCORING_CONFIG.EV_MAX}</span>
+              </div>
+              {event.description && (
+                <p class="text-xs text-green-500 mt-0.5 whitespace-pre-line">{event.description}</p>
+              )}
             </div>
-            <p class="text-xs text-green-300 whitespace-pre-line">{event.description}</p>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-    </div>
 
-    <div class="bg-green-800/10 rounded-lg p-5">
-      <h4 class="font-semibold text-green-300 mb-4 text-center">Bonus</h4>
-      
-      <div class="space-y-4 text-sm text-green-200">
-        {currentBonuses.map(bonus => (
-          <div class="space-y-1">
-            <div class="flex justify-between items-center">
-              <span>
-                <strong>{bonus.code || bonus.name.slice(0,4)}</strong>: 
-                <span class="text-green-400 text-xs ml-1">{bonus.name}</span>
-              </span>
-              <span class="text-xs text-green-400">
-                {typeof bonus.maxScore === 'number' && bonus.maxScore > 1 ? 'Max ' : ''}
-                {bonus.maxScore !== 1 ? bonus.maxScore : SCORING_CONFIG.BO_MAX}
-                {typeof bonus.maxScore === 'number' ? ' Pts.' : ''}
-              </span>
+      <!-- BONUS -->
+      <div class="bg-green-800/10 border border-green-700/20 rounded-lg p-3">
+        <p class="text-xs font-semibold text-green-500 uppercase tracking-wider mb-2">Bonus</p>
+        <div class="space-y-2">
+          {currentBonuses.map(bonus => (
+            <div>
+              <div class="flex items-baseline justify-between gap-2">
+                <span class="text-green-200 text-xs">
+                  <strong class="text-green-100">{bonus.code || bonus.name.slice(0, 4)}</strong>
+                  <span class="text-green-400 ml-1">{bonus.name}</span>
+                </span>
+                <span class="text-green-500 text-xs shrink-0">
+                  {bonus.maxScore !== 1 ? bonus.maxScore : SCORING_CONFIG.BO_MAX}
+                </span>
+              </div>
+              {bonus.description && (
+                <p class="text-xs text-green-500 mt-0.5 whitespace-pre-line">{bonus.description}</p>
+              )}
             </div>
-            <p class="text-xs text-green-300 whitespace-pre-line">{bonus.description}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-
-    <div class="bg-green-800/10 rounded-lg p-5">
-      <h4 class="font-semibold text-green-300 mb-4 text-center">Past Performance</h4>
-      
-      <div class="space-y-4 text-sm text-green-200">
-        <div class="space-y-1">
-          <div class="flex justify-between items-center">
-            <span><strong>RP:</strong></span>
-            <span class="text-xs text-green-400">Decay</span>
-          </div>
-          <p class="text-xs text-green-300">Decayed roleplay points from previous editions</p>
-        </div>
-
-        <div class="space-y-1">
-          <div class="flex justify-between items-center">
-            <span><strong>Events:</strong></span>
-            <span class="text-xs text-green-400">Decay</span>
-          </div>
-          <p class="text-xs text-green-300">Decayed event points from previous editions</p>
-        </div>
-
-        <div class="space-y-1">
-          <div class="flex justify-between items-center">
-            <span><strong>Bonus:</strong></span>
-            <span class="text-xs text-green-400">Decay</span>
-          </div>
-          <p class="text-xs text-green-300">Decayed bonus points from previous editions</p>
-        </div>
-
-        <div class="space-y-1">
-          <div class="flex justify-between items-center">
-            <span><strong>Results:</strong></span>
-            <span class="text-xs text-green-400">Decay</span>
-          </div>
-          <p class="text-xs text-green-300">Decayed tournament performance points from previous editions</p>
+          ))}
         </div>
       </div>
-    </div>
-  </div>
 
+      <!-- PAST PERFORMANCE -->
+      <div class="bg-green-800/10 border border-green-700/20 rounded-lg p-3">
+        <p class="text-xs font-semibold text-green-500 uppercase tracking-wider mb-2">Past</p>
+        <div class="space-y-2">
+          {[
+            { code: 'RP',  name: 'Roleplay', desc: 'Decayed roleplay points from previous editions' },
+            { code: 'Ev',  name: 'Events',   desc: 'Decayed event points from previous editions' },
+            { code: 'Bn',  name: 'Bonus',    desc: 'Decayed bonus points from previous editions' },
+            { code: 'Res', name: 'Results',  desc: 'Decayed tournament performance from previous editions' },
+          ].map(item => (
+            <div>
+              <div class="flex items-baseline justify-between gap-2">
+                <span class="text-green-200 text-xs">
+                  <strong class="text-green-100">{item.code}</strong>
+                  <span class="text-green-400 ml-1">{item.name}</span>
+                </span>
+                <span class="text-green-600 text-xs shrink-0 italic">decay</span>
+              </div>
+              <p class="text-xs text-green-500 mt-0.5">{item.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
 
-  <div class="bg-gradient-to-r from-green-800/20 to-green-900/20 rounded-lg p-4">
-    <h4 class="font-semibold text-green-300 mb-2 text-center">Understanding the Decay System</h4>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-      <div>
-        <p class="text-green-200 mb-2">
-          <strong>Purpose:</strong> Recent activity weighs more than old one. This keeps rankings dynamic and rewards current participation. The purpose of doing this is to simulate realistic consistency.
+    </div> */}
+
+    <!-- Decay system -->
+    <div class="border-y border-green-700/40 py-3 my-4">
+      <p class="text-xs font-semibold text-green-500 uppercase tracking-wider mb-2">Decay rate</p>
+        <div class="flex flex-col gap-x-6 gap-y-1 text-xs text-green-600">
+          <div class="flex justify-between gap-3"><span>Last edition</span><span class="text-green-300 font-bold">100%</span></div>
+          <div class="flex justify-between gap-3"><span>2 editions ago</span><span class="text-yellow-400/80 font-bold">50%</span></div>
+          <div class="flex justify-between gap-3"><span>3 editions ago</span><span class="text-orange-400/80 font-bold">25%</span></div>
+          <div class="flex justify-between gap-3"><span>4 editions ago</span><span class="text-red-400/80 font-bold">10%</span></div>
+          <div class="flex justify-between gap-3"><span>Older than 4</span><span class="text-gray-500 font-bold">0%</span></div>
+        </div>
+        <p class="text-xs text-green-500 mt-2">
+          <strong>Example:</strong> 10 pts from last edition = 10 pts. The same 10 pts from two editions ago = 5 pts (50% decay).
         </p>
-        <p class="text-green-300 text-xs">
-          <strong>Example:</strong> 10 points from last edition count as 10 points. 
-          The same 10 points from two editions ago only count as 5 points (50% decay).
-        </p>
-      </div>
-      <div class="text-center">
-        <div class="inline-block bg-green-900/30 rounded-lg p-3">
-          <div class="text-xs text-green-400 space-y-1">
-            <div class="flex justify-between w-32">
-              <span>Last edition:</span>
-              <span class="text-green-300 font-bold">100%</span>
-            </div>
-            <div class="flex justify-between w-32">
-              <span>2 editions ago:</span>
-              <span class="text-yellow-300 font-bold">50%</span>
-            </div>
-            <div class="flex justify-between w-32">
-              <span>3 editions ago:</span>
-              <span class="text-orange-300 font-bold">25%</span>
-            </div>
-            <div class="flex justify-between w-32">
-              <span>4 editions ago:</span>
-              <span class="text-red-300 font-bold">10%</span>
-            </div>
-            <div class="flex justify-between w-32">
-              <span>Older than 4:</span>
-              <span class="text-gray-400 font-bold">0%</span>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
-  </div>
 
-  <!-- INFORMACIÓN ADICIONAL CON EDICIÓN DINÁMICA -->
-  <div class="mt-6 text-center">
-    <div class="bg-green-900/20 rounded-lg p-4">
-      <p class="text-sm text-green-300 mb-2">
+    <!-- Additional info -->
+    <div class="text-center">
+      <p class="text-sm text-green-300 font-medium text-center mb-4">
+        Points can be earned in all categories <strong>until the deadline</strong>.
+      </p>
+      <p class="text-sm text-green-300 mb-1">
         The <strong>first 24 Forestian teams to sign up</strong> qualify directly for the <strong>Group Stage</strong>.
       </p>
       <p class="text-xs text-green-400">
         The <strong>ranking</strong> does not determine classification, but rather the <strong>pot</strong> in which each team will be placed during the draw.
       </p>
-      <p class="text-xs text-green-500 mt-2">
-        Teams that signs up after the first 24 will be placed in the <strong>last pot and may have to play playoffs</strong>.
+      <p class="text-xs text-green-500 mt-1">
+        Teams that sign up after the first 24 will be placed in the <strong>last pot and may have to play playoffs</strong>.
       </p>
     </div>
   </div>
-</div>
+</aside>
