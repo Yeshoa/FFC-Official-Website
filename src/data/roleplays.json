@@ -37,7 +37,7 @@
   {
     "id": "article-2025",
     "name": "Upload an Article",
-    "description": "Write a football-themed article for the website (or NS dispatch). Only one article counts for points.",
+    "description": "Write a football-themed article.",
     "code": "AR",
     "edition": 3,
     "type": "articles",

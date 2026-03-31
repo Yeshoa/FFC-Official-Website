@@ -2,7 +2,7 @@
   {
     "id": "host-2025",
     "name": "Host nation",
-    "description": "Base points for hosting a Forest Cup tournament edition.",
+    "description": "Base points for hosting a Forest Cup.",
     "code": "Host",
     "edition": 3,
     "type": "host",
@@ -14,7 +14,7 @@
   {
     "id": "host-2024",
     "name": "Host nation",
-    "description": "Base points for hosting a Forest Cup tournament edition.",
+    "description": "Base points for hosting a Forest Cup.",
     "code": "Host",
     "edition": 2,
     "type": "host",
@@ -26,7 +26,7 @@
   {
     "id": "eggs-2025",
     "name": "Easter Eggs",
-    "description": "Points per easter egg discovered throughout the edition.",
+    "description": "Points per easter egg discovered.",
     "code": "Eggs",
     "edition": 3,
     "type": "eggs",
@@ -37,7 +37,7 @@
   {
     "id": "extra-2025",
     "name": "Extra",
-    "description": "Variable points for exceptional contributions and dedication.",
+    "description": "Variable points for exceptional dedication.",
     "code": "XT",
     "edition": 3,
     "type": "extra",
@@ -50,7 +50,7 @@
   {
     "id": "extra-2024",
     "name": "Extra",
-    "description": "Variable points for exceptional contributions and dedication.",
+    "description": "Variable points for exceptional dedication.",
     "code": "XT",
     "edition": 2,
     "type": "extra",
@@ -81,7 +81,7 @@
   {
     "id": "extra-2022",
     "name": "Extra",
-    "description": "Variable points for exceptional contributions and dedication.",
+    "description": "Variable points for exceptional dedication.",
     "code": "XT",
     "edition": 1,
     "type": "extra",

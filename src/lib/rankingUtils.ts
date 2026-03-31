@@ -1,21 +1,185 @@
 import type { CollectionEntry } from "astro:content"
 import { calculateTournamentDecayPoints, getLastFourTournamentIds } from "src/utils/tournamentUtils"
-import { calculateAllEventPoints, calculateEventDecayPoints, EVENT_COUNT } from "@lib/eventUtils"
-import { MAX_ROLEPLAY_POINTS, normalizePoints, SCORING_CONFIG } from "./scoreUtils";
+import { calculateAllEventPoints } from "@lib/eventUtils"
+import { normalizePoints, SCORING_CONFIG } from "./scoreUtils";
 import { calculateCurrentBonusPoints, calculatePastBonusPoints } from "./bonusUtils";
 import { CURRENT_TOURNAMENT_ID } from "src/utils/tournamentUtils";
 import { calculateCurrentRoleplayPoints, calculatePastRoleplayPoints } from "./roleplayUtils";
-import { getTournaments } from '@lib/collections';
+import { getTournaments, getRoleplays, getEvents, getBonuses } from '@lib/collections';
 import { getMemberTier } from "../utils/memberUtils";
+import { getCurrentRoleplays } from "./roleplayUtils";
+import { getCurrentEvents } from "./eventUtils";
+import { getCurrentBonuses } from "./bonusUtils";
 
 // 🟢 Tipos
 type TournamentEntry = CollectionEntry<'tournaments'>;
-type MatchEntry = CollectionEntry<'matches'>;
 type MemberEntry = CollectionEntry<'members'>;
 
 const tournaments = await getTournaments()
 
-// Función principal COMPLETAMENTE AUTOMÁTICA
+// ============================================================================
+// HELPERS INTERNOS - Completan datos con 0s para items que no tienen puntos
+// ============================================================================
+
+/**
+ * Retorna TODOS los roleplays de la edición actual, completados con 0s
+ * para los que el miembro no participó
+ */
+function getCurrentRoleplayDataWithDefaults(
+  memberName: string,
+  roleplayBreakdown: Record<string, number>
+): Record<string, number> {
+  const allRoleplays = getCurrentRoleplays();
+  const result: Record<string, number> = {};
+  
+  allRoleplays.forEach(rp => {
+    result[rp.name] = roleplayBreakdown[rp.name] ?? 0;
+  });
+  
+  return result;
+}
+
+/**
+ * Retorna TODOS los eventos de la edición actual, completados con 0s
+ * para los que el miembro no participó
+ */
+function getCurrentEventDataWithDefaults(
+  memberName: string,
+  eventBreakdown: Record<string, number>
+): Record<string, number> {
+  const allEvents = getCurrentEvents();
+  const result: Record<string, number> = {};
+  
+  allEvents.forEach(event => {
+    result[event.name] = eventBreakdown[event.name] ?? 0;
+  });
+  
+  return result;
+}
+
+/**
+ * Retorna TODOS los bonuses de la edición actual, completados con 0s
+ * para los que el miembro no participó
+ */
+function getCurrentBonusDataWithDefaults(
+  memberName: string,
+  bonusBreakdown: Record<string, number>
+): Record<string, number> {
+  const allBonuses = getCurrentBonuses();
+  const result: Record<string, number> = {};
+  allBonuses.forEach(bonus => {
+    result[bonus.name] = bonusBreakdown[bonus.type] ?? 0;
+    // result[bonus.name] = bonusBreakdown[bonus.name] ?? 0; // No se compara con name, se compara con type o id
+  });
+  
+  return result;
+}
+
+// ============================================================================
+// FUNCIÓN PRINCIPAL - Obtiene scores detallados DE UN MIEMBRO
+// ============================================================================
+
+export async function getMemberScoreDetails(
+  member: MemberEntry,
+  currentTournamentId: number = CURRENT_TOURNAMENT_ID,
+): Promise<{
+  member: {
+    slug: string;
+    name: string;
+    code: string;
+    flag: any;
+  };
+  scores: {
+    currentRoleplay: number;
+    pastRoleplay: number;
+    currentEventPoints: number;
+    pastEventPoints: number;
+    currentBonus: number;
+    pastBonus: number;
+    tournamentDecayPoints: number;
+  };
+  details: {
+    currentRoleplay: Record<string, number>;
+    currentEvents: Record<string, number>;
+    currentBonus: Record<string, number>;
+    pastBreakdown: {
+      pastRoleplay: number;
+      pastEvents: number;
+      pastBonus: number;
+      tournamentResults: number;
+    };
+  };
+  totalScore: number;
+  tier: string;
+}> {
+  const memberName = member.data.name;
+  const lastFourIds = getLastFourTournamentIds(tournaments, currentTournamentId);
+
+  // ========== 🎭 ROLEPLAY ==========
+  const roleplayResult = calculateCurrentRoleplayPoints(memberName);
+  const pastRoleplayPointsRaw = calculatePastRoleplayPoints(memberName, lastFourIds);
+  const pastRoleplayPoints = normalizePoints(pastRoleplayPointsRaw, SCORING_CONFIG.PRP_RAW_MAX, SCORING_CONFIG.PRP_MAX);
+  
+  const currentRoleplayData = getCurrentRoleplayDataWithDefaults(memberName, roleplayResult.roleplay);
+
+  // ========== 🎉 EVENTS ==========
+  const eventResult = calculateAllEventPoints(memberName, currentTournamentId, lastFourIds);
+  const currentEventData = getCurrentEventDataWithDefaults(memberName, eventResult.currentEvents);
+
+  // ========== 🎁 BONUS ==========
+  const score = member.data.score;
+  const bonusResult = await calculateCurrentBonusPoints(score.bonus, member, currentTournamentId);
+  const pastBonus = await calculatePastBonusPoints(score.bonus, member, lastFourIds);
+  
+  const currentBonusData = getCurrentBonusDataWithDefaults(memberName, bonusResult.bonuses);
+
+  // ========== 🏆 TOURNAMENT DECAY ==========
+  const tournamentResult = await calculateTournamentDecayPoints(memberName, tournaments, currentTournamentId);
+  const tournamentDecayPoints = Math.ceil(tournamentResult.totalPoints);
+
+  // ========== 📊 TOTALES Y RETORNO ==========
+  const currentRoleplayTotal = roleplayResult.totalPoints;
+  const currentEventTotal = eventResult.currentEventPoints;
+  const currentBonusTotal = bonusResult.totalPoints;
+  
+  const pastPoints = pastRoleplayPoints + eventResult.pastEventPoints + pastBonus + tournamentDecayPoints;
+  const totalScore = currentRoleplayTotal + currentEventTotal + currentBonusTotal + pastPoints;
+
+  return {
+    member: {
+      slug: member.slug,
+      name: member.data.name,
+      code: member.data.code,
+      flag: member.data.flagPath,
+    },
+    scores: {
+      currentRoleplay: currentRoleplayTotal,
+      pastRoleplay: pastRoleplayPoints,
+      currentEventPoints: currentEventTotal,
+      pastEventPoints: eventResult.pastEventPoints,
+      currentBonus: currentBonusTotal,
+      pastBonus,
+      tournamentDecayPoints,
+    },
+    details: {
+      currentRoleplay: currentRoleplayData,
+      currentEvents: currentEventData,
+      currentBonus: currentBonusData,
+      pastBreakdown: {
+        pastRoleplay: pastRoleplayPoints,
+        pastEvents: eventResult.pastEventPoints,
+        pastBonus,
+        tournamentResults: tournamentDecayPoints,
+      },
+    },
+    totalScore,
+    tier: getMemberTier(totalScore),
+  };
+}
+
+/**
+ * Función anterior mantenida por compatibilidad (es un wrapper)
+ */
 export async function getMemberTotalScore(
   member: MemberEntry,
   currentTournamentId: number = CURRENT_TOURNAMENT_ID,
@@ -24,9 +188,9 @@ export async function getMemberTotalScore(
   breakdown: {
     currentRoleplay: number,
     pastRoleplay: number,
-    currentEventPoints: number // NUEVO
-    pastEventPoints: number // NUEVO
-    totalEventPoints: number // NUEVO
+    currentEventPoints: number
+    pastEventPoints: number
+    totalEventPoints: number
     currentBonus: number
     pastBonus: number
     tournamentDecayPoints: number
@@ -51,80 +215,34 @@ export async function getMemberTotalScore(
     }>
   }
 }> {
-  const score = member.data.score
-  const lastFourIds = getLastFourTournamentIds(tournaments, currentTournamentId)
-
-  {/* 🎭 ROLEPLAY */}
-  // 1️⃣ ROLEPLAY POINTS (semi-automático - ACTUALES + ANTERIORES)
-  // const roleplayResult = calculateCurrentRoleplayPoints(score.rp, member, currentTournamentId);
-  // const pastRoleplayPointsRaw = calculatePastRoleplayPoints(score.rp, lastFourIds);
-  const roleplayResult = calculateCurrentRoleplayPoints(member.data.name);
-  const pastRoleplayPointsRaw = calculatePastRoleplayPoints(member.data.name, lastFourIds);
-  /* ESTO SOLO ES POR ESTA TEMPORADA, LA QUE VIENE NO VA A SER NECESARIOOOOOO
-  ESTO SOLO ES POR ESTA TEMPORADA, LA QUE VIENE NO VA A SER NECESARIOOOOOO
-  ESTO SOLO ES POR ESTA TEMPORADA, LA QUE VIENE NO VA A SER NECESARIOOOOOO
-  ESTO SOLO ES POR ESTA TEMPORADA, LA QUE VIENE NO VA A SER NECESARIOOOOOO
-  ESTO SOLO ES POR ESTA TEMPORADA, LA QUE VIENE NO VA A SER NECESARIOOOOOO
-  ESTO SOLO ES POR ESTA TEMPORADA, LA QUE VIENE NO VA A SER NECESARIOOOOOO
-  ESTO SOLO ES POR ESTA TEMPORADA, LA QUE VIENE NO VA A SER NECESARIOOOOOO
-  */
-  // Normalizar puntos de roleplay anteriores
-  const pastRoleplayPoints = normalizePoints(pastRoleplayPointsRaw, SCORING_CONFIG.PRP_RAW_MAX, SCORING_CONFIG.PRP_MAX);
-  // const pastRoleplayPoints = calculatePastRoleplayPoints(score.rp, lastFourIds);
-
-  const roleplayPoints = roleplayResult.totalPoints;
-
-  {/* 🎉 EVENTS */}
-  // 2️⃣ EVENT POINTS (automático - ACTUALES + ANTERIORES)
-  // const eventResult = calculateAllEventPoints(score?.events ?? {}, currentTournamentId, lastFourIds);
-  const eventResult = calculateAllEventPoints(member.data.name, currentTournamentId, lastFourIds);
-  const currentEventPoints = eventResult.currentEventPoints;
-  const pastEventPoints = eventResult.pastEventPoints;
-  // Aplicar al TOTAL de eventos (actuales + anteriores)
-  const totalEventPoints = eventResult.totalEventPoints;
+  const result = await getMemberScoreDetails(member, currentTournamentId);
   
-  {/* 🎁 BONUS */}
-  // 3️⃣ BONUS POINTS (actuales + anteriores)
-  const bonusResult = await calculateCurrentBonusPoints(score.bonus, member, currentTournamentId);
-  const currentBonus = bonusResult.totalPoints;
-  const pastBonus = await calculatePastBonusPoints(score.bonus, member, lastFourIds);
-  const bonusPoints = currentBonus + pastBonus;
-
-  {/* 🏆 TOURNAMENT DECAY POINTS */}
-  // 4️⃣ TOURNAMENT DECAY POINTS (automático)
-  // Obtener puntos de las ediciones anteriores con decay
-  const tournamentResult = await calculateTournamentDecayPoints(
-    member.data.name, // Nombre del equipo
-    tournaments,
-    currentTournamentId,
-  )
-  // Normalizar Tournament Decay Points
-  const tournamentDecayPoints = Math.ceil(tournamentResult.totalPoints);
-  // const tournamentDecayPoints = tournamentResult.totalPoints;
-
-  const pastPoints = pastRoleplayPoints + pastEventPoints +  pastBonus + tournamentDecayPoints;
-  const totalScore = roleplayPoints + currentEventPoints + currentBonus + pastPoints;
+  // Reconstruct para mantener compatibilidad
   return {
-    totalScore,
+    totalScore: result.totalScore,
     breakdown: {
-      currentRoleplay: roleplayPoints,
-      pastRoleplay: pastRoleplayPoints,
-      currentEventPoints: eventResult.currentEventPoints,
-      pastEventPoints: eventResult.pastEventPoints,
-      totalEventPoints,
-      currentBonus,
-      pastBonus,
-      tournamentDecayPoints,
+      currentRoleplay: result.scores.currentRoleplay,
+      pastRoleplay: result.scores.pastRoleplay,
+      currentEventPoints: result.scores.currentEventPoints,
+      pastEventPoints: result.scores.pastEventPoints,
+      totalEventPoints: result.scores.currentEventPoints + result.scores.pastEventPoints,
+      currentBonus: result.scores.currentBonus,
+      pastBonus: result.scores.pastBonus,
+      tournamentDecayPoints: result.scores.tournamentDecayPoints,
     },
     details: {
-      currentRoleplay: roleplayResult.roleplay,
-      currentEvents: eventResult.currentEvents,
-      pastEventBreakdown: eventResult.pastBreakdown,
-      currentBonus: bonusResult.bonuses,
-      tournamentBreakdown: tournamentResult.breakdown,
+      currentRoleplay: result.details.currentRoleplay,
+      currentEvents: result.details.currentEvents,
+      pastEventBreakdown: [],
+      currentBonus: result.details.currentBonus,
+      tournamentBreakdown: [],
     },
-  }
+  };
 }
+// ============================================================================
+// FUNCIÓN RANKINGS - Obtiene scores para TODOS los miembros verificados, 
+// ordenados por puntaje total (descendente)
+// ============================================================================
 
 export async function getRankedMembers(
   members: MemberEntry[],
@@ -154,25 +272,38 @@ export async function getRankedMembers(
     members
       .filter((member) => member.data.verified)
       .map(async (member) => {
-        const result = await getMemberTotalScore(member, currentTournamentId);
+        const result = await getMemberScoreDetails(member, currentTournamentId);
 
         return {
-          slug: member.slug,
-          name: member.data.name,
-          code: member.data.code,
-          flag: member.data.flagPath,
-          scores: result.breakdown,
+          slug: result.member.slug,
+          name: result.member.name,
+          code: result.member.code,
+          flag: result.member.flag,
+          scores: {
+            currentRoleplay: result.scores.currentRoleplay,
+            pastRoleplay: result.scores.pastRoleplay,
+            currentEventPoints: result.scores.currentEventPoints,
+            pastEventPoints: result.scores.pastEventPoints,
+            totalEventPoints: result.scores.currentEventPoints + result.scores.pastEventPoints,
+            currentBonus: result.scores.currentBonus,
+            pastBonus: result.scores.pastBonus,
+            tournamentDecayPoints: result.scores.tournamentDecayPoints,
+          },
           currentRoleplay: result.details.currentRoleplay,
           currentEvents: result.details.currentEvents,
           currentBonus: result.details.currentBonus,
           totalScore: result.totalScore,
-          tier: getMemberTier(result.totalScore),
+          tier: result.tier,
         };
       })
   );
 
   return ranked.sort((a, b) => b.totalScore - a.totalScore);
 }
+
+// ============================================================================
+// UTILIDADES
+// ============================================================================
 
 export function getRankClass(ranking: number): string {
   return ranking === 1
