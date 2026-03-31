@@ -10,12 +10,11 @@ image: "/src/assets/images/articles/welcome/gradient.png"
 import { LINKS } from '@config/links';
 import { Image } from 'astro:assets';
 import Banner from '@images/articles/welcome/banner.png';
+import headquarters from '@images/headquarters.jpg';
 
 ## The Forestian Football Confederation
 
 The Forestian Football Confederation is the governing body responsible for overseeing and promoting football within Forest. Founded in 2024 and headquartered in Cecims, Bilsa, the FFC was built around a simple idea: bring Forestians together through football in a way that is fun, competitive, and open to everyone.
-
-The Confederation organizes the Forest Cup ~and the Forestian Championship League~, and manages the national teams of the region in international competitions. Beyond the pitch, it works to build a football culture that values unity and sportsmanship as much as results.
 
 <div className="flex flex-col items-center justify-center my-2">
   <Image
@@ -27,6 +26,22 @@ The Confederation organizes the Forest Cup ~and the Forestian Championship Leagu
   />
   <span className="mt-2 text-xs text-green-100 font-normal w-full text-left">
     Founder Nations of the Confederation.
+  </span>
+</div>
+
+The Confederation organizes the Forest Cup ~and the Forestian Championship League~, and manages the national teams of the region in international competitions. Beyond the pitch, it works to build a football culture that values unity and sportsmanship as much as results.
+
+<div className="flex flex-col items-center justify-center my-2">
+  <Image
+    src={headquarters}
+    alt="FFC"
+    className="rounded-xl shadow-lg h-80 w-full object-cover -mb-4"
+    quality={40}
+    height={500}
+    format="webp"
+  />
+  <span className="mt-2 text-xs text-green-100 font-normal w-full text-left">
+    📍 Cecims, Bilsa. FFC Headquarters with the flags of its founder nations.
   </span>
 </div>
 

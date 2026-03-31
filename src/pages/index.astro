@@ -18,7 +18,6 @@ import RelatedNews from '@components/articles/RelatedNews.astro';
 import RankingPreview from '@components/ranking/RankingPreview.astro';
 
 import AllGoals from '@images/tournaments/2024/cardImg.png';
-import Roless from '@images/roless-shoot.png';
 import CacusiaHost from '@images/articles/cacusia-host/banner.png';
 import FCHistory from '@images/tournaments/fc-history.png';
 import FC26Logo from '@images/tournaments/2026/logo.png';
@@ -28,10 +27,13 @@ import Members from '@images/members3.png';
 import Signup from '@images/articles/sign-up/inscription.jpg';
 import RankingImage from '@images/articles/ranking/tiers.png';
 
+import CarrouselImgOne from '@images/headquarters.jpg';
 import CarrouselImgTwo from '@images/tournaments/2024/celebration.png';
 import CarrouselImgThree from '@images/tournaments/trophy_panoramic.png';
 import CarrouselImgFour from '@images/FFC Background.png';
+import CarrouselImgFive from '@images/roless-shoot.png';
 import CarrouselImgSix from '@images/nysnub3.png';
+import CarrouselImgSeven from '@images/arboreball.png';
 
 // Datos para el carrusel del Hero
 const carouselImages = [
@@ -42,8 +44,20 @@ const carouselImages = [
     priority: false,
   },
   {
+    src: CarrouselImgOne,
+    alt: 'Headquarters',
+    className: '',
+    priority: true,
+  },
+  {
     src: CarrouselImgThree,
     alt: 'Trophy Panoramic',
+    className: '',
+    priority: false,
+  },
+  {
+    src: CarrouselImgSeven,
+    alt: 'Arboreball',
     className: '',
     priority: false,
   },
@@ -59,12 +73,12 @@ const carouselImages = [
     className: '',
     priority: false,
   },
-  {
-    src: Roless,
-    alt: 'Match',
-    // className: 'object-[35%_-2rem] lg:object-center',
-    priority: true,
-  },
+  // {
+  //   src: CarrouselImgFive,
+  //   alt: 'Match',
+  //   // className: 'object-[35%_-2rem] lg:object-center',
+  //   priority: false,
+  // },
 ];
 
 // Datos para el Grid de Noticias 
