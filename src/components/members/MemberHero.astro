@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 // Achievements (should make a component specific for achievements)
 import AchievementCard from '@components/achievements/AchievementCard.astro';
+import ScoreDetails from '@components/members/ScoreDetails.astro';
 // Utils
 import { getMemberTier } from 'src/utils/memberUtils';
 import { getPointsTextColorClass } from '@lib/scoreUtils';
@@ -12,7 +13,7 @@ import defaultLogo from '@images/members/default_logo.png';
 import Arrow from '@images/icons/arrow-up-right-from-square-solid.svg';
 
 // --- PROPS DEFINITION ---
-const { titles = [], achievements = [], memberData, ranking, points } = Astro.props;
+const { titles = [], achievements = [], memberData, ranking, points, scoreBreakdown } = Astro.props;
 const { name, logoPath, flagPath, founded, affiliation, feddispatch, nslink, code, region, federation } = memberData;
 
 // Show default logo if no logo is provided
@@ -233,6 +234,7 @@ const isFounder = memberData.founder === true; // If the member is a founder, ha
               <p class="text-xs tracking-widest text-gray-400 uppercase mb-2">Tier</p>
               <p class={`text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold ${tierClass}`}>{tier}</p>
             </div>
+
           </div>
         </div>
       </div>

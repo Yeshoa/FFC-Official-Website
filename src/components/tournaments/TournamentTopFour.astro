@@ -1,0 +1,112 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+import { CURRENT_TOURNAMENT_ID,getTeamByPosition } from 'src/utils/tournamentUtils';
+import { getMemberByName } from 'src/utils/memberUtils';
+import { ROUTES } from '@config/routes';
+import Title from '@components/Title.astro';
+
+interface Props {
+  tournaments: CollectionEntry<'tournaments'>[];
+  type: 'forest-cup' | 'forestian-champions-league';
+}
+
+const { tournaments, type } = Astro.props;
+
+const allEditions = tournaments
+  .filter(t => t.data.type === type)
+  .filter(t => t.data.id < CURRENT_TOURNAMENT_ID); // solo torneos finalizados
+
+type PalmaresEntry = {
+  member: Awaited<ReturnType<typeof getMemberByName>>;
+  champion: number[];
+  runnerUp: number[];
+  third: number[];
+  fourth: number[];
+};
+
+const palmaresMap = new Map<string, PalmaresEntry>();
+
+for (const tournament of allEditions) {
+  const positions = await Promise.all([
+    getTeamByPosition(tournament, 1),
+    getTeamByPosition(tournament, 2),
+    getTeamByPosition(tournament, 3),
+    getTeamByPosition(tournament, 4),
+  ]);
+
+  const keys = ['champion', 'runnerUp', 'third', 'fourth'] as const;
+
+  positions.forEach((team, i) => {
+    if (!team) return;
+    const key = team.slug;
+    if (!palmaresMap.has(key)) {
+      palmaresMap.set(key, { member: team, champion: [], runnerUp: [], third: [], fourth: [] });
+    }
+    palmaresMap.get(key)![keys[i]].push(tournament.data.edition);
+  });
+}
+
+const palmares = Array.from(palmaresMap.values()).sort((a, b) =>
+  b.champion.length - a.champion.length ||
+  b.runnerUp.length - a.runnerUp.length ||
+  b.third.length - a.third.length ||
+  b.fourth.length - a.fourth.length
+);
+---
+<section class="items-start px-1">
+
+<h2 class="text-3xl font-bold text-center py-6">Top Fours</h2>
+<div class="pb-6 overflow-x-auto">
+  <table class="min-w-[600px] w-full text-sm text-center border-collapse rounded-2xl">
+    <thead class="bg-green-800 text-white">
+      <tr>
+        <th class="px-3 py-2 text-left rounded-tl-lg">Team</th>
+        <th class="px-3 py-2">Champion</th>
+        <th class="px-3 py-2">Runner-Up</th>
+        <th class="px-3 py-2">Third</th>
+        <th class="px-3 py-2 rounded-tr-lg">Fourth</th>
+      </tr>
+    </thead>
+    <tbody>
+      {palmares.map((entry) => (
+        <tr class="border-b border-green-700 hover:bg-green-900/30 transition duration-150">
+          <td class="px-3 py-2 text-left font-semibold">
+            <a href={`/members/${entry.member.slug}`} class="flex items-center gap-2 hover:underline">
+              {entry.member.data?.flagPath && (
+                <Image
+                  src={entry.member.data.flagPath}
+                  alt={entry.member.data.name}
+                  // height={18}
+                  // class="rounded-sm object-cover max-h-5 shrink-0"
+                  class="h-5 max-w-9 object-cover rounded inline-block 2xl:h-6 2xl:w-9"
+                  width={42}
+                  loading="lazy"
+                  quality={80}
+                  format="webp"
+                />
+              )}
+              {entry.member.data.name}
+            </a>
+          </td>
+          {(['champion', 'runnerUp', 'third', 'fourth'] as const).map((key) => (
+            <td class="px-3 py-2">
+              {entry[key].length > 0 ? (
+                <span>
+                  <span class={`font-bold ${key === 'champion' ? 'text-yellow-400' : ''}`}>
+                    {entry[key].length}
+                  </span>
+                  {' '}
+                  <a href={ROUTES.forestCup.edition(entry[key][0])} class="text-gray-400 text-xs hover:text-gray-300 hover:underline">
+                    ({entry[key].join(', ')})
+                  </a>
+                </span>
+              ) : '—'}
+            </td>
+          ))}
+        </tr>
+      ))}   
+    </tbody>
+  </table>
+</div>
+</section>

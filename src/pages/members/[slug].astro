@@ -4,6 +4,7 @@ import { type CollectionEntry } from 'astro:content';
 // Components
 import App from '@layouts/App.astro';
 import MemberHero from '@components/members/MemberHero.astro';
+import ScoreDetails from '@components/members/ScoreDetails.astro';
 import TournamentParticipationTable from '@components/members/TournamentParticipationTable.astro';
 import MatchCard from '@components/matches/MatchCard.astro'; //Match card with stadium
 import MatchCardDetailed from '@components/matches/MatchCardDetailed.astro';// Match card with tournament
@@ -15,7 +16,7 @@ import { getTournaments, getMatches, getMembers, getArticles } from '@lib/collec
 
 // Utils
 import { CURRENT_TOURNAMENT_ID } from 'src/utils/tournamentUtils'; // Global constant for current tournament
-import { getMemberTotalScore } from '@lib/rankingUtils';
+import { getMemberTotalScore, getMemberScoreDetails } from '@lib/rankingUtils';
 import { getMemberRank, getMemberByName } from 'src/utils/memberUtils';
 import { getArticlesByTags } from 'src/utils/articleUtils';
 import { getAchievementsForMember } from '@lib/achievements/dynamics/index';
@@ -137,6 +138,7 @@ for (const match of playedMatches) {
 // this is for the member hero
 const memberRank = await getMemberRank(member, CURRENT_TOURNAMENT_ID);
 const memberTotalScoreResult = await getMemberTotalScore(member, CURRENT_TOURNAMENT_ID);
+const memberScoreDetails = await getMemberScoreDetails(member, CURRENT_TOURNAMENT_ID);
 const memberTotalScore = memberTotalScoreResult.totalScore;
 const titles = tournaments
   .filter(t => t.data.champion === memberData.name)
@@ -159,7 +161,8 @@ const filteredArticles = getArticlesByTags(articles, filterTags);
 
 <App title={`FFC - ${memberData.name}`}>
   <div class="md:container m-auto p-4 py-8">
-    <MemberHero memberData={memberData} ranking={memberRank} points={memberTotalScore} titles={titles} achievements={achievements} />
+    <MemberHero memberData={memberData} ranking={memberRank} points={memberTotalScore} titles={titles} achievements={achievements} scoreBreakdown={memberScoreDetails} />
+    <ScoreDetails scoreData={memberScoreDetails} />
 
     <TournamentParticipationTable 
       member={member} 
@@ -251,9 +254,9 @@ const filteredArticles = getArticlesByTags(articles, filterTags);
           <p class="text-gray-400 italic">There are no stats to show for this National Team</p>
         )}
         <!-- Right: Below H2H, Scorers and Assists -->
-        <section class="flex justify-center items-center flex-col">
+        <!-- <section class="flex justify-center items-center flex-col"> -->
           <ScorersTable members={members.filter(m => m.slug === member.slug)} matches={playedMatches} />
-        </section>
+        <!-- </section> -->
       </div>
     </div>
     <!-- Bottom: Records and Stats -->

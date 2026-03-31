@@ -1,0 +1,98 @@
+---
+import type { MemberScoreDetails } from '@lib/rankingUtils';
+
+interface Props {
+  scoreData: Awaited<ReturnType<typeof import('@lib/rankingUtils').getMemberScoreDetails>>;
+}
+
+const { scoreData } = Astro.props;
+const { scores, details } = scoreData;
+---
+
+<div class="bg-green-950/80 rounded-xl p-5 mb-8 shadow-lg text-xs border border-green-900/50">
+  <!-- <h3 class="text-sm font-semibold text-white mb-4 border-b border-green-700 pb-2 flex items-center gap-2">
+    <span class="text-green-400">●</span>
+    Score Details
+  </h3> -->
+
+  <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
+
+    <!-- Roleplay -->
+    <div>
+      <div class="flex justify-between items-baseline mb-2">
+        <span class="font-semibold text-green-300">Roleplay</span>
+        <span class="text-lg font-bold text-green-400">{scores.currentRoleplay}</span>
+      </div>
+      <div class="space-y-1 pl-1 text-[10px] text-gray-400">
+        {Object.entries(details.currentRoleplay).map(([name, points]) => (
+          <div class="flex justify-between">
+            <span class="opacity-75">{name}</span>
+            <span class={points > 0 ? 'text-green-400 font-medium' : 'text-gray-600'}>
+              {points}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Events -->
+    <div>
+      <div class="flex justify-between items-baseline mb-2">
+        <span class="font-semibold text-blue-300">Events</span>
+        <span class="text-lg font-bold text-blue-400">{scores.currentEventPoints}</span>
+      </div>
+      <div class="space-y-1 pl-1 text-[10px] text-gray-400">
+        {Object.entries(details.currentEvents).map(([name, points]) => (
+          <div class="flex justify-between">
+            <span class="opacity-75">{name}</span>
+            <span class={points > 0 ? 'text-blue-400 font-medium' : 'text-gray-600'}>
+              {points}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Bonus -->
+    <div>
+      <div class="flex justify-between items-baseline mb-2">
+        <span class="font-semibold text-amber-300">Bonus</span>
+        <span class="text-lg font-bold text-amber-400">{scores.currentBonus}</span>
+      </div>
+      <div class="space-y-1 pl-1 text-[10px] text-gray-400">
+        {Object.entries(details.currentBonus).map(([name, points]) => (
+          <div class="flex justify-between">
+            <span class="opacity-75">{name}</span>
+            <span class={points > 0 ? 'text-amber-400 font-medium' : 'text-gray-600'}>
+              {points}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Past Editions -->
+    <div class="lg:border-l border-green-800 pl-6">
+      <div class="font-semibold text-purple-300 mb-2">Past Editions</div>
+      <div class="space-y-1 text-[10px] text-gray-400">
+        <div class="flex justify-between">
+          <span class="opacity-75">Roleplay</span>
+          <span class="text-emerald-400">{details.pastBreakdown.pastRoleplay}</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="opacity-75">Events</span>
+          <span class="text-blue-400">{details.pastBreakdown.pastEvents}</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="opacity-75">Bonus</span>
+          <span class="text-amber-400">{details.pastBreakdown.pastBonus}</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="opacity-75">Results</span>
+          <span class="text-purple-400 font-medium">{details.pastBreakdown.tournamentResults}</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

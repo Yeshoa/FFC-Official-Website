@@ -12,16 +12,17 @@ import { getMemberByName } from 'src/utils/memberUtils';
 import { getTournaments, getMatches, getMembers, getArticles } from '@lib/collections';
 import { getArticlesByTags } from 'src/utils/articleUtils';
 import RelatedNews from '@components/articles/RelatedNews.astro';
+import TournamentTopFour from '@components/tournaments/TournamentTopFour.astro';
 
 const members = await getMembers();
 const matches = await getMatches();
 let tournaments = await getTournaments();
 tournaments = tournaments.sort((a, b) => a.data.id - b.data.id);
 const matchDatas = matches.map((entry) => entry.data);
-
+const tournamentType = "forest-cup";
 const articles = await getArticles();
 const filterTags = [
-  "forest-cup",
+  tournamentType,
 ];
 const filteredArticles = getArticlesByTags(articles, filterTags);
 
@@ -56,16 +57,24 @@ const filteredArticles = getArticlesByTags(articles, filterTags);
     </header>
     <!-- List tournaments -->
     <div class="max-w-8xl border-t border-green-600 items-start w-full px-2 md:px-6">
-      <TournamentHistoryTable tournaments={tournaments} matches={matches} members={members} type="forest-cup" />
+      <TournamentHistoryTable tournaments={tournaments} matches={matches} members={members} type={tournamentType} />
     </div>
     <!-- Stats and Top Scorers -->
-    <div class="grid grid-cols-1 xl:grid-cols-2 gap-6 mb-12 items-start justify-between w-full max-w-8xl px-2 md:px-6">
+    <!-- <div class="grid grid-cols-1 xl:grid-cols-2 gap-6 mb-12 items-start justify-between w-full max-w-8xl px-2 md:px-6">
       <div class="w-full flex flex-col items-center">
         <Table members={members} matches={matches} />
       </div>
-      <section class="flex items-center flex-col px-1">
+      <ScorersTable members={members} matches={matches} />
+    </div> -->
+    <!-- En lugar de grid fijo, usar items-start y dejar que cada columna crezca naturalmente -->
+    <div class="grid grid-cols-1 xl:grid-cols-2 gap-6 mb-12 items-start w-full max-w-8xl px-2 md:px-6">
+      <div class="w-full flex flex-col items-center">
+        <Table members={members} matches={matches} />
+      </div>
+      <div class="flex flex-col">
+        <TournamentTopFour tournaments={tournaments} type={tournamentType} />
         <ScorersTable members={members} matches={matches} />
-      </section>
+      </div>
     </div>
     <RelatedNews articles={filteredArticles} max={4} />
 

@@ -20,15 +20,15 @@ type MemberEntry = CollectionEntry<'members'>;
 const goalStats = new Map<string, { player: string; team: MemberEntry | string; goals: number; assists: number }>();
 const assistStats = new Map<string, { player: string; team: MemberEntry | string; assists: number; goals: number }>();
 
-const singleTeam = members.length === 1 ? members[0].data.name : null; // Si hay un solo miembro, filtrar por nombre
+const singleTeam = members.length === 1 ? members[0].data.name : null;
 
 for (const match of filteredMatches) {
   if (!match.data.goals) continue;
 
   for (const goal of match.data.goals) {
-    if (singleTeam && goal.team !== singleTeam || goal.player === undefined) continue; // Si hay un solo miembro, no mostrar goles de otros equipos o jugadores sin nombre
+    if (singleTeam && goal.team !== singleTeam || goal.player === undefined) continue;
     const key = `${goal.player}-${goal.team}`;
-    // Goleadores
+
     if (!goal.ownGoal) {
       if (!goalStats.has(key)) {
         goalStats.set(key, {
@@ -38,16 +38,14 @@ for (const match of filteredMatches) {
           assists: 0,
         });
       } else {
-        const entry = goalStats.get(key)!;
-        entry.goals++;
+        goalStats.get(key)!.goals++;
       }
     }
-    
+
     if (assistStats.has(key)) {
       assistStats.get(key)!.goals++;
     }
 
-    // Asistencias (si existe el campo)
     if (goal.assist) {
       const assistKey = `${goal.assist}-${goal.team}`;
       if (!assistStats.has(assistKey)) {
@@ -58,93 +56,96 @@ for (const match of filteredMatches) {
           goals: 0,
         });
       } else {
-        const entry = assistStats.get(assistKey)!;
-        entry.assists++;
+        assistStats.get(assistKey)!.assists++;
       }
 
-      // Actualizar goles del asistente
       if (goalStats.has(assistKey)) {
         goalStats.get(assistKey)!.assists++;
       }
     }
   }
-}   
+}
 
 const topScorers = Array.from(goalStats.values())
-  .sort((a, b) =>
-    b.goals - a.goals ||
-    b.assists - a.assists
-  )
+  .sort((a, b) => b.goals - a.goals || b.assists - a.assists)
   .slice(0, 10);
 
 const topAssisters = Array.from(assistStats.values())
-  .sort((a, b) =>
-    b.assists - a.assists ||
-    b.goals - a.goals
-  )
+  .sort((a, b) => b.assists - a.assists || b.goals - a.goals)
   .slice(0, 10);
-
 ---
-
+<section class="flex items-start flex-col sm:flex-row px-1">
 {topScorers.length >= 1 && (
+  <div class="overflow-x-auto w-full">
     <h2 class="text-3xl font-bold text-center py-6">Top Scorers</h2>
-    <div class="overflow-x-auto w-full">
     <table class="min-w-full text-sm border border-green-700 rounded-lg overflow-hidden">
       <thead>
         <tr class="bg-green-800 text-white">
           <th class="px-4 py-2 text-left">Player</th>
-          {members.length !== 1 && <th class="px-4 py-2 text-left">Team</th>}
           <th class="px-4 py-2 text-right">Goals</th>
         </tr>
       </thead>
       <tbody>
         {topScorers.map((entry, index) => (
           <tr class="border-b border-green-700 hover:bg-green-900/30 transition duration-150" key={index}>
-            <td class="px-4 py-2 font-semibold">{entry.player}</td>
-            {members.length !== 1 && ( // Si hay más de un miembro, mostrar el equipo
-              <td class="px-4 py-2 flex items-center gap-2">
-                <a href={`/members/${entry.team.slug}`} class="flex items-center gap-2 hover:underline">
-                  <Image src={entry.team.data.flagPath} alt={entry.team.data.name} 
-                  class="w-6 h-4 object-cover rounded" height={36} loading={"lazy"} quality={10} format="webp" />
-                  {entry.team.data.name}
-                </a>
-              </td>
-            )}
+            <td class="px-4 py-2 font-semibold">
+              <div class="flex items-center gap-2">
+                {typeof entry.team !== 'string' && (
+                  <Image
+                    src={entry.team.data.flagPath}
+                    alt={entry.team.data.name}
+                    class="w-6 h-4 object-cover rounded shrink-0"
+                    height={36}
+                    loading="lazy"
+                    quality={10}
+                    format="webp"
+                  />
+                )}
+                {entry.player}
+              </div>
+            </td>
             <td class="px-4 py-2 text-right font-bold">{entry.goals}</td>
           </tr>
         ))}
       </tbody>
     </table>
   </div>
-  )}
-  {topAssisters.length >= 1 && (
-  <h2 class="text-3xl font-bold text-center py-6">Top Assists</h2>
+)}
+
+{topAssisters.length >= 1 && (
   <div class="overflow-x-auto w-full">
+    <h2 class="text-3xl font-bold text-center py-6">Top Assists</h2>
     <table class="min-w-full text-sm border border-green-700 rounded-lg overflow-hidden">
       <thead>
         <tr class="bg-green-800 text-white">
           <th class="px-4 py-2 text-left">Player</th>
-          {members.length !== 1 &&<th class="px-4 py-2 text-left">Team</th>}
           <th class="px-4 py-2 text-right">Assists</th>
         </tr>
       </thead>
       <tbody>
         {topAssisters.map((entry, index) => (
           <tr class="border-b border-green-700 hover:bg-green-900/30 transition duration-150" key={index}>
-            <td class="px-4 py-2 font-semibold">{entry.player}</td>
-            {members.length !== 1 && ( // Si hay más de un miembro, mostrar el equipo
-              <td class="px-4 py-2 flex items-center gap-2">
-                <a href={`/members/${entry.team.slug}`} class="flex items-center gap-2 hover:underline">
-                  <Image src={entry.team.data.flagPath} alt={entry.team.data.name} 
-                  class="w-6 h-4 object-cover rounded" height={36} loading={"lazy"} quality={10} format="webp" />
-                  {entry.team.data.name}
-                </a>
-              </td>
-            )}
+            <td class="px-4 py-2 font-semibold">
+              <div class="flex items-center gap-2">
+                {typeof entry.team !== 'string' && (
+                  <Image
+                    src={entry.team.data.flagPath}
+                    alt={entry.team.data.name}
+                    class="w-6 h-4 object-cover rounded shrink-0"
+                    height={36}
+                    loading="lazy"
+                    quality={10}
+                    format="webp"
+                  />
+                )}
+                {entry.player}
+              </div>
+            </td>
             <td class="px-4 py-2 text-right font-bold">{entry.assists}</td>
           </tr>
         ))}
       </tbody>
     </table>
   </div>
-  )}
+)}
+</section>
