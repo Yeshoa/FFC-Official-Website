@@ -58,21 +58,32 @@ const palmares = Array.from(palmaresMap.values()).sort((a, b) =>
 
 <h2 class="text-3xl font-bold text-center py-6">Top Fours</h2>
 <div class="pb-6 overflow-x-auto">
-  <table class="min-w-[600px] w-full text-sm text-center border-collapse rounded-2xl">
+  <table class="w-full text-sm text-center border-collapse rounded-2xl">
     <thead class="bg-green-800 text-white">
       <tr>
         <th class="px-3 py-2 text-left rounded-tl-lg">Team</th>
-        <th class="px-3 py-2">Champion</th>
-        <th class="px-3 py-2">Runner-Up</th>
-        <th class="px-3 py-2">Third</th>
-        <th class="px-3 py-2 rounded-tr-lg">Fourth</th>
+        <th class="px-2 py-2">
+          <span class="hidden sm:inline">Champion</span>
+          <span class="sm:hidden">1st</span>
+        </th>
+        <th class="px-2 py-2">
+          <span class="hidden sm:inline">Runner Up</span>
+          <span class="sm:hidden">2nd</span>
+        </th>
+        <th class="px-2 py-2">
+          <span class="hidden sm:inline">Third</span>
+          <span class="sm:hidden">3rd</span>
+        </th>
+        <th class="px-2 py-2 rounded-tr-lg">
+          <span class="hidden sm:inline">Fourth</span>
+          <span class="sm:hidden">4th</span>
+        </th>
       </tr>
     </thead>
     <tbody>
       {palmares.map((entry) => (
         <tr class="border-b border-green-700 hover:bg-green-900/30 transition duration-150">
-          <td class="px-3 py-2 text-left font-semibold">
-            <a href={`/members/${entry.member.slug}`} class="flex items-center gap-2 hover:underline">
+          <td class="px-2 py-2 text-left font-semibold w-fit flex items-center gap-2 ">
               {entry.member.data?.flagPath && (
                 <Image
                   src={entry.member.data.flagPath}
@@ -86,11 +97,13 @@ const palmares = Array.from(palmaresMap.values()).sort((a, b) =>
                   format="webp"
                 />
               )}
-              {entry.member.data.name}
+            <a href={`/members/${entry.member.slug}`} class="hover:underline">
+              <span class="hidden sm:inline">{entry.member.data.name}</span>
+              <span class="sm:hidden">{entry.member.data.code}</span>
             </a>
           </td>
           {(['champion', 'runnerUp', 'third', 'fourth'] as const).map((key) => (
-            <td class="px-3 py-2">
+            <td class="px-2 py-2">
               {entry[key].length > 0 ? (
                 <span>
                   <span class={`font-bold ${key === 'champion' ? 'text-yellow-400' : ''}`}>
@@ -98,7 +111,7 @@ const palmares = Array.from(palmaresMap.values()).sort((a, b) =>
                   </span>
                   {' '}
                   <a href={ROUTES.forestCup.edition(entry[key][0])} class="text-gray-400 text-xs hover:text-gray-300 hover:underline">
-                    ({entry[key].join(', ')})
+                    ({entry[key].map(year => `'${year.toString().slice(-2)}`).join(', ')})
                   </a>
                 </span>
               ) : '—'}

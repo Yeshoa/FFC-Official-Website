@@ -64,6 +64,7 @@ const title = type === 'forest-cup' ? 'Forest Cup History' : 'Forestian Champion
 <Title size="text-4xl mt-6">
     {title}
 </Title>
+<h6 class="md:hidden text-sm text-center text-gray-300 mb-2">Swipe to see the full table</h6>
 <div class="pb-6 overflow-x-auto">
   <table class="min-w-[1000px] w-full text-md text-center border-collapse rounded-2xl table-fixed">
     <thead class="bg-green-800 text-white">
@@ -111,8 +112,8 @@ const title = type === 'forest-cup' ? 'Forest Cup History' : 'Forestian Champion
                     <a href={`/members/${champion.slug}`}>
                       <Image src={champion.data.flagPath} alt={champion.data.name} height={18} class="rounded-sm object-cover max-h-6" loading="lazy" quality={40} format="webp" />
                     </a>
-                  )}
                   <a href={`/members/${champion.slug}`} class="hover:underline truncate text-yellow-400">{champion.data.name}</a>
+                  )}
                 </div>
               )}
             </td>
