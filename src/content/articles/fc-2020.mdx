@@ -8,10 +8,12 @@ image: "/src/assets/images/articles/fc-2020/waving-flag.png"
 ---
 
 import { Image } from 'astro:assets';
+import EggTrigger from '@components/easter-eggs/EggTrigger.astro';
 import Banner from '@images/articles/fc-2020/waving-flag.png';
 import QF from '@images/articles/fc-2020/qf.png';
 import SF from '@images/articles/fc-2020/sf.png';
 import Final from '@images/articles/fc-2020/final.png';
+import EggBilsa from '@images/eggs/egg-bil.webp';
 
 ## How It Started
 
@@ -75,3 +77,14 @@ Ruinenlust became the first ever Forest Cup champion during what we could call a
 ---
 
 This edition was never official. I did not have the approval of the majority of participants, and I am aware of that. But I believe it deserves to be mentioned and included as part of our history, as it was the catalyst for the creation of this confederation.
+
+<div className="inline-block mt-2 absolute -translate-y-12 translate-x-12">
+  <EggTrigger
+    eggId="egg-4"
+    image={EggBilsa}
+    alt="Hidden Easter egg in the Forest Cup 2020 article"
+    ariaLabel="Open article Easter egg"
+    buttonClass="opacity-90 transition duration-300 hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-green-300"
+    imageClass="w-10 rotate-[8deg]"
+  />
+</div>

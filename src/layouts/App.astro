@@ -1,6 +1,7 @@
 ---
 import Navbar from "@components/Navbar.astro";
 import Footer from "@components/Footer.astro";
+import EggModal from "@components/easter-eggs/EggModal.astro";
 import { ClientRouter } from "astro:transitions";
 import "@styles/global.css";
 
@@ -27,5 +28,6 @@ const {title} = Astro.props;
     <slot />
   </main>
   <Footer />
+  <EggModal />
 </body>
 </html>

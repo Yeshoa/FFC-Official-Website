@@ -1,0 +1,142 @@
+---
+import { Image } from 'astro:assets';
+import { EASTER_EGGS } from '@config/easter-eggs';
+import { LINKS } from '@config/links';
+
+const eggs = Object.values(EASTER_EGGS);
+---
+
+<div
+  id="egg-modal"
+  class="egg-modal hidden fixed inset-0 z-[120] items-center justify-center p-4"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="egg-modal-title"
+>
+  <div class="egg-modal__backdrop absolute inset-0 bg-black/80"></div>
+  <div class="egg-modal__panel relative z-10 w-full max-w-lg rounded-2xl border border-green-700 bg-green-950 p-6 shadow-2xl">
+    <button
+      type="button"
+      id="egg-modal-close"
+      class="absolute right-4 top-4 rounded-full border border-green-700 px-3 py-1 text-sm font-semibold text-green-100 transition hover:border-green-500 hover:text-white"
+      aria-label="Close Easter egg modal"
+    >
+      Close
+    </button>
+
+    <p class="mb-2 text-sm font-semibold uppercase tracking-[0.22em] text-green-300">Easter Egg Found</p>
+    <h2 id="egg-modal-title" class="mb-4 text-3xl font-extrabold text-white">You found an Easter Egg!</h2>
+    <div class="mb-5 flex justify-center">
+      {eggs.map((egg) => (
+        <Image
+          id={`egg-image-${egg.id}`}
+          src={egg.image}
+          alt={`${egg.title} Easter egg`}
+          class="hidden h-32 w-32 rounded-lg object-contain"
+          quality={80}
+          width={140}
+          format="webp"
+        />
+      ))}
+    </div>
+    <p class="mb-5 text-green-100">
+      Keep this secret safe. To claim it, send a telegram to
+      <a href={LINKS.nationStates.bilsa} target="_blank" rel="noopener noreferrer" class="font-semibold text-green-300 underline decoration-green-500/60 underline-offset-4">
+        Bilsa on NationStates
+      </a>
+      or DM me on
+      <a href={LINKS.social.discordFFC} target="_blank" rel="noopener noreferrer" class="font-semibold text-green-300 underline decoration-green-500/60 underline-offset-4">
+        Discord
+      </a>.
+    </p>
+
+    <div class="mb-5 rounded-xl border border-green-700 bg-green-900/60 p-4">
+      <p class="mb-1 text-sm uppercase tracking-[0.18em] text-green-300">Secret Code</p>
+      <p id="egg-modal-code" class="text-2xl font-black text-white">---</p>
+      <p id="egg-modal-name" class="mt-2 text-sm text-green-100"></p>
+    </div>
+
+    <div class="rounded-xl border border-red-700/70 bg-red-950/50 p-4 text-sm leading-relaxed text-red-100">
+      Leaking egg locations or secret codes may reduce your points to 0 or even result in disqualification.
+    </div>
+  </div>
+</div>
+
+<script define:vars={{ eggs }}>
+  const eggMap = Object.fromEntries(eggs.map((egg) => [egg.id, egg]));
+  const modal = document.getElementById('egg-modal');
+  const modalTitle = document.getElementById('egg-modal-title');
+  const modalName = document.getElementById('egg-modal-name');
+  const modalCode = document.getElementById('egg-modal-code');
+  const closeButton = document.getElementById('egg-modal-close');
+  const backdrop = modal?.querySelector('.egg-modal__backdrop');
+  const focusableSelectors = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
+  let lastTrigger = null;
+
+  function openEggModal(eggId, trigger = null) {
+    const egg = eggMap[eggId];
+    if (!modal || !modalTitle || !modalName || !modalCode || !egg) return;
+
+    lastTrigger = trigger;
+    modalTitle.textContent = `You found the ${egg.title} Easter Egg!`;
+    modalName.textContent = `${egg.title} (${egg.id.toUpperCase()})`;
+    modalCode.textContent = egg.secretCode;
+    
+    // Hide all images and show only the correct one
+    eggs.forEach((e) => {
+      const img = document.getElementById(`egg-image-${e.id}`);
+      if (img) {
+        img.classList.toggle('hidden', e.id !== eggId);
+      }
+    });
+    
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+    document.body.classList.add('egg-modal-open');
+
+    const firstFocusable = modal.querySelector(focusableSelectors);
+    if (firstFocusable instanceof HTMLElement) {
+      firstFocusable.focus();
+    }
+  }
+
+  function closeEggModal() {
+    if (!modal) return;
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+    document.body.classList.remove('egg-modal-open');
+
+    if (lastTrigger instanceof HTMLElement) {
+      lastTrigger.focus();
+    }
+  }
+
+  document.addEventListener('click', (event) => {
+    const trigger = event.target instanceof Element ? event.target.closest('[data-egg-trigger]') : null;
+    if (!(trigger instanceof HTMLElement)) return;
+
+    event.preventDefault();
+    openEggModal(trigger.dataset.eggId, trigger);
+  });
+
+  window.addEventListener('ffc:open-egg', (event) => {
+    const detail = event instanceof CustomEvent ? event.detail : null;
+    if (!detail?.eggId) return;
+    openEggModal(detail.eggId, detail.trigger ?? null);
+  });
+
+  closeButton?.addEventListener('click', closeEggModal);
+  backdrop?.addEventListener('click', closeEggModal);
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && modal && !modal.classList.contains('hidden')) {
+      closeEggModal();
+    }
+  });
+</script>
+
+<style>
+  :global(body.egg-modal-open) {
+    overflow: hidden;
+  }
+</style>

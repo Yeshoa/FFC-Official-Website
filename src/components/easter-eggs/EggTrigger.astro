@@ -1,0 +1,50 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import type { EasterEggId } from '@config/easter-eggs';
+
+interface Props {
+  eggId: EasterEggId;
+  image: ImageMetadata;
+  alt?: string;
+  buttonClass?: string;
+  imageClass?: string;
+  ariaLabel?: string;
+}
+
+const {
+  eggId,
+  image,
+  alt = 'Hidden Easter egg',
+  buttonClass = '',
+  imageClass = '',
+  ariaLabel = 'Open Easter egg',
+} = Astro.props;
+---
+
+<button
+  type="button"
+  class={`egg-trigger ${buttonClass}`}
+  data-egg-trigger
+  data-egg-id={eggId}
+  aria-label={ariaLabel}
+>
+  <Image
+    src={image}
+    alt={alt}
+    class={imageClass}
+    format="webp"
+    quality={80}
+    loading="lazy"
+  />
+</button>
+
+<style>
+  .egg-trigger {
+    appearance: none;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    padding: 0;
+  }
+</style>

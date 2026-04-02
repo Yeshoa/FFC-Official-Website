@@ -1,11 +1,13 @@
 ---
 import Button from '@components/Button.astro';
 import App from '../layouts/App.astro';
+import EggTrigger from '@components/easter-eggs/EggTrigger.astro';
+import EggRuinenlust from '@images/eggs/egg-rui.webp';
 ---
 
 <App title="FFC - Page Not Found">
     <div class="min-h-screen text-white flex items-center justify-center p-8">
-      <div class="text-center max-w-md">
+      <div class="relative text-center max-w-md">
         <h1 class="text-7xl font-extrabold text-green-500 mb-4">404</h1>
         <p class="text-xl mb-6">Oops! This page doesn't exist.</p>
         <!-- <button
@@ -15,6 +17,16 @@ import App from '../layouts/App.astro';
           Go back
         </button> -->
         <Button link="javascript:history.back()" >Go Back</Button>
+        <div class="absolute -right-3 top-8">
+          <EggTrigger
+            eggId="egg-5"
+            image={EggRuinenlust}
+            alt="Hidden Easter egg on the 404 page"
+            ariaLabel="Open 404 Easter egg"
+            buttonClass="opacity-75 transition duration-300 hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-green-300"
+            imageClass="w-8 rotate-[20deg]"
+          />
+        </div>
     </div>
   </div>
 </App>

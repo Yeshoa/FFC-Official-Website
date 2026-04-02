@@ -9,6 +9,7 @@ import { LINKS } from '@config/links';
 import { ROUTES } from '@config/routes';
 // Components
 import SponsorCard from '@components/sponsors/SponsorCard.astro';
+import EggTrigger from '@components/easter-eggs/EggTrigger.astro';
 // Logos
 import FooterImage from '@images/Footer.png';
 import PayPalLogo from '@images/paypal.png';
@@ -16,6 +17,7 @@ import MPLogo from '@images/mercadopago.png';
 import YTLogo from '@images/youtube.png';
 import TwitchLogo from '@images/twitch.png';
 import KickLogo from '@images/kick.png';
+import EggLumiose from '@images/eggs/egg-lum.webp';
 
 //If donations, change to 4, GRID COLS
 const cols = FEATURES.donations ? 4 : 3;
@@ -112,8 +114,24 @@ const cols = FEATURES.donations ? 4 : 3;
       <h3 class="text-lg font-semibold text-white">Sponsors</h3>
     </div>
     <div class="flex flex-wrap justify-center gap-8 mt-4">
-      {sponsors.filter((sponsor) => sponsor.data.tier !== 'national').map((sponsor) => (
-        <SponsorCard sponsor={sponsor} />
+      {sponsors.filter((sponsor) => sponsor.data.tier !== 'national').map((sponsor, index) => (
+        <div class="relative">
+          {index === 7 && (
+            <div class="absolute -right-1 -top-3 z-0">
+              <EggTrigger
+                eggId="egg-1"
+                image={EggLumiose}
+                alt="Hidden Easter egg behind a sponsor card"
+                ariaLabel="Open hidden Easter egg"
+                buttonClass="opacity-85 transition duration-300 hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-300"
+                imageClass="w-8 rotate-[-18deg]"
+              />
+            </div>
+          )}
+          <div class="relative z-10">
+            <SponsorCard sponsor={sponsor} />
+          </div>
+        </div>
       ))}
     </div>
   </div>
