@@ -51,8 +51,8 @@ if (carouselImages.length === 0) {
         type="button"
         class="hero__logo-trigger"
         data-egg-long-press={heroEgg.id}
-        data-egg-long-press-ms="2500"
-        aria-label="Hidden Easter egg on the hero logo"
+        data-egg-long-press-ms="100"
+        aria-label="Hidden Easter egg"
       >
         <Image src={cta.logo} alt="Logo" height={300} class="hero__logo" format="webp" loading="eager" />
       </button>
@@ -327,7 +327,7 @@ if (carouselImages.length === 0) {
   const longPressTarget = document.querySelector('[data-egg-long-press]');
   if (longPressTarget instanceof HTMLElement) {
     const eggId = longPressTarget.dataset.eggLongPress;
-    const pressDelay = Number(longPressTarget.dataset.eggLongPressMs || '2500');
+    const pressDelay = Number(longPressTarget.dataset.eggLongPressMs || '500');
     let pressTimer = 0;
     let triggered = false;
     let startX = 0;

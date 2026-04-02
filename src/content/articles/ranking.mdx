@@ -12,6 +12,7 @@ import Banner from '@images/articles/welcome/banner.png';
 import { LINKS } from '@config/links';
 import { SCORING_CONFIG, TIERS, getPointsTextColorClass } from '@lib/scoreUtils';
 import Arrow from '@images/icons/arrow-up-right-from-square-solid.svg';
+import { ROUTES } from '@config/routes';
 
 ## Overview
 
@@ -50,7 +51,7 @@ _Permanent as long as you don't delete it._
 
 **Article (AR)**: Writing one article for the Forest Cup website about your federation. This can cover any aspect of your nation's football culture, or it can be a piece of news!. _Additional articles beyond the first do not accumulate points._
 
-<a href="/articles/article-writing" target="_blank">Tutorial on how to make an article.</a>
+<a href={ROUTES.articles.detail("article-tutorial")} target="_blank">Tutorial on how to make an article.</a>
 
 >This section is designed to give a strong foundation to those who enjoy the football roleplay, lore, leagues, stories.
 ---
