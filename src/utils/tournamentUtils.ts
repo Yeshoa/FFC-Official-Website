@@ -44,6 +44,9 @@ export async function getTeamStatsInTournament(
   };
 
   for (const match of relevantMatches) {
+    // Solo contar partidos jugados
+    if (match.data.status !== 'played') continue;
+
     const { team1, team2 } = match.data;
     const { team1: g1, team2: g2 } = getMatchResult(match.data);
 

@@ -27,7 +27,7 @@ async function generateGroupTable(matches) {
   const table = {};
 
   for (const match of matches) {
-    const { team1, team2, goals = [], cards = [] } = match.data;
+    const { team1, team2, status, goals = [], cards = [] } = match.data;
 
     // Inicializar si no existe
     for (const team of [team1, team2]) {
@@ -52,28 +52,31 @@ async function generateGroupTable(matches) {
       }
     }
 
-    const goals1 = goals.filter(g => g.team === team1).length;
-    const goals2 = goals.filter(g => g.team === team2).length;
+    // Solo contar estadísticas si el partido fue jugado
+    if (status === 'played') {
+      const goals1 = goals.filter(g => g.team === team1).length;
+      const goals2 = goals.filter(g => g.team === team2).length;
 
-    table[team1].goals_for += goals1;
-    table[team1].goals_against += goals2;
+      table[team1].goals_for += goals1;
+      table[team1].goals_against += goals2;
 
-    table[team2].goals_for += goals2;
-    table[team2].goals_against += goals1;
+      table[team2].goals_for += goals2;
+      table[team2].goals_against += goals1;
 
-    if (goals1 > goals2) {
-      table[team1].wins += 1;
-      table[team2].losses += 1;
-      table[team1].points += 3;
-    } else if (goals2 > goals1) {
-      table[team2].wins += 1;
-      table[team1].losses += 1;
-      table[team2].points += 3;
-    } else {
-      table[team1].draws += 1;
-      table[team2].draws += 1;
-      table[team1].points += 1;
-      table[team2].points += 1;
+      if (goals1 > goals2) {
+        table[team1].wins += 1;
+        table[team2].losses += 1;
+        table[team1].points += 3;
+      } else if (goals2 > goals1) {
+        table[team2].wins += 1;
+        table[team1].losses += 1;
+        table[team2].points += 3;
+      } else {
+        table[team1].draws += 1;
+        table[team2].draws += 1;
+        table[team1].points += 1;
+        table[team2].points += 1;
+      }
     }
 
     for (const card of cards) {
