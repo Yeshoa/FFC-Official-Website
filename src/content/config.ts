@@ -1,5 +1,12 @@
 import { defineCollection, z } from 'astro:content';
 import { CATEGORIES, SUBCATEGORIES, ALIGNMENTS } from '@lib/achievements/utils';
+import events from '../data/events.json';
+import roleplays from '../data/roleplays.json';
+import bonuses from '../data/bonuses.json';
+import matches2020 from '../data/matches/forest-cup-2020.json';
+import matches2022 from '../data/matches/forest-cup-2022.json';
+import matches2024 from '../data/matches/forest-cup-2024.json';
+import matches2026 from '../data/matches/forest-cup-2026.json';
 /* const tournamentsCollection = defineCollection({
   type: 'content',
   schema: z.object({
@@ -20,9 +27,11 @@ const tournamentsCollection = defineCollection({
     name: z.string(),
     shortName: z.string().optional(),
     host: z.string().optional(), // País anfitrión
+    hostCode: z.string().optional(),
     final: z.string().optional(), // Sede de la final
     image: image(),
     champion: z.string().optional(),
+    championCode: z.string().optional(),
     banner: image().optional(), // Banner del torneo
     edition: z.number(),
     loadingType: z.enum(["eager", "lazy"]).optional(), // Carga de imágenes
@@ -31,6 +40,7 @@ const tournamentsCollection = defineCollection({
       z.object({
         pot: z.number(), // Número de bombo (1, 2, 3, 4)
         teams: z.array(z.string()), // Referencias a members
+        teamCodes: z.array(z.string()).optional(),
       })
     ).optional(),
     heroImg: image().optional(), // Imágen para Tournament Hero
@@ -45,7 +55,11 @@ const tournamentsCollection = defineCollection({
 });
 
 const matchesCollection = defineCollection({
-  type: 'content',
+  loader: () =>
+    [...matches2020, ...matches2022, ...matches2024, ...matches2026].map((match, index) => ({
+      id: `match-${match.tournament_id}-${match.match_id ?? index + 1}`,
+      ...match,
+    })),
   schema: z.object({
     tournament_id: z.number(), // Referencia al torneo
     match_id: z.number().optional(),
@@ -58,11 +72,13 @@ const matchesCollection = defineCollection({
     // Teams
     team1: z.string(),
     team2: z.string(),
+    team1Code: z.string().optional(),
+    team2Code: z.string().optional(),
     stadium_id: z.number().optional(),
     neutralVenue: z.boolean().default(true),
     // Status and date
     status: z.enum(["scheduled", "played", "canceled"]).default("scheduled"),
-    date: z.date(),
+    date: z.coerce.date(),
 
     attendance: z.number().optional(),
     // weather: z.string().optional(),
@@ -321,20 +337,54 @@ const stadiumsCollection = defineCollection({
   }),
 });
 
-/* const eventsCollection = defineCollection({
-  type: 'data',
+const eventsCollection = defineCollection({
+  loader: () => events,
   schema: z.object({
-    id: z.string().optional(),
+    id: z.string(),
     enabled: z.boolean().default(true),
     name: z.string(),
     description: z.string().optional(),
     edition: z.number().int(),
+    code: z.string(),
     type: z.string(),
+    weight: z.number().optional(),
     maxScore: z.number(),
-    date: z.string().datetime().optional(),
-    participants: z.record(z.string(), z.number()), // participantName -> finalScore
-  })
-}); */
+    participants: z.record(z.string(), z.number()),
+    link: z.string().optional(),
+  }),
+});
+
+const roleplaysCollection = defineCollection({
+  loader: () => roleplays,
+  schema: z.object({
+    id: z.string(),
+    enabled: z.boolean().default(true),
+    name: z.string(),
+    description: z.string().optional(),
+    edition: z.number().int(),
+    code: z.string(),
+    type: z.string(),
+    weight: z.number().optional(),
+    maxScore: z.number(),
+    participants: z.record(z.string(), z.number()),
+  }),
+});
+
+const bonusesCollection = defineCollection({
+  loader: () => bonuses,
+  schema: z.object({
+    id: z.string(),
+    enabled: z.boolean().default(true),
+    name: z.string(),
+    description: z.string().optional(),
+    edition: z.number().int(),
+    code: z.string(),
+    type: z.string(),
+    weight: z.number().optional(),
+    maxScore: z.union([z.number(), z.string()]).optional(),
+    participants: z.record(z.string(), z.number()),
+  }),
+});
 
 export const collections = {
   'tournaments': tournamentsCollection,
@@ -344,5 +394,7 @@ export const collections = {
   'achievements': achievementsCollection,
   'sponsors': sponsorCollection,
   'stadiums': stadiumsCollection,
-  // 'events': eventsCollection
+  'events': eventsCollection,
+  'roleplays': roleplaysCollection,
+  'bonuses': bonusesCollection,
 };

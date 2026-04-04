@@ -242,7 +242,7 @@ const stadiumHref = stadium ? ROUTES.stadiums.detail(stadium.slug) : null;
     {match.status === 'scheduled' && (
       <div class="text-center mt-3 bg-black/20 px-4 py-2 rounded-lg z-10">
         <span class="text-lg text-yellow-300 font-medium">
-          {match.date.toLocaleDateString(LOCALE, { weekday: 'long', day: 'numeric', month: 'long', hour: 'numeric', minute: 'numeric', hour12: false })}
+          {match.date.toLocaleDateString(LOCALE, { weekday: 'long', day: 'numeric', month: 'long', hour: 'numeric', minute: 'numeric', hour12: false })} UTC
         </span>
       </div>
     )}

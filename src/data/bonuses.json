@@ -26,7 +26,7 @@
   {
     "id": "eggs-2025",
     "name": "Easter Eggs",
-    "description": "Points per easter egg discovered.",
+    "description": "4 Points per easter egg discovered.",
     "code": "Eggs",
     "edition": 3,
     "type": "eggs",

@@ -73,7 +73,7 @@ const hour = match.data.date.toLocaleTimeString(LOCALE, {hour12: false, hour: 'n
         {match.data.status === 'scheduled' && (
           <>
             <span class="text-green-400 flex-shrink-0 hidden sm:inline">•</span>
-            <span class="font-light flex-shrink-0 hidden sm:inline">{hour}</span>
+            <span class="font-light flex-shrink-0 hidden sm:inline">{hour} UTC</span>
           </>
         )}
       </div>

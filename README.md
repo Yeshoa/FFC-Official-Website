@@ -5,28 +5,10 @@ Website built with **Astro**. Showcases tournaments, match details, and national
 ---
 ## 📰 Articles
 
-* **Create key Articles**
-  * “How the Website Works” (actual article is a placeholder)
-  * "How players are generated"
-  * “How to write an article”
-  * 
-  
 * **To do articles:**
   <!-- * “Presenting Achievements” -->
-  * "FC 2020 explanation"
   * "FC 2022 summary" and other FC 22 articles (Prizes: Vela, Dartmouth, best goal)
   * "FC 2024 summary" and other FC 24 articles (Prizes: Tarasov, Nysnub, best goal)
-  * "Announcing FC 2026 host, meet dates, venues, ball and more"
-  * "New suppliers, Sbotjunj, Oberalon and ..."
-
----
-
-## 🚨 Must Do (High Priority)
-
-* **Adapt the web for supporting a Forest Cup before being played**
-  - Maybe work in how to include the Qualifiers
-  - In /forest-cup/2026 there should be a hero adapted to the new edition, showing an image of the host nation
-  - Headlines should be about: the ball, the venues, or news, that link to articles?
 
 ---
 
@@ -35,10 +17,6 @@ Website built with **Astro**. Showcases tournaments, match details, and national
 * **Add stadiums to all matches possible, and show them in match cards**
 * **Create “About Us” page**
   Explain the NationStates community, the Forest lore, and why/how the FFC was founded.
-* **Fix /forest-cup Hero**
-  Brainstorm and implement a compelling hero component for `/forest-cup`. It should promote the current FC edition.
-* **Change Forest Cups heroImg's**
-  The current ones are placeholders and not very appealing. (Think of adding images about the Host Nation instead)
 
 ---
 
@@ -52,7 +30,7 @@ Website built with **Astro**. Showcases tournaments, match details, and national
 ## 🔮 Medium‑Term Future
 
 * **Search Bar Component**
-  Build a React‑powered search (Articles, Members, Tournaments) for a later release.
+  Build a searchbar (Articles, Members, Tournaments) for a later release.
 
 ---
 

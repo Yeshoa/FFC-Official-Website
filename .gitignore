@@ -28,3 +28,4 @@ pnpm-debug.log*
 
 # custom
 refactor-plan.md
+/scripts

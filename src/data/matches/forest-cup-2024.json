@@ -1,0 +1,2008 @@
+[
+  {
+    "tournament_id": 2,
+    "stage": "group",
+    "group": "A",
+    "fixture": "Matchday 1",
+    "team1": "Anxious and Kevin",
+    "team2": "Orcuo",
+    "status": "played",
+    "date": "2024-08-04T12:00:00.000Z",
+    "link": "https://www.youtube.com/live/gYCAQKJi1tY?si=Dtv7lpbSKP_htMCe&t=170",
+    "goals": [
+      {
+        "team": "Anxious and Kevin",
+        "player": "S. Granberg",
+        "assist": "R. Manninen",
+        "minute": 90,
+        "aggregate": 1,
+        "penalty": false
+      }
+    ],
+    "team1Code": "AKE",
+    "team2Code": "ORC"
+  },
+  {
+    "tournament_id": 2,
+    "stage": "group",
+    "group": "A",
+    "fixture": "Matchday 1",
+    "team1": "Nordustra",
+    "team2": "Aresetia",
+    "status": "played",
+    "date": "2024-08-04T12:20:00.000Z",
+    "link": "https://www.youtube.com/live/gYCAQKJi1tY?si=yLVqCgRhNay2U7YI&t=1676",
+    "goals": [
+      {
+        "team": "Nordustra",
+        "player": "H. Marremusen",
+        "assist": "A. Shamurodov",
+        "minute": 41,
+        "penalty": false
+      },
+      {
+        "team": "Aresetia",
+        "player": "R. Reginaldi",
+        "assist": "A. Zanzotti",
+        "minute": 55,
+        "penalty": false
+      }
+    ],
+    "team1Code": "NOR",
+    "team2Code": "ARE"
+  },
+  {
+    "tournament_id": 2,
+    "stage": "group",
+    "group": "B",
+    "fixture": "Matchday 1",
+    "team1": "Einswenn",
+    "team2": "Columbiqash",
+    "status": "played",
+    "date": "2024-08-04T12:40:00.000Z",
+    "link": "https://www.youtube.com/live/gYCAQKJi1tY?si=IMBHi7j67fArIxfL&t=3259",
+    "goals": [
+      {
+        "team": "Einswenn",
+        "player": "O. Gro",
+        "assist": "J. Teitur",
+        "minute": 43,
+        "penalty": false
+      }
+    ],
+    "team1Code": "EIN",
+    "team2Code": "CQ"
+  },
+  {
+    "tournament_id": 2,
+    "stage": "group",
+    "group": "B",
+    "fixture": "Matchday 1",
+    "team1": "United Malay Federation",
+    "team2": "Ottterland",
+    "status": "played",
+    "date": "2024-08-04T13:00:00.000Z",
+    "link": "https://www.youtube.com/live/gYCAQKJi1tY?si=idqjqunlqrWZSuvj&t=4671",
+    "goals": [
+      {
+        "team": "Ottterland",
+        "player": "A. Soria",
+        "assist": "R. Díaz",
+        "minute": 13,
+        "penalty": false
+      },
+      {
+        "team": "Ottterland",
+        "player": "P. Woods",
+        "minute": 35,
+        "penalty": false,
+        "ownGoal": true
+      },
+      {
+        "team": "United Malay Federation",
+        "player": "E. Šapêr",
+        "minute": 52,
+        "penalty": false
+      },
+      {
+        "team": "United Malay Federation",
+        "player": "S. Poole",
+        "assist": "A. Hafizuddin",
+        "minute": 66,
+        "penalty": false
+      }
+    ],
+    "team1Code": "UMF",
+    "team2Code": "OTL"
+  },
+  {
+    "tournament_id": 2,
+    "stage": "group",
+    "group": "C",
+    "fixture": "Matchday 1",
+    "team1": "Cacusia",
+    "team2": "Republic of Yucatan",
+    "status": "played",
+    "date": "2024-08-04T13:20:00.000Z",
+    "link": "https://www.youtube.com/live/gYCAQKJi1tY?si=QFcySvJMCfme-W7h&t=6205",
+    "goals": [
+      {
+        "team": "Republic of Yucatan",
+        "player": "D. Aguilar",
+        "assist": "E. López",
+        "minute": 10,
+        "penalty": false
+      },
+      {
+        "team": "Cacusia",
+        "player": "I. Darrow",
+        "assist": "O. Stout",
+        "minute": 36,
+        "penalty": false
+      },
+      {
+        "team": "Republic of Yucatan",
+        "player": "D. Aguilar",
+        "assist": "J. Herrera",
+        "minute": 38,
+        "penalty": false
+      }
+    ],
+    "team1Code": "CAC",
+    "team2Code": "YUC"
+  },
+  {
+    "tournament_id": 2,
+    "stage": "group",
+    "group": "C",
+    "fixture": "Matchday 1",
+    "team1": "Freistaat Ostpreussen",
+    "team2": "Schachland",
+    "status": "played",
+    "date": "2024-08-04T13:40:00.000Z",
+    "link": "https://www.youtube.com/live/gYCAQKJi1tY?si=I2CyFTxzMmQ7RHM7&t=7859",
+    "goals": [
+      {
+        "team": "Freistaat Ostpreussen",
+        "player": "H. Koerner",
+        "assist": "A. Lahnen",
+        "minute": 4,
+        "penalty": false
+      },
+      {
+        "team": "Freistaat Ostpreussen",
+        "player": "J. Salzmann",
+        "minute": 35,
+        "penalty": false
+      }
+    ],
+    "team1Code": "EPR",
+    "team2Code": "SCH"
+  },
+  {
+    "tournament_id": 2,
+    "stage": "group",
+    "group": "D",
+    "fixture": "Matchday 1",
+    "team1": "Atsvea",
+    "team2": "New Libertalia Kingdom",
+    "status": "played",
+    "date": "2024-08-04T14:00:00.000Z",
+    "link": "https://www.youtube.com/live/gYCAQKJi1tY?si=-mY2eWm67bfR9kB9&t=9246",
+    "goals": [
+      {
+        "team": "Atsvea",
+        "player": "Nysnub",
+        "minute": 4,
+        "penalty": false
+      },
+      {
+        "team": "Atsvea",
+        "player": "Nysnub",
+        "assist": "C. Votnuc",
+        "minute": 59,
+        "penalty": false
+      }
+    ],
+    "team1Code": "ATS",
+    "team2Code": "NLK"
+  },
+  {
+    "tournament_id": 2,
+    "stage": "group",
+    "group": "D",
+    "fixture": "Matchday 1",
+    "team1": "Washeyye",
+    "team2": "Stralla",
+    "status": "played",
+    "date": "2024-08-04T14:20:00.000Z",
+    "link": "https://www.youtube.com/live/gYCAQKJi1tY?si=cbY_HVSDoFWJKq0H&t=10678",
+    "goals": [
+      {
+        "team": "Stralla",
+        "player": "O. Irecen",
+        "assist": "L. Azpesiatuc",
+        "minute": 70,
+        "penalty": false
+      }
+    ],
+    "team1Code": "WAS",
+    "team2Code": "STR"
+  },
+  {
+    "tournament_id": 2,
+    "stage": "group",
+    "group": "E",
+    "fixture": "Matchday 1",
+    "team1": "Roless",
+    "team2": "Tylvana",
+    "status": "played",
+    "date": "2024-08-04T16:00:00.000Z",
+    "link": "https://www.youtube.com/live/uXmJWsaps2w?si=wRJmJ445StlQResd&t=155",
+    "goals": [
+      {
+        "team": "Roless",
+        "player": "J. Greenaway",
+        "minute": 23,
+        "penalty": true
+      },
+      {
+        "team": "Tylvana",
+        "player": "O. Kuroda",
+        "minute": 78
+      }
+    ],
+    "team1Code": "RLS",
+    "team2Code": "TYL"
+  },
+  {
+    "tournament_id": 2,
+    "stage": "group",
+    "group": "E",
+    "fixture": "Matchday 1",
+    "team1": "The Realizer",
+    "team2": "RKD",
+    "status": "played",
+    "date": "2024-08-04T16:20:00.000Z",
+    "link": "https://www.youtube.com/live/uXmJWsaps2w?si=wRJmJ445StlQResd&t=155",
+    "goals": [
+      {
+        "team": "RKD",
+        "player": "C. Van der Zaal",
+        "assist": "8",
+        "minute": 4
+      },
+      {
+        "team": "The Realizer",
+        "player": "J. Ponstantinople",
+        "assist": "A. Manolis",
+        "minute": 45,
+        "aggregate": 1
+      }
+    ],
+    "cards": [
+      {
+        "team": "The Realizer",
+        "player": "A. Manolis",
+        "minute": 90,
+        "type": "yellow"
+      }
+    ],
+    "team1Code": "TRZ",
+    "team2Code": "RKD"
+  },
+  {
+    "tournament_id": 2,
+    "stage": "group",
+    "group": "F",
+    "fixture": "Matchday 1",
+    "team1": "Jutsa",
+    "team2": "Ruinenlust",
+    "status": "played",
+    "date": "2024-08-04T16:40:00.000Z",
+    "link": "https://www.youtube.com/live/uXmJWsaps2w?si=cBzhmfqY7io2H43d&t=3313",
+    "goals": [
+      {
+        "team": "Jutsa",
+        "player": "T. Aīhuij",
+        "assist": "D. Xeinfe",
+        "minute": 39
+      },
+      {
+        "team": "Jutsa",
+        "player": "H. Kazñeisei",
+        "assist": "T. Aīhuij",
+        "minute": 66
+      },
+      {
+        "team": "Jutsa",
+        "player": "H. Kazñeisei",
+        "assist": "U. Meilain",
+        "minute": 88
+      }
+    ],
+    "team1Code": "JUT",
+    "team2Code": "RUI"
+  },
+  {
+    "tournament_id": 2,
+    "stage": "group",
+    "group": "F",
+    "fixture": "Matchday 1",
+    "team1": "Mozolephies",
+    "team2": "Furilisca",
+    "status": "played",
+    "date": "2024-08-04T16:40:00.000Z",
+    "link": "https://www.youtube.com/live/uXmJWsaps2w?si=HrgkOVIj8eFeTC2Q&t=4869",
+    "goals": [
+      {
+        "team": "Furilisca",
+        "player": "K. Reynisdóttir",
+        "assist": "K. Héðinsdóttir",
+        "minute": 13
+      },
+      {
+        "team": "Furilisca",
+        "player": "D. Sigfúsdóttir",
+        "assist": "K. Reynisdóttir",
+        "minute": 45,
+        "aggregate": 3
+      },
+      {
+        "team": "Furilisca",
+        "player": "M. Andersen",
+        "assist": "D. Sigfúsdóttir",
+        "minute": 59
+      },
+      {
+        "team": "Furilisca",
+        "player": "E. Pálsdóttir",
+        "assist": "K. Reynisdóttir",
+        "minute": 75
+      }
+    ],
+    "team1Code": "MOZ",
+    "team2Code": "FUR"
+  },
+  {
+    "tournament_id": 2,
+    "stage": "group",
+    "group": "G",
+    "fixture": "Matchday 1",
+    "team1": "Bilsa",
+    "team2": "Clown Town City",
+    "status": "played",
+    "date": "2024-08-04T17:00:00.000Z",
+    "link": "https://www.youtube.com/live/uXmJWsaps2w?si=gE3VMYTvD9Vw0xw6&t=6450",
+    "team1Code": "BIL",
+    "team2Code": "CTC"
+  },
+  {
+    "tournament_id": 2,
+    "stage": "group",
+    "group": "G",
+    "fixture": "Matchday 1",
+    "team1": "Zerphen",
+    "team2": "Nardin",
+    "status": "played",
+    "date": "2024-08-04T17:20:00.000Z",
+    "link": "https://www.youtube.com/live/uXmJWsaps2w?si=7oyWUcTBdHTzcsLh&t=7790",
+    "goals": [
+      {
+        "team": "Nardin",
+        "player": "R. Tarasov",
+        "assist": "I. Petrov",
+        "minute": 15
+      },
+      {
+        "team": "Nardin",
+        "player": "I. Petrov",
+        "assist": "R. Tarasov",
+        "minute": 39
+      },
+      {
+        "team": "Zerphen",
+        "player": "N. Lyriath",
+        "assist": "P. Nyphon",
+        "minute": 49
+      },
+      {
+        "team": "Nardin",
+        "player": "I. Petrov",
+        "assist": "A. Av Cerzi",
+        "minute": 53
+      },
+      {
+        "team": "Nardin",
+        "player": "I. Petrov",
+        "assist": "R. Tarasov",
+        "minute": 71
+      }
+    ],
+    "team1Code": "ZPH",
+    "team2Code": "NAR"
+  },
+  {
+    "tournament_id": 2,
+    "stage": "group",
+    "group": "H",
+    "fixture": "Matchday 1",
+    "team1": "Verdant Haven",
+    "team2": "Sehir",
+    "status": "played",
+    "date": "2024-08-04T17:40:00.000Z",
+    "link": "https://www.youtube.com/live/uXmJWsaps2w?si=MHH1kBjtNbey2qkf&t=9393",
+    "goals": [
+      {
+        "team": "Verdant Haven",
+        "player": "B. Vinter",
+        "minute": 45,
+        "ownGoal": true
+      },
+      {
+        "team": "Verdant Haven",
+        "player": "B. Clegg",
+        "minute": 54
+      },
+      {
+        "team": "Verdant Haven",
+        "player": "E. Zamorano",
+        "assist": "V. Stockmann",
+        "minute": 89
+      },
+      {
+        "team": "Verdant Haven",
+        "player": "E. Zamorano",
+        "assist": "J. Kennedy",
+        "minute": 90,
+        "aggregate": 3
+      }
+    ],
+    "team1Code": "VH",
+    "team2Code": "SEH"
+  },
+  {
+    "tournament_id": 2,
+    "stage": "group",
+    "group": "H",
+    "fixture": "Matchday 1",
+    "team1": "Lumiose",
+    "team2": "Cat Army",
+    "status": "played",
+    "date": "2024-08-04T18:00:00.000Z",
+    "link": "https://www.youtube.com/live/uXmJWsaps2w?si=LHETnkeJa46gb0yw&t=11089",
+    "goals": [
+      {
+        "team": "Lumiose",
+        "player": "S. Dehkandem",
+        "assist": "T. Whisperbrook",
+        "minute": 50
+      },
+      {
+        "team": "Cat Army",
+        "player": "D. Jennings",
+        "assist": "V. Atkinson",
+        "minute": 72
+      },
+      {
+        "team": "Lumiose",
+        "player": "M. Penosi",
+        "assist": "T. Pescaster",
+        "minute": 85
+      },
+      {
+        "team": "Cat Army",
+        "player": "A. Scott",
+        "minute": 90
+      }
+    ],
+    "team1Code": "LUM",
+    "team2Code": "CAT"
+  },
+  {
+    "tournament_id": 2,
+    "stage": "group",
+    "group": "A",
+    "fixture": "Matchday 2",
+    "team1": "Anxious and Kevin",
+    "team2": "Nordustra",
+    "status": "played",
+    "date": "2024-08-05T12:00:00.000Z",
+    "link": "https://www.youtube.com/live/CcMl-k45pg4?si=I8URIN5OFfuD-Dxw&t=110",
+    "goals": [
+      {
+        "team": "Nordustra",
+        "player": "H. Marremusen",
+        "assist": "J. Østegårde",
+        "minute": 50
+      },
+      {
+        "team": "Nordustra",
+        "player": "H. Marremusen",
+        "assist": "D. Sigmundson",
+        "minute": 68
+      },
+      {
+        "team": "Anxious and Kevin",
+        "player": "B. Boen",
+        "minute": 85
+      }
+    ],
+    "team1Code": "AKE",
+    "team2Code": "NOR"
+  },
+  {
+    "tournament_id": 2,
+    "stage": "group",
+    "group": "A",
+    "fixture": "Matchday 2",
+    "team1": "Orcuo",
+    "team2": "Aresetia",
+    "status": "played",
+    "date": "2024-08-05T12:20:00.000Z",
+    "link": "https://www.youtube.com/live/CcMl-k45pg4?si=I8URIN5OFfuD-Dxw&t=110",
+    "goals": [
+      {
+        "team": "Aresetia",
+        "player": "C. Glione",
+        "minute": 50
+      },
+      {
+        "team": "Orcuo",
+        "player": "J. Odin",
+        "assist": "V. Ocean",
+        "minute": 72
+      }
+    ],
+    "team1Code": "ORC",
+    "team2Code": "ARE"
+  },
+  {
+    "tournament_id": 2,
+    "stage": "group",
+    "group": "B",
+    "fixture": "Matchday 2",
+    "team1": "Einswenn",
+    "team2": "United Malay Federation",
+    "status": "played",
+    "date": "2024-08-05T12:40:00.000Z",
+    "link": "https://www.youtube.com/live/CcMl-k45pg4?si=RfMXqqSdEtKj0t5A&t=3146",
+    "goals": [
+      {
+        "team": "Einswenn",
+        "player": "H. Paulsen",
+        "minute": 20
+      },
+      {
+        "team": "United Malay Federation",
+        "player": "S. Poole",
+        "assist": "E. Šapêr",
+        "minute": 40
+      }
+    ],
+    "team1Code": "EIN",
+    "team2Code": "UMF"
+  },
+  {
+    "tournament_id": 2,
+    "stage": "group",
+    "group": "B",
+    "fixture": "Matchday 2",
+    "team1": "Columbiqash",
+    "team2": "Ottterland",
+    "status": "played",
+    "date": "2024-08-05T13:00:00.000Z",
+    "link": "https://www.youtube.com/live/CcMl-k45pg4?si=GkD9RS4iQG7J5C69&t=4609",
+    "goals": [
+      {
+        "team": "Ottterland",
+        "player": "Y. Soriano",
+        "assist": "R. Díaz",
+        "minute": 35
+      }
+    ],
+    "team1Code": "CQ",
+    "team2Code": "OTL"
+  },
+  {
+    "tournament_id": 2,
+    "stage": "group",
+    "group": "C",
+    "fixture": "Matchday 2",
+    "team1": "Cacusia",
+    "team2": "Freistaat Ostpreussen",
+    "status": "played",
+    "date": "2024-08-05T13:20:00.000Z",
+    "link": "https://www.youtube.com/live/CcMl-k45pg4?si=GkD9RS4iQG7J5C69&t=4609",
+    "goals": [
+      {
+        "team": "Cacusia",
+        "player": "I. Darrow",
+        "assist": "C. Islay",
+        "minute": 58
+      },
+      {
+        "team": "Freistaat Ostpreussen",
+        "player": "A. Lahnen",
+        "assist": "W. Frisch",
+        "minute": 60
+      },
+      {
+        "team": "Cacusia",
+        "player": "I. Darrow",
+        "assist": "A. Tziyoniy",
+        "minute": 73
+      }
+    ],
+    "team1Code": "CAC",
+    "team2Code": "EPR"
+  },
+  {
+    "tournament_id": 2,
+    "stage": "group",
+    "group": "C",
+    "fixture": "Matchday 2",
+    "team1": "Republic of Yucatan",
+    "team2": "Schachland",
+    "status": "played",
+    "date": "2024-08-05T13:40:00.000Z",
+    "link": "https://www.youtube.com/live/CcMl-k45pg4?si=tLt5e0BiIKTkEvMw&t=7477",
+    "goals": [
+      {
+        "team": "Schachland",
+        "player": "R. Inison",
+        "minute": 12
+      },
+      {
+        "team": "Schachland",
+        "player": "A. Bjornstaki",
+        "assist": "D. Trod",
+        "minute": 51
+      }
+    ],
+    "team1Code": "YUC",
+    "team2Code": "SCH"
+  },
+  {
+    "tournament_id": 2,
+    "stage": "group",
+    "group": "D",
+    "fixture": "Matchday 2",
+    "team1": "Atsvea",
+    "team2": "Washeyye",
+    "status": "played",
+    "date": "2024-08-05T14:00:00.000Z",
+    "link": "https://www.youtube.com/live/CcMl-k45pg4?si=QobPFTSAr5QHJKhs&t=8881",
+    "goals": [
+      {
+        "team": "Atsvea",
+        "player": "Nysnub",
+        "assist": "B. Modron",
+        "minute": 44
+      },
+      {
+        "team": "Atsvea",
+        "player": "Nysnub",
+        "assist": "B. Modron",
+        "minute": 62
+      },
+      {
+        "team": "Atsvea",
+        "player": "Nysnub",
+        "assist": "A. Hoshar",
+        "minute": 81
+      },
+      {
+        "team": "Atsvea",
+        "player": "Nysnub",
+        "minute": 90,
+        "aggregate": 3
+      }
+    ],
+    "team1Code": "ATS",
+    "team2Code": "WAS"
+  },
+  {
+    "tournament_id": 2,
+    "stage": "group",
+    "group": "D",
+    "fixture": "Matchday 2",
+    "team1": "New Libertalia Kingdom",
+    "team2": "Stralla",
+    "status": "played",
+    "date": "2024-08-05T14:20:00.000Z",
+    "link": "https://www.youtube.com/live/CcMl-k45pg4?si=2Kz6NeN77UUljjTE&t=10416",
+    "goals": [
+      {
+        "team": "New Libertalia Kingdom",
+        "player": "U. Barbosa",
+        "minute": 63
+      }
+    ],
+    "team1Code": "NLK",
+    "team2Code": "STR"
+  },
+  {
+    "tournament_id": 2,
+    "stage": "group",
+    "group": "E",
+    "fixture": "Matchday 2",
+    "team1": "Roless",
+    "team2": "The Realizer",
+    "status": "played",
+    "date": "2024-08-05T16:00:00.000Z",
+    "link": "https://www.youtube.com/live/tx4vbe9Pj6o?si=YmZlCwFdtg6dTJNG&t=54",
+    "goals": [
+      {
+        "team": "The Realizer",
+        "player": "E. Leech",
+        "minute": 14,
+        "ownGoal": true
+      },
+      {
+        "team": "Roless",
+        "player": "C. Mcarthur",
+        "assist": "R. Carter",
+        "minute": 72
+      },
+      {
+        "team": "Roless",
+        "player": "C. Mcarthur",
+        "assist": "R. Carter",
+        "minute": 76
+      }
+    ],
+    "team1Code": "RLS",
+    "team2Code": "TRZ"
+  },
+  {
+    "tournament_id": 2,
+    "stage": "group",
+    "group": "E",
+    "fixture": "Matchday 2",
+    "team1": "Tylvana",
+    "team2": "RKD",
+    "status": "played",
+    "date": "2024-08-05T16:20:00.000Z",
+    "link": "https://www.youtube.com/live/tx4vbe9Pj6o?si=kPbgGGA1GqQVSGCJ&t=1540",
+    "goals": [
+      {
+        "team": "RKD",
+        "player": "C. Van der Zaal",
+        "assist": "A. Jansen",
+        "minute": 6
+      },
+      {
+        "team": "RKD",
+        "player": "J. Van de Pen",
+        "assist": "S. Miller",
+        "minute": 29
+      }
+    ],
+    "team1Code": "TYL",
+    "team2Code": "RKD"
+  },
+  {
+    "tournament_id": 2,
+    "stage": "group",
+    "group": "F",
+    "fixture": "Matchday 2",
+    "team1": "Jutsa",
+    "team2": "Mozolephies",
+    "status": "played",
+    "date": "2024-08-05T16:40:00.000Z",
+    "link": "https://www.youtube.com/live/tx4vbe9Pj6o?si=AJoqPjH4c5B5gVZH&t=3082",
+    "goals": [
+      {
+        "team": "Jutsa",
+        "player": "H. Kazñeisei",
+        "assist": "D. Xeinfe",
+        "minute": 23
+      }
+    ],
+    "team1Code": "JUT",
+    "team2Code": "MOZ"
+  },
+  {
+    "tournament_id": 2,
+    "stage": "group",
+    "group": "F",
+    "fixture": "Matchday 2",
+    "team1": "Ruinenlust",
+    "team2": "Furilisca",
+    "status": "played",
+    "date": "2024-08-05T17:00:00.000Z",
+    "link": "https://www.youtube.com/live/fSry_npwMiU?si=STxuaxE7JKVTW_Pm&t=51",
+    "goals": [
+      {
+        "team": "Ruinenlust",
+        "player": "L. Nesar",
+        "minute": 37
+      },
+      {
+        "team": "Ruinenlust",
+        "player": "O. Swen",
+        "assist": "J. Hauz",
+        "minute": 71
+      },
+      {
+        "team": "Furilisca",
+        "player": "D. Sigfúsdóttir",
+        "minute": 81
+      }
+    ],
+    "team1Code": "RUI",
+    "team2Code": "FUR"
+  },
+  {
+    "tournament_id": 2,
+    "stage": "group",
+    "group": "G",
+    "fixture": "Matchday 2",
+    "team1": "Bilsa",
+    "team2": "Zerphen",
+    "status": "played",
+    "date": "2024-08-06T16:00:00.000Z",
+    "link": "https://www.youtube.com/live/fSry_npwMiU?si=sXgYRA6Da-rSTGUv&t=1246",
+    "goals": [
+      {
+        "team": "Bilsa",
+        "player": "C. Muniv",
+        "assist": "A. Arhanv",
+        "minute": 44
+      },
+      {
+        "team": "Bilsa",
+        "player": "C. Muniv",
+        "assist": "A. Arhanv",
+        "minute": 54
+      }
+    ],
+    "team1Code": "BIL",
+    "team2Code": "ZPH"
+  },
+  {
+    "tournament_id": 2,
+    "stage": "group",
+    "group": "G",
+    "fixture": "Matchday 2",
+    "team1": "Clown Town City",
+    "team2": "Nardin",
+    "status": "played",
+    "date": "2024-08-06T16:20:00.000Z",
+    "link": "https://www.youtube.com/live/fSry_npwMiU?si=p1UJxXnN0w7Llhhx&t=2689",
+    "goals": [
+      {
+        "team": "Clown Town City",
+        "player": "Honkers",
+        "assist": "Boingo",
+        "minute": 16
+      },
+      {
+        "team": "Nardin",
+        "player": "R. Tarasov",
+        "assist": "M. Romonivik",
+        "minute": 27
+      }
+    ],
+    "team1Code": "CTC",
+    "team2Code": "NAR"
+  },
+  {
+    "tournament_id": 2,
+    "stage": "group",
+    "group": "H",
+    "fixture": "Matchday 2",
+    "team1": "Verdant Haven",
+    "team2": "Lumiose",
+    "status": "played",
+    "date": "2024-08-06T16:40:00.000Z",
+    "link": "https://www.youtube.com/live/fSry_npwMiU?si=137fuMunIJpmjmRO&t=4089",
+    "goals": [
+      {
+        "team": "Lumiose",
+        "player": "T. Whisperbrook",
+        "minute": 63
+      }
+    ],
+    "team1Code": "VH",
+    "team2Code": "LUM"
+  },
+  {
+    "tournament_id": 2,
+    "stage": "group",
+    "group": "H",
+    "fixture": "Matchday 2",
+    "team1": "Sehir",
+    "team2": "Cat Army",
+    "status": "played",
+    "date": "2024-08-06T17:00:00.000Z",
+    "link": "https://www.youtube.com/live/fSry_npwMiU?si=Rz87h8cHAjWHv5fU&t=5480",
+    "goals": [
+      {
+        "team": "Cat Army",
+        "player": "D. Jennings",
+        "assist": "A. Scott",
+        "minute": 46
+      },
+      {
+        "team": "Sehir",
+        "player": "C. Beck",
+        "minute": 52
+      },
+      {
+        "team": "Sehir",
+        "player": "C. Beck",
+        "assist": "H. Tomasson",
+        "minute": 55
+      }
+    ],
+    "team1Code": "SEH",
+    "team2Code": "CAT"
+  },
+  {
+    "tournament_id": 2,
+    "stage": "group",
+    "group": "A",
+    "fixture": "Matchday 3",
+    "team1": "Nordustra",
+    "team2": "Orcuo",
+    "status": "played",
+    "date": "2024-08-07T12:00:00.000Z",
+    "link": "https://www.youtube.com/live/Q-5xhnmFhLo?si=0HAmrgQK2u7fCYq2&t=57",
+    "goals": [
+      {
+        "team": "Nordustra",
+        "player": "K. Ojeveit",
+        "assist": "H. Marremusen",
+        "minute": 27
+      }
+    ],
+    "redCards": [
+      {
+        "team": "Nordustra",
+        "player": "H. Strekke Larsson",
+        "minute": 50
+      }
+    ],
+    "team1Code": "NOR",
+    "team2Code": "ORC"
+  },
+  {
+    "tournament_id": 2,
+    "stage": "group",
+    "group": "A",
+    "fixture": "Matchday 3",
+    "team1": "Aresetia",
+    "team2": "Anxious and Kevin",
+    "status": "played",
+    "date": "2024-08-07T12:20:00.000Z",
+    "link": "https://www.youtube.com/live/Q-5xhnmFhLo?si=-f3ozTHbJwHakCA8&t=1494",
+    "team1Code": "ARE",
+    "team2Code": "AKE"
+  },
+  {
+    "tournament_id": 2,
+    "stage": "group",
+    "group": "B",
+    "fixture": "Matchday 3",
+    "team1": "United Malay Federation",
+    "team2": "Columbiqash",
+    "status": "played",
+    "date": "2024-08-07T12:40:00.000Z",
+    "link": "https://www.youtube.com/live/Q-5xhnmFhLo?si=e0vgjRxzNjDma8Cl&t=2822",
+    "goals": [
+      {
+        "team": "United Malay Federation",
+        "player": "E. Hayes",
+        "assist": "S. Poole",
+        "minute": 3
+      },
+      {
+        "team": "United Malay Federation",
+        "player": "E. Šapêr",
+        "minute": 44
+      },
+      {
+        "team": "United Malay Federation",
+        "player": "E. Šapêr",
+        "assist": "E. Hayes",
+        "minute": 50
+      },
+      {
+        "team": "United Malay Federation",
+        "player": "S. Poole",
+        "assist": "E. Šapêr",
+        "minute": 51
+      }
+    ],
+    "team1Code": "UMF",
+    "team2Code": "CQ"
+  },
+  {
+    "tournament_id": 2,
+    "stage": "group",
+    "group": "B",
+    "fixture": "Matchday 3",
+    "team2": "Einswenn",
+    "team1": "Ottterland",
+    "status": "played",
+    "date": "2024-08-07T13:00:00.000Z",
+    "link": "https://www.youtube.com/live/Q-5xhnmFhLo?si=u_F6fKtJkTe41err&t=4488",
+    "goals": [
+      {
+        "team": "Einswenn",
+        "player": "O. Gro",
+        "assist": "S. Kattell",
+        "minute": 15
+      },
+      {
+        "team": "Einswenn",
+        "player": "O. Gro",
+        "minute": 27
+      },
+      {
+        "team": "Einswenn",
+        "player": "O. Gro",
+        "assist": "M. Solheim",
+        "minute": 48
+      },
+      {
+        "team": "Einswenn",
+        "player": "J. De Santis",
+        "assist": "H. Paulsen",
+        "minute": 74
+      }
+    ],
+    "team1Code": "OTL",
+    "team2Code": "EIN"
+  },
+  {
+    "tournament_id": 2,
+    "stage": "group",
+    "group": "C",
+    "fixture": "Matchday 3",
+    "team1": "Republic of Yucatan",
+    "team2": "Freistaat Ostpreussen",
+    "status": "played",
+    "date": "2024-08-07T13:20:00.000Z",
+    "link": "https://www.youtube.com/live/Q-5xhnmFhLo?si=CWw_NH0_GodKlR2Q&t=6031",
+    "goals": [
+      {
+        "team": "Republic of Yucatan",
+        "player": "G. Martínez",
+        "assist": "L. Hernández",
+        "minute": 66
+      },
+      {
+        "team": "Republic of Yucatan",
+        "player": "G. Martínez",
+        "assist": "J. Herrera",
+        "minute": 72
+      },
+      {
+        "team": "Republic of Yucatan",
+        "player": "A. Morales",
+        "assist": "L. Hernández",
+        "minute": 75
+      },
+      {
+        "team": "Republic of Yucatan",
+        "player": "A. Martínez",
+        "assist": "G. Martínez",
+        "minute": 82
+      }
+    ],
+    "team1Code": "YUC",
+    "team2Code": "EPR"
+  },
+  {
+    "tournament_id": 2,
+    "stage": "group",
+    "group": "C",
+    "fixture": "Matchday 3",
+    "team1": "Schachland",
+    "team2": "Cacusia",
+    "status": "played",
+    "date": "2024-08-07T13:40:00.000Z",
+    "link": "https://www.youtube.com/live/Q-5xhnmFhLo?si=gyyXuuXGNgMTCDHp&t=7601",
+    "goals": [
+      {
+        "team": "Cacusia",
+        "player": "M. Dartmouth",
+        "assist": "O. Chumble",
+        "minute": 89
+      }
+    ],
+    "team1Code": "SCH",
+    "team2Code": "CAC"
+  },
+  {
+    "tournament_id": 2,
+    "stage": "group",
+    "group": "D",
+    "fixture": "Matchday 3",
+    "team1": "Washeyye",
+    "team2": "New Libertalia Kingdom",
+    "status": "played",
+    "date": "2024-08-07T14:00:00.000Z",
+    "link": "https://www.youtube.com/live/Q-5xhnmFhLo?si=h5FgQeuQFuE3XU9o&t=9022",
+    "goals": [
+      {
+        "team": "New Libertalia Kingdom",
+        "player": "A. Cunha",
+        "minute": 17
+      },
+      {
+        "team": "Washeyye",
+        "player": "N. Dae-Won",
+        "assist": "W. Honzo",
+        "minute": 45,
+        "aggregate": 1
+      },
+      {
+        "team": "Washeyye",
+        "player": "W. Honzo",
+        "assist": "I. Kiyomasu",
+        "minute": 48
+      },
+      {
+        "team": "Washeyye",
+        "player": "W. Honzo",
+        "assist": "T. Kohei",
+        "minute": 67
+      },
+      {
+        "team": "New Libertalia Kingdom",
+        "player": "O. Silveira",
+        "minute": 80
+      }
+    ],
+    "cards": [
+      {
+        "team": "Washeyye",
+        "player": "I. Kiyomasu",
+        "minute": 86,
+        "type": "red"
+      }
+    ],
+    "team1Code": "WAS",
+    "team2Code": "NLK"
+  },
+  {
+    "tournament_id": 2,
+    "stage": "group",
+    "group": "D",
+    "fixture": "Matchday 3",
+    "team1": "Stralla",
+    "team2": "Atsvea",
+    "status": "played",
+    "date": "2024-08-07T14:20:00.000Z",
+    "link": "https://www.youtube.com/live/Q-5xhnmFhLo?si=N2OjEK_Di98kA8O-&t=10528",
+    "goals": [
+      {
+        "team": "Atsvea",
+        "player": "N. Tethys",
+        "assist": "K. Zaajaagah",
+        "minute": 3
+      },
+      {
+        "team": "Atsvea",
+        "player": "Nysnub",
+        "assist": "B. Modron",
+        "minute": 29
+      },
+      {
+        "team": "Atsvea",
+        "player": "Nysnub",
+        "assist": "N. Tethys",
+        "minute": 57
+      },
+      {
+        "team": "Atsvea",
+        "player": "Z. Nasus",
+        "assist": "Nysnub",
+        "minute": 62
+      },
+      {
+        "team": "Atsvea",
+        "player": "B. Notsu",
+        "assist": "Nysnub",
+        "minute": 68
+      },
+      {
+        "team": "Atsvea",
+        "player": "B. Notsu",
+        "assist": "B. Modron",
+        "minute": 77
+      },
+      {
+        "team": "Atsvea",
+        "player": "B. Notsu",
+        "minute": 88
+      }
+    ],
+    "team1Code": "STR",
+    "team2Code": "ATS"
+  },
+  {
+    "tournament_id": 2,
+    "stage": "group",
+    "group": "E",
+    "fixture": "Matchday 3",
+    "team1": "The Realizer",
+    "team2": "Tylvana",
+    "status": "played",
+    "date": "2024-08-07T16:00:00.000Z",
+    "link": "https://www.youtube.com/live/N1FiG9rR0NA?si=CvX7cmbao-n5IaFU&t=52",
+    "goals": [
+      {
+        "team": "The Realizer",
+        "player": "A. Manolis",
+        "minute": 74
+      }
+    ],
+    "team1Code": "TRZ",
+    "team2Code": "TYL"
+  },
+  {
+    "tournament_id": 2,
+    "stage": "group",
+    "group": "E",
+    "fixture": "Matchday 3",
+    "team1": "RKD",
+    "team2": "Roless",
+    "status": "played",
+    "date": "2024-08-07T16:20:00.000Z",
+    "link": "https://www.youtube.com/live/N1FiG9rR0NA?si=pUawr_rwJBnxOszE&t=1441",
+    "goals": [
+      {
+        "team": "Roless",
+        "player": "J. Greenaway",
+        "assist": "R. Grimes",
+        "minute": 13
+      },
+      {
+        "team": "Roless",
+        "player": "H. Carrol",
+        "minute": 43
+      }
+    ],
+    "team1Code": "RKD",
+    "team2Code": "RLS"
+  },
+  {
+    "tournament_id": 2,
+    "stage": "group",
+    "group": "F",
+    "fixture": "Matchday 3",
+    "team1": "Mozolephies",
+    "team2": "Ruinenlust",
+    "status": "played",
+    "date": "2024-08-07T16:40:00.000Z",
+    "link": "https://www.youtube.com/live/N1FiG9rR0NA?si=1XpIIwEZarIh7_wh&t=3127",
+    "goals": [
+      {
+        "team": "Ruinenlust",
+        "player": "L. Nesar",
+        "assist": "S. Ben",
+        "minute": 9
+      },
+      {
+        "team": "Ruinenlust",
+        "player": "O. Bonfis",
+        "minute": 66
+      },
+      {
+        "team": "Ruinenlust",
+        "player": "W. Rachs",
+        "minute": 84
+      }
+    ],
+    "team1Code": "MOZ",
+    "team2Code": "RUI"
+  },
+  {
+    "tournament_id": 2,
+    "stage": "group",
+    "group": "F",
+    "fixture": "Matchday 3",
+    "team1": "Furilisca",
+    "team2": "Jutsa",
+    "status": "played",
+    "date": "2024-08-07T17:00:00.000Z",
+    "link": "https://www.youtube.com/live/N1FiG9rR0NA?si=CWjMzxlROCapS9mi&t=4556",
+    "goals": [
+      {
+        "team": "Jutsa",
+        "player": "H. Kazñeisei",
+        "assist": "D. Xeinfe",
+        "minute": 48
+      },
+      {
+        "team": "Furilisca",
+        "player": "E. Pálsdóttir",
+        "minute": 65
+      }
+    ],
+    "team1Code": "FUR",
+    "team2Code": "JUT"
+  },
+  {
+    "tournament_id": 2,
+    "stage": "group",
+    "group": "G",
+    "fixture": "Matchday 3",
+    "team1": "Zerphen",
+    "team2": "Clown Town City",
+    "status": "played",
+    "date": "2024-08-07T17:20:00.000Z",
+    "link": "https://www.youtube.com/live/N1FiG9rR0NA?si=CMkAOA-cuii9EwRa&t=6137",
+    "goals": [
+      {
+        "team": "Zerphen",
+        "player": "D. Wrevian",
+        "minute": 72
+      },
+      {
+        "team": "Zerphen",
+        "player": "N. Lyriath",
+        "assist": "S. Fenthys",
+        "minute": 80
+      }
+    ],
+    "team1Code": "ZPH",
+    "team2Code": "CTC"
+  },
+  {
+    "tournament_id": 2,
+    "stage": "group",
+    "group": "G",
+    "fixture": "Matchday 3",
+    "team1": "Nardin",
+    "team2": "Bilsa",
+    "status": "played",
+    "date": "2024-08-07T17:40:00.000Z",
+    "link": "https://www.youtube.com/live/N1FiG9rR0NA?si=6E_Wd0en2kf_LXF_&t=7526",
+    "goals": [
+      {
+        "team": "Nardin",
+        "player": "I. Petrov",
+        "assist": "C. Ulivaki",
+        "minute": 80
+      }
+    ],
+    "team1Code": "NAR",
+    "team2Code": "BIL"
+  },
+  {
+    "tournament_id": 2,
+    "stage": "group",
+    "group": "H",
+    "fixture": "Matchday 3",
+    "team1": "Lumiose",
+    "team2": "Sehir",
+    "status": "played",
+    "date": "2024-08-07T18:00:00.000Z",
+    "link": "https://www.youtube.com/live/N1FiG9rR0NA?si=_ObeRSBFzpJeYZ9t&t=8862",
+    "goals": [
+      {
+        "team": "Lumiose",
+        "player": "T. Whisperbrook",
+        "assist": "S. Dehkandem",
+        "minute": 38
+      }
+    ],
+    "team1Code": "LUM",
+    "team2Code": "SEH"
+  },
+  {
+    "tournament_id": 2,
+    "stage": "group",
+    "group": "H",
+    "fixture": "Matchday 3",
+    "team1": "Cat Army",
+    "team2": "Verdant Haven",
+    "status": "played",
+    "date": "2024-08-07T18:20:00.000Z",
+    "link": "https://www.youtube.com/live/N1FiG9rR0NA?si=HUY9j1hC8NFJpHQQ&t=10263",
+    "goals": [
+      {
+        "team": "Cat Army",
+        "player": "A. Scott",
+        "minute": 22
+      },
+      {
+        "team": "Verdant Haven",
+        "player": "E. Zamorano",
+        "assist": "V. Stockmann",
+        "minute": 25
+      },
+      {
+        "team": "Cat Army",
+        "player": "V. Atkinson",
+        "minute": 39
+      }
+    ],
+    "team1Code": "CAT",
+    "team2Code": "VH"
+  },
+  {
+    "tournament_id": 2,
+    "stage": "knockout",
+    "fixture": "Round of 16",
+    "team1": "Nordustra",
+    "team2": "United Malay Federation",
+    "status": "played",
+    "date": "2024-08-09T16:00:00.000Z",
+    "link": "https://www.youtube.com/live/cCABsWwHmq0?si=w2eBPvsVsIQMqVBW&t=37",
+    "goals": [
+      {
+        "team": "United Malay Federation",
+        "player": "E. Šapêr",
+        "assist": "S. Poole",
+        "minute": 27
+      }
+    ],
+    "team1Code": "NOR",
+    "team2Code": "UMF"
+  },
+  {
+    "tournament_id": 2,
+    "stage": "knockout",
+    "fixture": "Round of 16",
+    "team1": "Republic of Yucatan",
+    "team2": "New Libertalia Kingdom",
+    "status": "played",
+    "date": "2024-08-09T16:20:00.000Z",
+    "link": "https://www.youtube.com/live/cCABsWwHmq0?si=F-BLwAiQCEVlOoFB&t=1466",
+    "goals": [
+      {
+        "team": "New Libertalia Kingdom",
+        "player": "O. Silveira",
+        "minute": 12
+      },
+      {
+        "team": "Republic of Yucatan",
+        "player": "L. Hernández",
+        "assist": "G. Martínez",
+        "minute": 16
+      },
+      {
+        "team": "Republic of Yucatan",
+        "player": "E. López",
+        "assist": "G. Martínez",
+        "minute": 55
+      }
+    ],
+    "team1Code": "YUC",
+    "team2Code": "NLK"
+  },
+  {
+    "tournament_id": 2,
+    "stage": "knockout",
+    "fixture": "Round of 16",
+    "team1": "Roless",
+    "team2": "Ruinenlust",
+    "status": "played",
+    "date": "2024-08-09T16:40:00.000Z",
+    "link": "https://www.youtube.com/live/cCABsWwHmq0?si=neQBf2LLwcJJJ2sT&t=2959",
+    "goals": [
+      {
+        "team": "Roless",
+        "player": "H. Carrol",
+        "assist": "J. Greenaway",
+        "minute": 32
+      },
+      {
+        "team": "Roless",
+        "player": "R. Grimes",
+        "minute": 62
+      },
+      {
+        "team": "Roless",
+        "player": "C. Mcarthur",
+        "assist": "R. Carter",
+        "minute": 77
+      }
+    ],
+    "team1Code": "RLS",
+    "team2Code": "RUI"
+  },
+  {
+    "tournament_id": 2,
+    "stage": "knockout",
+    "fixture": "Round of 16",
+    "team1": "Nardin",
+    "team2": "Cat Army",
+    "status": "played",
+    "date": "2024-08-09T17:00:00.000Z",
+    "link": "https://www.youtube.com/live/cCABsWwHmq0?si=gUpkxk2brMuR5Lv1&t=4286",
+    "goals": [
+      {
+        "team": "Nardin",
+        "player": "R. Tarasov",
+        "assist": "A. Leszik",
+        "minute": 3
+      },
+      {
+        "team": "Nardin",
+        "player": "I. Petrov",
+        "minute": 20
+      }
+    ],
+    "team1Code": "NAR",
+    "team2Code": "CAT"
+  },
+  {
+    "tournament_id": 2,
+    "stage": "knockout",
+    "fixture": "Round of 16",
+    "team1": "Einswenn",
+    "team2": "Anxious and Kevin",
+    "status": "played",
+    "date": "2024-08-09T17:20:00.000Z",
+    "link": "https://www.youtube.com/live/cCABsWwHmq0?si=OHnPGCcppeWPcc78&t=5900",
+    "goals": [
+      {
+        "team": "Einswenn",
+        "player": "M. Solheim",
+        "minute": 68
+      }
+    ],
+    "team1Code": "EIN",
+    "team2Code": "AKE"
+  },
+  {
+    "tournament_id": 2,
+    "stage": "knockout",
+    "fixture": "Round of 16",
+    "team1": "Atsvea",
+    "team2": "Cacusia",
+    "status": "played",
+    "date": "2024-08-09T17:40:00.000Z",
+    "link": "https://www.youtube.com/live/cCABsWwHmq0?si=vNsyhXerOBLwEpjx&t=7249",
+    "goals": [
+      {
+        "team": "Atsvea",
+        "player": "Z. Nasus",
+        "assist": "C. Votnuc",
+        "minute": 2
+      },
+      {
+        "team": "Atsvea",
+        "player": "Nysnub",
+        "assist": "C. Votnuc",
+        "minute": 56
+      }
+    ],
+    "team1Code": "ATS",
+    "team2Code": "CAC"
+  },
+  {
+    "tournament_id": 2,
+    "stage": "knockout",
+    "fixture": "Round of 16",
+    "team1": "Jutsa",
+    "team2": "RKD",
+    "status": "played",
+    "date": "2024-08-09T18:00:00.000Z",
+    "link": "https://www.youtube.com/live/cCABsWwHmq0?si=FteBsAWMO7JlUH7w&t=8663",
+    "goals": [
+      {
+        "team": "Jutsa",
+        "player": "P. Yujnep",
+        "minute": 29
+      },
+      {
+        "team": "Jutsa",
+        "player": "I. Ruinlei",
+        "assist": "K. Ocsdei",
+        "minute": 78
+      },
+      {
+        "team": "Jutsa",
+        "player": "I. Ruinlei",
+        "assist": "P. Yujnep",
+        "minute": 90,
+        "aggregate": 2
+      }
+    ],
+    "team1Code": "JUT",
+    "team2Code": "RKD"
+  },
+  {
+    "tournament_id": 2,
+    "stage": "knockout",
+    "fixture": "Round of 16",
+    "team1": "Lumiose",
+    "team2": "Bilsa",
+    "status": "played",
+    "date": "2024-08-09T18:20:00.000Z",
+    "link": "https://www.youtube.com/live/cCABsWwHmq0?si=Dw3pdOQ5KA9YUGXL&t=10067",
+    "penalties": [
+      {
+        "order": 1,
+        "team": "Lumiose",
+        "player": "M. Penosi",
+        "scored": true
+      },
+      {
+        "order": 2,
+        "team": "Bilsa",
+        "player": "C. Muniv",
+        "scored": true
+      },
+      {
+        "order": 3,
+        "team": "Lumiose",
+        "player": "T. Whisperbrook",
+        "scored": true
+      },
+      {
+        "order": 4,
+        "team": "Bilsa",
+        "player": "D. Hajan",
+        "scored": true
+      },
+      {
+        "order": 5,
+        "team": "Lumiose",
+        "player": "S. Dehkandem",
+        "scored": false
+      },
+      {
+        "order": 6,
+        "team": "Bilsa",
+        "player": "A. Arhanv",
+        "scored": true
+      },
+      {
+        "order": 7,
+        "team": "Lumiose",
+        "player": "D. Dacheluud",
+        "scored": true
+      },
+      {
+        "order": 8,
+        "team": "Bilsa",
+        "player": "T. Ervaan",
+        "scored": false
+      },
+      {
+        "order": 9,
+        "team": "Lumiose",
+        "player": "T. Whitblossom",
+        "scored": false
+      },
+      {
+        "order": 10,
+        "team": "Bilsa",
+        "player": "Z. Adeon",
+        "scored": false
+      },
+      {
+        "order": 11,
+        "team": "Lumiose",
+        "player": "S. Eastoft",
+        "scored": false
+      },
+      {
+        "order": 12,
+        "team": "Bilsa",
+        "player": "P. Rakaj",
+        "scored": false
+      },
+      {
+        "order": 13,
+        "team": "Lumiose",
+        "player": "K. Rhuhu",
+        "scored": false
+      },
+      {
+        "order": 14,
+        "team": "Bilsa",
+        "player": "N. Kircjan",
+        "scored": false
+      },
+      {
+        "order": 15,
+        "team": "Lumiose",
+        "player": "D. Seavale",
+        "scored": true
+      },
+      {
+        "order": 16,
+        "team": "Bilsa",
+        "player": "E. Levin",
+        "scored": true
+      },
+      {
+        "order": 17,
+        "team": "Lumiose",
+        "player": "M. Winthrop",
+        "scored": true
+      },
+      {
+        "order": 18,
+        "team": "Bilsa",
+        "player": "D. Hrkadaj",
+        "scored": true
+      },
+      {
+        "order": 19,
+        "team": "Lumiose",
+        "player": "R. Grassseeker",
+        "scored": true
+      },
+      {
+        "order": 20,
+        "team": "Bilsa",
+        "player": "G. Velawa",
+        "scored": true
+      },
+      {
+        "order": 21,
+        "team": "Lumiose",
+        "player": "R. Weston",
+        "scored": true
+      },
+      {
+        "order": 22,
+        "team": "Bilsa",
+        "player": "E. Jadar",
+        "scored": false
+      }
+    ],
+    "team1Code": "LUM",
+    "team2Code": "BIL"
+  },
+  {
+    "tournament_id": 2,
+    "stage": "knockout",
+    "fixture": "Quarter Finals",
+    "team1": "United Malay Federation",
+    "team2": "Republic of Yucatan",
+    "status": "played",
+    "date": "2024-08-10T16:00:00.000Z",
+    "link": "https://www.youtube.com/live/RRNMIK59fb8?si=wTuK59zIZbp2H6om&t=39",
+    "goals": [
+      {
+        "team": "United Malay Federation",
+        "player": "E. Šapêr",
+        "assist": "A. Hafizuddin",
+        "minute": 10
+      },
+      {
+        "team": "United Malay Federation",
+        "player": "S. Poole",
+        "assist": "C. Cross",
+        "minute": 47
+      },
+      {
+        "team": "United Malay Federation",
+        "player": "E. Šapêr",
+        "assist": "S. Poole",
+        "minute": 53
+      },
+      {
+        "team": "United Malay Federation",
+        "player": "S. Poole",
+        "assist": "A. Hafizuddin",
+        "minute": 61
+      },
+      {
+        "team": "United Malay Federation",
+        "player": "S. Poole",
+        "assist": "E. Hayes",
+        "minute": 72
+      }
+    ],
+    "team1Code": "UMF",
+    "team2Code": "YUC"
+  },
+  {
+    "tournament_id": 2,
+    "stage": "knockout",
+    "fixture": "Quarter Finals",
+    "team1": "Roless",
+    "team2": "Nardin",
+    "status": "played",
+    "date": "2024-08-10T16:20:00.000Z",
+    "link": "https://www.youtube.com/live/RRNMIK59fb8?si=8G5myr5XkQKrbBqi&t=1625",
+    "goals": [
+      {
+        "team": "Roless",
+        "player": "J. Greenaway",
+        "assist": "H. Carrol",
+        "minute": 10
+      },
+      {
+        "team": "Nardin",
+        "player": "R. Tarasov",
+        "assist": "A. Leszik",
+        "minute": 50
+      },
+      {
+        "team": "Nardin",
+        "player": "R. Tarasov",
+        "minute": 81
+      }
+    ],
+    "team1Code": "RLS",
+    "team2Code": "NAR"
+  },
+  {
+    "tournament_id": 2,
+    "stage": "knockout",
+    "fixture": "Quarter Finals",
+    "team1": "Einswenn",
+    "team2": "Atsvea",
+    "status": "played",
+    "date": "2024-08-10T16:40:00.000Z",
+    "link": "https://www.youtube.com/live/RRNMIK59fb8?si=YA5spNvkItPPwkAn&t=3081",
+    "goals": [
+      {
+        "team": "Einswenn",
+        "player": "O. Gro",
+        "assist": "J. Teitur",
+        "minute": 20
+      }
+    ],
+    "team1Code": "EIN",
+    "team2Code": "ATS"
+  },
+  {
+    "tournament_id": 2,
+    "stage": "knockout",
+    "fixture": "Quarter Finals",
+    "team1": "Jutsa",
+    "team2": "Lumiose",
+    "status": "played",
+    "date": "2024-08-10T17:00:00.000Z",
+    "link": "https://www.youtube.com/live/RRNMIK59fb8?si=OmkD4gm4LVMUyCV5&t=4454",
+    "goals": [
+      {
+        "team": "Lumiose",
+        "player": "B. Dreamspell",
+        "assist": "S. Dehkandem",
+        "minute": 26
+      },
+      {
+        "team": "Jutsa",
+        "player": "T. Aīhuij",
+        "assist": "D. Xeinfe",
+        "minute": 61
+      },
+      {
+        "team": "Jutsa",
+        "player": "H. Kazñeisei",
+        "minute": 77
+      },
+      {
+        "team": "Lumiose",
+        "player": "S. Eastoft",
+        "assist": "M. Penosi",
+        "minute": 78
+      },
+      {
+        "team": "Jutsa",
+        "player": "M. Tepyet",
+        "minute": 96
+      }
+    ],
+    "cards": [
+      {
+        "team": "Lumiose",
+        "player": "T. Whitblossom",
+        "minute": 86,
+        "type": "red"
+      }
+    ],
+    "team1Code": "JUT",
+    "team2Code": "LUM"
+  },
+  {
+    "tournament_id": 2,
+    "stage": "knockout",
+    "fixture": "Semi Finals",
+    "team1": "United Malay Federation",
+    "team2": "Nardin",
+    "status": "played",
+    "date": "2024-08-10T17:20:00.000Z",
+    "link": "https://www.youtube.com/live/RRNMIK59fb8?si=HJDDd5tOl4iPgFu1&t=6667",
+    "goals": [
+      {
+        "team": "Nardin",
+        "player": "R. Tarasov",
+        "minute": 47
+      },
+      {
+        "team": "United Malay Federation",
+        "player": "Š. Zamzuri",
+        "minute": 71
+      },
+      {
+        "team": "Nardin",
+        "player": "I. Petrov",
+        "assist": "M. Romonivik",
+        "minute": 81
+      },
+      {
+        "team": "Nardin",
+        "player": "J. Klarik",
+        "assist": "F. Pavlov",
+        "minute": 89
+      }
+    ],
+    "team1Code": "UMF",
+    "team2Code": "NAR"
+  },
+  {
+    "tournament_id": 2,
+    "stage": "knockout",
+    "fixture": "Semi Finals",
+    "team1": "Einswenn",
+    "team2": "Jutsa",
+    "status": "played",
+    "date": "2024-08-10T17:40:00.000Z",
+    "link": "https://www.youtube.com/live/RRNMIK59fb8?si=sCT5TDjscGYe0CuH&t=8283",
+    "goals": [
+      {
+        "team": "Einswenn",
+        "player": "O. Gro",
+        "assist": "J. Teitur",
+        "minute": 18
+      },
+      {
+        "team": "Jutsa",
+        "player": "H. Kazñeisei",
+        "assist": "E. Ñuizvei",
+        "minute": 21
+      },
+      {
+        "team": "Jutsa",
+        "player": "M. Tepyet",
+        "minute": 63
+      },
+      {
+        "team": "Jutsa",
+        "player": "H. Kazñeisei",
+        "minute": 74,
+        "penalty": true
+      }
+    ],
+    "team1Code": "EIN",
+    "team2Code": "JUT"
+  },
+  {
+    "tournament_id": 2,
+    "stage": "knockout",
+    "fixture": "Final",
+    "team1": "Nardin",
+    "team2": "Jutsa",
+    "status": "played",
+    "date": "2024-08-11T16:00:00.000Z",
+    "link": "https://www.youtube.com/live/XJPwf45Eh4w?si=pSIEGFrULLPGIXtS",
+    "goals": [
+      {
+        "team": "Jutsa",
+        "player": "H. Kazñeisei",
+        "minute": 23
+      },
+      {
+        "team": "Nardin",
+        "player": "R. Tarasov",
+        "minute": 32
+      },
+      {
+        "team": "Nardin",
+        "player": "R. Tarasov",
+        "assist": "C. Ulivaki",
+        "minute": 81
+      }
+    ],
+    "team1Code": "NAR",
+    "team2Code": "JUT"
+  }
+]

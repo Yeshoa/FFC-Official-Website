@@ -3,7 +3,7 @@ import { getTournaments, getMatches } from '@lib/collections';
 import { getMatchResult, getMatchWinnerIncludingPenalties } from './matchUtils';
 import { getMemberByName } from './memberUtils';
 import type { Tournament } from '@ty/collections';
-import { getMatchesByTournament } from '@lib/_collections';
+import { getMatchesByTournament } from '@lib/collections';
 
 // 🟢 Tipos
 type TournamentEntry = CollectionEntry<'tournaments'>;

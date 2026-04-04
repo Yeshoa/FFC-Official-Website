@@ -2,47 +2,77 @@ import type { ImageMetadata } from 'astro';
 import type { CollectionEntry } from 'astro:content';
 import { getMemberTotalScore } from '../lib/rankingUtils';
 import { TIERS } from '../lib/scoreUtils';
-import { getMembers, getTournaments, getMatches } from '@lib/collections';
+import { getMembers } from '@lib/collections';
 import { CURRENT_TOURNAMENT_ID } from './tournamentUtils';
 
-const members = await getMembers();
-const tournaments = await getTournaments();
-const matches = await getMatches();
 
 // Cache para evitar múltiples llamadas
+const members = await getMembers();
 const memberCache = new Map<string, CollectionEntry<'members'> | null>();
+
+function findMemberByIdentifier(
+  identifier: string,
+  members: CollectionEntry<'members'>[],
+) {
+  if (!identifier) return null;
+
+  return (
+    members.find(member =>
+      member.data.name === identifier || member.data.code === identifier,
+    ) ?? null
+  );
+}
+
+export function getMemberByName(
+  name: string,
+  memberCollection: CollectionEntry<'members'>[],
+): CollectionEntry<'members'> | null;
 
 export async function getMemberByName(
   name: string,
+  memberCollection?: CollectionEntry<'members'>[],
 ): Promise<CollectionEntry<'members'> | null> {
+  if (memberCollection) {
+    return findMemberByIdentifier(name, memberCollection);
+  }
+
   if (memberCache.has(name)) {
     return memberCache.get(name)!;
   }
 
-  const member = members.find(m => m.data.name === name) ?? null;
+  const member = findMemberByIdentifier(name, members);
   memberCache.set(name, member);
 
   return member;
 }
 
+export function getMemberBySlug(
+  slug: string,
+  memberCollection: CollectionEntry<'members'>[],
+): CollectionEntry<'members'> | null;
+
 export async function getMemberBySlug(
   slug: string,
+  memberCollection?: CollectionEntry<'members'>[],
 ): Promise<CollectionEntry<'members'> | null> {
-  return members.find(m => m.slug === slug) ?? null;
+  const allMembers = memberCollection ?? members;
+  return allMembers.find(member => member.slug === slug) ?? null;
 }
 export function getMemberImage(
   memberName: string | undefined,
+  memberCollection?: CollectionEntry<'members'>[],
 ): ImageMetadata | null {
   if (!memberName) return null;
-  const member = members.find(m => m.data.name === memberName);
+  const member = findMemberByIdentifier(memberName, memberCollection ?? members);
   return member?.data.flagPath ?? null;
 }
 
 export function getMemberLogo(
   memberName: string | undefined,
+  memberCollection?: CollectionEntry<'members'>[],
 ): ImageMetadata | null {
   if (!memberName) return null;
-  const member = members.find(m => m.data.name === memberName);
+  const member = findMemberByIdentifier(memberName, memberCollection ?? members);
   return member?.data.logoPath ?? null;
 }
 
@@ -51,6 +81,7 @@ export async function getMemberRank(
   currentTournamentId: number = CURRENT_TOURNAMENT_ID
 ): Promise<number | null> {
   if (!member) return null;
+  const members = await getMembers();
 
   // esperar a que se resuelvan todos los scores
   const rankedMembers = (

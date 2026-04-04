@@ -1,12 +1,18 @@
 import { getCollection } from 'astro:content';
-import type { CollectionEntry } from 'astro:content';
-import events from '@data/events.json';
-import roleplays from '@data/roleplays.json';
-import bonuses from '@data/bonuses.json';
 
-import type { Member, Tournament, Match, Achievement, Article, Sponsor, Stadium } from '@ty/collections';
+import type {
+  Achievement,
+  Article,
+  Bonus,
+  Event,
+  Match,
+  Member,
+  Roleplay,
+  Sponsor,
+  Stadium,
+  Tournament,
+} from '@ty/collections';
 
-// CACHES
 let membersCache: Member[] | null = null;
 let tournamentsCache: Tournament[] | null = null;
 let matchesCache: Match[] | null = null;
@@ -14,22 +20,66 @@ let achievementsCache: Achievement[] | null = null;
 let articlesCache: Article[] | null = null;
 let sponsorsCache: Sponsor[] | null = null;
 let stadiumsCache: Stadium[] | null = null;
-// let eventsCache: CollectionEntry<'events'>[] | null = null;
 
-// GETTERS
+let memberByCodeCache: Map<string, Member> | null = null;
+let memberByNameCache: Map<string, Member> | null = null;
+let tournamentByIdCache: Map<number, Tournament> | null = null;
+let matchesByTournamentCache: Map<number, Match[]> | null = null;
+
+const [eventsCache, roleplaysCache, bonusesCache] = await Promise.all([
+  getCollection('events').then(entries => entries.map(entry => entry.data as Event)),
+  getCollection('roleplays').then(entries => entries.map(entry => entry.data as Roleplay)),
+  getCollection('bonuses').then(entries => entries.map(entry => entry.data as Bonus)),
+]);
+
+function buildMemberIndexes(members: Member[]) {
+  if (memberByCodeCache && memberByNameCache) return;
+
+  memberByCodeCache = new Map(
+    members
+      .filter(member => !!member.data.code)
+      .map(member => [member.data.code!.toUpperCase(), member]),
+  );
+  memberByNameCache = new Map(
+    members.map(member => [member.data.name.toLowerCase(), member]),
+  );
+}
+
+function buildTournamentIndexes(tournaments: Tournament[]) {
+  if (tournamentByIdCache) return;
+  tournamentByIdCache = new Map(tournaments.map(tournament => [tournament.data.id, tournament]));
+}
+
+function buildMatchesByTournament(matches: Match[]) {
+  if (matchesByTournamentCache) return;
+
+  matchesByTournamentCache = new Map<number, Match[]>();
+  for (const match of matches) {
+    const list = matchesByTournamentCache.get(match.data.tournament_id) ?? [];
+    list.push(match);
+    matchesByTournamentCache.set(match.data.tournament_id, list);
+  }
+}
+
 export async function getMembers() {
   if (!membersCache) membersCache = await getCollection('members');
-  return membersCache.sort((a, b) => a.data.id - b.data.id); // Ascending
+  membersCache.sort((a, b) => a.data.id - b.data.id);
+  buildMemberIndexes(membersCache);
+  return membersCache;
 }
 
 export async function getTournaments() {
   if (!tournamentsCache) tournamentsCache = await getCollection('tournaments');
-  return tournamentsCache.sort((a, b) => a.data.id - b.data.id);
+  tournamentsCache.sort((a, b) => a.data.id - b.data.id);
+  buildTournamentIndexes(tournamentsCache);
+  return tournamentsCache;
 }
 
 export async function getMatches() {
   if (!matchesCache) matchesCache = await getCollection('matches');
-  return matchesCache.sort((a, b) => b.data.date.getTime() - a.data.date.getTime()); // Descending
+  matchesCache.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+  buildMatchesByTournament(matchesCache);
+  return matchesCache;
 }
 
 export async function getAchievements() {
@@ -46,34 +96,55 @@ export async function getArticles() {
 export async function getSponsors() {
   if (!sponsorsCache) sponsorsCache = await getCollection('sponsors');
 
-  // Separar los sponsors con member definido de los que no lo tienen
   const sponsorsWithMember = sponsorsCache.filter(sponsor => sponsor.data.member);
   const sponsorsWithoutMember = sponsorsCache.filter(sponsor => !sponsor.data.member);
 
-  // Ordenar aleatoriamente los sponsors con member
-  const shuffledSponsors = sponsorsWithMember
-  .sort((a, b) => a.data.type && b.data.type ? a.data.type.localeCompare(b.data.type) : 1);
+  const sortedSponsors = sponsorsWithMember.sort((a, b) =>
+    a.data.type && b.data.type ? a.data.type.localeCompare(b.data.type) : 1,
+  );
 
-  // Concatenar los sponsors sin member al final
-  return [...shuffledSponsors, ...sponsorsWithoutMember];
+  return [...sortedSponsors, ...sponsorsWithoutMember];
 }
-
 
 export async function getStadiums() {
   if (!stadiumsCache) stadiumsCache = await getCollection('stadiums');
   return stadiumsCache;
 }
 
+export async function getMemberByCode(code: string) {
+  if (!code) return null;
+  const members = await getMembers();
+  buildMemberIndexes(members);
+  return memberByCodeCache?.get(code.toUpperCase()) ?? null;
+}
+
+export async function getMemberByName(name: string) {
+  if (!name) return null;
+  const members = await getMembers();
+  buildMemberIndexes(members);
+  return memberByNameCache?.get(name.toLowerCase()) ?? null;
+}
+
+export async function getTournamentById(id: number) {
+  const tournaments = await getTournaments();
+  buildTournamentIndexes(tournaments);
+  return tournamentByIdCache?.get(id) ?? null;
+}
+
+export async function getMatchesByTournament(tournamentId: number) {
+  const matches = await getMatches();
+  buildMatchesByTournament(matches);
+  return matchesByTournamentCache?.get(tournamentId) ?? [];
+}
+
 export function getEvents() {
-  // if (!eventsCache) eventsCache = await getCollection('events');
-  // return eventsCache;
-  return events;
+  return eventsCache;
 }
 
 export function getRoleplays() {
-  return roleplays;
+  return roleplaysCache;
 }
 
 export function getBonuses() {
-  return bonuses;
+  return bonusesCache;
 }

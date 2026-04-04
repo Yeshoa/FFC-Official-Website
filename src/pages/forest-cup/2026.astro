@@ -21,7 +21,7 @@ type Member = CollectionEntry<'members'>['data'];
 
 const tournamentsCollection = await getTournaments();
 const matchesCollection = (await getMatches())
-  .filter(match => match.slug.startsWith('forest-cup-2026/'));
+  .filter(match => match.data.tournament_id === 3);
 const membersCollection = await getMembers();
 
 const TOURNAMENT_ID = 3;

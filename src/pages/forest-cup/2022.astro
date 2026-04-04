@@ -13,7 +13,7 @@ import RelatedNews from '@components/articles/RelatedNews.astro';
 
 const tournamentsCollection = await getTournaments();
 const matchesCollection = (await getMatches())
-  .filter(match => match.slug.startsWith('forest-cup-2022/'));
+  .filter(match => match.data.tournament_id === 1);
 const membersCollection = await getMembers();
 
 const TOURNAMENT_ID = 1;

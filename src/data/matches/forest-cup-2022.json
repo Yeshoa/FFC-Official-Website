@@ -1,0 +1,1045 @@
+[
+  {
+    "tournament_id": 1,
+    "stage": "group",
+    "group": "A",
+    "fixture": "Matchday 1",
+    "team1": "Einswenn",
+    "team2": "Bilsa",
+    "status": "played",
+    "stadium_id": 2,
+    "date": "2022-12-14T11:40:00.000Z",
+    "link": "https://youtu.be/F_3ckioqvnU?si=ZXa83AdbNWWUA1Jn",
+    "score": {
+      "team1_goals": 2,
+      "team2_goals": 2
+    },
+    "goals": [
+      {
+        "team": "Bilsa",
+        "player": "Sowjan",
+        "minute": 17,
+        "penalty": false
+      },
+      {
+        "team": "Einswenn",
+        "player": "M. Solheim",
+        "minute": 39,
+        "penalty": false
+      },
+      {
+        "team": "Bilsa",
+        "player": "Sowjan",
+        "minute": 75,
+        "penalty": false
+      },
+      {
+        "team": "Einswenn",
+        "player": "M. Eriksen",
+        "minute": 59,
+        "penalty": false
+      }
+    ],
+    "team1Code": "EIN",
+    "team2Code": "BIL"
+  },
+  {
+    "tournament_id": 1,
+    "stage": "group",
+    "group": "A",
+    "fixture": "Matchday 1",
+    "team1": "Stralla",
+    "team2": "Daarwyrth",
+    "status": "played",
+    "stadium_id": 4,
+    "date": "2022-12-14T12:00:00.000Z",
+    "link": "https://youtu.be/F_3ckioqvnU?si=fRWp4Fd4Pj43I51E&t=198",
+    "score": {
+      "team1_goals": 0,
+      "team2_goals": 1
+    },
+    "goals": [
+      {
+        "team": "Daarwyrth",
+        "player": "Z. Young",
+        "minute": 25,
+        "penalty": false
+      }
+    ],
+    "team1Code": "STR",
+    "team2Code": "DRW"
+  },
+  {
+    "tournament_id": 1,
+    "stage": "group",
+    "group": "B",
+    "fixture": "Matchday 1",
+    "team1": "Atsvea",
+    "team2": "Bunkaiia",
+    "stadium_id": 1,
+    "status": "played",
+    "date": "2022-12-14T12:20:00.000Z",
+    "link": "https://youtu.be/F_3ckioqvnU?si=QbGwJogugnJ3pNmQ&t=286",
+    "goals": [
+      {
+        "team": "Atsvea",
+        "player": "Nysnub",
+        "minute": 53,
+        "penalty": false
+      },
+      {
+        "team": "Bunkaiia",
+        "player": "B. Jaian",
+        "minute": 60,
+        "penalty": false
+      },
+      {
+        "team": "Bunkaiia",
+        "player": "L. Keian",
+        "minute": 85,
+        "penalty": false
+      }
+    ],
+    "team1Code": "ATS",
+    "team2Code": "BUN"
+  },
+  {
+    "tournament_id": 1,
+    "stage": "group",
+    "group": "B",
+    "fixture": "Matchday 1",
+    "team1": "Cat-Herders United",
+    "team2": "Novian Republics",
+    "stadium_id": 6,
+    "status": "played",
+    "date": "2022-12-14T12:40:00.000Z",
+    "link": "https://youtu.be/F_3ckioqvnU?si=7rBnxRhcmzpsPFKz&t=454",
+    "score": {
+      "team1_goals": 1,
+      "team2_goals": 0
+    },
+    "goals": [
+      {
+        "team": "Cat-Herders United",
+        "player": "Garfield",
+        "minute": 53,
+        "penalty": false
+      }
+    ],
+    "team1Code": "CHU",
+    "team2Code": "CNR"
+  },
+  {
+    "tournament_id": 1,
+    "stage": "group",
+    "group": "C",
+    "fixture": "Matchday 1",
+    "team1": "Roless",
+    "team2": "Cacusia",
+    "stadium_id": 7,
+    "status": "played",
+    "date": "2022-12-14T13:00:00.000Z",
+    "link": "https://youtu.be/F_3ckioqvnU?si=9ZSuemkGEzIev_eN&t=573",
+    "score": {
+      "team1_goals": 0,
+      "team2_goals": 1
+    },
+    "goals": [
+      {
+        "team": "Cacusia",
+        "player": "M. Dartmouth",
+        "minute": 6,
+        "penalty": false
+      }
+    ],
+    "team1Code": "RLS",
+    "team2Code": "CAC"
+  },
+  {
+    "tournament_id": 1,
+    "stage": "group",
+    "group": "C",
+    "fixture": "Matchday 1",
+    "team1": "Turbeaux",
+    "team2": "Trebenia",
+    "stadium_id": 3,
+    "status": "played",
+    "date": "2022-12-14T13:20:00.000Z",
+    "link": "https://youtu.be/F_3ckioqvnU?si=EAjyiQlZTY11o0cB&t=697",
+    "score": {
+      "team1_goals": 0,
+      "team2_goals": 2
+    },
+    "goals": [
+      {
+        "team": "Trebenia",
+        "player": "T. Wolf",
+        "minute": 62,
+        "penalty": false
+      },
+      {
+        "team": "Trebenia",
+        "player": "F. Elliott",
+        "minute": 89,
+        "penalty": false
+      }
+    ],
+    "team1Code": "TBX",
+    "team2Code": "TRE"
+  },
+  {
+    "tournament_id": 1,
+    "stage": "group",
+    "group": "D",
+    "fixture": "Matchday 1",
+    "team1": "Reannia",
+    "team2": "Terrawynn",
+    "stadium_id": 8,
+    "status": "played",
+    "date": "2022-12-14T13:40:00.000Z",
+    "link": "https://youtu.be/F_3ckioqvnU?si=AcUZxHNzju7FvMjF&t=819",
+    "score": {
+      "team1_goals": 3,
+      "team2_goals": 0
+    },
+    "goals": [
+      {
+        "team": "Reannia",
+        "player": "D. Vela",
+        "minute": 7,
+        "penalty": false
+      },
+      {
+        "team": "Reannia",
+        "player": "J. Carmona",
+        "minute": 12,
+        "penalty": false
+      },
+      {
+        "team": "Reannia",
+        "player": "J. Carmona",
+        "minute": 51,
+        "penalty": false
+      }
+    ],
+    "team1Code": "REA",
+    "team2Code": "TRW"
+  },
+  {
+    "tournament_id": 1,
+    "stage": "group",
+    "group": "D",
+    "fixture": "Matchday 1",
+    "team1": "Jutsa",
+    "team2": "Kase",
+    "stadium_id": 5,
+    "status": "played",
+    "date": "2022-12-14T14:00:00.000Z",
+    "link": "https://youtu.be/F_3ckioqvnU?si=GdYDKdAm5P_efQtC&t=966",
+    "score": {
+      "team1_goals": 1,
+      "team2_goals": 0
+    },
+    "goals": [
+      {
+        "team": "Jutsa",
+        "player": "H. Kazñeisei",
+        "minute": 45,
+        "aggregate": 1,
+        "penalty": false
+      }
+    ],
+    "team1Code": "JUT",
+    "team2Code": "KAS"
+  },
+  {
+    "tournament_id": 1,
+    "stage": "group",
+    "group": "A",
+    "fixture": "Matchday 2",
+    "team1": "Einswenn",
+    "team2": "Stralla",
+    "stadium_id": 2,
+    "status": "played",
+    "date": "2022-12-15T15:40:00.000Z",
+    "link": "https://youtu.be/uhSVoz-2miE?si=DEuYEUNyVZHCS08y",
+    "score": {
+      "team1_goals": 1,
+      "team2_goals": 0
+    },
+    "goals": [
+      {
+        "team": "Einswenn",
+        "player": "R. Kask",
+        "minute": 5,
+        "penalty": false
+      }
+    ],
+    "team1Code": "EIN",
+    "team2Code": "STR"
+  },
+  {
+    "tournament_id": 1,
+    "stage": "group",
+    "group": "A",
+    "fixture": "Matchday 2",
+    "team1": "Bilsa",
+    "team2": "Daarwyrth",
+    "status": "played",
+    "stadium_id": 4,
+    "date": "2022-12-15T16:00:00.000Z",
+    "link": "https://youtu.be/uhSVoz-2miE?si=4aOaLZLQVPb41Yju&t=84",
+    "score": {
+      "team1_goals": 0,
+      "team2_goals": 1
+    },
+    "goals": [
+      {
+        "team": "Daarwyrth",
+        "player": "T. Henderson",
+        "minute": 82,
+        "penalty": false
+      }
+    ],
+    "team1Code": "BIL",
+    "team2Code": "DRW"
+  },
+  {
+    "tournament_id": 1,
+    "stage": "group",
+    "group": "B",
+    "fixture": "Matchday 2",
+    "team1": "Atsvea",
+    "team2": "Cat-Herders United",
+    "stadium_id": 1,
+    "status": "played",
+    "date": "2022-12-15T16:20:00.000Z",
+    "link": "https://youtu.be/uhSVoz-2miE?si=W3BqfBbiyjI_uUnN&t=189",
+    "score": {
+      "team1_goals": 2,
+      "team2_goals": 1
+    },
+    "goals": [
+      {
+        "team": "Atsvea",
+        "player": "Nysnub",
+        "minute": 55,
+        "penalty": true
+      },
+      {
+        "team": "Atsvea",
+        "player": "Nysnub",
+        "minute": 60,
+        "penalty": false
+      },
+      {
+        "team": "Cat-Herders United",
+        "player": "J. L. Meowri",
+        "minute": 64,
+        "penalty": false
+      }
+    ],
+    "team1Code": "ATS",
+    "team2Code": "CHU"
+  },
+  {
+    "tournament_id": 1,
+    "stage": "group",
+    "group": "B",
+    "fixture": "Matchday 2",
+    "team1": "Bunkaiia",
+    "team2": "Novian Republics",
+    "stadium_id": 6,
+    "status": "played",
+    "date": "2022-12-15T16:40:00.000Z",
+    "link": "https://youtu.be/uhSVoz-2miE?si=iQ_pHzCEH5rKKj_G&t=348",
+    "score": {
+      "team1_goals": 2,
+      "team2_goals": 0
+    },
+    "goals": [
+      {
+        "team": "Bunkaiia",
+        "player": "D. Tsafimakoua",
+        "minute": 79,
+        "penalty": false
+      },
+      {
+        "team": "Bunkaiia",
+        "player": "G. Lotefin",
+        "minute": 90,
+        "penalty": false
+      }
+    ],
+    "team1Code": "BUN",
+    "team2Code": "CNR"
+  },
+  {
+    "tournament_id": 1,
+    "stage": "group",
+    "group": "C",
+    "fixture": "Matchday 2",
+    "team1": "Roless",
+    "team2": "Turbeaux",
+    "stadium_id": 7,
+    "status": "played",
+    "date": "2022-12-15T17:00:00.000Z",
+    "link": "https://youtu.be/uhSVoz-2miE?si=q2TpR6B4-IBoBwCj&t=454",
+    "score": {
+      "team1_goals": 2,
+      "team2_goals": 1
+    },
+    "goals": [
+      {
+        "team": "Roless",
+        "player": "C. Mcarthur",
+        "minute": 10,
+        "penalty": false
+      },
+      {
+        "team": "Roless",
+        "player": "J. Greenaway",
+        "minute": 30,
+        "penalty": false
+      },
+      {
+        "team": "Turbeaux",
+        "player": "G. Hua-Bai",
+        "minute": 81,
+        "penalty": false
+      }
+    ],
+    "team1Code": "RLS",
+    "team2Code": "TBX"
+  },
+  {
+    "tournament_id": 1,
+    "stage": "group",
+    "group": "C",
+    "fixture": "Matchday 2",
+    "team1": "Cacusia",
+    "team2": "Trebenia",
+    "stadium_id": 3,
+    "status": "played",
+    "date": "2022-12-15T17:20:00.000Z",
+    "link": "https://youtu.be/uhSVoz-2miE?si=NaBj6fy0woZiTwNA&t=591",
+    "score": {
+      "team1_goals": 2,
+      "team2_goals": 0
+    },
+    "goals": [
+      {
+        "team": "Cacusia",
+        "player": "M. Dartmouth",
+        "minute": 35,
+        "penalty": false
+      },
+      {
+        "team": "Cacusia",
+        "player": "H. Blackmoor",
+        "minute": 71,
+        "penalty": false
+      }
+    ],
+    "team1Code": "CAC",
+    "team2Code": "TRE"
+  },
+  {
+    "tournament_id": 1,
+    "stage": "group",
+    "group": "D",
+    "fixture": "Matchday 2",
+    "team1": "Reannia",
+    "team2": "Jutsa",
+    "stadium_id": 8,
+    "status": "played",
+    "date": "2022-12-15T17:40:00.000Z",
+    "link": "https://youtu.be/uhSVoz-2miE?si=mNFhg1HwNncNfaKZ&t=692",
+    "score": {
+      "team1_goals": 2,
+      "team2_goals": 0
+    },
+    "goals": [
+      {
+        "team": "Reannia",
+        "player": "J. Carmona",
+        "minute": 34,
+        "penalty": false
+      },
+      {
+        "team": "Reannia",
+        "player": "D. Vela",
+        "minute": 75,
+        "penalty": false
+      }
+    ],
+    "team1Code": "REA",
+    "team2Code": "JUT"
+  },
+  {
+    "tournament_id": 1,
+    "stage": "group",
+    "group": "D",
+    "fixture": "Matchday 2",
+    "team1": "Terrawynn",
+    "team2": "Kase",
+    "stadium_id": 5,
+    "status": "played",
+    "date": "2022-12-15T18:00:00.000Z",
+    "link": "https://youtu.be/uhSVoz-2miE?si=bl52D--hVDJ1dzvz&t=790",
+    "score": {
+      "team1_goals": 0,
+      "team2_goals": 1
+    },
+    "goals": [
+      {
+        "team": "Kase",
+        "player": "C. Schon",
+        "minute": 39,
+        "penalty": false
+      }
+    ],
+    "team1Code": "TRW",
+    "team2Code": "KAS"
+  },
+  {
+    "tournament_id": 1,
+    "stage": "group",
+    "group": "A",
+    "fixture": "Matchday 3",
+    "team1": "Stralla",
+    "team2": "Bilsa",
+    "status": "played",
+    "stadium_id": 2,
+    "date": "2022-12-16T00:00:00.000Z",
+    "link": "https://youtu.be/aP8APqz4n0U?si=gjmVBk1x9M91RG3Z",
+    "score": {
+      "team1_goals": 0,
+      "team2_goals": 2
+    },
+    "goals": [
+      {
+        "team": "Bilsa",
+        "player": "Sowjan",
+        "minute": 68,
+        "penalty": false
+      },
+      {
+        "team": "Bilsa",
+        "player": "Sowjan",
+        "minute": 83,
+        "penalty": false
+      }
+    ],
+    "team1Code": "STR",
+    "team2Code": "BIL"
+  },
+  {
+    "tournament_id": 1,
+    "stage": "group",
+    "group": "A",
+    "fixture": "Matchday 3",
+    "team1": "Daarwyrth",
+    "team2": "Einswenn",
+    "status": "played",
+    "stadium_id": 4,
+    "date": "2022-12-16T00:20:00.000Z",
+    "link": "https://youtu.be/aP8APqz4n0U?si=XCAiZ4bS38CMsx81&t=108",
+    "score": {
+      "team1_goals": 0,
+      "team2_goals": 0
+    },
+    "team1Code": "DRW",
+    "team2Code": "EIN"
+  },
+  {
+    "tournament_id": 1,
+    "stage": "group",
+    "group": "B",
+    "fixture": "Matchday 3",
+    "team1": "Cat-Herders United",
+    "team2": "Bunkaiia",
+    "stadium_id": 1,
+    "status": "played",
+    "date": "2022-12-16T00:40:00.000Z",
+    "link": "https://youtu.be/aP8APqz4n0U?si=V_q68iPf0cyFHz4p&t=179",
+    "score": {
+      "team1_goals": 1,
+      "team2_goals": 0
+    },
+    "goals": [
+      {
+        "team": "Cat-Herders United",
+        "player": "J. L. Meowri",
+        "minute": 45,
+        "aggregate": 2,
+        "penalty": false
+      }
+    ],
+    "team1Code": "CHU",
+    "team2Code": "BUN"
+  },
+  {
+    "tournament_id": 1,
+    "stage": "group",
+    "group": "B",
+    "fixture": "Matchday 3",
+    "team1": "Novian Republics",
+    "team2": "Atsvea",
+    "stadium_id": 6,
+    "status": "played",
+    "date": "2022-12-16T01:00:00.000Z",
+    "link": "https://youtu.be/aP8APqz4n0U?si=cDeVUo8nxgQGB-iJ&t=273",
+    "score": {
+      "team1_goals": 0,
+      "team2_goals": 2
+    },
+    "goals": [
+      {
+        "team": "Atsvea",
+        "player": "Nysnub",
+        "minute": 29,
+        "penalty": false
+      },
+      {
+        "team": "Atsvea",
+        "player": "E. Stell",
+        "minute": 66,
+        "penalty": false
+      }
+    ],
+    "team1Code": "CNR",
+    "team2Code": "ATS"
+  },
+  {
+    "tournament_id": 1,
+    "stage": "group",
+    "group": "C",
+    "fixture": "Matchday 3",
+    "team1": "Turbeaux",
+    "team2": "Cacusia",
+    "stadium_id": 7,
+    "status": "played",
+    "date": "2022-12-16T01:10:00.000Z",
+    "link": "https://youtu.be/aP8APqz4n0U?si=Sq21BxUD1_ihm_HY&t=375",
+    "score": {
+      "team1_goals": 0,
+      "team2_goals": 3
+    },
+    "goals": [
+      {
+        "team": "Cacusia",
+        "player": "H. Blackmoor",
+        "minute": 20,
+        "penalty": false
+      },
+      {
+        "team": "Cacusia",
+        "player": "H. Blackmoor",
+        "minute": 37,
+        "penalty": false
+      },
+      {
+        "team": "Cacusia",
+        "player": "M. Dartmouth",
+        "minute": 74,
+        "penalty": false
+      }
+    ],
+    "team1Code": "TBX",
+    "team2Code": "CAC"
+  },
+  {
+    "tournament_id": 1,
+    "stage": "group",
+    "group": "C",
+    "fixture": "Matchday 3",
+    "team1": "Trebenia",
+    "team2": "Roless",
+    "stadium_id": 3,
+    "status": "played",
+    "date": "2022-12-16T01:20:00.000Z",
+    "link": "https://youtu.be/aP8APqz4n0U?si=zqlqDOXhrRzhfRD5&t=545",
+    "score": {
+      "team1_goals": 1,
+      "team2_goals": 2
+    },
+    "goals": [
+      {
+        "team": "Roless",
+        "player": "F. Kumar",
+        "minute": 33,
+        "penalty": true
+      },
+      {
+        "team": "Trebenia",
+        "player": "T. Wolf",
+        "minute": 39,
+        "penalty": false
+      },
+      {
+        "team": "Roless",
+        "player": "J. Greenaway",
+        "minute": 90,
+        "aggregate": 3,
+        "penalty": false
+      }
+    ],
+    "team1Code": "TRE",
+    "team2Code": "RLS"
+  },
+  {
+    "tournament_id": 1,
+    "stage": "group",
+    "group": "D",
+    "fixture": "Matchday 3",
+    "team1": "Jutsa",
+    "team2": "Terrawynn",
+    "stadium_id": 8,
+    "status": "played",
+    "date": "2022-12-16T01:40:00.000Z",
+    "link": "https://youtu.be/aP8APqz4n0U?si=HbAWePGdQrSR1Lu-&t=709",
+    "team1Code": "JUT",
+    "team2Code": "TRW"
+  },
+  {
+    "tournament_id": 1,
+    "stage": "group",
+    "group": "D",
+    "fixture": "Matchday 3",
+    "team1": "Kase",
+    "team2": "Reannia",
+    "stadium_id": 5,
+    "status": "played",
+    "date": "2022-12-16T15:00:00.000Z",
+    "link": "https://youtu.be/aP8APqz4n0U?si=k-DjIrrqEDmoLtos&t=809",
+    "score": {
+      "team1_goals": 0,
+      "team2_goals": 3
+    },
+    "goals": [
+      {
+        "team": "Reannia",
+        "player": "J. Carmona",
+        "minute": 8,
+        "penalty": false
+      },
+      {
+        "team": "Reannia",
+        "player": "S. Sterling",
+        "minute": 37,
+        "penalty": false
+      },
+      {
+        "team": "Reannia",
+        "player": "S. Sterling",
+        "minute": 67,
+        "penalty": false
+      }
+    ],
+    "team1Code": "KAS",
+    "team2Code": "REA"
+  },
+  {
+    "tournament_id": 1,
+    "stage": "knockout",
+    "fixture": "Quarter Finals",
+    "team1": "Daarwyrth",
+    "team2": "Bunkaiia",
+    "stadium_id": 4,
+    "status": "played",
+    "date": "2022-12-16T15:40:00.000Z",
+    "link": "https://youtu.be/vZ7o6dRT740?si=YzEd3IYB9niEMv1h",
+    "score": {
+      "team1_goals": 3,
+      "team2_goals": 1
+    },
+    "goals": [
+      {
+        "team": "Daarwyrth",
+        "player": "T. Marsh",
+        "minute": 8,
+        "penalty": false
+      },
+      {
+        "team": "Bunkaiia",
+        "player": "G. Lotefin",
+        "minute": 32,
+        "penalty": false
+      },
+      {
+        "team": "Daarwyrth",
+        "player": "T. Marsh",
+        "minute": 82,
+        "penalty": false
+      },
+      {
+        "team": "Daarwyrth",
+        "player": "T. Marsh",
+        "minute": 88,
+        "penalty": false
+      }
+    ],
+    "team1Code": "DRW",
+    "team2Code": "BUN"
+  },
+  {
+    "tournament_id": 1,
+    "stage": "knockout",
+    "fixture": "Quarter Finals",
+    "team1": "Cacusia",
+    "team2": "Jutsa",
+    "stadium_id": 1,
+    "status": "played",
+    "date": "2022-12-16T16:00:00.000Z",
+    "link": "https://youtu.be/vZ7o6dRT740?si=Cot8L5BXvccFjrN-&t=220",
+    "score": {
+      "team1_goals": 3,
+      "team2_goals": 2
+    },
+    "goals": [
+      {
+        "team": "Jutsa",
+        "player": "R. Cairoi",
+        "minute": 6,
+        "penalty": false
+      },
+      {
+        "team": "Jutsa",
+        "player": "H. Kazñeisei",
+        "minute": 22,
+        "penalty": false
+      },
+      {
+        "team": "Cacusia",
+        "player": "M. Dartmouth",
+        "minute": 29,
+        "penalty": false
+      },
+      {
+        "team": "Cacusia",
+        "player": "M. Dartmouth",
+        "minute": 69,
+        "penalty": false
+      },
+      {
+        "team": "Cacusia",
+        "player": "M. Dartmouth",
+        "minute": 74,
+        "penalty": false
+      }
+    ],
+    "team1Code": "CAC",
+    "team2Code": "JUT"
+  },
+  {
+    "tournament_id": 1,
+    "stage": "knockout",
+    "fixture": "Quarter Finals",
+    "team1": "Atsvea",
+    "team2": "Einswenn",
+    "stadium_id": 3,
+    "status": "played",
+    "date": "2022-12-16T16:20:00.000Z",
+    "link": "https://youtu.be/vZ7o6dRT740?si=NSa61YYMNUys4sBx&t=416",
+    "score": {
+      "team1_goals": 4,
+      "team2_goals": 2,
+      "team1_extra_time": 2,
+      "team2_extra_time": 0
+    },
+    "goals": [
+      {
+        "team": "Atsvea",
+        "player": "Nysnub",
+        "minute": 3,
+        "penalty": false
+      },
+      {
+        "team": "Einswenn",
+        "player": "R. Jogi",
+        "minute": 62,
+        "penalty": false
+      },
+      {
+        "team": "Atsvea",
+        "player": "E. Stell",
+        "minute": 72,
+        "penalty": false
+      },
+      {
+        "team": "Einswenn",
+        "player": "T. Davis",
+        "minute": 81,
+        "penalty": false
+      },
+      {
+        "team": "Atsvea",
+        "player": "S. Vythxo",
+        "minute": 99,
+        "penalty": false
+      },
+      {
+        "team": "Atsvea",
+        "player": "K. Zaajaagah",
+        "minute": 109,
+        "penalty": false
+      }
+    ],
+    "team1Code": "ATS",
+    "team2Code": "EIN"
+  },
+  {
+    "tournament_id": 1,
+    "stage": "knockout",
+    "fixture": "Quarter Finals",
+    "team1": "Reannia",
+    "team2": "Roless",
+    "stadium_id": 5,
+    "status": "played",
+    "date": "2022-12-16T17:00:00.000Z",
+    "link": "https://youtu.be/vZ7o6dRT740?si=rr-2uoXMJCbXK0e3&t=677",
+    "score": {
+      "team1_goals": 3,
+      "team2_goals": 1
+    },
+    "goals": [
+      {
+        "team": "Reannia",
+        "player": "S. Sterling",
+        "minute": 9,
+        "penalty": false
+      },
+      {
+        "team": "Roless",
+        "player": "J. Greenway",
+        "minute": 45,
+        "aggregate": 2,
+        "penalty": false
+      },
+      {
+        "team": "Reannia",
+        "player": "D. Vela",
+        "minute": 77,
+        "penalty": false
+      },
+      {
+        "team": "Reannia",
+        "player": "S. Sterling",
+        "minute": 82,
+        "penalty": false
+      }
+    ],
+    "team1Code": "REA",
+    "team2Code": "RLS"
+  },
+  {
+    "tournament_id": 1,
+    "stage": "knockout",
+    "fixture": "Semi Finals",
+    "team1": "Daarwyrth",
+    "team2": "Cacusia",
+    "stadium_id": 4,
+    "status": "played",
+    "date": "2022-12-16T18:40:00.000Z",
+    "link": "https://youtu.be/rc8UYbxFyRw?si=cTTwYFVmPbZWAg2y",
+    "score": {
+      "team1_goals": 0,
+      "team2_goals": 2
+    },
+    "goals": [
+      {
+        "team": "Cacusia",
+        "player": "C. Islay",
+        "minute": 19,
+        "penalty": false
+      },
+      {
+        "team": "Cacusia",
+        "player": "H. Blackmoor",
+        "minute": 45,
+        "aggregate": 1,
+        "penalty": false
+      }
+    ],
+    "team1Code": "DRW",
+    "team2Code": "CAC"
+  },
+  {
+    "tournament_id": 1,
+    "stage": "knockout",
+    "fixture": "Semi Finals",
+    "team1": "Atsvea",
+    "team2": "Reannia",
+    "stadium_id": 3,
+    "status": "played",
+    "date": "2022-12-16T19:00:00.000Z",
+    "link": "https://youtu.be/rc8UYbxFyRw?si=HgVC8CBcBfoiKPuJ&t=159",
+    "score": {
+      "team1_goals": 2,
+      "team2_goals": 1,
+      "team1_extra_time": 1,
+      "team2_extra_time": 0
+    },
+    "goals": [
+      {
+        "team": "Atsvea",
+        "player": "E. Stell",
+        "minute": 17,
+        "penalty": false
+      },
+      {
+        "team": "Reannia",
+        "player": "D. Vela",
+        "minute": 23,
+        "penalty": false
+      },
+      {
+        "team": "Atsvea",
+        "player": "Nysnub",
+        "minute": 120,
+        "aggregate": 3,
+        "penalty": false
+      }
+    ],
+    "team1Code": "ATS",
+    "team2Code": "REA"
+  },
+  {
+    "tournament_id": 1,
+    "stage": "knockout",
+    "fixture": "Final",
+    "team1": "Cacusia",
+    "team2": "Atsvea",
+    "status": "played",
+    "stadium_id": 1,
+    "date": "2022-12-16T19:40:00.000Z",
+    "link": "https://www.youtube.com/watch?v=dxx2pF9TOR4&list=PLOTd8BBlhHzLPwIas9NqpkNE55xYtafjg",
+    "score": {
+      "team1_goals": 1,
+      "team2_goals": 2
+    },
+    "goals": [
+      {
+        "team": "Cacusia",
+        "player": "M. Dartmouth",
+        "minute": 33,
+        "penalty": false
+      },
+      {
+        "team": "Atsvea",
+        "player": "O. Khisiddah",
+        "minute": 36,
+        "penalty": false
+      },
+      {
+        "team": "Atsvea",
+        "player": "S. Vythxo",
+        "minute": 65,
+        "penalty": false
+      }
+    ],
+    "team1Code": "CAC",
+    "team2Code": "ATS"
+  }
+]
