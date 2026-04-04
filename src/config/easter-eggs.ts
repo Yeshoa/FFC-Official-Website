@@ -1,7 +1,7 @@
 import type { ImageMetadata } from 'astro';
 import eggLum from '@images/eggs/egg-lum.webp';
 import eggJut from '@images/eggs/egg-jut.webp';
-import egg1 from '@images/eggs/egg1.webp';
+import eggCTC from '@images/eggs/egg-ctc.webp';
 import eggBil from '@images/eggs/egg-bil.webp';
 import eggRui from '@images/eggs/egg-rui.webp';
 
@@ -29,9 +29,9 @@ export const EASTER_EGGS: Record<EasterEggId, EasterEggConfig> = {
   },
   'egg-3': {
     id: 'egg-3',
-    title: 'Forest',
-    secretCode: 'THREEPINEWORLD',
-    image: egg1,
+    title: 'Clown Town City',
+    secretCode: 'HONKYTONKY',
+    image: eggCTC,
   },
   'egg-4': {
     id: 'egg-4',

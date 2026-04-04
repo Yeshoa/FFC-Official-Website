@@ -176,7 +176,7 @@ const filteredArticles = getArticlesByTags(articles, filterTags);
         <h2 class="text-2xl font-semibold mb-4 text-white border-b pb-2 border-green-600">Last Matches Played</h2>
         {playedMatches.length > 0 ? (
           <div class="flex flex-col gap-4">
-            {playedMatches.slice(0, 8).map((match) => (
+            {playedMatches.slice(0, 6).map((match) => (
               <MatchCardDetailed match={match} />
             ))}
           </div>

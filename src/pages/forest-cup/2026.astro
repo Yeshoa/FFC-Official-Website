@@ -51,19 +51,33 @@ const filteredArticles = getArticlesByTags(articles, filterTags);
 
 // Imagenes
 import CacusiaHost from '@images/articles/cacusia-host/banner.png';
+import Arboreball from '@images/articles/cacusia-host/ball.png';
+import Stadium from '@images/articles/cacusia-host/ravensnest.jpg';
 import Sportwears from '@images/articles/new-sportwears/banner.jpg';
 
 const headlines = [
   {
-    title: "Cacusia confirmed host for Forest Cup 2026",
-    image: CacusiaHost,
+    title: "Meet Arboreball - The Official Match Ball",
+    image: Arboreball,
     link: ROUTES.articles.detail("cacusia-host"),
     noblank: false,
   },
   {
-    title: "New official sportswear suppliers for 2026",
+    title: "New official sportswear suppliers",
     image: Sportwears,
     link: ROUTES.articles.detail("new-sportwears"),
+    noblank: false,
+  },
+  {
+    title: "Revealed the stadiums for Cacusia 2026",
+    image: Stadium,
+    link: ROUTES.articles.detail("cacusia-host"),
+    noblank: false,
+  },
+  {
+    title: "Cacusia confirmed host for Forest Cup 2026",
+    image: CacusiaHost,
+    link: ROUTES.articles.detail("cacusia-host"),
     noblank: false,
   },
 ]
@@ -99,10 +113,10 @@ const winner = await getMemberByName(FCData.champion) || undefined;
     <KnockoutMatches
     knockoutMatches={knockoutMatches}
     />}
-    <TournamentStandings
+    <!-- <TournamentStandings
       tournament={tournamentEntry}
       matches={fcMatches}
-    />  
+    />   -->
     <RelatedNews articles={filteredArticles} max={4} />
   </main>
 </App>

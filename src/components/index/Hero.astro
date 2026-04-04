@@ -6,7 +6,6 @@ import type { ImageMetadata } from 'astro';
 import JoinImg from '@images/icons/right-to-bracket-solid.svg';
 import Button from '@components/Button.astro';
 import { LINKS } from '@config/links';
-import { EASTER_EGGS } from '@config/easter-eggs';
 
 // Definimos las props para el componente
 interface Props {
@@ -23,7 +22,6 @@ interface Props {
 
 // Obtenemos las props
 const { heroTitle, heroSubtitle, cta, carouselImages } = Astro.props;
-const heroEgg = EASTER_EGGS['egg-3'];
 
 // Validamos que haya al menos una imagen en el carrusel
 if (carouselImages.length === 0) {
@@ -50,9 +48,7 @@ if (carouselImages.length === 0) {
       <button
         type="button"
         class="hero__logo-trigger"
-        data-egg-long-press={heroEgg.id}
-        data-egg-long-press-ms="100"
-        aria-label="Hidden Easter egg"
+        aria-label="Logo"
       >
         <Image src={cta.logo} alt="Logo" height={300} class="hero__logo" format="webp" loading="eager" />
       </button>
@@ -322,55 +318,5 @@ if (carouselImages.length === 0) {
   const initialActive = document.querySelector('.hero__img--active');
   if (initialActive) {
     addAnimation(initialActive);
-  }
-
-  const longPressTarget = document.querySelector('[data-egg-long-press]');
-  if (longPressTarget instanceof HTMLElement) {
-    const eggId = longPressTarget.dataset.eggLongPress;
-    const pressDelay = Number(longPressTarget.dataset.eggLongPressMs || '500');
-    let pressTimer = 0;
-    let triggered = false;
-    let startX = 0;
-    let startY = 0;
-
-    const clearPressTimer = () => {
-      if (pressTimer) {
-        window.clearTimeout(pressTimer);
-        pressTimer = 0;
-      }
-    };
-
-    const cancelPress = () => {
-      clearPressTimer();
-      triggered = false;
-    };
-
-    const startPress = (event) => {
-      if (!eggId) return;
-      clearPressTimer();
-      triggered = false;
-      startX = event.clientX ?? 0;
-      startY = event.clientY ?? 0;
-      pressTimer = window.setTimeout(() => {
-        triggered = true;
-        window.dispatchEvent(new CustomEvent('ffc:open-egg', {
-          detail: { eggId, trigger: longPressTarget }
-        }));
-      }, pressDelay);
-    };
-
-    const cancelIfMoved = (event) => {
-      if (!pressTimer || triggered) return;
-      const movedTooMuch = Math.abs((event.clientX ?? 0) - startX) > 12 || Math.abs((event.clientY ?? 0) - startY) > 12;
-      if (movedTooMuch) {
-        cancelPress();
-      }
-    };
-
-    longPressTarget.addEventListener('pointerdown', startPress);
-    longPressTarget.addEventListener('pointerup', cancelPress);
-    longPressTarget.addEventListener('pointerleave', cancelPress);
-    longPressTarget.addEventListener('pointercancel', cancelPress);
-    longPressTarget.addEventListener('pointermove', cancelIfMoved);
   }
 </script>
