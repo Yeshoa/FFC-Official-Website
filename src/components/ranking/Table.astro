@@ -13,7 +13,6 @@ import { getCurrentRoleplays } from '@lib/roleplayUtils';
 const { members, currentTournamentId } = Astro.props;
 
 const rankedMembers = await getRankedMembers(members, currentTournamentId);
-
 const currentEvents = getCurrentEvents();
 const currentRoleplays = getCurrentRoleplays();
 const currentBonuses = getCurrentBonuses();
@@ -59,10 +58,9 @@ const headerCellClass = "px-2 py-2 text-center font-medium border-b border-l bor
 
       <tbody class="text-center text-green-300">
         {rankedMembers.map((team, index) => {
-          const hostPoints = getCurrentBonusPoints(team, 'host');
-          const eggsPoints = getCurrentBonusPoints(team, 'eggs');
-          const extraPoints = getCurrentBonusPoints(team, 'extra');
-
+          const hostPoints = getCurrentBonusPoints(team.currentBonus, 'Host nation');
+          const eggsPoints = getCurrentBonusPoints(team.currentBonus, 'Easter Eggs');
+          const extraPoints = getCurrentBonusPoints(team.currentBonus, 'Extra');
           const roleplayTotal = Object.values(team.currentRoleplay).reduce((a, b) => a + b, 0);
           const eventsTotal = Object.values(team.currentEvents).reduce((a, b) => a + b, 0);
           const bonusTotal = hostPoints + eggsPoints + extraPoints;

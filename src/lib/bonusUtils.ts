@@ -11,51 +11,60 @@ const tournaments = await getTournaments();
 const bonuses = getBonuses();
 
 // Función helper para obtener puntos de eventos específicos
-export const getCurrentBonusPoints = (team, bonusName: string) => {
-  return team.currentBonus?.[bonusName] || 0;
+export const getCurrentBonusPoints = (team: Record<string, number>, bonusName: string) => {
+  return team?.[bonusName] || 0;
 };
 
 // Obtener el total de bonus anteriores con decay
 export async function calculatePastBonusPoints(
-  memberBonus: Record<string, Record<string, number>>,
   member: MemberEntry,
   lastFourTournamentIds: number[],
   decayFactors: number[] = [1.0, 0.5, 0.25, 0.1]
 ): Promise<number> {
   return Math.ceil(lastFourTournamentIds.reduce((sum, tournamentId, index) => {
-    const tournamentIdStr = tournamentId.toString();
-    const bonuses = memberBonus[tournamentIdStr] || {};
-    const totalTournamentBonus = Object.values(bonuses).reduce((s, p) => s + p, 0);
+    // Buscar todos los bonuses para este torneo
+    const tournamentBonuses = bonuses.filter(b => b.edition === tournamentId);
+    
+    // Calcular puntos de bonuses para este miembro en este torneo
+    const bonusesForMember = tournamentBonuses.reduce((total, bonus) => {
+      return total + (bonus.participants[member.data.name] ?? 0);
+    }, 0);
+    
     // Automatic calculation, deny Bilsa 2 first hosts
     const hostPoints = member.data.name === 'Bilsa' ? 0 : tournaments.find((t) => t.data.id === tournamentId)?.data.host === member.data.name ? SCORING_CONFIG.BO_MAX : 0;
 
     const decayFactor = decayFactors[index] || 0;
-    return sum + (totalTournamentBonus + hostPoints) * decayFactor;
+    return sum + (bonusesForMember + hostPoints) * decayFactor;
   }, 0));
 }
+
 export async function calculateCurrentBonusPoints(
-  memberBonus: Record<string, Record<string, number>>,
   member: MemberEntry,
   currentTournamentId: number = CURRENT_TOURNAMENT_ID
 ): Promise<{
   totalPoints: number
   bonuses: Record<string, number>
 }> {
-  const currentTournamentIdStr = currentTournamentId.toString();
-  const currentBonuses = memberBonus[currentTournamentIdStr] || {};
+  // Buscar todos los bonuses para la edición actual
+  const currentBonuses = bonuses.filter(b => b.edition === currentTournamentId);
+  // Construir objeto con bonuses por tipo
+  const bonusesRecord: Record<string, number> = {};
+  currentBonuses.forEach(bonus => {
+    // Usar el tipo como clave (host, eggs, extra, poll)
+    bonusesRecord[bonus.type] = bonus.participants[member.data.name] ?? 0;
+  });
 
-  // Automatic calculation
-  const hostPoints = tournaments.find((t) => t.data.id === currentTournamentId)?.data.host === member.data.name ? SCORING_CONFIG.BO_MAX : 0;
-  
-  // Record de bonus por tipo
-  const bonuses: Record<string, number> = { ...currentBonuses, host: hostPoints };
+  // Automatic calculation for host (puede ser redundante pero lo dejamos por compatibilidad)
+  const hostFromTournament = tournaments.find((t) => t.data.id === currentTournamentId)?.data.host === member.data.name ? SCORING_CONFIG.BO_MAX : 0;
+  if (hostFromTournament > 0) {
+    bonusesRecord['host'] = hostFromTournament;
+  }
 
-  // Total crudo de bonus actuales
-  const totalPoints = Object.values(bonuses).reduce((sum, points) => sum + points, 0);
-
+  // Total de bonus actuales
+  const totalPoints = Object.values(bonusesRecord).reduce((sum, points) => sum + points, 0);
   return {
     totalPoints,
-    bonuses,
+    bonuses: bonusesRecord,
   };
 }
 
