@@ -16,23 +16,6 @@ const { lastMatches, nextMatches } = Astro.props;
     <h2 class="text-4xl font-bold mb-4">Matches</h2>
     <p class="text-lg text-green-300 mb-6">Latest results & upcoming games</p>
   </div> -->
-
-  {nextMatches.length > 0 && (
-    <div class="mb-6">
-      <h3 class="text-lg font-semibold text-blue-300 mb-4 flex items-center">
-        <div class="w-3 h-3 bg-blue-500 rounded-full mr-2"></div>
-        Upcoming Games
-      </h3>
-      <div class="space-y-3">
-        {nextMatches.map((match, index) => (
-          <div class={index >= 4 ? "hidden lg:block" : ""}>
-            <MatchCardDetailed match={match} />
-          </div>
-        ))}
-      </div>
-    </div>
-  )}
-  
   {lastMatches.length > 0 && (
     <div class="mb-8">
       <h3 class="text-lg font-semibold text-green-300 mb-4 flex items-center">
@@ -48,6 +31,23 @@ const { lastMatches, nextMatches } = Astro.props;
       </div>
     </div>
   )}
+
+  {nextMatches.length > 0 && (
+    <div class="mb-6">
+      <h3 class="text-lg font-semibold text-green-300 mb-4 flex items-center">
+        <div class="w-3 h-3 bg-green-500 rounded-full mr-2"></div>
+        Upcoming Games
+      </h3>
+      <div class="space-y-3">
+        {nextMatches.map((match, index) => (
+          <div class={index >= 4 ? "hidden lg:block" : ""}>
+            <MatchCardDetailed match={match} />
+          </div>
+        ))}
+      </div>
+    </div>
+  )}
+  
 
   {(nextMatches.length === 0 && nextMatches.length === 0) && (
     <div class="text-center py-8">
