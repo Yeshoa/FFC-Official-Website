@@ -4,6 +4,7 @@ code: "BSF"
 name: "Bisofeyr"
 nslink: "https://www.nationstates.net/nation=bisofeyr"
 flagPath: "/src/assets/images/members/bisofeyr_flag.png"
+logoPath: "/src/assets/images/members/bisofeyr_logo.png"
 region: "Forest"
 founded: 2024
 affiliation: 2024

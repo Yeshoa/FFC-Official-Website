@@ -1,9 +1,10 @@
 ---
-id: 23
+id: 12
 code: "NAR"
 name: "Nardin"
 nslink: "https://www.nationstates.net/nation=nardin"
 flagPath: "/src/assets/images/members/nardin_flag.png"
+logoPath: "/src/assets/images/members/nardin_logo.png"
 region: "Europe"
 founded: 2024
 affiliation: 2024

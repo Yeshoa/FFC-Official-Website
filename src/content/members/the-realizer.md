@@ -3,7 +3,7 @@ id: 8
 code: "TRZ"
 name: "The Realizer"
 nslink: "https://www.nationstates.net/nation=the_realizer"
-flagPath: "/src/assets/images/members/the_realizer_flag.png"
+flagPath: "/src/assets/images/members/the_realizer_flag.jpg"
 logoPath: "/src/assets/images/members/the_realizer_logo.png"
 region: "Forest"
 affiliation: 2024
