@@ -31,6 +31,10 @@
     "type": "football_roleplay",
     "maxScore": 3,
     "participants": {
+      "Einswenn": 3,
+      "Roless": 1,
+      "Lumiose": 1,
+      "Ecologist Hegemony": 1
     }
   },
   {
@@ -42,6 +46,7 @@
     "type": "articles",
     "maxScore": 1,
     "participants": {
+      "Roless": 1
     }
   },
   {

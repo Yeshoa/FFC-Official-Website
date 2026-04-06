@@ -32,6 +32,8 @@
     "type": "eggs",
     "maxScore": 20,
     "participants": {
+      "Einswenn": 12,
+      "Roless": 16
     }
   },
   {
@@ -44,7 +46,8 @@
     "maxScore": "Variable",
     "participants": {
       "Lumiose": 15,
-      "The Realizer": 20
+      "The Realizer": 20,
+      "Cacusia": 5
     }
   },
   {    
