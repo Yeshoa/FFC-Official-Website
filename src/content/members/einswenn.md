@@ -8,7 +8,7 @@ federation: "BERSA Einset Football"
 logoPath: "/src/assets/images/members/einswenn_logo.png"
 feddispatch: "https://www.nationstates.net/page=dispatch/id=2533546"
 region: "Forest"
-founded: 2014
+founded: 2013
 affiliation: 2024
 verified: true
 founder: true
