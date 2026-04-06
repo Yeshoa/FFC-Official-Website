@@ -27,7 +27,7 @@ export const ROUTES = {
   },
   stadiums: {
     index: "/stadiums/",
-    detail: (slug: string) => `/stadiums/${slug}/`,
+    // detail: (slug: string) => `/stadiums/${slug}/`,
   },
   sponsors: {
     index: "/sponsors/",

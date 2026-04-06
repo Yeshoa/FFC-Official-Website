@@ -42,13 +42,15 @@ const hour = match.data.date.toLocaleTimeString(LOCALE, {hour12: false, hour: 'n
 
 const stadium = match.data.stadium_id ? (await getStadiumById(match.data.stadium_id)) : null;
 const stadiumName = stadium?.data.name || null;
-const stadiumHref = stadium ? ROUTES.stadiums.detail(stadium.slug) : null;
+const stadiumHref = "#";
+// const stadiumHref = stadium ? ROUTES.stadiums.detail(stadium.slug) : "#";
 ---
 
 <div class="flex flex-col justify-start items-center w-full max-w-5xl bg-gradient-to-br from-green-900/80 to-green-950/70 py-3 px-4 rounded-2xl shadow-md text-white hover:bg-green-700/90">
   <div class="flex flex-col xs:flex-row items-center justify-between w-full mb-2 pb-2 border-b border-green-700/50">
     {<div class="flex items-center gap-2 text-xs md:text-sm text-green-200">
-        <a href={stadiumHref} class="font-medium truncate max-w-[200px] hover:underline">{stadiumName}</a>
+        {/* <a href={stadiumHref} class="font-medium truncate max-w-[200px] hover:underline">{stadiumName}</a> */}
+        <span class="font-medium truncate max-w-[200px] hover:underline">{stadiumName}</span>
     </div>}
     <div class="text-xs text-green-300 font-light mt-1 xs:mt-0">
       <div class="flex items-center gap-1 overflow-hidden">
