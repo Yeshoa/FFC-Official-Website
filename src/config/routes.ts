@@ -34,6 +34,7 @@ export const ROUTES = {
     // detail: (slug: string) => `/sponsors/${slug}/`,
   },
   ranking: "/ranking/",
+  rankingDetailed: "/ranking-detailed/",
   test: "/test/",
   notFound: "/404/",
 } as const;

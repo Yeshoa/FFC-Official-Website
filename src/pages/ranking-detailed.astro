@@ -1,6 +1,6 @@
 ---
 import Layout from '@layouts/App.astro'
-import { getMembers, getTournaments, getRoleplays, getEvents } from '@lib/collections';
+import { getMembers, getTournaments, getRoleplays, getEvents, getBonuses } from '@lib/collections';
 import { CURRENT_TOURNAMENT_ID } from 'src/utils/tournamentUtils';
 import { getRankedMembers, getRankClass } from '@lib/rankingUtils';
 import { getTotalColorClass } from '@lib/scoreUtils';
@@ -10,120 +10,147 @@ const members = await getMembers();
 const tournaments = await getTournaments();
 const allRoleplays = getRoleplays();
 const allEvents = getEvents();
+const allBonuses = getBonuses();
 const currentTournamentId = CURRENT_TOURNAMENT_ID;
 
 const rankedMembers = await getRankedMembers(members, currentTournamentId);
 
-// Filtrar solo los items de la temporada actual
 const currentRoleplays = allRoleplays.filter(rp => rp.edition === currentTournamentId && rp.enabled !== false);
 const currentEvents = allEvents.filter(ev => ev.edition === currentTournamentId && ev.enabled !== false);
+const currentBonuses = allBonuses.filter(b => b.edition === currentTournamentId && b.enabled !== false);
 
-const colWidth = "w-10 sm:w-14";
+// min-w en px para que las columnas NUNCA se compriman
+const colWidth = "min-w-[40px] xl:min-w-[56px]";
 ---
 
 <Layout title="FFC - Detailed Ranking">
   <main class="w-full p-6">
     <h1 class="text-4xl font-bold mb-8 text-center text-green-400">Detailed Ranking</h1>
-    
+    <h6 class="text-sm text-gray-300 mb-2 text-center">Swipe to see the full table</h6>
+
     <div class="overflow-x-auto rounded-lg">
-      <table class="w-full border-collapse text-xs sm:text-sm bg-green-900/30">
-        <thead class="bg-green-800 uppercase">
+      <table class="w-max border-collapse text-xs xl:text-sm bg-green-900/30 mx-auto">
+        <thead class="bg-green-800 sticky top-0 z-30">
           <tr>
-            <th class={`${colWidth} px-2 py-3 text-center border-b border-green-600 rounded-tl-lg`} title="Position">°</th>
-            <th class="w-10 px-2 py-3 text-center border-b border-green-600"></th>
-            <th class="py-3 text-left border-b border-green-600 min-w-[100px]">Team</th>
-            
+            <!-- ° Position -->
+            <th
+              class="min-w-[32px] xl:min-w-[40px] px-2 py-2 xl:py-3 text-center border-b border-green-600 sticky left-0 z-30 bg-green-800 rounded-tl-lg"
+              title="Position"
+            >°</th>
+
+            <!-- Flag -->
+            <th
+              class="min-w-[32px] xl:min-w-[40px] px-1 xl:px-2 py-2 xl:py-3 text-center border-b border-green-600 sticky left-8 xl:left-10 z-30 bg-green-800"
+            ></th>
+
+            <!-- Team -->
+            <th
+              class="min-w-[80px] xl:min-w-[140px] py-2 xl:py-3 text-left border-b border-green-600 sticky left-16 xl:left-20 z-30 bg-green-800 px-2 whitespace-nowrap"
+            >Team</th>
+
             {currentRoleplays.map(rp => (
-              <th class={`${colWidth} px-1 py-2 text-center border-b border-x border-green-600 bg-purple-900/40`} title={rp.name}>
-                {rp.code}
+              <th
+                class={`${colWidth} px-1 py-2 text-center border-b border-x border-green-600 bg-purple-900/40`}
+                title={rp.name}
+              >
+                <span class="whitespace-normal break-words leading-tight">{rp.name}</span>
               </th>
             ))}
-            
+
             {currentEvents.map(ev => (
-              <th class={`${colWidth} px-1 py-2 text-center border-b border-x border-green-600 bg-blue-900/40`} title={ev.name}>
-                {ev.code}
+              <th
+                class={`${colWidth} px-1 py-2 text-center border-b border-x border-green-600 bg-blue-900/40`}
+                title={ev.name}
+              >
+                <span class="whitespace-normal break-words leading-tight">{ev.name}</span>
               </th>
             ))}
-            
-            <th class={`${colWidth} px-2 py-2 text-center border-b border-x border-green-600 bg-gradient-to-r from-blue-800/30 to-blue-800/60`} title="Past Roleplay">Past RP</th>
-            <th class={`${colWidth} px-2 py-2 text-center border-b border-x border-green-600 bg-gradient-to-r from-blue-800/30 to-blue-800/60`} title="Past Events">Past EV</th>
-            <th class={`${colWidth} px-2 py-2 text-center border-b border-x border-green-600 bg-gradient-to-r from-blue-800/30 to-blue-800/60`} title="Past Bonus">Past BO</th>
-            <th class={`${colWidth} px-2 py-2 text-center border-b border-x border-green-600 bg-gradient-to-r from-blue-800/30 to-blue-800/60`} title="Past Results">Past RES</th>
-            
-            <th class={`${colWidth} px-2 py-3 text-center font-bold border-b border-l border-green-600`} title="Total Points">Pts</th>
-            <th class={`${colWidth} px-2 py-3 text-center font-bold border-b border-green-600 rounded-tr-lg`} title="Tier">Tier</th>
+
+            {currentBonuses.map(b => (
+              <th
+                class={`${colWidth} px-1 py-2 text-center border-b border-x border-green-600 bg-green-900/40`}
+                title={b.name}
+              >
+                <span class="whitespace-normal break-words leading-tight">{b.name}</span>
+              </th>
+            ))}
+
+            <th class={`${colWidth} px-1 xl:px-2 py-2 text-center border-b border-x border-green-600 bg-blue-800/40 whitespace-normal break-words leading-tight`} title="Past Roleplay">Past RP</th>
+            <th class={`${colWidth} px-1 xl:px-2 py-2 text-center border-b border-x border-green-600 bg-blue-800/40 whitespace-normal break-words leading-tight`} title="Past Events">Past EV</th>
+            <th class={`${colWidth} px-1 xl:px-2 py-2 text-center border-b border-x border-green-600 bg-blue-800/40 whitespace-normal break-words leading-tight`} title="Past Bonus">Past BO</th>
+            <th class={`${colWidth} px-1 xl:px-2 py-2 text-center border-b border-x border-green-600 bg-blue-800/40 whitespace-normal break-words leading-tight`} title="Past Results">Past RES</th>
+
+            <th class={`${colWidth} px-1 xl:px-2 py-2 xl:py-3 text-center font-bold border-b border-l border-green-600`} title="Total Points">Pts</th>
+            <th class={`${colWidth} px-1 xl:px-2 py-2 xl:py-3 text-center font-bold border-b border-green-600 rounded-tr-lg`} title="Tier">Tier</th>
           </tr>
         </thead>
-        
+
         <tbody class="text-center text-green-300">
           {rankedMembers.map((team, index) => {
             const pastRP = team.scores.pastRoleplay;
             const pastEV = team.scores.pastEventPoints;
             const pastBO = team.scores.pastBonus;
             const pastRES = team.scores.tournamentDecayPoints;
-            
+
             return (
               <tr class="border-b border-green-700 hover:bg-green-800/30 transition duration-150 odd:bg-green-900/30">
-                <td class={`${colWidth} py-2 font-semibold border-r border-green-700 ${getRankClass(index + 1)}`}>
+
+                <!-- ° -->
+                <td class={`min-w-[32px] xl:min-w-[40px] py-2 xl:py-3 font-semibold border-r border-green-700 ${getRankClass(index + 1)} sticky left-0 z-20 bg-green-950`}>
                   {index + 1}
                 </td>
-                <td class="px-1 py-1">
+
+                <!-- Flag -->
+                <td class="min-w-[32px] xl:min-w-[40px] px-1 xl:px-2 py-1 xl:py-2 sticky left-8 xl:left-10 z-20 bg-green-950">
                   <Image
                     src={team.flag || "/placeholder.svg"}
                     alt={team.name}
                     quality={40}
                     format="webp"
                     width={60}
-                    class="h-5 w-8 object-cover rounded inline-block"
+                    class="h-4 xl:h-5 w-6 xl:w-8 object-cover rounded inline-block"
                   />
                 </td>
-                <td class="ps-2 py-2 text-left min-w-[100px]">
+
+                <!-- Team -->
+                <td class="min-w-[80px] xl:min-w-[140px] py-2 xl:py-3 text-left sticky left-16 xl:left-20 z-10 bg-green-950 px-2 whitespace-nowrap">
                   <a
                     href={`/members/${team.slug}`}
-                    class="hidden sm:inline font-semibold hover:underline text-white"
+                    class="font-semibold hover:underline text-white text-xs xl:text-sm"
                     title={team.name}
                   >
-                    {team.name}
-                  </a>
-                  <a
-                    href={`/members/${team.slug}`}
-                    class="sm:hidden font-semibold hover:underline text-white"
-                    title={team.name}
-                  >
-                    {team.code}
+                    <span class="xl:hidden">{team.code || team.name}</span>
+                    <span class="hidden xl:inline">{team.name}</span>
                   </a>
                 </td>
-                
+
                 {currentRoleplays.map(rp => (
                   <td class={`${colWidth} px-1 py-2 border-x border-green-700 bg-purple-900/20`}>
                     {team.currentRoleplay[rp.name] || 0}
                   </td>
                 ))}
-                
+
                 {currentEvents.map(ev => (
                   <td class={`${colWidth} px-1 py-2 border-x border-green-700 bg-blue-900/20`}>
                     {team.currentEvents[ev.name] || 0}
                   </td>
                 ))}
-                
-                <td class={`${colWidth} px-2 py-2 border-x border-green-700 bg-gradient-to-r from-blue-800/20 to-blue-800/40`}>
-                  {pastRP}
-                </td>
-                <td class={`${colWidth} px-2 py-2 border-x border-green-700 bg-gradient-to-r from-blue-800/20 to-blue-800/40`}>
-                  {pastEV}
-                </td>
-                <td class={`${colWidth} px-2 py-2 border-x border-green-700 bg-gradient-to-r from-blue-800/20 to-blue-800/40`}>
-                  {pastBO}
-                </td>
-                <td class={`${colWidth} px-2 py-2 border-x border-green-700 bg-gradient-to-r from-blue-800/20 to-blue-800/40`}>
-                  {pastRES}
-                </td>
-                
-                <td class={`${colWidth} px-2 py-2 ${getTotalColorClass(team.totalScore)} border-l border-green-700 font-bold`}>
+
+                {currentBonuses.map(b => (
+                  <td class={`${colWidth} px-1 py-2 border-x border-green-700 bg-green-900/20`}>
+                    {team.currentBonus[b.name] || 0}
+                  </td>
+                ))}
+
+                <td class={`${colWidth} px-1 xl:px-2 py-2 border-x border-green-700 bg-blue-800/20`}>{pastRP}</td>
+                <td class={`${colWidth} px-1 xl:px-2 py-2 border-x border-green-700 bg-blue-800/20`}>{pastEV}</td>
+                <td class={`${colWidth} px-1 xl:px-2 py-2 border-x border-green-700 bg-blue-800/20`}>{pastBO}</td>
+                <td class={`${colWidth} px-1 xl:px-2 py-2 border-x border-green-700 bg-blue-800/20`}>{pastRES}</td>
+
+                <td class={`${colWidth} px-1 xl:px-2 py-2 xl:py-3 ${getTotalColorClass(team.totalScore)} border-l border-green-700 font-bold`}>
                   {team.totalScore}
                 </td>
-                
-                <td class={`${colWidth} px-2 py-2 ${getTotalColorClass(team.totalScore)} border-green-700 font-bold`}>
+                <td class={`${colWidth} px-1 xl:px-2 py-2 xl:py-3 ${getTotalColorClass(team.totalScore)} font-bold`}>
                   {team.tier}
                 </td>
               </tr>
