@@ -2,6 +2,7 @@
 import { type CollectionEntry } from 'astro:content';
 import { LOCALE } from '@config/constants';
 import { getArticles } from '@lib/collections';
+import { isExternalUrl } from '@utils/articleUtils';
 import { Image } from 'astro:assets';
 import App from '@layouts/App.astro';
 import ArticleProse from '@components/articles/ArticleProse.astro';
@@ -89,15 +90,24 @@ const recentArticles = allArticles
 
         {data.image && (
           <div class="mb-8">
-            <Image 
-              src={data.image} 
-              alt={`Image of ${data.title}`}
-              class="rounded-xl shadow-lg h-80 w-full object-cover"
-              quality={70}
-              width={800}
-              loading={"eager"}
-              format="webp"
-            />
+            {isExternalUrl(data.image) ? (
+              <img 
+                src={data.image}
+                alt={`Image of ${data.title}`}
+                class="rounded-xl shadow-lg h-80 w-full object-cover"
+                loading="eager"
+              />
+            ) : (
+              <Image 
+                src={data.image} 
+                alt={`Image of ${data.title}`}
+                class="rounded-xl shadow-lg h-80 w-full object-cover"
+                quality={70}
+                width={800}
+                loading="eager"
+                format="webp"
+              />
+            )}
           </div>
         )}
 
@@ -148,14 +158,23 @@ const recentArticles = allArticles
                         </div>
                         {relatedArticle.data.image && (
                           <div class="flex-shrink-0">
-                            <Image 
-                              src={relatedArticle.data.image}
-                              alt={`Thumbnail for ${relatedArticle.data.title}`}
-                              class="w-24 h-18 object-cover rounded shadow-md group-hover:shadow-lg transition-shadow"
-                              quality={30}
-                              format="webp"
-                              style="aspect-ratio: 4/3;"
-                            />
+                            {isExternalUrl(relatedArticle.data.image) ? (
+                              <img
+                                src={relatedArticle.data.image}
+                                alt={`Thumbnail for ${relatedArticle.data.title}`}
+                                class="w-24 h-18 object-cover rounded shadow-md group-hover:shadow-lg transition-shadow"
+                                style="aspect-ratio: 4/3;"
+                              />
+                            ) : (
+                              <Image 
+                                src={relatedArticle.data.image}
+                                alt={`Thumbnail for ${relatedArticle.data.title}`}
+                                class="w-24 h-18 object-cover rounded shadow-md group-hover:shadow-lg transition-shadow"
+                                quality={30}
+                                format="webp"
+                                style="aspect-ratio: 4/3;"
+                              />
+                            )}
                           </div>
                         )}
                       </div>
@@ -190,7 +209,7 @@ const recentArticles = allArticles
                           })}
                         </p>
                       </div>
-                      {recentArticle.data.image && (
+                      {/* {recentArticle.data.image && (
                         <div class="flex-shrink-0">
                           <Image 
                             src={recentArticle.data.image}
@@ -201,6 +220,23 @@ const recentArticles = allArticles
                             style="aspect-ratio: 4/3;"
                           />
                         </div>
+                      )} */}
+                      {isExternalUrl(recentArticle.data.image) ? (
+                        <img
+                          src={recentArticle.data.image}
+                          alt={`Thumbnail for ${recentArticle.data.title}`}
+                          class="w-24 h-18 object-cover rounded shadow-md group-hover:shadow-lg transition-shadow"
+                          style="aspect-ratio: 4/3;"
+                        />
+                      ) : (
+                        <Image 
+                          src={recentArticle.data.image}
+                          alt={`Thumbnail for ${recentArticle.data.title}`}
+                          class="w-24 h-18 object-cover rounded shadow-md group-hover:shadow-lg transition-shadow"
+                          quality={30}
+                          format="webp"
+                          style="aspect-ratio: 4/3;"
+                        />
                       )}
                     </div>
                   </a>

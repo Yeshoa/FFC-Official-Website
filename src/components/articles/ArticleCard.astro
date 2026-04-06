@@ -1,6 +1,9 @@
 ---
 import { LOCALE } from '@config/constants';
 import { Image } from 'astro:assets';
+import { isExternalUrl } from '@utils/articleUtils';
+import FFCDefault from '@images/articles/welcome/gradient.png';
+
 interface Props {
   title: string;
   image: any;
@@ -12,8 +15,14 @@ interface Props {
 const { title, image, date, summary, tags, href } = Astro.props;
 ---
 <a href={href} class="block bg-green-950/80 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-200 overflow-hidden group">
-  {image && (
-    <Image src={image} alt={title} class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-200" height={200} />
+  {image ? (
+    isExternalUrl(image) ? (
+      <img src={image} alt={title} class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-200" />
+    ) : (
+      <Image src={image} alt={title} class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-200" height={200} />
+    )
+  ) : (
+    <Image src={FFCDefault} alt="Default Image" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-200" height={200} />
   )}
   <div class="p-4">
     <h2 class="text-xl font-bold text-white mb-1 group-hover:text-green-300 transition-colors">{title}</h2>
