@@ -30,11 +30,8 @@ export async function calculatePastBonusPoints(
       return total + (bonus.participants[member.data.name] ?? 0);
     }, 0);
     
-    // Automatic calculation, deny Bilsa 2 first hosts
-    const hostPoints = member.data.name === 'Bilsa' ? 0 : tournaments.find((t) => t.data.id === tournamentId)?.data.host === member.data.name ? SCORING_CONFIG.BO_MAX : 0;
-
     const decayFactor = decayFactors[index] || 0;
-    return sum + (bonusesForMember + hostPoints) * decayFactor;
+    return sum + (bonusesForMember) * decayFactor;
   }, 0));
 }
 

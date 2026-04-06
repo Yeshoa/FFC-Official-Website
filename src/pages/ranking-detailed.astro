@@ -1,0 +1,136 @@
+---
+import Layout from '@layouts/App.astro'
+import { getMembers, getTournaments, getRoleplays, getEvents } from '@lib/collections';
+import { CURRENT_TOURNAMENT_ID } from 'src/utils/tournamentUtils';
+import { getRankedMembers, getRankClass } from '@lib/rankingUtils';
+import { getTotalColorClass } from '@lib/scoreUtils';
+import { Image } from 'astro:assets';
+
+const members = await getMembers();
+const tournaments = await getTournaments();
+const allRoleplays = getRoleplays();
+const allEvents = getEvents();
+const currentTournamentId = CURRENT_TOURNAMENT_ID;
+
+const rankedMembers = await getRankedMembers(members, currentTournamentId);
+
+// Filtrar solo los items de la temporada actual
+const currentRoleplays = allRoleplays.filter(rp => rp.edition === currentTournamentId && rp.enabled !== false);
+const currentEvents = allEvents.filter(ev => ev.edition === currentTournamentId && ev.enabled !== false);
+
+const colWidth = "w-10 sm:w-14";
+---
+
+<Layout title="FFC - Detailed Ranking">
+  <main class="w-full p-6">
+    <h1 class="text-4xl font-bold mb-8 text-center text-green-400">Detailed Ranking</h1>
+    
+    <div class="overflow-x-auto rounded-lg">
+      <table class="w-full border-collapse text-xs sm:text-sm bg-green-900/30">
+        <thead class="bg-green-800 uppercase">
+          <tr>
+            <th class={`${colWidth} px-2 py-3 text-center border-b border-green-600 rounded-tl-lg`} title="Position">°</th>
+            <th class="w-10 px-2 py-3 text-center border-b border-green-600"></th>
+            <th class="py-3 text-left border-b border-green-600 min-w-[100px]">Team</th>
+            
+            {currentRoleplays.map(rp => (
+              <th class={`${colWidth} px-1 py-2 text-center border-b border-x border-green-600 bg-purple-900/40`} title={rp.name}>
+                {rp.code}
+              </th>
+            ))}
+            
+            {currentEvents.map(ev => (
+              <th class={`${colWidth} px-1 py-2 text-center border-b border-x border-green-600 bg-blue-900/40`} title={ev.name}>
+                {ev.code}
+              </th>
+            ))}
+            
+            <th class={`${colWidth} px-2 py-2 text-center border-b border-x border-green-600 bg-gradient-to-r from-blue-800/30 to-blue-800/60`} title="Past Roleplay">Past RP</th>
+            <th class={`${colWidth} px-2 py-2 text-center border-b border-x border-green-600 bg-gradient-to-r from-blue-800/30 to-blue-800/60`} title="Past Events">Past EV</th>
+            <th class={`${colWidth} px-2 py-2 text-center border-b border-x border-green-600 bg-gradient-to-r from-blue-800/30 to-blue-800/60`} title="Past Bonus">Past BO</th>
+            <th class={`${colWidth} px-2 py-2 text-center border-b border-x border-green-600 bg-gradient-to-r from-blue-800/30 to-blue-800/60`} title="Past Results">Past RES</th>
+            
+            <th class={`${colWidth} px-2 py-3 text-center font-bold border-b border-l border-green-600`} title="Total Points">Pts</th>
+            <th class={`${colWidth} px-2 py-3 text-center font-bold border-b border-green-600 rounded-tr-lg`} title="Tier">Tier</th>
+          </tr>
+        </thead>
+        
+        <tbody class="text-center text-green-300">
+          {rankedMembers.map((team, index) => {
+            const pastRP = team.scores.pastRoleplay;
+            const pastEV = team.scores.pastEventPoints;
+            const pastBO = team.scores.pastBonus;
+            const pastRES = team.scores.tournamentDecayPoints;
+            
+            return (
+              <tr class="border-b border-green-700 hover:bg-green-800/30 transition duration-150 odd:bg-green-900/30">
+                <td class={`${colWidth} py-2 font-semibold border-r border-green-700 ${getRankClass(index + 1)}`}>
+                  {index + 1}
+                </td>
+                <td class="px-1 py-1">
+                  <Image
+                    src={team.flag || "/placeholder.svg"}
+                    alt={team.name}
+                    quality={40}
+                    format="webp"
+                    width={60}
+                    class="h-5 w-8 object-cover rounded inline-block"
+                  />
+                </td>
+                <td class="ps-2 py-2 text-left min-w-[100px]">
+                  <a
+                    href={`/members/${team.slug}`}
+                    class="hidden sm:inline font-semibold hover:underline text-white"
+                    title={team.name}
+                  >
+                    {team.name}
+                  </a>
+                  <a
+                    href={`/members/${team.slug}`}
+                    class="sm:hidden font-semibold hover:underline text-white"
+                    title={team.name}
+                  >
+                    {team.code}
+                  </a>
+                </td>
+                
+                {currentRoleplays.map(rp => (
+                  <td class={`${colWidth} px-1 py-2 border-x border-green-700 bg-purple-900/20`}>
+                    {team.currentRoleplay[rp.name] || 0}
+                  </td>
+                ))}
+                
+                {currentEvents.map(ev => (
+                  <td class={`${colWidth} px-1 py-2 border-x border-green-700 bg-blue-900/20`}>
+                    {team.currentEvents[ev.name] || 0}
+                  </td>
+                ))}
+                
+                <td class={`${colWidth} px-2 py-2 border-x border-green-700 bg-gradient-to-r from-blue-800/20 to-blue-800/40`}>
+                  {pastRP}
+                </td>
+                <td class={`${colWidth} px-2 py-2 border-x border-green-700 bg-gradient-to-r from-blue-800/20 to-blue-800/40`}>
+                  {pastEV}
+                </td>
+                <td class={`${colWidth} px-2 py-2 border-x border-green-700 bg-gradient-to-r from-blue-800/20 to-blue-800/40`}>
+                  {pastBO}
+                </td>
+                <td class={`${colWidth} px-2 py-2 border-x border-green-700 bg-gradient-to-r from-blue-800/20 to-blue-800/40`}>
+                  {pastRES}
+                </td>
+                
+                <td class={`${colWidth} px-2 py-2 ${getTotalColorClass(team.totalScore)} border-l border-green-700 font-bold`}>
+                  {team.totalScore}
+                </td>
+                
+                <td class={`${colWidth} px-2 py-2 ${getTotalColorClass(team.totalScore)} border-green-700 font-bold`}>
+                  {team.tier}
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+  </main>
+</Layout>

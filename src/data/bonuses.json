@@ -6,9 +6,9 @@
     "code": "Host",
     "edition": 3,
     "type": "host",
-    "maxScore": 1,
+    "maxScore": 15,
     "participants": {
-      "Cacusia": 1
+      "Cacusia": 15
     }
   },
   {
@@ -18,12 +18,12 @@
     "code": "Host",
     "edition": 2,
     "type": "host",
-    "maxScore": 1,
+    "maxScore": 15,
     "participants": {
-      "Anxious and Kevin": 1
+      "Anxious and Kevin": 15
     }
   },
-  {
+  {    
     "id": "eggs-2025",
     "name": "Easter Eggs",
     "description": "4 Points per easter egg discovered.",
@@ -45,6 +45,23 @@
     "participants": {
       "Lumiose": 15,
       "The Realizer": 20
+    }
+  },
+  {    
+    "id": "eggs-2024",
+    "name": "Easter Eggs",
+    "description": "Easter eggs discovered in the 2024 tournament.",
+    "code": "Eggs",
+    "edition": 2,
+    "type": "eggs",
+    "maxScore": 20,
+    "participants": {
+      "Roless": 9,
+      "Cacusia": 6,
+      "Cat Army": 7,
+      "Einswenn": 13,
+      "Republic of Yucatan": 4,
+      "Verdant Haven": 10
     }
   },
   {
@@ -75,7 +92,8 @@
     "participants": {
       "Orcuo": 2,
       "Furilisca": 2,
-      "Nordustra": 2
+      "Nordustra": 2,
+      "United Malay Federation": 2
     }
   },
   {
@@ -87,8 +105,7 @@
     "type": "extra",
     "maxScore": "variable",
     "participants": {
-      "Trebenia": 10,
-      "Verdant Haven": 5
+      "Trebenia": 10
     }
   }
 ]
