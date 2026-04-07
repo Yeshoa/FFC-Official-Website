@@ -1,8 +1,9 @@
 ---
 name: Startex
-image: src/assets/images/sponsors/startex.png
+image: src/assets/images/sponsors/startex.svg
 member: Einswenn
-backgroundColor: "#090026"
+# bgClass: "#090026"
+bgClass: "bg-[radial-gradient(#000000,#157e3b)]"
 type: Space
 description: A private space company.
 ---

@@ -1,7 +1,8 @@
 ---
 name: Vgala
 image: src/assets/images/sponsors/vgala.png
-backgroundColor: '#d0ff00'
+# class '#d0ff00'
+bgClass: "bg-[#d0ff00] text-[#000000]"
 tier: supplier
 type: Sportwear
 member: Bilsa

@@ -308,7 +308,7 @@ const sponsorCollection = defineCollection({
     image: image(),
     member: z.string().optional(),
     // class: z.string().optional(),
-    backgroundColor: z.string().default('#ffffff'),
+    bgClass: z.string().default('bg-[#17beea]'),
     tier: z.enum(['global', 'supplier', 'national']).default('global'),
     description: z.string().optional(),
     type: z.string().optional(),

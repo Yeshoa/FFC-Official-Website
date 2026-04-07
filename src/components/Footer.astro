@@ -116,7 +116,7 @@ const cols = FEATURES.donations ? 4 : 3;
     <div class="flex flex-wrap justify-center gap-8 mt-4">
       {sponsors.filter((sponsor) => sponsor.data.tier !== 'national').map((sponsor, index) => (
         <div class="relative">
-          {index === 7 && (
+          {sponsor.data.name === "Oberalon" && (
             <div class="absolute -right-1 -top-3 z-0">
               <EggTrigger
                 eggId="egg-1"

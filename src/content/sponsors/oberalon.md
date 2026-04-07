@@ -1,7 +1,8 @@
 ---
 name: Oberalon
 image: src/assets/images/sponsors/oberalon.png
-backgroundColor: '#000000'
+# class '#000000'
+bgClass: "bg-[#000000] text-[#ffffff]"
 tier: supplier
 type: Sportwear
 member: Lumiose

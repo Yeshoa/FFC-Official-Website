@@ -2,7 +2,8 @@
 name: EcoKing
 image: src/assets/images/sponsors/ecoking.png
 member: Bilsa
-backgroundColor: "#008c00"
+# bgClass: "#008c00"
+bgClass: "bg-[#008c00] text-[#ffffff]"
 type: Energy
 description: The most eco-friendly energy company in Bilsa.
 ---

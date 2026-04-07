@@ -7,8 +7,8 @@ interface Props {
 }
 
 const { sponsor } = Astro.props;
-const { name, image, member, backgroundColor, description, type } = sponsor.data;
-const imageBg = backgroundColor || '#ffffff';
+const { name, image, member, bgClass, description, type } = sponsor.data;
+const imageBg = bgClass || 'bg-[#ffffff]';
 ---
 <article class="w-full bg-white/4 border border-white/6 rounded-2xl shadow-sm backdrop-blur-sm">
   <div class="p-3 sm:p-4">
@@ -29,8 +29,8 @@ const imageBg = backgroundColor || '#ffffff';
       <!-- Imagen -->
       <div class="flex-shrink-0 w-full sm:w-auto">
         <div
-          class="w-full h-20 sm:w-28 sm:h-20 md:w-32 md:h-24 rounded-lg flex items-center justify-center overflow-hidden"
-          style={`background-color: ${imageBg}`}
+          class={`w-full h-20 sm:w-28 sm:h-20 md:w-32 md:h-24 rounded-lg flex items-center justify-center overflow-hidden ${imageBg}`}
+          
           aria-hidden="false"
         >
           <Image

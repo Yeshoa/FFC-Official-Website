@@ -1,7 +1,8 @@
 ---
 name: Sbotjunj
 image: src/assets/images/sponsors/sbotjunj.png
-backgroundColor: '#f03c00'
+# class '#f03c00'
+bgClass: "bg-[#f03c00] text-[#ffffff]"
 tier: supplier
 type: Sportwear
 member: Bilsa

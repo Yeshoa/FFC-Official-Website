@@ -9,7 +9,8 @@ interface Props {
 const { sponsor } = Astro.props;
 ---
 
-<div class="w-32 h-16 border-2 border-gray-300 rounded-lg overflow-hidden" style={`background-color: ${sponsor.data.backgroundColor}`}>
+<!-- <div class={`w-32 h-16 border-2 border-gray-300 rounded-lg overflow-hidden ${sponsor.data.backgroundColor}`} style={`background-color: ${sponsor.data.backgroundColor}`}> -->
+<div class={`w-32 h-16 border-2 border-gray-300 rounded-lg overflow-hidden ${sponsor.data.bgClass}`}>
   <Image 
     src={sponsor.data.image}
     alt={sponsor.data.name}
