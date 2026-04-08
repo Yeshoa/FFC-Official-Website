@@ -46,8 +46,9 @@
     "maxScore": "Variable",
     "participants": {
       "Lumiose": 15,
-      "The Realizer": 20,
-      "Cacusia": 5
+      "Realize": 20,
+      "Cacusia": 5,
+      "Garbelia": 20
     }
   },
   {    
@@ -78,7 +79,7 @@
     "participants": {
       "Lumiose": 5,
       "Einswenn": 5,
-      "The Realizer": 20,
+      "Realize": 20,
       "Roless": 5,
       "United Malay Federation": 5,
       "Verdant Haven": 5

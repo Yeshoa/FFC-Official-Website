@@ -260,7 +260,7 @@
     "stage": "group",
     "group": "E",
     "fixture": "Matchday 1",
-    "team1": "The Realizer",
+    "team1": "Realize",
     "team2": "RKD",
     "status": "played",
     "date": "2024-08-04T16:20:00.000Z",
@@ -273,7 +273,7 @@
         "minute": 4
       },
       {
-        "team": "The Realizer",
+        "team": "Realize",
         "player": "J. Ponstantinople",
         "assist": "A. Manolis",
         "minute": 45,
@@ -282,7 +282,7 @@
     ],
     "cards": [
       {
-        "team": "The Realizer",
+        "team": "Realize",
         "player": "A. Manolis",
         "minute": 90,
         "type": "yellow"
@@ -728,13 +728,13 @@
     "group": "E",
     "fixture": "Matchday 2",
     "team1": "Roless",
-    "team2": "The Realizer",
+    "team2": "Realize",
     "status": "played",
     "date": "2024-08-05T16:00:00.000Z",
     "link": "https://www.youtube.com/live/tx4vbe9Pj6o?si=YmZlCwFdtg6dTJNG&t=54",
     "goals": [
       {
-        "team": "The Realizer",
+        "team": "Realize",
         "player": "E. Leech",
         "minute": 14,
         "ownGoal": true
@@ -1230,14 +1230,14 @@
     "stage": "group",
     "group": "E",
     "fixture": "Matchday 3",
-    "team1": "The Realizer",
+    "team1": "Realize",
     "team2": "Tylvana",
     "status": "played",
     "date": "2024-08-07T16:00:00.000Z",
     "link": "https://www.youtube.com/live/N1FiG9rR0NA?si=CvX7cmbao-n5IaFU&t=52",
     "goals": [
       {
-        "team": "The Realizer",
+        "team": "Realize",
         "player": "A. Manolis",
         "minute": 74
       }

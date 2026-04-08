@@ -33,7 +33,7 @@ pots:
       - "Republic of Yucatan"
       - "Washeyye"
       - "Nordustra"
-      - "The Realizer"
+      - "Realize"
   - pot: 3
     teams:
       - "Freistaat Ostpreussen"

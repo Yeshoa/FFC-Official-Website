@@ -1,6 +1,6 @@
 ---
 id: 11
-code: "AKE"
+code: "A&K"
 name: "Anxious and Kevin"
 nslink: "https://www.nationstates.net/nation=anxious_and_kevin"
 flagPath: "/src/assets/images/members/anxious_and_kevin_flag.png"

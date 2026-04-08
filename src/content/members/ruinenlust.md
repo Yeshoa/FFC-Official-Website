@@ -1,6 +1,6 @@
 ---
 id: 13
-code: "RUI"
+code: "RUN"
 name: "Ruinenlust"
 nslink: "https://www.nationstates.net/nation=ruinenlust"
 flagPath: "/src/assets/images/members/ruinenlust_flag.png"
