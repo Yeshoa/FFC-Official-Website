@@ -1,6 +1,6 @@
 ---
 name: Frej
-image: src/assets/images/sponsors/frey.png
+image: src/assets/images/sponsors/frej.svg
 member: Einswenn
 backgroundColor: "#242424"
 type: Clothes
