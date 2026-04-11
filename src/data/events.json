@@ -110,6 +110,7 @@
   {
     "id": "participation-2024",
     "name": "Participation",
+    "description": "Each team gets 3 points for each event they participated.",
     "edition": 2,
     "code": "PP",
     "type": "participation",

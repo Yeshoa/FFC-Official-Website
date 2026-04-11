@@ -37,7 +37,10 @@
       "Lumiose": 1,
       "Ecologist Hegemony": 1,
       "Jutsa": 1,
-      "Garbelia": 2
+      "Garbelia": 2,
+      "Nordustra": 1,
+      "Cacusia": 2,
+      "Chaplin": 1
     }
   },
   {
@@ -49,7 +52,8 @@
     "type": "articles",
     "maxScore": 1,
     "participants": {
-      "Roless": 1
+      "Roless": 1,
+      "Cacusia": 1
     }
   },
   {
