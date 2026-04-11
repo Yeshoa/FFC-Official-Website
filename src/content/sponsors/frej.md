@@ -1,8 +1,8 @@
 ---
 name: Frej
-image: src/assets/images/sponsors/frey.png
+image: src/assets/images/sponsors/frej.png
 member: Einswenn
-backgroundColor: "#242424"
+backgroundColor: "#2b2929"
 type: Clothes
 description: Luxury clothing brand.
 ---
