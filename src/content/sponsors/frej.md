@@ -1,5 +1,5 @@
 ---
-name: Frey
+name: Frej
 image: src/assets/images/sponsors/frey.png
 member: Einswenn
 backgroundColor: "#242424"
