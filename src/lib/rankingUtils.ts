@@ -140,7 +140,7 @@ export async function getMemberScoreDetails(
   const currentEventTotal = eventResult.currentEventPoints;
   const currentBonusTotal = bonusResult.totalPoints;
   const pastPoints = pastRoleplayPoints + eventResult.pastEventPoints + pastBonus + tournamentDecayPoints;
-  const totalScore = currentRoleplayTotal + currentEventTotal + currentBonusTotal + pastPoints;
+  const totalScore = Math.round(currentRoleplayTotal + currentEventTotal + currentBonusTotal + pastPoints);
 
   return {
     member: {
