@@ -101,7 +101,7 @@ const headerCellClass = "px-2 py-2 text-center font-medium border-b border-l bor
               </td>
 
               <td class="px-2 py-2 border-x border-green-700" title={`Total Events Points: ${eventsTotal}`}>
-                {eventsTotal}
+                {eventsTotal.toFixed(0)}
               </td>
 
               <td class="px-2 py-2 border-x border-green-700" title={`Total Bonus Points: ${bonusTotal}`}>
@@ -109,7 +109,7 @@ const headerCellClass = "px-2 py-2 text-center font-medium border-b border-l bor
               </td>
 
               <td class="px-2 py-2 bg-gradient-to-r from-blue-800/30 to-blue-800/60 border-x border-green-700" title={`Total Past Points: ${pastTotal}`}>
-                {pastTotal}
+                {pastTotal.toFixed(0)}
               </td>
 
               <td class={`px-2 py-2 ${getTotalColorClass(team.totalScore)} border-l border-green-700`}>

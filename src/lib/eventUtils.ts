@@ -24,7 +24,7 @@ export function calculateCurrentEventPoints(
   currentEvents.forEach(event => {
     const points = (event.participants[memberName] ?? 0) * (event.weight ?? 1);
     const maxScore = event.maxScore || 1;
-    normalizedEvents[event.name] = maxScore > 0 ? Math.ceil((points / maxScore) * EV_MAX) : 0;
+    normalizedEvents[event.name] = maxScore > 0 ? ((points / maxScore) * EV_MAX) : 0;
   });
 
   const normalizedPoints = Object.values(normalizedEvents).reduce((sum, p) => sum + p, 0);
@@ -75,7 +75,7 @@ export function calculateEventDecayPoints(
     const eventsRecord: Record<string, number> = {};
     events.forEach(event => {
       const points = (event.participants[memberName] ?? 0) * (event.weight ?? 1);
-      eventsRecord[event.name] = Math.ceil(points);
+      eventsRecord[event.name] = points;
     });
     const totalTournamentPoints = Object.values(eventsRecord).reduce((sum, points) => sum + points, 0);
     const decayFactor = decayFactors[index] || 0;
@@ -97,7 +97,7 @@ export function calculateEventDecayPoints(
 
   // Normaliza solo el total
   const normalizedTotalPoints = maxTotalPoints > 0
-    ? Math.ceil((totalPoints / maxTotalPoints) * PEV_MAX)
+    ? (totalPoints / maxTotalPoints) * PEV_MAX
     : 0;
 
   return {
