@@ -1,11 +1,13 @@
 ---
 id: 9999
-code: "xCHI"
+code: "CI"
 name: "Chan Island"
 nslink: "https://www.nationstates.net/nation=chan_island"
-flagPath: "/src/assets/images/members/xchi_flag.jpg"
+flagPath: "/src/assets/images/members/chan_island_flag.webp"
+logoPath: "/src/assets/images/members/chan_island_logo.png"
 region: "Forest"
-verified: false
+verified: true
+affiliation: 2026
 tierHistory:
   - tier: "C"
     edition: 2020

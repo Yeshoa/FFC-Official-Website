@@ -7,5 +7,5 @@ flagPath: "/src/assets/images/members/zylonox_flag.png"
 logoPath: "/src/assets/images/members/zylonox_logo.png"
 region: "Concord"
 affiliation: 2026
-verified: true
+verified: false
 ---
