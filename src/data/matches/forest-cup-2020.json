@@ -67,19 +67,19 @@
     "stage": "group",
     "group": "D",
     "fixture": "Matchday 1",
-    "team1": "Victoriaans Nederlands",
+    "team1": "Valentian Kittens",
     "team2": "The Cypher Nine",
     "status": "played",
     "date": "2020-03-25T13:30:00.000Z",
     "goals": [
       {
-        "team": "Victoriaans Nederlands"
+        "team": "Valentian Kittens"
       },
       {
-        "team": "Victoriaans Nederlands"
+        "team": "Valentian Kittens"
       },
       {
-        "team": "Victoriaans Nederlands"
+        "team": "Valentian Kittens"
       },
       {
         "team": "The Cypher Nine"
@@ -837,24 +837,24 @@
     "group": "D",
     "fixture": "Matchday 3",
     "team1": "Caterasia",
-    "team2": "Victoriaans Nederlands",
+    "team2": "Valentian Kittens",
     "status": "played",
     "date": "2020-03-29T13:30:00.000Z",
     "goals": [
       {
-        "team": "Victoriaans Nederlands"
+        "team": "Valentian Kittens"
       },
       {
-        "team": "Victoriaans Nederlands"
+        "team": "Valentian Kittens"
       },
       {
-        "team": "Victoriaans Nederlands"
+        "team": "Valentian Kittens"
       },
       {
-        "team": "Victoriaans Nederlands"
+        "team": "Valentian Kittens"
       },
       {
-        "team": "Victoriaans Nederlands"
+        "team": "Valentian Kittens"
       },
       {
         "team": "Caterasia"
@@ -1456,28 +1456,28 @@
     "tournament_id": 0,
     "stage": "knockout",
     "fixture": "Round of 32",
-    "team1": "Victoriaans Nederlands",
+    "team1": "Valentian Kittens",
     "team2": "Vanenia",
     "status": "played",
     "date": "2020-03-31T17:00:00.000Z",
     "goals": [
       {
-        "team": "Victoriaans Nederlands"
+        "team": "Valentian Kittens"
       },
       {
-        "team": "Victoriaans Nederlands"
+        "team": "Valentian Kittens"
       },
       {
-        "team": "Victoriaans Nederlands"
+        "team": "Valentian Kittens"
       },
       {
-        "team": "Victoriaans Nederlands"
+        "team": "Valentian Kittens"
       },
       {
-        "team": "Victoriaans Nederlands"
+        "team": "Valentian Kittens"
       },
       {
-        "team": "Victoriaans Nederlands"
+        "team": "Valentian Kittens"
       }
     ],
     "team1Code": "xVND",
@@ -1717,7 +1717,7 @@
     "stage": "knockout",
     "fixture": "Round of 16",
     "team1": "Velkia and the Islands",
-    "team2": "Victoriaans Nederlands",
+    "team2": "Valentian Kittens",
     "status": "played",
     "date": "2020-04-02T16:00:00.000Z",
     "goals": [
@@ -1725,10 +1725,10 @@
         "team": "Velkia and the Islands"
       },
       {
-        "team": "Victoriaans Nederlands"
+        "team": "Valentian Kittens"
       },
       {
-        "team": "Victoriaans Nederlands"
+        "team": "Valentian Kittens"
       }
     ],
     "team1Code": "xVEL",
@@ -1836,16 +1836,16 @@
     "tournament_id": 0,
     "stage": "knockout",
     "fixture": "Quarter Finals",
-    "team1": "Victoriaans Nederlands",
+    "team1": "Valentian Kittens",
     "team2": "Palos Heights",
     "status": "played",
     "date": "2020-04-05T16:00:00.000Z",
     "goals": [
       {
-        "team": "Victoriaans Nederlands"
+        "team": "Valentian Kittens"
       },
       {
-        "team": "Victoriaans Nederlands"
+        "team": "Valentian Kittens"
       }
     ],
     "team1Code": "xVND",
@@ -1893,7 +1893,7 @@
     "tournament_id": 0,
     "stage": "knockout",
     "fixture": "Semi Finals",
-    "team1": "Victoriaans Nederlands",
+    "team1": "Valentian Kittens",
     "team2": "Ruinenlust",
     "status": "played",
     "date": "2020-04-12T18:00:00.000Z",

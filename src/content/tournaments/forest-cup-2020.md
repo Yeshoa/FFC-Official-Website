@@ -19,7 +19,7 @@ pots:
       - "Eryndlynd"
       - "Frieden Und Freudenland"
       - "Cannibaland"
-      - "Victoriaans Nederlands"
+      - "Valentian Kittens"
       - "Canaltia"
       - "Velkia and the Islands"
       - "Feladria"
