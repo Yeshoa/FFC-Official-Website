@@ -19,6 +19,7 @@ import RankingPreview from '@components/ranking/RankingPreview.astro';
 
 import AllGoals from '@images/tournaments/2024/cardImg.png';
 import CacusiaHost from '@images/articles/cacusia-host/banner.png';
+import DrawArticle from '@images/articles/2026-draw/banner.jpg';
 import FCHistory from '@images/tournaments/fc-history.png';
 import FC26Logo from '@images/tournaments/2026/logo.png';
 import FFCBanner from '@images/articles/welcome/gradient.png';
@@ -84,6 +85,12 @@ const carouselImages = [
 // Datos para el Grid de Noticias 
 const featuredGridArticles: Article[] = [
   {
+    title: "Groups Are Set for the Forest Cup 2026",
+    description: "The draw for the Forest Cup 2026 is complete. Eight groups, 32 nations, and a record 13 debutants.",
+    image: DrawArticle,
+    url: ROUTES.articles.detail("2026-draw"),
+  },
+  {
     title: "Cacusia confirmed host for Forest Cup 2026",
     description: "The new edition of the Forest Cup will be held in Cacusia, first time that hosts the tournament.",
     image: CacusiaHost,
@@ -104,11 +111,11 @@ const featuredGridArticles: Article[] = [
     image: FCHistory,
     url: ROUTES.forestCup.index,
   },
-  {
-    title: "How to participate",
-    image: Signup,
-    url: ROUTES.articles.detail("signup"),
-  },
+  // {
+  //   title: "How to participate",
+  //   image: Signup,
+  //   url: ROUTES.articles.detail("signup"),
+  // },
   {
     title: "Meet the members",
     image: Members,
@@ -124,7 +131,7 @@ const featuredGridArticles: Article[] = [
 const members = await getMembers();
 const matches = await getMatches();
 const showTopCount = 10;
-const totalLastMatches = 7;
+const totalLastMatches = 8;
 const totalNextMatches = 8;
 const lastMatches = matches.filter(match => match.data.status === 'played').slice(0, totalLastMatches);
 const nextMatches = matches.filter(match => match.data.status === 'scheduled').reverse().slice(0, totalNextMatches);
