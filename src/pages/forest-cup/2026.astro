@@ -50,12 +50,19 @@ const filterTags = [
 const filteredArticles = getArticlesByTags(articles, filterTags);
 
 // Imagenes
+import Draw from '@images/articles/2026-draw/draw.jpg';
 import CacusiaHost from '@images/articles/cacusia-host/banner.png';
 import Arboreball from '@images/articles/cacusia-host/ball.png';
 import Stadium from '@images/articles/cacusia-host/ravensnest.jpg';
 import Sportwears from '@images/articles/new-sportwears/banner.jpg';
 
 const headlines = [
+  {
+    title: "Groups Are Set for the Forest Cup 2026",
+    image: Draw,
+    link: ROUTES.articles.detail("2026-draw"),
+    noblank: false,
+  },
   {
     title: "Meet Arboreball - The Official Match Ball",
     image: Arboreball,
