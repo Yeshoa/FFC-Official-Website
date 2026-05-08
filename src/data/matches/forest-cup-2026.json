@@ -5,11 +5,27 @@
     "group": "A",
     "fixture": "Matchday 1",
     "stadium_id": 9,
+    "status": "played",
     "team1": "Cacusia",
     "team2": "Nardin",
     "date": "2026-05-08T17:00:00.000Z",
     "team1Code": "CAC",
-    "team2Code": "NAR"
+    "team2Code": "NAR",
+    "link": "https://www.youtube.com/watch?v=msCPfJj-egA&t=122s",
+    "goals": [
+      {
+        "team": "Cacusia",
+        "player": "S. Blair",
+        "assist": "M. Dartmouth",
+        "minute": 15
+      },
+      {
+        "team": "Nardin",
+        "player": "I. Petrov",
+        "assist": "Ulministak",
+        "minute": 67
+      }
+    ]
   },
   {
     "tournament_id": 3,
@@ -19,9 +35,19 @@
     "fixture": "Matchday 1",
     "team1": "Green Empire Karaa",
     "team2": "Clown Town City",
+    "status": "played",
     "date": "2026-05-08T17:30:00.000Z",
+    "link": "https://www.youtube.com/watch?v=msCPfJj-egA&t=1592s",
     "team1Code": "GEK",
-    "team2Code": "CTC"
+    "team2Code": "CTC",
+    "goals": [
+      {
+        "team": "Green Empire Karaa",
+        "player": "Jamal",
+        "assist": "R. Jamal",
+        "minute": 9
+      }
+    ]
   },
   {
     "tournament_id": 3,
@@ -32,8 +58,18 @@
     "team1": "Roless",
     "team2": "Nordustra",
     "date": "2026-05-08T18:00:00.000Z",
+    "link": "https://www.youtube.com/watch?v=msCPfJj-egA&t=3029s",
     "team1Code": "RLS",
-    "team2Code": "NOR"
+    "team2Code": "NOR",
+    "status": "played",
+    "goals": [
+      {
+        "team": "Roless",
+        "player": "H. Carrol",
+        "assist": "C. Fulton",
+        "minute": 39
+      }
+    ]
   },
   {
     "tournament_id": 3,
@@ -43,9 +79,25 @@
     "stadium_id": 12,
     "team1": "Klaus Devestatorie",
     "team2": "Woodland Green",
+    "status": "played",
     "date": "2026-05-08T18:30:00.000Z",
+    "link": "https://www.youtube.com/watch?v=msCPfJj-egA&t=4587s",
     "team1Code": "KDV",
-    "team2Code": "WLG"
+    "team2Code": "WLG",
+    "goals": [
+      {
+        "team": "Woodland Green",
+        "player": "Polanski",
+        "assist": "Taro",
+        "minute": 5
+      },
+      {
+        "team": "Woodland Green",
+        "player": "Stone",
+        "assist": "May",
+        "minute": 67
+      }
+    ]
   },
   {
     "tournament_id": 3,
@@ -55,9 +107,37 @@
     "stadium_id": 13,
     "team1": "Einswenn",
     "team2": "Bextoria",
+    "status": "played",
     "date": "2026-05-08T19:00:00.000Z",
+    "link": "https://www.youtube.com/watch?v=msCPfJj-egA&t=6257s",
     "team1Code": "EIN",
-    "team2Code": "BEX"
+    "team2Code": "BEX",
+    "goals": [
+      {
+        "team": "Einswenn",
+        "player": "M. Solheim",
+        "assist": "J. Teitur",
+        "minute": 9
+      },
+      {
+        "team": "Einswenn",
+        "player": "O. Gro",
+        "assist": "A. Lund",
+        "minute": 20
+      },
+      {
+        "team": "Einswenn",
+        "player": "O. Gro",
+        "assist": "H. Paulsen",
+        "minute": 72
+      },
+      {
+        "team": "Einswenn",
+        "player": "O. Gro",
+        "assist": "H. Paulsen",
+        "minute": 86
+      }
+    ]
   },
   {
     "tournament_id": 3,
@@ -67,9 +147,18 @@
     "stadium_id": 14,
     "team1": "Valentian Kittens",
     "team2": "Oseao",
+    "status": "played",
     "date": "2026-05-08T19:30:00.000Z",
+    "link": "https://www.youtube.com/watch?v=msCPfJj-egA&t=7807s",
     "team1Code": "VEZ",
-    "team2Code": "OSE"
+    "team2Code": "OSE",
+    "goals": [
+      {
+        "team": "Oseao",
+        "player": "Ithryn",
+        "minute": 65
+      }
+    ]
   },
   {
     "tournament_id": 3,
@@ -79,9 +168,18 @@
     "stadium_id": 15,
     "team1": "Lumiose",
     "team2": "Chan Island",
+    "status": "played",
     "date": "2026-05-08T20:00:00.000Z",
+    "link": "https://www.youtube.com/watch?v=msCPfJj-egA&t=9290s",
     "team1Code": "LUM",
-    "team2Code": "CI"
+    "team2Code": "CI",
+    "goals": [
+      {
+        "team": "Lumiose",
+        "player": "M. Penosi",
+        "minute": 76
+      }
+    ]
   },
   {
     "tournament_id": 3,
@@ -91,9 +189,35 @@
     "stadium_id": 16,
     "team1": "Ownzone",
     "team2": "Glo XI",
+    "status": "played",
     "date": "2026-05-08T20:30:00.000Z",
+    "link": "https://www.youtube.com/watch?v=msCPfJj-egA&t=10753s",
     "team1Code": "OZO",
-    "team2Code": "GFF"
+    "team2Code": "GFF",
+    "goals": [
+      {
+        "team": "Glo XI",
+        "player": "Sven",
+        "minute": 7
+      },
+      {
+        "team": "Ownzone",
+        "player": "Bayer",
+        "assist": "Boon",
+        "minute": 25
+      },
+      {
+        "team": "Glo XI",
+        "player": "Pettersson",
+        "minute": 48
+      },
+      {
+        "team": "Ownzone",
+        "player": "Eerkens",
+        "assist": "Boon",
+        "minute": 82
+      }
+    ]
   },
   {
     "tournament_id": 3,
