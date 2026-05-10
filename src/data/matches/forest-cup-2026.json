@@ -228,6 +228,7 @@
     "team1": "Furilisca",
     "team2": "Anxious and Kevin",
     "status": "played",
+    "link": "https://www.youtube.com/watch?v=6NE0vNdjYyc&t=105s",
     "date": "2026-05-09T17:00:00.000Z",
     "team1Code": "FUR",
     "team2Code": "A&K",
@@ -242,6 +243,8 @@
     "stadium_id": 10,
     "team1": "Mozolephies",
     "team2": "Ecologist Hegemony",
+    "link": "https://www.youtube.com/watch?v=6NE0vNdjYyc&t=1490s",
+
     "date": "2026-05-09T17:30:00.000Z",
     "status": "played",
     "team1Code": "MOZ",
@@ -264,6 +267,7 @@
     "team1": "Bilsa",
     "team2": "Zane Farbe Eslanudial",
     "status": "played",
+    "link": "https://www.youtube.com/watch?v=6NE0vNdjYyc&t=3010s",
     "date": "2026-05-09T18:00:00.000Z",
     "team1Code": "BIL",
     "team2Code": "ZFE",
@@ -285,6 +289,7 @@
     "team1": "Ruinenlust",
     "team2": "Bisofeyr",
     "status": "played",
+    "link": "https://www.youtube.com/watch?v=6NE0vNdjYyc&t=4430s",
     "date": "2026-05-09T18:30:00.000Z",
     "team1Code": "RUN",
     "team2Code": "BSF",
@@ -307,6 +312,7 @@
     "team2": "Azure Mines",
     "date": "2026-05-09T19:00:00.000Z",
     "status": "played",
+    "link": "https://www.youtube.com/watch?v=6NE0vNdjYyc&t=5885s",
     "team1Code": "JUT",
     "team2Code": "AZR",
     "goals": [
@@ -332,6 +338,7 @@
     "team1": "Stralla",
     "team2": "Chaplin",
     "status": "played",
+    "link": "https://www.youtube.com/watch?v=6NE0vNdjYyc&t=7386s",
     "date": "2026-05-09T19:30:00.000Z",
     "team1Code": "STR",
     "team2Code": "CHP",
@@ -347,6 +354,7 @@
     "team1": "Realize",
     "team2": "Sehir",
     "status": "played",
+    "link": "https://www.youtube.com/watch?v=6NE0vNdjYyc&t=8696s",
     "date": "2026-05-09T20:00:00.000Z",
     "team1Code": "RLZ",
     "team2Code": "SEH",
@@ -383,6 +391,7 @@
     "team1": "Fish",
     "team2": "Garbelia",
     "status": "played",
+    "link": "https://www.youtube.com/watch?v=6NE0vNdjYyc&t=10186s",
     "date": "2026-05-09T20:30:00.000Z",
     "team1Code": "FSH",
     "team2Code": "GRB",
@@ -415,9 +424,26 @@
     "stadium_id": 11,
     "team1": "Cacusia",
     "team2": "Green Empire Karaa",
+    "link": "https://www.youtube.com/watch?v=VHPYhiEhVTU&t=84s",
+    "status": "played",
     "date": "2026-05-10T14:00:00.000Z",
     "team1Code": "CAC",
-    "team2Code": "GEK"
+    "team2Code": "GEK",
+    "goals": [
+      {
+        "team": "Cacusia",
+        "player": "H. Grey",
+        "assist": "S. Blair",
+        "minute": 32
+      },
+      {
+        "team": "Cacusia",
+        "player": "M. Dartmouth",
+        "assist": "H. Blackmoor",
+        "minute": 45,
+        "aggregate": 1
+      }
+    ]
   },
   {
     "tournament_id": 3,
@@ -427,9 +453,39 @@
     "stadium_id": 12,
     "team1": "Clown Town City",
     "team2": "Nardin",
+    "status": "played",
+    "link": "https://www.youtube.com/watch?v=VHPYhiEhVTU&t=1500s",
     "date": "2026-05-10T14:30:00.000Z",
     "team1Code": "CTC",
-    "team2Code": "NAR"
+    "team2Code": "NAR",
+    "goals": [
+      {
+        "team": "Nardin",
+        "player": "A. Av Cerzi",
+        "assist": "F. Pavlov",
+        "minute": 39
+      },
+      {
+        "team": "Clown Town City",
+        "player": "D. Doodle",
+        "assist": "Fizzlepop",
+        "minute": 55
+      },
+      {
+        "team": "Nardin",
+        "player": "J. Klarik",
+        "assist": "R. Tarasov",
+        "minute": 67
+      }
+    ],
+    "cards": [
+      {
+        "team": "Nardin",
+        "player": "A. Leszik",
+        "minute": 66,
+        "type": "yellow"
+      }
+    ]
   },
   {
     "tournament_id": 3,
@@ -439,9 +495,41 @@
     "stadium_id": 9,
     "team1": "Roless",
     "team2": "Klaus Devestatorie",
+    "link": "https://www.youtube.com/watch?v=VHPYhiEhVTU&t=3074s",
+    "status": "played",
     "date": "2026-05-10T15:00:00.000Z",
     "team1Code": "RLS",
-    "team2Code": "KDV"
+    "team2Code": "KDV",
+    "goals": [
+      {
+        "team": "Roless",
+        "player": "J. Greenaway",
+        "assist": "C. McArthur",
+        "minute": 31
+      },
+      {
+        "team": "Roless",
+        "player": "O. Chandler",
+        "assist": "R. Grimes",
+        "minute": 43
+      },
+      {
+        "team": "Klaus Devestatorie",
+        "player": "L. Shanks",
+        "minute": 52
+      },
+      {
+        "team": "Roless",
+        "player": "J. Greenaway",
+        "assist": "R. Grimes",
+        "minute": 64
+      },
+      {
+        "team": "Klaus Devestatorie",
+        "player": "E. Stanchinsky",
+        "minute": 66
+      }
+    ]
   },
   {
     "tournament_id": 3,
@@ -451,9 +539,56 @@
     "stadium_id": 10,
     "team1": "Woodland Green",
     "team2": "Nordustra",
+    "status": "played",
+    "link": "https://www.youtube.com/watch?v=VHPYhiEhVTU&t=4798s",
     "date": "2026-05-10T15:30:00.000Z",
     "team1Code": "WLG",
-    "team2Code": "NOR"
+    "team2Code": "NOR",
+    "goals": [
+      {
+        "team": "Nordustra",
+        "player": "J. Østegårde",
+        "minute": 7
+      },
+      {
+        "team": "Nordustra",
+        "player": "K. Pontsblom",
+        "minute": 16
+      },
+      {
+        "team": "Nordustra",
+        "player": "K. Pontsblom",
+        "assist": "L. Uye",
+        "minute": 25
+      },
+      {
+        "team": "Woodland Green",
+        "player": "May",
+        "assist": "Polanski",
+        "minute": 59
+      },
+      {
+        "team": "Nordustra",
+        "player": "M. Miltshus",
+        "assist": "M. Sevdal",
+        "minute": 62
+      },
+      {
+        "team": "Nordustra",
+        "player": "M. Miltshus",
+        "assist": "L. Uye",
+        "minute": 73
+      }
+    ],
+    "cards": [
+      {
+        "team": "Nordustra",
+        "player": "F. Torvald",
+        "minute": 90,
+        "aggregate": 2,
+        "type": "yellow"
+      }
+    ]
   },
   {
     "tournament_id": 3,
@@ -461,11 +596,33 @@
     "group": "C",
     "fixture": "Matchday 2",
     "stadium_id": 15,
+    "status": "played",
     "team1": "Einswenn",
     "team2": "Valentian Kittens",
+    "link": "https://www.youtube.com/watch?v=VHPYhiEhVTU&t=6502s",
     "date": "2026-05-10T16:00:00.000Z",
     "team1Code": "EIN",
-    "team2Code": "VEZ"
+    "team2Code": "VEZ",
+    "goals": [
+      {
+        "team": "Valentian Kittens",
+        "player": "K. Konstantinovich",
+        "assist": "K. Polańska",
+        "minute": 12
+      },
+      {
+        "team": "Valentian Kittens",
+        "player": "K. Konstantinovich",
+        "assist": "Š. Sedláčková",
+        "minute": 34
+      },
+      {
+        "team": "Einswenn",
+        "player": "O. Gro",
+        "assist": "J. Teitur",
+        "minute": 55
+      }
+    ]
   },
   {
     "tournament_id": 3,
@@ -473,11 +630,27 @@
     "group": "C",
     "fixture": "Matchday 2",
     "stadium_id": 16,
+    "status": "played",
     "team1": "Oseao",
     "team2": "Bextoria",
+    "link": "https://www.youtube.com/watch?v=VHPYhiEhVTU&t=8046s",
     "date": "2026-05-10T16:30:00.000Z",
     "team1Code": "OSE",
-    "team2Code": "BEX"
+    "team2Code": "BEX",
+    "goals": [
+      {
+        "team": "Bextoria",
+        "player": "F. Hološko",
+        "assist": "Z. Lazarević",
+        "minute": 54
+      },
+      {
+        "team": "Oseao",
+        "player": "Vaesryn",
+        "assist": "Calyth",
+        "minute": 88
+      }
+    ]
   },
   {
     "tournament_id": 3,
@@ -487,9 +660,49 @@
     "stadium_id": 13,
     "team1": "Lumiose",
     "team2": "Ownzone",
+    "status": "played",
+    "link": "https://www.youtube.com/watch?v=VHPYhiEhVTU&t=9468s",
     "date": "2026-05-10T17:00:00.000Z",
     "team1Code": "LUM",
-    "team2Code": "OZO"
+    "team2Code": "OZO",
+    "goals": [
+      {
+        "team": "Lumiose",
+        "player": "B. Marlee",
+        "minute": 10
+      },
+      {
+        "team": "Lumiose",
+        "player": "C. Farnirne",
+        "minute": 30
+      },
+      {
+        "team": "Lumiose",
+        "player": "B. Dreamspell",
+        "assist": "T. Pescaster",
+        "minute": 45,
+        "aggregate": 2
+      },
+      {
+        "team": "Lumiose",
+        "player": "B. Dreamspell",
+        "assist": "C. Farnirne",
+        "minute": 62
+      },
+      {
+        "team": "Lumiose",
+        "player": "B. Dreamspell",
+        "assist": "W. Leswalyn",
+        "minute": 90
+      },
+      {
+        "team": "Ownzone",
+        "player": "Bayer",
+        "assist": "Venner",
+        "minute": 90,
+        "aggregate": 2
+      }
+    ]
   },
   {
     "tournament_id": 3,
@@ -499,9 +712,31 @@
     "stadium_id": 14,
     "team1": "Glo XI",
     "team2": "Chan Island",
+    "link": "https://www.youtube.com/watch?v=VHPYhiEhVTU&t=11184s",
+    "status": "played",
     "date": "2026-05-10T17:30:00.000Z",
     "team1Code": "GFF",
-    "team2Code": "CI"
+    "team2Code": "CI",
+    "goals": [
+      {
+        "team": "Chan Island",
+        "player": "A. Fletcher",
+        "assist": "Butch Man",
+        "minute": 18
+      },
+      {
+        "team": "Chan Island",
+        "player": "Chan Island",
+        "assist": "A. Fletcher",
+        "minute": 42
+      },
+      {
+        "team": "Chan Island",
+        "player": "C. F. Caravel",
+        "assist": "Chan Island",
+        "minute": 90
+      }
+    ]
   },
   {
     "tournament_id": 3,
