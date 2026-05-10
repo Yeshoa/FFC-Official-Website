@@ -227,9 +227,12 @@
     "stadium_id": 9,
     "team1": "Furilisca",
     "team2": "Anxious and Kevin",
+    "status": "played",
     "date": "2026-05-09T17:00:00.000Z",
     "team1Code": "FUR",
-    "team2Code": "A&K"
+    "team2Code": "A&K",
+    "goals": [
+    ]
   },
   {
     "tournament_id": 3,
@@ -240,8 +243,17 @@
     "team1": "Mozolephies",
     "team2": "Ecologist Hegemony",
     "date": "2026-05-09T17:30:00.000Z",
+    "status": "played",
     "team1Code": "MOZ",
-    "team2Code": "ETC"
+    "team2Code": "ETC",
+    "goals": [
+      {
+        "team": "Ecologist Hegemony",
+        "player": "Volkov",
+        "assist": "Álvarez",
+        "minute": 27
+      }
+    ]
   },
   {
     "tournament_id": 3,
@@ -251,9 +263,18 @@
     "stadium_id": 11,
     "team1": "Bilsa",
     "team2": "Zane Farbe Eslanudial",
+    "status": "played",
     "date": "2026-05-09T18:00:00.000Z",
     "team1Code": "BIL",
-    "team2Code": "ZFE"
+    "team2Code": "ZFE",
+    "goals": [
+      {
+        "team": "Bilsa",
+        "player": "Ervaan",
+        "assist": "Hajan",
+        "minute": 37
+      }
+    ]
   },
   {
     "tournament_id": 3,
@@ -263,9 +284,18 @@
     "stadium_id": 12,
     "team1": "Ruinenlust",
     "team2": "Bisofeyr",
+    "status": "played",
     "date": "2026-05-09T18:30:00.000Z",
     "team1Code": "RUN",
-    "team2Code": "BSF"
+    "team2Code": "BSF",
+    "goals": [
+      {
+        "team": "Ruinenlust",
+        "player": "Swen",
+        "assist": "Ben",
+        "minute": 12
+      }
+    ]
   },
   {
     "tournament_id": 3,
@@ -276,8 +306,22 @@
     "team1": "Jutsa",
     "team2": "Azure Mines",
     "date": "2026-05-09T19:00:00.000Z",
+    "status": "played",
     "team1Code": "JUT",
-    "team2Code": "AZR"
+    "team2Code": "AZR",
+    "goals": [
+      {
+        "team": "Jutsa",
+        "player": "X. Xayaīmaīc",
+        "minute": 7
+      },
+      {
+        "team": "Jutsa",
+        "player": "C. Kuīyeī",
+        "assist": "E. Vaīve",
+        "minute": 23
+      }
+    ]
   },
   {
     "tournament_id": 3,
@@ -287,9 +331,12 @@
     "stadium_id": 14,
     "team1": "Stralla",
     "team2": "Chaplin",
+    "status": "played",
     "date": "2026-05-09T19:30:00.000Z",
     "team1Code": "STR",
-    "team2Code": "CHP"
+    "team2Code": "CHP",
+    "goals": [
+    ]
   },
   {
     "tournament_id": 3,
@@ -299,9 +346,33 @@
     "stadium_id": 15,
     "team1": "Realize",
     "team2": "Sehir",
+    "status": "played",
     "date": "2026-05-09T20:00:00.000Z",
     "team1Code": "RLZ",
-    "team2Code": "SEH"
+    "team2Code": "SEH",
+    "goals": [
+      {
+        "team": "Realize",
+        "player": "Olsson",
+        "ownGoal": true,
+        "minute": 57
+      },
+      {
+        "team": "Realize",
+        "player": "M. Beet",
+        "assist": "L. Celery",
+        "minute": 69
+      }
+    ],
+    "cards": [
+      {
+        "team": "Realize",
+        "player": "M. Beet",
+        "minute": 45,
+        "aggregate": 1,
+        "type": "yellow"
+      }
+    ]
   },
   {
     "tournament_id": 3,
@@ -311,9 +382,30 @@
     "stadium_id": 16,
     "team1": "Fish",
     "team2": "Garbelia",
+    "status": "played",
     "date": "2026-05-09T20:30:00.000Z",
     "team1Code": "FSH",
-    "team2Code": "GRB"
+    "team2Code": "GRB",
+    "goals": [
+      {
+        "team": "Garbelia",
+        "player": "M. Verhoeven",
+        "assist": "K. Ota",
+        "minute": 49
+      },
+      {
+        "team": "Garbelia",
+        "player": "M. Verhoeven",
+        "assist": "L. Scritkyposs",
+        "minute": 58
+      },
+      {
+        "team": "Fish",
+        "player": "Big James",
+        "assist": "James Again",
+        "minute": 77
+      }
+    ]
   },
   {
     "tournament_id": 3,
