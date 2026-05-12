@@ -965,9 +965,24 @@
     "stadium_id": 10,
     "team1": "Clown Town City",
     "team2": "Cacusia",
+    "status": "played",
     "date": "2026-05-12T17:00:00.000Z",
     "team1Code": "CTC",
-    "team2Code": "CAC"
+    "team2Code": "CAC",
+    "goals": [
+      {
+        "team": "Cacusia",
+        "player": "M. Dartmouth",
+        "assist": "I. Darrow",
+        "minute": 8
+      },
+      {
+        "team": "Cacusia",
+        "player": "H. Grey",
+        "assist": "I. Darrow",
+        "minute": 68
+      }
+    ]
   },
   {
     "tournament_id": 3,
@@ -975,11 +990,34 @@
     "group": "A",
     "fixture": "Matchday 3",
     "stadium_id": 9,
+    "status": "played",
     "team1": "Nardin",
     "team2": "Green Empire Karaa",
     "date": "2026-05-12T17:30:00.000Z",
     "team1Code": "NAR",
-    "team2Code": "GEK"
+    "team2Code": "GEK",
+    "goals": [
+      {
+        "team": "Nardin",
+        "player": "R. Tarasov",
+        "penalty": true,
+        "minute": 32
+      }
+    ],
+    "cards": [
+      {
+        "team": "Green Empire Karaa",
+        "player": "Horak",
+        "type": "yellow",
+        "minute": 22
+      },
+      {
+        "team": "Green Empire Karaa",
+        "player": "Fuentes",
+        "type": "yellow",
+        "minute": 32
+      }
+    ]
   },
   {
     "tournament_id": 3,
@@ -987,11 +1025,37 @@
     "group": "B",
     "fixture": "Matchday 3",
     "stadium_id": 12,
+    "status": "played",
     "team1": "Woodland Green",
     "team2": "Roless",
     "date": "2026-05-12T18:00:00.000Z",
     "team1Code": "WLG",
-    "team2Code": "RLS"
+    "team2Code": "RLS",
+    "goals": [
+      {
+        "team": "Roless",
+        "player": "J. Greenaway",
+        "assist": "L. Howell",
+        "minute": 25
+      },
+      {
+        "team": "Roless",
+        "player": "J. Greenaway",
+        "assist": "C. Fulton",
+        "minute": 33
+      },
+      {
+        "team": "Roless",
+        "player": "J. Greenaway",
+        "minute": 69
+      },
+      {
+        "team": "Roless",
+        "player": "J. Greenaway",
+        "assist": "C. McArthur",
+        "minute": 77
+      }
+    ]
   },
   {
     "tournament_id": 3,
@@ -999,11 +1063,45 @@
     "group": "B",
     "fixture": "Matchday 3",
     "stadium_id": 11,
+    "status": "played",
     "team1": "Nordustra",
     "team2": "Klaus Devestatorie",
     "date": "2026-05-12T18:30:00.000Z",
     "team1Code": "NOR",
-    "team2Code": "KDV"
+    "team2Code": "KDV",
+    "goals": [
+      {
+        "team": "Nordustra",
+        "player": "M. Miltshus",
+        "minute": 7
+      },
+      {
+        "team": "Nordustra",
+        "player": "J. Østegårde",
+        "assist": "M. Sevdal",
+        "minute": 23
+      },
+      {
+        "team": "Klaus Devestatorie",
+        "player": "E. Stanchinsky",
+        "assist": "L. Shanks",
+        "minute": 34
+      },
+      {
+        "team": "Nordustra",
+        "player": "M. Miltshus",
+        "assist": "J. Østegårde",
+        "minute": 67
+      }
+    ],
+    "cards": [
+      {
+        "team": "Klaus Devestatorie",
+        "player": "E. Vaillantcourt",
+        "type": "yellow",
+        "minute": 20
+      }
+    ]
   },
   {
     "tournament_id": 3,
@@ -1013,9 +1111,36 @@
     "stadium_id": 14,
     "team1": "Oseao",
     "team2": "Einswenn",
+    "status": "played",
     "date": "2026-05-12T19:00:00.000Z",
     "team1Code": "OSE",
-    "team2Code": "EIN"
+    "team2Code": "EIN",
+    "goals": [
+      {
+        "team": "Einswenn",
+        "player": "O. Gro",
+        "assist": "M. Solheim",
+        "minute": 3
+      },
+      {
+        "team": "Einswenn",
+        "player": "A. Lund",
+        "assist": "I. Moje",
+        "minute": 13
+      },
+      {
+        "team": "Einswenn",
+        "player": "O. Gro",
+        "assist": "H. Paulsen",
+        "minute": 55
+      },
+      {
+        "team": "Einswenn",
+        "player": "J. Teitur",
+        "penalty": true,
+        "minute": 64
+      }
+    ]
   },
   {
     "tournament_id": 3,
@@ -1023,11 +1148,37 @@
     "group": "C",
     "fixture": "Matchday 3",
     "stadium_id": 13,
+    "status": "played",
     "team1": "Bextoria",
     "team2": "Valentian Kittens",
     "date": "2026-05-12T19:30:00.000Z",
     "team1Code": "BEX",
-    "team2Code": "VEZ"
+    "team2Code": "VEZ",
+    "goals": [
+      {
+        "team": "Valentian Kittens",
+        "player": "L. Okonkwo",
+        "assist": "Š. Sedláčková",
+        "minute": 3
+      },
+      {
+        "team": "Bextoria",
+        "player": "S. Ristovski",
+        "minute": 19
+      },
+      {
+        "team": "Valentian Kittens",
+        "player": "L. Okonkwo",
+        "assist": "E. D'elia",
+        "minute": 59
+      },
+      {
+        "team": "Valentian Kittens",
+        "player": "L. Okonkwo",
+        "assist": "C. Guanyu",
+        "minute": 90
+      }
+    ]
   },
   {
     "tournament_id": 3,
@@ -1037,9 +1188,36 @@
     "stadium_id": 16,
     "team1": "Glo XI",
     "team2": "Lumiose",
+    "status": "played",
     "date": "2026-05-12T20:00:00.000Z",
     "team1Code": "GFF",
-    "team2Code": "LUM"
+    "team2Code": "LUM",
+    "goals": [
+      {
+        "team": "Lumiose",
+        "player": "C. Farnirne",
+        "assist": "T. Pescaster",
+        "minute": 6
+      },
+      {
+        "team": "Lumiose",
+        "player": "T. Pescaster",
+        "assist": "B. Marlee",
+        "minute": 39
+      },
+      {
+        "team": "Lumiose",
+        "player": "M. Penosi",
+        "assist": "S. Eastoft",
+        "minute": 89
+      },
+      {
+        "team": "Glo XI",
+        "player": "Nilsson",
+        "minute": 90,
+        "aggregate": 7
+      }
+    ]
   },
   {
     "tournament_id": 3,
@@ -1047,11 +1225,20 @@
     "group": "D",
     "fixture": "Matchday 3",
     "stadium_id": 15,
+    "status": "played",
     "date": "2026-05-12T20:30:00.000Z",
     "team1": "Chan Island",
     "team2": "Ownzone",
     "team1Code": "CI",
-    "team2Code": "OZO"
+    "team2Code": "OZO",
+    "goals": [
+      {
+        "team": "Chan Island",
+        "player": "B. Wellerman",
+        "assist": "Chan Island",
+        "minute": 41
+      }
+    ]
   },
   {
     "tournament_id": 3,
