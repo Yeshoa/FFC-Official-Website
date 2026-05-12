@@ -1341,18 +1341,22 @@
     "stage": "knockout",
     "fixture": "Round of 16",
     "stadium_id": 10,
-    "team1": "1° A",
-    "team2": "2° B",
-    "date": "2026-05-15T17:00:00.000Z"
+    "team1": "Cacusia",
+    "team2": "Nordustra",
+    "date": "2026-05-15T17:00:00.000Z",
+    "team1Code": "CAC",
+    "team2Code": "NOR"
   },
   {
     "tournament_id": 3,
     "stage": "knockout",
     "fixture": "Round of 16",
-    "team1": "1° C",
-    "team2": "2° D",
+    "team1": "Einswenn",
+    "team2": "Chan Island",
     "stadium_id": 9,
-    "date": "2026-05-15T17:30:00.000Z"
+    "date": "2026-05-15T17:30:00.000Z",
+    "team1Code": "EIN",
+    "team2Code": "CI"
   },
   {
     "tournament_id": 3,
@@ -1377,18 +1381,22 @@
     "stage": "knockout",
     "fixture": "Round of 16",
     "stadium_id": 11,
-    "team1": "1° B",
-    "team2": "2° A",
-    "date": "2026-05-15T19:00:00.000Z"
+    "team1": "Roless",
+    "team2": "Nardin",
+    "date": "2026-05-15T19:00:00.000Z",
+    "team1Code": "RLS",
+    "team2Code": "NAR"
   },
   {
     "tournament_id": 3,
     "stage": "knockout",
     "fixture": "Round of 16",
     "stadium_id": 14,
-    "team1": "1° D",
-    "team2": "2° C",
-    "date": "2026-05-15T19:30:00.000Z"
+    "team1": "Lumiose",
+    "team2": "Valentian Kittens",
+    "date": "2026-05-15T19:30:00.000Z",
+    "team1Code": "LUM",
+    "team2Code": "VEZ"
   },
   {
     "tournament_id": 3,
