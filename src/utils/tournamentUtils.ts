@@ -499,6 +499,23 @@ export async function getTeamFinalResult(
     return { status: 'in_progress', currentStage: nextStage };
   }
 
+  // Si hay partidos pendientes, buscar el próximo stage
+  let nextStageLabel: string | null = null;
+  if (hasPendingMatch) {
+    const nextMatch = relevantMatches.find(m => m.data.status === 'scheduled');
+    if (nextMatch) {
+      if (nextMatch.data.stage === 'playoff') {
+        nextStageLabel = 'Playoff';
+      } else if (nextMatch.data.fixture) {
+        // Buscar el label del siguiente fixture
+        const matchingStage = TOURNAMENT_STAGE_MAP.find(s => s.key === nextMatch.data.fixture?.trim());
+        nextStageLabel = matchingStage?.label || nextMatch.data.fixture.trim();
+      } else {
+        nextStageLabel = 'Qualified';
+      }
+    }
+  }
+
   // Buscar la etapa más lejana alcanzada
   for (let i = TOURNAMENT_STAGE_MAP.length - 1; i >= 0; i--) {
     const stage = TOURNAMENT_STAGE_MAP[i];
@@ -528,21 +545,21 @@ export async function getTeamFinalResult(
 
       if (stage.key === 'Semi Finals') {
         if (hasPendingMatch) {
-          return { status: 'in_progress', currentStage: 'Semi Finals' };
+          return { status: 'in_progress', currentStage: nextStageLabel || 'Semi Finals' };
         }
         const position = await getTeamPositionInTournament(tournament, teamName);
         if (position === 3) return { status: 'finished', result: 'Third-Place' };
       }
 
       return hasPendingMatch
-        ? { status: 'in_progress', currentStage: stage.label }
+        ? { status: 'in_progress', currentStage: nextStageLabel || stage.label }
         : { status: 'eliminated', result: stage.label };
     }
   }
 
   // Participó pero no se pudo determinar la etapa
   return hasPendingMatch
-    ? { status: 'in_progress', currentStage: 'Unknown Stage' }
+    ? { status: 'in_progress', currentStage: nextStageLabel || 'Unknown Stage' }
     : { status: 'eliminated', result: 'Unknown Stage' };
 }
 
