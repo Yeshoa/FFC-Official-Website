@@ -962,36 +962,24 @@
     "stage": "group",
     "group": "A",
     "fixture": "Matchday 3",
-    "stadium_id": 9,
-    "team1": "Nardin",
-    "team2": "Green Empire Karaa",
-    "date": "2026-05-12T17:00:00.000Z",
-    "team1Code": "NAR",
-    "team2Code": "GEK"
-  },
-  {
-    "tournament_id": 3,
-    "stage": "group",
-    "group": "A",
-    "fixture": "Matchday 3",
     "stadium_id": 10,
     "team1": "Clown Town City",
     "team2": "Cacusia",
-    "date": "2026-05-12T17:30:00.000Z",
+    "date": "2026-05-12T17:00:00.000Z",
     "team1Code": "CTC",
     "team2Code": "CAC"
   },
   {
     "tournament_id": 3,
     "stage": "group",
-    "group": "B",
+    "group": "A",
     "fixture": "Matchday 3",
-    "stadium_id": 11,
-    "team1": "Nordustra",
-    "team2": "Klaus Devestatorie",
-    "date": "2026-05-12T18:00:00.000Z",
-    "team1Code": "NOR",
-    "team2Code": "KDV"
+    "stadium_id": 9,
+    "team1": "Nardin",
+    "team2": "Green Empire Karaa",
+    "date": "2026-05-12T17:30:00.000Z",
+    "team1Code": "NAR",
+    "team2Code": "GEK"
   },
   {
     "tournament_id": 3,
@@ -1001,21 +989,21 @@
     "stadium_id": 12,
     "team1": "Woodland Green",
     "team2": "Roless",
-    "date": "2026-05-12T18:30:00.000Z",
+    "date": "2026-05-12T18:00:00.000Z",
     "team1Code": "WLG",
     "team2Code": "RLS"
   },
   {
     "tournament_id": 3,
     "stage": "group",
-    "group": "C",
+    "group": "B",
     "fixture": "Matchday 3",
-    "stadium_id": 13,
-    "team1": "Bextoria",
-    "team2": "Valentian Kittens",
-    "date": "2026-05-12T19:00:00.000Z",
-    "team1Code": "BEX",
-    "team2Code": "VEZ"
+    "stadium_id": 11,
+    "team1": "Nordustra",
+    "team2": "Klaus Devestatorie",
+    "date": "2026-05-12T18:30:00.000Z",
+    "team1Code": "NOR",
+    "team2Code": "KDV"
   },
   {
     "tournament_id": 3,
@@ -1025,21 +1013,21 @@
     "stadium_id": 14,
     "team1": "Oseao",
     "team2": "Einswenn",
-    "date": "2026-05-12T19:30:00.000Z",
+    "date": "2026-05-12T19:00:00.000Z",
     "team1Code": "OSE",
     "team2Code": "EIN"
   },
   {
     "tournament_id": 3,
     "stage": "group",
-    "group": "D",
+    "group": "C",
     "fixture": "Matchday 3",
-    "stadium_id": 15,
-    "team1": "Chan Island",
-    "team2": "Ownzone",
-    "date": "2026-05-12T20:00:00.000Z",
-    "team1Code": "CI",
-    "team2Code": "OZO"
+    "stadium_id": 13,
+    "team1": "Bextoria",
+    "team2": "Valentian Kittens",
+    "date": "2026-05-12T19:30:00.000Z",
+    "team1Code": "BEX",
+    "team2Code": "VEZ"
   },
   {
     "tournament_id": 3,
@@ -1049,21 +1037,21 @@
     "stadium_id": 16,
     "team1": "Glo XI",
     "team2": "Lumiose",
-    "date": "2026-05-12T20:30:00.000Z",
+    "date": "2026-05-12T20:00:00.000Z",
     "team1Code": "GFF",
     "team2Code": "LUM"
   },
   {
     "tournament_id": 3,
     "stage": "group",
-    "group": "E",
-    "stadium_id": 9,
+    "group": "D",
     "fixture": "Matchday 3",
-    "team1": "Anxious and Kevin",
-    "team2": "Mozolephies",
-    "date": "2026-05-14T17:00:00.000Z",
-    "team1Code": "A&K",
-    "team2Code": "MOZ"
+    "stadium_id": 15,
+    "date": "2026-05-12T20:30:00.000Z",
+    "team1": "Chan Island",
+    "team2": "Ownzone",
+    "team1Code": "CI",
+    "team2Code": "OZO"
   },
   {
     "tournament_id": 3,
@@ -1073,21 +1061,21 @@
     "fixture": "Matchday 3",
     "team1": "Ecologist Hegemony",
     "team2": "Furilisca",
-    "date": "2026-05-14T17:30:00.000Z",
+    "date": "2026-05-14T17:00:00.000Z",
     "team1Code": "ETC",
     "team2Code": "FUR"
   },
   {
     "tournament_id": 3,
     "stage": "group",
-    "group": "F",
+    "group": "E",
+    "stadium_id": 9,
     "fixture": "Matchday 3",
-    "stadium_id": 11,
-    "team1": "Zane Farbe Eslanudial",
-    "team2": "Ruinenlust",
-    "date": "2026-05-14T18:00:00.000Z",
-    "team1Code": "ZFE",
-    "team2Code": "RUN"
+    "date": "2026-05-14T17:30:00.000Z",
+    "team1": "Anxious and Kevin",
+    "team2": "Mozolephies",
+    "team1Code": "A&K",
+    "team2Code": "MOZ"
   },
   {
     "tournament_id": 3,
@@ -1097,21 +1085,21 @@
     "stadium_id": 12,
     "team1": "Bisofeyr",
     "team2": "Bilsa",
-    "date": "2026-05-14T18:30:00.000Z",
+    "date": "2026-05-14T18:00:00.000Z",
     "team1Code": "BSF",
     "team2Code": "BIL"
   },
   {
     "tournament_id": 3,
     "stage": "group",
-    "group": "G",
+    "group": "F",
     "fixture": "Matchday 3",
-    "stadium_id": 13,
-    "team1": "Azure Mines",
-    "team2": "Stralla",
-    "date": "2026-05-14T19:00:00.000Z",
-    "team1Code": "AZR",
-    "team2Code": "STR"
+    "stadium_id": 11,
+    "date": "2026-05-14T18:30:00.000Z",
+    "team1": "Zane Farbe Eslanudial",
+    "team2": "Ruinenlust",
+    "team1Code": "ZFE",
+    "team2Code": "RUN"
   },
   {
     "tournament_id": 3,
@@ -1121,21 +1109,21 @@
     "stadium_id": 14,
     "team1": "Chaplin",
     "team2": "Jutsa",
-    "date": "2026-05-14T19:30:00.000Z",
+    "date": "2026-05-14T19:00:00.000Z",
     "team1Code": "CHP",
     "team2Code": "JUT"
   },
   {
     "tournament_id": 3,
     "stage": "group",
-    "group": "H",
+    "group": "G",
     "fixture": "Matchday 3",
-    "stadium_id": 15,
-    "team1": "Sehir",
-    "team2": "Fish",
-    "date": "2026-05-14T20:00:00.000Z",
-    "team1Code": "SEH",
-    "team2Code": "FSH"
+    "stadium_id": 13,
+    "date": "2026-05-14T19:30:00.000Z",
+    "team1": "Azure Mines",
+    "team2": "Stralla",
+    "team1Code": "AZR",
+    "team2Code": "STR"
   },
   {
     "tournament_id": 3,
@@ -1145,9 +1133,21 @@
     "stadium_id": 16,
     "team1": "Garbelia",
     "team2": "Realize",
-    "date": "2026-05-14T20:30:00.000Z",
+    "date": "2026-05-14T20:00:00.000Z",
     "team1Code": "GRB",
     "team2Code": "RLZ"
+  },
+  {
+    "tournament_id": 3,
+    "stage": "group",
+    "group": "H",
+    "fixture": "Matchday 3",
+    "stadium_id": 15,
+    "date": "2026-05-14T20:30:00.000Z",
+    "team1": "Sehir",
+    "team2": "Fish",
+    "team1Code": "SEH",
+    "team2Code": "FSH"
   },
   {
     "tournament_id": 3,
