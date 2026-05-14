@@ -17,13 +17,17 @@
         "team": "Cacusia",
         "player": "S. Blair",
         "assist": "M. Dartmouth",
-        "minute": 15
+        "minute": 15,
+        "playerId": "CAC_009",
+        "assistId": "CAC_006"
       },
       {
         "team": "Nardin",
         "player": "I. Petrov",
         "assist": "Ulministak",
-        "minute": 67
+        "minute": 67,
+        "playerId": "NAR_005",
+        "assistId": "NAR_009"
       }
     ]
   },
@@ -117,25 +121,33 @@
         "team": "Einswenn",
         "player": "M. Solheim",
         "assist": "J. Teitur",
-        "minute": 9
+        "minute": 9,
+        "playerId": "EIN_007",
+        "assistId": "EIN_005"
       },
       {
         "team": "Einswenn",
         "player": "O. Gro",
         "assist": "A. Lund",
-        "minute": 20
+        "minute": 20,
+        "playerId": "EIN_008",
+        "assistId": "EIN_001"
       },
       {
         "team": "Einswenn",
         "player": "O. Gro",
         "assist": "H. Paulsen",
-        "minute": 72
+        "minute": 72,
+        "playerId": "EIN_008",
+        "assistId": "EIN_002"
       },
       {
         "team": "Einswenn",
         "player": "O. Gro",
         "assist": "H. Paulsen",
-        "minute": 86
+        "minute": 86,
+        "playerId": "EIN_008",
+        "assistId": "EIN_002"
       }
     ]
   },
@@ -177,7 +189,8 @@
       {
         "team": "Lumiose",
         "player": "M. Penosi",
-        "minute": 76
+        "minute": 76,
+        "playerId": "LUM_004"
       }
     ]
   },
@@ -232,8 +245,7 @@
     "date": "2026-05-09T17:00:00.000Z",
     "team1Code": "FUR",
     "team2Code": "A&K",
-    "goals": [
-    ]
+    "goals": []
   },
   {
     "tournament_id": 3,
@@ -244,7 +256,6 @@
     "team1": "Mozolephies",
     "team2": "Ecologist Hegemony",
     "link": "https://www.youtube.com/watch?v=6NE0vNdjYyc&t=1490s",
-
     "date": "2026-05-09T17:30:00.000Z",
     "status": "played",
     "team1Code": "MOZ",
@@ -274,8 +285,8 @@
     "goals": [
       {
         "team": "Bilsa",
-        "player": "Ervaan",
-        "assist": "Hajan",
+        "player": "T. Ervaan",
+        "assist": "D. Hajan",
         "minute": 37
       }
     ]
@@ -296,7 +307,7 @@
     "goals": [
       {
         "team": "Ruinenlust",
-        "player": "Swen",
+        "player": "O. Swen",
         "assist": "Ben",
         "minute": 12
       }
@@ -342,8 +353,7 @@
     "date": "2026-05-09T19:30:00.000Z",
     "team1Code": "STR",
     "team2Code": "CHP",
-    "goals": [
-    ]
+    "goals": []
   },
   {
     "tournament_id": 3,
@@ -434,14 +444,18 @@
         "team": "Cacusia",
         "player": "H. Grey",
         "assist": "S. Blair",
-        "minute": 32
+        "minute": 32,
+        "playerId": "CAC_004",
+        "assistId": "CAC_009"
       },
       {
         "team": "Cacusia",
         "player": "M. Dartmouth",
         "assist": "H. Blackmoor",
         "minute": 45,
-        "aggregate": 1
+        "aggregate": 1,
+        "playerId": "CAC_006",
+        "assistId": "CAC_003"
       }
     ]
   },
@@ -463,7 +477,9 @@
         "team": "Nardin",
         "player": "A. Av Cerzi",
         "assist": "F. Pavlov",
-        "minute": 39
+        "minute": 39,
+        "playerId": "NAR_001",
+        "assistId": "NAR_004"
       },
       {
         "team": "Clown Town City",
@@ -475,7 +491,9 @@
         "team": "Nardin",
         "player": "J. Klarik",
         "assist": "R. Tarasov",
-        "minute": 87
+        "minute": 87,
+        "playerId": "NAR_006",
+        "assistId": "NAR_008"
       }
     ],
     "cards": [
@@ -483,7 +501,8 @@
         "team": "Nardin",
         "player": "A. Leszik",
         "minute": 66,
-        "type": "yellow"
+        "type": "yellow",
+        "playerId": "NAR_002"
       }
     ]
   },
@@ -548,18 +567,22 @@
       {
         "team": "Nordustra",
         "player": "J. Østegårde",
-        "minute": 7
+        "minute": 7,
+        "playerId": "NOR_005"
       },
       {
         "team": "Nordustra",
         "player": "K. Pontsblom",
-        "minute": 16
+        "minute": 16,
+        "playerId": "NOR_007"
       },
       {
         "team": "Nordustra",
         "player": "K. Pontsblom",
         "assist": "L. Uye",
-        "minute": 25
+        "minute": 25,
+        "playerId": "NOR_007",
+        "assistId": "NOR_008"
       },
       {
         "team": "Woodland Green",
@@ -571,13 +594,17 @@
         "team": "Nordustra",
         "player": "M. Miltshus",
         "assist": "M. Sevdal",
-        "minute": 62
+        "minute": 62,
+        "playerId": "NOR_009",
+        "assistId": "NOR_010"
       },
       {
         "team": "Nordustra",
         "player": "M. Miltshus",
         "assist": "L. Uye",
-        "minute": 73
+        "minute": 73,
+        "playerId": "NOR_009",
+        "assistId": "NOR_008"
       }
     ],
     "cards": [
@@ -586,7 +613,8 @@
         "player": "F. Torvald",
         "minute": 90,
         "aggregate": 2,
-        "type": "yellow"
+        "type": "yellow",
+        "playerId": "NOR_003"
       }
     ]
   },
@@ -620,7 +648,9 @@
         "team": "Einswenn",
         "player": "O. Gro",
         "assist": "J. Teitur",
-        "minute": 55
+        "minute": 55,
+        "playerId": "EIN_008",
+        "assistId": "EIN_005"
       }
     ]
   },
@@ -642,7 +672,9 @@
         "team": "Bextoria",
         "player": "F. Hološko",
         "assist": "Z. Lazarević",
-        "minute": 54
+        "minute": 54,
+        "playerId": "BEX_001",
+        "assistId": "BEX_003"
       },
       {
         "team": "Oseao",
@@ -669,31 +701,39 @@
       {
         "team": "Lumiose",
         "player": "B. Marlee",
-        "minute": 10
+        "minute": 10,
+        "playerId": "LUM_002"
       },
       {
         "team": "Lumiose",
         "player": "C. Farnirne",
-        "minute": 30
+        "minute": 30,
+        "playerId": "LUM_003"
       },
       {
         "team": "Lumiose",
         "player": "B. Dreamspell",
         "assist": "T. Pescaster",
         "minute": 45,
-        "aggregate": 2
+        "aggregate": 2,
+        "playerId": "LUM_001",
+        "assistId": "LUM_007"
       },
       {
         "team": "Lumiose",
         "player": "B. Dreamspell",
         "assist": "C. Farnirne",
-        "minute": 62
+        "minute": 62,
+        "playerId": "LUM_001",
+        "assistId": "LUM_003"
       },
       {
         "team": "Lumiose",
         "player": "B. Dreamspell",
         "assist": "W. Leswalyn",
-        "minute": 90
+        "minute": 90,
+        "playerId": "LUM_001",
+        "assistId": "LUM_010"
       },
       {
         "team": "Ownzone",
@@ -756,7 +796,9 @@
         "team": "Furilisca",
         "player": "H. Ásvaldsson",
         "assist": "Á. Stefánsson",
-        "minute": 58
+        "minute": 58,
+        "playerId": "FUR_004",
+        "assistId": "FUR_001"
       }
     ]
   },
@@ -798,19 +840,19 @@
     "goals": [
       {
         "team": "Bilsa",
-        "player": "Ervaan",
-        "assist": "Hajan",
+        "player": "T. Ervaan",
+        "assist": "D. Hajan",
         "minute": 6
       },
       {
         "team": "Bilsa",
-        "player": "Arhanv",
+        "player": "A. Arhanv",
         "minute": 33,
         "penalty": true
       },
       {
         "team": "Bilsa",
-        "player": "Arhanv",
+        "player": "A. Arhanv",
         "minute": 72,
         "penalty": true
       }
@@ -975,13 +1017,17 @@
         "team": "Cacusia",
         "player": "M. Dartmouth",
         "assist": "I. Darrow",
-        "minute": 8
+        "minute": 8,
+        "playerId": "CAC_006",
+        "assistId": "CAC_005"
       },
       {
         "team": "Cacusia",
         "player": "H. Grey",
         "assist": "I. Darrow",
-        "minute": 68
+        "minute": 68,
+        "playerId": "CAC_004",
+        "assistId": "CAC_005"
       }
     ]
   },
@@ -1003,7 +1049,8 @@
         "team": "Nardin",
         "player": "R. Tarasov",
         "penalty": true,
-        "minute": 32
+        "minute": 32,
+        "playerId": "NAR_008"
       }
     ],
     "cards": [
@@ -1077,13 +1124,16 @@
       {
         "team": "Nordustra",
         "player": "M. Miltshus",
-        "minute": 7
+        "minute": 7,
+        "playerId": "NOR_009"
       },
       {
         "team": "Nordustra",
         "player": "J. Østegårde",
         "assist": "M. Sevdal",
-        "minute": 23
+        "minute": 23,
+        "playerId": "NOR_005",
+        "assistId": "NOR_010"
       },
       {
         "team": "Klaus Devestatorie",
@@ -1095,7 +1145,9 @@
         "team": "Nordustra",
         "player": "M. Miltshus",
         "assist": "J. Østegårde",
-        "minute": 67
+        "minute": 67,
+        "playerId": "NOR_009",
+        "assistId": "NOR_005"
       }
     ],
     "cards": [
@@ -1125,25 +1177,32 @@
         "team": "Einswenn",
         "player": "O. Gro",
         "assist": "M. Solheim",
-        "minute": 3
+        "minute": 3,
+        "playerId": "EIN_008",
+        "assistId": "EIN_007"
       },
       {
         "team": "Einswenn",
         "player": "A. Lund",
         "assist": "I. Moje",
-        "minute": 13
+        "minute": 13,
+        "playerId": "EIN_001",
+        "assistId": "EIN_003"
       },
       {
         "team": "Einswenn",
         "player": "O. Gro",
         "assist": "H. Paulsen",
-        "minute": 55
+        "minute": 55,
+        "playerId": "EIN_008",
+        "assistId": "EIN_002"
       },
       {
         "team": "Einswenn",
         "player": "J. Teitur",
         "penalty": true,
-        "minute": 64
+        "minute": 64,
+        "playerId": "EIN_005"
       }
     ]
   },
@@ -1170,7 +1229,8 @@
       {
         "team": "Bextoria",
         "player": "S. Ristovski",
-        "minute": 19
+        "minute": 19,
+        "playerId": "BEX_002"
       },
       {
         "team": "Valentian Kittens",
@@ -1204,19 +1264,25 @@
         "team": "Lumiose",
         "player": "C. Farnirne",
         "assist": "T. Pescaster",
-        "minute": 6
+        "minute": 6,
+        "playerId": "LUM_003",
+        "assistId": "LUM_007"
       },
       {
         "team": "Lumiose",
         "player": "T. Pescaster",
         "assist": "B. Marlee",
-        "minute": 39
+        "minute": 39,
+        "playerId": "LUM_007",
+        "assistId": "LUM_002"
       },
       {
         "team": "Lumiose",
         "player": "M. Penosi",
         "assist": "S. Eastoft",
-        "minute": 89
+        "minute": 89,
+        "playerId": "LUM_004",
+        "assistId": "LUM_006"
       },
       {
         "team": "Glo XI",
@@ -1256,9 +1322,34 @@
     "fixture": "Matchday 3",
     "team1": "Ecologist Hegemony",
     "team2": "Furilisca",
+    "status": "played",
     "date": "2026-05-14T17:00:00.000Z",
     "team1Code": "ETC",
-    "team2Code": "FUR"
+    "team2Code": "FUR",
+    "goals": [
+      {
+        "team": "Ecologist Hegemony",
+        "player": "Duarte",
+        "minute": 3
+      },
+      {
+        "team": "Furilisca",
+        "player": "G. Hallmundsdóttir",
+        "minute": 29
+      },
+      {
+        "team": "Furilisca",
+        "player": "E. Guðjónsdóttir",
+        "assist": "B. Þormóðsson",
+        "minute": 55
+      },
+      {
+        "team": "Ecologist Hegemony",
+        "player": "Vermont",
+        "assist": "Kovacevic",
+        "minute": 68
+      }
+    ]
   },
   {
     "tournament_id": 3,
@@ -1267,10 +1358,45 @@
     "stadium_id": 9,
     "fixture": "Matchday 3",
     "date": "2026-05-14T17:30:00.000Z",
+    "status": "played",
     "team1": "Anxious and Kevin",
     "team2": "Mozolephies",
     "team1Code": "A&K",
-    "team2Code": "MOZ"
+    "team2Code": "MOZ",
+    "goals": [
+      {
+        "team": "Anxious and Kevin",
+        "player": "Järnefelt",
+        "assist": "Bœn",
+        "minute": 21
+      },
+      {
+        "team": "Anxious and Kevin",
+        "player": "Saugstad",
+        "assist": "Rosenblad",
+        "minute": 27
+      },
+      {
+        "team": "Anxious and Kevin",
+        "player": "Bœn",
+        "assist": "Järnefelt",
+        "minute": 84
+      },
+      {
+        "team": "Anxious and Kevin",
+        "player": "Järnefelt",
+        "assist": "Kussikk",
+        "minute": 87
+      }
+    ],
+    "cards": [
+      {
+        "team": "Anxious and Kevin",
+        "player": "Landsverk",
+        "type": "yellow",
+        "minute": 44
+      }
+    ]
   },
   {
     "tournament_id": 3,
@@ -1280,9 +1406,38 @@
     "stadium_id": 12,
     "team1": "Bisofeyr",
     "team2": "Bilsa",
+    "status": "played",
     "date": "2026-05-14T18:00:00.000Z",
     "team1Code": "BSF",
-    "team2Code": "BIL"
+    "team2Code": "BIL",
+    "goals": [
+      {
+        "team": "Bilsa",
+        "player": "D. Hajan",
+        "assist": "A. Arhanv",
+        "minute": 21
+      },
+      {
+        "team": "Bilsa",
+        "player": "C. Muniv",
+        "assist": "Vlajsaj",
+        "minute": 28
+      },
+      {
+        "team": "Bilsa",
+        "player": "T. Ervaan",
+        "assist": "C. Muniv",
+        "minute": 47
+      }
+    ],
+    "cards": [
+      {
+        "team": "Bilsa",
+        "player": "P. Rakaj",
+        "type": "yellow",
+        "minute": 89
+      }
+    ]
   },
   {
     "tournament_id": 3,
@@ -1291,10 +1446,32 @@
     "fixture": "Matchday 3",
     "stadium_id": 11,
     "date": "2026-05-14T18:30:00.000Z",
+    "status": "played",
     "team1": "Zane Farbe Eslanudial",
     "team2": "Ruinenlust",
     "team1Code": "ZFE",
-    "team2Code": "RUN"
+    "team2Code": "RUN",
+    "goals": [
+      {
+        "team": "Ruinenlust",
+        "player": "L. Nesar",
+        "assist": "Alberia",
+        "minute": 8
+      },
+      {
+        "team": "Ruinenlust",
+        "player": "L. Nesar",
+        "assist": "O. Swen",
+        "minute": 45,
+        "aggregate": 2
+      },
+      {
+        "team": "Ruinenlust",
+        "player": "L. Nesar",
+        "assist": "W. Rachs",
+        "minute": 81
+      }
+    ]
   },
   {
     "tournament_id": 3,
@@ -1304,9 +1481,41 @@
     "stadium_id": 14,
     "team1": "Chaplin",
     "team2": "Jutsa",
+    "status": "played",
     "date": "2026-05-14T19:00:00.000Z",
     "team1Code": "CHP",
-    "team2Code": "JUT"
+    "team2Code": "JUT",
+    "goals": [
+      {
+        "team": "Jutsa",
+        "player": "P. Ceruīkat",
+        "assist": "Q. Koîkaîn",
+        "minute": 11
+      },
+      {
+        "team": "Jutsa",
+        "player": "K. Yuīkuīma",
+        "assist": "C. Kuīyeī",
+        "minute": 29
+      },
+      {
+        "team": "Jutsa",
+        "player": "K. Yuīkuīma",
+        "minute": 31
+      },
+      {
+        "team": "Jutsa",
+        "player": "K. Yuīkuīma",
+        "assist": "Q. Koîkaîn",
+        "minute": 79
+      },
+      {
+        "team": "Jutsa",
+        "player": "K. Jatanwaīd",
+        "assist": "Q. Koîkaîn",
+        "minute": 89
+      }
+    ]
   },
   {
     "tournament_id": 3,
@@ -1314,6 +1523,7 @@
     "group": "G",
     "fixture": "Matchday 3",
     "stadium_id": 13,
+    "status": "played",
     "date": "2026-05-14T19:30:00.000Z",
     "team1": "Azure Mines",
     "team2": "Stralla",
@@ -1328,9 +1538,37 @@
     "stadium_id": 16,
     "team1": "Garbelia",
     "team2": "Realize",
+    "status": "played",
     "date": "2026-05-14T20:00:00.000Z",
     "team1Code": "GRB",
-    "team2Code": "RLZ"
+    "team2Code": "RLZ",
+    "goals": [
+      {
+        "team": "Realize",
+        "player": "E. Leek",
+        "minute": 48
+      },
+      {
+        "team": "Garbelia",
+        "player": "O. Vydra",
+        "assist": "M. Katō",
+        "minute": 57
+      },
+      {
+        "team": "Realize",
+        "player": "D. Onion",
+        "assist": "O. Parnsley",
+        "minute": 65
+      }
+    ],
+    "cards": [
+      {
+        "team": "Garbelia",
+        "player": "O. Otterata",
+        "type": "yellow",
+        "minute": 44
+      }
+    ]
   },
   {
     "tournament_id": 3,
@@ -1338,11 +1576,44 @@
     "group": "H",
     "fixture": "Matchday 3",
     "stadium_id": 15,
+    "status": "played",
     "date": "2026-05-14T20:30:00.000Z",
     "team1": "Sehir",
     "team2": "Fish",
     "team1Code": "SEH",
-    "team2Code": "FSH"
+    "team2Code": "FSH",
+    "goals": [
+      {
+        "team": "Sehir",
+        "player": "C. Beck",
+        "minute": 8
+      },
+      {
+        "team": "Fish",
+        "player": "Big James",
+        "assist": "Nemo Jr.",
+        "minute": 24
+      },
+      {
+        "team": "Sehir",
+        "player": "Mathisen",
+        "assist": "Holm",
+        "minute": 56
+      },
+      {
+        "team": "Fish",
+        "player": "Big James",
+        "assist": "James Nine",
+        "minute": 58
+      },
+      {
+        "team": "Sehir",
+        "player": "C. Beck",
+        "penalty": true,
+        "minute": 90,
+        "aggregate": 2
+      }
+    ]
   },
   {
     "tournament_id": 3,
@@ -1371,18 +1642,22 @@
     "stage": "knockout",
     "fixture": "Round of 16",
     "stadium_id": 15,
-    "team1": "1° E",
-    "team2": "2° F",
-    "date": "2026-05-15T18:00:00.000Z"
+    "team1": "Anxious and Kevin",
+    "team2": "Ruinenlust",
+    "date": "2026-05-15T18:00:00.000Z",
+    "team1Code": "A&K",
+    "team2Code": "RUN"
   },
   {
     "tournament_id": 3,
     "stage": "knockout",
     "fixture": "Round of 16",
     "stadium_id": 12,
-    "team1": "1° G",
-    "team2": "2° H",
-    "date": "2026-05-15T18:30:00.000Z"
+    "team1": "Jutsa",
+    "team2": "Garbelia",
+    "date": "2026-05-15T18:30:00.000Z",
+    "team1Code": "JUT",
+    "team2Code": "GRB"
   },
   {
     "tournament_id": 3,
@@ -1411,18 +1686,22 @@
     "stage": "knockout",
     "fixture": "Round of 16",
     "stadium_id": 13,
-    "team1": "1° F",
-    "team2": "2° E",
-    "date": "2026-05-15T20:00:00.000Z"
+    "team1": "Bilsa",
+    "team2": "Furilisca",
+    "date": "2026-05-15T20:00:00.000Z",
+    "team1Code": "BIL",
+    "team2Code": "FUR"
   },
   {
     "tournament_id": 3,
     "stage": "knockout",
     "fixture": "Round of 16",
-    "team1": "1° H",
-    "team2": "2° G",
+    "team1": "Realize",
+    "team2": "Azure Mines",
     "stadium_id": 9,
-    "date": "2026-05-15T20:30:00.000Z"
+    "date": "2026-05-15T20:30:00.000Z",
+    "team1Code": "RLZ",
+    "team2Code": "AZR"
   },
   {
     "tournament_id": 3,
