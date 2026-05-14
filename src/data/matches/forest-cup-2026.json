@@ -1642,18 +1642,22 @@
     "stage": "knockout",
     "fixture": "Round of 16",
     "stadium_id": 15,
-    "team1": "1° E",
-    "team2": "2° F",
-    "date": "2026-05-15T18:00:00.000Z"
+    "team1": "Anxious and Kevin",
+    "team2": "Ruinenlust",
+    "date": "2026-05-15T18:00:00.000Z",
+    "team1Code": "A&K",
+    "team2Code": "RUN"
   },
   {
     "tournament_id": 3,
     "stage": "knockout",
     "fixture": "Round of 16",
     "stadium_id": 12,
-    "team1": "1° G",
-    "team2": "2° H",
-    "date": "2026-05-15T18:30:00.000Z"
+    "team1": "Jutsa",
+    "team2": "Garbelia",
+    "date": "2026-05-15T18:30:00.000Z",
+    "team1Code": "JUT",
+    "team2Code": "GRB"
   },
   {
     "tournament_id": 3,
@@ -1682,18 +1686,22 @@
     "stage": "knockout",
     "fixture": "Round of 16",
     "stadium_id": 13,
-    "team1": "1° F",
-    "team2": "2° E",
-    "date": "2026-05-15T20:00:00.000Z"
+    "team1": "Bilsa",
+    "team2": "Furilisca",
+    "date": "2026-05-15T20:00:00.000Z",
+    "team1Code": "BIL",
+    "team2Code": "FUR"
   },
   {
     "tournament_id": 3,
     "stage": "knockout",
     "fixture": "Round of 16",
-    "team1": "1° H",
-    "team2": "2° G",
+    "team1": "Realize",
+    "team2": "Azure Mines",
     "stadium_id": 9,
-    "date": "2026-05-15T20:30:00.000Z"
+    "date": "2026-05-15T20:30:00.000Z",
+    "team1Code": "RLZ",
+    "team2Code": "AZR"
   },
   {
     "tournament_id": 3,
