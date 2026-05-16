@@ -523,7 +523,7 @@
       {
         "team": "Roless",
         "player": "J. Greenaway",
-        "assist": "C. McArthur",
+        "assist": "C. Mcarthur",
         "minute": 31
       },
       {
@@ -1102,7 +1102,7 @@
       {
         "team": "Roless",
         "player": "J. Greenaway",
-        "assist": "C. McArthur",
+        "assist": "C. Mcarthur",
         "minute": 77
       }
     ]
@@ -1323,6 +1323,7 @@
     "team1": "Ecologist Hegemony",
     "team2": "Furilisca",
     "status": "played",
+    "link": "https://www.youtube.com/watch?v=eezamF6N3kY&t=167s",
     "date": "2026-05-14T17:00:00.000Z",
     "team1Code": "ETC",
     "team2Code": "FUR",
@@ -1359,6 +1360,7 @@
     "fixture": "Matchday 3",
     "date": "2026-05-14T17:30:00.000Z",
     "status": "played",
+    "link": "https://www.youtube.com/watch?v=eezamF6N3kY&t=1804s",
     "team1": "Anxious and Kevin",
     "team2": "Mozolephies",
     "team1Code": "A&K",
@@ -1406,6 +1408,7 @@
     "stadium_id": 12,
     "team1": "Bisofeyr",
     "team2": "Bilsa",
+    "link": "https://www.youtube.com/watch?v=eezamF6N3kY&t=3380s",
     "status": "played",
     "date": "2026-05-14T18:00:00.000Z",
     "team1Code": "BSF",
@@ -1447,6 +1450,7 @@
     "stadium_id": 11,
     "date": "2026-05-14T18:30:00.000Z",
     "status": "played",
+    "link": "https://www.youtube.com/watch?v=eezamF6N3kY&t=5114s",
     "team1": "Zane Farbe Eslanudial",
     "team2": "Ruinenlust",
     "team1Code": "ZFE",
@@ -1481,6 +1485,7 @@
     "stadium_id": 14,
     "team1": "Chaplin",
     "team2": "Jutsa",
+    "link": "https://www.youtube.com/watch?v=eezamF6N3kY&t=6718s",
     "status": "played",
     "date": "2026-05-14T19:00:00.000Z",
     "team1Code": "CHP",
@@ -1524,6 +1529,7 @@
     "fixture": "Matchday 3",
     "stadium_id": 13,
     "status": "played",
+    "link": "https://www.youtube.com/watch?v=eezamF6N3kY&t=8402s",
     "date": "2026-05-14T19:30:00.000Z",
     "team1": "Azure Mines",
     "team2": "Stralla",
@@ -1539,6 +1545,7 @@
     "team1": "Garbelia",
     "team2": "Realize",
     "status": "played",
+    "link": "https://www.youtube.com/watch?v=eezamF6N3kY&t=9852s",
     "date": "2026-05-14T20:00:00.000Z",
     "team1Code": "GRB",
     "team2Code": "RLZ",
@@ -1577,6 +1584,7 @@
     "fixture": "Matchday 3",
     "stadium_id": 15,
     "status": "played",
+    "link": "https://www.youtube.com/watch?v=eezamF6N3kY&t=11415s",
     "date": "2026-05-14T20:30:00.000Z",
     "team1": "Sehir",
     "team2": "Fish",
@@ -1622,9 +1630,63 @@
     "stadium_id": 10,
     "team1": "Cacusia",
     "team2": "Nordustra",
+    "status": "played",
+    "link": "https://www.youtube.com/watch?v=8qIbnGhu9Jk&t=248s",
     "date": "2026-05-15T17:00:00.000Z",
     "team1Code": "CAC",
-    "team2Code": "NOR"
+    "team2Code": "NOR",
+    "goals": [
+      {
+        "team": "Cacusia",
+        "player": "M. Dartmouth",
+        "assist": "S. Blair",
+        "minute": 35
+      },
+      {
+        "team": "Cacusia",
+        "player": "M. Dartmouth",
+        "assist": "L. McRaddish",
+        "minute": 40
+      },
+      {
+        "team": "Cacusia",
+        "player": "H. Grey",
+        "assist": "H. Blackmoor",
+        "minute": 45,
+        "aggregate": 1
+      },
+      {
+        "team": "Cacusia",
+        "player": "M. Dartmouth",
+        "assist": "H. Blackmoor",
+        "minute": 52
+      },
+      {
+        "team": "Cacusia",
+        "player": "S. Blair",
+        "assist": "O. Stout",
+        "minute": 61
+      },
+      {
+        "team": "Cacusia",
+        "player": "M. Dartmouth",
+        "assist": "H. Grey",
+        "minute": 66
+      },
+      {
+        "team": "Cacusia",
+        "player": "I. Darrow",
+        "minute": 69
+      }
+    ],
+    "cards": [
+      {
+        "team": "Nordustra",
+        "player": "M. Sevdal",
+        "type": "yellow",
+        "minute": 88
+      }
+    ]
   },
   {
     "tournament_id": 3,
@@ -1632,10 +1694,51 @@
     "fixture": "Round of 16",
     "team1": "Einswenn",
     "team2": "Chan Island",
+    "status": "played",
     "stadium_id": 9,
+    "link": "https://www.youtube.com/watch?v=8qIbnGhu9Jk&t=2148s",
     "date": "2026-05-15T17:30:00.000Z",
     "team1Code": "EIN",
-    "team2Code": "CI"
+    "team2Code": "CI",
+    "goals": [
+      {
+        "team": "Einswenn",
+        "player": "O. Gro",
+        "assist": "J. Teitur",
+        "minute": 7
+      },
+      {
+        "team": "Einswenn",
+        "player": "O. Gro",
+        "assist": "S. Kattell",
+        "minute": 27
+      },
+      {
+        "team": "Chan Island",
+        "player": "Chan Island",
+        "assist": "L. Messi",
+        "minute": 59
+      },
+      {
+        "team": "Einswenn",
+        "player": "O. Gro",
+        "assist": "J. Teitur",
+        "minute": 80
+      },
+      {
+        "team": "Chan Island",
+        "player": "L. Messi",
+        "assist": "Butch Man",
+        "minute": 86
+      },
+      {
+        "team": "Einswenn",
+        "player": "O. Gro",
+        "assist": "H. Frey",
+        "minute": 90,
+        "aggregate": 1
+      }
+    ]
   },
   {
     "tournament_id": 3,
@@ -1644,9 +1747,31 @@
     "stadium_id": 15,
     "team1": "Anxious and Kevin",
     "team2": "Ruinenlust",
+    "link": "https://www.youtube.com/watch?v=8qIbnGhu9Jk&t=3916s",
+    "status": "played",
     "date": "2026-05-15T18:00:00.000Z",
     "team1Code": "A&K",
-    "team2Code": "RUN"
+    "team2Code": "RUN",
+    "goals": [
+      {
+        "team": "Ruinenlust",
+        "player": "Bonfis",
+        "minute": 41
+      },
+      {
+        "team": "Ruinenlust",
+        "player": "O. Swen",
+        "minute": 53
+      }
+    ],
+    "cards": [
+      {
+        "team": "Anxious and Kevin",
+        "player": "Öström",
+        "type": "yellow",
+        "minute": 29
+      }
+    ]
   },
   {
     "tournament_id": 3,
@@ -1655,9 +1780,44 @@
     "stadium_id": 12,
     "team1": "Jutsa",
     "team2": "Garbelia",
+    "status": "played",
+    "link": "https://www.youtube.com/watch?v=8qIbnGhu9Jk&t=5636s",
     "date": "2026-05-15T18:30:00.000Z",
     "team1Code": "JUT",
-    "team2Code": "GRB"
+    "team2Code": "GRB",
+    "goals": [
+      {
+        "team": "Jutsa",
+        "player": "K. Yuīkuīma",
+        "assist": "C. Kuīyeī",
+        "minute": 11
+      },
+      {
+        "team": "Jutsa",
+        "player": "K. Yuīkuīma",
+        "minute": 45,
+        "aggregate": 2
+      },
+      {
+        "team": "Jutsa",
+        "player": "X. Xayaīmaīc",
+        "minute": 72
+      },
+      {
+        "team": "Jutsa",
+        "player": "K. Yuīkuīma",
+        "assist": "P. Ceruīkat",
+        "minute": 80
+      }
+    ],
+    "cards": [
+      {
+        "team": "Garbelia",
+        "player": "O. Otterata",
+        "type": "yellow",
+        "minute": 88
+      }
+    ]
   },
   {
     "tournament_id": 3,
@@ -1666,9 +1826,45 @@
     "stadium_id": 11,
     "team1": "Roless",
     "team2": "Nardin",
+    "link": "https://www.youtube.com/watch?v=8qIbnGhu9Jk&t=7459s",
+    "status": "played",
     "date": "2026-05-15T19:00:00.000Z",
     "team1Code": "RLS",
-    "team2Code": "NAR"
+    "team2Code": "NAR",
+    "goals": [
+      {
+        "team": "Roless",
+        "player": "C. Mcarthur",
+        "assist": "H. Carrol",
+        "minute": 6
+      },
+      {
+        "team": "Roless",
+        "player": "D. Harrington",
+        "assist": "H. Carrol",
+        "minute": 44
+      },
+      {
+        "team": "Roless",
+        "player": "J. Greenaway",
+        "assist": "L. Howell",
+        "minute": 59
+      },
+      {
+        "team": "Nardin",
+        "player": "A. Av Cerzi",
+        "assist": "F. Pavlov",
+        "minute": 66
+      }
+    ],
+    "cards": [
+      {
+        "team": "Nardin",
+        "player": "F. Pavlov",
+        "type": "yellow",
+        "minute": 47
+      }
+    ]
   },
   {
     "tournament_id": 3,
@@ -1677,9 +1873,19 @@
     "stadium_id": 14,
     "team1": "Lumiose",
     "team2": "Valentian Kittens",
+    "link": "https://www.youtube.com/watch?v=8qIbnGhu9Jk&t=9054s",
+    "status": "played",
     "date": "2026-05-15T19:30:00.000Z",
     "team1Code": "LUM",
-    "team2Code": "VEZ"
+    "team2Code": "VEZ",
+    "goals": [
+      {
+        "team": "Lumiose",
+        "player": "M. Penosi",
+        "assist": "R. Inmeress",
+        "minute": 115
+      }
+    ]
   },
   {
     "tournament_id": 3,
@@ -1688,9 +1894,31 @@
     "stadium_id": 13,
     "team1": "Bilsa",
     "team2": "Furilisca",
+    "status": "played",
+    "link": "https://www.youtube.com/watch?v=8qIbnGhu9Jk&t=10919s",
     "date": "2026-05-15T20:00:00.000Z",
     "team1Code": "BIL",
-    "team2Code": "FUR"
+    "team2Code": "FUR",
+    "goals": [
+      {
+        "team": "Bilsa",
+        "player": "C. Muniv",
+        "assist": "T. Ervaan",
+        "minute": 20
+      },
+      {
+        "team": "Bilsa",
+        "player": "C. Muniv",
+        "assist": "B. Njazet",
+        "minute": 31
+      },
+      {
+        "team": "Bilsa",
+        "player": "D. Hajan",
+        "assist": "T. Ervaan",
+        "minute": 57
+      }
+    ]
   },
   {
     "tournament_id": 3,
@@ -1698,46 +1926,88 @@
     "fixture": "Round of 16",
     "team1": "Realize",
     "team2": "Azure Mines",
+    "status": "played",
     "stadium_id": 9,
+    "link": "https://www.youtube.com/watch?v=8qIbnGhu9Jk&t=12648s",
     "date": "2026-05-15T20:30:00.000Z",
     "team1Code": "RLZ",
-    "team2Code": "AZR"
+    "team2Code": "AZR",
+    "goals": [
+      {
+        "team": "Azure Mines",
+        "player": "Ru Inenlustian",
+        "assist": "S. Keit",
+        "minute": 8
+      },
+      {
+        "team": "Realize",
+        "player": "D. Onion",
+        "assist": "E. Leek",
+        "minute": 14
+      },
+      {
+        "team": "Realize",
+        "player": "D. Onion",
+        "assist": "E. Leek",
+        "minute": 34
+      },
+      {
+        "team": "Realize",
+        "player": "D. Onion",
+        "assist": "E. Leek",
+        "minute": 49
+      },
+      {
+        "team": "Realize",
+        "player": "E. Leek",
+        "assist": "M. Beet",
+        "minute": 57
+      }
+    ]
   },
   {
     "tournament_id": 3,
     "stage": "knockout",
     "fixture": "Quarter Finals",
     "stadium_id": 10,
-    "team1": "Winner R16 1",
-    "team2": "Winner R16 2",
-    "date": "2026-05-16T15:00:00.000Z"
+    "team1": "Cacusia",
+    "team2": "Einswenn",
+    "date": "2026-05-16T15:00:00.000Z",
+    "team1Code": "CAC",
+    "team2Code": "EIN"
   },
   {
     "tournament_id": 3,
     "stage": "knockout",
     "fixture": "Quarter Finals",
     "stadium_id": 9,
-    "team1": "Winner R16 3",
-    "team2": "Winner R16 4",
-    "date": "2026-05-16T15:30:00.000Z"
+    "team1": "Ruinenlust",
+    "team2": "Jutsa",
+    "date": "2026-05-16T15:30:00.000Z",
+    "team1Code": "RUN",
+    "team2Code": "JUT"
   },
   {
     "tournament_id": 3,
     "stage": "knockout",
     "fixture": "Quarter Finals",
     "stadium_id": 12,
-    "team1": "Winner R16 5",
-    "team2": "Winner R16 6",
-    "date": "2026-05-16T16:00:00.000Z"
+    "team1": "Roless",
+    "team2": "Lumiose",
+    "date": "2026-05-16T16:00:00.000Z",
+    "team1Code": "ROL",
+    "team2Code": "LUM"
   },
   {
     "tournament_id": 3,
     "stage": "knockout",
     "fixture": "Quarter Finals",
     "stadium_id": 13,
-    "team1": "Winner R16 7",
-    "team2": "Winner R16 8",
-    "date": "2026-05-16T16:30:00.000Z"
+    "team1": "Bilsa",
+    "team2": "Realize",
+    "date": "2026-05-16T16:30:00.000Z",
+    "team1Code": "BIL",
+    "team2Code": "RLZ"
   },
   {
     "tournament_id": 3,
