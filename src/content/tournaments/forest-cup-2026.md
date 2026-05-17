@@ -4,15 +4,25 @@ type: "forest-cup"
 name: "Cacusia 2026"
 host: "Cacusia"
 hostCode: "CAC"
+champion: "Roless"
+championCode: "RLS"
 image: "src/assets/images/tournaments/2026/logo.png"
 banner: "src/assets/images/tournaments/2026/banner.png"
 heroImg: "src/assets/images/tournaments/2026/heroImg.png"
 edition: 2026
 loadingType: "eager"
-pots:
-  - pot: 1
-    teamCodes:
-      - "CAC"
-    teams:
-      - "Cacusia"
+prizes:
+  topScorer:
+    - player: "O. Gro"
+      team: "Einswenn"
+      goals: 13
+  bestPlayer:
+    player: "O. Gro"
+    team: "Einswenn"
+  bestGoalkeeper:
+    player: "E. Jadar"
+    team: "Bilsa"
+  # bestGoal:
+  #   player: "I. Darrow"
+  #   team: "Cacusia"
 ---

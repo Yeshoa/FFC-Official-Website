@@ -1972,9 +1972,113 @@
     "stadium_id": 10,
     "team1": "Cacusia",
     "team2": "Einswenn",
+    "status": "played",
+    "link": "https://www.youtube.com/watch?v=ibh-7E6wa5A&t=170s",
     "date": "2026-05-16T15:00:00.000Z",
     "team1Code": "CAC",
-    "team2Code": "EIN"
+    "team2Code": "EIN",
+    "goals": [
+      {
+        "team": "Cacusia",
+        "player": "H. Grey",
+        "assist": "I. Darrow",
+        "minute": 45,
+        "aggregate": 2
+      },
+      {
+        "team": "Einswenn",
+        "player": "H. Paulsen",
+        "assist": "M. Solheim",
+        "minute": 77
+      },
+      {
+        "team": "Cacusia",
+        "player": "E. Solomon",
+        "assist": "K. Mysteweitz",
+        "minute": 94
+      },
+      {
+        "team": "Einswenn",
+        "player": "O. Gro",
+        "assist": "H. Frey",
+        "minute": 120,
+        "aggregate": 1
+      }
+    ],
+    "penalties": [
+      {
+        "order": 1,
+        "team": "Cacusia",
+        "player": "M. Dartmouth",
+        "scored": false
+      },
+      {
+        "order": 2,
+        "team": "Einswenn",
+        "player": "O. Gro",
+        "scored": true
+      },
+      {
+        "order": 3,
+        "team": "Cacusia",
+        "player": "H. Grey",
+        "scored": true
+      },
+      {
+        "order": 4,
+        "team": "Einswenn",
+        "player": "T. Marcos",
+        "scored": false
+      },
+      {
+        "order": 5,
+        "team": "Cacusia",
+        "player": "H. Blackmoor",
+        "scored": false
+      },
+      {
+        "order": 6,
+        "team": "Einswenn",
+        "player": "H. Paulsen",
+        "scored": false
+      },
+      {
+        "order": 7,
+        "team": "Cacusia",
+        "player": "K. Mysteweitz",
+        "scored": false
+      },
+      {
+        "order": 8,
+        "team": "Einswenn",
+        "player": "H. Frey",
+        "scored": true
+      },
+      {
+        "order": 9,
+        "team": "Cacusia",
+        "player": "I. Darrow",
+        "scored": true
+      },
+      {
+        "order": 10,
+        "team": "Einswenn",
+        "player": "S. Kattell",
+        "scored": false
+      },
+      {
+        "order": 11,
+        "team": "Cacusia",
+        "player": "E. Solomon",
+        "scored": false
+      },
+      {
+        "order": 12,
+        "team": "Einswenn",
+        "player": "L. Filip",
+        "scored": true
+      }
+    ]
   },
   {
     "tournament_id": 3,
@@ -1983,9 +2087,19 @@
     "stadium_id": 9,
     "team1": "Ruinenlust",
     "team2": "Jutsa",
+    "status": "played",
+    "link": "https://www.youtube.com/watch?v=ibh-7E6wa5A&t=2484s",
     "date": "2026-05-16T15:30:00.000Z",
     "team1Code": "RUN",
-    "team2Code": "JUT"
+    "team2Code": "JUT",
+    "goals": [
+      {
+        "team": "Jutsa",
+        "player": "K. Jatanwaīd",
+        "assist": "Q. Koîkaîn",
+        "minute": 84
+      }
+    ]
   },
   {
     "tournament_id": 3,
@@ -1994,9 +2108,37 @@
     "stadium_id": 12,
     "team1": "Roless",
     "team2": "Lumiose",
+    "status": "played",
+    "link": "https://www.youtube.com/watch?v=ibh-7E6wa5A&t=3924s",
     "date": "2026-05-16T16:00:00.000Z",
     "team1Code": "ROL",
-    "team2Code": "LUM"
+    "team2Code": "LUM",
+    "goals": [
+      {
+        "team": "Roless",
+        "player": "J. Greenaway",
+        "assist": "H. Carrol",
+        "minute": 21
+      },
+      {
+        "team": "Roless",
+        "player": "J. Greenaway",
+        "assist": "C. Fulton",
+        "minute": 36
+      },
+      {
+        "team": "Roless",
+        "player": "C. Mcarthur",
+        "assist": "O. Chandler",
+        "minute": 40
+      },
+      {
+        "team": "Roless",
+        "player": "J. Greenaway",
+        "assist": "R. Grimes",
+        "minute": 89
+      }
+    ]
   },
   {
     "tournament_id": 3,
@@ -2005,35 +2147,234 @@
     "stadium_id": 13,
     "team1": "Bilsa",
     "team2": "Realize",
+    "status": "played",
+    "link": "https://www.youtube.com/watch?v=ibh-7E6wa5A&t=5515s",
     "date": "2026-05-16T16:30:00.000Z",
     "team1Code": "BIL",
-    "team2Code": "RLZ"
+    "team2Code": "RLZ",
+    "penalties": [
+      {
+        "order": 1,
+        "team": "Bilsa",
+        "player": "A. Arhanv",
+        "scored": true
+      },
+      {
+        "order": 2,
+        "team": "Realize",
+        "player": "D. Onion",
+        "scored": true
+      },
+      {
+        "order": 3,
+        "team": "Bilsa",
+        "player": "B. Njazet",
+        "scored": true
+      },
+      {
+        "order": 4,
+        "team": "Realize",
+        "player": "F. Artichoke",
+        "scored": true
+      },
+      {
+        "order": 5,
+        "team": "Bilsa",
+        "player": "C. Muniv",
+        "scored": true
+      },
+      {
+        "order": 6,
+        "team": "Realize",
+        "player": "P. Cress",
+        "scored": true
+      },
+      {
+        "order": 7,
+        "team": "Bilsa",
+        "player": "M. Zarzahaj",
+        "scored": false
+      },
+      {
+        "order": 8,
+        "team": "Realize",
+        "player": "M. Pepper",
+        "scored": false
+      },
+      {
+        "order": 9,
+        "team": "Bilsa",
+        "player": "H. Azersej",
+        "scored": true
+      },
+      {
+        "order": 10,
+        "team": "Realize",
+        "player": "A. Pea",
+        "scored": true
+      },
+      {
+        "order": 11,
+        "team": "Bilsa",
+        "player": "D. Zehaj",
+        "scored": true
+      },
+      {
+        "order": 12,
+        "team": "Realize",
+        "player": "H. Turnip",
+        "scored": true
+      },
+      {
+        "order": 13,
+        "team": "Bilsa",
+        "player": "A. Ritsa",
+        "scored": true
+      },
+      {
+        "order": 14,
+        "team": "Realize",
+        "player": "K. Radish",
+        "scored": true
+      },
+      {
+        "order": 15,
+        "team": "Bilsa",
+        "player": "W. Sevil",
+        "scored": false
+      },
+      {
+        "order": 16,
+        "team": "Realize",
+        "player": "L. Celery",
+        "scored": true
+      }
+    ]
   },
   {
     "tournament_id": 3,
     "stage": "knockout",
     "fixture": "Semi Finals",
     "stadium_id": 9,
-    "team1": "Winner QF1",
-    "team2": "Winner QF2",
-    "date": "2026-05-16T19:00:00.000Z"
+    "team1": "Einswenn",
+    "team2": "Jutsa",
+    "status": "played",
+    "link": "https://www.youtube.com/watch?v=ZRb4EJ1wXwc&t=186s",
+    "date": "2026-05-16T19:00:00.000Z",
+    "team1Code": "EIN",
+    "team2Code": "JUT",
+    "goals": [
+      {
+        "team": "Einswenn",
+        "player": "M. Solheim",
+        "assist": "A. Lund",
+        "minute": 2
+      },
+      {
+        "team": "Einswenn",
+        "player": "O. Gro",
+        "assist": "H. Paulsen",
+        "minute": 19
+      },
+      {
+        "team": "Einswenn",
+        "player": "O. Gro",
+        "minute": 63
+      }
+    ],
+    "cards": [
+      {
+        "team": "Jutsa",
+        "player": "K. Yuīkuīma",
+        "minute": 6,
+        "type": "yellow"
+      },
+      {
+        "team": "Jutsa",
+        "player": "F. Toremeīỹa",
+        "minute": 89,
+        "type": "yellow"
+      }
+    ]
   },
   {
     "tournament_id": 3,
     "stage": "knockout",
     "fixture": "Semi Finals",
     "stadium_id": 10,
-    "team1": "Winner QF3",
-    "team2": "Winner QF4",
-    "date": "2026-05-16T19:30:00.000Z"
+    "status": "played",
+    "link": "https://www.youtube.com/watch?v=ZRb4EJ1wXwc&t=1768s",
+    "team1": "Roless",
+    "team2": "Realize",
+    "date": "2026-05-16T19:30:00.000Z",
+    "team1Code": "RLS",
+    "team2Code": "RLZ",
+    "goals":[
+      {
+        "team": "Roless",
+        "player": "H. Carrol",
+        "assist": "O. Chandler",
+        "minute": 11
+      },
+      {
+        "team": "Roless",
+        "player": "J. Greenaway",
+        "assist": "H. Carrol",
+        "minute": 60
+      },
+      {
+        "team": "Roless",
+        "player": "H. Carrol",
+        "assist": "J. Greenaway",
+        "minute": 90
+      },
+      {
+        "team": "Realize",
+        "player": "D. Onion",
+        "assist": "F. Artichoke",
+        "minute": 89
+      }
+    ],
+    "cards": [
+      {
+        "team": "Roless",
+        "player": "K. Burke",
+        "type": "yellow",
+        "minute": 72
+      }
+    ]
   },
   {
     "tournament_id": 3,
     "stage": "knockout",
     "fixture": "Final",
     "stadium_id": 9,
-    "team1": "Winner SF1",
-    "team2": "Winner SF2",
-    "date": "2026-05-16T20:00:00.000Z"
+    "status": "played",
+    "link": "https://www.youtube.com/watch?v=ZRb4EJ1wXwc&t=3464s",
+    "team1": "Einswenn",
+    "team2": "Roless",
+    "date": "2026-05-16T20:00:00.000Z",
+    "team1Code": "EIN",
+    "team2Code": "RLS",
+    "goals": [
+      {
+        "team": "Roless",
+        "player": "J. Greenaway",
+        "assist": "H. Carrol",
+        "minute": 14
+      },
+      {
+        "team": "Einswenn",
+        "player": "M. Solheim",
+        "assist": "A. Lund",
+        "minute": 54
+      },
+      {
+        "team": "Roless",
+        "player": "H. Carrol",
+        "assist": "C. Mcarthur",
+        "minute": 56
+      }
+    ]
   }
 ]

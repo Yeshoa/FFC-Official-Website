@@ -83,6 +83,18 @@ function getTeamPositionInTournamentById(tournamentId: number) {
 function getTeamFinalResultInTournament(tournamentId: number) {
   return getTeamFinalResult(memberName, tournaments.find(t => t.data.id === tournamentId)!);
 }
+
+// Calcular qué torneos tienen partidos sin jugar
+const tournamentHasPendingMatches = new Map<number, boolean>();
+for (const tournamentData of tournamentsData) {
+  const tourneId = tournamentData.t.data.id;
+  if (!tournamentHasPendingMatches.has(tourneId)) {
+    const pendingInTournament = matches.some(
+      m => m.data.tournament_id === tourneId && m.data.status === 'scheduled'
+    );
+    tournamentHasPendingMatches.set(tourneId, pendingInTournament);
+  }
+}
 ---
 
 <div class="bg-green-950/80 shadow-lg rounded-lg p-6 mb-8">
@@ -161,8 +173,8 @@ function getTeamFinalResultInTournament(tournamentId: number) {
             );
           }
 
-          // Equipos eliminados en otras etapas (Round of 16, etc) - SOLO SI TORNEO ESTÁ EN PROGRESO
-          if (t.result.status === 'eliminated' && t.isFutureOrCurrent) {
+          // Equipos eliminados en otras etapas (Round of 16, etc) - SOLO SI TORNEO TIENE PARTIDOS PENDIENTES
+          if (t.result.status === 'eliminated' && tournamentHasPendingMatches.get(t.t.data.id)) {
             return (
               <tr class="border-b border-green-700 italic bg-green-900/20 text-green-300">
                 <td class="px-2 py-2 flex flex-col items-center gap-1 justify-center">
