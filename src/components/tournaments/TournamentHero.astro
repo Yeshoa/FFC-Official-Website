@@ -8,9 +8,10 @@ import defaulFlag from "@images/tournaments/default-flag.png";
 interface Props {
   currentTournament: CollectionEntry<'tournaments'>['data'];
   champion?: CollectionEntry<'members'>;
+  className?: string;
 }
 
-const { currentTournament, champion } = Astro.props;
+const { currentTournament, champion, className } = Astro.props;
 
 const flagPath = champion ? champion.data.flagPath : defaulFlag;
 const name = champion ? champion.data.name : 'TBD';
@@ -51,7 +52,7 @@ const sortedTournaments = allTournaments.sort((a, b) => a.data.id - b.data.id);
       <Image
         src={currentTournament.heroImg}
         alt={`Background of ${currentTournament.name}`}
-        class="h-full w-full object-cover hero-img"
+        class={`h-full w-full object-cover hero-img ${className}`}
         loading="eager"
         format="webp"
       />

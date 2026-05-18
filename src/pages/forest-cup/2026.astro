@@ -55,8 +55,15 @@ import CacusiaHost from '@images/articles/cacusia-host/banner.png';
 import Arboreball from '@images/articles/cacusia-host/ball.png';
 import Stadium from '@images/articles/cacusia-host/ravensnest.jpg';
 import Sportwears from '@images/articles/new-sportwears/banner.jpg';
+import Final from '@images/tournaments/2026/final.png';
 
 const headlines = [
+  {
+    title: "Watch the Final",
+    image: Final,
+    link: "https://www.youtube.com/watch?v=ZRb4EJ1wXwc&t=3464s",
+    noblank: true,
+  },
   {
     title: "Groups Are Set for the Forest Cup 2026",
     image: Draw,
@@ -97,7 +104,7 @@ const winner = await getMemberByName(FCData.champion) || undefined;
   <main class="flex flex-col items-center relative">
     <div class="flex flex-col justify-center items-center w-full bg-gradient-to-b from-transparent to-green-900/80">
       <!-- <TournamentGrid currentTournament={FCData}/> -->
-      <TournamentHero currentTournament={FCData} champion={winner} />
+      <TournamentHero currentTournament={FCData} champion={winner} className='object-top' />
     </div>
     <!-- News -->
     <Headlines headlines={headlines}/>
