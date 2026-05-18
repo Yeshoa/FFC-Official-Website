@@ -8,7 +8,8 @@ champion: "Roless"
 championCode: "RLS"
 image: "src/assets/images/tournaments/2026/logo.png"
 banner: "src/assets/images/tournaments/2026/banner.png"
-heroImg: "src/assets/images/tournaments/2026/heroImg.png"
+cardImg: "src/assets/images/tournaments/2026/heroImg.png"
+heroImg: "src/assets/images/tournaments/2026/roless-c.png"
 edition: 2026
 loadingType: "eager"
 prizes:
