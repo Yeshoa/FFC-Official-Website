@@ -15,7 +15,6 @@ const { tournaments, type } = Astro.props;
 
 const allEditions = tournaments
   .filter(t => t.data.type === type)
-  .filter(t => t.data.id < CURRENT_TOURNAMENT_ID); // solo torneos finalizados
 
 type PalmaresEntry = {
   member: Awaited<ReturnType<typeof getMemberByName>>;

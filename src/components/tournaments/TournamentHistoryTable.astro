@@ -22,9 +22,9 @@ const allEditions = tournaments
 // Precompute data for each tournament
 const tournamentData = await Promise.all(
   allEditions.map(async (tournament) => {
-    const isFutureOrCurrent = tournament.data.id >= CURRENT_TOURNAMENT_ID;
     const host = await getMemberByName(tournament.data.host);
     const champion = await getTeamByPosition(tournament, 1);
+    const isFutureOrCurrent = !champion; // Si no hay champion, está en disputa/futuro
     const runnerUp = await getTeamByPosition(tournament, 2);
     const third = await getTeamByPosition(tournament, 3);
     const fourth = await getTeamByPosition(tournament, 4);
