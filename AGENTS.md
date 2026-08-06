@@ -28,6 +28,7 @@ npm run astro         # CLI de astro
 - **Sin `console.log` en producción** (existen restos en `src/lib/achievements/index.ts`; no replicar).
 - **Preferir editar archivos existentes** antes de crear nuevos; seguir patrones de componentes vecinos.
 - **No crear documentación/README nuevos salvo que se pida.**
+- **Documentación en `docs/FFC-Website/`**: usar **wikilinks de Obsidian** (`[[02-modelo-datos]]`) para todas las referencias entre documentos, no links de ruta markdown.
 
 ## Arquitectura
 

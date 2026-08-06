@@ -8,7 +8,7 @@
 
 ### Problemas
 - Props mal aprovechados o duplicados: muchas páginas/componentes reciben los mismos datos crudos y recalculan (por ej. standings, top scorers) en vez de recibir datos ya calculados desde un layer.
-- `score` indexado por tournament id (acoplado al problema de `03-ranking.md`).
+- `score` indexado por tournament id (acoplado al problema de [[03-ranking]]).
 - Campos como `getCurrentRoleplayDataWithDefaults(memberName, ...)` reciben `memberName` sin usarlo.
 
 ### Objetivo
@@ -68,7 +68,7 @@
 
 ### Otros
 - `Card` base para tarjetas (hero, match, member, sponsor) para homogeneizar padding/sombra.
-- Badges de logros (ver `04-logros.md`).
+- Badges de logros (ver [[04-logros]]).
 - Botones/links (`Button.astro` ya existe, revisar consistencia).
 
 ---

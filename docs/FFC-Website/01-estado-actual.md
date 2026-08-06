@@ -72,7 +72,7 @@
 - `CURRENT_TOURNAMENT_ID` se define en `src/utils/tournamentUtils.ts` como `sortedTournaments[0]?.data.id` — **el torneo de mayor id**, no el año.
 
 ### Problemas detectados en ranking
-1. `CURRENT_TOURNAMENT_ID = id más alto` mezcla "último torneo" con "temporada actual". Con la CL anual esto se rompe (ver `03-ranking.md`).
+1. `CURRENT_TOURNAMENT_ID = id más alto` mezcla "último torneo" con "temporada actual". Con la CL anual esto se rompe (ver [[03-ranking]]).
 2. Los points se indexan por **tournament id string** en frontmatter; un cambio de `id` rompe el historial.
 3. Decay se basa en *cantidad de torneos*, no en *años*: si hay 2 torneos por temporada (FC bianual + CL anual) los factores no corresponden a años reales.
 4. `getCurrentRoleplayDataWithDefaults` recibe `memberName` sin usarlo (código muerto menor).
@@ -106,6 +106,11 @@ Los partidos ya referencian `playerId` en goles (ej: `CAC_009`). No existe `src/
 3. Cargar goles exige buscar el id a mano (molestia principal reportada).
 4. `number` está mayormente en `null` → desambiguar jugadores por camiseta hoy es imposible.
 
+### Mala práctica transversal (confirmada por el dueño)
+- Los equipos se resuelven por **`teamName`** en varios utils (`getMemberByName`, `team1/team2` en matches, `tournamentUtils`). Cualquier typo o cambio de nombre rompe la resolución. **Objetivo**: migrar a lookup por **código** (`teamCode` → `member.code`/`club.code`), ver [[02-modelo-datos]] §10.
+- El `squad` del frontmatter repite nombre/posición/edad de cada jugador en vez de referenciar ids (ver [[02-modelo-datos]] §8).
+- El contenido vive en muchos `.md` (abrumador); objetivo: migrar a JSON (ver [[02-modelo-datos]] §9).
+
 ---
 
 ## 6. Estilos y colores
@@ -113,7 +118,7 @@ Los partidos ya referencian `playerId` en goles (ej: `CAC_009`). No existe `src/
 - `src/styles/global.css`:
   - `@theme` con `--color-mint-500`, `--color-forest`, `--color-forest-light`, `--color-forest-dark`, `--color-green-1000`, breakpoints custom, spacing `--spacing-8xl`.
 - `App.astro` aplica `bg-gradient-to-br from-green-1000 to-green-900 to-80% text-white` como fondo global.
-- **No existe `--color-primary` ni una paleta de tokens consistente**: los colores se usan de forma ad-hoc con clases Tailwind (ver `07-consistencia.md`).
+- **No existe `--color-primary` ni una paleta de tokens consistente**: los colores se usan de forma ad-hoc con clases Tailwind (ver [[07-consistencia]]).
 - `champions-league.astro` es un placeholder "Coming soon" que usa el layout `App` estándar (verde). No hay layout negro/verde lima todavía.
 
 ---

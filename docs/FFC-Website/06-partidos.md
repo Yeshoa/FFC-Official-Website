@@ -55,7 +55,7 @@ getStaticPaths() => matches.map(m => ({
 
 ## 5. Datos necesarios / deuda
 
-- Resolver nombres por `playerId` (requiere `players.json` central, ver `02-modelo-datos.md`).
+- Resolver nombres por `playerId` (requiere `players.json` central, ver [[02-modelo-datos]]).
 - Completar `assistId` en schema (hoy en JSON pero sin validar).
 - El `lineup` ya tiene `playerId`; sin `players.json` solo se puede mostrar el nombre embebido.
 - `stadium_id` → resolver contra `stadiums`.

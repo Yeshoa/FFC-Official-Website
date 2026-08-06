@@ -1,6 +1,6 @@
 # 03 — Diseño objetivo: ranking, temporadas y decay
 
-> Sistema de puntos consistente y que soporta la transición entre temporadas y la Champions League.
+> Sistema de puntos consistente para la transición entre temporadas. **El ranking actual de selecciones ya tiene los cálculos deseados y NO se le agrega nada nuevo**; lo único a refactorizar es *cómo* se detecta la temporada actual y *cuáles* son los torneos anteriores para el decay.
 
 ---
 
@@ -22,7 +22,7 @@ Esto funciona hoy porque solo existe una competición (Forest Cup, bienal). Con 
 ### Nueva fuente de verdad
 - **`CURRENT_SEASON: number`** (año, ej: `2027`) en una constante explícita, por ejemplo `src/config/season.ts` (o `constants.ts`).
 - Se puede derivar/validar: `max(tournaments.season)` pero **no debe ser la única fuente**; debe poder fijarse a mano para preparar la próxima temporada antes de crear torneos.
-- Cada torneo declara su `season` (ver `02-modelo-datos.md` §4).
+- Cada torneo declara su `season` (ver [[02-modelo-datos]] §4).
 
 ### Qué significa "consistente al pasar de temporada"
 - Al iniciar una temporada nueva, **no se pierden datos**: los puntos de torneos cerrados se congelan por torneo; el ranking suma:
@@ -70,18 +70,21 @@ score: {
 
 ---
 
-## 5. Ranking de la Champions League (separado)
+## 5. Ranking de la Champions League (NO suma al ranking de selecciones)
 
-Decisión confirmada: **la CL tiene ranking propio**, independiente del ranking general de federaciones.
+> Decisión del dueño (aclarada en [[Plan del usuario/01 - Actualización]]): **la Champions League NO debe sumar al ranking de selecciones**. El ranking actual de selecciones ya tiene los cálculos deseados; no se le agrega nada.
 
 ### Modelo
-- El ranking general (federaciones) **solo** considera Forest Cup (y lo que decida el dueño para actividades no-CL).
-- La CL tiene su propio ranking/table (puntos de clubes, o de federaciones según lo que se defina luego), con sus propias reglas y decay.
-- Ambas comparten la **misma infraestructura** de cálculo (helpers genéricos por `torneo + season`), pero se exponen como rankings distintos en UI.
+- El ranking general de federaciones (`ranking.astro` / `ranking-detailed.astro`) **solo** considera Forest Cup (selecciones). No cambia en lógica: ya está bien.
+- La CL tiene su **propio ranking/table** (de clubes), con sus propias reglas. Se implementa por separado, reutilizando infraestructura genérica de cálculo (`torneo + season`) pero **sin mezclarse** con el ranking de selecciones.
+- La refactorización de este doc se limita a:
+  1. Reemplazar `CURRENT_TOURNAMENT_ID` por `CURRENT_SEASON` (año).
+  2. Detectar torneos anteriores para el decay por **años**, no por conteo de torneos.
+  3. Indexar `score` por temporada en vez de tournament id (o el mapeo equivalente).
 
 ### Implicación en páginas
-- `ranking.astro` / `ranking-detailed.astro` → ranking de federaciones (Forest Cup).
-- Nueva sección CL con su ranking propio (en `05-champions-league.md`).
+- `ranking.astro` / `ranking-detailed.astro` → ranking de federaciones (Forest Cup). Sin cambios de lógica.
+- Nueva sección CL con su ranking propio (en [[05-champions-league]]).
 
 ---
 

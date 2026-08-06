@@ -1,7 +1,7 @@
 # 02 — Diseño objetivo: modelo de datos
 
 > Define la estructura de datos canónica hacia donde evoluciona el proyecto.
-> Decisiones confirmadas: jugador multi-equipo · JSON central por jugador · 1 club → 1 federación · goles por id con script.
+> Decisiones confirmadas: jugador multi-equipo · JSON central por jugador · 1 club → 1 federación · goles por id con script · **migrar contenido a JSON** · `squad` por referencia de ids.
 
 ---
 
@@ -10,7 +10,8 @@
 1. **Una sola fuente de verdad** por entidad (jugador, club, torneo, partido).
 2. Todo se referencia por **id estable**; los nombres son solo display.
 3. El modelo debe soportar **selecciones nacionales** (Forest Cup) y **clubes** (Champions League) de forma genérica.
-4. La temporada es **por año**, no por torneo (ver `03-ranking.md`).
+4. La temporada es **por año**, no por torneo (ver [[03-ranking]]).
+5. **Contenido en JSON, no en Markdown**: la abundancia de `.md` en `/content` es incómoda de mantener. Todo contenido se define en JSON (ver §9).
 
 ---
 
@@ -45,6 +46,7 @@ interface Player {
 - **Un jugador = una entidad**. Estar en selección y en club no duplica la ficha; se resuelve con `teams[]`.
 - El `id` de goles/lineups **debe** apuntar a este id global.
 - Migración: los ids actuales (`CAC_009`, `BIL_001`) se conservan como el id de la entidad, pero dejan de estar "atados" al equipo (un jugador que se transfiere mantiene su id).
+- **`position` es del jugador** (su posición principal) — sirve para futuras cartas de jugador. El `squad` del equipo puede **sobreescribir** posición/dorsal para ese equipo (ver §8).
 
 ### Rating
 - Escala **0.5 a 6** estrellas (0.5 = media estrella). `6` es excepcional/rarísimo.
@@ -58,7 +60,7 @@ interface Player {
 ## 3. Club
 
 ### Ubicación
-`src/content/clubs/<slug>.md` (content collection tipada) o `src/data/clubs/*.json`. Se recomienda collection Astro para aprovechar esquema + imágenes.
+`src/data/clubs/<code>.json` (o collection con `loader` de JSON como `matches`). **En JSON**, no `.md`.
 
 ### Esquema propuesto
 
@@ -113,7 +115,7 @@ interface Club {
 ### Cambios a `matches`
 1. **Agregar `assistId` al schema** (ya está en los JSON, Zod lo ignora por ser no-estricto). Además `assistId` en `goals[]`.
 2. Asegurar que `team1/team2` referencien de forma consistente federaciones **o** clubes. Propuesta: mantener `team1/team2` (nombre) + `team1Code/team2Code`, y agregar `team1Type/team2Type: 'national' | 'club'` para resolver entidad correcta.
-3. Mantener `leg`, `aggregate`, `penalties`, `cards`, `substitutions`, `lineup` (con `playerId`), `stats`, `link` — ya están definidos y quedan listos para las páginas de partido (`06-partidos.md`).
+3. Mantener `leg`, `aggregate`, `penalties`, `cards`, `substitutions`, `lineup` (con `playerId`), `stats`, `link` — ya están definidos y quedan listos para las páginas de partido ([[06-partidos]]).
 4. Los `playerId` de goles/lineups apuntan al **id global de jugador**.
 
 ---
@@ -146,10 +148,77 @@ Cargar un gol pide el `playerId` y hay que buscarlo a mano. No se puede resolver
 
 ---
 
-## 8. Migración (resumen)
+## 8. Squad por referencia de ids
+
+> Decisión del dueño: no repetir cada jugador dentro del squad.
+
+### Problema
+El `squad.players[]` actual del frontmatter repite `name/position/age` de cada jugador, cuando esa info ya vive (o va a vivir) en `players.json`. Además el **coach no está en la data de jugadores**.
+
+### Solución
+- El `squad` de un equipo (federación o club) **referencia ids** de jugadores y solo agrega lo *específico del equipo*:
+
+```ts
+squad: {
+  coach?: string;                    // el coach queda acá (no es un jugador)
+  formation?: string;                // ej: "4-3-3"
+  players: Array<{
+    playerId: string;                // referencia a players.json
+    number?: number;                 // dorsal en ESTE equipo
+    position?: string;               // posición en ESTE equipo (sobreescribe la principal)
+  }>;
+}
+```
+
+- El resto del perfil del jugador (nombre, `position` principal, `rating`, historial de equipos) se lee de `players.json`.
+- La **lista del equipo** se genera desde los jugadores que referencian ese `teamCode` en su `teams[]` (o desde `squad.players` si el dueño prefiere un XI explícito).
+- **Coach**: se mantiene como campo suelto del squad (no es jugador, no va a `players.json`).
+
+---
+
+## 9. Migración de contenido a JSON
+
+> Decisión del dueño: migrar todo el contenido de `/content` a JSON.
+
+### Alcance
+- Colecciones que hoy son `.md`: `members`, `tournaments`, `achievements`, `sponsors`, `stadiums`, `articles`, `clubs` (futura).
+- Los `.md` actuales tienen **frontmatter** + **cuerpo markdown**. Para las que tienen cuerpo (p.ej. `articles`, descripciones de `members`), el cuerpo se mantiene como string en el JSON (markdown) o como campo separado.
+- `matches`, `events`, `roleplays`, `bonuses` ya son JSON.
+
+### Forma de implementación
+- Opción recomendada: migrar cada colección a un JSON (o directorio de JSONs) y cargarla con `loader: () => jsonData` como ya hace `matches`, **manteniendo el mismo schema Zod**.
+- Esto mantiene los tipos y el tipado estricto intactos; solo cambia el formato de origen.
+- El contenido de `.md` se convierte campo a campo (script de migración o manual).
+
+### Impacto
+- Menos archivos, más fácil de mantener/editar a mano.
+- Posibilita generar/validar datos con scripts (CLI).
+- Requiere actualizar `01-estado-actual.md` (cómo se cargan hoy) al migrar cada colección.
+
+---
+
+## 10. Referencias por id (eliminar `teamName` como key)
+
+> Decisión del dueño: el patrón actual de resolver equipos por **nombre** (`getMemberByName`, `team1/team2`) es una mala práctica.
+
+### Problema
+- `teamName` se usa como parámetro de lookup en varios utils (`tournamentUtils`, `matchUtils`, etc.). Cualquier typo o cambio de nombre rompe la resolución.
+- Los partidos guardan `team1/team2` (nombre) + `team1Code/team2Code` (código).
+
+### Solución
+- **Resolver por código/id** (`team1Code/team2Code` → `member.code` / `club.code`), no por nombre.
+- `getMemberByName` se mantiene solo donde no queda otra, pero el objetivo es migrar a lookups por código.
+- Los partidos ganan `team1Type/team2Type: 'national' | 'club'` para resolver la entidad correcta (federación o club) por código.
+
+---
+
+## 11. Migración (resumen)
 
 1. Crear `players.json` central fusionando `by-team` + `historical` + `squad` de frontmatter; resolver homónimos una sola vez con el dueño.
-2. Agregar `club` collection + schema.
+2. Agregar `club` collection + schema (JSON).
 3. Agregar `assistId` y `team*Type` al schema de matches; normalizar ids de jugadores en los JSON.
 4. Agregar `season` a torneos; mantener `id` como secuencial.
 5. Ajustar `playerUtils.ts` para importar la fuente real (y crear `@data/players/index.ts` que hoy falta).
+6. Migrar `squad` de frontmatter a referencia por `playerId` (ver §8).
+7. Migrar contenido de `.md` a JSON (ver §9).
+8. Migrar lookups de `teamName` a códigos (ver §10).

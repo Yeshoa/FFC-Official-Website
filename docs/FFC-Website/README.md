@@ -10,17 +10,25 @@ Documentación del proyecto **FFC (Forest Football Confederation) Official Websi
 
 > **⚠️ Carpeta "Plan del usuario"**: es de uso **exclusivo del dueño del proyecto**. Los agentes/IA **no deben crear, editar ni borrar** archivos dentro de `Plan del usuario/`. Solo el dueño mete archivos ahí (actualizaciones de contexto). Los documentos `00`, `01`, etc. dentro de esa carpeta se consideran **entrada de usuario**, no documentación técnica.
 
+---
+
+## Convenciones de la documentación
+
+- **Obsidian**: esta documentación se lee en Obsidian. **Toda referencia entre documentos se escribe con wikilinks**: `[[01-estado-actual]]`, `[[02-modelo-datos]]`, `[[Plan del usuario/00 - Plan inicial]]`. Evitar links de ruta estilo markdown (`(01-estado-actual.md)`) cuando sea posible.
+- Los wikilinks se resuelven por nombre de archivo; un título en negrita no es un enlace navegable.
+- Mantener un documento por tema y enlazarlos entre sí con wikilinks para navegar sin salir de Obsidian.
+
 | Documento | Contenido |
 |-----------|-----------|
-| [`Plan del usuario/`](Plan%20del%20usuario/) | Entrada del dueño: plan inicial y actualizaciones. **No tocar** |
-| [`01-estado-actual.md`](01-estado-actual.md) | Cómo funciona hoy el proyecto: colecciones, datos, ranking, logros, estilos |
-| [`02-modelo-datos.md`](02-modelo-datos.md) | **Diseño objetivo**: jugadores, clubes, torneos, partidos |
-| [`03-ranking.md`](03-ranking.md) | **Diseño objetivo**: sistema de puntos, temporadas, decay |
-| [`04-logros.md`](04-logros.md) | **Diseño objetivo**: motor de logros, badges, página por federación |
-| [`05-champions-league.md`](05-champions-league.md) | **Diseño objetivo**: Champions League (formato + estética) |
-| [`06-partidos.md`](06-partidos.md) | **Diseño objetivo**: páginas individuales de partido |
-| [`07-consistencia.md`](07-consistencia.md) | **Diseño objetivo**: frontmatter, utils/lib, colores, componentes |
-| [`08-plan-implementacion.md`](08-plan-implementacion.md) | Plan de implementación por fases |
+| [[Plan del usuario/00 - Plan inicial]] | Entrada del dueño: plan inicial y actualizaciones. **No tocar** |
+| [[01-estado-actual]] | Cómo funciona hoy el proyecto: colecciones, datos, ranking, logros, estilos |
+| [[02-modelo-datos]] | **Diseño objetivo**: jugadores, clubes, torneos, partidos |
+| [[03-ranking]] | **Diseño objetivo**: sistema de puntos, temporadas, decay |
+| [[04-logros]] | **Diseño objetivo**: motor de logros, badges, página por federación |
+| [[05-champions-league]] | **Diseño objetivo**: Champions League (formato + estética) |
+| [[06-partidos]] | **Diseño objetivo**: páginas individuales de partido |
+| [[07-consistencia]] | **Diseño objetivo**: frontmatter, utils/lib, colores, componentes |
+| [[08-plan-implementacion]] | Plan de implementación por fases |
 
 ---
 
@@ -30,12 +38,15 @@ Documentación del proyecto **FFC (Forest Football Confederation) Official Websi
 2. **Documentación**: estado actual + diseño objetivo, validar antes de codear.
 3. **Champions League**: primero se define el modelo de datos; la carga de datos de CL va después.
 4. **Identidad de jugador**: una sola entidad multi-equipo (selección y/o club) con un id global único.
-5. **Fuente canónica de jugadores**: JSON central por jugador, con campo `rating` (tier de media estrella a 6 estrellas).
-6. **Carga de goles**: script CLI de asistencia. Debido a nombres duplicados reales, la resolución es **por id**, pero el script hace el lookup/autocompletado (ver `02-modelo-datos.md` §Goles).
-7. **Ranking**: recálculo dinámico con decay por temporada. La temporada se define por **año**, no por el último torneo.
+5. **Fuente canónica de jugadores**: JSON central por jugador, con campo `rating` (tier de media estrella a 6 estrellas) y `position` principal.
+6. **Carga de goles**: script CLI de asistencia. Debido a nombres duplicados reales, la resolución es **por id**, pero el script hace el lookup/autocompletado (ver [[02-modelo-datos]] §Goles).
+7. **Ranking de selecciones**: **no se le agrega nada** — ya tiene los cálculos deseados. Solo se refactoriza *cómo* se detecta la temporada actual y los torneos anteriores para el decay (por **año**, no por último torneo). La CL **NO suma** a este ranking.
 8. **Club**: pertenece a **una sola federación**; la liga doméstica es por federación.
 9. **Formato CL**: igual que la Forest Cup (grupos + playoffs), con **ida y vuelta** en todas las instancias **excepto la final** (formato UCL pre-2024).
-10. **Ranking de la CL**: **separado** del ranking general de federaciones.
+10. **Ranking de la CL**: **separado e independiente** del ranking de selecciones.
+11. **Contenido en JSON**: migrar todo `/content` de `.md` a JSON (manteniendo schemas Zod), para facilitar el mantenimiento.
+12. **Squad por referencia**: el `squad` de un equipo referencia `playerId` + dorsal/posición en ese equipo; el perfil del jugador (nombre, `position`, `rating`) vive en `players.json`. El coach queda como campo del squad.
+13. **Referencias por id**: resolver equipos por **código** (`teamCode`) en vez de `teamName`.
 
 ---
 
@@ -55,15 +66,16 @@ Documentación del proyecto **FFC (Forest Football Confederation) Official Websi
 FASE A — Consistencia de lo existente (no toca visual)
   A1  Frontmatter + utils/lib
   A2  Colores y variables CSS
-  A3  Sistema de temporada anual + ranking
+  A3  Sistema de temporada anual + decay (ranking de selecciones intacto)
   A4  Motor de logros (refactor) + badges
 
 FASE B — Nuevo modelo (Champions League + clubes)
-  B1  Modelo de datos: jugadores, clubes, torneos, partidos
+  B1  Modelo de datos: jugadores (JSON central), clubes, torneos, partidos
   B2  Script CLI de carga de goles
   B3  Layout y estética Champions League
   B4  Páginas individuales de partido
   B5  Páginas de logros por federación
+  B6  Migración de contenido .md → JSON (colección por colección)
 ```
 
-Detalle completo en [`08-plan-implementacion.md`](08-plan-implementacion.md).
+Detalle completo en [[08-plan-implementacion]].

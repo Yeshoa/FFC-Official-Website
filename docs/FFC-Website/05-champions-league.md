@@ -64,14 +64,14 @@
 
 ## 5. Ranking de la CL (separado)
 
-- La CL tiene su **propio ranking/tabla** (ver `03-ranking.md` §5), no mezclado con el ranking general de federaciones.
+- La CL tiene su **propio ranking/tabla** (ver [[03-ranking]] §5), no mezclado con el ranking general de federaciones.
 - Se expone en la sección CL (ej: `/forestian-champions-league/ranking`).
 
 ---
 
 ## 6. Integración con el modelo
 
-- Clubes: ver `02-modelo-datos.md` §3.
+- Clubes: ver [[02-modelo-datos]] §3.
 - Torneos: `type: 'forestian-champions-league'` + `season` (año).
 - Partidos: `team1Type/team2Type: 'club'`, `leg`, `aggregate`.
 
