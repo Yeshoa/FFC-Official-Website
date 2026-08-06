@@ -1,0 +1,36 @@
+{
+  "teamCode": "ZAN",
+  "teamName": "Zane Farbe Eslanudial",
+  "lastUpdated": "2026-05-13",
+  "playerCount": 4,
+  "players": [
+    {
+      "id": "ZAN_001",
+      "name": "Borin",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "ZAN_002",
+      "name": "Elbek",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "ZAN_003",
+      "name": "Karel",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "ZAN_004",
+      "name": "Zaref",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    }
+  ]
+}

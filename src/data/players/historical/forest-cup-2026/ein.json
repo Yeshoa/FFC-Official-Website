@@ -1,0 +1,52 @@
+{
+  "teamCode": "EIN",
+  "teamName": "Einswenn",
+  "tournament": "forest-cup-2026",
+  "tournamentEdition": 3,
+  "snapshotDate": "2026-05-13",
+  "playerCount": 6,
+  "players": [
+    {
+      "id": "EIN_001",
+      "name": "A. Lund",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "EIN_002",
+      "name": "H. Paulsen",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "EIN_003",
+      "name": "I. Moje",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "EIN_004",
+      "name": "J. Teitur",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "EIN_005",
+      "name": "M. Solheim",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "EIN_006",
+      "name": "O. Gro",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    }
+  ]
+}

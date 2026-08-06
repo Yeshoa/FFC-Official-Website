@@ -92,6 +92,7 @@ const matchesCollection = defineCollection({
     goals: z.array(
       z.object({
         team: z.string(),
+        playerId: z.string().optional(),
         player: z.string().optional(),
         minute: z.number().optional(),
         aggregate: z.number().optional(),
@@ -105,6 +106,7 @@ const matchesCollection = defineCollection({
       z.object({
         order: z.number(), // Orden de ejecución
         team: z.string(),
+        playerId: z.string().optional(),
         player: z.string().optional(),
         scored: z.boolean(), // true si convirtió
       })
@@ -113,6 +115,7 @@ const matchesCollection = defineCollection({
     cards: z.array(
       z.object({
         team: z.string(),
+        playerId: z.string().optional(),
         player: z.string().optional(),
         minute: z.number(),
         aggregate: z.number().optional(),
@@ -123,7 +126,9 @@ const matchesCollection = defineCollection({
     substitutions: z.array(
       z.object({
         team: z.string(),
+        playerOutId: z.string().optional(),
         playerOut: z.string(),
+        playerInId: z.string().optional(),
         playerIn: z.string(),
         minute: z.number(),
         aggregate: z.number().optional(),
@@ -136,6 +141,7 @@ const matchesCollection = defineCollection({
         formation: z.string().optional().describe("Team 1 formation"),
         players: z.array(
           z.object({
+            playerId: z.string().optional(),
             number: z.number().describe("Jersey number"),
             name: z.string().describe("Player name"),
             position: z.string().describe("Field position"),
@@ -150,6 +156,7 @@ const matchesCollection = defineCollection({
         formation: z.string().optional().describe("Team 2 formation"),
         players: z.array(
           z.object({
+            playerId: z.string().optional(),
             number: z.number().describe("Jersey number"),
             name: z.string().describe("Player name"),
             position: z.string().describe("Field position"),

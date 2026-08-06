@@ -1,0 +1,24 @@
+{
+  "teamCode": "Sehir",
+  "teamName": "Sehir",
+  "tournament": "forest-cup-2024",
+  "tournamentEdition": 2,
+  "snapshotDate": "2026-05-13",
+  "playerCount": 2,
+  "players": [
+    {
+      "id": "Sehir_001",
+      "name": "C. Beck",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "Sehir_002",
+      "name": "H. Tomasson",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    }
+  ]
+}

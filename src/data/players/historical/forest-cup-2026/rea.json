@@ -1,0 +1,31 @@
+{
+  "teamCode": "REA",
+  "teamName": "Realize",
+  "tournament": "forest-cup-2026",
+  "tournamentEdition": 3,
+  "snapshotDate": "2026-05-13",
+  "playerCount": 3,
+  "players": [
+    {
+      "id": "REA_001",
+      "name": "L. Celery",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "REA_002",
+      "name": "M. Beet",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "REA_003",
+      "name": "Olsson",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    }
+  ]
+}

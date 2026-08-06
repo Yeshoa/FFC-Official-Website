@@ -1,0 +1,31 @@
+{
+  "teamCode": "GLO",
+  "teamName": "Glo XI",
+  "tournament": "forest-cup-2026",
+  "tournamentEdition": 3,
+  "snapshotDate": "2026-05-13",
+  "playerCount": 3,
+  "players": [
+    {
+      "id": "GLO_001",
+      "name": "Nilsson",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "GLO_002",
+      "name": "Pettersson",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "GLO_003",
+      "name": "Sven",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "teamCode": "DAA",
+  "teamName": "Daarwyrth",
+  "lastUpdated": "2026-05-13",
+  "playerCount": 3,
+  "players": [
+    {
+      "id": "DAA_001",
+      "name": "T. Henderson",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "DAA_002",
+      "name": "T. Marsh",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "DAA_003",
+      "name": "Z. Young",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    }
+  ]
+}

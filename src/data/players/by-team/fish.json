@@ -1,0 +1,29 @@
+{
+  "teamCode": "Fish",
+  "teamName": "Fish",
+  "lastUpdated": "2026-05-13",
+  "playerCount": 3,
+  "players": [
+    {
+      "id": "Fish_001",
+      "name": "Big James",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "Fish_002",
+      "name": "James Again",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "Fish_003",
+      "name": "Nemo Jr.",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    }
+  ]
+}

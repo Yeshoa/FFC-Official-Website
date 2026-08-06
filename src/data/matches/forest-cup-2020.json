@@ -1926,7 +1926,8 @@
         "team": "Ruinenlust",
         "player": "O. Swen",
         "minute": 75,
-        "penalty": false
+        "penalty": false,
+        "playerId": "RUI_005"
       }
     ],
     "team1Code": "CAN",

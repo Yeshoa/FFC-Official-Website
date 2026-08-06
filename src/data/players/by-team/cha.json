@@ -1,0 +1,43 @@
+{
+  "teamCode": "CHA",
+  "teamName": "Chan Island",
+  "lastUpdated": "2026-05-13",
+  "playerCount": 5,
+  "players": [
+    {
+      "id": "CHA_001",
+      "name": "A. Fletcher",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "CHA_002",
+      "name": "B. Wellerman",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "CHA_003",
+      "name": "Butch Man",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "CHA_004",
+      "name": "C. F. Caravel",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "CHA_005",
+      "name": "Chan Island",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    }
+  ]
+}

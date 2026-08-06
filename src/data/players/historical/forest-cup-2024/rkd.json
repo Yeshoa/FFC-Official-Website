@@ -1,0 +1,45 @@
+{
+  "teamCode": "RKD",
+  "teamName": "RKD",
+  "tournament": "forest-cup-2024",
+  "tournamentEdition": 2,
+  "snapshotDate": "2026-05-13",
+  "playerCount": 5,
+  "players": [
+    {
+      "id": "RKD_001",
+      "name": "8",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "RKD_002",
+      "name": "A. Jansen",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "RKD_003",
+      "name": "C. Van der Zaal",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "RKD_004",
+      "name": "J. Van de Pen",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "RKD_005",
+      "name": "S. Miller",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    }
+  ]
+}

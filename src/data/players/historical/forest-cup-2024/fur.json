@@ -1,0 +1,45 @@
+{
+  "teamCode": "FUR",
+  "teamName": "Furilisca",
+  "tournament": "forest-cup-2024",
+  "tournamentEdition": 2,
+  "snapshotDate": "2026-05-13",
+  "playerCount": 5,
+  "players": [
+    {
+      "id": "FUR_001",
+      "name": "D. Sigfúsdóttir",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "FUR_002",
+      "name": "E. Pálsdóttir",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "FUR_003",
+      "name": "K. Héðinsdóttir",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "FUR_004",
+      "name": "K. Reynisdóttir",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "FUR_005",
+      "name": "M. Andersen",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    }
+  ]
+}

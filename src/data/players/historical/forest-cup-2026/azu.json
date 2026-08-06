@@ -1,0 +1,24 @@
+{
+  "teamCode": "AZU",
+  "teamName": "Azure Mines",
+  "tournament": "forest-cup-2026",
+  "tournamentEdition": 3,
+  "snapshotDate": "2026-05-13",
+  "playerCount": 2,
+  "players": [
+    {
+      "id": "AZU_001",
+      "name": "Llanfairpwllgwyngyll",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "AZU_002",
+      "name": "Ru Inenlustian",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    }
+  ]
+}

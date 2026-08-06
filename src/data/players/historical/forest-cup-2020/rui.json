@@ -1,0 +1,17 @@
+{
+  "teamCode": "RUI",
+  "teamName": "Ruinenlust",
+  "tournament": "forest-cup-2020",
+  "tournamentEdition": 0,
+  "snapshotDate": "2026-05-13",
+  "playerCount": 1,
+  "players": [
+    {
+      "id": "RUI_001",
+      "name": "O. Swen",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    }
+  ]
+}

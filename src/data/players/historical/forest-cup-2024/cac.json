@@ -1,0 +1,52 @@
+{
+  "teamCode": "CAC",
+  "teamName": "Cacusia",
+  "tournament": "forest-cup-2024",
+  "tournamentEdition": 2,
+  "snapshotDate": "2026-05-13",
+  "playerCount": 6,
+  "players": [
+    {
+      "id": "CAC_001",
+      "name": "A. Tziyoniy",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "CAC_002",
+      "name": "C. Islay",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "CAC_003",
+      "name": "I. Darrow",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "CAC_004",
+      "name": "M. Dartmouth",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "CAC_005",
+      "name": "O. Chumble",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "CAC_006",
+      "name": "O. Stout",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "teamCode": "ARE",
+  "teamName": "Aresetia",
+  "lastUpdated": "2026-05-13",
+  "playerCount": 3,
+  "players": [
+    {
+      "id": "ARE_001",
+      "name": "A. Zanzotti",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "ARE_002",
+      "name": "C. Glione",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "ARE_003",
+      "name": "R. Reginaldi",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    }
+  ]
+}

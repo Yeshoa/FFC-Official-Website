@@ -1,0 +1,36 @@
+{
+  "teamCode": "OTT",
+  "teamName": "Ottterland",
+  "lastUpdated": "2026-05-13",
+  "playerCount": 4,
+  "players": [
+    {
+      "id": "OTT_001",
+      "name": "A. Soria",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "OTT_002",
+      "name": "P. Woods",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "OTT_003",
+      "name": "R. Díaz",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "OTT_004",
+      "name": "Y. Soriano",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    }
+  ]
+}

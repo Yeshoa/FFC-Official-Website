@@ -1,0 +1,71 @@
+{
+  "teamCode": "NAR",
+  "teamName": "Nardin",
+  "lastUpdated": "2026-05-13",
+  "playerCount": 9,
+  "players": [
+    {
+      "id": "NAR_001",
+      "name": "A. Av Cerzi",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "NAR_002",
+      "name": "A. Leszik",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "NAR_003",
+      "name": "C. Ulivaki",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "NAR_004",
+      "name": "F. Pavlov",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "NAR_005",
+      "name": "I. Petrov",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "NAR_006",
+      "name": "J. Klarik",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "NAR_007",
+      "name": "M. Romonivik",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "NAR_008",
+      "name": "R. Tarasov",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "NAR_009",
+      "name": "Ulministak",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    }
+  ]
+}

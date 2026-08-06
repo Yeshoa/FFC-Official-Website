@@ -1,0 +1,24 @@
+{
+  "teamCode": "CLO",
+  "teamName": "Clown Town City",
+  "tournament": "forest-cup-2024",
+  "tournamentEdition": 2,
+  "snapshotDate": "2026-05-13",
+  "playerCount": 2,
+  "players": [
+    {
+      "id": "CLO_001",
+      "name": "Boingo",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "CLO_002",
+      "name": "Honkers",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    }
+  ]
+}

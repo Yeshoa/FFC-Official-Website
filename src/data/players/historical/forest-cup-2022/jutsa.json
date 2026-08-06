@@ -1,0 +1,24 @@
+{
+  "teamCode": "Jutsa",
+  "teamName": "Jutsa",
+  "tournament": "forest-cup-2022",
+  "tournamentEdition": 1,
+  "snapshotDate": "2026-05-13",
+  "playerCount": 2,
+  "players": [
+    {
+      "id": "Jutsa_001",
+      "name": "H. Kazñeisei",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "Jutsa_002",
+      "name": "R. Cairoi",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    }
+  ]
+}

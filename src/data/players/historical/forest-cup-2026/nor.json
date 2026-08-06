@@ -1,0 +1,52 @@
+{
+  "teamCode": "NOR",
+  "teamName": "Nordustra",
+  "tournament": "forest-cup-2026",
+  "tournamentEdition": 3,
+  "snapshotDate": "2026-05-13",
+  "playerCount": 6,
+  "players": [
+    {
+      "id": "NOR_001",
+      "name": "F. Torvald",
+      "position": null,
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "NOR_002",
+      "name": "J. Østegårde",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "NOR_003",
+      "name": "K. Pontsblom",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "NOR_004",
+      "name": "L. Uye",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "NOR_005",
+      "name": "M. Miltshus",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "NOR_006",
+      "name": "M. Sevdal",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    }
+  ]
+}

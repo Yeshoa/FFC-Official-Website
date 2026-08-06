@@ -1,0 +1,36 @@
+{
+  "teamCode": "OWN",
+  "teamName": "Ownzone",
+  "lastUpdated": "2026-05-13",
+  "playerCount": 4,
+  "players": [
+    {
+      "id": "OWN_001",
+      "name": "Bayer",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "OWN_002",
+      "name": "Boon",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "OWN_003",
+      "name": "Eerkens",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "OWN_004",
+      "name": "Venner",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    }
+  ]
+}

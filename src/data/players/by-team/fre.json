@@ -1,0 +1,36 @@
+{
+  "teamCode": "FRE",
+  "teamName": "Freistaat Ostpreussen",
+  "lastUpdated": "2026-05-13",
+  "playerCount": 4,
+  "players": [
+    {
+      "id": "FRE_001",
+      "name": "A. Lahnen",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "FRE_002",
+      "name": "H. Koerner",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "FRE_003",
+      "name": "J. Salzmann",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "FRE_004",
+      "name": "W. Frisch",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    }
+  ]
+}

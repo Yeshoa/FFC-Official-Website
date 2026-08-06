@@ -1,0 +1,31 @@
+{
+  "teamCode": "CAT",
+  "teamName": "Cat Army",
+  "tournament": "forest-cup-2024",
+  "tournamentEdition": 2,
+  "snapshotDate": "2026-05-13",
+  "playerCount": 3,
+  "players": [
+    {
+      "id": "CAT_001",
+      "name": "A. Scott",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "CAT_002",
+      "name": "D. Jennings",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "CAT_003",
+      "name": "V. Atkinson",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    }
+  ]
+}

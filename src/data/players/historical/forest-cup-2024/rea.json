@@ -1,0 +1,31 @@
+{
+  "teamCode": "REA",
+  "teamName": "Realize",
+  "tournament": "forest-cup-2024",
+  "tournamentEdition": 2,
+  "snapshotDate": "2026-05-13",
+  "playerCount": 3,
+  "players": [
+    {
+      "id": "REA_001",
+      "name": "A. Manolis",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "REA_002",
+      "name": "E. Leech",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "REA_003",
+      "name": "J. Ponstantinople",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    }
+  ]
+}

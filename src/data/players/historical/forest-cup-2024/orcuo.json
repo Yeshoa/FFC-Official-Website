@@ -1,0 +1,24 @@
+{
+  "teamCode": "Orcuo",
+  "teamName": "Orcuo",
+  "tournament": "forest-cup-2024",
+  "tournamentEdition": 2,
+  "snapshotDate": "2026-05-13",
+  "playerCount": 2,
+  "players": [
+    {
+      "id": "Orcuo_001",
+      "name": "J. Odin",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "Orcuo_002",
+      "name": "V. Ocean",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    }
+  ]
+}

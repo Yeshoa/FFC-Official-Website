@@ -1,0 +1,43 @@
+{
+  "teamCode": "VER",
+  "teamName": "Verdant Haven",
+  "lastUpdated": "2026-05-13",
+  "playerCount": 5,
+  "players": [
+    {
+      "id": "VER_001",
+      "name": "B. Clegg",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "VER_002",
+      "name": "B. Vinter",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "VER_003",
+      "name": "E. Zamorano",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "VER_004",
+      "name": "J. Kennedy",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "VER_005",
+      "name": "V. Stockmann",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    }
+  ]
+}

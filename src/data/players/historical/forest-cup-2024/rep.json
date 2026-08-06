@@ -1,0 +1,59 @@
+{
+  "teamCode": "REP",
+  "teamName": "Republic of Yucatan",
+  "tournament": "forest-cup-2024",
+  "tournamentEdition": 2,
+  "snapshotDate": "2026-05-13",
+  "playerCount": 7,
+  "players": [
+    {
+      "id": "REP_001",
+      "name": "A. Martínez",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "REP_002",
+      "name": "A. Morales",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "REP_003",
+      "name": "D. Aguilar",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "REP_004",
+      "name": "E. López",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "REP_005",
+      "name": "G. Martínez",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "REP_006",
+      "name": "J. Herrera",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "REP_007",
+      "name": "L. Hernández",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    }
+  ]
+}

@@ -1,0 +1,92 @@
+{
+  "teamCode": "EIN",
+  "teamName": "Einswenn",
+  "lastUpdated": "2026-05-13",
+  "playerCount": 12,
+  "players": [
+    {
+      "id": "EIN_001",
+      "name": "A. Lund",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "EIN_002",
+      "name": "H. Paulsen",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "EIN_003",
+      "name": "I. Moje",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "EIN_004",
+      "name": "J. De Santis",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "EIN_005",
+      "name": "J. Teitur",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "EIN_006",
+      "name": "M. Eriksen",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "EIN_007",
+      "name": "M. Solheim",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "EIN_008",
+      "name": "O. Gro",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "EIN_009",
+      "name": "R. Jogi",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "EIN_010",
+      "name": "R. Kask",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "EIN_011",
+      "name": "S. Kattell",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "EIN_012",
+      "name": "T. Davis",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    }
+  ]
+}

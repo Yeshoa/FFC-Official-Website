@@ -1,0 +1,50 @@
+{
+  "teamCode": "Bilsa",
+  "teamName": "Bilsa",
+  "lastUpdated": "2026-05-13",
+  "playerCount": 6,
+  "players": [
+    {
+      "id": "Bilsa_001",
+      "name": "A. Arhanv",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "Bilsa_002",
+      "name": "Arhanv",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "Bilsa_003",
+      "name": "C. Muniv",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "Bilsa_004",
+      "name": "Ervaan",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "Bilsa_005",
+      "name": "Hajan",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "Bilsa_006",
+      "name": "Sowjan",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    }
+  ]
+}

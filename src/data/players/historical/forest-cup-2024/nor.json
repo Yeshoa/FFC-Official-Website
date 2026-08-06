@@ -1,0 +1,45 @@
+{
+  "teamCode": "NOR",
+  "teamName": "Nordustra",
+  "tournament": "forest-cup-2024",
+  "tournamentEdition": 2,
+  "snapshotDate": "2026-05-13",
+  "playerCount": 5,
+  "players": [
+    {
+      "id": "NOR_001",
+      "name": "A. Shamurodov",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "NOR_002",
+      "name": "D. Sigmundson",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "NOR_003",
+      "name": "H. Marremusen",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "NOR_004",
+      "name": "J. Østegårde",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "NOR_005",
+      "name": "K. Ojeveit",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    }
+  ]
+}

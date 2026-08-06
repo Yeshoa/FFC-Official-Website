@@ -3,6 +3,7 @@ id: 9999
 code: "CI"
 name: "Chan Island"
 nslink: "https://www.nationstates.net/nation=chan_island"
+feddispatch: "https://www.nationstates.net/page=dispatch/id=2783343"
 flagPath: "/src/assets/images/members/chan_island_flag.webp"
 logoPath: "/src/assets/images/members/chan_island_logo.png"
 region: "Forest"
