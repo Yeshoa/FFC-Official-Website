@@ -214,15 +214,6 @@ export function getNoGoalStreak(memberName: string, allMatches: Match[]): number
   return getStreak(memberName, allMatches, (gf, ga) => gf === 0);
 }
 
-export function getWins(memberName: string) {
-  let wins = 0;
-  for (const match of allMatches) {
-    const { gf, ga } = getMatchGoals(match, memberName);
-    if (gf > ga) wins++;
-  }
-  return wins;
-}
-
 export function getAllGoals(memberName: string, allMatches: Match[]) {
   let goals = 0;
   for (const match of allMatches) {

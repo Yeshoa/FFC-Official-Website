@@ -1,12 +1,13 @@
 ---
 import { LOCALE } from '@config/constants';
 import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
 import { isExternalUrl } from '@utils/articleUtils';
 import FFCDefault from '@images/articles/welcome/gradient.png';
 
 interface Props {
   title: string;
-  image: any;
+  image: ImageMetadata | string;
   date: Date;
   summary?: string;
   tags?: string[];

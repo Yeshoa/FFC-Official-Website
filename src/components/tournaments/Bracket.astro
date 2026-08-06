@@ -1,14 +1,18 @@
 ---
 import { Image } from 'astro:assets';
-import BracketMatchCard from '@components/tournamentsmatches/BracketmatchCard.astro';
+import BracketMatchCard from '@components/matches/BracketMatchCard.astro';
 import MatchCardCompact from '@components/matches/MatchCardCompact.astro';
 import trophy from '@images/tournaments/trophy.png';
 import { getMemberByName } from 'src/utils/memberUtils';
 import { getMatchWinner } from 'src/utils/matchUtils';
+import type { CollectionEntry } from 'astro:content';
+
+type Match = CollectionEntry<'matches'>;
+type Member = CollectionEntry<'members'>;
 
 interface Props {
-  matches: any[]; // Lista de partidos del torneo
-  members: any[];
+  matches: Match[]; // Lista de partidos del torneo
+  members: Member[];
 }
 
 const { matches, members } = Astro.props;
@@ -17,7 +21,7 @@ const { matches, members } = Astro.props;
 const getMatchesByRound = (fixtureName: string) => {
   if (!matches || matches.length === 0) return [];
   // Filtrar partidos por fase (fixture)
-  return matches.filter((match: any) => 
+  return matches.filter(match => 
     match.data.stage === "knockout" && match.data.fixture === fixtureName
   );
 };

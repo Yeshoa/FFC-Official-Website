@@ -1,5 +1,5 @@
 import Trophy from '@images/achievements/king.webp';
-import type { Achievement } from './index';
+import type { Achievement, AchievementEvaluate } from './index';
 import { type Category, CATEGORIES, ALIGNMENTS, type Subcategory, type Alignment } from '../utils';
 import { type CollectionEntry } from 'astro:content';
 import { getSponsors, getArticles } from '@lib/collections';
@@ -28,7 +28,7 @@ export const baseAchievements: {
   unique: boolean;
   visible: boolean; // This one is for when it is locked, not for enabled or disabled
   enabled: boolean;
-  evaluate: (...args: any[]) => Achievement | null;
+  evaluate: AchievementEvaluate;
 }[] = [
 ];
 
@@ -51,7 +51,7 @@ const makeArticleAchievement = (
   visible: false,
   enabled: true,
   stars: 1,
-  evaluate: function (matches: any[], tournaments: any[], member: any) {
+  evaluate: function (_matches: Match[], _tournaments: Tournament[], member: Member) {
     const { evaluate, ...base } = this;
     const articles = articleCollection.filter(article => article.data.nation === member.data.name);
     if (articles.length < minArticles) return null;
@@ -83,7 +83,7 @@ const makeSponsorAchievements = (
   visible: false,
   enabled: true,
   stars: 1,
-  evaluate: function (matches: any[], tournaments: any[], member: any) {
+  evaluate: function (_matches: Match[], _tournaments: Tournament[], member: Member) {
     const { evaluate, ...base } = this;
     const sponsors = sponsorCollection.filter(sponsor => sponsor.data.member === member.data.name);
     if (sponsors.length < minSponsors) return null;

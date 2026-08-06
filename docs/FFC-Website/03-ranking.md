@@ -68,6 +68,8 @@ score: {
 - Si dos torneos distintos caen en la misma temporada cerrada (FC + CL), ambos aportan con el **mismo factor** (el de su temporada), no se descuenta dos veces.
 - `SCORING_CONFIG.DECAY_FACTORS` pasa a `Record<yearsAgo, number>`.
 
+>**Aclaración**: Los torneos de CL no aportan al ranking de selecciones. Si dos torneos caen en la misma temporada, no debería afectar en nada, solo cuenta el de la Forest Cup.
+
 ---
 
 ## 5. Ranking de la Champions League (NO suma al ranking de selecciones)
@@ -95,6 +97,8 @@ score: {
 3. Un miembro no puede tener puntos de una temporada futura (excepto si se está preparando y se marca explícitamente).
 4. Los `tierHistory` se siguen computando por `edition` (o `season`) para los logros de tier.
 5. El ranking "debería" poder calcularse para **cualquier temporada histórica** (útil para páginas de logros por federación).
+
+> **Nota Adicional**: Como el ranking debería poder calcularse según temporada, estaría bueno agregar una función que obtenga el ranking/puntaje de una federación según temporada (parámetro).
 
 ---
 

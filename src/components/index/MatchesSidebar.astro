@@ -2,10 +2,11 @@
 import Button from '@components/Button.astro';
 import MatchCardDetailed from '@components/matches/MatchCardDetailed.astro';
 import { ROUTES } from '@config/routes';
+import type { CollectionEntry } from 'astro:content';
 
 interface Props {
-  lastMatches: any[];
-  nextMatches: any[];
+  lastMatches: CollectionEntry<'matches'>[];
+  nextMatches: CollectionEntry<'matches'>[];
 }
 
 const { lastMatches, nextMatches } = Astro.props;

@@ -1,4 +1,8 @@
-export function getArticlesByTags(articles: any[], tags: string[] = []): any[] {
+import type { CollectionEntry } from 'astro:content';
+
+type ArticleEntry = CollectionEntry<'articles'>;
+
+export function getArticlesByTags(articles: ArticleEntry[], tags: string[] = []): ArticleEntry[] {
   const filtered = tags.length === 0
     ? articles
     : articles.filter(a =>

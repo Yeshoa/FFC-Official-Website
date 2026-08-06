@@ -130,7 +130,12 @@ export function getPlayerGoals(playerId: string, matches: Match[]): Array<{
   minute: number;
   penalty: boolean;
 }> {
-  const goals: any[] = [];
+  const goals: Array<{
+    match: Match;
+    goal: Match['goals'][0];
+    minute: number;
+    penalty: boolean;
+  }> = [];
   
   for (const match of matches) {
     if (!match.goals || match.status !== 'played') continue;

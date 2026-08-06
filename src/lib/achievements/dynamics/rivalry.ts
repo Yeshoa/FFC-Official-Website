@@ -1,5 +1,5 @@
 import Trophy from '@images/achievements/king.webp';
-import type { Achievement } from './index';
+import type { Achievement, AchievementEvaluate } from './index';
 import { type Category, CATEGORIES, ALIGNMENTS, type Subcategory, type Alignment } from '../utils';
 import type { CollectionEntry } from 'astro:content';
 import { getMemberByName } from 'src/utils/memberUtils';
@@ -24,7 +24,7 @@ export const baseAchievements: {
   unique: boolean;
   visible: boolean; // This one is for when it is locked, not for enabled or disabled
   enabled: boolean;
-  evaluate: (...args: any[]) => Achievement | null;
+  evaluate: AchievementEvaluate;
 }[] = [
   {
     id: 'biggest-win',

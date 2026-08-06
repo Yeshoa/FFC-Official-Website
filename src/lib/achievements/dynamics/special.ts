@@ -1,5 +1,5 @@
 import Trophy from '@images/achievements/king.webp';
-import type { Achievement } from './index';
+import type { AchievementEvaluate } from './index';
 import { getMemberByName } from 'src/utils/memberUtils';
 import { getGoalsByTeam, getMatchWinner, getMatchWinnerIncludingPenalties } from 'src/utils/matchUtils';
 import type { Category } from '../utils';
@@ -18,7 +18,7 @@ export const specialAchievements: {
   unique: boolean;
   visible: boolean; // This one is for when it is locked, not for enabled or disabled
   enabled: boolean;
-  evaluate: (...args: any[]) => Achievement | null;
+  evaluate: AchievementEvaluate;
 }[] = [
   {
     id: 'goal-famine',

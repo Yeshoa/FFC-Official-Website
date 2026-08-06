@@ -1,21 +1,44 @@
 ---
 import { Image } from 'astro:assets';
+import { type CollectionEntry } from 'astro:content';
 import MatchCard from '@components/matches/MatchCard.astro';
 import MatchCardDetailed from '@components/matches/MatchCardDetailed.astro';
 import { getMemberByName } from 'src/utils/memberUtils';
 import defaultFlag from '@images/tournaments/default-flag.png';
 
 // Props:
+type Match = CollectionEntry<'matches'>;
+
 interface Props {
-  matches: any[]; // Lista de partidos del torneo
+  matches: Match[];
 }
+
+interface GroupTableRow {
+  team: string;
+  teamObject: {
+    slug: string;
+    flagPath: string;
+    name: string;
+  };
+  wins: number;
+  draws: number;
+  losses: number;
+  goals_for: number;
+  goals_against: number;
+  points: number;
+  yellow_cards: number;
+  red_cards: number;
+  goals_difference: number;
+  position: number;
+}
+
 const { matches } = Astro.props;
 
 // Filtrar partidos de fase de grupos
 const groupStageMatches = matches.filter(m => m.data.stage?.toLowerCase().includes('group'));
 
 // Agrupar por grupo
-const matchesByGroup = groupStageMatches.reduce((acc, match) => {
+const matchesByGroup = groupStageMatches.reduce<Record<string, Match[]>>((acc, match) => {
   const group = match.data.group || 'Unknown Group';
   if (!acc[group]) acc[group] = [];
   acc[group].push(match);
@@ -23,8 +46,8 @@ const matchesByGroup = groupStageMatches.reduce((acc, match) => {
 }, {});
 
 // Calcular tabla de posiciones por grupo
-async function generateGroupTable(matches) {
-  const table = {};
+async function generateGroupTable(matches: Match[]): Promise<GroupTableRow[]> {
+  const table: Record<string, Omit<GroupTableRow, 'goals_difference' | 'position'>> = {};
 
   for (const match of matches) {
     const { team1, team2, status, goals = [], cards = [] } = match.data;

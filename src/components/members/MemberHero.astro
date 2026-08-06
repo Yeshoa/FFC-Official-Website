@@ -14,8 +14,19 @@ import Arrow from '@images/icons/arrow-up-right-from-square-solid.svg';
 import EggTrigger from '@components/easter-eggs/EggTrigger.astro';
 import EggCTC from '@images/eggs/egg-ctc.webp';
 import { EASTER_EGGS } from '@config/easter-eggs';
+import { type CollectionEntry } from 'astro:content';
+import type { Achievement } from '@lib/achievements/dynamics/index';
+import type { getMemberScoreDetails } from '@lib/rankingUtils';
 
 // --- PROPS DEFINITION ---
+interface Props {
+  titles?: Array<{ year: number }>;
+  achievements?: Achievement[];
+  memberData: CollectionEntry<'members'>['data'];
+  ranking: number | null;
+  points: number;
+  scoreBreakdown: Awaited<ReturnType<typeof getMemberScoreDetails>>;
+}
 const { titles = [], achievements = [], memberData, ranking, points, scoreBreakdown } = Astro.props;
 const { name, logoPath, flagPath, founded, affiliation, feddispatch, nslink, code, region, federation } = memberData;
 
@@ -112,7 +123,7 @@ const eggConfig = isClownTownCity ? EASTER_EGGS['egg-3'] : null;
           <!-- Titles Section (STARS) -->
           {titles.length > 0 && (
             <div class="flex flex-wrap items-center justify-center gap-4 mb-6">
-              {titles.map((title: any) => (
+              {titles.map((title) => (
                 <div class="flex flex-col items-center animate-pulse-glow">
                   <StarIcon class="w-12 h-12 sm:w-16 sm:h-16 fill-yellow-400 drop-shadow-[0_0_8px_rgba(252,211,77,0.8)]" />
                   <span class="text-sm sm:text-lg font-semibold px-2 py-1 rounded-md bg-black/20 mt-1">{title.year}</span>
@@ -178,7 +189,7 @@ const eggConfig = isClownTownCity ? EASTER_EGGS['egg-3'] : null;
           <h3 class="text-lg font-bold tracking-widest text-gray-300 uppercase text-center">Badges</h3>
           <h6 class="text-center mb-2 text-gray-400">Tap the badges for details</h6>
           <div class="flex flex-wrap items-center justify-center gap-4">
-            {achievements.map((achv: any, index: number) => (
+            {achievements.map((achv, index: number) => (
               <AchievementCard achievement={achv} />
             ))}
           </div>
@@ -242,7 +253,7 @@ const eggConfig = isClownTownCity ? EASTER_EGGS['egg-3'] : null;
         <!-- Titles (STARS) -->
         {titles.length > 0 && (
           <div class="flex flex-wrap justify-center gap-4 -mt-2 -mb-4">
-              {titles.map((title: any) => (
+              {titles.map((title) => (
                 <div class="flex flex-col items-center animate-pulse-glow">
                   <StarIcon class="w-20 h-20 fill-yellow-400 drop-shadow-[0_0_8px_rgba(252,211,77,0.8)]" />
                   <span class="text-sm font-semibold mt-1">{title.year}</span>
@@ -317,7 +328,7 @@ const eggConfig = isClownTownCity ? EASTER_EGGS['egg-3'] : null;
           <h3 class="mb-2 text-lg font-bold tracking-widest text-gray-400 uppercase text-center">Badges</h3>
           <h6 class="text-center mb-4 text-gray-400">Click the badges for details</h6>
           <div class="flex flex-wrap items-center justify-center gap-6">
-            {achievements.map((achv: any, index: number) => (
+            {achievements.map((achv, index: number) => (
               // <AchievementCard achievement={achv} />
               <AchievementCard achievement={achv} />
             ))}

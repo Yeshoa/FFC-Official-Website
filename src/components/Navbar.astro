@@ -92,14 +92,25 @@ const isActiveLink = (linkHref: string, currentPath: string) => {
   return normalizedCurrentPath.startsWith(normalizedLinkHref);
 };
 
-const getLinkClasses = (link: any, isActive: boolean) => {
+interface NavLink {
+  href: string;
+  label: string;
+  shortLabel?: string;
+  icon: string;
+  iconWidth: number;
+  enabled?: boolean;
+  external?: boolean;
+  special?: boolean;
+}
+
+const getLinkClasses = (link: NavLink, isActive: boolean) => {
   if (link.special) {
     return "flex gap-2 items-center py-2 px-3 bg-white rounded-lg text-green-950 group-hover:bg-green-600 group-hover:text-white";
   }
   return `py-2 px-3 rounded-sm flex gap-2 items-center ${isActive ? "text-green-600" : "text-white group-hover:text-green-300"}`;
 };
 
-const getIconClasses = (link: any, isActive: boolean) => {
+const getIconClasses = (link: NavLink, isActive: boolean) => {
   if (link.special) {
     return "fill-green-950 group-hover:fill-white";
   }

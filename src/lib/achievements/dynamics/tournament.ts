@@ -1,5 +1,5 @@
 import Trophy from '@images/achievements/king.webp';
-import type { Achievement } from './index';
+import type { Achievement, AchievementEvaluate } from './index';
 import { type Category, CATEGORIES, type Subcategory, SUBCATEGORIES, type Alignment, ALIGNMENTS } from '../utils';
 import type { CollectionEntry } from 'astro:content';
 import { getAllParticipants } from '@utils/tournamentUtils';
@@ -12,7 +12,7 @@ const thisCategory = CATEGORIES[1];
 
 type PrizeType = 'topScorer' | 'bestPlayer' | 'bestGoalkeeper' | 'bestGoal';
 
-const prizeCheckers: Record<PrizeType, (t: any, memberName: string) => boolean> = {
+const prizeCheckers: Record<PrizeType, (t: Tournament, memberName: string) => boolean> = {
   topScorer:       (t, name) => (t.data.prizes?.topScorer ?? []).some(p => p.team === name),
   bestPlayer:      (t, name) => t.data.prizes?.bestPlayer?.team === name,
   bestGoalkeeper:  (t, name) => t.data.prizes?.bestGoalkeeper?.team === name,
@@ -32,7 +32,7 @@ const baseAchievements: {
   unique: boolean;
   visible: boolean; // This one is for when it is locked, not for enabled or disabled
   enabled: boolean;
-  evaluate: (...args: any[]) => Achievement | null;
+  evaluate: AchievementEvaluate;
 }[] = [
   {
     id: 'host',
@@ -354,7 +354,7 @@ const makePrizeAchievement = (
   visible: false,
   enabled: true,
 
-  evaluate: function (_matches: any[], tournaments: any[], member: any) {
+  evaluate: function (_matches: Match[], tournaments: Tournament[], member: Member) {
     const memberName = member.data.name;
     const wonTypes = (Object.keys(prizeCheckers) as PrizeType[])
       .filter(type => tournaments.some(t => prizeCheckers[type](t, memberName)));

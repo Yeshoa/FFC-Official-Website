@@ -1,4 +1,5 @@
 import type { CollectionEntry } from "astro:content"
+import type { ImageMetadata } from "astro";
 import { calculateTournamentDecayPoints, getLastFourTournamentIds } from "src/utils/tournamentUtils"
 import { calculateAllEventPoints } from "@lib/eventUtils"
 import { normalizePoints, SCORING_CONFIG } from "./scoreUtils";
@@ -87,7 +88,7 @@ export async function getMemberScoreDetails(
     slug: string;
     name: string;
     code: string;
-    flag: any;
+    flag: ImageMetadata | null;
   };
   scores: {
     currentRoleplay: number;
@@ -247,7 +248,7 @@ export async function getRankedMembers(
   slug: string
   name: string
   code: string
-  flag: any
+  flag: ImageMetadata | null
   scores: {
     currentRoleplay: number,
     pastRoleplay: number

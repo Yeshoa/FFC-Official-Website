@@ -9,7 +9,6 @@ const members = await getMembers();
 // Calcula los puntos de roleplay actuales
 export function calculateCurrentRoleplayPoints(
   memberName: string,
-  member?: any,
   RP_MAX: number = SCORING_CONFIG.RP_MAX
 ): {
   totalPoints: number

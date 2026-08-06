@@ -244,7 +244,21 @@ export async function getTopScorerOfTeamInTournament(
 }
  */
 // Cache para evitar recalcular standings del mismo torneo
-const tournamentStandingsCache = new Map<number, any[]>();
+type TeamStanding = {
+  name: string;
+  highestPhase: string;
+  played: number;
+  won: number;
+  draw: number;
+  lost: number;
+  goalsFor: number;
+  goalsAgainst: number;
+  points: number;
+  gd: number;
+  pr: string;
+};
+
+const tournamentStandingsCache = new Map<number, TeamStanding[]>();
 
 // Función auxiliar para limpiar el cache si es necesario
 export function clearTournamentCache(tournamentId?: number) {
@@ -314,7 +328,7 @@ async function getTeamHighestPhase(
 async function generateTournamentStandings(
   tournament: TournamentEntry,
   allMatches: MatchEntry[]
-): Promise<any[]> {
+): Promise<TeamStanding[]> {
   const tournamentId = tournament.data.id;
   
   // Verificar cache primero
@@ -352,7 +366,7 @@ async function generateTournamentStandings(
   };
 
   // Función para ordenar por criterios estándar
-  const sortByStandardCriteria = (a: any, b: any) => {
+  const sortByStandardCriteria = (a: TeamStanding, b: TeamStanding) => {
     if (b.points !== a.points) return b.points - a.points;
     const gdA = a.goalsFor - a.goalsAgainst;
     const gdB = b.goalsFor - b.goalsAgainst;
@@ -716,8 +730,8 @@ export async function getAllParticipants(tournament: TournamentEntry) {
   return Array.from(teams);
 }
 
-export function getTeamsByPot(tournament: any, potNumber: number) {
-  return tournament.pots?.find(p => p.pot === potNumber)?.teams ?? [];
+export function getTeamsByPot(tournament: TournamentEntry, potNumber: number) {
+  return tournament.data.pots?.find(p => p.pot === potNumber)?.teams ?? [];
 }
 
 export function getTournamentById(tournamentId: number): TournamentEntry | null {

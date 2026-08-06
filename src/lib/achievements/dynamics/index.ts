@@ -33,6 +33,13 @@ export interface Achievement {
   suppresses?: string[];
 }
 
+export type AchievementEvaluate = (
+  matches: Match[],
+  tournaments: Tournament[],
+  member: Member,
+  members: Member[],
+) => Achievement | null;
+
 /** Concatena todos los logros dinámicos y los ordena por nivel y luego nombre */
 export const dynamicDefs = [
   ...tournamentAchievements,
@@ -71,7 +78,7 @@ export async function getAchievementsForMember(name: string): Promise<Achievemen
     .filter(a => !(a.unique && duplicatedUniques.has(a.id)));
 
   // 2) Manuales
-  const manualIds: string[] = (member.data as any).manualAchievements || [];
+  const manualIds: string[] = member.data.manualAchievements || [];
   const manual = staticAch
     .filter(a => a.data && manualIds.includes(a.data.id))
     .map(a => ({
@@ -132,7 +139,7 @@ export async function getMembersWithAchievement(achievementId: string): Promise<
       .map(def => def.evaluate(matches, tournaments, member, members))
       .filter((a): a is Achievement => !!a);
     // Evaluar manuales
-    const manualIds: string[] = (member.data as any).manualAchievements || [];
+    const manualIds: string[] = member.data.manualAchievements || [];
     const man = staticAch
       .filter(a => manualIds.includes(a.data.id))
       .map(a => ({
@@ -168,12 +175,8 @@ export async function findDuplicatedUniqueIds(
   members: Member[]
 ): Promise<Set<string>> {
   if (duplicatedUniqueIdsCache) {
-    console.log('[Logros] Reutilizando cache de IDs únicos duplicados');
-    console.log(duplicatedUniqueIdsCache);
     return duplicatedUniqueIdsCache;
   }
-
-  console.time('[Logros] Cálculo de IDs únicos duplicados');
 
   const counts = new Map<string, number>();
   for (const member of members) {
@@ -192,8 +195,6 @@ export async function findDuplicatedUniqueIds(
   );
 
   duplicatedUniqueIdsCache = duplicated;
-
-  console.timeEnd('[Logros] Cálculo de IDs únicos duplicados');
 
   return duplicated;
 }
