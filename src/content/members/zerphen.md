@@ -13,7 +13,7 @@ verified: true
 founder: true
 score:
   events:
-    "2": 
+    "2024": 
       events: 15
 manualAchievements: 
   - "founder"

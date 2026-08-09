@@ -12,13 +12,13 @@ affiliation: 2024
 verified: true
 score:
   rp:
-    "2":
+    "2024":
       history: 20
   events:
-    "2": 
+    "2024": 
       trivia: 17
   bonus:
-    "2":
+    "2024":
       poll: 2
 manualAchievements: 
   - "voter"

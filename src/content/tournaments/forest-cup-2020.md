@@ -11,6 +11,7 @@ banner: "src/assets/images/tournaments/2020/logo2.png"
 heroImg: "src/assets/images/tournaments/2020/heroImg.png"
 cardImg: "src/assets/images/tournaments/2020/heroImg.png"
 edition: 2020
+season: 2020
 pots:
   - pot: 1
     teams:

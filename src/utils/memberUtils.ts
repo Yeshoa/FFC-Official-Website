@@ -3,7 +3,7 @@ import type { CollectionEntry } from 'astro:content';
 import { getMemberTotalScore } from '../lib/rankingUtils';
 import { TIERS } from '../lib/scoreUtils';
 import { getMembers } from '@lib/collections';
-import { CURRENT_TOURNAMENT_ID } from './tournamentUtils';
+import { CURRENT_SEASON } from '@config/season';
 
 
 // Cache para evitar múltiples llamadas
@@ -78,7 +78,7 @@ export function getMemberLogo(
 
 export async function getMemberRank(
   member: CollectionEntry<'members'> | null,
-  currentTournamentId: number = CURRENT_TOURNAMENT_ID
+  currentSeason: number = CURRENT_SEASON
 ): Promise<number | null> {
   if (!member) return null;
   const members = await getMembers();
@@ -90,7 +90,7 @@ export async function getMemberRank(
         .filter(m => m.data.verified)
         .map(async m => ({
           name: m.data.name,
-          totalScore: (await getMemberTotalScore(m, currentTournamentId)).totalScore,
+          totalScore: (await getMemberTotalScore(m, currentSeason)).totalScore,
         }))
     )
   ).sort((a, b) => b.totalScore - a.totalScore);

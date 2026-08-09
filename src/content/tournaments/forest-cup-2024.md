@@ -12,6 +12,7 @@ banner: "src/assets/images/tournaments/2024/banner.png"
 heroImg: "src/assets/images/tournaments/2024/celebration.png"
 cardImg: "src/assets/images/tournaments/2024/cardImg.png"
 edition: 2024
+season: 2024
 loadingType: "eager"
 pots:
   - pot: 1

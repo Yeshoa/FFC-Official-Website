@@ -13,19 +13,19 @@ affiliation: 2024
 verified: true
 score:
   rp:
-    "2":
+    "2024":
       history: 20
-    # "3":
+    # "2026":
       # fcm: 10
   events:
-    "2": 
+    "2024": 
       chall: 5
-    "3":
+    "2026":
       quiz: 180
   bonus:
-    "2":
+    "2024":
       extra: 5
-    "3":
+    "2026":
       extra: 15
 manualAchievements: 
   - "roleplay"

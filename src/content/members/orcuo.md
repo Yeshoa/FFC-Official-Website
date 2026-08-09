@@ -12,10 +12,10 @@ affiliation: 2024
 verified: true
 score:
   rp:
-    "2":
+    "2024":
       history: 3
   events:
-    "2": 
+    "2024": 
       trivia: 6
 tierHistory:
   - tier: "D"

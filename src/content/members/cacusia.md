@@ -14,12 +14,12 @@ verified: true
 founder: true
 score:
   rp:
-    "1":
+    "2022":
       history: 20
-    "2":
+    "2024":
       history: 20
   bonus:
-    "2":
+    "2024":
       secret A1: 3
       secret B2: 2
       secret C1: 1

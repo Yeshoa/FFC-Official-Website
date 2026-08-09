@@ -5,7 +5,7 @@ import { getTournaments } from '@lib/collections';
 import { getCurrentEvents } from '@lib/eventUtils'
 import { getCurrentRoleplays } from '@lib/roleplayUtils';
 import { getCurrentBonuses } from '@lib/bonusUtils';
-import { CURRENT_TOURNAMENT_ID } from '@utils/tournamentUtils';
+import { CURRENT_SEASON } from '@config/season';
 import Button from '@components/Button.astro';
 import { ROUTES } from '@config/routes';
 
@@ -14,7 +14,7 @@ const currentRoleplays = getCurrentRoleplays();
 const currentBonuses = getCurrentBonuses();
 
 const tournaments = await getTournaments();
-const nextEdition = tournaments.filter(t => t.data.id === CURRENT_TOURNAMENT_ID)[0].data.edition;
+const nextEdition = tournaments.filter(t => t.data.season === CURRENT_SEASON)[0].data.edition;
 ---
 
 <aside class="shrink-0 opacity-0 animate-[slide-in_1s_ease-in-out_forwards_.5s] order-3 mb-6">

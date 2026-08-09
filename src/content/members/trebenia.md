@@ -10,7 +10,7 @@ verified: false
 founder: true
 score:
   bonus:
-    "1":
+    "2022":
       extra: 10
 manualAchievements: 
   - "founder"

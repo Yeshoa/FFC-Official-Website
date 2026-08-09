@@ -10,7 +10,7 @@ verified: false
 founder: true
 score:
   rp:
-    "0":
+    "2020":
       roleplayed: 10
 manualAchievements:
   - "founder"

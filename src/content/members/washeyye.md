@@ -13,7 +13,7 @@ affiliation: 2024
 verified: true
 score:
   rp:
-    "2":
+    "2024":
       history: 20
 tierHistory:
   - tier: "C"

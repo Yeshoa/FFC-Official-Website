@@ -7,7 +7,7 @@ import { Image } from 'astro:assets';
 import { getTeamStatsInTournament, getTeamFinalResult, getTopScorerOfTeamInTournament, 
   getTeamPositionInTournament, getTeamByPosition, getFinalResult, getThirdPlaceResult, 
   getAllParticipants, lostLastPlayoff } from '../../utils/tournamentUtils';
-import { CURRENT_TOURNAMENT_ID } from '../../utils/tournamentUtils';
+import { CURRENT_SEASON } from '@config/season';
 import { getTournaments } from '@lib/collections';
 import type { Member } from '@ty/collections';
 
@@ -28,7 +28,7 @@ const allEditions = tournaments
 // Función auxiliar para obtener las estadísticas de un torneo
 const tournamentsData = await Promise.all(
   allEditions.map(async (t) => {
-    const isFutureOrCurrent = t.data.id >= CURRENT_TOURNAMENT_ID;
+    const isFutureOrCurrent = t.data.season >= CURRENT_SEASON;
     const host = await getMemberByName(t.data.host || '') || null;
     const hostClass = t.data.host === memberName ? 'text-amber-400 font-bold' : '';
     const didParticipate = await getAllParticipants(t).then(teams => teams.includes(memberName));
@@ -214,7 +214,7 @@ for (const tournamentData of tournamentsData) {
           const hostClass = t.data.host === memberName ? 'text-amber-400 font-bold' : '';
           
           const didParticipate = t.data.participants && t.data.participants.includes(memberName);
-          const isFutureOrCurrent = t.data.id >= CURRENT_TOURNAMENT_ID;
+    const isFutureOrCurrent = t.data.season >= CURRENT_SEASON;
 
           if (!didParticipate && !isFutureOrCurrent) {
             return (

@@ -11,12 +11,12 @@ verified: true
 founder: true
 score:
   events:
-    "3":
+    "2026":
       quiz: 83
   bonus:
-    "2":
+    "2024":
       extra: 20
-    "3":
+    "2026":
       extra: 20
 manualAchievements: 
   - "founder"

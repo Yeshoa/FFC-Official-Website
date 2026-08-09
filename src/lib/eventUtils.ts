@@ -1,7 +1,7 @@
 import { MAX_EVENTS_POINTS, SCORING_CONFIG } from "./scoreUtils";
 import { getMembers, getEvents } from '@lib/collections';
 import type { Event, Events } from '@ty/collections';
-import { CURRENT_TOURNAMENT_ID } from "@utils/tournamentUtils";
+import { CURRENT_SEASON } from "@config/season";
 
 const events = getEvents() as Events;
 const members = await getMembers();
@@ -11,13 +11,13 @@ export const EVENT_COUNT = 5;
 // Función para calcular puntos de eventos actuales
 export function calculateCurrentEventPoints(
   memberName: string,
-  currentTournamentId: number,
+  currentSeason: number,
   EV_MAX: number = SCORING_CONFIG.EV_MAX
 ): {
   normalizedPoints: number
   events: Record<string, number>
 } {
-  const currentEvents = getEventsByMemberAndEdition(memberName, currentTournamentId);
+  const currentEvents = getEventsByMemberAndSeason(memberName, currentSeason);
   const normalizedEvents: Record<string, number> = {};
 
   // Normalizar los puntos de cada evento usando event.maxScore
@@ -37,11 +37,11 @@ export function calculateCurrentEventPoints(
 // Helper para calcular total points con decay para un miembro
 function calculateMemberDecayTotal(
   memberName: string,
-  lastFourTournamentIds: number[],
+  lastFourSeasons: number[],
   decayFactors: number[] = [1.0, 0.5, 0.25, 0.1]
 ): number {
-  return lastFourTournamentIds.reduce((sum, tournamentId, index) => {
-    const events = getEventsByMemberAndEdition(memberName, tournamentId);
+  return lastFourSeasons.reduce((sum, season, index) => {
+    const events = getEventsByMemberAndSeason(memberName, season);
     const totalTournamentPoints = events.reduce((s, event) => {
       const points = (event.participants[memberName] ?? 0) * (event.weight ?? 1);
       return s + points;
@@ -54,13 +54,13 @@ function calculateMemberDecayTotal(
 // Función para calcular puntos de eventos con decay
 export function calculateEventDecayPoints(
   memberName: string,
-  lastFourTournamentIds: number[],
+  lastFourSeasons: number[],
   PEV_MAX: number = SCORING_CONFIG.PEV_MAX
 ): {
   totalPoints: number
   normalizedTotalPoints: number
   breakdown: Array<{
-    tournamentId: number
+    season: number
     events: Record<string, number>
     totalTournamentPoints: number
     decayFactor: number
@@ -70,8 +70,8 @@ export function calculateEventDecayPoints(
   const decayFactors = [1.0, 0.5, 0.25, 0.1];
 
   // Calcula el breakdown para este miembro
-  const breakdown = lastFourTournamentIds.map((tournamentId, index) => {
-    const events = getEventsByMemberAndEdition(memberName, tournamentId);
+  const breakdown = lastFourSeasons.map((season, index) => {
+    const events = getEventsByMemberAndSeason(memberName, season);
     const eventsRecord: Record<string, number> = {};
     events.forEach(event => {
       const points = (event.participants[memberName] ?? 0) * (event.weight ?? 1);
@@ -81,7 +81,7 @@ export function calculateEventDecayPoints(
     const decayFactor = decayFactors[index] || 0;
     const finalPoints = totalTournamentPoints * decayFactor;
     return {
-      tournamentId,
+      season,
       events: eventsRecord,
       totalTournamentPoints,
       decayFactor,
@@ -92,7 +92,7 @@ export function calculateEventDecayPoints(
   const totalPoints = breakdown.reduce((sum, item) => sum + item.finalPoints, 0);
 
   // Calcula el máximo total entre todos los miembros
-  const allTotals = members.map(member => calculateMemberDecayTotal(member.data.name, lastFourTournamentIds));
+  const allTotals = members.map(member => calculateMemberDecayTotal(member.data.name, lastFourSeasons));
   const maxTotalPoints = Math.max(...allTotals, 1);
 
   // Normaliza solo el total
@@ -110,8 +110,8 @@ export function calculateEventDecayPoints(
 // Función para calcular TODOS los eventos (actuales + anteriores)
 export function calculateAllEventPoints(
   memberName: string,
-  currentTournamentId: number,
-  lastFourTournamentIds: number[],
+  currentSeason: number,
+  lastFourSeasons: number[],
   EV_MAX: number = SCORING_CONFIG.EV_MAX
 ): {
   currentEventPoints: number
@@ -119,7 +119,7 @@ export function calculateAllEventPoints(
   totalEventPoints: number
   currentEvents: Record<string, number>
   pastBreakdown: Array<{
-    tournamentId: number
+    season: number
     events: Record<string, number>
     totalTournamentPoints: number
     decayFactor: number
@@ -127,10 +127,10 @@ export function calculateAllEventPoints(
   }>
 } {
   // Eventos actuales (100%)
-  const currentResult = calculateCurrentEventPoints(memberName, currentTournamentId, EV_MAX);
+  const currentResult = calculateCurrentEventPoints(memberName, currentSeason, EV_MAX);
 
   // Eventos anteriores (con decay)
-  const pastResult = calculateEventDecayPoints(memberName, lastFourTournamentIds, SCORING_CONFIG.PEV_MAX);
+  const pastResult = calculateEventDecayPoints(memberName, lastFourSeasons, SCORING_CONFIG.PEV_MAX);
 
   return {
     currentEventPoints: currentResult.normalizedPoints,
@@ -143,7 +143,7 @@ export function calculateAllEventPoints(
 
 // Función helper para obtener puntos de eventos específicos (actual)
 export const getCurrentEventPoints = (memberName: string, eventName: string) => {
-  const currentEvents = getEventsByMemberAndEdition(memberName, CURRENT_TOURNAMENT_ID);
+  const currentEvents = getEventsByMemberAndSeason(memberName, CURRENT_SEASON);
   const event = currentEvents.find(e => e.name === eventName);
   return event ? (event.participants[memberName] ?? 0) * (event.weight ?? 1) : 0;
 };
@@ -153,22 +153,22 @@ export const getEventsByMember = (memberName: string): Events => {
   return events.filter(event => event.participants[memberName] !== undefined && event.enabled !== false);
 };
 
-export const getEventsByTournamentId = (tournamentId: number): Events => {
-  return events.filter(event => event.edition === tournamentId && event.enabled !== false);
+export const getEventsBySeason = (season: number): Events => {
+  return events.filter(event => event.edition === season && event.enabled !== false);
 };
 
-export const getEventsByMemberAndEdition = (memberName: string, tournamentId: number): Events => {
-  return events.filter(event => event.participants[memberName] !== undefined && event.edition === tournamentId && event.enabled !== false);
+export const getEventsByMemberAndSeason = (memberName: string, season: number): Events => {
+  return events.filter(event => event.participants[memberName] !== undefined && event.edition === season && event.enabled !== false);
 };
 
 export const getCurrentEventsByMember = (memberName: string): Events => {
-  return getEventsByMemberAndEdition(memberName, CURRENT_TOURNAMENT_ID);
+  return getEventsByMemberAndSeason(memberName, CURRENT_SEASON);
 };
 
 export const getPastEventsByMember = (memberName: string): Events => {
-  return events.filter(event => event.participants[memberName] !== undefined && event.edition !== CURRENT_TOURNAMENT_ID && event.enabled !== false);
+  return events.filter(event => event.participants[memberName] !== undefined && event.edition !== CURRENT_SEASON && event.enabled !== false);
 };
 
 export const getCurrentEvents = (): Events => {
-  return getEventsByTournamentId(CURRENT_TOURNAMENT_ID);
+  return getEventsBySeason(CURRENT_SEASON);
 };

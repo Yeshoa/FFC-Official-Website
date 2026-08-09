@@ -10,9 +10,9 @@ import { getCurrentRoleplays } from '@lib/roleplayUtils';
 // const events = getEvents();
 // const roleplays = getRoleplays();
 
-const { members, currentTournamentId } = Astro.props;
+const { members, currentSeason } = Astro.props;
 
-const rankedMembers = await getRankedMembers(members, currentTournamentId);
+const rankedMembers = await getRankedMembers(members, currentSeason);
 const currentEvents = getCurrentEvents();
 const currentRoleplays = getCurrentRoleplays();
 const currentBonuses = getCurrentBonuses();

@@ -15,7 +15,7 @@ import RelatedNews from '@components/articles/RelatedNews.astro';
 import { getTournaments, getMatches, getMembers, getArticles } from '@lib/collections';
 
 // Utils
-import { CURRENT_TOURNAMENT_ID } from 'src/utils/tournamentUtils'; // Global constant for current tournament
+import { CURRENT_SEASON } from '@config/season';
 import { getMemberTotalScore, getMemberScoreDetails } from '@lib/rankingUtils';
 import { getMemberRank, getMemberByName } from 'src/utils/memberUtils';
 import { getArticlesByTags } from 'src/utils/articleUtils';
@@ -136,9 +136,9 @@ for (const match of playedMatches) {
   }
 }
 // this is for the member hero
-const memberRank = await getMemberRank(member, CURRENT_TOURNAMENT_ID);
-const memberTotalScoreResult = await getMemberTotalScore(member, CURRENT_TOURNAMENT_ID);
-const memberScoreDetails = await getMemberScoreDetails(member, CURRENT_TOURNAMENT_ID);
+const memberRank = await getMemberRank(member, CURRENT_SEASON);
+const memberTotalScoreResult = await getMemberTotalScore(member, CURRENT_SEASON);
+const memberScoreDetails = await getMemberScoreDetails(member, CURRENT_SEASON);
 const memberTotalScore = memberTotalScoreResult.totalScore;
 const titles = tournaments
   .filter(t => t.data.champion === memberData.name)

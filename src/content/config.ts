@@ -34,6 +34,7 @@ const tournamentsCollection = defineCollection({
     championCode: z.string().optional(),
     banner: image().optional(), // Banner del torneo
     edition: z.number(),
+    season: z.number(), // Año de la temporada (fuente de verdad para ranking/decay)
     loadingType: z.enum(["eager", "lazy"]).optional(), // Carga de imágenes
     /* participants: z.array(z.string()).optional(), */ // Referencia a members
     pots: z.array(
@@ -206,41 +207,41 @@ const membersCollection = defineCollection({
 
     score: z
         .object({
-          // 1️⃣ ROLEPLAY CATEGORY - ESTRUCTURA DINÁMICA POR TOURNAMENT ID
+          // 1️⃣ ROLEPLAY CATEGORY - ESTRUCTURA DINÁMICA POR SEASON (año, ej: "2024", "2026")
           rp: z
             .record(
-              z.string(), // Tournament ID como string (ej: "2", "3", "4")
+              z.string(), // Season como string (ej: "2024", "2026")
               z.record(
                 z.string(), // RP name (dinámico: "updated roster", "menciones en dispatches actualizadas", etc.) or Host/Extra
                 z.number(), // Points earned
               ),
             )
             .default({})
-            .describe("Dynamic roleplay by tournament ID: { tournamentId: { history: points } }"),
+            .describe("Dynamic roleplay by season: { season: { activity: points } }"),
 
-          // 2️⃣ EVENTS CATEGORY - ESTRUCTURA DINÁMICA POR TOURNAMENT ID
+          // 2️⃣ EVENTS CATEGORY - ESTRUCTURA DINÁMICA POR SEASON (año)
           events: z
             .record(
-              z.string(), // Tournament ID como string (ej: "2", "3", "4")
+              z.string(), // Season como string (ej: "2024", "2026")
               z.record(
                 z.string(), // Event name (dinámico: "poetry", "quiz", "memories", etc.) or Host/Extra
                 z.number(), // Points earned
               ),
             )
             .default({})
-            .describe("Dynamic events by tournament ID: { tournamentId: { eventName: points } }"),
+            .describe("Dynamic events by season: { season: { eventName: points } }"),
 
-          // 3️⃣ BONUS - ESTRUCTURA DINÁMICA POR TOURNAMENT ID (igual que events)
+          // 3️⃣ BONUS - ESTRUCTURA DINÁMICA POR SEASON (igual que events)
           bonus: z
             .record(
-              z.string(), // Tournament ID como string
+              z.string(), // Season como string (ej: "2024", "2026")
               z.record(
                 z.string(), // Bonus name (ej: "host", "extra", etc.)
                 z.number(), // Points earned
               ),
             )
             .default({})
-            .describe("Dynamic bonus by tournament ID: { tournamentId: { bonusName: points } }"),
+            .describe("Dynamic bonus by season: { season: { bonusName: points } }"),
         })
         .default({
           rp: {},

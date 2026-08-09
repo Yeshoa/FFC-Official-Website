@@ -1,7 +1,7 @@
 ---
 import Layout from '@layouts/App.astro'
 import { getMembers, getTournaments, getRoleplays, getEvents, getBonuses } from '@lib/collections';
-import { CURRENT_TOURNAMENT_ID } from 'src/utils/tournamentUtils';
+import { CURRENT_SEASON } from '@config/season';
 import { getRankedMembers, getRankClass } from '@lib/rankingUtils';
 import { getTotalColorClass } from '@lib/scoreUtils';
 import { Image } from 'astro:assets';
@@ -11,13 +11,13 @@ const tournaments = await getTournaments();
 const allRoleplays = getRoleplays();
 const allEvents = getEvents();
 const allBonuses = getBonuses();
-const currentTournamentId = CURRENT_TOURNAMENT_ID;
+const currentSeason = CURRENT_SEASON;
 
-const rankedMembers = await getRankedMembers(members, currentTournamentId);
+const rankedMembers = await getRankedMembers(members, currentSeason);
 
-const currentRoleplays = allRoleplays.filter(rp => rp.edition === currentTournamentId && rp.enabled !== false);
-const currentEvents = allEvents.filter(ev => ev.edition === currentTournamentId && ev.enabled !== false);
-const currentBonuses = allBonuses.filter(b => b.edition === currentTournamentId && b.enabled !== false);
+const currentRoleplays = allRoleplays.filter(rp => rp.edition === currentSeason && rp.enabled !== false);
+const currentEvents = allEvents.filter(ev => ev.edition === currentSeason && ev.enabled !== false);
+const currentBonuses = allBonuses.filter(b => b.edition === currentSeason && b.enabled !== false);
 
 // min-w en px para que las columnas NUNCA se compriman
 const colWidth = "min-w-[40px] xl:min-w-[56px]";

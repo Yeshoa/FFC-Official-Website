@@ -13,7 +13,7 @@ manualAchievements:
   - "discord"
 score:
   rp:
-    "1":
+    "2022":
       history: 20
 tierHistory:
   - tier: "B"

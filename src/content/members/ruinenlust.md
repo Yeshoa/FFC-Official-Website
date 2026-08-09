@@ -11,7 +11,7 @@ affiliation: 2024
 verified: true
 score:
   events:
-    "2": 
+    "2024": 
       trivia: 15
 tierHistory:
   - tier: "S"

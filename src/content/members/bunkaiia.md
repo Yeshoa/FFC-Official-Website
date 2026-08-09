@@ -9,7 +9,7 @@ region: "Forest"
 verified: false
 score:
   rp:
-      "1":
+      "2022":
         history: 20
 tierHistory:
   - tier: "C"

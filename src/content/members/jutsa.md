@@ -13,9 +13,9 @@ verified: true
 founder: true
 score:
   events:
-    "2": 
+    "2024": 
       events: 38
-    "3":
+    "2026":
       poetry: 27.7
       quiz: 135
       mm: 1

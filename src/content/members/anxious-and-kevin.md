@@ -13,12 +13,12 @@ affiliation: 2024
 verified: true
 score:
   rp:
-    "2":
+    "2024":
       history: 20
-    # "3":
+    # "2026":
       # fcm: 10
   # bonus:
-  #   "2":
+  #   "2024":
   #     host: 10
 manualAchievements: 
     - "roleplay"

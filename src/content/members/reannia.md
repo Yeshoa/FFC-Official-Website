@@ -14,7 +14,7 @@ verified: true
 founder: true
 score:
   rp:
-    "1":
+    "2022":
       history: 20
       roleplayed: 10
 manualAchievements: 

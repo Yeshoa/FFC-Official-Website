@@ -14,14 +14,14 @@ verified: true
 founder: true
 score:
   rp:
-    "2":
+    "2024":
       history: 20
-    # "3":
+    # "2026":
       # fcm: 10
   events:
-    "2": 
+    "2024": 
       events: 15
-    "3": 
+    "2026": 
       poetry: 22.7
       quiz: 115
       mm: 1

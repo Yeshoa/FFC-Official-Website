@@ -11,6 +11,6 @@ affiliation: 2024
 verified: true
 score:
   events:
-    "3":
+    "2026":
       quiz: 182
 ---

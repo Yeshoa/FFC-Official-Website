@@ -12,13 +12,13 @@ affiliation: 2024
 verified: true
 score:
   rp:
-    "2":
+    "2024":
       history: 20
   events:
-    "2": 
+    "2024": 
       trivia: 33
   bonus:
-    "2":
+    "2024":
       secret A1: 3
       secret B1: 3
       secret B2: 2

@@ -11,10 +11,10 @@ affiliation: 2024
 verified: true
 score:
   rp:
-    "2":
+    "2024":
       history: 6
   events:
-    "2": 
+    "2024": 
       poetry: 27
 tierHistory:
   - tier: "B"

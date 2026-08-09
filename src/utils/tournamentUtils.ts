@@ -4,6 +4,7 @@ import { getMatchResult, getMatchWinnerIncludingPenalties } from './matchUtils';
 import { getMemberByName } from './memberUtils';
 import type { Tournament } from '@ty/collections';
 import { getMatchesByTournament } from '@lib/collections';
+import { CURRENT_SEASON } from '@config/season';
 
 // 🟢 Tipos
 type TournamentEntry = CollectionEntry<'tournaments'>;
@@ -12,9 +13,12 @@ type MemberEntry = CollectionEntry<'members'>;
 
 const matches = await getMatches();
 const tournaments = await getTournaments();
-const sortedTournaments = tournaments.sort((a, b) => b.data.id - a.data.id);
 // export const CURRENT_TOURNAMENT_ID = 4;
-export const CURRENT_TOURNAMENT_ID = sortedTournaments[0]?.data.id ?? null;
+// Torneo actual: el de la temporada actual (por season), con fallback al de mayor season
+export const CURRENT_TOURNAMENT_ID =
+  tournaments.find((t) => t.data.season === CURRENT_SEASON)?.data.id ??
+  [...tournaments].sort((a, b) => b.data.season - a.data.season)[0]?.data.id ??
+  null;
 
 export async function getTeamMatchesInTournament(teamName: string, tournamentId: number) {
   return matches.filter(
@@ -469,10 +473,10 @@ export async function getTeamFinalResult(
   // Si no tiene partidos en el torneo
   if (relevantMatches.length === 0) {
     // Si el torneo es futuro
-    if (tournament.data.id > CURRENT_TOURNAMENT_ID) {
+    if (tournament.data.season > CURRENT_SEASON) {
       return { status: 'upcoming' };          
     // Si el torneo es actual
-    } else if (tournament.data.id === CURRENT_TOURNAMENT_ID) {
+    } else if (tournament.data.season === CURRENT_SEASON) {
       // El primer partido aún no se jugó?
       const isFuture = await getTournamentFirstMatch(CURRENT_TOURNAMENT_ID);
       // Si no se jugó, to be determined, de lo contrario, no participó
@@ -577,23 +581,24 @@ export async function getTeamFinalResult(
     : { status: 'eliminated', result: 'Unknown Stage' };
 }
 
-// Función para obtener los últimos 4 tournament IDs completados (excluyendo el actual)
-export function getLastFourTournamentIds(tournaments: TournamentEntry[], currentTournamentId?: number): number[] {
-  // Si no se especifica el actual, asumir que es el de mayor ID
-  const current = currentTournamentId ?? Math.max(...tournaments.map((t) => t.data.id))
+// Función para obtener las últimas 4 temporadas cerradas de Forest Cup (excluyendo la actual)
+export function getLastFourSeasons(tournaments: TournamentEntry[], currentSeason?: number): number[] {
+  const season = currentSeason ?? CURRENT_SEASON
 
-  return tournaments
-    .filter((t) => t.data.id < current) // Excluir el torneo actual
-    .sort((a, b) => b.data.id - a.data.id) // Ordenar por ID descendente (más reciente primero)
-    .slice(0, 4) // Solo los últimos 4
-    .map((t) => t.data.id)
+  return [...new Set(
+    tournaments
+      .filter((t) => t.data.type === 'forest-cup' && t.data.season < season)
+      .map((t) => t.data.season)
+  )]
+    .sort((a, b) => b - a) // Temporadas más recientes primero
+    .slice(0, 4) // Solo las últimas 4
 }
 
 // Función para calcular puntos de torneos con decay automático
 export async function calculateTournamentDecayPoints(
   teamName: string,
   tournaments: TournamentEntry[],
-  currentTournamentId?: number,
+  currentSeason?: number,
 ): Promise<{
   totalPoints: number
   breakdown: Array<{
@@ -604,25 +609,27 @@ export async function calculateTournamentDecayPoints(
     finalPoints: number
   }>
 }> {
-  const lastFourIds = getLastFourTournamentIds(tournaments, currentTournamentId)
+  const lastFourSeasons = getLastFourSeasons(tournaments, currentSeason)
   const decayFactors = [1.0, 0.5, 0.25, 0.1] // 100%, 50%, 25%, 10%
-  const breakdown = await Promise.all(lastFourIds.map(async (tournamentId, index) => {
-    const tournament = tournaments.find((t) => t.data.id === tournamentId)
-    const rawPoints = await getTeamPointsInTournament(teamName, tournamentId)
-    const decayFactor = decayFactors[index] || 0
+  const breakdown = await Promise.all(lastFourSeasons.map(async (season) => {
+    const tournament = tournaments.find((t) => t.data.type === 'forest-cup' && t.data.season === season)
+    if (!tournament) return null
+    const rawPoints = await getTeamPointsInTournament(teamName, tournament.data.id)
+    const decayFactor = decayFactors[lastFourSeasons.indexOf(season)] || 0
     const finalPoints = rawPoints * decayFactor
     return {
-      tournamentId,
-      tournamentName: tournament?.data.name || `Tournament ${tournamentId}`,
+      tournamentId: tournament.data.id,
+      tournamentName: tournament.data.name || `Tournament ${season}`,
       points: rawPoints,
       decayFactor,
       finalPoints,
     }
   }))
 
-  const totalPoints = breakdown.reduce((sum, item) => sum + item.finalPoints, 0)
+  const filteredBreakdown = breakdown.filter((b): b is NonNullable<typeof b> => b !== null)
+  const totalPoints = filteredBreakdown.reduce((sum, item) => sum + item.finalPoints, 0)
 
-  return { totalPoints, breakdown }
+  return { totalPoints, breakdown: filteredBreakdown }
 }
 
 // Función para obtener el equipo según la posición final

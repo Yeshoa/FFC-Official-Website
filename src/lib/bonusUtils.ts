@@ -1,4 +1,4 @@
-import { CURRENT_TOURNAMENT_ID } from "../utils/tournamentUtils";
+import { CURRENT_SEASON } from "@config/season";
 import { SCORING_CONFIG } from "./scoreUtils";
 import { getTournaments } from '@lib/collections';
 import { getBonuses } from '@lib/collections';
@@ -18,15 +18,15 @@ export const getCurrentBonusPoints = (team: Record<string, number>, bonusName: s
 // Obtener el total de bonus anteriores con decay
 export async function calculatePastBonusPoints(
   member: MemberEntry,
-  lastFourTournamentIds: number[],
+  lastFourSeasons: number[],
   decayFactors: number[] = [1.0, 0.5, 0.25, 0.1]
 ): Promise<number> {
-  return Math.ceil(lastFourTournamentIds.reduce((sum, tournamentId, index) => {
-    // Buscar todos los bonuses para este torneo
-    const tournamentBonuses = bonuses.filter(b => b.edition === tournamentId);
+  return Math.ceil(lastFourSeasons.reduce((sum, season, index) => {
+    // Buscar todos los bonuses para esta temporada
+    const seasonBonuses = bonuses.filter(b => b.edition === season);
     
-    // Calcular puntos de bonuses para este miembro en este torneo
-    const bonusesForMember = tournamentBonuses.reduce((total, bonus) => {
+    // Calcular puntos de bonuses para este miembro en esta temporada
+    const bonusesForMember = seasonBonuses.reduce((total, bonus) => {
       return total + (bonus.participants[member.data.name] ?? 0);
     }, 0);
     
@@ -37,13 +37,13 @@ export async function calculatePastBonusPoints(
 
 export async function calculateCurrentBonusPoints(
   member: MemberEntry,
-  currentTournamentId: number = CURRENT_TOURNAMENT_ID
+  currentSeason: number = CURRENT_SEASON
 ): Promise<{
   totalPoints: number
   bonuses: Record<string, number>
 }> {
-  // Buscar todos los bonuses para la edición actual
-  const currentBonuses = bonuses.filter(b => b.edition === currentTournamentId);
+  // Buscar todos los bonuses para la temporada actual
+  const currentBonuses = bonuses.filter(b => b.edition === currentSeason);
   // Construir objeto con bonuses por tipo
   const bonusesRecord: Record<string, number> = {};
   currentBonuses.forEach(bonus => {
@@ -52,7 +52,7 @@ export async function calculateCurrentBonusPoints(
   });
 
   // Automatic calculation for host (puede ser redundante pero lo dejamos por compatibilidad)
-  const hostFromTournament = tournaments.find((t) => t.data.id === currentTournamentId)?.data.host === member.data.name ? SCORING_CONFIG.BO_MAX : 0;
+  const hostFromTournament = tournaments.find((t) => t.data.season === currentSeason)?.data.host === member.data.name ? SCORING_CONFIG.BO_MAX : 0;
   if (hostFromTournament > 0) {
     bonusesRecord['host'] = hostFromTournament;
   }
@@ -66,5 +66,5 @@ export async function calculateCurrentBonusPoints(
 }
 
 export const getCurrentBonuses = (): Bonuses => {
-  return bonuses.filter(bonus => bonus.edition === CURRENT_TOURNAMENT_ID);
+  return bonuses.filter(bonus => bonus.edition === CURRENT_SEASON);
 }

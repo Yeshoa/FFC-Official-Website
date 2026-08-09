@@ -11,6 +11,7 @@ banner: "src/assets/images/tournaments/2026/banner.png"
 cardImg: "src/assets/images/tournaments/2026/heroImg.png"
 heroImg: "src/assets/images/tournaments/2026/roless-c.png"
 edition: 2026
+season: 2026
 loadingType: "eager"
 prizes:
   topScorer:
