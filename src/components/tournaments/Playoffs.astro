@@ -29,7 +29,7 @@ const sortedMatches = playoffMatches
 ---
 
 <div class="mt-6 w-full px-4 flex justify-center">
-  <div class="flex flex-col justify-center items-center p-4 w-full lg:w-11/12 gap-8 bg-green-950/30 rounded-3xl">
+  <div class="flex flex-col justify-center items-center p-4 w-full lg:w-11/12 gap-8 bg-surface/30 rounded-3xl">
     {sortedMatches.length > 0 ? (
       <div class="w-full">
         <h3 class="text-4xl font-bold text-white text-center mb-6">Playoffs</h3>
@@ -43,7 +43,7 @@ const sortedMatches = playoffMatches
         </div>
       </div>
     ) : (
-      <p class="text-gray-400 italic">No playoff matches found for this tournament.</p>
+      <p class="text-text-muted italic">No playoff matches found for this tournament.</p>
     )}
   </div>
 </div>

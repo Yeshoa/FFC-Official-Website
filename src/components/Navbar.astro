@@ -105,22 +105,22 @@ interface NavLink {
 
 const getLinkClasses = (link: NavLink, isActive: boolean) => {
   if (link.special) {
-    return "flex gap-2 items-center py-2 px-3 bg-white rounded-lg text-green-950 group-hover:bg-green-600 group-hover:text-white";
+    return "flex gap-2 items-center py-2 px-3 bg-white rounded-lg text-background group-hover:bg-primary group-hover:text-white";
   }
-  return `py-2 px-3 rounded-sm flex gap-2 items-center ${isActive ? "text-green-600" : "text-white group-hover:text-green-300"}`;
+  return `py-2 px-3 rounded-sm flex gap-2 items-center ${isActive ? "text-primary" : "text-white group-hover:text-primary-light"}`;
 };
 
 const getIconClasses = (link: NavLink, isActive: boolean) => {
   if (link.special) {
-    return "fill-green-950 group-hover:fill-white";
+    return "fill-background group-hover:fill-white";
   }
-  return `${isActive ? "fill-green-600" : "fill-white group-hover:fill-green-300"}`;
+  return `${isActive ? "fill-primary" : "fill-white group-hover:fill-primary-light"}`;
 };
 ---
 
 <div class="main__cont">
   <!-- NAVBAR TOP -->
-  <nav class="navbar__top bg-green-1000 w-full z-20 top-0 start-0 border-b border-green-600">
+  <nav class="navbar__top bg-background w-full z-20 top-0 start-0 border-b border-primary">
     <div class="navbar__cont max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-3 gap-2">
       <div class="hamburger flex md:hidden">
         <span class="bar"></span>
@@ -166,8 +166,8 @@ const getIconClasses = (link: NavLink, isActive: boolean) => {
   </nav>
   
   <!-- NAVBAR MOBILE -->
-  <div class="navbar border-r-1 border-green-600 flex flex-col" id="navbar-sticky">
-    <header class="navbar__header py-8 px-4 flex items-center justify-between border-b-1 border-green-600">
+  <div class="navbar border-r-1 border-primary flex flex-col" id="navbar-sticky">
+    <header class="navbar__header py-8 px-4 flex items-center justify-between border-b-1 border-primary">
       <div class="navbar__header__logo">
         <a href={NAV_LINKS.home.href}>
           <Image src={FFCLogo} alt="FFC Logo" loading="eager" height={100} quality={70} format="webp" class="navbar__phone__logo"/>
@@ -198,12 +198,12 @@ const getIconClasses = (link: NavLink, isActive: boolean) => {
         );
       })}
     </ul>
-    <div class="mt-auto flex flex-col md:flex-row p-4 border-t border-green-600 gap-6">
+    <div class="mt-auto flex flex-col md:flex-row p-4 border-t border-primary gap-6">
       <div class="flex gap-3">
         <!-- Community -->
         <div class="flex-1 text-center">
           <h2 class="text-sm font-semibold uppercase text-white mb-3">Community</h2>
-          <ul class="space-y-2 text-gray-400 text-sm">
+          <ul class="space-y-2 text-text-muted text-sm">
             <li><a href={LINKS.nationStates.forest} target="_blank" class="hover:underline">Forest</a></li>
             <li><a href={LINKS.social.discordForest} target="_blank" class="hover:underline">Forest Discord</a></li>
             <li><a href={LINKS.social.discordFFC} target="_blank" class="hover:underline">FFC Discord</a></li>
@@ -213,7 +213,7 @@ const getIconClasses = (link: NavLink, isActive: boolean) => {
         <!-- Follow us -->
         <div class="flex-1 text-center">
           <h2 class="text-sm font-semibold uppercase text-white mb-3">Follow us</h2>
-          <ul class="space-y-2 text-gray-400 text-sm">
+          <ul class="space-y-2 text-text-muted text-sm">
             <li>
               <a href={LINKS.social.youtube} target="_blank" class="hover:underline flex justify-center gap-2 items-center">
                 <Image src={YTLogo} alt="YouTube" width={20} format='webp' quality={50} loading={"lazy"} class="hover:opacity-80" />

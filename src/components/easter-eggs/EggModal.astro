@@ -14,17 +14,17 @@ const eggs = Object.values(EASTER_EGGS);
   aria-labelledby="egg-modal-title"
 >
   <div class="egg-modal__backdrop absolute inset-0 bg-black/80"></div>
-  <div class="egg-modal__panel relative z-10 w-full max-w-lg rounded-2xl border border-green-700 bg-green-950 p-6 shadow-2xl">
+  <div class="egg-modal__panel relative z-10 w-full max-w-lg rounded-2xl border border-primary-dark bg-surface p-6 shadow-2xl">
     <button
       type="button"
       id="egg-modal-close"
-      class="absolute right-4 top-4 rounded-full border border-green-700 px-3 py-1 text-sm font-semibold text-green-100 transition hover:border-green-500 hover:text-white"
+      class="absolute right-4 top-4 rounded-full border border-primary-dark px-3 py-1 text-sm font-semibold text-primary-faint transition hover:border-primary-strong hover:text-white"
       aria-label="Close Easter egg modal"
     >
       Close
     </button>
 
-    <p class="mb-2 text-sm font-semibold uppercase tracking-[0.22em] text-green-300">Easter Egg Found</p>
+    <p class="mb-2 text-sm font-semibold uppercase tracking-[0.22em] text-primary-light">Easter Egg Found</p>
     <h2 id="egg-modal-title" class="mb-4 text-3xl font-extrabold text-white">You found an Easter Egg!</h2>
     <div class="mb-5 flex justify-center">
       {eggs.map((egg) => (
@@ -39,21 +39,21 @@ const eggs = Object.values(EASTER_EGGS);
         />
       ))}
     </div>
-    <p class="mb-5 text-green-100">
+    <p class="mb-5 text-primary-faint">
       Keep this secret safe. To claim it, send a telegram to
-      <a href={LINKS.nationStates.bilsa} target="_blank" rel="noopener noreferrer" class="font-semibold text-green-300 underline decoration-green-500/60 underline-offset-4">
+      <a href={LINKS.nationStates.bilsa} target="_blank" rel="noopener noreferrer" class="font-semibold text-primary-light underline decoration-primary-strong/60 underline-offset-4">
         Bilsa on NationStates
       </a>
       or DM me on
-      <a href={LINKS.social.discordFFC} target="_blank" rel="noopener noreferrer" class="font-semibold text-green-300 underline decoration-green-500/60 underline-offset-4">
+      <a href={LINKS.social.discordFFC} target="_blank" rel="noopener noreferrer" class="font-semibold text-primary-light underline decoration-primary-strong/60 underline-offset-4">
         Discord
       </a>, indicating the LOCATION and CODE of this egg.
     </p>
 
-    <div class="mb-5 rounded-xl border border-green-700 bg-green-900/60 p-4">
-      <p class="mb-1 text-sm uppercase tracking-[0.18em] text-green-300">Secret Code</p>
+    <div class="mb-5 rounded-xl border border-primary-dark bg-surface-raised/60 p-4">
+      <p class="mb-1 text-sm uppercase tracking-[0.18em] text-primary-light">Secret Code</p>
       <p id="egg-modal-code" class="text-2xl font-black text-white">---</p>
-      <p id="egg-modal-name" class="mt-2 text-sm text-green-100"></p>
+      <p id="egg-modal-name" class="mt-2 text-sm text-primary-faint"></p>
     </div>
 
     <div class="rounded-xl border border-red-700/70 bg-red-950/50 p-4 text-sm leading-relaxed text-red-100">

@@ -102,7 +102,7 @@ const winner = await getMemberByName(FCData.champion) || undefined;
 
 <App title={pageTitle}>
   <main class="flex flex-col items-center relative">
-    <div class="flex flex-col justify-center items-center w-full bg-gradient-to-b from-transparent to-green-900/80">
+    <div class="flex flex-col justify-center items-center w-full bg-gradient-to-b from-transparent to-surface-raised/80">
       <!-- <TournamentGrid currentTournament={FCData}/> -->
       <TournamentHero currentTournament={FCData} champion={winner} className='object-top' />
     </div>

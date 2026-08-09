@@ -62,7 +62,7 @@ Object.values(stadiumsByNation).forEach(nationStadiums => {
                   {hasValidMember ? (
                     <a 
                       href={ROUTES.members.detail(member.slug)}
-                      class="bg-green-900 hover:bg-green-700 px-4 py-2 rounded-lg font-bold group flex items-center transition-colors duration-200"
+                      class="bg-surface-raised hover:bg-primary-dark px-4 py-2 rounded-lg font-bold group flex items-center transition-colors duration-200"
                     >
                       <Image
                         src={member.data.flagPath || defaultFlag}
@@ -95,7 +95,7 @@ Object.values(stadiumsByNation).forEach(nationStadiums => {
                   <div class="text-sm text-white/60">
                     {stadiumsByNation[nation].length} stadium{stadiumsByNation[nation].length !== 1 ? 's' : ''}
                   </div>
-                  <div class="flex-1 h-px bg-gradient-to-r from-green-500/50 to-transparent"></div>
+                  <div class="flex-1 h-px bg-gradient-to-r from-primary-strong/50 to-transparent"></div>
                 </div>
                 
                 <div class="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-4">

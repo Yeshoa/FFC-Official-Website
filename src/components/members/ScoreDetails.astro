@@ -9,9 +9,9 @@ const { scoreData } = Astro.props;
 const { scores, details } = scoreData;
 ---
 
-<div class="bg-green-950/80 rounded-xl p-5 mb-8 shadow-lg text-xs border border-green-900/50">
-  <!-- <h3 class="text-sm font-semibold text-white mb-4 border-b border-green-700 pb-2 flex items-center gap-2">
-    <span class="text-green-400">●</span>
+<div class="bg-surface/80 rounded-xl p-5 mb-8 shadow-lg text-xs border border-surface-raised/50">
+  <!-- <h3 class="text-sm font-semibold text-white mb-4 border-b border-primary-dark pb-2 flex items-center gap-2">
+    <span class="text-primary-muted">●</span>
     Score Details
   </h3> -->
 
@@ -20,14 +20,14 @@ const { scores, details } = scoreData;
     <!-- Roleplay -->
     <div>
       <div class="flex justify-between items-baseline mb-2">
-        <span class="font-semibold text-green-300">Roleplay</span>
-        <span class="text-lg font-bold text-green-400">{scores.currentRoleplay}</span>
+        <span class="font-semibold text-primary-light">Roleplay</span>
+        <span class="text-lg font-bold text-primary-muted">{scores.currentRoleplay}</span>
       </div>
-      <div class="space-y-1 pl-1 text-[10px] text-gray-400">
+      <div class="space-y-1 pl-1 text-[10px] text-text-muted">
         {Object.entries(details.currentRoleplay).map(([name, points]) => (
           <div class="flex justify-between">
             <span class="opacity-75">{name}</span>
-            <span class={points > 0 ? 'text-green-400 font-medium' : 'text-gray-600'}>
+            <span class={points > 0 ? 'text-primary-muted font-medium' : 'text-gray-600'}>
               {points}
             </span>
           </div>
@@ -41,7 +41,7 @@ const { scores, details } = scoreData;
         <span class="font-semibold text-blue-300">Events</span>
         <span class="text-lg font-bold text-blue-400">{scores.currentEventPoints}</span>
       </div>
-      <div class="space-y-1 pl-1 text-[10px] text-gray-400">
+      <div class="space-y-1 pl-1 text-[10px] text-text-muted">
         {Object.entries(details.currentEvents).map(([name, points]) => (
           <div class="flex justify-between">
             <span class="opacity-75">{name}</span>
@@ -59,7 +59,7 @@ const { scores, details } = scoreData;
         <span class="font-semibold text-amber-300">Bonus</span>
         <span class="text-lg font-bold text-amber-400">{scores.currentBonus}</span>
       </div>
-      <div class="space-y-1 pl-1 text-[10px] text-gray-400">
+      <div class="space-y-1 pl-1 text-[10px] text-text-muted">
         {Object.entries(details.currentBonus).map(([name, points]) => (
           <div class="flex justify-between">
             <span class="opacity-75">{name}</span>
@@ -72,9 +72,9 @@ const { scores, details } = scoreData;
     </div>
 
     <!-- Past Editions -->
-    <div class="lg:border-l border-green-800 pl-6">
+    <div class="lg:border-l border-primary-deep pl-6">
       <div class="font-semibold text-purple-300 mb-2">Past Editions</div>
-      <div class="space-y-1 text-[10px] text-gray-400">
+      <div class="space-y-1 text-[10px] text-text-muted">
         <div class="flex justify-between">
           <span class="opacity-75">Roleplay</span>
           <span class="text-emerald-400">{details.pastBreakdown.pastRoleplay}</span>

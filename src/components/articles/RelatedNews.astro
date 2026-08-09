@@ -13,7 +13,7 @@ interface Props {
 const { articles, max = 3, title = 'Related News'} = Astro.props;
 ---
 
-<div class="container mx-auto px-4 py-8 border-t border-green-700">
+<div class="container mx-auto px-4 py-8 border-t border-primary-dark">
   <Title size="text-4xl">
       {title}
   </Title>
@@ -30,7 +30,7 @@ const { articles, max = 3, title = 'Related News'} = Astro.props;
     ))}
   </div>
   {articles.length === 0 && (
-    <p class="text-green-200 text-center">No news published yet.</p>
+    <p class="text-primary-soft text-center">No news published yet.</p>
   )}
   <div class="flex justify-center mt-8">
     <Button link={ROUTES.articles.index}>View All Articles</Button>

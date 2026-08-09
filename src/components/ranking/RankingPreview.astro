@@ -28,7 +28,7 @@ const topMembers = rankedMembers.slice(0, showTopCount);
           const bgColors = ['bg-gradient-to-br from-yellow-500/20 to-yellow-600/10', 'bg-gradient-to-br from-gray-400/20 to-gray-500/10', 'bg-gradient-to-br from-amber-600/20 to-amber-700/10'];
           
           return (
-            <a href={`${ROUTES.members.detail(team.slug)}`} class={`${bgColors[index]} rounded-lg p-4 border ${isFirst ? 'border-yellow-500/30' : 'border-green-700/30'} transition-transform hover:scale-110 duration-300`}>
+            <a href={`${ROUTES.members.detail(team.slug)}`} class={`${bgColors[index]} rounded-lg p-4 border ${isFirst ? 'border-yellow-500/30' : 'border-primary-dark/30'} transition-transform hover:scale-110 duration-300`}>
               <div class="text-center">
                 <div class={`text-3xl font-bold ${getRankClass(position)} mb-2`}>
                   {position}°
@@ -47,7 +47,7 @@ const topMembers = rankedMembers.slice(0, showTopCount);
                     {team.tier}
                   </span>
                   <span>{team.totalScore}</span> 
-                  <span class="text-sm text-green-300 font-medium">pts</span>
+                  <span class="text-sm text-primary-light font-medium">pts</span>
                 </div>
               </div>
             </a>
@@ -60,9 +60,9 @@ const topMembers = rankedMembers.slice(0, showTopCount);
           {topMembers.slice(3).map((team, index) => {
             const position = index + 4;
             return (
-              <a href={`${ROUTES.members.detail(team.slug)}`} class="flex items-center justify-between bg-green-800/20 rounded-lg p-4 hover:bg-green-700/30 transition-colors duration-200">
+              <a href={`${ROUTES.members.detail(team.slug)}`} class="flex items-center justify-between bg-primary-deep/20 rounded-lg p-4 hover:bg-primary-dark/30 transition-colors duration-200">
                 <div class="flex items-center gap-2 md:gap-4">
-                  <div class="text-xl font-bold text-green-300 w-fit">
+                  <div class="text-xl font-bold text-primary-light w-fit">
                     {position}°
                   </div>
                   <Image 
@@ -80,7 +80,7 @@ const topMembers = rankedMembers.slice(0, showTopCount);
                     {team.tier}
                   </span>
                   <span>{team.totalScore}</span> 
-                  <span class="text-sm text-green-300 font-medium hidden sm:inline">pts</span>
+                  <span class="text-sm text-primary-light font-medium hidden sm:inline">pts</span>
                 </div>
               </a>
             );
@@ -88,7 +88,7 @@ const topMembers = rankedMembers.slice(0, showTopCount);
         </div>
       )}
 
-      <div class="text-center mt-8 pt-6 border-t border-green-700/30">
+      <div class="text-center mt-8 pt-6 border-t border-primary-dark/30">
         <Button link={ROUTES.ranking}>View Full Ranking</Button>
       </div>
   </div>

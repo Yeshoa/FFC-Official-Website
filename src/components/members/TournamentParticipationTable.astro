@@ -47,10 +47,10 @@ const tournamentsData = await Promise.all(
       result.result === 'Champion' ? 'text-amber-400 font-black' :
       result.result === 'Finalist' ? 'text-sky-300 font-bold' :
       result.result === 'Third-Place' ? 'text-amber-500 font-bold' :
-      result.result === 'Semifinalist' ? 'text-green-400 font-semibold' :
-      result.result === 'Quarterfinalist' ? 'text-green-400' :
-      result.result === 'Round of 16' ? 'text-green-300' :
-      result.result === 'Round of 32' ? 'text-green-200' :
+      result.result === 'Semifinalist' ? 'text-primary-muted font-semibold' :
+      result.result === 'Quarterfinalist' ? 'text-primary-muted' :
+      result.result === 'Round of 16' ? 'text-primary-light' :
+      result.result === 'Round of 32' ? 'text-primary-soft' :
       '';
     return {
       t,
@@ -97,12 +97,12 @@ for (const tournamentData of tournamentsData) {
 }
 ---
 
-<div class="bg-green-950/80 shadow-lg rounded-lg p-6 mb-8">
-<h2 class="text-2xl font-semibold mb-4 border-b pb-2 border-green-600">{type === 'forest-cup' ? 'Forest Cup' : 'Champions League'} Participations</h2>
-<h6 class="md:hidden text-center mb-2 text-gray-400">Swipe to see the full table</h6>
+<div class="bg-surface/80 shadow-lg rounded-lg p-6 mb-8">
+<h2 class="text-2xl font-semibold mb-4 border-b pb-2 border-primary">{type === 'forest-cup' ? 'Forest Cup' : 'Champions League'} Participations</h2>
+<h6 class="md:hidden text-center mb-2 text-text-muted">Swipe to see the full table</h6>
   <div class="overflow-x-auto">
     <table class="w-full text-center table-auto border-collapse">
-      <thead class="bg-green-800 text-white">
+      <thead class="bg-primary-deep text-white">
         <tr>
           <th class="px-2 py-2 rounded-tl-lg" title="Edition">Edition</th>
           <th class="px-2 py-2" title="Final match">Result</th>
@@ -124,7 +124,7 @@ for (const tournamentData of tournamentsData) {
           // No participó
           if (t.result.status === 'not_participated') {
             return (
-              <tr class="border-b border-green-700 italic bg-red-900/10 text-red-300">
+              <tr class="border-b border-primary-dark italic bg-red-900/10 text-red-300">
                 <td class={`px-2 py-2 flex flex-col items-center gap-1 justify-center`}>
                   {t.host && <a href={`/members/${t.host.slug}`} class="flex-shrink-0"><Image src={t.host.data.flagPath} alt={t.host.data.name} height={20} class="rounded-sm max-h-14" loading={'lazy'} quality={10} format={'webp'} /></a>}
                   <a href={`/${type}/${t.t.data.edition}`} class={`hover:underline ${t.hostClass}`}>{t.t.data.edition}</a>
@@ -136,7 +136,7 @@ for (const tournamentData of tournamentsData) {
           // No se sabe
           if (t.result.status === 'upcoming') {
             return (
-              <tr class="border-b border-green-700 italic bg-blue-800/10 text-green-300">
+              <tr class="border-b border-primary-dark italic bg-blue-800/10 text-primary-light">
                 <td class="px-2 py-2 flex flex-col items-center gap-1 justify-center">
                   {t.host && <a href={`/members/${t.host.slug}`} class="flex-shrink-0"><Image src={t.host.data.flagPath} alt={t.host.data.name} height={20} class="rounded-sm max-h-14" loading={'lazy'} quality={10} format={'webp'} /></a>}
                   <a href={`/${type}/${t.t.data.edition}`} class={`hover:underline ${t.hostClass}`}>{t.t.data.edition}</a>
@@ -148,7 +148,7 @@ for (const tournamentData of tournamentsData) {
           // En progreso (partido pendiente)
           if (t.result.status === 'in_progress') {
             return (
-              <tr class="border-b border-green-700 italic bg-blue-800/10 text-green-300">
+              <tr class="border-b border-primary-dark italic bg-blue-800/10 text-primary-light">
                 <td class="px-2 py-2 flex flex-col items-center gap-1 justify-center">
                   {t.host && <a href={`/members/${t.host.slug}`} class="flex-shrink-0"><Image src={t.host.data.flagPath} alt={t.host.data.name} height={20} class="rounded-sm max-h-14" loading={'lazy'} quality={10} format={'webp'} /></a>}
                   <a href={`/${type}/${t.t.data.edition}`} class={`hover:underline ${t.hostClass}`}>{t.t.data.edition}</a>
@@ -163,7 +163,7 @@ for (const tournamentData of tournamentsData) {
           // Perdió el playoff (eliminado en fase de grupos/playoff)
           if (t.result.status === 'eliminated' && t.result.result === 'Playoff') {
             return (
-              <tr class="border-b border-green-700 italic bg-red-900/10 text-red-300">
+              <tr class="border-b border-primary-dark italic bg-red-900/10 text-red-300">
                 <td class={`px-2 py-2 flex flex-col items-center gap-1 justify-center`}>
                   {t.host && <a href={`/members/${t.host.slug}`} class="flex-shrink-0"><Image src={t.host.data.flagPath} alt={t.host.data.name} height={20} class="rounded-sm max-h-14" loading={'lazy'} quality={10} format={'webp'} /></a>}
                   <a href={`/${type}/${t.t.data.edition}`} class={`hover:underline ${t.hostClass}`}>{t.t.data.edition}</a>
@@ -176,7 +176,7 @@ for (const tournamentData of tournamentsData) {
           // Equipos eliminados en otras etapas (Round of 16, etc) - SOLO SI TORNEO TIENE PARTIDOS PENDIENTES
           if (t.result.status === 'eliminated' && tournamentHasPendingMatches.get(t.t.data.id)) {
             return (
-              <tr class="border-b border-green-700 italic bg-green-900/20 text-green-300">
+              <tr class="border-b border-primary-dark italic bg-surface-raised/20 text-primary-light">
                 <td class="px-2 py-2 flex flex-col items-center gap-1 justify-center">
                   {t.host && <a href={`/members/${t.host.slug}`} class="flex-shrink-0"><Image src={t.host.data.flagPath} alt={t.host.data.name} height={20} class="rounded-sm max-h-14" loading={'lazy'} quality={10} format={'webp'} /></a>}
                   <a href={`/${type}/${t.t.data.edition}`} class={`hover:underline ${t.hostClass}`}>{t.t.data.edition}</a>
@@ -189,7 +189,7 @@ for (const tournamentData of tournamentsData) {
           }
 
           return (
-            <tr class="border-b border-green-700 hover:bg-green-900/20">
+            <tr class="border-b border-primary-dark hover:bg-surface-raised/20">
               <td class={`px-2 py-2 flex flex-col items-center gap-1 justify-center ${t.hostClass}`}>
                 {t.host && <a href={`/members/${t.host.slug}`} class="flex-shrink-0"><Image src={t.host.data.flagPath} alt={t.host.data.name} height={20} class="rounded-sm max-h-14" quality={10} format={'webp'} /></a>}
                 <a href={`/${type}/${t.t.data.edition}`} class={`hover:underline`}>{t.t.data.edition}</a>
@@ -218,7 +218,7 @@ for (const tournamentData of tournamentsData) {
 
           if (!didParticipate && !isFutureOrCurrent) {
             return (
-              <tr class="border-b border-green-700 italic bg-red-900/10 text-red-300">
+              <tr class="border-b border-primary-dark italic bg-red-900/10 text-red-300">
                 <td class={`px-2 py-2 flex flex-col items-center gap-1 justify-center`}>
                   {host && <a href={`/members/${host.slug}`} class="flex-shrink-0"><Image src={host.data.flagPath} alt={host.data.name} height={20} class="rounded-sm max-h-14" loading={'lazy'} quality={10} format={'webp'} /></a>}
                   <a href={`/${type}/${t.data.edition}`} class={`hover:underline ${hostClass}`}>{t.data.edition}</a>
@@ -230,7 +230,7 @@ for (const tournamentData of tournamentsData) {
             );
           } else if (isFutureOrCurrent) {
             return (
-              <tr class="border-b border-green-700 italic bg-blue-800/10 text-green-300">
+              <tr class="border-b border-primary-dark italic bg-blue-800/10 text-primary-light">
                 <td class="px-2 py-2 flex flex-col items-center gap-1 justify-center">
                   {host && <a href={`/members/${host.slug}`} class="flex-shrink-0"><Image src={host.data.flagPath} alt={host.data.name} height={20} class="rounded-sm max-h-14" loading={'lazy'} quality={10} format={'webp'} /></a>}
                   <a href={`/${type}/${t.data.edition}`} class={`hover:underline ${hostClass}`}>{t.data.edition}</a>
@@ -249,7 +249,7 @@ for (const tournamentData of tournamentsData) {
           const position = getTeamPositionInTournamentById(t.data.id);
           const resultClass =  position === 1 ? 'text-amber-400 font-bold' : position === 2 ? 'text-sky-300 font-bold' : position === 3 ? 'text-amber-600 font-bold' : '';
           return (
-            <tr class="border-b border-green-700 hover:bg-green-900/20">
+            <tr class="border-b border-primary-dark hover:bg-surface-raised/20">
               <td class={`px-2 py-2 flex flex-col items-center gap-1 justify-center ${hostClass}`}>
                 {host && <a href={`/members/${host.slug}`} class="flex-shrink-0"><Image src={host.data.flagPath} alt={host.data.name} height={20} class="rounded-sm max-h-14" quality={10} format={'webp'} /></a>}
                 <a href={`/${type}/${t.data.edition}`} class={`hover:underline`}>{t.data.edition}</a>

@@ -22,7 +22,7 @@ const sortedTournaments = allTournaments.sort((a, b) => a.data.id - b.data.id);
 ---
 
 <div class="relative w-full">
-  <nav class="absolute top-0 left-0 right-0 z-20 bg-green-950/80 backdrop-blur-sm">
+  <nav class="absolute top-0 left-0 right-0 z-20 bg-surface/80 backdrop-blur-sm">
     <div class="flex justify-center items-center py-3 px-4">
       <div class="flex gap-6 overflow-x-auto scrollbar-hide">
         {sortedTournaments.slice().reverse().map((tournament) => {
@@ -34,7 +34,7 @@ const sortedTournaments = allTournaments.sort((a, b) => a.data.id - b.data.id);
                 "text-sm font-medium whitespace-nowrap transition-all duration-300",
                 isActive
                   ? "text-amber-300 border-b-2 border-amber-300 pb-1 pointer-events-none"
-                  : "text-green-200 hover:text-amber-200"
+                  : "text-primary-soft hover:text-amber-200"
               ]}
             >
               <span class="hidden sm:inline">{tournament.data.name}</span>
@@ -56,7 +56,7 @@ const sortedTournaments = allTournaments.sort((a, b) => a.data.id - b.data.id);
         loading="eager"
         format="webp"
       />
-      <div class="absolute inset-0 bg-gradient-to-t from-green-1000 via-green-950/80 to-green-950/60 lg:bg-gradient-to-r lg:from-green-950 lg:via-green-950/70 lg:to-green-950/30"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-background via-surface/80 to-surface/60 lg:bg-gradient-to-r lg:from-surface lg:via-surface/70 lg:to-surface/30"></div>
     </div>
 
     <!-- Contenido principal (aparece después con fade-in) -->
@@ -75,7 +75,7 @@ const sortedTournaments = allTournaments.sort((a, b) => a.data.id - b.data.id);
       </div>
 
       <div>
-        <h2 class="text-lg uppercase tracking-widest text-gray-400">
+        <h2 class="text-lg uppercase tracking-widest text-text-muted">
           Champions
         </h2>
         

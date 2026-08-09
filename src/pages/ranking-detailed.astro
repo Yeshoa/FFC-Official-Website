@@ -25,32 +25,32 @@ const colWidth = "min-w-[40px] xl:min-w-[56px]";
 
 <Layout title="FFC - Detailed Ranking">
   <main class="w-full p-6">
-    <h1 class="text-4xl font-bold mb-8 text-center text-green-400">Detailed Ranking</h1>
+    <h1 class="text-4xl font-bold mb-8 text-center text-primary-muted">Detailed Ranking</h1>
     <h6 class="text-sm text-gray-300 mb-2 text-center">Swipe to see the full table</h6>
 
     <div class="overflow-x-auto rounded-lg">
-      <table class="w-max border-collapse text-xs xl:text-sm bg-green-900/30 mx-auto">
-        <thead class="bg-green-800 sticky top-0 z-30">
+      <table class="w-max border-collapse text-xs xl:text-sm bg-surface-raised/30 mx-auto">
+        <thead class="bg-primary-deep sticky top-0 z-30">
           <tr>
             <!-- ° Position -->
             <th
-              class="min-w-[32px] xl:min-w-[40px] px-2 py-2 xl:py-3 text-center border-b border-green-600 sticky left-0 z-30 bg-green-800 rounded-tl-lg"
+              class="min-w-[32px] xl:min-w-[40px] px-2 py-2 xl:py-3 text-center border-b border-primary sticky left-0 z-30 bg-primary-deep rounded-tl-lg"
               title="Position"
             >°</th>
 
             <!-- Flag -->
             <th
-              class="min-w-[32px] xl:min-w-[40px] px-1 xl:px-2 py-2 xl:py-3 text-center border-b border-green-600 sticky left-8 xl:left-10 z-30 bg-green-800"
+              class="min-w-[32px] xl:min-w-[40px] px-1 xl:px-2 py-2 xl:py-3 text-center border-b border-primary sticky left-8 xl:left-10 z-30 bg-primary-deep"
             ></th>
 
             <!-- Team -->
             <th
-              class="min-w-[80px] xl:min-w-[140px] py-2 xl:py-3 text-left border-b border-green-600 sticky left-16 xl:left-20 z-30 bg-green-800 px-2 whitespace-nowrap"
+              class="min-w-[80px] xl:min-w-[140px] py-2 xl:py-3 text-left border-b border-primary sticky left-16 xl:left-20 z-30 bg-primary-deep px-2 whitespace-nowrap"
             >Team</th>
 
             {currentRoleplays.map(rp => (
               <th
-                class={`${colWidth} px-1 py-2 text-center border-b border-x border-green-600 bg-purple-900/40`}
+                class={`${colWidth} px-1 py-2 text-center border-b border-x border-primary bg-purple-900/40`}
                 title={rp.name}
               >
                 <span class="whitespace-normal break-words leading-tight">{rp.name}</span>
@@ -59,7 +59,7 @@ const colWidth = "min-w-[40px] xl:min-w-[56px]";
 
             {currentEvents.map(ev => (
               <th
-                class={`${colWidth} px-1 py-2 text-center border-b border-x border-green-600 bg-blue-900/40`}
+                class={`${colWidth} px-1 py-2 text-center border-b border-x border-primary bg-blue-900/40`}
                 title={ev.name}
               >
                 <span class="whitespace-normal break-words leading-tight">{ev.name}</span>
@@ -68,24 +68,24 @@ const colWidth = "min-w-[40px] xl:min-w-[56px]";
 
             {currentBonuses.map(b => (
               <th
-                class={`${colWidth} px-1 py-2 text-center border-b border-x border-green-600 bg-green-900/40`}
+                class={`${colWidth} px-1 py-2 text-center border-b border-x border-primary bg-surface-raised/40`}
                 title={b.name}
               >
                 <span class="whitespace-normal break-words leading-tight">{b.name}</span>
               </th>
             ))}
 
-            <th class={`${colWidth} px-1 xl:px-2 py-2 text-center border-b border-x border-green-600 bg-blue-800/40 whitespace-normal break-words leading-tight`} title="Past Roleplay">Past RP</th>
-            <th class={`${colWidth} px-1 xl:px-2 py-2 text-center border-b border-x border-green-600 bg-blue-800/40 whitespace-normal break-words leading-tight`} title="Past Events">Past EV</th>
-            <th class={`${colWidth} px-1 xl:px-2 py-2 text-center border-b border-x border-green-600 bg-blue-800/40 whitespace-normal break-words leading-tight`} title="Past Bonus">Past BO</th>
-            <th class={`${colWidth} px-1 xl:px-2 py-2 text-center border-b border-x border-green-600 bg-blue-800/40 whitespace-normal break-words leading-tight`} title="Past Results">Past RES</th>
+            <th class={`${colWidth} px-1 xl:px-2 py-2 text-center border-b border-x border-primary bg-blue-800/40 whitespace-normal break-words leading-tight`} title="Past Roleplay">Past RP</th>
+            <th class={`${colWidth} px-1 xl:px-2 py-2 text-center border-b border-x border-primary bg-blue-800/40 whitespace-normal break-words leading-tight`} title="Past Events">Past EV</th>
+            <th class={`${colWidth} px-1 xl:px-2 py-2 text-center border-b border-x border-primary bg-blue-800/40 whitespace-normal break-words leading-tight`} title="Past Bonus">Past BO</th>
+            <th class={`${colWidth} px-1 xl:px-2 py-2 text-center border-b border-x border-primary bg-blue-800/40 whitespace-normal break-words leading-tight`} title="Past Results">Past RES</th>
 
-            <th class={`${colWidth} px-1 xl:px-2 py-2 xl:py-3 text-center font-bold border-b border-l border-green-600`} title="Total Points">Pts</th>
-            <th class={`${colWidth} px-1 xl:px-2 py-2 xl:py-3 text-center font-bold border-b border-green-600 rounded-tr-lg`} title="Tier">Tier</th>
+            <th class={`${colWidth} px-1 xl:px-2 py-2 xl:py-3 text-center font-bold border-b border-l border-primary`} title="Total Points">Pts</th>
+            <th class={`${colWidth} px-1 xl:px-2 py-2 xl:py-3 text-center font-bold border-b border-primary rounded-tr-lg`} title="Tier">Tier</th>
           </tr>
         </thead>
 
-        <tbody class="text-center text-green-300">
+        <tbody class="text-center text-primary-light">
           {rankedMembers.map((team, index) => {
             const pastRP = team.scores.pastRoleplay;
             const pastEV = team.scores.pastEventPoints;
@@ -93,15 +93,15 @@ const colWidth = "min-w-[40px] xl:min-w-[56px]";
             const pastRES = team.scores.tournamentDecayPoints;
 
             return (
-              <tr class="border-b border-green-700 hover:bg-green-800/30 transition duration-150 odd:bg-green-900/30">
+              <tr class="border-b border-primary-dark hover:bg-primary-deep/30 transition duration-150 odd:bg-surface-raised/30">
 
                 <!-- ° -->
-                <td class={`min-w-[32px] xl:min-w-[40px] py-2 xl:py-3 font-semibold border-r border-green-700 ${getRankClass(index + 1)} sticky left-0 z-20 bg-green-950`}>
+                <td class={`min-w-[32px] xl:min-w-[40px] py-2 xl:py-3 font-semibold border-r border-primary-dark ${getRankClass(index + 1)} sticky left-0 z-20 bg-surface`}>
                   {index + 1}
                 </td>
 
                 <!-- Flag -->
-                <td class="min-w-[32px] xl:min-w-[40px] px-1 xl:px-2 py-1 xl:py-2 sticky left-8 xl:left-10 z-20 bg-green-950">
+                <td class="min-w-[32px] xl:min-w-[40px] px-1 xl:px-2 py-1 xl:py-2 sticky left-8 xl:left-10 z-20 bg-surface">
                   <Image
                     src={team.flag || "/placeholder.svg"}
                     alt={team.name}
@@ -113,7 +113,7 @@ const colWidth = "min-w-[40px] xl:min-w-[56px]";
                 </td>
 
                 <!-- Team -->
-                <td class="min-w-[80px] xl:min-w-[140px] py-2 xl:py-3 text-left sticky left-16 xl:left-20 z-10 bg-green-950 px-2 whitespace-nowrap">
+                <td class="min-w-[80px] xl:min-w-[140px] py-2 xl:py-3 text-left sticky left-16 xl:left-20 z-10 bg-surface px-2 whitespace-nowrap">
                   <a
                     href={`/members/${team.slug}`}
                     class="font-semibold hover:underline text-white text-xs xl:text-sm"
@@ -125,29 +125,29 @@ const colWidth = "min-w-[40px] xl:min-w-[56px]";
                 </td>
 
                 {currentRoleplays.map(rp => (
-                  <td class={`${colWidth} px-1 py-2 border-x border-green-700 bg-purple-900/20`}>
+                  <td class={`${colWidth} px-1 py-2 border-x border-primary-dark bg-purple-900/20`}>
                     {team.currentRoleplay[rp.name] || 0}
                   </td>
                 ))}
 
                 {currentEvents.map(ev => (
-                  <td class={`${colWidth} px-1 py-2 border-x border-green-700 bg-blue-900/20`}>
+                  <td class={`${colWidth} px-1 py-2 border-x border-primary-dark bg-blue-900/20`}>
                     {team.currentEvents[ev.name] || 0}
                   </td>
                 ))}
 
                 {currentBonuses.map(b => (
-                  <td class={`${colWidth} px-1 py-2 border-x border-green-700 bg-green-900/20`}>
+                  <td class={`${colWidth} px-1 py-2 border-x border-primary-dark bg-surface-raised/20`}>
                     {team.currentBonus[b.name] || 0}
                   </td>
                 ))}
 
-                <td class={`${colWidth} px-1 xl:px-2 py-2 border-x border-green-700 bg-blue-800/20`}>{pastRP}</td>
-                <td class={`${colWidth} px-1 xl:px-2 py-2 border-x border-green-700 bg-blue-800/20`}>{pastEV}</td>
-                <td class={`${colWidth} px-1 xl:px-2 py-2 border-x border-green-700 bg-blue-800/20`}>{pastBO}</td>
-                <td class={`${colWidth} px-1 xl:px-2 py-2 border-x border-green-700 bg-blue-800/20`}>{pastRES}</td>
+                <td class={`${colWidth} px-1 xl:px-2 py-2 border-x border-primary-dark bg-blue-800/20`}>{pastRP}</td>
+                <td class={`${colWidth} px-1 xl:px-2 py-2 border-x border-primary-dark bg-blue-800/20`}>{pastEV}</td>
+                <td class={`${colWidth} px-1 xl:px-2 py-2 border-x border-primary-dark bg-blue-800/20`}>{pastBO}</td>
+                <td class={`${colWidth} px-1 xl:px-2 py-2 border-x border-primary-dark bg-blue-800/20`}>{pastRES}</td>
 
-                <td class={`${colWidth} px-1 xl:px-2 py-2 xl:py-3 ${getTotalColorClass(team.totalScore)} border-l border-green-700 font-bold`}>
+                <td class={`${colWidth} px-1 xl:px-2 py-2 xl:py-3 ${getTotalColorClass(team.totalScore)} border-l border-primary-dark font-bold`}>
                   {team.totalScore}
                 </td>
                 <td class={`${colWidth} px-1 xl:px-2 py-2 xl:py-3 ${getTotalColorClass(team.totalScore)} font-bold`}>

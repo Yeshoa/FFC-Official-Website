@@ -71,7 +71,7 @@ const formattedDate = match.data.status === 'scheduled'
   ? match.data.date.toLocaleDateString(LOCALE, { day: '2-digit', month: 'short' })
   : null;
 ---
-<div class="bg-green-950/70 rounded-lg p-4 w-full hover:bg-black/30">
+<div class="bg-surface/70 rounded-lg p-4 w-full hover:bg-black/30">
   <div class="flex flex-col space-y-3">
     
     <!-- Equipo 1 -->
@@ -91,11 +91,11 @@ const formattedDate = match.data.status === 'scheduled'
         <div class="flex text-center items-center">
           <span class={`${winner === match.data.team1 ? 'font-bold text-lg' : 'font-light'}`}>{team1Goals}</span>
           {hasPenalties && (
-            <span class={`text-xs ml-1 ${winner === match.data.team1 ? 'font-bold text-lg text-yellow-400' : 'font-light text-gray-400'}`}>({team1Penalties})</span>
+            <span class={`text-xs ml-1 ${winner === match.data.team1 ? 'font-bold text-lg text-yellow-400' : 'font-light text-text-muted'}`}>({team1Penalties})</span>
           )}
         </div>
       ) : (
-        <div class="text-xs text-gray-400">TBD</div>
+        <div class="text-xs text-text-muted">TBD</div>
       )}
     </div>
 
@@ -116,17 +116,17 @@ const formattedDate = match.data.status === 'scheduled'
         <div class="flex items-center text-center">
           <span class={`${winner === match.data.team2 ? 'font-bold text-lg' : 'font-light'}`}>{team2Goals}</span>
           {hasPenalties && (
-            <span class={`text-xs ml-1 ${winner === match.data.team2 ? 'font-bold text-lg text-yellow-400' : 'font-light text-gray-400'}`}>({team2Penalties})</span>
+            <span class={`text-xs ml-1 ${winner === match.data.team2 ? 'font-bold text-lg text-yellow-400' : 'font-light text-text-muted'}`}>({team2Penalties})</span>
           )}
         </div>
       ) : (
-        <div class="text-xs text-gray-400">TBD</div>
+        <div class="text-xs text-text-muted">TBD</div>
       )}
     </div>
 
     {/* Mostrar fecha si el partido está programado */}
     {match.data.status === 'scheduled' && formattedDate && (
-      <div class="text-center text-xs text-gray-400 mt-1">
+      <div class="text-center text-xs text-text-muted mt-1">
         {formattedDate}
       </div>
     )}

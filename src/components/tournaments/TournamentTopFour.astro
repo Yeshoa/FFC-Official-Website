@@ -58,7 +58,7 @@ const palmares = Array.from(palmaresMap.values()).sort((a, b) =>
 <h2 class="text-3xl font-bold text-center py-6">Top Fours</h2>
 <div class="pb-6 overflow-x-auto">
   <table class="w-full text-sm text-center border-collapse rounded-2xl">
-    <thead class="bg-green-800 text-white">
+    <thead class="bg-primary-deep text-white">
       <tr>
         <th class="px-3 py-2 text-left rounded-tl-lg">Team</th>
         <th class="px-2 py-2">
@@ -81,7 +81,7 @@ const palmares = Array.from(palmaresMap.values()).sort((a, b) =>
     </thead>
     <tbody>
       {palmares.map((entry) => (
-        <tr class="border-b border-green-700 hover:bg-green-900/30 transition duration-150">
+        <tr class="border-b border-primary-dark hover:bg-surface-raised/30 transition duration-150">
           <td class="px-2 py-2 text-left font-semibold w-fit flex items-center gap-2 ">
               {entry.member.data?.flagPath && (
                 <Image
@@ -109,7 +109,7 @@ const palmares = Array.from(palmaresMap.values()).sort((a, b) =>
                     {entry[key].length}
                   </span>
                   {' '}
-                  <a href={ROUTES.forestCup.edition(entry[key][0])} class="text-gray-400 text-xs hover:text-gray-300 hover:underline">
+                  <a href={ROUTES.forestCup.edition(entry[key][0])} class="text-text-muted text-xs hover:text-gray-300 hover:underline">
                     ({entry[key].map(year => `'${year.toString().slice(-2)}`).join(', ')})
                   </a>
                 </span>

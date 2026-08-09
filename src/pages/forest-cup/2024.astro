@@ -99,7 +99,7 @@ const winner = await getMemberByName(FC2024Data.champion);
 
 <App title={pageTitle}>
   <main class="flex flex-col items-center relative">
-    <div class="flex flex-col justify-center items-center w-full bg-gradient-to-b from-transparent to-green-900/80">
+    <div class="flex flex-col justify-center items-center w-full bg-gradient-to-b from-transparent to-surface-raised/80">
       <!-- <TournamentGrid currentTournament={FC2024Data}/> -->
       <TournamentHero currentTournament={FC2024Data} champion={winner} />
     </div>
@@ -119,8 +119,8 @@ const winner = await getMemberByName(FC2024Data.champion);
     <!-- <div class="flex flex-col justify-center items-center w-full gap-4">
       <Bracket matches={fc2024Matches} members={membersCollection} />
     </div> -->
-    <!-- <div class="prose dark:prose-invert bg-white dark:bg-green-900 shadow-lg rounded-lg p-6 my-8 w-full max-w-4xl mx-auto">
-       <h2 class="text-2xl font-semibold mb-4 text-gray-900 dark:text-white border-b pb-2 border-gray-200 dark:border-green-600">Tournament Notes</h2>
+    <!-- <div class="prose dark:prose-invert bg-white dark:bg-surface-raised shadow-lg rounded-lg p-6 my-8 w-full max-w-4xl mx-auto">
+       <h2 class="text-2xl font-semibold mb-4 text-gray-900 dark:text-white border-b pb-2 border-gray-200 dark:border-primary">Tournament Notes</h2>
        <Content />
     </div> -->
 

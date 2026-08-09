@@ -67,7 +67,7 @@ const title = type === 'forest-cup' ? 'Forest Cup History' : 'Forestian Champion
 <h6 class="md:hidden text-sm text-center text-gray-300 mb-2">Swipe to see the full table</h6>
 <div class="pb-6 overflow-x-auto">
   <table class="min-w-[1000px] w-full text-md text-center border-collapse rounded-2xl table-fixed">
-    <thead class="bg-green-800 text-white">
+    <thead class="bg-primary-deep text-white">
       <tr>
         <th class="px-2 py-2 rounded-tl-lg w-[5%]">Edition</th>
         <th class="px-2 py-2 w-[16%]">Champion</th>
@@ -82,7 +82,7 @@ const title = type === 'forest-cup' ? 'Forest Cup History' : 'Forestian Champion
     <tbody>
       {tournamentData.sort((b, a) => b.tournament.data.edition - a.tournament.data.edition).map(({ tournament, isFutureOrCurrent, host, champion, runnerUp, third, fourth, finalResult, /* thirdPlaceResult, */ bestPlayer, topScorers }) => (
         isFutureOrCurrent ? (
-          <tr class="border-b border-green-700 bg-blue-900/10 text-green-300 italic" key={tournament.data.id}>
+          <tr class="border-b border-primary-dark bg-blue-900/10 text-primary-light italic" key={tournament.data.id}>
             <td class="px-2 py-3 flex flex-col items-center gap-1 justify-center">
               {host?.data?.flagPath && (
                 <a href={`/members/${host.slug}`} class="flex-shrink-0">
@@ -96,7 +96,7 @@ const title = type === 'forest-cup' ? 'Forest Cup History' : 'Forestian Champion
             </td>
           </tr>
         ) : (
-          <tr class="border-b border-green-700 hover:bg-green-900/20" key={tournament.data.id}>
+          <tr class="border-b border-primary-dark hover:bg-surface-raised/20" key={tournament.data.id}>
             <td class="px-2 py-3 flex flex-col items-center gap-1 justify-center">
               {host?.data?.flagPath && (
                 <a href={`/members/${host.slug}`} class="flex-shrink-0">
@@ -163,7 +163,7 @@ const title = type === 'forest-cup' ? 'Forest Cup History' : 'Forestian Champion
                   <span class="ml-1 truncate">{bestPlayer.player}</span>
                 </div>
               ) : (
-                <span class="text-gray-400 italic">N/A</span>
+                <span class="text-text-muted italic">N/A</span>
               )}
             </td>
             <td class="px-2 py-3">
@@ -176,12 +176,12 @@ const title = type === 'forest-cup' ? 'Forest Cup History' : 'Forestian Champion
                         <Image src={top.member.data.flagPath} alt={top.member.data.name} width={20} height={14} class="rounded-sm object-cover max-h-4" loading="lazy" quality={10} format="webp" />
                       )}
                       <span class="ml-1 truncate">{top.player}</span>
-                      <span class="ml-1 text-green-300 font-bold">({top.goals})</span>
+                      <span class="ml-1 text-primary-light font-bold">({top.goals})</span>
                     </div>
                   );
                 })()
               ) : (
-                <span class="text-gray-400 italic">N/A</span>
+                <span class="text-text-muted italic">N/A</span>
               )}
             </td>
           </tr>

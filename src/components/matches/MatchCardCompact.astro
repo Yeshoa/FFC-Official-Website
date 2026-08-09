@@ -26,7 +26,7 @@ const penaltyText = penalties
   ? ` (${penalties.team1}–${penalties.team2} p)`
   : '';
 ---
-<div class="bg-green-950/80 rounded-md px-4 py-3 w-full gap-2">
+<div class="bg-surface/80 rounded-md px-4 py-3 w-full gap-2">
   <div class="text-xs text-gray-300 flex gap-1 justify-between px-3 pb-2">
     <div class="">
       <span class="font-semibold">{tournament?.data.type === 'forest-cup' ? 'Forest Cup' : 'Champions League'} {tournament?.data.edition}</span>
@@ -49,7 +49,7 @@ const penaltyText = penalties
     <!-- Score -->
     <div class="flex items-center gap-1 text-lg font-semibold text-white mx-4">
       <span>{score1}</span>
-      <span class="text-gray-400">–</span>
+      <span class="text-text-muted">–</span>
       <span>{score2}</span>
       {penaltyText && (
         <span class="text-xs text-yellow-400 font-normal ml-1">{penaltyText}</span>

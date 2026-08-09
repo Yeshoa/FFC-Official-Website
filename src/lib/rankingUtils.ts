@@ -303,10 +303,10 @@ export async function getRankedMembers(
 
 export function getRankClass(ranking: number): string {
   return ranking === 1
-    ? 'text-amber-300 drop-shadow-[0_0_10px_rgba(252,211,77,0.8)]'
+    ? 'text-tier-gold drop-shadow-[0_0_10px_rgba(252,211,77,0.8)]'
     : ranking === 2
-    ? 'text-slate-300 drop-shadow-[0_0_10px_rgba(203,213,225,0.7)]'
+    ? 'text-tier-silver drop-shadow-[0_0_10px_rgba(203,213,225,0.7)]'
     : ranking === 3
-    ? 'text-orange-400 drop-shadow-[0_0_10px_rgba(251,146,60,0.7)]'
-    : 'text-green-400';
+    ? 'text-tier-bronze drop-shadow-[0_0_10px_rgba(251,146,60,0.7)]'
+    : 'text-primary-muted';
 }

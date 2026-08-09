@@ -148,13 +148,13 @@ const statsCols = topAssisters.length > 0 ? "grid grid-cols-1 lg:grid-cols-3 gap
   <!-- <h2 class="text-3xl font-bold text-center mb-8">Stats</h2> -->
   <Title size="text-4xl">Tournament Stats</Title>
   <div class={statsCols}>
-    <aside class="border border-green-700 rounded-lg p-4 bg-green-900/20 order-first justify-between">
-      <h3 class="text-xl font-semibold mb-4 text-center text-green-300">Individual Prizes</h3>
-      {(!officialTopScorers && !bestPlayer && !bestGoalkeeper) && <p class="text-center text-gray-400">There are no official prizes for this tournament yet</p>}
+    <aside class="border border-primary-dark rounded-lg p-4 bg-surface-raised/20 order-first justify-between">
+      <h3 class="text-xl font-semibold mb-4 text-center text-primary-light">Individual Prizes</h3>
+      {(!officialTopScorers && !bestPlayer && !bestGoalkeeper) && <p class="text-center text-text-muted">There are no official prizes for this tournament yet</p>}
       {resolvedPrizes.bestPlayer && (
         <div class="mb-4">
           <h4 class="font-bold text-lg mb-2 text-amber-400">Best Player</h4>
-          <div class="flex items-center gap-2 p-2 rounded hover:bg-green-800/30 transition">
+          <div class="flex items-center gap-2 p-2 rounded hover:bg-primary-deep/30 transition">
             <a href={`/members/${resolvedPrizes.bestPlayer.member.slug}`} class="flex items-center gap-2 hover:underline">
               <Image src={resolvedPrizes.bestPlayer.member.data.flagPath} alt={resolvedPrizes.bestPlayer.member.data.name} class="w-6 h-4 object-cover rounded" height={16} quality={40} format='webp' loading={"lazy"}/>
               <span class="font-medium">{resolvedPrizes.bestPlayer.player}</span> ({resolvedPrizes.bestPlayer.team})
@@ -164,14 +164,14 @@ const statsCols = topAssisters.length > 0 ? "grid grid-cols-1 lg:grid-cols-3 gap
       )}
       {resolvedPrizes.topScorers.length > 0 && (
         <div class="mb-4">
-          <h4 class="font-bold text-lg mb-2 text-green-400">Top Scorer</h4>
+          <h4 class="font-bold text-lg mb-2 text-primary-muted">Top Scorer</h4>
           {resolvedPrizes.topScorers.map(scorer => (
-            <div class="flex items-center gap-2 mb-1 p-2 rounded hover:bg-green-800/30 transition">
+            <div class="flex items-center gap-2 mb-1 p-2 rounded hover:bg-primary-deep/30 transition">
               <a href={`/members/${scorer.member.slug}`} class="flex items-center gap-2 hover:underline">
                 <Image src={scorer.member.data.flagPath} alt={scorer.member.data.name} class="w-6 h-4 object-cover rounded" height={16} quality={40} format='webp' loading={"lazy"}/>
                 <span class="font-medium">{scorer.player}</span> ({scorer.team})
               </a>
-              <span class="ml-auto font-bold text-green-300">{scorer.goals} Goals</span>
+              <span class="ml-auto font-bold text-primary-light">{scorer.goals} Goals</span>
             </div>
           ))}
         </div>
@@ -179,7 +179,7 @@ const statsCols = topAssisters.length > 0 ? "grid grid-cols-1 lg:grid-cols-3 gap
       {resolvedPrizes.bestGoalkeeper && (
         <div>
           <h4 class="font-bold text-lg mb-2 text-blue-300">Best Goalkeeper</h4>
-           <div class="flex items-center gap-2 p-2 rounded hover:bg-green-800/30 transition">
+           <div class="flex items-center gap-2 p-2 rounded hover:bg-primary-deep/30 transition">
               <a href={`/members/${resolvedPrizes.bestGoalkeeper.member.slug}`} class="flex items-center gap-2 hover:underline">
                 <Image src={resolvedPrizes.bestGoalkeeper.member.data.flagPath} loading={"lazy"} alt={resolvedPrizes.bestGoalkeeper.member.data.name} class="w-6 h-4 object-cover rounded" height={16} quality={40} format='webp' />
                 <span class="font-medium">{resolvedPrizes.bestGoalkeeper.player}</span> ({resolvedPrizes.bestGoalkeeper.team})
@@ -190,7 +190,7 @@ const statsCols = topAssisters.length > 0 ? "grid grid-cols-1 lg:grid-cols-3 gap
       {resolvedPrizes.bestGoal && (
         <div>
           <h4 class="font-bold text-lg mb-2 text-red-300">Best Goal</h4>
-           <div class="flex items-center gap-2 p-2 rounded hover:bg-green-800/30 transition">
+           <div class="flex items-center gap-2 p-2 rounded hover:bg-primary-deep/30 transition">
               <a href={`/members/${resolvedPrizes.bestGoal.member.slug}`} class="flex items-center gap-2 hover:underline">
                 <Image src={resolvedPrizes.bestGoal.member.data.flagPath} loading={"lazy"} alt={resolvedPrizes.bestGoal.member.data.name} class="w-6 h-4 object-cover rounded" height={16} quality={40} format='webp' />
                 <span class="font-medium">{resolvedPrizes.bestGoal.player}</span> ({resolvedPrizes.bestGoal.team})
@@ -201,15 +201,15 @@ const statsCols = topAssisters.length > 0 ? "grid grid-cols-1 lg:grid-cols-3 gap
 
       <h3 class="text-xl font-semibold mb-4 text-center">Global Stats</h3>
       <div class="text-center grid-cols-3 grid gap-4">
-        <div class="p-3 bg-green-600/50 rounded flex flex-col justify-center">
+        <div class="p-3 bg-primary/50 rounded flex flex-col justify-center">
           <p class="text-sm">Total Matches</p>
           <p class="text-2xl font-bold">{totalMatchesPlayed}</p>
         </div>
-        <div class="p-3 bg-green-600/50 rounded flex flex-col justify-center">
+        <div class="p-3 bg-primary/50 rounded flex flex-col justify-center">
           <p class="text-sm">Total Goals</p>
           <p class="text-2xl font-bold">{totalGoals}</p>
         </div>
-        <div class="p-3 bg-green-600/50 rounded flex flex-col justify-center">
+        <div class="p-3 bg-primary/50 rounded flex flex-col justify-center">
           <p class="text-sm">Goals per Match</p>
           <p class="text-2xl font-bold">{averageGoalsPerMatch.toFixed(2)}</p>
         </div>
@@ -218,10 +218,10 @@ const statsCols = topAssisters.length > 0 ? "grid grid-cols-1 lg:grid-cols-3 gap
 
     <div class="space-y-8">
       <div class="overflow-x-auto">
-        <h3 class="text-xl font-semibold text-center mb-4 text-green-300">Top Scorers</h3>
+        <h3 class="text-xl font-semibold text-center mb-4 text-primary-light">Top Scorers</h3>
         {topScorers.length > 0 ? (
-          <table class="min-w-full text-sm border border-green-700 rounded-lg overflow-hidden">
-            <thead class="bg-green-800 text-white">
+          <table class="min-w-full text-sm border border-primary-dark rounded-lg overflow-hidden">
+            <thead class="bg-primary-deep text-white">
               <tr>
                 <th class="px-4 py-2 text-left">Player</th>
                 <th class="px-4 py-2 text-left">Team</th>
@@ -230,7 +230,7 @@ const statsCols = topAssisters.length > 0 ? "grid grid-cols-1 lg:grid-cols-3 gap
             </thead>
             <tbody>
               {topScoresWithMembers.map((entry) => (
-                <tr class="border-b border-green-700 hover:bg-green-900/30 transition duration-150" key={`${entry.player}-${entry.team}-goals`}>
+                <tr class="border-b border-primary-dark hover:bg-surface-raised/30 transition duration-150" key={`${entry.player}-${entry.team}-goals`}>
                   <td class="px-4 py-2 font-semibold truncate">{entry.player}</td>
                   <td class="px-4 py-2">
                     <a href={`/members/${entry.member.slug}`} class="flex items-center gap-2 hover:underline">
@@ -252,7 +252,7 @@ const statsCols = topAssisters.length > 0 ? "grid grid-cols-1 lg:grid-cols-3 gap
             </tbody>
           </table>
         ) : (
-          <p class="text-center text-gray-400">There are no goals yet</p>
+          <p class="text-center text-text-muted">There are no goals yet</p>
         )}
       </div>
     </div>

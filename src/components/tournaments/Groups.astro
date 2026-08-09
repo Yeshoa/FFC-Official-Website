@@ -144,12 +144,12 @@ const groupTables = await Promise.all(
 <div class="mt-6 w-full px-4">
   <div class="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-4 gap-4 w-full">
     {groupTables.map(({ groupName, matches, table }) => (
-      <div class="flex flex-col justify-start items-center text-center bg-green-950/30 p-4 rounded-2xl w-full">
+      <div class="flex flex-col justify-start items-center text-center bg-surface/30 p-4 rounded-2xl w-full">
         <h4 class="text-4xl font-bold text-white mb-3">Group {groupName}</h4>
         {table.length > 0 ? (
           <table class="w-full text-sm mb-2">
             <thead>
-              <tr class="border-b border-green-600">
+              <tr class="border-b border-primary">
                 <th class="px-1 py-1 text-left" title="Position">°</th>
                 <th class="px-1 py-1 text-left" title="Team">Team</th>
                 <th class="px-1 py-1" title="Points">Pts</th>
@@ -163,13 +163,13 @@ const groupTables = await Promise.all(
             </thead>
             <tbody>
               {table.map(team => (
-                <tr class="border-b border-green-700 last:border-b-0" key={team.team}>
+                <tr class="border-b border-primary-dark last:border-b-0" key={team.team}>
                   <td class="px-1 py-1.5 text-left">{team.position}</td>
                   <td class="px-1 py-1.5 text-left flex items-center gap-2 whitespace-nowrap">
                     <Image
                       src={team.teamObject.flagPath}
                       alt={team.teamObject.name}
-                      class="h-5 w-8 rounded-md object-cover ring-1 ring-green-600"
+                      class="h-5 w-8 rounded-md object-cover ring-1 ring-primary"
                       width={48}
                       loading="lazy"
                       inferSize={true}
@@ -195,7 +195,7 @@ const groupTables = await Promise.all(
             </tbody>
           </table>
         ) : (
-          <p class="text-gray-400 italic">No data available.</p>
+          <p class="text-text-muted italic">No data available.</p>
         )}
         {matches.length > 0 ? (
           <div class="grid grid-rows-1 gap-2 w-full items-center mt-5">
@@ -204,7 +204,7 @@ const groupTables = await Promise.all(
             ))}
           </div>
         ) : (
-          <p class="text-gray-400 italic text-center w-full">No matches found for this group.</p>
+          <p class="text-text-muted italic text-center w-full">No matches found for this group.</p>
         )}
       </div>
     ))}

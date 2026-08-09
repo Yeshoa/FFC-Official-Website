@@ -78,16 +78,16 @@ const topAssisters = Array.from(assistStats.values())
 {topScorers.length >= 1 && (
   <div class="overflow-x-auto w-full">
     <h2 class="text-3xl font-bold text-center py-6">Top Scorers</h2>
-    <table class="min-w-full text-sm border border-green-700 rounded-lg overflow-hidden">
+    <table class="min-w-full text-sm border border-primary-dark rounded-lg overflow-hidden">
       <thead>
-        <tr class="bg-green-800 text-white">
+        <tr class="bg-primary-deep text-white">
           <th class="px-4 py-2 text-left">Player</th>
           <th class="px-4 py-2 text-right">Goals</th>
         </tr>
       </thead>
       <tbody>
         {topScorers.map((entry, index) => (
-          <tr class="border-b border-green-700 hover:bg-green-900/30 transition duration-150" key={index}>
+          <tr class="border-b border-primary-dark hover:bg-surface-raised/30 transition duration-150" key={index}>
             <td class="px-4 py-2 font-semibold">
               <div class="flex items-center gap-2">
                 {typeof entry.team !== 'string' && (
@@ -115,16 +115,16 @@ const topAssisters = Array.from(assistStats.values())
 {topAssisters.length >= 1 && (
   <div class="overflow-x-auto w-full">
     <h2 class="text-3xl font-bold text-center py-6">Top Assists</h2>
-    <table class="min-w-full text-sm border border-green-700 rounded-lg overflow-hidden">
+    <table class="min-w-full text-sm border border-primary-dark rounded-lg overflow-hidden">
       <thead>
-        <tr class="bg-green-800 text-white">
+        <tr class="bg-primary-deep text-white">
           <th class="px-4 py-2 text-left">Player</th>
           <th class="px-4 py-2 text-right">Assists</th>
         </tr>
       </thead>
       <tbody>
         {topAssisters.map((entry, index) => (
-          <tr class="border-b border-green-700 hover:bg-green-900/30 transition duration-150" key={index}>
+          <tr class="border-b border-primary-dark hover:bg-surface-raised/30 transition duration-150" key={index}>
             <td class="px-4 py-2 font-semibold">
               <div class="flex items-center gap-2">
                 {typeof entry.team !== 'string' && (
