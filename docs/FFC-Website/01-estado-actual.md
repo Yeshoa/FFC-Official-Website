@@ -16,8 +16,8 @@
 
 | Ruta | Contenido |
 |------|-----------|
-| `src/content/` | Content collections: `members`, `tournaments`, `articles`, `achievements`, `sponsors`, `stadiums` + `_legacy-matches` |
-| `src/data/` | JSON fuera de Astro Content: `matches/*.json`, `events.json`, `roleplays.json`, `bonuses.json`, `players/` (nuevo, sin commitear) |
+| `src/content/` | Content collections: `articles` (.mdx) + `_legacy-matches`. Las colecciones de datos (`members`, `tournaments`, `achievements`, `sponsors`, `stadiums`) viven en `src/data/` |
+| `src/data/` | JSON fuera de Astro Content: `matches/*.json`, `events.json`, `roleplays.json`, `bonuses.json`, `tournaments.json`, `members.json`, `achievements.json`, `sponsors.json`, `stadiums.json`, `players/` (nuevo, sin commitear) |
 | `src/lib/` | Lógica de dominio: `collections.ts` (cache/indexes), `rankingUtils`, `scoreUtils`, `bonusUtils`, `eventUtils`, `roleplayUtils`, `achievements/` |
 | `src/utils/` | Helpers: `tournamentUtils`, `matchUtils`, `memberUtils`, `stadiumUtils`, `articleUtils`, `playerUtils` (nuevo, sin commitear) |
 | `src/config/` | `routes.ts`, `links.ts`, `features.ts`, `easter-eggs.ts`, `constants.ts` |
@@ -28,7 +28,8 @@
 
 ## 2. Content collections (schema en `src/content/config.ts`)
 
-### `tournaments` (content)
+### `tournaments` (loader `objectLoader` desde `src/data/tournaments.json`)
+- Un único JSON por colección (mismo patrón que `matches`/`events`): objeto `{ [id]: data }` donde la key es el entry id (slug) y el valor conserva su `data.id` numérico.
 - `id` (número), `type` (`forest-cup` | `forestian-champions-league`), `name`, `shortName`, `host`, `hostCode`, `final`, `image`, `champion`, `championCode`, `edition`, `pots[]`, `heroImg`, `cardImg`, `prizes`.
 - El campo `type` **ya existe** (preparado para CL), pero hoy solo hay torneos `forest-cup`.
 - `id` numérico **no es un año**: es un secuencial (2020→1, 2022→2, 2024→3, 2026→4). El año real está en `edition`.
@@ -39,18 +40,20 @@
 - Detalles: `goals[]`, `penalties[]`, `cards[]`, `substitutions[]`, `lineup` (coach/formation/players por equipo), `stats` (possession, shots, etc.), `link`.
 - **Estado del trabajo en curso (sin commitear)**: se agregó `playerId` a goals/penalties/cards/substitutions/lineup y `assistId` se usa en los JSON pero **no está en el schema**. `playerUtils.ts` fue creado pero **no se usa en ninguna página** y hace `import ... from '@data/players/index'` que **no existe** (rompería el build si se usara).
 
-### `members` (content, `.md`)
+### `members` (loader `objectLoader` desde `src/data/members.json`)
 - Identifica a cada **federación**: `id`, `code` (3 letras, ej: `BIL`), `name`, `region`, `founded`, `affiliation`, `verified`, `founder`, `flagPath`, `logoPath`, `nslink`, `feddispatch`.
 - **Score**: `score.rp/events/bonus` — records dinámicos indexados por **tournament id como string** (`"2": { history: 20 }`).
 - `additionalPoints`, `tierHistory[]` (tier + edition).
 - **`squad`**: coach, formation, `players[]` con `number/name/position/age` — **sin `id`**. Esta es la definición de plantel actual.
 - `manualAchievements[]` — lista de ids de logros manuales.
+- Migrado de `.md` a JSON en fase A5; el body markdown (solo existía en `bilsa.md`) se descartó por decisión del dueño.
 
-### `achievements` (content)
+### `achievements` (loader `objectLoader` desde `src/data/achievements.json`)
 - `id`, `name`, `icon`, `description`, `rarity` (número), `stars`, `enabled`, `category`, `subcategory`, `alignment`, `unique`, `visible`, `cardStyle`.
 
 ### Otras colecciones
-- `articles`, `sponsors` (tier global/supplier/national), `stadiums`.
+- `sponsors` (tier global/supplier/national) y `stadiums` → JSON consolidado con loader `objectLoader` (fase A5): `src/data/sponsors.json`, `src/data/stadiums.json`.
+- `articles` → **quedan `.mdx`** (no se migran; decisión del dueño, usan componentes MDX).
 - `events`, `roleplays`, `bonuses` cargados desde JSON con loader.
 
 ---
@@ -109,7 +112,7 @@ Los partidos ya referencian `playerId` en goles (ej: `CAC_009`). No existe `src/
 ### Mala práctica transversal (confirmada por el dueño)
 - Los equipos se resuelven por **`teamName`** en varios utils (`getMemberByName`, `team1/team2` en matches, `tournamentUtils`). Cualquier typo o cambio de nombre rompe la resolución. **Objetivo**: migrar a lookup por **código** (`teamCode` → `member.code`/`club.code`), ver [[02-modelo-datos]] §10.
 - El `squad` del frontmatter repite nombre/posición/edad de cada jugador en vez de referenciar ids (ver [[02-modelo-datos]] §8).
-- El contenido vive en muchos `.md` (abrumador); objetivo: migrar a JSON (ver [[02-modelo-datos]] §9).
+- El contenido vive en muchos `.md` (abrumador); objetivo: migrar a JSON (ver [[02-modelo-datos]] §9). Ya migrado: 5 colecciones de datos en `src/data/*.json` (fase A5); `articles` quedan `.mdx`.
 
 ---
 

@@ -58,7 +58,7 @@ const teamObjects = await Promise.all(finalSortedStats.map(async (team) => {
                       width={50}  class="h-6 w-10 object-cover rounded inline-block" quality={50} format="webp"/>
             </td>
             <td class="px-2 py-2 text-left">
-              <a href={`/members/${teamObject?.slug}`} class="font-semibold hover:underline">{team.name}</a>
+              <a href={`/members/${teamObject?.id}`} class="font-semibold hover:underline">{team.name}</a>
             </td>
             <td class="px-2 py-2 font-bold">{team.points}</td>
             <td class="px-2 py-2 text-primary-soft">{team.played}</td>

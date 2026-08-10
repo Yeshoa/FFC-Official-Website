@@ -38,7 +38,7 @@ for (const tournament of allEditions) {
 
   positions.forEach((team, i) => {
     if (!team) return;
-    const key = team.slug;
+    const key = team.id;
     if (!palmaresMap.has(key)) {
       palmaresMap.set(key, { member: team, champion: [], runnerUp: [], third: [], fourth: [] });
     }
@@ -96,7 +96,7 @@ const palmares = Array.from(palmaresMap.values()).sort((a, b) =>
                   format="webp"
                 />
               )}
-            <a href={`/members/${entry.member.slug}`} class="hover:underline">
+            <a href={`/members/${entry.member.id}`} class="hover:underline">
               <span class="hidden sm:inline">{entry.member.data.name}</span>
               <span class="sm:hidden">{entry.member.data.code}</span>
             </a>

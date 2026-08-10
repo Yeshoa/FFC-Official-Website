@@ -41,10 +41,12 @@
 - Migrar `dynamics/*` a nueva API; quitar caches sueltos y logs.
 - Crear `AchievementBadge` y `MemberBadges` para el `MemberHero`.
 
-### A5 · Migración de contenido a JSON
+### A5 · Migración de contenido a JSON ✅
 - Migrar colecciones de `.md` a JSON manteniendo los mismos schemas Zod (ver [[02-modelo-datos]] §9). Colección por colección, con `loader` de JSON como `matches`.
-- Orden sugerido: `tournaments` → `stadiums` → `achievements` → `members` → `sponsors` → `articles`.
+- Orden sugerido: `tournaments` → `stadiums` → `achievements` → `members` → `sponsors`.
+- **`articles` quedan como `.mdx` (NO se migran a JSON)**: usan componentes MDX e imports; el cuerpo markdown vive en el archivo. Decisión del dueño.
 - Migrar `squad` de frontmatter a referencia por `playerId` (ver §8) cuando `players.json` exista (o en coordinación con B1).
+- **Hecho**: las 5 colecciones migradas de `.md` a **un único JSON por colección** en `src/data/` (`members.json`, `tournaments.json`, `achievements.json`, `sponsors.json`, `stadiums.json`), formato objeto `{ [id]: data }`, cargadas con loader custom `objectLoader` (store.set por entrada, desacopla entry id/slug de `data.id` numérico). `image()` resuelve paths optimizados igual que antes. `.slug` de members → `.id` (entry id = slug). Body markdown de members descartado (decisión del dueño). `articles` quedan `.mdx`.
 
 ---
 

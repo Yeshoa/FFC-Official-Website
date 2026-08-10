@@ -126,7 +126,7 @@ for (const tournamentData of tournamentsData) {
             return (
               <tr class="border-b border-primary-dark italic bg-red-900/10 text-red-300">
                 <td class={`px-2 py-2 flex flex-col items-center gap-1 justify-center`}>
-                  {t.host && <a href={`/members/${t.host.slug}`} class="flex-shrink-0"><Image src={t.host.data.flagPath} alt={t.host.data.name} height={20} class="rounded-sm max-h-14" loading={'lazy'} quality={10} format={'webp'} /></a>}
+                  {t.host && <a href={`/members/${t.host.id}`} class="flex-shrink-0"><Image src={t.host.data.flagPath} alt={t.host.data.name} height={20} class="rounded-sm max-h-14" loading={'lazy'} quality={10} format={'webp'} /></a>}
                   <a href={`/${type}/${t.t.data.edition}`} class={`hover:underline ${t.hostClass}`}>{t.t.data.edition}</a>
                 </td>
                 <td colspan="12" class="py-2">Didn't participate</td>
@@ -138,7 +138,7 @@ for (const tournamentData of tournamentsData) {
             return (
               <tr class="border-b border-primary-dark italic bg-blue-800/10 text-primary-light">
                 <td class="px-2 py-2 flex flex-col items-center gap-1 justify-center">
-                  {t.host && <a href={`/members/${t.host.slug}`} class="flex-shrink-0"><Image src={t.host.data.flagPath} alt={t.host.data.name} height={20} class="rounded-sm max-h-14" loading={'lazy'} quality={10} format={'webp'} /></a>}
+                  {t.host && <a href={`/members/${t.host.id}`} class="flex-shrink-0"><Image src={t.host.data.flagPath} alt={t.host.data.name} height={20} class="rounded-sm max-h-14" loading={'lazy'} quality={10} format={'webp'} /></a>}
                   <a href={`/${type}/${t.t.data.edition}`} class={`hover:underline ${t.hostClass}`}>{t.t.data.edition}</a>
                 </td>
                 <td colspan="12" class="py-2">To be determined</td>
@@ -150,7 +150,7 @@ for (const tournamentData of tournamentsData) {
             return (
               <tr class="border-b border-primary-dark italic bg-blue-800/10 text-primary-light">
                 <td class="px-2 py-2 flex flex-col items-center gap-1 justify-center">
-                  {t.host && <a href={`/members/${t.host.slug}`} class="flex-shrink-0"><Image src={t.host.data.flagPath} alt={t.host.data.name} height={20} class="rounded-sm max-h-14" loading={'lazy'} quality={10} format={'webp'} /></a>}
+                  {t.host && <a href={`/members/${t.host.id}`} class="flex-shrink-0"><Image src={t.host.data.flagPath} alt={t.host.data.name} height={20} class="rounded-sm max-h-14" loading={'lazy'} quality={10} format={'webp'} /></a>}
                   <a href={`/${type}/${t.t.data.edition}`} class={`hover:underline ${t.hostClass}`}>{t.t.data.edition}</a>
                 </td>
                 <td colspan="12" class="py-2">
@@ -165,7 +165,7 @@ for (const tournamentData of tournamentsData) {
             return (
               <tr class="border-b border-primary-dark italic bg-red-900/10 text-red-300">
                 <td class={`px-2 py-2 flex flex-col items-center gap-1 justify-center`}>
-                  {t.host && <a href={`/members/${t.host.slug}`} class="flex-shrink-0"><Image src={t.host.data.flagPath} alt={t.host.data.name} height={20} class="rounded-sm max-h-14" loading={'lazy'} quality={10} format={'webp'} /></a>}
+                  {t.host && <a href={`/members/${t.host.id}`} class="flex-shrink-0"><Image src={t.host.data.flagPath} alt={t.host.data.name} height={20} class="rounded-sm max-h-14" loading={'lazy'} quality={10} format={'webp'} /></a>}
                   <a href={`/${type}/${t.t.data.edition}`} class={`hover:underline ${t.hostClass}`}>{t.t.data.edition}</a>
                 </td>
                 <td colspan="12" class="py-2">Didn't qualify</td>
@@ -178,7 +178,7 @@ for (const tournamentData of tournamentsData) {
             return (
               <tr class="border-b border-primary-dark italic bg-surface-raised/20 text-primary-light">
                 <td class="px-2 py-2 flex flex-col items-center gap-1 justify-center">
-                  {t.host && <a href={`/members/${t.host.slug}`} class="flex-shrink-0"><Image src={t.host.data.flagPath} alt={t.host.data.name} height={20} class="rounded-sm max-h-14" loading={'lazy'} quality={10} format={'webp'} /></a>}
+                  {t.host && <a href={`/members/${t.host.id}`} class="flex-shrink-0"><Image src={t.host.data.flagPath} alt={t.host.data.name} height={20} class="rounded-sm max-h-14" loading={'lazy'} quality={10} format={'webp'} /></a>}
                   <a href={`/${type}/${t.t.data.edition}`} class={`hover:underline ${t.hostClass}`}>{t.t.data.edition}</a>
                 </td>
                 <td colspan="12" class="py-2">
@@ -191,7 +191,7 @@ for (const tournamentData of tournamentsData) {
           return (
             <tr class="border-b border-primary-dark hover:bg-surface-raised/20">
               <td class={`px-2 py-2 flex flex-col items-center gap-1 justify-center ${t.hostClass}`}>
-                {t.host && <a href={`/members/${t.host.slug}`} class="flex-shrink-0"><Image src={t.host.data.flagPath} alt={t.host.data.name} height={20} class="rounded-sm max-h-14" quality={10} format={'webp'} /></a>}
+                {t.host && <a href={`/members/${t.host.id}`} class="flex-shrink-0"><Image src={t.host.data.flagPath} alt={t.host.data.name} height={20} class="rounded-sm max-h-14" quality={10} format={'webp'} /></a>}
                 <a href={`/${type}/${t.t.data.edition}`} class={`hover:underline`}>{t.t.data.edition}</a>
               </td>
               <td class={`px-2 py-2 ${t.resultClass}`}>{t.resultLabel}</td>
@@ -220,7 +220,7 @@ for (const tournamentData of tournamentsData) {
             return (
               <tr class="border-b border-primary-dark italic bg-red-900/10 text-red-300">
                 <td class={`px-2 py-2 flex flex-col items-center gap-1 justify-center`}>
-                  {host && <a href={`/members/${host.slug}`} class="flex-shrink-0"><Image src={host.data.flagPath} alt={host.data.name} height={20} class="rounded-sm max-h-14" loading={'lazy'} quality={10} format={'webp'} /></a>}
+                  {host && <a href={`/members/${host.id}`} class="flex-shrink-0"><Image src={host.data.flagPath} alt={host.data.name} height={20} class="rounded-sm max-h-14" loading={'lazy'} quality={10} format={'webp'} /></a>}
                   <a href={`/${type}/${t.data.edition}`} class={`hover:underline ${hostClass}`}>{t.data.edition}</a>
                 </td>
                 <td colspan="12" class="py-2">
@@ -232,7 +232,7 @@ for (const tournamentData of tournamentsData) {
             return (
               <tr class="border-b border-primary-dark italic bg-blue-800/10 text-primary-light">
                 <td class="px-2 py-2 flex flex-col items-center gap-1 justify-center">
-                  {host && <a href={`/members/${host.slug}`} class="flex-shrink-0"><Image src={host.data.flagPath} alt={host.data.name} height={20} class="rounded-sm max-h-14" loading={'lazy'} quality={10} format={'webp'} /></a>}
+                  {host && <a href={`/members/${host.id}`} class="flex-shrink-0"><Image src={host.data.flagPath} alt={host.data.name} height={20} class="rounded-sm max-h-14" loading={'lazy'} quality={10} format={'webp'} /></a>}
                   <a href={`/${type}/${t.data.edition}`} class={`hover:underline ${hostClass}`}>{t.data.edition}</a>
                 </td>
                 <td colspan="12" class="py-2">
@@ -251,7 +251,7 @@ for (const tournamentData of tournamentsData) {
           return (
             <tr class="border-b border-primary-dark hover:bg-surface-raised/20">
               <td class={`px-2 py-2 flex flex-col items-center gap-1 justify-center ${hostClass}`}>
-                {host && <a href={`/members/${host.slug}`} class="flex-shrink-0"><Image src={host.data.flagPath} alt={host.data.name} height={20} class="rounded-sm max-h-14" quality={10} format={'webp'} /></a>}
+                {host && <a href={`/members/${host.id}`} class="flex-shrink-0"><Image src={host.data.flagPath} alt={host.data.name} height={20} class="rounded-sm max-h-14" quality={10} format={'webp'} /></a>}
                 <a href={`/${type}/${t.data.edition}`} class={`hover:underline`}>{t.data.edition}</a>
               </td>
               <td class={`px-2 py-2 ${resultClass}`}>{getTeamFinalResultInTournament(t.data.id)}</td> {/* Placeholder para resultado final */}

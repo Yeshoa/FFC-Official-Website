@@ -34,7 +34,7 @@ export const prerender = true;
 export async function getStaticPaths() {
   const members = await getMembers();
   return members.map((member: MemberType) => ({
-    params: { slug: member.slug },
+    params: { slug: member.id },
     props: { member },
   }));
 }
@@ -46,7 +46,6 @@ if (!member) {
   return Astro.redirect('/404');
 }
 
-const { Content } = await member.render(); // Markdown content of the member
 const memberData = member.data; // Member data
 // Collections
 const matches = await getMatches();
@@ -144,18 +143,11 @@ const titles = tournaments
   .filter(t => t.data.champion === memberData.name)
   .map(t => ({ year: t.data.edition }));
 
-// This is the markdown content. If it is empty, it will not be rendered
-const hasContent = member?.body && member.body.trim() !== '';
-/*
-  This is for the achievements EMPTY IF FEATURES.achievements IS FALSE
-  TODO:
-  getAchievementsForMember should recieve a full member, not the name 
-*/
 const achievements = FEATURES.achievements ? await getAchievementsForMember(memberData.name) : [];
 
 // Articles
 const articles = await getArticles();
-const filterTags = [member.slug]; // the articles should have the nation slug as tag to be shown
+const filterTags = [member.id]; // the articles should have the nation slug as tag to be shown
 const filteredArticles = getArticlesByTags(articles, filterTags);
 ---
 
@@ -219,7 +211,7 @@ const filteredArticles = getArticlesByTags(articles, filterTags);
                   .map(([opponentName, stats]) => (
                     <tr key={opponentName} class="border-b border-primary-dark hover:bg-surface-raised/30 transition duration-150">
                       <td class="px-1 xs:px-4 py-2 whitespace-nowrap font-medium text-white">
-                        <a href={`${stats.opponentData?.slug ? ROUTES.members.detail(stats.opponentData?.slug) : '#'}`} 
+                        <a href={`${stats.opponentData?.id ? ROUTES.members.detail(stats.opponentData?.id) : '#'}`} 
                         class="flex items-center gap-2 hover:underline truncate">
                           <Image
                             src={stats.opponentData?.data.flagPath || '/images/tournaments/default-flag.png'}
@@ -255,7 +247,7 @@ const filteredArticles = getArticlesByTags(articles, filterTags);
         )}
         <!-- Right: Below H2H, Scorers and Assists -->
         <!-- <section class="flex justify-center items-center flex-col"> -->
-          <ScorersTable members={members.filter(m => m.slug === member.slug)} matches={playedMatches} />
+          <ScorersTable members={members.filter(m => m.id === member.id)} matches={playedMatches} />
         <!-- </section> -->
       </div>
     </div>

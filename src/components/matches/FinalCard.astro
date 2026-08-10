@@ -39,7 +39,7 @@ const winner = getMatchWinner(match);
 const stadium = match.stadium_id ? (await getStadiumById(match.stadium_id)) : null;
 const stadiumName = stadium?.data.name || null;
 const stadiumHref = "#";
-// const stadiumHref = stadium ? ROUTES.stadiums.detail(stadium.slug) : "#";
+// const stadiumHref = stadium ? ROUTES.stadiums.detail(stadium.id) : "#";
 ---
 
 <div id="final" class="relative overflow-hidden w-full max-w-5xl border-3 border-yellow-500 rounded-2xl">
@@ -95,7 +95,7 @@ const stadiumHref = "#";
         )}
         <a 
           class={`mt-2 font-medium md:text-lg hover:underline ${winner === match.team1 ? 'text-yellow-300 font-bold' : 'text-white'}`} 
-          href={team1 !== "-" ? `/members/${team1?.slug}` : '#'}
+          href={team1 !== "-" ? `/members/${team1?.id}` : '#'}
         >
           {match.team1}
         </a>
@@ -144,7 +144,7 @@ const stadiumHref = "#";
         )}
         <a 
           class={`mt-2 font-medium md:text-lg hover:underline ${winner === match.team2 ? 'text-yellow-300 font-bold' : 'text-white'}`} 
-          href={team2 !== "-" ? `/members/${team2?.slug}` : '#'}
+          href={team2 !== "-" ? `/members/${team2?.id}` : '#'}
         >
           {match.team2}
         </a>

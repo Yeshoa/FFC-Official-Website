@@ -145,7 +145,7 @@ export async function getMemberScoreDetails(
 
   return {
     member: {
-      slug: member.slug,
+      slug: member.id,
       name: member.data.name,
       code: member.data.code ?? '',
       flag: member.data.flagPath,
@@ -271,7 +271,7 @@ export async function getRankedMembers(
       .map(async (member) => {
   const result = await getMemberScoreDetails(member, currentSeason);
         return {
-          slug: result.member.slug,
+          slug: result.member.id,
           name: result.member.name,
           code: result.member.code,
           flag: result.member.flag,

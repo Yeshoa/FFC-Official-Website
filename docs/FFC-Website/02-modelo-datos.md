@@ -181,14 +181,19 @@ squad: {
 > Decisión del dueño: migrar todo el contenido de `/content` a JSON.
 
 ### Alcance
-- Colecciones que hoy son `.md`: `members`, `tournaments`, `achievements`, `sponsors`, `stadiums`, `articles`, `clubs` (futura).
-- Los `.md` actuales tienen **frontmatter** + **cuerpo markdown**. Para las que tienen cuerpo (p.ej. `articles`, descripciones de `members`), el cuerpo se mantiene como string en el JSON (markdown) o como campo separado.
+- Colecciones que hoy son `.md`: `members`, `tournaments`, `achievements`, `sponsors`, `stadiums`, `clubs` (futura).
+- Los `.md` actuales tienen **frontmatter** + **cuerpo markdown**. Para las que tienen cuerpo (p.ej. descripciones de `members`), el cuerpo se mantiene como string en el JSON (markdown) o como campo separado.
+- **`articles` NO se migran**: son `.mdx` con componentes MDX e imports; quedan como están (decisión del dueño).
 - `matches`, `events`, `roleplays`, `bonuses` ya son JSON.
 
-### Forma de implementación
-- Opción recomendada: migrar cada colección a un JSON (o directorio de JSONs) y cargarla con `loader: () => jsonData` como ya hace `matches`, **manteniendo el mismo schema Zod**.
-- Esto mantiene los tipos y el tipado estricto intactos; solo cambia el formato de origen.
-- El contenido de `.md` se convierte campo a campo (script de migración o manual).
+### Forma de implementación (implementada en A5)
+- **Resultado final**: un **único JSON por colección** en `src/data/` — `members.json`, `tournaments.json`, `achievements.json`, `sponsors.json`, `stadiums.json` — con formato objeto `{ [id]: data }` (la key es el entry id/slug; el valor conserva su `data.id` numérico si existe).
+- Cargadas en `src/content/config.ts` con un **loader custom** (`objectLoader`) que itera el objeto y hace `store.set({ id, data })`. Se usa loader custom (no el atajo `loader: () => data`) porque el atajo simple acopla `entry.id` con `data.id` del schema, y en `members`/`tournaments`/`stadiums` el entry id es el slug pero `data.id` es un número.
+- **`articles` NO se migran**: son `.mdx` con componentes MDX e imports; quedan como están (decisión del dueño).
+- **Body markdown de members descartado** (solo existía en `bilsa.md`) por decisión del dueño.
+- Se mantienen los **mismos schemas Zod** intactos; solo cambia el formato de origen.
+- El contenido se convirtió campo a campo (script de migración).
+- `matches`, `events`, `roleplays`, `bonuses` ya eran JSON con loader.
 
 ### Impacto
 - Menos archivos, más fácil de mantener/editar a mano.

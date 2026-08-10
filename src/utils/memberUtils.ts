@@ -55,7 +55,7 @@ export async function getMemberBySlug(
   memberCollection?: CollectionEntry<'members'>[],
 ): Promise<CollectionEntry<'members'> | null> {
   const allMembers = memberCollection ?? members;
-  return allMembers.find(member => member.slug === slug) ?? null;
+  return allMembers.find(member => member.id === slug) ?? null;
 }
 export function getMemberImage(
   memberName: string | undefined,

@@ -59,7 +59,7 @@ async function generateGroupTable(matches: Match[]): Promise<GroupTableRow[]> {
         table[team] = {
           team,
           teamObject: {
-            slug: teamObject.slug || '',
+            slug: teamObject.id || '',
             flagPath: teamObject.data?.flagPath || defaultFlag,
             name: teamObject.data?.name || team
           },

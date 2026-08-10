@@ -1,4 +1,5 @@
 import { defineCollection, z } from 'astro:content';
+import type { LoaderContext } from 'astro/loaders';
 import { CATEGORIES, SUBCATEGORIES, ALIGNMENTS } from '@lib/achievements/utils';
 import events from '../data/events.json';
 import roleplays from '../data/roleplays.json';
@@ -7,20 +8,29 @@ import matches2020 from '../data/matches/forest-cup-2020.json';
 import matches2022 from '../data/matches/forest-cup-2022.json';
 import matches2024 from '../data/matches/forest-cup-2024.json';
 import matches2026 from '../data/matches/forest-cup-2026.json';
-/* const tournamentsCollection = defineCollection({
-  type: 'content',
-  schema: z.object({
-    name: z.string(),
-    image: z.string(),
-    year: z.number(),
-    winner: z.string(),
-    runner_up: z.string(),
-    top_scorer: z.string().optional(),
-  }),
-}); */
+import tournamentsData from '../data/tournaments.json';
+import membersData from '../data/members.json';
+import achievementsData from '../data/achievements.json';
+import sponsorsData from '../data/sponsors.json';
+import stadiumsData from '../data/stadiums.json';
+
+// Loader que expone un objeto { [id]: data } como colección de content layer.
+// El id del objeto es el entry id (slug); data mantiene su propio campo id si existe.
+function objectLoader(name: string, data: Record<string, Record<string, unknown>>) {
+  return {
+    name,
+    load: async ({ store, parseData }: LoaderContext) => {
+      store.clear();
+      for (const [id, raw] of Object.entries(data)) {
+        const parsed = await parseData({ id, data: raw });
+        store.set({ id, data: parsed });
+      }
+    },
+  };
+}
 
 const tournamentsCollection = defineCollection({
-  type: 'content',
+  loader: objectLoader('tournaments', tournamentsData),
   schema: ({ image }) => z.object({
     id: z.number(),
     type: z.enum(["forest-cup", "forestian-champions-league"]),
@@ -183,7 +193,7 @@ const matchesCollection = defineCollection({
 });
 
 const membersCollection = defineCollection({
-  type: 'content',
+  loader: objectLoader('members', membersData),
   schema: ({ image }) => z.object({
     // General
     id: z.number(),
@@ -291,7 +301,7 @@ const articlesCollection = defineCollection({
 });
 
 const achievementsCollection = defineCollection({
-  type: 'content',
+  loader: objectLoader('achievements', achievementsData),
   schema: ({ image }) => z.object({
     id: z.string().optional(),
     name: z.string(),
@@ -310,7 +320,7 @@ const achievementsCollection = defineCollection({
 });
 
 const sponsorCollection = defineCollection({
-  type: 'content',
+  loader: objectLoader('sponsors', sponsorsData),
   schema: ({ image }) => z.object({
     name: z.string(),
     image: image(),
@@ -324,7 +334,7 @@ const sponsorCollection = defineCollection({
 });
 
 const stadiumsCollection = defineCollection({
-  type: 'content',
+  loader: objectLoader('stadiums', stadiumsData),
   schema: ({ image }) => z.object({
     id: z.number(),
     name: z.string(),

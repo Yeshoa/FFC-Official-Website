@@ -155,7 +155,7 @@ const statsCols = topAssisters.length > 0 ? "grid grid-cols-1 lg:grid-cols-3 gap
         <div class="mb-4">
           <h4 class="font-bold text-lg mb-2 text-amber-400">Best Player</h4>
           <div class="flex items-center gap-2 p-2 rounded hover:bg-primary-deep/30 transition">
-            <a href={`/members/${resolvedPrizes.bestPlayer.member.slug}`} class="flex items-center gap-2 hover:underline">
+            <a href={`/members/${resolvedPrizes.bestPlayer.member.id}`} class="flex items-center gap-2 hover:underline">
               <Image src={resolvedPrizes.bestPlayer.member.data.flagPath} alt={resolvedPrizes.bestPlayer.member.data.name} class="w-6 h-4 object-cover rounded" height={16} quality={40} format='webp' loading={"lazy"}/>
               <span class="font-medium">{resolvedPrizes.bestPlayer.player}</span> ({resolvedPrizes.bestPlayer.team})
             </a>
@@ -167,7 +167,7 @@ const statsCols = topAssisters.length > 0 ? "grid grid-cols-1 lg:grid-cols-3 gap
           <h4 class="font-bold text-lg mb-2 text-primary-muted">Top Scorer</h4>
           {resolvedPrizes.topScorers.map(scorer => (
             <div class="flex items-center gap-2 mb-1 p-2 rounded hover:bg-primary-deep/30 transition">
-              <a href={`/members/${scorer.member.slug}`} class="flex items-center gap-2 hover:underline">
+              <a href={`/members/${scorer.member.id}`} class="flex items-center gap-2 hover:underline">
                 <Image src={scorer.member.data.flagPath} alt={scorer.member.data.name} class="w-6 h-4 object-cover rounded" height={16} quality={40} format='webp' loading={"lazy"}/>
                 <span class="font-medium">{scorer.player}</span> ({scorer.team})
               </a>
@@ -180,7 +180,7 @@ const statsCols = topAssisters.length > 0 ? "grid grid-cols-1 lg:grid-cols-3 gap
         <div>
           <h4 class="font-bold text-lg mb-2 text-blue-300">Best Goalkeeper</h4>
            <div class="flex items-center gap-2 p-2 rounded hover:bg-primary-deep/30 transition">
-              <a href={`/members/${resolvedPrizes.bestGoalkeeper.member.slug}`} class="flex items-center gap-2 hover:underline">
+              <a href={`/members/${resolvedPrizes.bestGoalkeeper.member.id}`} class="flex items-center gap-2 hover:underline">
                 <Image src={resolvedPrizes.bestGoalkeeper.member.data.flagPath} loading={"lazy"} alt={resolvedPrizes.bestGoalkeeper.member.data.name} class="w-6 h-4 object-cover rounded" height={16} quality={40} format='webp' />
                 <span class="font-medium">{resolvedPrizes.bestGoalkeeper.player}</span> ({resolvedPrizes.bestGoalkeeper.team})
               </a>
@@ -191,7 +191,7 @@ const statsCols = topAssisters.length > 0 ? "grid grid-cols-1 lg:grid-cols-3 gap
         <div>
           <h4 class="font-bold text-lg mb-2 text-red-300">Best Goal</h4>
            <div class="flex items-center gap-2 p-2 rounded hover:bg-primary-deep/30 transition">
-              <a href={`/members/${resolvedPrizes.bestGoal.member.slug}`} class="flex items-center gap-2 hover:underline">
+              <a href={`/members/${resolvedPrizes.bestGoal.member.id}`} class="flex items-center gap-2 hover:underline">
                 <Image src={resolvedPrizes.bestGoal.member.data.flagPath} loading={"lazy"} alt={resolvedPrizes.bestGoal.member.data.name} class="w-6 h-4 object-cover rounded" height={16} quality={40} format='webp' />
                 <span class="font-medium">{resolvedPrizes.bestGoal.player}</span> ({resolvedPrizes.bestGoal.team})
               </a>
@@ -233,7 +233,7 @@ const statsCols = topAssisters.length > 0 ? "grid grid-cols-1 lg:grid-cols-3 gap
                 <tr class="border-b border-primary-dark hover:bg-surface-raised/30 transition duration-150" key={`${entry.player}-${entry.team}-goals`}>
                   <td class="px-4 py-2 font-semibold truncate">{entry.player}</td>
                   <td class="px-4 py-2">
-                    <a href={`/members/${entry.member.slug}`} class="flex items-center gap-2 hover:underline">
+                    <a href={`/members/${entry.member.id}`} class="flex items-center gap-2 hover:underline">
                       <Image
                         src={entry.member.data.flagPath}
                         loading="lazy"
@@ -273,7 +273,7 @@ const statsCols = topAssisters.length > 0 ? "grid grid-cols-1 lg:grid-cols-3 gap
                   <tr class="border-b border-cyan-700 hover:bg-cyan-900/30 transition duration-150" key={`${entry.player}-${entry.team}-assists`}>
                     <td class="px-4 py-2 font-semibold truncate">{entry.player}</td>
                     <td class="px-4 py-2">
-                      <a href={`/members/${entry.member.slug}`} class="flex items-center gap-2 hover:underline">
+                      <a href={`/members/${entry.member.id}`} class="flex items-center gap-2 hover:underline">
                         <Image
                           src={entry.member.data.flagPath}
                           loading="lazy"

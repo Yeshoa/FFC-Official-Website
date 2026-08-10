@@ -83,7 +83,7 @@ const formattedDate = match.data.status === 'scheduled'
         ) : (
           <div class="w-6 h-6 bg-gray-600 rounded-md"></div>
         )}
-        <a class={`${winner === match.data.team1 ? 'font-bold' : 'font-light'} hover:underline`} href={`/members/${team1?.slug}`}>
+        <a class={`${winner === match.data.team1 ? 'font-bold' : 'font-light'} hover:underline`} href={`/members/${team1?.id}`}>
           {team1?.data.code}
         </a>
       </div>
@@ -108,7 +108,7 @@ const formattedDate = match.data.status === 'scheduled'
         ) : (
           <div class="w-6 h-6 bg-gray-600 rounded-md"></div>
         )}
-        <a class={`${winner === match.data.team2 ? 'font-bold' : 'font-light'} hover:underline` } href={`/members/${team2?.slug}`}>
+        <a class={`${winner === match.data.team2 ? 'font-bold' : 'font-light'} hover:underline` } href={`/members/${team2?.id}`}>
           {team2?.data.code}
         </a>
       </div>

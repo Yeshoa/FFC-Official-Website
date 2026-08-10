@@ -84,7 +84,7 @@ const hour = match.data.date.toLocaleTimeString(LOCALE, {hour12: false, hour: 'n
   <div class="grid grid-cols-7 items-center w-full gap-2 mb-2">
     {/* Equipo 1 */}
     <div class="flex items-center justify-end col-span-3 gap-2 text-right overflow-visible">
-      <a class={`${winner === match.data.team1 ? 'font-bold' : 'font-light'} md:text-lg truncate hover:underline`} href={team1?.data ? `/members/${team1?.slug}` : '#'}>
+      <a class={`${winner === match.data.team1 ? 'font-bold' : 'font-light'} md:text-lg truncate hover:underline`} href={team1?.data ? `/members/${team1?.id}` : '#'}>
         <span class="hidden xs:inline">{team1?.data ? team1?.data.name : match.data.team1}</span>
         <span class="xs:hidden">{team1?.data ? team1?.data.code : match.data.team1}</span>
       </a>
@@ -153,7 +153,7 @@ const hour = match.data.date.toLocaleTimeString(LOCALE, {hour12: false, hour: 'n
           quality={10}
         />
       )}
-      <a class={`${winner === match.data.team2 ? 'font-bold' : 'font-light'} md:text-lg truncate hover:underline`} href={team2?.data ? `/members/${team2?.slug}` : '#'}>
+      <a class={`${winner === match.data.team2 ? 'font-bold' : 'font-light'} md:text-lg truncate hover:underline`} href={team2?.data ? `/members/${team2?.id}` : '#'}>
         <span class="hidden xs:inline">{team2?.data ? team2?.data.name : match.data.team2}</span>
         <span class="xs:hidden">{team2?.data ? team2?.data.code : match.data.team2}</span>
       </a>

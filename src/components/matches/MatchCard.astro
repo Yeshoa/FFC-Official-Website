@@ -43,7 +43,7 @@ const hour = match.data.date.toLocaleTimeString(LOCALE, {hour12: false, hour: 'n
 const stadium = match.data.stadium_id ? (await getStadiumById(match.data.stadium_id)) : null;
 const stadiumName = stadium?.data.name || null;
 const stadiumHref = "#";
-// const stadiumHref = stadium ? ROUTES.stadiums.detail(stadium.slug) : "#";
+// const stadiumHref = stadium ? ROUTES.stadiums.detail(stadium.id) : "#";
 ---
 
 <div class="flex flex-col justify-start items-center w-full max-w-5xl bg-gradient-to-br from-surface-raised/80 to-surface/70 py-3 px-4 rounded-2xl shadow-md text-white hover:bg-primary-dark/90">
@@ -66,7 +66,7 @@ const stadiumHref = "#";
   <div class="grid grid-cols-7 items-center w-full gap-2 mb-2">
     {/* Equipo 1 */}
     <div class="flex items-center justify-end col-span-3 gap-2 text-right overflow-visible">
-      <a class={`${winner === match.data.team1 ? 'font-bold' : 'font-light'} md:text-lg truncate hover:underline`} href={team1?.data ? `/members/${team1?.slug}` : '#'}>
+      <a class={`${winner === match.data.team1 ? 'font-bold' : 'font-light'} md:text-lg truncate hover:underline`} href={team1?.data ? `/members/${team1?.id}` : '#'}>
         <span class="hidden xs:inline">{team1?.data ? team1?.data.name : match.data.team1}</span>
         <span class="xs:hidden">{team1?.data ? team1?.data.code : match.data.team1}</span>
       </a>
@@ -135,7 +135,7 @@ const stadiumHref = "#";
           quality={10}
         />
       )}
-      <a class={`${winner === match.data.team2 ? 'font-bold' : 'font-light'} md:text-lg truncate hover:underline`} href={team2?.data ? `/members/${team2?.slug}` : '#'}>
+      <a class={`${winner === match.data.team2 ? 'font-bold' : 'font-light'} md:text-lg truncate hover:underline`} href={team2?.data ? `/members/${team2?.id}` : '#'}>
         <span class="hidden xs:inline">{team2?.data ? team2?.data.name : match.data.team2}</span>
         <span class="xs:hidden">{team2?.data ? team2?.data.code : match.data.team2}</span>
       </a>

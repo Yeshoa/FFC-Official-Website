@@ -15,7 +15,7 @@ const { currentTournament, champion, className } = Astro.props;
 
 const flagPath = champion ? champion.data.flagPath : defaulFlag;
 const name = champion ? champion.data.name : 'TBD';
-const href = champion ? `/members/${champion.slug}` : '#';
+const href = champion ? `/members/${champion.id}` : '#';
 
 const allTournaments = await getTournaments();
 const sortedTournaments = allTournaments.sort((a, b) => a.data.id - b.data.id);

@@ -73,7 +73,7 @@ const winnerTeam = getMemberByName(getMatchWinner(finalMatch.data), members) || 
             ) : (
               <div class="w-20 h-20 bg-gray-600 rounded-lg" />
             )}
-            <a href={`/members/${winnerTeam?.slug}`} class="hover:underline">{winnerTeam?.data.name}</a>
+            <a href={`/members/${winnerTeam?.id}`} class="hover:underline">{winnerTeam?.data.name}</a>
             <Image src={trophy} alt="Trophy" class="w-auto h-20" quality={1} format="webp" />
           </div>
           <BracketMatchCard match={finalMatch} members={members} />

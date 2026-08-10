@@ -1,0 +1,2157 @@
+{
+  "aeterno_tranquillitas": {
+    "id": 9999,
+    "code": "xAET",
+    "name": "Aeterno Tranquillitas",
+    "nslink": "https://www.nationstates.net/nation=aeterno_tranquillitas",
+    "flagPath": "/src/assets/images/members/aeterno_tranquillitas_flag.jpg",
+    "region": "Forest",
+    "verified": false,
+    "tierHistory": [
+      {
+        "tier": "A",
+        "edition": 2020
+      }
+    ]
+  },
+  "anxious-and-kevin": {
+    "id": 11,
+    "code": "A&K",
+    "name": "Anxious and Kevin",
+    "nslink": "https://www.nationstates.net/nation=anxious_and_kevin",
+    "flagPath": "/src/assets/images/members/anxious_and_kevin_flag.png",
+    "federation": "Anxious & Kevin Football Federation",
+    "logoPath": "/src/assets/images/members/anxious_and_kevin_logo.png",
+    "feddispatch": "https://www.nationstates.net/nation=anxious_and_kevin/detail=factbook/id=1933991",
+    "region": "Forest",
+    "founded": 2002,
+    "affiliation": 2024,
+    "verified": true,
+    "score": {
+      "rp": {
+        "2024": {
+          "history": 20
+        }
+      }
+    },
+    "manualAchievements": [
+      "roleplay"
+    ],
+    "tierHistory": [
+      {
+        "tier": "B",
+        "edition": 2024
+      }
+    ]
+  },
+  "aresetia": {
+    "id": 30,
+    "code": "ARE",
+    "name": "Aresetia",
+    "nslink": "https://www.nationstates.net/nation=aresetia",
+    "flagPath": "/src/assets/images/members/aresetia_flag.png",
+    "region": "The East Pacific",
+    "affiliation": 2024,
+    "verified": true,
+    "tierHistory": [
+      {
+        "tier": "F",
+        "edition": 2024
+      }
+    ]
+  },
+  "atsvea": {
+    "id": 6,
+    "code": "ATS",
+    "name": "Atsvea",
+    "nslink": "https://www.nationstates.net/nation=atsvea",
+    "flagPath": "/src/assets/images/members/atsvea_flag.jpeg",
+    "federation": "FFA",
+    "logoPath": "/src/assets/images/members/atsvea_logo.png",
+    "region": "Forest",
+    "founded": 2020,
+    "affiliation": 2024,
+    "verified": true,
+    "founder": true,
+    "score": {
+      "events": {
+        "2024": {
+          "trivia": 32
+        }
+      }
+    },
+    "manualAchievements": [
+      "founder",
+      "powerhouse"
+    ],
+    "tierHistory": [
+      {
+        "tier": "S",
+        "edition": 2022
+      },
+      {
+        "tier": "A",
+        "edition": 2024
+      }
+    ]
+  },
+  "azure_mines": {
+    "id": 39,
+    "code": "AZR",
+    "name": "Azure Mines",
+    "nslink": "https://www.nationstates.net/nation=azure_mines",
+    "flagPath": "/src/assets/images/members/azure_mines_flag.png",
+    "logoPath": "/src/assets/images/members/azure_mines_logo.png",
+    "region": "Forest",
+    "affiliation": 2026,
+    "verified": true
+  },
+  "bextoria": {
+    "id": 42,
+    "code": "BEX",
+    "name": "Bextoria",
+    "nslink": "https://www.nationstates.net/nation=bextoria",
+    "flagPath": "/src/assets/images/members/bextoria_flag.png",
+    "logoPath": "/src/assets/images/members/bextoria_logo.png",
+    "region": "Forest",
+    "affiliation": 2026,
+    "verified": true
+  },
+  "bilsa": {
+    "id": 1,
+    "code": "BIL",
+    "name": "Bilsa",
+    "nslink": "https://www.nationstates.net/nation=bilsa",
+    "flagPath": "/src/assets/images/members/bilsa_flag.png",
+    "federation": "Bilsa Fuzbal",
+    "logoPath": "/src/assets/images/members/bilsa_logo.png",
+    "feddispatch": "https://www.nationstates.net/nation=bilsa/detail=factbook/id=2512003",
+    "region": "Forest",
+    "founded": 2012,
+    "affiliation": 2024,
+    "verified": true,
+    "founder": true,
+    "score": {
+      "rp": {
+        "2024": {
+          "history": 20
+        }
+      },
+      "events": {
+        "2024": {
+          "events": 15
+        },
+        "2026": {
+          "poetry": 22.7,
+          "quiz": 115,
+          "mm": 1
+        }
+      }
+    },
+    "squad": {
+      "coach": "Kruretj Bisaza",
+      "formation": "4-2-3-1",
+      "players": [
+        {
+          "number": 1,
+          "name": "E. Jadar",
+          "position": "GK"
+        },
+        {
+          "number": 2,
+          "name": "G. Velawa",
+          "position": "CB"
+        },
+        {
+          "number": 4,
+          "name": "A. Ritsa",
+          "position": "CB"
+        },
+        {
+          "number": 13,
+          "name": "H. Whletj",
+          "position": "RB"
+        },
+        {
+          "number": 3,
+          "name": "N. Kircjan",
+          "position": "LB"
+        },
+        {
+          "number": 17,
+          "name": "P. Rakaj",
+          "position": "DMF"
+        },
+        {
+          "number": 22,
+          "name": "B. Njazet",
+          "position": "CMF"
+        },
+        {
+          "number": 8,
+          "name": "A. Arhanv",
+          "position": "LMF"
+        },
+        {
+          "number": 7,
+          "name": "T. Ervaan",
+          "position": "RMF"
+        },
+        {
+          "number": 10,
+          "name": "D. Hajan",
+          "position": "AMF"
+        },
+        {
+          "number": 9,
+          "name": "C. Muniv",
+          "position": "CF"
+        },
+        {
+          "number": 12,
+          "name": "F. Kjell",
+          "position": "GK"
+        },
+        {
+          "number": 23,
+          "name": "B. Mataj",
+          "position": "GK"
+        },
+        {
+          "number": 6,
+          "name": "R. Asenus",
+          "position": "CB"
+        },
+        {
+          "number": 14,
+          "name": "E. Levin",
+          "position": "RB"
+        },
+        {
+          "number": 15,
+          "name": "S. Unsaj",
+          "position": "LB"
+        },
+        {
+          "number": 16,
+          "name": "Z. Adeon",
+          "position": "CMF"
+        },
+        {
+          "number": 5,
+          "name": "O. Azerotj",
+          "position": "RMF"
+        },
+        {
+          "number": 18,
+          "name": "V. Svema",
+          "position": "LMF"
+        },
+        {
+          "number": 19,
+          "name": "V. Tjenelsim",
+          "position": "AMF"
+        },
+        {
+          "number": 20,
+          "name": "D. Hrkadaj",
+          "position": "CB"
+        },
+        {
+          "number": 21,
+          "name": "S. Zjoakavj",
+          "position": "CF"
+        },
+        {
+          "number": 11,
+          "name": "H. Nuvljabawnj",
+          "position": "CF"
+        }
+      ]
+    },
+    "manualAchievements": [
+      "founder",
+      "sponsor",
+      "roleplay"
+    ],
+    "tierHistory": [
+      {
+        "tier": "B",
+        "edition": 2020
+      },
+      {
+        "tier": "B",
+        "edition": 2022
+      },
+      {
+        "tier": "B",
+        "edition": 2024
+      }
+    ]
+  },
+  "bisofeyr": {
+    "id": 20,
+    "code": "BSF",
+    "name": "Bisofeyr",
+    "nslink": "https://www.nationstates.net/nation=bisofeyr",
+    "flagPath": "/src/assets/images/members/bisofeyr_flag.png",
+    "logoPath": "/src/assets/images/members/bisofeyr_logo.png",
+    "region": "Forest",
+    "founded": 2024,
+    "affiliation": 2024,
+    "verified": true,
+    "score": {
+      "events": {
+        "2026": {
+          "quiz": 182
+        }
+      }
+    }
+  },
+  "blon_gre": {
+    "id": 9999,
+    "code": "xBLO",
+    "name": "Blon Gre",
+    "nslink": "https://www.nationstates.net/nation=blon_gre",
+    "flagPath": "/src/assets/images/members/xblo_flag.jpg",
+    "region": "Forest",
+    "verified": false,
+    "tierHistory": [
+      {
+        "tier": "S",
+        "edition": 2020
+      }
+    ]
+  },
+  "bluestoking_homeland": {
+    "id": 9999,
+    "code": "xBLH",
+    "name": "Bluestocking Homeland",
+    "nslink": "https://www.nationstates.net/nation=the_new_bluestocking_homeland",
+    "flagPath": "/src/assets/images/members/xblh_flag.jpg",
+    "region": "Forest",
+    "verified": false,
+    "tierHistory": [
+      {
+        "tier": "A",
+        "edition": 2020
+      }
+    ]
+  },
+  "bunkaiia": {
+    "id": 38,
+    "code": "BUN",
+    "name": "Bunkaiia",
+    "nslink": "https://www.nationstates.net/nation=bunkaiia",
+    "flagPath": "/src/assets/images/members/bun_flag.png",
+    "logoPath": "/src/assets/images/members/bun_logo.png",
+    "region": "Forest",
+    "verified": false,
+    "score": {
+      "rp": {
+        "2022": {
+          "history": 20
+        }
+      }
+    },
+    "tierHistory": [
+      {
+        "tier": "C",
+        "edition": 2022
+      }
+    ]
+  },
+  "cacusia": {
+    "id": 5,
+    "code": "CAC",
+    "name": "Cacusia",
+    "nslink": "https://www.nationstates.net/nation=democratic_republic_of_cacusia",
+    "flagPath": "/src/assets/images/members/democratic_republic_of_cacusia_flag.png",
+    "federation": "Cacusse Football Federation",
+    "logoPath": "/src/assets/images/members/democratic_republic_of_cacusia_logo.png",
+    "feddispatch": "https://www.nationstates.net/page=dispatch/id=1357240",
+    "region": "Forest",
+    "founded": 1877,
+    "affiliation": 2024,
+    "verified": true,
+    "founder": true,
+    "score": {
+      "rp": {
+        "2022": {
+          "history": 20
+        },
+        "2024": {
+          "history": 20
+        }
+      },
+      "bonus": {
+        "2024": {
+          "secret A1": 3,
+          "secret B2": 2,
+          "secret C1": 1
+        }
+      }
+    },
+    "manualAchievements": [
+      "founder",
+      "roleplay",
+      "discord"
+    ],
+    "tierHistory": [
+      {
+        "tier": "B",
+        "edition": 2022
+      },
+      {
+        "tier": "A",
+        "edition": 2024
+      }
+    ]
+  },
+  "canaltia": {
+    "id": 9999,
+    "code": "xCAN",
+    "name": "Canaltia",
+    "nslink": "https://www.nationstates.net/nation=canaltia",
+    "flagPath": "/src/assets/images/members/canaltia_flag.jpg",
+    "region": "Forest",
+    "verified": false,
+    "tierHistory": [
+      {
+        "tier": "S",
+        "edition": 2020
+      }
+    ]
+  },
+  "candelwhisper_archive": {
+    "id": 9999,
+    "code": "xCWA",
+    "name": "Candlewhisper Archive",
+    "nslink": "https://www.nationstates.net/nation=candlewhisper_archive",
+    "flagPath": "/src/assets/images/members/xcwa_flag.jpg",
+    "region": "Forest",
+    "verified": false,
+    "tierHistory": [
+      {
+        "tier": "B",
+        "edition": 2020
+      }
+    ]
+  },
+  "cannibaland": {
+    "id": 9999,
+    "code": "CAN",
+    "name": "Cannibaland",
+    "nslink": "https://www.nationstates.net/nation=cannibaland",
+    "flagPath": "/src/assets/images/members/can_flag.png",
+    "region": "Forest",
+    "verified": false,
+    "tierHistory": [
+      {
+        "tier": "S",
+        "edition": 2020
+      }
+    ]
+  },
+  "cat-army": {
+    "id": 26,
+    "code": "CAT",
+    "name": "Cat Army",
+    "nslink": "https://www.nationstates.net/nation=cat_army",
+    "flagPath": "/src/assets/images/members/cat_army_flag.png",
+    "region": "The Region That Has No Big Banks",
+    "affiliation": 2024,
+    "verified": true,
+    "score": {
+      "rp": {
+        "2024": {
+          "history": 12
+        }
+      },
+      "bonus": {
+        "2024": {
+          "secret A1": 3,
+          "secret B2": 2,
+          "secret C1": 1,
+          "secret C2": 1
+        }
+      }
+    },
+    "tierHistory": [
+      {
+        "tier": "C",
+        "edition": 2024
+      }
+    ]
+  },
+  "cat-herders-united": {
+    "id": 34,
+    "code": "CHU",
+    "name": "Cat-Herders United",
+    "nslink": "https://www.nationstates.net/nation=Cat-herders_united",
+    "flagPath": "/src/assets/images/members/chu_flag.png",
+    "logoPath": "/src/assets/images/members/chu_logo.png",
+    "region": "Forest",
+    "verified": false,
+    "founder": true,
+    "score": {
+      "rp": {
+        "2020": {
+          "roleplayed": 10
+        }
+      }
+    },
+    "manualAchievements": [
+      "founder",
+      "roleplay"
+    ],
+    "tierHistory": [
+      {
+        "tier": "A",
+        "edition": 2020
+      },
+      {
+        "tier": "B",
+        "edition": 2022
+      }
+    ]
+  },
+  "caterasia": {
+    "id": 9999,
+    "code": "xCTA",
+    "name": "Caterasia",
+    "nslink": "https://www.nationstates.net/nation=caterasia",
+    "flagPath": "/src/assets/images/members/caterasia_flag.png",
+    "region": "Forest",
+    "verified": false,
+    "tierHistory": [
+      {
+        "tier": "B",
+        "edition": 2020
+      }
+    ]
+  },
+  "chan_island": {
+    "id": 9999,
+    "code": "CI",
+    "name": "Chan Island",
+    "nslink": "https://www.nationstates.net/nation=chan_island",
+    "feddispatch": "https://www.nationstates.net/page=dispatch/id=2783343",
+    "flagPath": "/src/assets/images/members/chan_island_flag.webp",
+    "logoPath": "/src/assets/images/members/chan_island_logo.png",
+    "region": "Forest",
+    "verified": true,
+    "affiliation": 2026,
+    "tierHistory": [
+      {
+        "tier": "C",
+        "edition": 2020
+      }
+    ]
+  },
+  "chaplin": {
+    "id": 35,
+    "code": "CHP",
+    "name": "Chaplin",
+    "nslink": "https://www.nationstates.net/nation=chaplin",
+    "flagPath": "/src/assets/images/members/chaplin_flag.png",
+    "logoPath": "/src/assets/images/members/chaplin_logo.png",
+    "region": "The Leftist Assembly",
+    "affiliation": 2026,
+    "verified": true
+  },
+  "chilledsville": {
+    "id": 9999,
+    "code": "xCHV",
+    "name": "Chilledsville",
+    "nslink": "https://www.nationstates.net/nation=chilledsville",
+    "flagPath": "/src/assets/images/members/xchv_flag.jpg",
+    "region": "Forest",
+    "verified": false,
+    "tierHistory": [
+      {
+        "tier": "A",
+        "edition": 2020
+      }
+    ]
+  },
+  "clown-town-city": {
+    "id": 33,
+    "code": "CTC",
+    "name": "Clown Town City",
+    "nslink": "https://www.nationstates.net/nation=clown_town_city",
+    "flagPath": "/src/assets/images/members/ctc_flag.png",
+    "region": "Forest",
+    "affiliation": 2024,
+    "verified": true,
+    "tierHistory": [
+      {
+        "tier": "F",
+        "edition": 2024
+      }
+    ]
+  },
+  "columbiqash": {
+    "id": 22,
+    "code": "CQ",
+    "name": "Columbiqash",
+    "nslink": "https://www.nationstates.net/nation=columbiqash",
+    "flagPath": "/src/assets/images/members/columbiqash_flag.jpg",
+    "region": "Forest",
+    "founded": 2024,
+    "affiliation": 2024,
+    "verified": true,
+    "tierHistory": [
+      {
+        "tier": "F",
+        "edition": 2024
+      }
+    ]
+  },
+  "daarwyrth": {
+    "id": 37,
+    "code": "DRW",
+    "name": "Daarwyrth",
+    "nslink": "https://www.nationstates.net/nation=daarwyrth",
+    "flagPath": "/src/assets/images/members/drw_flag.png",
+    "logoPath": "/src/assets/images/members/drw_logo.png",
+    "region": "Forest",
+    "verified": false,
+    "tierHistory": [
+      {
+        "tier": "C",
+        "edition": 2022
+      }
+    ]
+  },
+  "drasnia": {
+    "id": 9999,
+    "code": "xDRA",
+    "name": "Drasnia",
+    "nslink": "https://www.nationstates.net/nation=drasnia",
+    "flagPath": "/src/assets/images/members/xdra_flag.png",
+    "region": "Forest",
+    "verified": false,
+    "tierHistory": [
+      {
+        "tier": "C",
+        "edition": 2020
+      }
+    ]
+  },
+  "dwardossa": {
+    "id": 9999,
+    "code": "xDWA",
+    "name": "Dwardossa",
+    "nslink": "https://www.nationstates.net/nation=dwardossa",
+    "flagPath": "/src/assets/images/members/xdwa_flag.png",
+    "region": "Forest",
+    "verified": false,
+    "tierHistory": [
+      {
+        "tier": "A",
+        "edition": 2020
+      }
+    ]
+  },
+  "ecologist-hegemony": {
+    "id": 34,
+    "code": "ETC",
+    "name": "Ecologist Hegemony",
+    "nslink": "https://www.nationstates.net/nation=ecologist_hegemony",
+    "flagPath": "/src/assets/images/members/ecologist_hegemony_flag.png",
+    "logoPath": "/src/assets/images/members/ecologist_hegemony_logo.png",
+    "region": "Forest",
+    "founded": 2026,
+    "affiliation": 2026,
+    "verified": true
+  },
+  "edible_plywood": {
+    "id": 9999,
+    "code": "xEDP",
+    "name": "Edible Plywood",
+    "nslink": "https://www.nationstates.net/nation=edible_plywood",
+    "flagPath": "/src/assets/images/members/xedp_flag.jpg",
+    "region": "Forest",
+    "verified": false,
+    "tierHistory": [
+      {
+        "tier": "B",
+        "edition": 2020
+      }
+    ]
+  },
+  "einswenn": {
+    "id": 7,
+    "code": "EIN",
+    "name": "Einswenn",
+    "nslink": "https://www.nationstates.net/nation=einswenn",
+    "flagPath": "/src/assets/images/members/einswenn_flag.png",
+    "federation": "BERSA Einset Football",
+    "logoPath": "/src/assets/images/members/einswenn_logo.png",
+    "feddispatch": "https://www.nationstates.net/page=dispatch/id=2533546",
+    "region": "Forest",
+    "founded": 2013,
+    "affiliation": 2024,
+    "verified": true,
+    "founder": true,
+    "score": {
+      "rp": {
+        "2022": {
+          "history": 20
+        },
+        "2024": {
+          "history": 20
+        }
+      },
+      "bonus": {
+        "2024": {
+          "secret A1": 3,
+          "secret A2": 10,
+          "extra": 5
+        }
+      }
+    },
+    "manualAchievements": [
+      "founder",
+      "roleplay",
+      "sponsor",
+      "discord",
+      "powerhouse"
+    ],
+    "tierHistory": [
+      {
+        "tier": "S",
+        "edition": 2022
+      },
+      {
+        "tier": "A",
+        "edition": 2024
+      }
+    ]
+  },
+  "elundris": {
+    "id": 9999,
+    "code": "xELU",
+    "name": "Elundris",
+    "nslink": "https://www.nationstates.net/nation=elundris",
+    "flagPath": "/src/assets/images/members/xelu_flag.jpg",
+    "region": "Forest",
+    "verified": false,
+    "tierHistory": [
+      {
+        "tier": "A",
+        "edition": 2020
+      }
+    ]
+  },
+  "entitize": {
+    "id": 9999,
+    "code": "xENT",
+    "name": "Entitize",
+    "nslink": "https://www.nationstates.net/nation=entitize",
+    "flagPath": "/src/assets/images/members/xent_flag.png",
+    "region": "Forest",
+    "verified": false,
+    "tierHistory": [
+      {
+        "tier": "B",
+        "edition": 2020
+      }
+    ]
+  },
+  "eryndlynd": {
+    "id": 9999,
+    "code": "xERY",
+    "name": "Eryndlynd",
+    "nslink": "https://www.nationstates.net/nation=eryndlynd",
+    "flagPath": "/src/assets/images/members/xery_flag.jpg",
+    "region": "Forest",
+    "verified": false,
+    "tierHistory": [
+      {
+        "tier": "S",
+        "edition": 2020
+      }
+    ]
+  },
+  "esterild": {
+    "id": 9999,
+    "code": "xEST",
+    "name": "Esterild",
+    "nslink": "https://www.nationstates.net/nation=esterild",
+    "flagPath": "/src/assets/images/members/xest_flag.png",
+    "region": "Forest",
+    "verified": false,
+    "tierHistory": [
+      {
+        "tier": "B",
+        "edition": 2020
+      }
+    ]
+  },
+  "feladria": {
+    "id": 9999,
+    "code": "xFEL",
+    "name": "Feladria",
+    "nslink": "https://www.nationstates.net/nation=feladria",
+    "flagPath": "/src/assets/images/members/xfel_flag.png",
+    "region": "Forest",
+    "verified": false,
+    "tierHistory": [
+      {
+        "tier": "S",
+        "edition": 2020
+      }
+    ]
+  },
+  "forfishing": {
+    "id": 9999,
+    "code": "FSH",
+    "name": "Fish",
+    "nslink": "https://www.nationstates.net/nation=ForFishing",
+    "flagPath": "/src/assets/images/members/forfishing_flag.webp",
+    "region": "The North Pacific",
+    "verified": true,
+    "affiliation": 2026
+  },
+  "forgotten_beauty": {
+    "id": 9999,
+    "code": "xFGB",
+    "name": "Forgotten Beauty",
+    "nslink": "https://www.nationstates.net/nation=forgotten_beauty",
+    "flagPath": "/src/assets/images/members/forgotten_beauty_flag.png",
+    "region": "Forest",
+    "verified": false,
+    "tierHistory": [
+      {
+        "tier": "B",
+        "edition": 2020
+      }
+    ]
+  },
+  "freistaat-ostpreussen": {
+    "id": 17,
+    "code": "EPR",
+    "name": "Freistaat Ostpreussen",
+    "nslink": "https://www.nationstates.net/nation=freistaat_ostpreussen",
+    "flagPath": "/src/assets/images/members/op_flag.png",
+    "federation": "Ostpreußischer Fußballverband",
+    "logoPath": "/src/assets/images/members/freistaat_ostpreussen_logo.png",
+    "feddispatch": "https://www.nationstates.net/nation=freistaat_ostpreussen/detail=factbook/id=main",
+    "region": "Forest",
+    "founded": 2024,
+    "affiliation": 2024,
+    "verified": true,
+    "score": {
+      "rp": {
+        "2024": {
+          "history": 20
+        }
+      }
+    },
+    "manualAchievements": [
+      "roleplay"
+    ],
+    "tierHistory": [
+      {
+        "tier": "C",
+        "edition": 2024
+      }
+    ]
+  },
+  "frieden_und_freudenland": {
+    "id": 9999,
+    "code": "xFUF",
+    "name": "Frieden Und Freudenland",
+    "nslink": "https://www.nationstates.net/nation=frieden-und_freudenland",
+    "flagPath": "/src/assets/images/members/xfuf_flag.jpg",
+    "region": "Forest",
+    "verified": false,
+    "tierHistory": [
+      {
+        "tier": "S",
+        "edition": 2020
+      }
+    ]
+  },
+  "furilisca": {
+    "id": 21,
+    "code": "FUR",
+    "name": "Furilisca",
+    "nslink": "https://www.nationstates.net/nation=furilisca",
+    "flagPath": "/src/assets/images/members/furilisca_flag.png",
+    "federation": "Furilisca Fotbolta",
+    "logoPath": "/src/assets/images/members/furilisca_logo.png",
+    "region": "Forest",
+    "affiliation": 2024,
+    "verified": true,
+    "score": {
+      "rp": {
+        "2024": {
+          "history": 20
+        }
+      },
+      "events": {
+        "2024": {
+          "trivia": 17
+        }
+      },
+      "bonus": {
+        "2024": {
+          "poll": 2
+        }
+      }
+    },
+    "manualAchievements": [
+      "voter"
+    ],
+    "tierHistory": [
+      {
+        "tier": "B",
+        "edition": 2024
+      }
+    ]
+  },
+  "garbelia": {
+    "id": 35,
+    "code": "GRB",
+    "name": "Garbelia",
+    "nslink": "https://www.nationstates.net/nation=garbelia",
+    "flagPath": "/src/assets/images/members/garbelia_flag.jpg",
+    "federation": "Garbelery Association of Professional Sports",
+    "logoPath": "/src/assets/images/members/garbelia_logo.png",
+    "feddispatch": "https://forum.nationstates.net/viewtopic.php?p=38856080#p38856080",
+    "region": "Forest",
+    "affiliation": 2026,
+    "verified": true
+  },
+  "glo": {
+    "id": 9999,
+    "code": "GFF",
+    "name": "Glo XI",
+    "nslink": "https://www.nationstates.net/nation=glo",
+    "flagPath": "/src/assets/images/members/glo_flag.png",
+    "logoPath": "/src/assets/images/members/glo_logo.png",
+    "region": "The Region That Has No Big Banks",
+    "verified": true,
+    "affiliation": 2026
+  },
+  "ironic_remarks": {
+    "id": 9999,
+    "code": "xIRR",
+    "name": "Ironic Remarks",
+    "nslink": "https://www.nationstates.net/nation=ironic_remarks",
+    "flagPath": "/src/assets/images/members/xirr_flag.jpg",
+    "region": "Forest",
+    "verified": false,
+    "tierHistory": [
+      {
+        "tier": "B",
+        "edition": 2020
+      }
+    ]
+  },
+  "jutsa": {
+    "id": 2,
+    "code": "JUT",
+    "name": "Jutsa",
+    "nslink": "https://www.nationstates.net/nation=jutsa",
+    "flagPath": "/src/assets/images/members/jutsa_flag.png",
+    "federation": "Jutsaish Football Association",
+    "logoPath": "/src/assets/images/members/jutsa_logo.png",
+    "region": "Forest",
+    "founded": 2022,
+    "affiliation": 2024,
+    "verified": true,
+    "founder": true,
+    "score": {
+      "events": {
+        "2024": {
+          "events": 38
+        },
+        "2026": {
+          "poetry": 27.7,
+          "quiz": 135,
+          "mm": 1
+        }
+      }
+    },
+    "manualAchievements": [
+      "founder"
+    ],
+    "tierHistory": [
+      {
+        "tier": "C",
+        "edition": 2022
+      },
+      {
+        "tier": "A",
+        "edition": 2024
+      }
+    ]
+  },
+  "karaa": {
+    "id": 40,
+    "code": "GEK",
+    "name": "Green Empire Karaa",
+    "nslink": "https://century.nationstates.net/nation=karaa_theocracy",
+    "flagPath": "/src/assets/images/members/karaa_flag.png",
+    "logoPath": "/src/assets/images/members/karaa_logo.png",
+    "region": "Forest",
+    "affiliation": 2026,
+    "verified": true
+  },
+  "kase": {
+    "id": 36,
+    "code": "KAS",
+    "name": "Kase",
+    "nslink": "https://www.nationstates.net/nation=kase",
+    "flagPath": "/src/assets/images/members/kas_flag.png",
+    "logoPath": "/src/assets/images/members/kas_logo.png",
+    "region": "Forest",
+    "verified": false,
+    "founder": true,
+    "manualAchievements": [
+      "founder",
+      "discord"
+    ],
+    "score": {
+      "rp": {
+        "2022": {
+          "history": 20
+        }
+      }
+    },
+    "tierHistory": [
+      {
+        "tier": "B",
+        "edition": 2022
+      }
+    ]
+  },
+  "kawastyselir": {
+    "id": 9999,
+    "code": "xKAW",
+    "name": "Kawastyselir",
+    "nslink": "https://www.nationstates.net/nation=kawastyselir",
+    "flagPath": "/src/assets/images/members/xkaw_flag.png",
+    "region": "Forest",
+    "verified": false,
+    "tierHistory": [
+      {
+        "tier": "B",
+        "edition": 2020
+      }
+    ]
+  },
+  "kinganaryasia": {
+    "id": 9999,
+    "code": "xKIN",
+    "name": "Kinganaryasia",
+    "nslink": "https://www.nationstates.net/nation=kinganaryasia",
+    "flagPath": "/src/assets/images/members/xkin_flag.jpg",
+    "region": "Forest",
+    "verified": false,
+    "tierHistory": [
+      {
+        "tier": "D",
+        "edition": 2020
+      }
+    ]
+  },
+  "klaus_devestatorie": {
+    "id": 9999,
+    "code": "KDV",
+    "name": "Klaus Devestatorie",
+    "nslink": "https://www.nationstates.net/nation=klaus_devestatorie",
+    "flagPath": "/src/assets/images/members/kdv_flag.png",
+    "logoPath": "/src/assets/images/members/kdv_logo.png",
+    "region": "Ordo Imperialia",
+    "verified": true,
+    "affiliation": 2026
+  },
+  "love_and_nature": {
+    "id": 9999,
+    "code": "xLOV",
+    "name": "Love and Nature",
+    "nslink": "https://www.nationstates.net/nation=love_and_nature",
+    "flagPath": "/src/assets/images/members/xlov_flag.png",
+    "region": "Forest",
+    "verified": false,
+    "tierHistory": [
+      {
+        "tier": "A",
+        "edition": 2020
+      }
+    ]
+  },
+  "lumiose": {
+    "id": 14,
+    "code": "LUM",
+    "name": "Lumiose",
+    "nslink": "https://www.nationstates.net/nation=lumiose",
+    "flagPath": "/src/assets/images/members/lumiose_flag.png",
+    "federation": "Lumiose Football Association",
+    "logoPath": "/src/assets/images/members/lumiose_logo.png",
+    "feddispatch": "https://www.nationstates.net/nation=lumiose/detail=factbook/id=2536430",
+    "region": "Forest",
+    "founded": 1881,
+    "affiliation": 2024,
+    "verified": true,
+    "score": {
+      "rp": {
+        "2024": {
+          "history": 20
+        }
+      },
+      "events": {
+        "2024": {
+          "chall": 5
+        },
+        "2026": {
+          "quiz": 180
+        }
+      },
+      "bonus": {
+        "2024": {
+          "extra": 5
+        },
+        "2026": {
+          "extra": 15
+        }
+      }
+    },
+    "manualAchievements": [
+      "roleplay",
+      "collaborator",
+      "discord"
+    ],
+    "tierHistory": [
+      {
+        "tier": "B",
+        "edition": 2024
+      }
+    ]
+  },
+  "mountain_ash_forests": {
+    "id": 9999,
+    "code": "XMAF",
+    "name": "Mountain Ash Forests",
+    "nslink": "https://www.nationstates.net/nation=mountain_ash_forests",
+    "flagPath": "/src/assets/images/members/xmaf_flag.jpg",
+    "region": "Forest",
+    "verified": false,
+    "tierHistory": [
+      {
+        "tier": "A",
+        "edition": 2020
+      }
+    ]
+  },
+  "mozolephies": {
+    "id": 32,
+    "code": "MOZ",
+    "name": "Mozolephies",
+    "nslink": "https://www.nationstates.net/nation=mozolephies",
+    "flagPath": "/src/assets/images/members/mozolephies_flag.png",
+    "logoPath": "/src/assets/images/members/mozolephies_logo.png",
+    "region": "Forest",
+    "affiliation": 2024,
+    "verified": true,
+    "tierHistory": [
+      {
+        "tier": "F",
+        "edition": 2024
+      }
+    ]
+  },
+  "nardin": {
+    "id": 12,
+    "code": "NAR",
+    "name": "Nardin",
+    "nslink": "https://www.nationstates.net/nation=nardin",
+    "flagPath": "/src/assets/images/members/nardin_flag.png",
+    "logoPath": "/src/assets/images/members/nardin_logo.png",
+    "region": "Europe",
+    "founded": 2024,
+    "affiliation": 2024,
+    "verified": true,
+    "score": {
+      "rp": {
+        "2024": {
+          "history": 6
+        }
+      },
+      "events": {
+        "2024": {
+          "poetry": 27
+        }
+      }
+    },
+    "tierHistory": [
+      {
+        "tier": "B",
+        "edition": 2024
+      }
+    ]
+  },
+  "new-libertalia-kingdom": {
+    "id": 18,
+    "code": "NLK",
+    "name": "New Libertalia Kingdom",
+    "nslink": "https://www.nationstates.net/nation=new_libertalia_kingdom",
+    "flagPath": "/src/assets/images/members/nlk_flag.png",
+    "region": "Portugal",
+    "affiliation": 2024,
+    "verified": true,
+    "score": {
+      "rp": {
+        "2024": {
+          "history": 3
+        }
+      },
+      "events": {
+        "2024": {
+          "chall": 9
+        }
+      }
+    },
+    "tierHistory": [
+      {
+        "tier": "D",
+        "edition": 2024
+      }
+    ]
+  },
+  "nordustra": {
+    "id": 17,
+    "code": "NOR",
+    "name": "Nordustra",
+    "nslink": "https://www.nationstates.net/nation=nordustra",
+    "flagPath": "/src/assets/images/members/NOR_flag.png",
+    "federation": "Nōrdustrās Natjonal Fotball Āssosjation",
+    "logoPath": "/src/assets/images/members/NOR_logo.png",
+    "feddispatch": "https://www.nationstates.net/page=dispatch/id=1701548",
+    "region": "Forest",
+    "founded": 1952,
+    "affiliation": 2024,
+    "verified": true,
+    "score": {
+      "rp": {
+        "2024": {
+          "history": 20
+        }
+      }
+    },
+    "manualAchievements": [
+      "roleplay"
+    ],
+    "tierHistory": [
+      {
+        "tier": "C",
+        "edition": 2024
+      }
+    ]
+  },
+  "novian-republics": {
+    "id": 40,
+    "code": "CNR",
+    "name": "Novian Republics",
+    "nslink": "https://www.nationstates.net/nation=novian_republics",
+    "flagPath": "/src/assets/images/members/cnr_flag.png",
+    "logoPath": "/src/assets/images/members/cnr_logo.png",
+    "region": "Forest",
+    "verified": false,
+    "tierHistory": [
+      {
+        "tier": "A",
+        "edition": 2020
+      },
+      {
+        "tier": "E",
+        "edition": 2022
+      }
+    ]
+  },
+  "orcuo": {
+    "id": 23,
+    "code": "ORC",
+    "name": "Orcuo",
+    "nslink": "https://www.nationstates.net/nation=orcuo",
+    "flagPath": "/src/assets/images/members/orcuo_flag.png",
+    "federation": "Orcuo Football Association",
+    "logoPath": "/src/assets/images/members/orcuo_logo.png",
+    "region": "Warzone Sandbox",
+    "founded": 2024,
+    "affiliation": 2024,
+    "verified": true,
+    "score": {
+      "rp": {
+        "2024": {
+          "history": 3
+        }
+      },
+      "events": {
+        "2024": {
+          "trivia": 6
+        }
+      }
+    },
+    "tierHistory": [
+      {
+        "tier": "D",
+        "edition": 2024
+      }
+    ]
+  },
+  "oseao": {
+    "id": 9999,
+    "code": "OSE",
+    "name": "Oseao",
+    "nslink": "https://www.nationstates.net/nation=oseao",
+    "flagPath": "/src/assets/images/members/oseao_flag.webp",
+    "region": "Horizon",
+    "verified": true,
+    "affiliation": 2026
+  },
+  "ottterland": {
+    "id": 29,
+    "code": "OTL",
+    "name": "Ottterland",
+    "nslink": "https://www.nationstates.net/nation=ottterland",
+    "flagPath": "/src/assets/images/members/ottterland_flag.png",
+    "logoPath": "/src/assets/images/members/ottterland_logo.png",
+    "region": "Europe",
+    "founded": 2024,
+    "affiliation": 2024,
+    "verified": true,
+    "score": {
+      "rp": {
+        "2024": {
+          "history": 12
+        }
+      }
+    },
+    "tierHistory": [
+      {
+        "tier": "D",
+        "edition": 2024
+      }
+    ]
+  },
+  "ownzone": {
+    "id": 39,
+    "code": "OZO",
+    "name": "Ownzone",
+    "nslink": "https://www.nationstates.net/nation=ownzone",
+    "flagPath": "/src/assets/images/members/own_flag.webp",
+    "logoPath": "/src/assets/images/members/ownzone_logo.png",
+    "region": "Forest",
+    "verified": true,
+    "affiliation": 2026,
+    "tierHistory": [
+      {
+        "tier": "A",
+        "edition": 2020
+      }
+    ]
+  },
+  "palos_heights": {
+    "id": 9999,
+    "code": "xPHE",
+    "name": "Palos Heights",
+    "nslink": "https://www.nationstates.net/nation=palos_heights",
+    "flagPath": "/src/assets/images/members/xphe_flag.jpg",
+    "region": "Forest",
+    "verified": false,
+    "tierHistory": [
+      {
+        "tier": "A",
+        "edition": 2020
+      }
+    ]
+  },
+  "ransium": {
+    "id": 9999,
+    "code": "xRAN",
+    "name": "Ransium",
+    "nslink": "https://www.nationstates.net/nation=ransium",
+    "flagPath": "/src/assets/images/members/xran_flag.jpg",
+    "region": "Forest",
+    "verified": false,
+    "tierHistory": [
+      {
+        "tier": "F",
+        "edition": 2020
+      }
+    ]
+  },
+  "reannia": {
+    "id": 3,
+    "code": "REA",
+    "name": "Reannia",
+    "nslink": "https://www.nationstates.net/nation=reannia",
+    "flagPath": "/src/assets/images/members/reannia_flag.png",
+    "federation": "Reannian Football Association",
+    "logoPath": "/src/assets/images/members/reannia_logo.png",
+    "feddispatch": "https://www.nationstates.net/page=dispatch/id=1189731",
+    "region": "Forest",
+    "founded": 1556,
+    "affiliation": 2024,
+    "verified": true,
+    "founder": true,
+    "score": {
+      "rp": {
+        "2022": {
+          "history": 20,
+          "roleplayed": 10
+        }
+      }
+    },
+    "manualAchievements": [
+      "founder",
+      "roleplay",
+      "discord",
+      "powerhouse"
+    ],
+    "tierHistory": [
+      {
+        "tier": "A",
+        "edition": 2020
+      },
+      {
+        "tier": "S",
+        "edition": 2022
+      }
+    ]
+  },
+  "republic-of-yucatan": {
+    "id": 24,
+    "code": "YUC",
+    "name": "Republic of Yucatan",
+    "nslink": "https://www.nationstates.net/nation=republic_of_yucatan",
+    "flagPath": "/src/assets/images/members/yucatan_flag.png",
+    "federation": "Yucatec Football Federation",
+    "logoPath": "/src/assets/images/members/republic_of_yucatan_logo.png",
+    "feddispatch": "https://www.nationstates.net/page=dispatch/id=1544428",
+    "region": "Democratic Socialist Assembly",
+    "founded": 1920,
+    "affiliation": 2024,
+    "verified": true,
+    "score": {
+      "rp": {
+        "2024": {
+          "history": 20
+        }
+      },
+      "bonus": {
+        "2024": {
+          "secret A1": 3,
+          "secret C2": 1
+        }
+      }
+    },
+    "tierHistory": [
+      {
+        "tier": "C",
+        "edition": 2024
+      }
+    ]
+  },
+  "rkd": {
+    "id": 27,
+    "code": "RKD",
+    "name": "RKD",
+    "nslink": "https://www.nationstates.net/nation=rkd",
+    "flagPath": "/src/assets/images/members/rkd_flag.png",
+    "logoPath": "/src/assets/images/members/rkd_logo.png",
+    "region": "Quiet Cottage on the Edge of the Cosmos",
+    "founded": 2024,
+    "affiliation": 2024,
+    "verified": true,
+    "score": {
+      "rp": {
+        "2024": {
+          "history": 6
+        }
+      }
+    },
+    "tierHistory": [
+      {
+        "tier": "E",
+        "edition": 2024
+      }
+    ]
+  },
+  "roless": {
+    "id": 4,
+    "code": "RLS",
+    "name": "Roless",
+    "nslink": "https://www.nationstates.net/nation=roless",
+    "flagPath": "/src/assets/images/members/roless_flag.png",
+    "federation": "Royal Rolessian Football Federation",
+    "logoPath": "/src/assets/images/members/roless_logo.png",
+    "feddispatch": "https://www.nationstates.net/page=dispatch/id=1578507",
+    "region": "Forest",
+    "founded": 1986,
+    "affiliation": 2024,
+    "verified": true,
+    "founder": true,
+    "score": {
+      "rp": {
+        "2022": {
+          "history": 20
+        },
+        "2024": {
+          "history": 20
+        }
+      },
+      "events": {
+        "2024": {
+          "events": 28
+        },
+        "2026": {
+          "quiz": 248
+        }
+      },
+      "bonus": {
+        "2024": {
+          "secret A1": 3,
+          "secret B1": 3,
+          "secret B2": 2,
+          "secret C1": 1,
+          "extra": 5
+        }
+      }
+    },
+    "manualAchievements": [
+      "founder",
+      "roleplay",
+      "discord",
+      "powerhouse"
+    ],
+    "tierHistory": [
+      {
+        "tier": "A",
+        "edition": 2022
+      },
+      {
+        "tier": "S",
+        "edition": 2024
+      }
+    ]
+  },
+  "ruinenlust": {
+    "id": 13,
+    "code": "RUN",
+    "name": "Ruinenlust",
+    "nslink": "https://www.nationstates.net/nation=ruinenlust",
+    "flagPath": "/src/assets/images/members/ruinenlust_flag.png",
+    "logoPath": "/src/assets/images/members/ruinenlust_logo.png",
+    "region": "Forest",
+    "founded": 2020,
+    "affiliation": 2024,
+    "verified": true,
+    "score": {
+      "events": {
+        "2024": {
+          "trivia": 15
+        }
+      }
+    },
+    "tierHistory": [
+      {
+        "tier": "S",
+        "edition": 2020
+      },
+      {
+        "tier": "D",
+        "edition": 2024
+      }
+    ]
+  },
+  "sacara": {
+    "id": 9999,
+    "code": "xSAC",
+    "name": "Sacara",
+    "nslink": "https://www.nationstates.net/nation=sacara",
+    "flagPath": "/src/assets/images/members/xsac_flag.png",
+    "region": "Forest",
+    "verified": false,
+    "tierHistory": [
+      {
+        "tier": "D",
+        "edition": 2020
+      }
+    ]
+  },
+  "sapnu_puas": {
+    "id": 9999,
+    "code": "xSAP",
+    "name": "Sapnu Puas",
+    "nslink": "https://www.nationstates.net/nation=sapnu_puas",
+    "flagPath": "/src/assets/images/members/xsap_flag.png",
+    "region": "Forest",
+    "verified": false,
+    "tierHistory": [
+      {
+        "tier": "C",
+        "edition": 2020
+      }
+    ]
+  },
+  "schachland": {
+    "id": 28,
+    "code": "SCH",
+    "name": "Schachland",
+    "nslink": "https://www.nationstates.net/nation=schachland",
+    "flagPath": "/src/assets/images/members/sch_flag.png",
+    "region": "Europe",
+    "affiliation": 2024,
+    "verified": true,
+    "score": {
+      "rp": {
+        "2024": {
+          "history": 6
+        }
+      }
+    },
+    "tierHistory": [
+      {
+        "tier": "E",
+        "edition": 2024
+      }
+    ]
+  },
+  "seagull": {
+    "id": 9999,
+    "code": "xSEA",
+    "name": "Seagull",
+    "nslink": "https://www.nationstates.net/nation=seagull",
+    "flagPath": "/src/assets/images/members/xsea_flag.png",
+    "region": "Forest",
+    "verified": false,
+    "tierHistory": [
+      {
+        "tier": "F",
+        "edition": 2020
+      }
+    ]
+  },
+  "sehir": {
+    "id": 31,
+    "code": "SEH",
+    "name": "Sehir",
+    "nslink": "https://www.nationstates.net/nation=sehir",
+    "flagPath": "/src/assets/images/members/sehir_flag.png",
+    "region": "Forest",
+    "affiliation": 2024,
+    "verified": true,
+    "tierHistory": [
+      {
+        "tier": "F",
+        "edition": 2024
+      }
+    ]
+  },
+  "stralla": {
+    "id": 9,
+    "code": "STR",
+    "name": "Stralla",
+    "nslink": "https://www.nationstates.net/nation=stralla",
+    "flagPath": "/src/assets/images/members/stralla_flag.png",
+    "federation": "Stralla Fuzbal",
+    "logoPath": "/src/assets/images/members/stralla_logo.png",
+    "region": "Forest",
+    "founded": 2020,
+    "affiliation": 2024,
+    "verified": true,
+    "founder": true,
+    "manualAchievements": [
+      "founder"
+    ],
+    "tierHistory": [
+      {
+        "tier": "B",
+        "edition": 2022
+      },
+      {
+        "tier": "E",
+        "edition": 2024
+      }
+    ]
+  },
+  "taco_respublic": {
+    "id": 9999,
+    "code": "xTAC",
+    "name": "Taco Respublic",
+    "nslink": "https://www.nationstates.net/nation=taco_respublic",
+    "flagPath": "/src/assets/images/members/xtac_flag.png",
+    "region": "Forest",
+    "verified": false,
+    "tierHistory": [
+      {
+        "tier": "A",
+        "edition": 2020
+      }
+    ]
+  },
+  "tauride": {
+    "id": 9999,
+    "code": "xTAU",
+    "name": "Tauride",
+    "nslink": "https://www.nationstates.net/nation=tauride",
+    "flagPath": "/src/assets/images/members/xtau_flag.png",
+    "region": "Forest",
+    "verified": false,
+    "tierHistory": [
+      {
+        "tier": "S",
+        "edition": 2020
+      }
+    ]
+  },
+  "terrawynn": {
+    "id": 39,
+    "code": "TRW",
+    "name": "Terrawynn",
+    "nslink": "https://www.nationstates.net/nation=terrawynn",
+    "flagPath": "/src/assets/images/members/trw_flag.png",
+    "region": "Forest",
+    "verified": false,
+    "tierHistory": [
+      {
+        "tier": "E",
+        "edition": 2022
+      }
+    ]
+  },
+  "the-realizer": {
+    "id": 8,
+    "code": "RLZ",
+    "name": "Realize",
+    "nslink": "https://www.nationstates.net/nation=the_realizer",
+    "flagPath": "/src/assets/images/members/the_realizer_flag.jpg",
+    "logoPath": "/src/assets/images/members/the_realizer_logo.png",
+    "region": "Forest",
+    "affiliation": 2024,
+    "verified": true,
+    "founder": true,
+    "score": {
+      "events": {
+        "2026": {
+          "quiz": 83
+        }
+      },
+      "bonus": {
+        "2024": {
+          "extra": 20
+        },
+        "2026": {
+          "extra": 20
+        }
+      }
+    },
+    "manualAchievements": [
+      "founder",
+      "collaborator"
+    ],
+    "tierHistory": [
+      {
+        "tier": "C",
+        "edition": 2024
+      }
+    ]
+  },
+  "the_black_forrest": {
+    "id": 9999,
+    "code": "xTBF",
+    "name": "The Black Forrest",
+    "nslink": "https://www.nationstates.net/nation=the_black_forrest",
+    "flagPath": "/src/assets/images/members/xtbf_flag.jpg",
+    "region": "Forest",
+    "verified": false,
+    "tierHistory": [
+      {
+        "tier": "A",
+        "edition": 2020
+      }
+    ]
+  },
+  "the_cypher_nine": {
+    "id": 9999,
+    "code": "xCYN",
+    "name": "The Cypher Nine",
+    "nslink": "https://www.nationstates.net/nation=the_cypher_nine",
+    "flagPath": "/src/assets/images/members/xcyn_flag.png",
+    "region": "Forest",
+    "verified": false,
+    "tierHistory": [
+      {
+        "tier": "A",
+        "edition": 2020
+      }
+    ]
+  },
+  "the_void_territories": {
+    "id": 9999,
+    "code": "xTVT",
+    "name": "The Void Territories",
+    "nslink": "https://www.nationstates.net/nation=the_void_territories",
+    "flagPath": "/src/assets/images/members/xtvt_flag.png",
+    "region": "Forest",
+    "verified": false,
+    "tierHistory": [
+      {
+        "tier": "B",
+        "edition": 2020
+      }
+    ]
+  },
+  "trebenia": {
+    "id": 35,
+    "code": "TRE",
+    "name": "Trebenia",
+    "nslink": "https://www.nationstates.net/nation=trebenia",
+    "flagPath": "/src/assets/images/members/tre_flag.png",
+    "logoPath": "/src/assets/images/members/tre_logo.png",
+    "region": "Forest",
+    "verified": false,
+    "founder": true,
+    "score": {
+      "bonus": {
+        "2022": {
+          "extra": 10
+        }
+      }
+    },
+    "manualAchievements": [
+      "founder",
+      "discord"
+    ],
+    "tierHistory": [
+      {
+        "tier": "B",
+        "edition": 2022
+      }
+    ]
+  },
+  "turbeaux": {
+    "id": 41,
+    "code": "TBX",
+    "name": "Turbeaux",
+    "nslink": "https://www.nationstates.net/nation=turbeaux",
+    "flagPath": "/src/assets/images/members/tbx_flag.png",
+    "logoPath": "/src/assets/images/members/tbx_logo.png",
+    "region": "Forest",
+    "verified": false,
+    "tierHistory": [
+      {
+        "tier": "A",
+        "edition": 2020
+      },
+      {
+        "tier": "D",
+        "edition": 2022
+      }
+    ]
+  },
+  "tylvana": {
+    "id": 19,
+    "code": "TYL",
+    "name": "Tylvana",
+    "nslink": "https://www.nationstates.net/nation=tylvana",
+    "flagPath": "/src/assets/images/members/tylvana_flag.png",
+    "logoPath": "/src/assets/images/members/tylvana_logo.png",
+    "region": "Forest",
+    "founded": 2024,
+    "affiliation": 2024,
+    "verified": true,
+    "score": {
+      "events": {
+        "2024": {
+          "chall": 12
+        }
+      }
+    },
+    "tierHistory": [
+      {
+        "tier": "D",
+        "edition": 2024
+      }
+    ]
+  },
+  "united-malay-federation": {
+    "id": 15,
+    "code": "UMF",
+    "name": "United Malay Federation",
+    "nslink": "https://www.nationstates.net/nation=united_malay_federation",
+    "flagPath": "/src/assets/images/members/umf_flag.png",
+    "federation": "United Malay Federation National Football Team",
+    "logoPath": "/src/assets/images/members/united_malay_federation_logo.png",
+    "region": "Forest",
+    "affiliation": 2024,
+    "verified": true,
+    "score": {
+      "rp": {
+        "2024": {
+          "history": 20
+        }
+      },
+      "events": {
+        "2024": {
+          "trivia": 11
+        }
+      },
+      "bonus": {
+        "2024": {
+          "extra": 5,
+          "poll": 2
+        }
+      }
+    },
+    "manualAchievements": [
+      "roleplay",
+      "voter"
+    ],
+    "tierHistory": [
+      {
+        "tier": "B",
+        "edition": 2024
+      }
+    ]
+  },
+  "valentian_kittens": {
+    "id": 9999,
+    "code": "VEZ",
+    "name": "Valentian Kittens",
+    "nslink": "https://www.nationstates.net/nation=valentine_z",
+    "flagPath": "/src/assets/images/members/valentinez_flag.png",
+    "logoPath": "/src/assets/images/members/valentinez_logo.png",
+    "region": "Forest",
+    "verified": true,
+    "affiliation": 2026,
+    "tierHistory": [
+      {
+        "tier": "S",
+        "edition": 2020
+      }
+    ]
+  },
+  "vanenia": {
+    "id": 9999,
+    "code": "xVAN",
+    "name": "Vanenia",
+    "nslink": "https://www.nationstates.net/nation=vanenia",
+    "flagPath": "/src/assets/images/members/xvan_flag.jpg",
+    "region": "Forest",
+    "verified": false,
+    "tierHistory": [
+      {
+        "tier": "A",
+        "edition": 2020
+      }
+    ]
+  },
+  "velkia_and_the_islands": {
+    "id": 9999,
+    "code": "xVEL",
+    "name": "Velkia and the Islands",
+    "nslink": "https://www.nationstates.net/nation=velkia_and_the_islands",
+    "flagPath": "/src/assets/images/members/xvel_flag.jpg",
+    "region": "Forest",
+    "verified": false,
+    "tierHistory": [
+      {
+        "tier": "S",
+        "edition": 2020
+      }
+    ]
+  },
+  "verdant-haven": {
+    "id": 16,
+    "code": "VH",
+    "name": "Verdant Haven",
+    "nslink": "https://www.nationstates.net/nation=verdant_haven",
+    "flagPath": "/src/assets/images/members/vh_flag.png",
+    "federation": "Verdant Haven Football Federation",
+    "logoPath": "/src/assets/images/members/verdant_haven_logo.png",
+    "feddispatch": "https://www.nationstates.net/page=dispatch/id=1569639",
+    "region": "Forest",
+    "affiliation": 2024,
+    "verified": true,
+    "score": {
+      "rp": {
+        "2024": {
+          "history": 20
+        }
+      },
+      "events": {
+        "2024": {
+          "trivia": 33
+        }
+      },
+      "bonus": {
+        "2024": {
+          "secret A1": 3,
+          "secret B1": 3,
+          "secret B2": 2,
+          "secret C1": 1,
+          "secret C2": 1,
+          "extra": 5
+        }
+      }
+    },
+    "manualAchievements": [
+      "roleplay",
+      "discord",
+      "powerhouse"
+    ],
+    "tierHistory": [
+      {
+        "tier": "A",
+        "edition": 2020
+      },
+      {
+        "tier": "S",
+        "edition": 2024
+      }
+    ]
+  },
+  "wantevolo": {
+    "id": 9999,
+    "code": "xWAN",
+    "name": "Wantevolo",
+    "nslink": "https://www.nationstates.net/nation=wantevolo",
+    "flagPath": "/src/assets/images/members/xwan_flag.jpg",
+    "region": "Forest",
+    "verified": false,
+    "tierHistory": [
+      {
+        "tier": "A",
+        "edition": 2020
+      }
+    ]
+  },
+  "washeyye": {
+    "id": 25,
+    "code": "WAS",
+    "name": "Washeyye",
+    "nslink": "https://www.nationstates.net/nation=washeyye",
+    "flagPath": "/src/assets/images/members/washeyye_flag.png",
+    "federation": "Washeyye National Football Association",
+    "logoPath": "/src/assets/images/members/washeyye_logo.png",
+    "feddispatch": "https://www.nationstates.net/page=dispatch/id=1912342",
+    "region": "Democratic Socialist Assembly",
+    "founded": 2020,
+    "affiliation": 2024,
+    "verified": true,
+    "score": {
+      "rp": {
+        "2024": {
+          "history": 20
+        }
+      }
+    },
+    "tierHistory": [
+      {
+        "tier": "C",
+        "edition": 2024
+      }
+    ]
+  },
+  "window_land": {
+    "id": 9999,
+    "code": "xWIN",
+    "name": "Window Land",
+    "nslink": "https://www.nationstates.net/nation=window_land",
+    "flagPath": "/src/assets/images/members/xwin_flag.png",
+    "region": "Forest",
+    "verified": false,
+    "tierHistory": [
+      {
+        "tier": "S",
+        "edition": 2020
+      }
+    ]
+  },
+  "woodland_green": {
+    "id": 43,
+    "code": "WLG",
+    "name": "Woodland Green",
+    "nslink": "https://www.nationstates.net/nation=woodland_green",
+    "flagPath": "/src/assets/images/members/woodland_green_flag.webp",
+    "region": "Forest",
+    "affiliation": 2026,
+    "verified": true
+  },
+  "zane-farbe-eslanudial": {
+    "id": 35,
+    "code": "ZFE",
+    "name": "Zane Farbe Eslanudial",
+    "nslink": "https://www.nationstates.net/nation=zane_farbe_eslanudial",
+    "flagPath": "/src/assets/images/members/zfe_flag.webp",
+    "logoPath": "/src/assets/images/members/zfe_logo.png",
+    "region": "The South Pacific",
+    "founded": 2026,
+    "affiliation": 2026,
+    "verified": true
+  },
+  "zerphen": {
+    "id": 10,
+    "code": "ZPH",
+    "name": "Zerphen",
+    "nslink": "https://www.nationstates.net/nation=zerphen",
+    "flagPath": "/src/assets/images/members/zerphen_flag.png",
+    "federation": "Zerphen Football Association",
+    "logoPath": "/src/assets/images/members/zerphen_logo.png",
+    "region": "Forest",
+    "founded": 2024,
+    "affiliation": 2024,
+    "verified": true,
+    "founder": true,
+    "score": {
+      "events": {
+        "2024": {
+          "events": 15
+        }
+      }
+    },
+    "manualAchievements": [
+      "founder"
+    ],
+    "tierHistory": [
+      {
+        "tier": "D",
+        "edition": 2024
+      }
+    ]
+  },
+  "ziotah_and_riverside": {
+    "id": 9999,
+    "code": "xZIO",
+    "name": "Ziotah and Riverside",
+    "nslink": "https://www.nationstates.net/nation=ziotah_and_riverside",
+    "flagPath": "/src/assets/images/members/xzio_flag.jpg",
+    "region": "Forest",
+    "verified": false,
+    "tierHistory": [
+      {
+        "tier": "S",
+        "edition": 2020
+      }
+    ]
+  },
+  "zylonox": {
+    "id": 41,
+    "code": "ZYX",
+    "name": "Zylonox",
+    "nslink": "https://century.nationstates.net/nation=zylonox",
+    "flagPath": "/src/assets/images/members/zylonox_flag.png",
+    "logoPath": "/src/assets/images/members/zylonox_logo.png",
+    "region": "Concord",
+    "affiliation": 2026,
+    "verified": false
+  }
+}

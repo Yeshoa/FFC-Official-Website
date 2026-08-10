@@ -1,0 +1,130 @@
+{
+  "bilsa/adeon-camp": {
+    "id": 2,
+    "name": "Adeon Camp",
+    "city": "Adeon",
+    "nation": "Bilsa",
+    "capacity": 70000,
+    "opened": 2012,
+    "owner": "Adeon F.K.",
+    "architect": "Karchatazj Canadoaj"
+  },
+  "bilsa/azen-arhaj-city": {
+    "id": 7,
+    "name": "Azen Arhaj City",
+    "city": "Ghausen",
+    "nation": "Bilsa",
+    "capacity": 74000,
+    "opened": 2012,
+    "owner": "Ghausen",
+    "architect": "Lewarj Heren"
+  },
+  "bilsa/cecims-park": {
+    "id": 1,
+    "name": "Cecims Park",
+    "city": "Cecims",
+    "nation": "Bilsa",
+    "capacity": 120000,
+    "opened": 2012,
+    "owner": "Cecims F.K.",
+    "architect": "Hrzaja Azis"
+  },
+  "bilsa/ecoking-arena": {
+    "id": 5,
+    "name": "Ecoking Arena",
+    "city": "Sewd",
+    "nation": "Bilsa",
+    "capacity": 65000,
+    "opened": 2012,
+    "owner": "Sewd",
+    "architect": "Svdorj Vlejoswajaj"
+  },
+  "bilsa/giganighsti-national-stadium": {
+    "id": 6,
+    "name": "Giganighsti National Stadium",
+    "city": "Giganighsti",
+    "nation": "Bilsa",
+    "capacity": 62000,
+    "opened": 2012,
+    "owner": "Giganighsti F.K.",
+    "architect": "Bjotj Kalebanej"
+  },
+  "bilsa/mawadallon": {
+    "id": 4,
+    "name": "Mawadallon",
+    "city": "Laun",
+    "nation": "Bilsa",
+    "capacity": 94000,
+    "opened": 2012,
+    "owner": "F.K. Laun",
+    "architect": "Najlor Leleadzj"
+  },
+  "bilsa/moellem-olympic-stadium": {
+    "id": 3,
+    "name": "Moellem Olympic Stadium",
+    "city": "Moellem",
+    "nation": "Bilsa",
+    "capacity": 90000,
+    "opened": 2012,
+    "owner": "Moellem F.K.",
+    "architect": "Odjuko Stvnavj"
+  },
+  "bilsa/zwanjer": {
+    "id": 8,
+    "name": "Zwanjer",
+    "city": "Louren",
+    "nation": "Bilsa",
+    "capacity": 55000,
+    "opened": 2012,
+    "owner": "F.K. Louren",
+    "architect": "Zerj Zeszeaj"
+  },
+  "cacusia/astral-park": {
+    "id": 15,
+    "name": "Astral Park",
+    "city": "Clare",
+    "nation": "Cacusia"
+  },
+  "cacusia/castle-park": {
+    "id": 16,
+    "name": "Castle Park",
+    "city": "Boltshire",
+    "nation": "Cacusia"
+  },
+  "cacusia/locke-arena": {
+    "id": 13,
+    "name": "Locke Arena",
+    "city": "Lockemouth",
+    "nation": "Cacusia"
+  },
+  "cacusia/metropolitan-field": {
+    "id": 12,
+    "name": "Metropolitan Field",
+    "city": "Tapley",
+    "nation": "Cacusia"
+  },
+  "cacusia/northolt-park": {
+    "id": 14,
+    "name": "Northolt Park",
+    "city": "Northolt",
+    "nation": "Cacusia"
+  },
+  "cacusia/pzb-arena": {
+    "id": 10,
+    "name": "PZB Arena",
+    "city": "Port Zara",
+    "nation": "Cacusia"
+  },
+  "cacusia/ravens-nest-stadium": {
+    "id": 9,
+    "name": "Ravens Nest Stadium",
+    "city": "Raven's Landing",
+    "nation": "Cacusia"
+  },
+  "cacusia/the-oculus": {
+    "id": 11,
+    "name": "The Oculus",
+    "city": "Brightley",
+    "nation": "Cacusia"
+  }
+}

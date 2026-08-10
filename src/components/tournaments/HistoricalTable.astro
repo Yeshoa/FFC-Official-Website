@@ -43,7 +43,7 @@ await Promise.all(
     teamStats[member.data.name] = {
       id: member.data.id,
       name: member.data.name,
-      slug: memberData?.slug || '',
+      slug: memberData?.id || '',
       code: member.data.code,
       flagPath: memberData?.data.flagPath || defaultFlag,
       logoPath: memberData?.data.logoPath || defaultFlag,
