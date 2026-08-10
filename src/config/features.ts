@@ -1,5 +1,5 @@
 export const FEATURES = {
-  achievements: false,
+  achievements: true,
 
   forestCup2026: true,
   championsLeague: false,

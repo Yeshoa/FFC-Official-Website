@@ -741,6 +741,26 @@ export function getTeamsByPot(tournament: TournamentEntry, potNumber: number) {
   return tournament.data.pots?.find(p => p.pot === potNumber)?.teams ?? [];
 }
 
+// Torneos donde participó el miembro (por nombre o código de equipo en los partidos)
+export function getTournamentsByMemberParticipation(
+  member: MemberEntry,
+  tournaments: TournamentEntry[],
+  matches: MatchEntry[],
+): TournamentEntry[] {
+  const name = member.data.name;
+  const code = member.data.code;
+  const participatedIds = new Set<number>();
+  for (const m of matches) {
+    if (
+      m.data.team1 === name || m.data.team2 === name ||
+      (code && (m.data.team1Code === code || m.data.team2Code === code))
+    ) {
+      participatedIds.add(m.data.tournament_id);
+    }
+  }
+  return tournaments.filter(t => participatedIds.has(t.data.id));
+}
+
 export function getTournamentById(tournamentId: number): TournamentEntry | null {
   return tournaments.find(t => t.data.id === tournamentId) ?? null;
 }

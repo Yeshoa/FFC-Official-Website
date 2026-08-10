@@ -55,7 +55,7 @@
 
 ## 4. Diseño objetivo: página de logros por federación
 
-Ruta propuesta: `/members/<slug>/achievements` (o `/members/<slug>/#logros`).
+Ruta propuesta: `/members/<slug>/achievements`.
 
 ### Contenido
 1. **Obtenidos**: grid de badges con nombre, descripción, puntaje, rareza y fecha.

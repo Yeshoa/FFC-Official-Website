@@ -1,7 +1,7 @@
 ---
 import { Image } from 'astro:assets';
-// Achievements (should make a component specific for achievements)
-import AchievementCard from '@components/achievements/AchievementCard.astro';
+// Achievements (badges compactos en el hero)
+import MemberBadges from '@components/achievements/MemberBadges.astro';
 import ScoreDetails from '@components/members/ScoreDetails.astro';
 // Utils
 import { getMemberTier } from 'src/utils/memberUtils';
@@ -189,9 +189,7 @@ const eggConfig = isClownTownCity ? EASTER_EGGS['egg-3'] : null;
           <h3 class="text-lg font-bold tracking-widest text-gray-300 uppercase text-center">Badges</h3>
           <h6 class="text-center mb-2 text-text-muted">Tap the badges for details</h6>
           <div class="flex flex-wrap items-center justify-center gap-4">
-            {achievements.map((achv, index: number) => (
-              <AchievementCard achievement={achv} />
-            ))}
+            <MemberBadges achievements={achievements} />
           </div>
         </div>
       )}
@@ -328,10 +326,7 @@ const eggConfig = isClownTownCity ? EASTER_EGGS['egg-3'] : null;
           <h3 class="mb-2 text-lg font-bold tracking-widest text-text-muted uppercase text-center">Badges</h3>
           <h6 class="text-center mb-4 text-text-muted">Click the badges for details</h6>
           <div class="flex flex-wrap items-center justify-center gap-6">
-            {achievements.map((achv, index: number) => (
-              // <AchievementCard achievement={achv} />
-              <AchievementCard achievement={achv} />
-            ))}
+            <MemberBadges achievements={achievements} />
           </div>
         </div>
       )}

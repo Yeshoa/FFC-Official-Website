@@ -27,11 +27,10 @@ export function getMemberByName(
   name: string,
   memberCollection: CollectionEntry<'members'>[],
 ): CollectionEntry<'members'> | null;
-
-export async function getMemberByName(
+export function getMemberByName(
   name: string,
   memberCollection?: CollectionEntry<'members'>[],
-): Promise<CollectionEntry<'members'> | null> {
+): CollectionEntry<'members'> | null {
   if (memberCollection) {
     return findMemberByIdentifier(name, memberCollection);
   }

@@ -1,16 +1,12 @@
 import Trophy from '@images/achievements/king.webp';
-import type { Achievement } from './index';
+import type { AchievementDefinition, AchievementResult } from '../types';
 import { type Category, CATEGORIES, tiers, ALIGNMENTS, type Subcategory } from '../utils';
-import { type CollectionEntry } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
 import { getAllMatchesByTeam, getMatchWinner } from 'src/utils/matchUtils';
 import { getMemberByName } from 'src/utils/memberUtils';
-import { getMembers } from '@lib/collections';
 
 type Tournament = CollectionEntry<'tournaments'>;
 type Member = CollectionEntry<'members'>;
-type Match = CollectionEntry<'matches'>;
-
-const members = getMembers();
 
 const thisCategory = CATEGORIES[6];
 
@@ -21,7 +17,7 @@ const makeReachedTierAchievements = (
   stars: number,
   icon: ImageMetadata,
   tier: string,
-) => ({
+): AchievementDefinition => ({
   id,
   name,
   icon,
@@ -34,8 +30,8 @@ const makeReachedTierAchievements = (
   unique: false,
   visible: false,
   enabled: true,
-  evaluate: function (matches: Match[], _tournaments: Tournament[], member: Member) {
-    const { evaluate, ...base } = this;
+  evaluate: function (context) {
+    const { member } = context;
     if (!member.data.tierHistory) return null;
     const reachedTier = member.data.tierHistory.filter(t => t.tier === tier);
     const times = reachedTier.length;
@@ -45,22 +41,23 @@ const makeReachedTierAchievements = (
       ? "Reached Tier " + tier + " in " + list + "."
       : times < 9 ? "Reached Tier " + tier + " " + times + " times (" + list + ")."
       : "Reached Tier " + tier + " " + times + " times.";
-      
+
     const newStars = reachedTier.length;
     const bonus = Math.floor((newStars - 1) / 8); // 1 extra rarity por cada 8 estrellas
     const newRarity = rarity + bonus;
-    // const displayStars = ((newStars - 1) % 8) + 1;; // max 8 estrellas
 
-    return {
-      ...base,
+    return achieved(this, {
       stars: newStars,
       description: newDescription,
-      rarity: newRarity
-    };
+      rarity: newRarity,
+      current: times,
+      target: 1,
+      progress: 100,
+    });
   }
 });
 
-const reachedTierAchievements: Achievement[] = [
+const reachedTierAchievements: AchievementDefinition[] = [
   makeReachedTierAchievements('reached-tier-s', 'Powerhouse', 2, 1, Trophy, 'S'),
   makeReachedTierAchievements('reached-tier-ss', 'Super Team', 3, 1, Trophy, 'SS'),
   makeReachedTierAchievements('reached-tier-x', 'Apex', 5, 1, Trophy, 'X'),
@@ -72,7 +69,7 @@ const makeBeatTierAchievements = (
   rarity: number,
   icon: ImageMetadata,
   tier: string,
-) => ({
+): AchievementDefinition => ({
   id,
   name,
   icon,
@@ -85,8 +82,8 @@ const makeBeatTierAchievements = (
   visible: false,
   enabled: true,
   stars: 1,
-  evaluate: async function (matches: Match[], _tournaments: Tournament[], member: Member, members: Member[]) {
-    const { evaluate, ...base } = this;
+  evaluate: function (context) {
+    const { matches, members, member } = context;
     const history = member.data.tierHistory;
     if (!history) return null;
     const played = getAllMatchesByTeam(member.data.name, matches);
@@ -101,7 +98,7 @@ const makeBeatTierAchievements = (
       if (!selfRecord) continue;
 
       const opponentName = m.data.team1 === member.data.name ? m.data.team2 : m.data.team1;
-      const oppMember = await getMemberByName(opponentName);
+      const oppMember = getMemberByName(opponentName, members);
       const oppHistory = oppMember?.data?.tierHistory ?? [];
       const oppRecord = oppHistory.find(h => h.edition === edition);
       if (!oppRecord || oppRecord.tier !== tier) continue;
@@ -123,23 +120,36 @@ const makeBeatTierAchievements = (
     }
 
     if (bestStars > 0 && bestEdition && bestOpponentTier) {
-      return {
-        ...base,
+      return achieved(this, {
         stars: bestStars,
         description: `Beaten a ${bestOpponentTier} team being ${bestStars} tiers lower.`,
-      };
+        current: bestStars,
+        target: 1,
+        progress: 100,
+      });
     }
 
     return null;
   }
 });
 
-const beatTierAchievements: Achievement[] = [
+const beatTierAchievements: AchievementDefinition[] = [
   makeBeatTierAchievements('beat-tier-s', 'Powerhouse Slayer', 1, Trophy, 'S'),
   makeBeatTierAchievements('beat-tier-ss', 'Super Team Slayer', 2, Trophy, 'SS'),
   makeBeatTierAchievements('beat-tier-x', 'Apex Slayer', 4, Trophy, 'X'),
 ]
-export const rankingAchievements = [
+
+export const rankingAchievements: AchievementDefinition[] = [
   ...reachedTierAchievements,
   ...beatTierAchievements
 ];
+
+/** Marca un resultado como logrado, preservando la visibilidad de la definición. */
+function achieved(def: AchievementDefinition, overrides: Partial<AchievementResult>): AchievementResult {
+  return {
+    id: def.id,
+    achieved: true,
+    visible: def.visible,
+    ...overrides,
+  };
+}

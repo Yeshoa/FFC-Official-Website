@@ -90,6 +90,47 @@
 
 ---
 
+## FASE C — Simulador de partidos
+
+> **⚠️ NO CONFIRMADA y muy susceptible a cambios.** Es la fase más abierta del roadmap; el diseño puede evolucionar o descartarse. No se planifica en detalle hasta cerrar A/B. Ver diseño objetivo en [[Simulador/00-simulador]] (borrador).
+>
+> Pre-requisito conceptual: el **generador masivo de jugadores** de la CL (origen de stats reales; mientras no exista, se simula con stats derivadas del `rating`).
+
+### C1 · Motor puro
+- `src/lib/simulator/`: RNG con semilla (determinismo), modelado por zonas, cascada de chequeos (d100), stats derivadas del `rating`.
+- Perks declarativos y ejecución genérica; pifias/críticos por rangos estrechos.
+
+### C2 · Partido completo simulable
+- Forma, química (por capas), stamina, arqueros, árbitro, clima/estado del campo.
+- Output 1:1 con el schema de `match` (`goals[]`, `cards[]`, `substitutions[]`, `stats`, `lineup`).
+
+### C3 · Integración
+- Render de partidos simulados con los componentes de [[06-partidos]] (B5) sin cambios.
+- Generador masivo de jugadores de la CL alimenta stats reales (reemplaza derivadas).
+
+### C4 · Página pública de simulación
+- Input (equipos) → sim → output renderizado. (Opcional: predicciones de próxima fecha con seed estable y compartir sims por URL.)
+
+---
+
+## FASE D — Identidad de federaciones por `id` (diferida)
+
+> **⚠️ DIFERIDA hasta que B1 estabilice el modelo de datos.** Hoy todo el dominio compara federaciones por `member.data.name` (61 ocurrencias en `dynamics/*`, además de `tournamentUtils`/`matchUtils`), lo que es frágil ante cambios de nombre. El objetivo es referenciar por `id` global.
+>
+> Pre-requisito: schema `matches` con `team1Id`/`team2Id` y `tournaments` con `championId`/`hostId`/`prizes.teamId` (parte de B1/B2).
+
+### D1 · Modelo de matches/tournaments por id
+- Migrar los 4 JSON de matches: `team1`/`team2` + `team1Code`/`team2Code` → `team1Id`/`team2Id` (id global de member).
+- Migrar `tournaments`: `champion`→`championId`, `host`→`hostId`, `prizes.*.team`→`teamId`, `pots.teams`→ids.
+- Mantener `team1`/`team2` como display name (denormalizado) o resolver desde el id.
+
+### D2 · Refactor de comparaciones
+- Reemplazar `member.data.name` por comparación por `id` en `src/lib/achievements/dynamics/*` (61 ocurrencias), `tournamentUtils.ts`, `matchUtils.ts` y `memberUtils.ts`.
+- La función de participación (`getTournamentsByMemberParticipation`) pasa a comparar `team1Id`/`team2Id` === `member.data.id` (deja de matchear por nombre+código).
+- Riscos: los 7 códigos de matches que hoy no matchean (`AKE`, `RUI`, `ROL`, etc.) deben resolverse durante la migración (member que corresponda).
+
+---
+
 ## Orden recomendado de ejecución
 
 ```
@@ -106,6 +147,10 @@
 11. Branch "feature/fase-b6"   →  B6
 12. Branch "feature/fase-b7"   →  B7
 ```
+
+> La Fase C (simulador) **no tiene orden asignado**: está pendiente de confirmación (ver "FASE C — Simulador de partidos" arriba).
+
+> La Fase D (identidad por `id`) **también es diferida**: se ejecuta después de B1/B2, cuando el modelo de matches/tournaments tenga ids estables.
 
 > Cada fase produce su propio doc/checklist si es necesario; este plan se actualiza al cerrar cada una.
 
