@@ -7,7 +7,8 @@
     "build": "astro build --config ./astro.config.prod.mjs",
     "preview": "astro preview",
     "astro": "astro",
-    "players:link": "node scripts/players-link.mjs"
+    "players:link": "node scripts/players-link.mjs",
+    "teams:link": "node scripts/teams-link.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.3.0",
