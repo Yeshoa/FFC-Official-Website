@@ -10,6 +10,7 @@
 - Cada fase: branch nueva desde `development` → PR → review → merge.
 - Antes de cada fase se corre `npm run build` y se verifica el deploy de preview.
 - Orden prioritario: **primero el modelo de datos** (fase B1) porque define todo lo demás, aunque el trabajo "de consistencia" (fase A) se puede empezar en paralelo en branch separada.
+- **Fase A completa mergeada a `development`** (2026-08): las fases B parten de `development` con la fase A adentro.
 
 ---
 
@@ -52,43 +53,78 @@
 
 ## FASE B — Nuevo modelo: Champions League, clubes y partidos
 
-> Requiere A1 y A3 (modelo de datos y temporada) como base.
+> Requiere A1, A3 y A5 (modelo de datos, temporada, contenido en JSON) como base.
+> Replanificado (2026-08) con: skills 0-100 por jugador + rating derivado + estrellitas, ligas domésticas hardcodeadas (infraestructura primero), navbar por sección FC/CL, y simulador de mercado de pases.
 
-### B1 · Modelo de datos (jugadores, clubes, torneos, partidos)
-- Crear `src/data/players/players.json` central (multi-equipo, con `rating` 0.5–6 y `position` principal).
+### B1 · Modelo de datos (jugadores, clubes, torneos, partidos, ligas)
+- Crear `src/data/players/players.json` central (multi-equipo). Cada jugador tiene:
+  - `id` global (se conservan `CAC_009`, `BIL_001`, etc.).
+  - `position` principal, `nationality`, `birthdate?`, **`birthplace: { city?, state? }`** (nuevo).
+  - **`skills`**: cada habilidad del simulador en escala **0-100** (`shortRange`, `mediumRange`, `longRange`, `heading`, `pace`, `agility`, `stamina`, `jumping`, `dribbling`, `fakes`, `ballControl`, `stability`, `positioning`, `vision`, `tackling`, `sliding`, `clearing`, `power`, arqueros `reflexes/gkPositioning/stretch/saveClose/catch`, `injuryResistance?`). Ver [[02-modelo-datos]] §2 y [[Simulador/00-simulador]] §6.
+  - **`rating` (0-100) y estrellitas (0.5-6) DERIVADOS**: funciones puras `computePlayerRating(skills, position)` y `ratingToStars(rating)`. No se editan a mano.
 - Migrar `by-team` + `historical` + `squad` de frontmatter al JSON central; resolver homónimos una vez con el dueño.
-- Crear `src/data/clubs/` (JSON) con `federation`, `squad` por `playerId`, `code`.
-- Crear `@data/players/index.ts` (loaders + `getPlayerById`, `loadCurrentSquad`, `loadHistoricalSquad`).
+- Crear `src/data/clubs/` (JSON) con `federation`, `squad` por `playerId`, `code`, `colors`, `stadiumId`. **Sin badges/logros** en clubes.
+- Crear **infraestructura de ligas domésticas**: `src/data/leagues/<federation>.json` (tabla de la última temporada: PJ/PG/PE/PP/GF/GC/Pts) + schema + loader. **Solo infraestructura, sin datos reales** en esta iteración.
+- Crear `@data/players/index.ts`, `@data/clubs/index.ts`, `@data/leagues/index.ts` (loaders + getters: `getPlayerById`, `loadCurrentSquad`, `loadHistoricalSquad`).
 - Schema `matches`: agregar `assistId` y `team1Type/team2Type: 'national' | 'club'`.
 - Schema `tournaments`: `season` (hecho en A3) + validar `type`.
-- Normalizar `playerId` en los JSON de partidos (script `players:link`, ver [[02-modelo-datos]] §6).
+- Normalizar `playerId` en los JSON de partidos (script `players:link`, ver B2).
 - Migrar `squad` de federaciones a referencia por `playerId` (coordinado con A5; el coach queda como campo del squad).
 - Migrar lookups de equipos de `teamName` → `teamCode` en utils (ver [[02-modelo-datos]] §10).
+- Escribir una **tabla de conversión rating 0-100 → estrellas** en `src/config/` (constante ajustable).
 
-### B2 · Script CLI de carga de goles
+### B2 · Tabla de liga doméstica en `member/[slug]`
+- Si la federación **tiene** tabla de liga (`leagues/<code>.json`) → mostrar **tabla de la última temporada** en la página del miembro.
+- Si **no** tiene tabla pero **tiene clubes** → mostrar **lista de clubes** de su federación.
+- Si no tiene nada → no se muestra la sección.
+- Componente `DomesticLeagueTable` (tabla) + `MemberClubs` (lista) reutilizables.
+- **Sin datos reales** (solo infraestructura + componente).
+
+### B3 · Plantilla (squad) compacta con estrellitas
+- Componente `SquadCompact`: XI + suplentes con dorsal, posición y **estrellitas del jugador** (derivadas del rating).
+- Se muestra en `member/[slug]` (selección) y en `club/[slug]`.
+- El `squad` referencia `playerId`; el perfil se resuelve desde `players.json`.
+- **Estrellas de poderío del equipo** (0.5-6) bajo el rating de la federación, calculadas del plantel (tabla del dueño).
+
+### B4 · Página de club (`/clubs/<slug>`)
+- Estética CL (negro + rombos lima, ver B7).
+- `ClubHero` distinto del `MemberHero`: escudo/colores, federación dueña, **sin badges de logros**, con **rating del club (0-100) + estrellas**.
+- Plantel completo desde `squad` (compacto, ver B3).
+- **Stats del club solo de torneos FFC** (Forest Cup + CL), **NO** de liga doméstica (esta es solo tabla de contexto).
+- Historial FCL y participaciones.
+- Índice `/clubs` (galería con rating).
+
+### B5 · Rating de clubes y ranking FCL
+- `computeClubRating(squad)` = agregación de ratings de la plantilla (0-100 → estrellas).
+- **Ranking de la CL separado e independiente** del ranking de selecciones ([[03-ranking]] §5): no suma al ranking general.
+- Se expone en la sección CL (ej. `/forestian-champions-league/ranking`).
+
+### B6 · Script CLI de carga de goles
 - `npm run players:link`: autocompleta `playerId` por `team + nombre`, reporta homónimos y escribe de vuelta.
 - Modo `--strict` para CI; completar `number` (dorsal) como desambiguador.
 
-### B3 · Layout y estética Champions League
+### B7 · Layout y estética Champions League + navegación por sección
 - `src/layouts/ChampionsLeague.astro` (fondo negro + rombos verde lima).
-- Tokens CL (`--color-cl-black`, `--color-cl-lime`) y patrón de rombos CSS.
-- Navbar/footer de la sección; reemplazar placeholder `champions-league.astro`.
+- Tokens CL (`--color-cl-black`, `--color-cl-lime` `#95ff00`, secundario `#00ff95`) y patrón de rombos CSS.
+- **Navbar por sección**: la página principal es FC por defecto; al entrar a la sección CL cambia el navbar a la navegación CL (home, ranking, clubs, etc.). Volver a FC con selector/navbar. Home de CL en `/fcl/index.astro` (o ruta equivalente), con sus derivados (ranking, etc.). `articles`/`sponsors` quedan globales (se resuelve navegación en el plan de detalle de esta fase).
+- Reemplazar placeholder `champions-league.astro`.
 
-### B4 · Páginas de clubes
-- `/clubs` (índice) + `/clubs/<slug>` con estética CL.
-- Mostrar liga doméstica en la página del miembro (clubes de su federación).
-
-### B5 · Páginas individuales de partido
+### B8 · Páginas individuales de partido
 - `src/pages/matches/[...match].astro` con `getStaticPaths`.
 - Componentes: MatchDetailHeader, Lineups, MatchStatsPanel, MatchTimeline.
 
-### B6 · Páginas de logros por federación
+### B9 · Páginas de logros por federación
 - Ruta `/members/<slug>/achievements` (obtenidos / por obtener / secretos como `?` / progreso / puntaje).
 
-### B7 · Forestian Champions League (contenido)
+### B10 · Forestian Champions League (contenido)
 - Torneo CL con `type: 'forestian-champions-league'` y `season`.
 - Rutas de la sección (home, season, fixtures, standings, ranking CL propio).
 - Carga de datos de clubes y partidos CL (ida/vuelta, final simple).
+
+### B11 · Simulador de mercado de pases (isla React)
+- Isla React en la sección CL: el usuario asigna presupuesto manualmente → sidebar con lista de jugadores (del JSON del mercado) + filtros → cancha central con 11 espacios titulares + banco → drag & drop de jugadores (validando presupuesto) → descargar plantilla como JSON o copiar al portapapeles.
+- Datos: JSON con los jugadores disponibles para comprar (sin BD ni infraestructura).
+- El output del participante se envía por privado/formulario (por verset).
 
 ---
 
@@ -136,11 +172,11 @@
 ## Orden recomendado de ejecución
 
 ```
-1.  Branch "refactor/fase-a1"  →  A1
-2.  Branch "refactor/fase-a2"  →  A2
-3.  Branch "refactor/fase-a3"  →  A3
-4.  Branch "refactor/fase-a4"  →  A4
-5.  Branch "refactor/fase-a5"  →  A5
+1.  Branch "refactor/fase-a1"  →  A1   ✅ mergeado
+2.  Branch "refactor/fase-a2"  →  A2   ✅ mergeado
+3.  Branch "refactor/fase-a3"  →  A3   ✅ mergeado
+4.  Branch "refactor/fase-a4"  →  A4   ✅ mergeado
+5.  Branch "refactor/fase-a5"  →  A5   ✅ mergeado
 6.  Branch "feature/fase-b1"   →  B1
 7.  Branch "feature/fase-b2"   →  B2
 8.  Branch "feature/fase-b3"   →  B3
@@ -148,6 +184,10 @@
 10. Branch "feature/fase-b5"   →  B5
 11. Branch "feature/fase-b6"   →  B6
 12. Branch "feature/fase-b7"   →  B7
+13. Branch "feature/fase-b8"   →  B8
+14. Branch "feature/fase-b9"   →  B9
+15. Branch "feature/fase-b10"  →  B10
+16. Branch "feature/fase-b11"  →  B11 (mercado de pases)
 ```
 
 > La Fase C (simulador) **no tiene orden asignado**: está pendiente de confirmación (ver "FASE C — Simulador de partidos" arriba).

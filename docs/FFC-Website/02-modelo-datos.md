@@ -23,13 +23,32 @@
 ### Esquema propuesto
 
 ```ts
+type SkillId =
+  // habilidades de campo (simulador [[Simulador/00-simulador]] §6)
+  | 'shortRange' | 'mediumRange' | 'longRange'      // precisión corta/media/larga
+  | 'heading'                                        // precisión de cabeza
+  | 'pace' | 'agility' | 'stamina' | 'jumping'
+  | 'dribbling' | 'fakes' | 'ballControl'
+  | 'stability' | 'positioning' | 'vision'
+  | 'tackling' | 'sliding' | 'clearing' | 'power'
+  // arqueros
+  | 'reflexes' | 'gkPositioning' | 'stretch' | 'saveClose' | 'catch'
+  // no-habilidades (opcional)
+  | 'injuryResistance';
+
 interface Player {
-  id: string;                 // global único, ej: "P-0001" o "CAC_009" normalizado
+  id: string;                 // global único, ej: "CAC_009"
   name: string;               // nombre completo
-  rating: number;             // 0.5 … 6 (media estrella a 6 estrellas). Raro > 5.
-  position: string;           // posición principal (GK, CB, CF, …)
+  position: string;           // posición principal (GK, CB, CM, CF, …)
   nationality: string;        // código de federación (ej: "BIL")
   birthdate?: string;
+  birthplace?: {              // lugar de nacimiento
+    city?: string;
+    state?: string;           // estado/provincia/región
+  };
+  // Habilidades del simulador — escala 0-100 por habilidad
+  skills: Partial<Record<SkillId, number>>;
+  stars?: { overall: number };        // reservado; ver "Rating / Estrellas" abajo
   // Equipos actuales e históricos
   teams: Array<{
     teamCode: string;         // referencia a federación o club
@@ -47,11 +66,14 @@ interface Player {
 - El `id` de goles/lineups **debe** apuntar a este id global.
 - Migración: los ids actuales (`CAC_009`, `BIL_001`) se conservan como el id de la entidad, pero dejan de estar "atados" al equipo (un jugador que se transfiere mantiene su id).
 - **`position` es del jugador** (su posición principal) — sirve para futuras cartas de jugador. El `squad` del equipo puede **sobreescribir** posición/dorsal para ese equipo (ver §8).
+- **Lugar de nacimiento**: `city`/`state` se agregan para completar la ficha; opcional en la primera iteración (los datos se completan cuando el dueño los tenga).
 
-### Rating
-- Escala **0.5 a 6** estrellas (0.5 = media estrella). `6` es excepcional/rarísimo.
-- Se guarda como número: `rating: 0.5 | 1 | 1.5 | … | 6`.
-- Puede haber un `ratingHistory` (opcional) para reflejar evolución por temporada, pero **no es requerido** en la primera iteración.
+### Rating / Estrellas (derivados, no editables a mano)
+- **Skills** se guardan en escala **0–100** (consistente con el d100 del simulador).
+- **`rating` del jugador (0–100)** se **calcula automáticamente** desde las skills con una ponderación según `position` (función pura, ej. `computePlayerRating(skills, position)`). No se edita a mano: si cambia una skill, cambia el rating.
+- **Estrellitas (0.5–6, pasos de 0.5)** se **derivan del rating 0–100** con una tabla de conversión (`ratingToStars(rating)`). `6` es excepcional/rarísimo. La tabla exacta se define en una constante (config) y se ajusta con el dueño más adelante.
+- **Rating de equipo (federación/club)** es la agregación de ratings de su plantel (media ponderada, también 0–100 → estrellas). La tabla de "poderío de selección" del dueño ([[Plan del usuario/02 - Segunda actualización]]) aplica a **equipos**, no a jugadores individuales.
+- Se muestran estrellitas junto a cada jugador en el squad (ver [[02-modelo-datos]] §8 y fase B3 del plan).
 
 > Nota: la fuente canónica recomendada es **JSON central** (decisión confirmada). Si más adelante se quiere integración con `astro:content`, se puede envolver el JSON con un `loader` como ya hace `matches`.
 
@@ -83,6 +105,8 @@ interface Club {
 - Un club pertenece a **una sola federación** (`federation`).
 - La **liga doméstica** es el conjunto de clubes de una misma federación → se muestra en la página del miembro ("su liga doméstica, si la tiene").
 - En partidos, los equipos pueden ser **federación** o **club**: se identifica por `teamCode` con un prefijo o por un campo `teamType`/`entityType` en el partido.
+- **Sin badges/logros** en la página del club: los logros son de federaciones, no de clubes (decisión del dueño).
+- El **rating del club** se deriva de su plantel (mismo mecanismo que el rating de federación), para el ranking FCL.
 
 ---
 
@@ -145,6 +169,18 @@ Cargar un gol pide el `playerId` y hay que buscarlo a mano. No se puede resolver
 
 - Desde `club.federation = <código miembro>` se listan los clubes de esa federación.
 - Si el club tiene `squad`, se muestra su plantel; si el jugador de la federación está en un club, se cruza por `playerId`.
+
+### Tabla de liga doméstica (hardcodeada en JSON)
+- Las **tablas de la liga doméstica se hardcodean en JSON** (sin calcularse): `src/data/leagues/<federation>.json`.
+- Contienen la tabla de la **última temporada** de esa federación: clubes, partidos jugados/ganados/empatados/perdidos, goles a favor/en contra, puntos.
+- La página del miembro muestra:
+  1. Si la federación **tiene tabla de liga** (`leagues/<code>.json`) → se muestra la **tabla**.
+  2. Si **no** tiene tabla pero **tiene clubes** → se muestra la **lista de clubes** de la federación.
+  3. Si no tiene nada → no se muestra sección.
+- **Las stats del club solo cuentan torneos FFC** (Forest Cup + Champions League), **NO** la liga doméstica: esta es solo una tabla estática de contexto.
+
+### Infraestructura primero (decisión dueño 2026)
+- En la primera iteración se implementa el **schema, loader y componentes** de la liga doméstica (tabla + lista de clubes), **sin cargar datos reales**. Se agregan datos cuando el dueño los tenga.
 
 ---
 
@@ -219,11 +255,12 @@ squad: {
 
 ## 11. Migración (resumen)
 
-1. Crear `players.json` central fusionando `by-team` + `historical` + `squad` de frontmatter; resolver homónimos una sola vez con el dueño.
-2. Agregar `club` collection + schema (JSON).
-3. Agregar `assistId` y `team*Type` al schema de matches; normalizar ids de jugadores en los JSON.
-4. Agregar `season` a torneos; mantener `id` como secuencial.
-5. Ajustar `playerUtils.ts` para importar la fuente real (y crear `@data/players/index.ts` que hoy falta).
-6. Migrar `squad` de frontmatter a referencia por `playerId` (ver §8).
-7. Migrar contenido de `.md` a JSON (ver §9).
+1. Crear `players.json` central fusionando `by-team` + `historical` + `squad` de frontmatter; resolver homónimos una sola vez con el dueño. Agregar `skills` (0-100, placeholder) y `birthplace` al schema.
+2. Crear `club` collection + schema (JSON).
+3. Crear infraestructura de **ligas domésticas** (`src/data/leagues/`) con schema + loader + componentes (sin datos en la primera iteración).
+4. Agregar `assistId` y `team*Type` al schema de matches; normalizar ids de jugadores en los JSON.
+5. Agregar `season` a torneos; mantener `id` como secuencial.
+6. Ajustar `playerUtils.ts` para importar la fuente real (y crear `@data/players/index.ts` que hoy falta).
+7. Migrar `squad` de frontmatter a referencia por `playerId` (ver §8).
+8. Migrar contenido de `.md` a JSON (ver §9).
 8. Migrar lookups de `teamName` a códigos (ver §10).
