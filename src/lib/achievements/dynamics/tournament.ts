@@ -3,6 +3,7 @@ import type { AchievementDefinition, AchievementResult, AchievementContext } fro
 import { type Category, CATEGORIES, type Subcategory, type Alignment, ALIGNMENTS } from '../utils';
 import type { CollectionEntry } from 'astro:content';
 import { getTournamentsByMemberParticipation } from '@utils/tournamentUtils';
+import { getMatchGoals } from '@utils/matchUtils';
 
 type Tournament = CollectionEntry<'tournaments'>;
 type Member = CollectionEntry<'members'>;
@@ -11,12 +12,27 @@ const thisCategory = CATEGORIES[1];
 
 type PrizeType = 'topScorer' | 'bestPlayer' | 'bestGoalkeeper' | 'bestGoal';
 
-const prizeCheckers: Record<PrizeType, (t: Tournament, memberName: string) => boolean> = {
-  topScorer:       (t, name) => (t.data.prizes?.topScorer ?? []).some(p => p.team === name),
-  bestPlayer:      (t, name) => t.data.prizes?.bestPlayer?.team === name,
-  bestGoalkeeper:  (t, name) => t.data.prizes?.bestGoalkeeper?.team === name,
-  bestGoal:        (t, name) => t.data.prizes?.bestGoal?.team === name,
+type PrizeRef = { team: string; teamId?: number };
+
+// Compara por id global cuando está presente; cae a nombre mientras algún premio no tenga teamId.
+function prizeMatches(p: PrizeRef, memberId: number, memberName: string): boolean {
+  return p.teamId !== undefined && p.teamId !== null ? p.teamId === memberId : p.team === memberName;
+}
+
+const prizeCheckers: Record<PrizeType, (t: Tournament, memberId: number, memberName: string) => boolean> = {
+  topScorer:      (t, id, name) => (t.data.prizes?.topScorer ?? []).some(p => prizeMatches(p, id, name)),
+  bestPlayer:     (t, id, name) => (t.data.prizes?.bestPlayer ? prizeMatches(t.data.prizes.bestPlayer, id, name) : false),
+  bestGoalkeeper: (t, id, name) => (t.data.prizes?.bestGoalkeeper ? prizeMatches(t.data.prizes.bestGoalkeeper, id, name) : false),
+  bestGoal:       (t, id, name) => (t.data.prizes?.bestGoal ? prizeMatches(t.data.prizes.bestGoal, id, name) : false),
 };
+
+function hostIdsEqual(t: Tournament, memberId: number, memberName: string): boolean {
+  return t.data.hostId !== undefined && t.data.hostId !== null ? t.data.hostId === memberId : t.data.host === memberName;
+}
+
+function championIdsEqual(t: Tournament, memberId: number, memberName: string): boolean {
+  return t.data.championId !== undefined && t.data.championId !== null ? t.data.championId === memberId : t.data.champion === memberName;
+}
 
 const baseAchievements: AchievementDefinition[] = [
   {
@@ -35,7 +51,7 @@ const baseAchievements: AchievementDefinition[] = [
     evaluate: function (context) {
       const { tournaments, member } = context;
       const editions = tournaments
-        .filter(t => t.data.host === member.data.name)
+        .filter(t => hostIdsEqual(t, member.data.id, member.data.name))
         .map(t => t.data.edition);
       return createAchievementResult(this, editions, {
         singularText: "Hosted the Forest Cup in",
@@ -66,7 +82,7 @@ const baseAchievements: AchievementDefinition[] = [
     stars: 1,
     evaluate: function (context) {
       const { tournaments, member } = context;
-      const won = tournaments.find(t => t.data.champion === member.data.name);
+      const won = tournaments.find(t => championIdsEqual(t, member.data.id, member.data.name));
       return won ? achieved(this, {
         description: `Won the Forest Cup ${won.data.edition}.`,
         current: 1,
@@ -90,7 +106,7 @@ const baseAchievements: AchievementDefinition[] = [
     enabled: true,
     evaluate: function (context) {
       const { tournaments, member } = context;
-      const won = tournaments.filter(t => t.data.champion === member.data.name);
+      const won = tournaments.filter(t => championIdsEqual(t, member.data.id, member.data.name));
       if (won.length !== 2) return null;
       const editions = won
         .map(t => t.data.edition)
@@ -119,7 +135,7 @@ const baseAchievements: AchievementDefinition[] = [
     enabled: true,
     evaluate: function (context) {
       const { tournaments, member } = context;
-      const won = tournaments.filter(t => t.data.champion === member.data.name);
+      const won = tournaments.filter(t => championIdsEqual(t, member.data.id, member.data.name));
       if (won.length < 3) return null;
       const editions = won
         .map(t => t.data.edition)
@@ -150,13 +166,13 @@ const baseAchievements: AchievementDefinition[] = [
     stars: 1,
     evaluate: function (context) {
       const { matches, tournaments, member } = context;
-      const won = tournaments.filter(t => t.data.champion === member.data.name);
+      const memberId = member.data.id;
+      const won = tournaments.filter(t => championIdsEqual(t, memberId, member.data.name));
       const unbeatenEditions = [];
       for (const t of won) {
-        const played = matches.filter(m => m.data.tournament_id === t.data.id && [m.data.team1, m.data.team2].includes(member.data.name));
+        const played = matches.filter(m => m.data.tournament_id === t.data.id && (m.data.team1Id === memberId || m.data.team2Id === memberId));
         const lost = played.filter(m => {
-          const gf = m.data.goals?.filter(g => g.team === member.data.name).length ?? 0;
-          const ga = m.data.goals?.filter(g => g.team !== member.data.name).length ?? 0;
+          const { gf, ga } = getMatchGoals(m, memberId);
           return gf < ga;
         }).length;
         if (lost === 0 && played.length > 0) {
@@ -187,14 +203,14 @@ const baseAchievements: AchievementDefinition[] = [
     stars: 1,
     evaluate: function (context) {
       const { matches, tournaments, member } = context;
-      const won = tournaments.filter(t => t.data.champion === member.data.name);
+      const memberId = member.data.id;
+      const won = tournaments.filter(t => championIdsEqual(t, memberId, member.data.name));
       if (won.length !== 1) return null;
       const perfectEditions = [];
       for (const t of won) {
-        const played = matches.filter(m => m.data.tournament_id === t.data.id && [m.data.team1, m.data.team2].includes(member.data.name));
+        const played = matches.filter(m => m.data.tournament_id === t.data.id && (m.data.team1Id === memberId || m.data.team2Id === memberId));
         const wins = played.filter(m => {
-          const gf = m.data.goals?.filter(g => g.team === member.data.name).length ?? 0;
-          const ga = m.data.goals?.filter(g => g.team !== member.data.name).length ?? 0;
+          const { gf, ga } = getMatchGoals(m, memberId);
           return gf > ga;
         }).length;
         if (wins === played.length && played.length > 0){
@@ -225,20 +241,21 @@ const baseAchievements: AchievementDefinition[] = [
     stars: 1,
     evaluate: function (context) {
       const { matches, tournaments, member } = context;
-      const won = tournaments.filter(t => t.data.champion === member.data.name);
+      const memberId = member.data.id;
+      const memberName = member.data.name;
+      const won = tournaments.filter(t => championIdsEqual(t, memberId, memberName));
       if (won.length === 0) return null;
       let ultimateEditions = [];
       for (const t of won) {
-        const played = matches.filter(m => m.data.tournament_id === t.data.id && [m.data.team1, m.data.team2].includes(member.data.name));
+        const played = matches.filter(m => m.data.tournament_id === t.data.id && (m.data.team1Id === memberId || m.data.team2Id === memberId));
 
         const wins = played.filter(m => {
-          const gf = m.data.goals?.filter(g => g.team === member.data.name).length ?? 0;
-          const ga = m.data.goals?.filter(g => g.team !== member.data.name).length ?? 0;
+          const { gf, ga } = getMatchGoals(m, memberId);
           return gf > ga;
         }).length;
 
         const awardsCount = Object.values(prizeCheckers).filter(checker =>
-          checker(t, member.data.name)
+          checker(t, memberId, memberName)
         ).length;
 
         if (wins === played.length && played.length > 0 && awardsCount === 4) {
@@ -316,9 +333,10 @@ const makePrizeAchievement = (
 
   evaluate: function (context: AchievementContext & { member: Member }) {
     const { tournaments, member } = context;
+    const memberId = member.data.id;
     const memberName = member.data.name;
     const wonTypes = (Object.keys(prizeCheckers) as PrizeType[])
-      .filter(type => tournaments.some(t => prizeCheckers[type](t, memberName)));
+      .filter(type => tournaments.some(t => prizeCheckers[type](t, memberId, memberName)));
     if (wonTypes.length < minTypes) return null;
     const pretty = {
       topScorer:      'Golden Boot',

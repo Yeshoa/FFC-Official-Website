@@ -2,8 +2,8 @@ import Trophy from '@images/achievements/king.webp';
 import type { AchievementDefinition, AchievementResult } from '../types';
 import { type Category, CATEGORIES, tiers, ALIGNMENTS, type Subcategory } from '../utils';
 import type { CollectionEntry } from 'astro:content';
-import { getAllMatchesByTeam, getMatchWinner } from 'src/utils/matchUtils';
-import { getMemberByName } from 'src/utils/memberUtils';
+import { getAllMatchesByTeam, getMatchWinnerId } from 'src/utils/matchUtils';
+import { getMemberById } from 'src/utils/memberUtils';
 
 type Tournament = CollectionEntry<'tournaments'>;
 type Member = CollectionEntry<'members'>;
@@ -84,9 +84,10 @@ const makeBeatTierAchievements = (
   stars: 1,
   evaluate: function (context) {
     const { matches, members, member } = context;
+    const memberId = member.data.id;
     const history = member.data.tierHistory;
     if (!history) return null;
-    const played = getAllMatchesByTeam(member.data.name, matches);
+    const played = getAllMatchesByTeam(memberId, matches);
     let bestStars = -1;
     let bestEdition = null;
     let bestOpponentTier = null;
@@ -97,8 +98,9 @@ const makeBeatTierAchievements = (
       const selfRecord = history.find(h => h.edition === edition);
       if (!selfRecord) continue;
 
-      const opponentName = m.data.team1 === member.data.name ? m.data.team2 : m.data.team1;
-      const oppMember = getMemberByName(opponentName, members);
+      const opponentId = m.data.team1Id === memberId ? m.data.team2Id : m.data.team1Id;
+      if (opponentId === undefined || opponentId === null) continue;
+      const oppMember = getMemberById(opponentId, members);
       const oppHistory = oppMember?.data?.tierHistory ?? [];
       const oppRecord = oppHistory.find(h => h.edition === edition);
       if (!oppRecord || oppRecord.tier !== tier) continue;
@@ -107,22 +109,23 @@ const makeBeatTierAchievements = (
       const oppLevel = tiers.indexOf(oppRecord.tier as typeof tiers[number]);
       if (oppLevel <= selfLevel) continue;
 
-      const winner = getMatchWinner(m.data);
-      if (winner !== member.data.name) continue;
+      const winnerId = getMatchWinnerId(m.data);
+      if (winnerId !== memberId) continue;
 
       const stars = oppLevel - selfLevel;
       if (stars > bestStars) {
         bestStars = stars;
         bestEdition = edition;
         bestOpponentTier = oppRecord.tier;
-        bestOpponentName = opponentName;
+        bestOpponentName = oppMember?.data.name ?? null;
       }
     }
 
     if (bestStars > 0 && bestEdition && bestOpponentTier) {
+      const opponentSegment = bestOpponentName ? ` against ${bestOpponentName}` : '';
       return achieved(this, {
         stars: bestStars,
-        description: `Beaten a ${bestOpponentTier} team being ${bestStars} tiers lower.`,
+        description: `Beaten a ${bestOpponentTier} team being ${bestStars} tiers lower${opponentSegment}.`,
         current: bestStars,
         target: 1,
         progress: 100,

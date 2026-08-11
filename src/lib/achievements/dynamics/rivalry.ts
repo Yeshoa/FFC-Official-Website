@@ -2,13 +2,18 @@ import Trophy from '@images/achievements/king.webp';
 import type { AchievementDefinition, AchievementResult } from '../types';
 import { type Category, CATEGORIES, ALIGNMENTS, type Subcategory, type Alignment } from '../utils';
 import type { CollectionEntry } from 'astro:content';
-import { getMemberByName } from 'src/utils/memberUtils';
-import { getGoalsByTeam, getMatchWinnerIncludingPenalties } from 'src/utils/matchUtils';
+import { getMemberById } from 'src/utils/memberUtils';
+import { getGoalsByTeam, getMatchGoals, getMatchWinnerIncludingPenaltiesId } from 'src/utils/matchUtils';
 
 type Tournament = CollectionEntry<'tournaments'>;
 type Member = CollectionEntry<'members'>;
 
 const thisCategory = CATEGORIES[3];
+
+function memberNameById(id: number | undefined | null): string {
+  if (id === undefined || id === null) return '';
+  return getMemberById(id)?.data.name ?? `#${id}`;
+}
 
 export const baseAchievements: AchievementDefinition[] = [
   {
@@ -27,10 +32,11 @@ export const baseAchievements: AchievementDefinition[] = [
     evaluate: function (context) {
       const { matches, members, member } = context;
       if (!member.data.verified) return null;
+      const memberId = member.data.id;
       // 1) Verified matches
       const verifiedMatches = matches.filter(m => {
-        const t1 = getMemberByName(m.data.team1, members)?.data.verified;
-        const t2 = getMemberByName(m.data.team2, members)?.data.verified;
+        const t1 = getMemberById(m.data.team1Id, members)?.data.verified;
+        const t2 = getMemberById(m.data.team2Id, members)?.data.verified;
         return t1 || t2;
       });
       if (!verifiedMatches.length) return null;
@@ -46,17 +52,17 @@ export const baseAchievements: AchievementDefinition[] = [
       // 3) Filter the ones where winner is verified
       const biggestWins = verifiedMatches.flatMap(m => {
         const { team1, team2 } = getGoalsByTeam(m.data);
-        const diffs: Array<{ winner: string; loser: string; goals: [number,number] }> = [];
-        if (team1 - team2 === maxDiff) diffs.push({ winner: m.data.team1, loser: m.data.team2, goals: [team1, team2] });
-        if (team2 - team1 === maxDiff) diffs.push({ winner: m.data.team2, loser: m.data.team1, goals: [team2, team1] });
-        return diffs.filter(d => getMemberByName(d.winner, members)?.data.verified);
+        const diffs: Array<{ winner: number; loser: number; goals: [number,number] }> = [];
+        if (team1 - team2 === maxDiff) diffs.push({ winner: m.data.team1Id!, loser: m.data.team2Id!, goals: [team1, team2] });
+        if (team2 - team1 === maxDiff) diffs.push({ winner: m.data.team2Id!, loser: m.data.team1Id!, goals: [team2, team1] });
+        return diffs.filter(d => getMemberById(d.winner, members)?.data.verified);
       });
 
       // 4) If the member won one of them
-      if (!biggestWins.some(w => w.winner === member.data.name)) return null;
+      if (!biggestWins.some(w => w.winner === memberId)) return null;
 
-      const win = biggestWins.find(w => w.winner === member.data.name)!;
-      const opponent = win.loser;
+      const win = biggestWins.find(w => w.winner === memberId)!;
+      const opponent = getMemberById(win.loser, members)?.data.name ?? `#${win.loser}`;
       const [scW, scL] = win.goals;
 
       const maxMinDif = Math.max(...difAchievements.map(ach => parseInt(ach.id.split('-')[0], 10)));
@@ -117,12 +123,14 @@ const makeMatchesAchievements = (
 stars: 1,
   evaluate: function (context) {
     const { matches, member } = context;
-    const counts = new Map<string,number>();
+    const memberId = member.data.id;
+    const counts = new Map<number,number>();
       for (const m of matches) {
-        if (m.data.team1 === member.data.name) counts.set(m.data.team2, (counts.get(m.data.team2)||0)+1);
-        if (m.data.team2 === member.data.name) counts.set(m.data.team1, (counts.get(m.data.team1)||0)+1);
+        if (m.data.team1Id === memberId) counts.set(m.data.team2Id!, (counts.get(m.data.team2Id!)||0)+1);
+        if (m.data.team2Id === memberId) counts.set(m.data.team1Id!, (counts.get(m.data.team1Id!)||0)+1);
       }
-      const rivals = [...counts.entries()].filter(([,c]) => c>=minMatches).map(([r])=>r);
+      const rivalIds = [...counts.entries()].filter(([,c]) => c>=minMatches).map(([r])=>r);
+      const rivals = rivalIds.map(memberNameById);
       const newStars = rivals.length;
       const list = rivals.map((r, i, arr) => i === arr.length - 1 && rivals.length > 1 ? ` and ${r}` : r).join(', ');
       return rivals.length
@@ -159,18 +167,21 @@ const makeWinAchievements = (
 stars: 1,
   evaluate: function (context) {
     const { matches, member } = context;
-    const counts = new Map<string,number>();
+    const memberId = member.data.id;
+    const counts = new Map<number,number>();
     const wonMatches = matches.filter(m => {
-      const { team1, team2, goals } = m.data;
-      const gf1 = goals?.filter(g => g.team === team1).length ?? 0;
-      const gf2 = goals?.filter(g => g.team === team2).length ?? 0;
-      return team1 === member.data.name && gf1 > gf2 || team2 === member.data.name && gf2 > gf1;
+      const isTeam1 = m.data.team1Id === memberId;
+      const isTeam2 = m.data.team2Id === memberId;
+      if (!isTeam1 && !isTeam2) return false;
+      const { gf, ga } = getMatchGoals(m, memberId);
+      return gf > ga;
     })
     for (const m of wonMatches) {
-      if (m.data.team1 === member.data.name) counts.set(m.data.team2, (counts.get(m.data.team2)||0)+1);
-      if (m.data.team2 === member.data.name) counts.set(m.data.team1, (counts.get(m.data.team1)||0)+1);
+      if (m.data.team1Id === memberId) counts.set(m.data.team2Id!, (counts.get(m.data.team2Id!)||0)+1);
+      if (m.data.team2Id === memberId) counts.set(m.data.team1Id!, (counts.get(m.data.team1Id!)||0)+1);
     }
-    const rivals = [...counts.entries()].filter(([,c]) => c>=minWins).map(([r])=>r);
+    const rivalIds = [...counts.entries()].filter(([,c]) => c>=minWins).map(([r])=>r);
+    const rivals = rivalIds.map(memberNameById);
 
     const newStars = rivals.length;
 
@@ -209,18 +220,21 @@ const makeLossAchievements = (
 stars: 1,
   evaluate: function (context) {
     const { matches, member } = context;
-    const counts = new Map<string,number>();
+    const memberId = member.data.id;
+    const counts = new Map<number,number>();
     const lostMatches = matches.filter(m => {
-      const { team1, team2, goals } = m.data;
-      const gf1 = goals?.filter(g => g.team === team1).length ?? 0;
-      const gf2 = goals?.filter(g => g.team === team2).length ?? 0;
-      return team1 === member.data.name && gf1 < gf2 || team2 === member.data.name && gf2 < gf1;
+      const isTeam1 = m.data.team1Id === memberId;
+      const isTeam2 = m.data.team2Id === memberId;
+      if (!isTeam1 && !isTeam2) return false;
+      const { gf, ga } = getMatchGoals(m, memberId);
+      return gf < ga;
     })
     for (const m of lostMatches) {
-      if (m.data.team1 === member.data.name) counts.set(m.data.team2, (counts.get(m.data.team2)||0)+1);
-      if (m.data.team2 === member.data.name) counts.set(m.data.team1, (counts.get(m.data.team1)||0)+1);
+      if (m.data.team1Id === memberId) counts.set(m.data.team2Id!, (counts.get(m.data.team2Id!)||0)+1);
+      if (m.data.team2Id === memberId) counts.set(m.data.team1Id!, (counts.get(m.data.team1Id!)||0)+1);
     }
-    const rivals = [...counts.entries()].filter(([,c]) => c>=minLosses).map(([r])=>r);
+    const rivalIds = [...counts.entries()].filter(([,c]) => c>=minLosses).map(([r])=>r);
+    const rivals = rivalIds.map(memberNameById);
     const newStars = rivals.length;
 
     const list = rivals.map((r, i, arr) => i === arr.length - 1 && rivals.length > 1 ? ` and ${r}` : r).join(', ');
@@ -258,19 +272,22 @@ const makeDifAchievements = (
 stars: 1,
   evaluate: function (context) {
     const { matches, member } = context;
-    const counts = new Map<string,number>();
+    const memberId = member.data.id;
+    const counts = new Map<number,number>();
     const wonMatchesByDif = matches.filter(m => {
-      const { team1, team2, goals } = m.data;
-      const gf1 = goals?.filter(g => g.team === team1).length ?? 0;
-      const gf2 = goals?.filter(g => g.team === team2).length ?? 0;
-      return team1 === member.data.name && gf1-gf2 >= minDif || team2 === member.data.name && gf2-gf1 >= minDif;
+      const isTeam1 = m.data.team1Id === memberId;
+      const isTeam2 = m.data.team2Id === memberId;
+      if (!isTeam1 && !isTeam2) return false;
+      const { gf, ga } = getMatchGoals(m, memberId);
+      return gf - ga >= minDif;
     })
     if (wonMatchesByDif.length === 0) return null;
     for (const m of wonMatchesByDif) {
-      if (m.data.team1 === member.data.name) counts.set(m.data.team2, (counts.get(m.data.team2)||0)+1);
-      if (m.data.team2 === member.data.name) counts.set(m.data.team1, (counts.get(m.data.team1)||0)+1);
+      if (m.data.team1Id === memberId) counts.set(m.data.team2Id!, (counts.get(m.data.team2Id!)||0)+1);
+      if (m.data.team2Id === memberId) counts.set(m.data.team1Id!, (counts.get(m.data.team1Id!)||0)+1);
     }
-    const rivals = [...counts.entries()].map(([r])=>r);
+    const rivalIds = [...counts.entries()].map(([r])=>r);
+    const rivals = rivalIds.map(memberNameById);
     const newStars = rivals.length;
 
     const list = rivals.map((r, i, arr) => i === arr.length - 1 && rivals.length > 1 ? ` and ${r}` : r).join(', ');
@@ -308,23 +325,26 @@ const makeEliminationAchievements = (
 stars: 1,
   evaluate: function (context) {
     const { matches, member } = context;
-    const eliminations: Record<string, number> = {};
+    const memberId = member.data.id;
+    const eliminations: Record<number, number> = {};
     for (const m of matches) {
       if (m.data.stage !== 'knockout') continue;
       if (m.data.status !== 'played') continue;
 
-      let winner = getMatchWinnerIncludingPenalties(m.data);
-      const loser = winner === m.data.team1 ? m.data.team2 : m.data.team1;
+      const winnerId = getMatchWinnerIncludingPenaltiesId(m.data);
+      if (winnerId === null) continue;
+      const loserId = winnerId === m.data.team1Id ? m.data.team2Id : m.data.team1Id;
 
-      if (loser === member.data.name) {
-        eliminations[winner] = (eliminations[winner] ?? 0) + 1;
+      if (loserId === memberId) {
+        eliminations[winnerId] = (eliminations[winnerId] ?? 0) + 1;
       }
     }
 
-    const rivals = Object.entries(eliminations).filter(([, count]) => count >= minEliminations);
+    const rivalIds = Object.keys(eliminations).map(Number).filter(id => eliminations[id] >= minEliminations);
+    const rivals = rivalIds.map(memberNameById);
     const newStars = rivals.length;
     if (!rivals.length) return null;
-    const list = rivals.map((r, i, arr) => i === arr.length - 1 && rivals.length > 1 ? ` and ${r[0]}` : r[0]).join(', ');
+    const list = rivals.map((r, i, arr) => i === arr.length - 1 && rivals.length > 1 ? ` and ${r}` : r).join(', ');
     return achieved(this, {
       stars: newStars,
       description: `Eliminated ${minEliminations}+ times by: ${list}.`,

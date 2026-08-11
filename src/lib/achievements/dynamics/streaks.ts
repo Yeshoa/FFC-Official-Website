@@ -1,7 +1,7 @@
 import Trophy from '@images/achievements/king.webp';
 import type { AchievementDefinition, AchievementResult } from '../types';
 import { getAllGoals, getAllMatchesByTeam,
-  getAllRedCards, getLossStreak, getMatchWinner,
+  getAllRedCards, getLossStreak, getMatchWinnerId,
    getNoGoalStreak, getNoWinStreak, getUnbeatenStreak,
    getWinStreak, getMatchGoals } from 'src/utils/matchUtils';
 import { type Category, CATEGORIES, type Subcategory, ALIGNMENTS, type Alignment } from '../utils';
@@ -9,13 +9,15 @@ import { computeProgress } from '../types';
 
 const thisCategory = CATEGORIES[2];
 
+type Match = import('../types').Match;
+
 // Función para contar cuántas veces se logró una racha de victorias
-const countWinStreaks = (memberName, matches, tournaments, members, threshold) => {
-  const memberMatches = getAllMatchesByTeam(memberName, matches);
+const countWinStreaks = (memberId: number, matches: Match[], tournaments: unknown, members: unknown, threshold: number) => {
+  const memberMatches = getAllMatchesByTeam(memberId, matches);
   let streakCount = 0;
   let currentStreak = 0;
   for (const match of memberMatches) {
-    if (getMatchWinner(match.data) === memberName) {
+    if (getMatchWinnerId(match.data) === memberId) {
       currentStreak++;
     } else {
       if (currentStreak >= threshold) {
@@ -33,13 +35,14 @@ const countWinStreaks = (memberName, matches, tournaments, members, threshold) =
 };
 
 // Función para contar cuántas veces se logró una racha de derrotas
-const countLossStreaks = (memberName, matches, tournaments, members, threshold) => {
-  const memberMatches = getAllMatchesByTeam(memberName, matches);
+const countLossStreaks = (memberId: number, matches: Match[], tournaments: unknown, members: unknown, threshold: number) => {
+  const memberMatches = getAllMatchesByTeam(memberId, matches);
   let streakCount = 0;
   let currentStreak = 0;
 
   for (const match of memberMatches) {
-    if (getMatchWinner(match.data) !== memberName && getMatchWinner(match.data) !== null) {
+    const winner = getMatchWinnerId(match.data);
+    if (winner !== memberId && winner !== null) {
       currentStreak++;
     } else {
       if (currentStreak >= threshold) {
@@ -57,13 +60,14 @@ const countLossStreaks = (memberName, matches, tournaments, members, threshold) 
 };
 
 // Función para contar cuántas veces se logró una racha invicta
-const countUnbeatenStreaks = (memberName, matches, tournaments, members, threshold) => {
-  const memberMatches = getAllMatchesByTeam(memberName, matches);
+const countUnbeatenStreaks = (memberId: number, matches: Match[], tournaments: unknown, members: unknown, threshold: number) => {
+  const memberMatches = getAllMatchesByTeam(memberId, matches);
   let streakCount = 0;
   let currentStreak = 0;
 
   for (const match of memberMatches) {
-    if (getMatchWinner(match.data) !== memberName && getMatchWinner(match.data) !== null) {
+    const winner = getMatchWinnerId(match.data);
+    if (winner !== memberId && winner !== null) {
       if (currentStreak >= threshold) {
         streakCount++;
       }
@@ -81,12 +85,12 @@ const countUnbeatenStreaks = (memberName, matches, tournaments, members, thresho
 };
 
 // Función para contar cuántas veces se logró una racha sin marcar goles
-const countNoGoalStreaks = (memberName, matches, tournaments, members, threshold) => {
-  const memberMatches = getAllMatchesByTeam(memberName, matches);
+const countNoGoalStreaks = (memberId: number, matches: Match[], tournaments: unknown, members: unknown, threshold: number) => {
+  const memberMatches = getAllMatchesByTeam(memberId, matches);
   let streakCount = 0;
   let currentStreak = 0;
   for (const match of memberMatches) {
-    const { gf } = getMatchGoals(match, memberName);
+    const { gf } = getMatchGoals(match, memberId);
     if (gf === 0) {
       currentStreak++;
     } else {
@@ -105,13 +109,13 @@ const countNoGoalStreaks = (memberName, matches, tournaments, members, threshold
 };
 
 // Función para contar cuántas veces se logró una racha sin ganar
-const countNoWinStreaks = (memberName, matches, tournaments, members, threshold) => {
-  const memberMatches = getAllMatchesByTeam(memberName, matches);
+const countNoWinStreaks = (memberId: number, matches: Match[], tournaments: unknown, members: unknown, threshold: number) => {
+  const memberMatches = getAllMatchesByTeam(memberId, matches);
   let streakCount = 0;
   let currentStreak = 0;
 
   for (const match of memberMatches) {
-    if (getMatchWinner(match.data) !== memberName) {
+    if (getMatchWinnerId(match.data) !== memberId) {
       currentStreak++;
     } else {
       if (currentStreak >= threshold) {
@@ -168,7 +172,8 @@ function createStatAchievement(
     stars,
     evaluate: function (context) {
       const { matches, tournaments, member, members } = context;
-      const currentValue = statFunction(member.data.name, matches, tournaments, members);
+      const memberId = member.data.id;
+      const currentValue = statFunction(memberId, matches, tournaments, members);
 
       let meetsThreshold = false;
       switch (comparator) {
@@ -187,7 +192,7 @@ function createStatAchievement(
       newDescription = newDescription.replace("${verb}", verb);
       let newStars = stars;
       if (newStars === 1 && countFunction) {
-        newStars = countFunction(member.data.name, matches, tournaments, members, threshold);
+        newStars = countFunction(memberId, matches, tournaments, members, threshold);
       }
 
       return achieved(this, {
@@ -243,11 +248,11 @@ function createMaxStatAchievement(
 
       const stats = members.map(m => ({
         name: m.data.name,
-        value: statFunction(m.data.name, matches, tournaments, members)
+        value: statFunction(m.data.id, matches, tournaments, members)
       }));
 
       const max = Math.max(...stats.map(s => s.value));
-      const current = statFunction(member.data.name, matches, tournaments, members);
+      const current = statFunction(member.data.id, matches, tournaments, members);
 
       if (current !== max) return null;
 
@@ -352,9 +357,9 @@ const createScorelessStreakAchievement = (id, name, icon, description, subcatego
 // 6. No win achievements
 const createNoWinAchievement = (id, name, icon, description, subcategory, alignment, rarity, minMatches, stars = 1) =>
   createStatAchievement(id, name, icon, description, subcategory, alignment, rarity, minMatches,
-    (memberName, matches) => {
-      const played = getAllMatchesByTeam(memberName, matches);
-      const wins = played.filter(m => getMatchWinner(m.data) === memberName);
+    (memberId: number, matches: Match[]) => {
+      const played = getAllMatchesByTeam(memberId, matches);
+      const wins = played.filter(m => getMatchWinnerId(m.data) === memberId);
       return wins.length === 0 ? played.length : 0;
     }, {
       descriptionTemplate: "Never won in ${threshold}+ matches.",

@@ -6,7 +6,7 @@ import { getMatchResult } from 'src/utils/matchUtils';
 import { Image } from 'astro:assets';
 import { getTeamStatsInTournament, getTeamFinalResult, getTopScorerOfTeamInTournament, 
   getTeamPositionInTournament, getTeamByPosition, getFinalResult, getThirdPlaceResult, 
-  getAllParticipants, lostLastPlayoff } from '../../utils/tournamentUtils';
+  getAllParticipantIds, lostLastPlayoff } from '../../utils/tournamentUtils';
 import { CURRENT_SEASON } from '@config/season';
 import { getTournaments } from '@lib/collections';
 import type { Member } from '@ty/collections';
@@ -21,6 +21,7 @@ interface Props {
 // Member para mostrar los datos del miembro, tournaments y matches para obtener los datos de los torneos, members para las ediciones
 const { member, matches, type } = Astro.props;
 const memberName = member.data.name;
+const memberId = member.data.id;
 // Filtrar los torneos por tipo
 const allEditions = tournaments
   .filter(t => t.data.type === type)
@@ -31,11 +32,11 @@ const tournamentsData = await Promise.all(
     const isFutureOrCurrent = t.data.season >= CURRENT_SEASON;
     const host = await getMemberByName(t.data.host || '') || null;
     const hostClass = t.data.host === memberName ? 'text-amber-400 font-bold' : '';
-    const didParticipate = await getAllParticipants(t).then(teams => teams.includes(memberName));
+    const didParticipate = await getAllParticipantIds(t).then(ids => ids.includes(memberId));
     const stats = await getStatsForTournament(t.data.id);
     const topScorer = await getTopScorerInTournament(t.data.id);
     const position = await getTeamPositionInTournamentById(t.data.id);
-    const lostPlayoff = await lostLastPlayoff(t.data.id, memberName);
+    const lostPlayoff = await lostLastPlayoff(t.data.id, memberId);
     const result = await getTeamFinalResultInTournament(t.data.id);
     const resultLabel =
       result.status === 'not_participated' ? null :
@@ -69,19 +70,19 @@ const tournamentsData = await Promise.all(
   })
 );
 function getStatsForTournament(tournamentId: number) {
-  return getTeamStatsInTournament(memberName, tournamentId);
+  return getTeamStatsInTournament(memberId, tournamentId);
 }
 // Función auxiliar para obtener el máximo goleador del equipo de un torneo
 function getTopScorerInTournament(tournamentId: number) {
-  return getTopScorerOfTeamInTournament(memberName, tournamentId);
+  return getTopScorerOfTeamInTournament(memberId, tournamentId);
 }
 
 function getTeamPositionInTournamentById(tournamentId: number) {
-  return getTeamPositionInTournament(tournaments.find(t => t.data.id === tournamentId)!, memberName);
+  return getTeamPositionInTournament(tournaments.find(t => t.data.id === tournamentId)!, memberId);
 }
 
 function getTeamFinalResultInTournament(tournamentId: number) {
-  return getTeamFinalResult(memberName, tournaments.find(t => t.data.id === tournamentId)!);
+  return getTeamFinalResult(memberId, tournaments.find(t => t.data.id === tournamentId)!);
 }
 
 // Calcular qué torneos tienen partidos sin jugar

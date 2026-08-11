@@ -1,7 +1,7 @@
 import Trophy from '@images/achievements/king.webp';
 import type { AchievementDefinition, AchievementResult } from '../types';
-import { getMemberByName } from 'src/utils/memberUtils';
-import { getGoalsByTeam, getMatchWinner, getMatchWinnerIncludingPenalties } from 'src/utils/matchUtils';
+import { getMemberById } from 'src/utils/memberUtils';
+import { getMatchGoals, getMatchWinnerIncludingPenaltiesId } from 'src/utils/matchUtils';
 import type { Category } from '../utils';
 import { ALIGNMENTS, type Subcategory } from '../utils';
 
@@ -23,12 +23,13 @@ export const specialAchievements: AchievementDefinition[] = [
     stars: 1,
     evaluate: function (context) {
       const { matches, member } = context;
+      const memberId = member.data.id;
       const played = matches.filter(m =>
-        [m.data.team1, m.data.team2].includes(member.data.name)
+        m.data.team1Id === memberId || m.data.team2Id === memberId
       );
 
       const goals = played.reduce((acc, m) => {
-        return acc + (m.data.goals?.filter(g => g.team === member.data.name).length ?? 0);
+        return acc + getMatchGoals(m, memberId).gf;
       }, 0);
 
       if (!played.length || goals !== 0) return null;
@@ -53,25 +54,31 @@ export const specialAchievements: AchievementDefinition[] = [
     stars: 1,
     evaluate: function (context) {
       const { matches, member } = context;
-      const eliminations: Record<string, number> = {};
+      const memberId = member.data.id;
+      const eliminations: Record<number, number> = {};
 
       for (const m of matches) {
         if (m.data.stage !== 'knockout') continue;
         if (m.data.status !== 'played') continue;
 
-        let winner = getMatchWinnerIncludingPenalties(m.data);
-        const loser = winner === m.data.team1 ? m.data.team2 : m.data.team1;
+        const winnerId = getMatchWinnerIncludingPenaltiesId(m.data);
+        if (winnerId === null) continue;
+        const loserId = winnerId === m.data.team1Id ? m.data.team2Id : m.data.team1Id;
 
-        if (loser === member.data.name) {
-          eliminations[winner] = (eliminations[winner] ?? 0) + 1;
+        if (loserId === memberId) {
+          eliminations[winnerId] = (eliminations[winnerId] ?? 0) + 1;
         }
       }
 
       const rivals = Object.entries(eliminations).filter(([, count]) => count >= 2);
       if (!rivals.length) return null;
 
+      const rivalNames = rivals.map(([id]) => {
+        const rival = getMemberById(Number(id));
+        return rival?.data.name ?? `#${id}`;
+      });
       return achieved(this, {
-        description: `Eliminated 2+ times by: ${rivals.map(([r]) => r).join(', ')}.`,
+        description: `Eliminated 2+ times by: ${rivalNames.join(', ')}.`,
         current: rivals.length,
         target: 1,
         progress: 100,

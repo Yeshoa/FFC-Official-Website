@@ -114,6 +114,7 @@ export async function getMemberScoreDetails(
   tier: string;
 }> {
   const memberName = member.data.name;
+  const memberId = member.data.id;
   const lastFourSeasons = getLastFourSeasons(tournaments, currentSeason);
 
   // ==========  ROLEPLAY ==========
@@ -133,7 +134,7 @@ export async function getMemberScoreDetails(
   const currentBonusData = getCurrentBonusDataWithDefaults(memberName, bonusResult.bonuses);
 
   // ==========  TOURNAMENT DECAY ==========
-  const tournamentResult = await calculateTournamentDecayPoints(memberName, tournaments, currentSeason);
+  const tournamentResult = await calculateTournamentDecayPoints(memberId, tournaments, currentSeason);
   const tournamentDecayPoints = Math.ceil(tournamentResult.totalPoints);
 
   // ==========  TOTALES Y RETORNO ==========
