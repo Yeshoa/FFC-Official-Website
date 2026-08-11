@@ -33,6 +33,24 @@
           "Love and Nature",
           "Ownzone",
           "Verdant Haven"
+        ],
+        "teamIds": [
+          13,
+          87,
+          67,
+          72,
+          58,
+          91,
+          56,
+          93,
+          69,
+          54,
+          95,
+          96,
+          63,
+          78,
+          45,
+          16
         ]
       },
       {
@@ -54,6 +72,24 @@
           "Cat-Herders United",
           "Taco Respublic",
           "Candlewhisper Archive"
+        ],
+        "teamIds": [
+          55,
+          65,
+          53,
+          81,
+          3,
+          89,
+          79,
+          49,
+          94,
+          48,
+          61,
+          88,
+          92,
+          35,
+          86,
+          57
         ]
       },
       {
@@ -75,9 +111,29 @@
           "Kinganaryasia",
           "Ransium",
           "Seagull"
+        ],
+        "teamIds": [
+          74,
+          59,
+          71,
+          90,
+          66,
+          75,
+          1,
+          68,
+          64,
+          60,
+          62,
+          84,
+          83,
+          76,
+          82,
+          85
         ]
       }
-    ]
+    ],
+    "hostId": 1,
+    "championId": 13
   },
   "forest-cup-2022": {
     "id": 1,
@@ -101,6 +157,12 @@
           "Einswenn",
           "Roless",
           "Reannia"
+        ],
+        "teamIds": [
+          6,
+          7,
+          4,
+          3
         ]
       },
       {
@@ -110,6 +172,12 @@
           "Bilsa",
           "Kase",
           "Cat-Herders United"
+        ],
+        "teamIds": [
+          5,
+          1,
+          41,
+          35
         ]
       },
       {
@@ -119,6 +187,12 @@
           "Daarwyrth",
           "Bunkaiia",
           "Trebenia"
+        ],
+        "teamIds": [
+          2,
+          42,
+          43,
+          39
         ]
       },
       {
@@ -128,6 +202,12 @@
           "Terrawynn",
           "Novian Republics",
           "Turbeaux"
+        ],
+        "teamIds": [
+          9,
+          46,
+          48,
+          49
         ]
       }
     ],
@@ -136,22 +216,28 @@
         {
           "player": "M. Dartmouth",
           "team": "Cacusia",
-          "goals": 7
+          "goals": 7,
+          "teamId": 5
         }
       ],
       "bestPlayer": {
         "player": "D. Vela",
-        "team": "Reannia"
+        "team": "Reannia",
+        "teamId": 3
       },
       "bestGoalkeeper": {
         "player": "Ksatsthas",
-        "team": "Atsvea"
+        "team": "Atsvea",
+        "teamId": 6
       },
       "bestGoal": {
         "player": "T. Wolf",
-        "team": "Trebenia"
+        "team": "Trebenia",
+        "teamId": 39
       }
-    }
+    },
+    "hostId": 1,
+    "championId": 6
   },
   "forest-cup-2024": {
     "id": 2,
@@ -181,6 +267,16 @@
           "Einswenn",
           "Jutsa",
           "Bilsa"
+        ],
+        "teamIds": [
+          11,
+          4,
+          16,
+          6,
+          5,
+          7,
+          2,
+          1
         ]
       },
       {
@@ -194,6 +290,16 @@
           "Washeyye",
           "Nordustra",
           "Realize"
+        ],
+        "teamIds": [
+          22,
+          15,
+          12,
+          14,
+          25,
+          26,
+          18,
+          8
         ]
       },
       {
@@ -207,6 +313,16 @@
           "New Libertalia Kingdom",
           "Ottterland",
           "Orcuo"
+        ],
+        "teamIds": [
+          17,
+          27,
+          13,
+          10,
+          20,
+          19,
+          30,
+          24
         ]
       },
       {
@@ -220,6 +336,16 @@
           "Mozolephies",
           "Clown Town City",
           "Aresetia"
+        ],
+        "teamIds": [
+          28,
+          29,
+          23,
+          32,
+          9,
+          33,
+          34,
+          31
         ]
       }
     ],
@@ -228,22 +354,28 @@
         {
           "player": "Nysnub",
           "team": "Atsvea",
-          "goals": 9
+          "goals": 9,
+          "teamId": 6
         }
       ],
       "bestPlayer": {
         "player": "R. Tarasov",
-        "team": "Nardin"
+        "team": "Nardin",
+        "teamId": 12
       },
       "bestGoalkeeper": {
         "player": "I. Hans",
-        "team": "Einswenn"
+        "team": "Einswenn",
+        "teamId": 7
       },
       "bestGoal": {
         "player": "I. Darrow",
-        "team": "Cacusia"
+        "team": "Cacusia",
+        "teamId": 5
       }
-    }
+    },
+    "hostId": 11,
+    "championId": 12
   },
   "forest-cup-2026": {
     "id": 3,
@@ -265,17 +397,22 @@
         {
           "player": "O. Gro",
           "team": "Einswenn",
-          "goals": 13
+          "goals": 13,
+          "teamId": 7
         }
       ],
       "bestPlayer": {
         "player": "O. Gro",
-        "team": "Einswenn"
+        "team": "Einswenn",
+        "teamId": 7
       },
       "bestGoalkeeper": {
         "player": "E. Jadar",
-        "team": "Bilsa"
+        "team": "Bilsa",
+        "teamId": 1
       }
-    }
+    },
+    "hostId": 5,
+    "championId": 4
   }
 }

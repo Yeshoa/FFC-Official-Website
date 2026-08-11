@@ -4,6 +4,7 @@ export interface LeagueStandingRow {
   position: number;
   club: string;
   clubCode?: string;
+  clubId?: number; // id global del club (fuente de verdad)
   played: number;
   won: number;
   drawn: number;

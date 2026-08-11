@@ -1,10 +1,11 @@
 [
   {
-    "id": 1,
+    "id": 97,
     "code": "BILKRA",
     "name": "Krulta BK",
     "shortName": "Krulta",
     "federation": "BIL",
+    "federationId": 1,
     "founded": 1998,
     "colors": {
       "primary": "#2E7D32",
@@ -17,11 +18,12 @@
     }
   },
   {
-    "id": 2,
+    "id": 98,
     "code": "BILNOR",
     "name": "Nordland FC",
     "shortName": "Nordland",
     "federation": "BIL",
+    "federationId": 1,
     "founded": 2005,
     "colors": {
       "primary": "#1565C0",

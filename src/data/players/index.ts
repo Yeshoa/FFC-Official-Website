@@ -13,6 +13,7 @@ export type SkillId =
 export interface PlayerTeamEntry {
   teamCode: string;
   teamType: 'national' | 'club';
+  teamId?: number; // id global del equipo (miembro o club, fuente de verdad)
   number?: number | null;
   from?: string;
   to?: string;
@@ -24,6 +25,7 @@ export interface Player {
   name: string;
   position: string;
   nationality: string;
+  nationalityId?: number; // id global del miembro (fuente de verdad)
   birthdate?: string | null;
   birthplace?: { city?: string | null; state?: string | null };
   skills: Partial<Record<SkillId, number>>;

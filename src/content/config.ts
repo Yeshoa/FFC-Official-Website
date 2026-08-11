@@ -38,10 +38,12 @@ const tournamentsCollection = defineCollection({
     shortName: z.string().optional(),
     host: z.string().optional(), // País anfitrión
     hostCode: z.string().optional(),
+    hostId: z.number().optional(), // id global del miembro anfitrión
     final: z.string().optional(), // Sede de la final
     image: image(),
     champion: z.string().optional(),
     championCode: z.string().optional(),
+    championId: z.number().optional(), // id global del miembro/club campeón
     banner: image().optional(), // Banner del torneo
     edition: z.number(),
     season: z.number(), // Año de la temporada (fuente de verdad para ranking/decay)
@@ -50,17 +52,18 @@ const tournamentsCollection = defineCollection({
     pots: z.array(
       z.object({
         pot: z.number(), // Número de bombo (1, 2, 3, 4)
-        teams: z.array(z.string()), // Referencias a members
+        teams: z.array(z.string()), // Referencias a members (display)
         teamCodes: z.array(z.string()).optional(),
+        teamIds: z.array(z.number()).optional(), // ids globales de miembros/clubes
       })
     ).optional(),
     heroImg: image().optional(), // Imágen para Tournament Hero
     cardImg: image().optional(), // Imágen para Tournament Card
     prizes: z.object({ // Estructura más detallada para premios
-      topScorer: z.array(z.object({ player: z.string(), team: z.string(), goals: z.number() })).optional(),
-      bestPlayer: z.object({ player: z.string(), team: z.string() }).optional(),
-      bestGoalkeeper: z.object({ player: z.string(), team: z.string() }).optional(),
-      bestGoal: z.object({ player: z.string(), team: z.string() }).optional(),
+      topScorer: z.array(z.object({ player: z.string(), team: z.string(), goals: z.number(), teamId: z.number().optional() })).optional(),
+      bestPlayer: z.object({ player: z.string(), team: z.string(), teamId: z.number().optional() }).optional(),
+      bestGoalkeeper: z.object({ player: z.string(), team: z.string(), teamId: z.number().optional() }).optional(),
+      bestGoal: z.object({ player: z.string(), team: z.string(), teamId: z.number().optional() }).optional(),
     }).optional(),
   }),
 });
@@ -85,6 +88,8 @@ const matchesCollection = defineCollection({
     team2: z.string(),
     team1Code: z.string().optional(),
     team2Code: z.string().optional(),
+    team1Id: z.number().optional(), // id global de miembro o club (fuente de verdad)
+    team2Id: z.number().optional(), // id global de miembro o club (fuente de verdad)
     team1Type: z.enum(["national", "club"]).default("national"),
     team2Type: z.enum(["national", "club"]).default("national"),
     stadium_id: z.number().optional(),

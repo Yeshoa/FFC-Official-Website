@@ -1,13 +1,15 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-import { loadClubsByFederation } from '@data/clubs';
+import { loadClubsByFederation, loadClubsByFederationId } from '@data/clubs';
 
 interface Props {
   member: CollectionEntry<'members'>;
 }
 
 const { member } = Astro.props;
-const clubs = loadClubsByFederation(member.data.code);
+const clubs = member.data.id !== undefined
+  ? loadClubsByFederationId(member.data.id)
+  : loadClubsByFederation(member.data.code);
 ---
 {
   clubs.length > 0 ? (

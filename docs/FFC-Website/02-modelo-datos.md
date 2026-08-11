@@ -246,11 +246,15 @@ squad: {
 ### Problema
 - `teamName` se usa como parámetro de lookup en varios utils (`tournamentUtils`, `matchUtils`, etc.). Cualquier typo o cambio de nombre rompe la resolución.
 - Los partidos guardan `team1/team2` (nombre) + `team1Code/team2Code` (código).
+- **`code` no es único globalmente**: puede haber dos equipos (selección o club) con el mismo code. El `code` es solo display.
 
-### Solución
-- **Resolver por código/id** (`team1Code/team2Code` → `member.code` / `club.code`), no por nombre.
-- `getMemberByName` se mantiene solo donde no queda otra, pero el objetivo es migrar a lookups por código.
-- Los partidos ganan `team1Type/team2Type: 'national' | 'club'` para resolver la entidad correcta (federación o club) por código.
+### Solución (Fase D)
+- **`id` numérico global = identificador canónico de todo equipo** (selección **o** club), en **una sola secuencia** compartida entre `members.json` y `clubs.json`. Un id identifica a un único equipo en todo el universo (no hace falta el tipo para desambiguar).
+- `matches` ganan `team1Id/team2Id`; `tournaments` `hostId/championId` y pots `teamIds`/prizes `teamId`; `leagues` `clubId`; `clubs` `federationId` (id del miembro dueño); `players` `teams[].teamId` + `nationalityId`.
+- `code`/`name` quedan **solo para display**; no se usan como key de resolución.
+- Resolver central: `getTeamById(id)` → `{ type, member?, club? }`, `getMemberById(id)`, `getMemberByMatchTeam` (id primero, fallback code→name durante la migración).
+- `getMemberByName` se mantiene solo donde no queda otra (logros/goles), pero el objetivo es migrar a lookups por id.
+- Validación: `npm run teams:link` chequea unicidad global de ids (`members.json` + `clubs.json`) y referencias.
 
 ---
 

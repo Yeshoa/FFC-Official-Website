@@ -14,7 +14,9 @@
       }
     ],
     "team1Code": "BIL",
-    "team2Code": "xCHV"
+    "team2Code": "xCHV",
+    "team1Id": 1,
+    "team2Id": 61
   },
   {
     "tournament_id": 0,
@@ -40,7 +42,9 @@
       }
     ],
     "team1Code": "xVEL",
-    "team2Code": "XMAF"
+    "team2Code": "XMAF",
+    "team1Id": 93,
+    "team2Id": 79
   },
   {
     "tournament_id": 0,
@@ -60,7 +64,9 @@
       }
     ],
     "team1Code": "xBLO",
-    "team2Code": "xTAC"
+    "team2Code": "xTAC",
+    "team1Id": 54,
+    "team2Id": 86
   },
   {
     "tournament_id": 0,
@@ -89,7 +95,9 @@
       }
     ],
     "team1Code": "xVND",
-    "team2Code": "xCYN"
+    "team2Code": "xCYN",
+    "team1Id": 91,
+    "team2Id": 89
   },
   {
     "tournament_id": 0,
@@ -118,7 +126,9 @@
       }
     ],
     "team1Code": "xFEL",
-    "team2Code": "CNR"
+    "team2Code": "CNR",
+    "team1Id": 69,
+    "team2Id": 48
   },
   {
     "tournament_id": 0,
@@ -138,7 +148,9 @@
       }
     ],
     "team1Code": "xLOV",
-    "team2Code": "xELU"
+    "team2Code": "xELU",
+    "team1Id": 78,
+    "team2Id": 65
   },
   {
     "tournament_id": 0,
@@ -161,7 +173,9 @@
       }
     ],
     "team1Code": "xCAN",
-    "team2Code": "CHU"
+    "team2Code": "CHU",
+    "team1Id": 56,
+    "team2Id": 35
   },
   {
     "tournament_id": 0,
@@ -181,7 +195,9 @@
       }
     ],
     "team1Code": "xDWA",
-    "team2Code": "REA"
+    "team2Code": "REA",
+    "team1Id": 63,
+    "team2Id": 3
   },
   {
     "tournament_id": 0,
@@ -216,7 +232,9 @@
       }
     ],
     "team1Code": "xZIO",
-    "team2Code": "xAET"
+    "team2Code": "xAET",
+    "team1Id": 96,
+    "team2Id": 53
   },
   {
     "tournament_id": 0,
@@ -239,7 +257,9 @@
       }
     ],
     "team1Code": "xFUF",
-    "team2Code": "VH"
+    "team2Code": "VH",
+    "team1Id": 72,
+    "team2Id": 16
   },
   {
     "tournament_id": 0,
@@ -259,7 +279,9 @@
       }
     ],
     "team1Code": "xTAU",
-    "team2Code": "xVAN"
+    "team2Code": "xVAN",
+    "team1Id": 87,
+    "team2Id": 92
   },
   {
     "tournament_id": 0,
@@ -279,7 +301,9 @@
       }
     ],
     "team1Code": "RUI",
-    "team2Code": "xBLH"
+    "team2Code": "xBLH",
+    "team1Id": 13,
+    "team2Id": 55
   },
   {
     "tournament_id": 0,
@@ -296,7 +320,9 @@
       }
     ],
     "team1Code": "CAN",
-    "team2Code": "xPHE"
+    "team2Code": "xPHE",
+    "team1Id": 58,
+    "team2Id": 81
   },
   {
     "tournament_id": 0,
@@ -325,7 +351,9 @@
       }
     ],
     "team1Code": "xOWN",
-    "team2Code": "TBX"
+    "team2Code": "TBX",
+    "team1Id": 45,
+    "team2Id": 49
   },
   {
     "tournament_id": 0,
@@ -354,7 +382,9 @@
       }
     ],
     "team1Code": "xWIN",
-    "team2Code": "xTBF"
+    "team2Code": "xTBF",
+    "team1Id": 95,
+    "team2Id": 88
   },
   {
     "tournament_id": 0,
@@ -374,7 +404,9 @@
       }
     ],
     "team1Code": "xERY",
-    "team2Code": "xWAN"
+    "team2Code": "xWAN",
+    "team1Id": 67,
+    "team2Id": 94
   },
   {
     "tournament_id": 0,
@@ -391,7 +423,9 @@
       }
     ],
     "team1Code": "xCHV",
-    "team2Code": "xEDP"
+    "team2Code": "xEDP",
+    "team1Id": 61,
+    "team2Id": 64
   },
   {
     "tournament_id": 0,
@@ -408,7 +442,9 @@
       }
     ],
     "team1Code": "XMAF",
-    "team2Code": "xCWA"
+    "team2Code": "xCWA",
+    "team1Id": 79,
+    "team2Id": 57
   },
   {
     "tournament_id": 0,
@@ -431,7 +467,9 @@
       }
     ],
     "team1Code": "xTAC",
-    "team2Code": "xENT"
+    "team2Code": "xENT",
+    "team1Id": 86,
+    "team2Id": 66
   },
   {
     "tournament_id": 0,
@@ -448,7 +486,9 @@
       }
     ],
     "team1Code": "xCYN",
-    "team2Code": "xCTA"
+    "team2Code": "xCTA",
+    "team1Id": 89,
+    "team2Id": 59
   },
   {
     "tournament_id": 0,
@@ -465,7 +505,9 @@
       }
     ],
     "team1Code": "CNR",
-    "team2Code": "xDRA"
+    "team2Code": "xDRA",
+    "team1Id": 48,
+    "team2Id": 62
   },
   {
     "tournament_id": 0,
@@ -488,7 +530,9 @@
       }
     ],
     "team1Code": "xELU",
-    "team2Code": "xTVT"
+    "team2Code": "xTVT",
+    "team1Id": 65,
+    "team2Id": 90
   },
   {
     "tournament_id": 0,
@@ -511,7 +555,9 @@
       }
     ],
     "team1Code": "CHU",
-    "team2Code": "xKAW"
+    "team2Code": "xKAW",
+    "team1Id": 35,
+    "team2Id": 75
   },
   {
     "tournament_id": 0,
@@ -531,7 +577,9 @@
       }
     ],
     "team1Code": "REA",
-    "team2Code": "xFGB"
+    "team2Code": "xFGB",
+    "team1Id": 3,
+    "team2Id": 71
   },
   {
     "tournament_id": 0,
@@ -557,7 +605,9 @@
       }
     ],
     "team1Code": "xAET",
-    "team2Code": "xKIN"
+    "team2Code": "xKIN",
+    "team1Id": 53,
+    "team2Id": 76
   },
   {
     "tournament_id": 0,
@@ -595,7 +645,9 @@
       }
     ],
     "team1Code": "VH",
-    "team2Code": "xSEA"
+    "team2Code": "xSEA",
+    "team1Id": 16,
+    "team2Id": 85
   },
   {
     "tournament_id": 0,
@@ -612,7 +664,9 @@
       }
     ],
     "team1Code": "xVAN",
-    "team2Code": "xIRR"
+    "team2Code": "xIRR",
+    "team1Id": 92,
+    "team2Id": 74
   },
   {
     "tournament_id": 0,
@@ -656,7 +710,9 @@
       }
     ],
     "team1Code": "xBLH",
-    "team2Code": "xEST"
+    "team2Code": "xEST",
+    "team1Id": 55,
+    "team2Id": 68
   },
   {
     "tournament_id": 0,
@@ -682,7 +738,9 @@
       }
     ],
     "team1Code": "xPHE",
-    "team2Code": "xSAP"
+    "team2Code": "xSAP",
+    "team1Id": 81,
+    "team2Id": 84
   },
   {
     "tournament_id": 0,
@@ -699,7 +757,9 @@
       }
     ],
     "team1Code": "TBX",
-    "team2Code": "xCHI"
+    "team2Code": "xCHI",
+    "team1Id": 49,
+    "team2Id": 60
   },
   {
     "tournament_id": 0,
@@ -722,7 +782,9 @@
       }
     ],
     "team1Code": "xTBF",
-    "team2Code": "xSAC"
+    "team2Code": "xSAC",
+    "team1Id": 88,
+    "team2Id": 83
   },
   {
     "tournament_id": 0,
@@ -748,7 +810,9 @@
       }
     ],
     "team1Code": "xWAN",
-    "team2Code": "xRAN"
+    "team2Code": "xRAN",
+    "team1Id": 94,
+    "team2Id": 82
   },
   {
     "tournament_id": 0,
@@ -771,7 +835,9 @@
       }
     ],
     "team1Code": "xEDP",
-    "team2Code": "BIL"
+    "team2Code": "BIL",
+    "team1Id": 64,
+    "team2Id": 1
   },
   {
     "tournament_id": 0,
@@ -806,7 +872,9 @@
       }
     ],
     "team1Code": "xCWA",
-    "team2Code": "xVEL"
+    "team2Code": "xVEL",
+    "team1Id": 57,
+    "team2Id": 93
   },
   {
     "tournament_id": 0,
@@ -829,7 +897,9 @@
       }
     ],
     "team1Code": "xENT",
-    "team2Code": "xBLO"
+    "team2Code": "xBLO",
+    "team1Id": 66,
+    "team2Id": 54
   },
   {
     "tournament_id": 0,
@@ -861,7 +931,9 @@
       }
     ],
     "team1Code": "xCTA",
-    "team2Code": "xVND"
+    "team2Code": "xVND",
+    "team1Id": 59,
+    "team2Id": 91
   },
   {
     "tournament_id": 0,
@@ -893,7 +965,9 @@
       }
     ],
     "team1Code": "xDRA",
-    "team2Code": "xFEL"
+    "team2Code": "xFEL",
+    "team1Id": 62,
+    "team2Id": 69
   },
   {
     "tournament_id": 0,
@@ -916,7 +990,9 @@
       }
     ],
     "team1Code": "xTVT",
-    "team2Code": "xLOV"
+    "team2Code": "xLOV",
+    "team1Id": 90,
+    "team2Id": 78
   },
   {
     "tournament_id": 0,
@@ -936,7 +1012,9 @@
       }
     ],
     "team1Code": "xKAW",
-    "team2Code": "xCAN"
+    "team2Code": "xCAN",
+    "team1Id": 75,
+    "team2Id": 56
   },
   {
     "tournament_id": 0,
@@ -953,7 +1031,9 @@
       }
     ],
     "team1Code": "xFGB",
-    "team2Code": "xDWA"
+    "team2Code": "xDWA",
+    "team1Id": 71,
+    "team2Id": 63
   },
   {
     "tournament_id": 0,
@@ -997,7 +1077,9 @@
       }
     ],
     "team1Code": "xKIN",
-    "team2Code": "xZIO"
+    "team2Code": "xZIO",
+    "team1Id": 76,
+    "team2Id": 96
   },
   {
     "tournament_id": 0,
@@ -1026,7 +1108,9 @@
       }
     ],
     "team1Code": "xSEA",
-    "team2Code": "xFUF"
+    "team2Code": "xFUF",
+    "team1Id": 85,
+    "team2Id": 72
   },
   {
     "tournament_id": 0,
@@ -1052,7 +1136,9 @@
       }
     ],
     "team1Code": "xIRR",
-    "team2Code": "xTAU"
+    "team2Code": "xTAU",
+    "team1Id": 74,
+    "team2Id": 87
   },
   {
     "tournament_id": 0,
@@ -1072,7 +1158,9 @@
       }
     ],
     "team1Code": "xEST",
-    "team2Code": "RUI"
+    "team2Code": "RUI",
+    "team1Id": 68,
+    "team2Id": 13
   },
   {
     "tournament_id": 0,
@@ -1110,7 +1198,9 @@
       }
     ],
     "team1Code": "xSAP",
-    "team2Code": "CAN"
+    "team2Code": "CAN",
+    "team1Id": 84,
+    "team2Id": 58
   },
   {
     "tournament_id": 0,
@@ -1127,7 +1217,9 @@
       }
     ],
     "team1Code": "xCHI",
-    "team2Code": "xOWN"
+    "team2Code": "xOWN",
+    "team1Id": 60,
+    "team2Id": 45
   },
   {
     "tournament_id": 0,
@@ -1150,7 +1242,9 @@
       }
     ],
     "team1Code": "xSAC",
-    "team2Code": "xWIN"
+    "team2Code": "xWIN",
+    "team1Id": 83,
+    "team2Id": 95
   },
   {
     "tournament_id": 0,
@@ -1194,7 +1288,9 @@
       }
     ],
     "team1Code": "xRAN",
-    "team2Code": "xERY"
+    "team2Code": "xERY",
+    "team1Id": 82,
+    "team2Id": 67
   },
   {
     "tournament_id": 0,
@@ -1225,7 +1321,9 @@
       }
     ],
     "team1Code": "BIL",
-    "team2Code": "xFUF"
+    "team2Code": "xFUF",
+    "team1Id": 1,
+    "team2Id": 72
   },
   {
     "tournament_id": 0,
@@ -1247,7 +1345,9 @@
       }
     ],
     "team1Code": "xBLO",
-    "team2Code": "xBLH"
+    "team2Code": "xBLH",
+    "team1Id": 54,
+    "team2Id": 55
   },
   {
     "tournament_id": 0,
@@ -1315,7 +1415,9 @@
       }
     ],
     "team1Code": "xFEL",
-    "team2Code": "TBX"
+    "team2Code": "TBX",
+    "team1Id": 69,
+    "team2Id": 49
   },
   {
     "tournament_id": 0,
@@ -1334,7 +1436,9 @@
       }
     ],
     "team1Code": "CHU",
-    "team2Code": "xWAN"
+    "team2Code": "xWAN",
+    "team1Id": 35,
+    "team2Id": 94
   },
   {
     "tournament_id": 0,
@@ -1350,7 +1454,9 @@
       }
     ],
     "team1Code": "xAET",
-    "team2Code": "XMAF"
+    "team2Code": "XMAF",
+    "team1Id": 53,
+    "team2Id": 79
   },
   {
     "tournament_id": 0,
@@ -1375,7 +1481,9 @@
       }
     ],
     "team1Code": "xTAU",
-    "team2Code": "xCYN"
+    "team2Code": "xCYN",
+    "team1Id": 87,
+    "team2Id": 89
   },
   {
     "tournament_id": 0,
@@ -1403,7 +1511,9 @@
       }
     ],
     "team1Code": "CAN",
-    "team2Code": "xTVT"
+    "team2Code": "xTVT",
+    "team1Id": 58,
+    "team2Id": 90
   },
   {
     "tournament_id": 0,
@@ -1434,7 +1544,9 @@
       }
     ],
     "team1Code": "xWIN",
-    "team2Code": "xDWA"
+    "team2Code": "xDWA",
+    "team1Id": 95,
+    "team2Id": 63
   },
   {
     "tournament_id": 0,
@@ -1450,7 +1562,9 @@
       }
     ],
     "team1Code": "xVEL",
-    "team2Code": "xZIO"
+    "team2Code": "xZIO",
+    "team1Id": 93,
+    "team2Id": 96
   },
   {
     "tournament_id": 0,
@@ -1481,7 +1595,9 @@
       }
     ],
     "team1Code": "xVND",
-    "team2Code": "xVAN"
+    "team2Code": "xVAN",
+    "team1Id": 91,
+    "team2Id": 92
   },
   {
     "tournament_id": 0,
@@ -1503,7 +1619,9 @@
       }
     ],
     "team1Code": "xLOV",
-    "team2Code": "xPHE"
+    "team2Code": "xPHE",
+    "team1Id": 78,
+    "team2Id": 81
   },
   {
     "tournament_id": 0,
@@ -1525,7 +1643,9 @@
       }
     ],
     "team1Code": "REA",
-    "team2Code": "xSAC"
+    "team2Code": "xSAC",
+    "team1Id": 3,
+    "team2Id": 83
   },
   {
     "tournament_id": 0,
@@ -1544,7 +1664,9 @@
       }
     ],
     "team1Code": "VH",
-    "team2Code": "xCHV"
+    "team2Code": "xCHV",
+    "team1Id": 16,
+    "team2Id": 61
   },
   {
     "tournament_id": 0,
@@ -1569,7 +1691,9 @@
       }
     ],
     "team1Code": "RUI",
-    "team2Code": "xTAC"
+    "team2Code": "xTAC",
+    "team1Id": 13,
+    "team2Id": 86
   },
   {
     "tournament_id": 0,
@@ -1597,7 +1721,9 @@
       }
     ],
     "team1Code": "xOWN",
-    "team2Code": "CNR"
+    "team2Code": "CNR",
+    "team1Id": 45,
+    "team2Id": 48
   },
   {
     "tournament_id": 0,
@@ -1619,7 +1745,9 @@
       }
     ],
     "team1Code": "xERY",
-    "team2Code": "xCAN"
+    "team2Code": "xCAN",
+    "team1Id": 67,
+    "team2Id": 56
   },
   {
     "tournament_id": 0,
@@ -1641,7 +1769,9 @@
       }
     ],
     "team1Code": "xFUF",
-    "team2Code": "xBLO"
+    "team2Code": "xBLO",
+    "team1Id": 72,
+    "team2Id": 54
   },
   {
     "tournament_id": 0,
@@ -1657,7 +1787,9 @@
       }
     ],
     "team1Code": "xFEL",
-    "team2Code": "CHU"
+    "team2Code": "CHU",
+    "team1Id": 69,
+    "team2Id": 35
   },
   {
     "tournament_id": 0,
@@ -1679,7 +1811,9 @@
       }
     ],
     "team1Code": "xAET",
-    "team2Code": "xTAU"
+    "team2Code": "xTAU",
+    "team1Id": 53,
+    "team2Id": 87
   },
   {
     "tournament_id": 0,
@@ -1710,7 +1844,9 @@
       }
     ],
     "team1Code": "CAN",
-    "team2Code": "xDWA"
+    "team2Code": "xDWA",
+    "team1Id": 58,
+    "team2Id": 63
   },
   {
     "tournament_id": 0,
@@ -1732,7 +1868,9 @@
       }
     ],
     "team1Code": "xVEL",
-    "team2Code": "xVND"
+    "team2Code": "xVND",
+    "team1Id": 93,
+    "team2Id": 91
   },
   {
     "tournament_id": 0,
@@ -1754,7 +1892,9 @@
       }
     ],
     "team1Code": "xPHE",
-    "team2Code": "REA"
+    "team2Code": "REA",
+    "team1Id": 81,
+    "team2Id": 3
   },
   {
     "tournament_id": 0,
@@ -1776,7 +1916,9 @@
       }
     ],
     "team1Code": "VH",
-    "team2Code": "RUI"
+    "team2Code": "RUI",
+    "team1Id": 16,
+    "team2Id": 13
   },
   {
     "tournament_id": 0,
@@ -1798,7 +1940,9 @@
       }
     ],
     "team1Code": "xOWN",
-    "team2Code": "xCAN"
+    "team2Code": "xCAN",
+    "team1Id": 45,
+    "team2Id": 56
   },
   {
     "tournament_id": 0,
@@ -1814,7 +1958,9 @@
       }
     ],
     "team1Code": "xFUF",
-    "team2Code": "xFEL"
+    "team2Code": "xFEL",
+    "team1Id": 72,
+    "team2Id": 69
   },
   {
     "tournament_id": 0,
@@ -1830,7 +1976,9 @@
       }
     ],
     "team1Code": "xAET",
-    "team2Code": "CAN"
+    "team2Code": "CAN",
+    "team1Id": 53,
+    "team2Id": 58
   },
   {
     "tournament_id": 0,
@@ -1849,7 +1997,9 @@
       }
     ],
     "team1Code": "xVND",
-    "team2Code": "xPHE"
+    "team2Code": "xPHE",
+    "team1Id": 91,
+    "team2Id": 81
   },
   {
     "tournament_id": 0,
@@ -1865,7 +2015,9 @@
       }
     ],
     "team1Code": "RUI",
-    "team2Code": "xOWN"
+    "team2Code": "xOWN",
+    "team1Id": 13,
+    "team2Id": 45
   },
   {
     "tournament_id": 0,
@@ -1887,7 +2039,9 @@
       }
     ],
     "team1Code": "xFEL",
-    "team2Code": "CAN"
+    "team2Code": "CAN",
+    "team1Id": 69,
+    "team2Id": 58
   },
   {
     "tournament_id": 0,
@@ -1906,7 +2060,9 @@
       }
     ],
     "team1Code": "xVND",
-    "team2Code": "RUI"
+    "team2Code": "RUI",
+    "team1Id": 91,
+    "team2Id": 13
   },
   {
     "tournament_id": 0,
@@ -1931,6 +2087,8 @@
       }
     ],
     "team1Code": "CAN",
-    "team2Code": "RUI"
+    "team2Code": "RUI",
+    "team1Id": 58,
+    "team2Id": 13
   }
 ]

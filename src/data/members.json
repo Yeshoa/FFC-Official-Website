@@ -1,6 +1,6 @@
 {
   "aeterno_tranquillitas": {
-    "id": 9999,
+    "id": 53,
     "code": "xAET",
     "name": "Aeterno Tranquillitas",
     "nslink": "https://www.nationstates.net/nation=aeterno_tranquillitas",
@@ -45,7 +45,7 @@
     ]
   },
   "aresetia": {
-    "id": 30,
+    "id": 31,
     "code": "ARE",
     "name": "Aresetia",
     "nslink": "https://www.nationstates.net/nation=aresetia",
@@ -96,7 +96,7 @@
     ]
   },
   "azure_mines": {
-    "id": 39,
+    "id": 44,
     "code": "AZR",
     "name": "Azure Mines",
     "nslink": "https://www.nationstates.net/nation=azure_mines",
@@ -107,7 +107,7 @@
     "verified": true
   },
   "bextoria": {
-    "id": 42,
+    "id": 51,
     "code": "BEX",
     "name": "Bextoria",
     "nslink": "https://www.nationstates.net/nation=bextoria",
@@ -169,7 +169,7 @@
     ]
   },
   "bisofeyr": {
-    "id": 20,
+    "id": 21,
     "code": "BSF",
     "name": "Bisofeyr",
     "nslink": "https://www.nationstates.net/nation=bisofeyr",
@@ -188,7 +188,7 @@
     }
   },
   "blon_gre": {
-    "id": 9999,
+    "id": 54,
     "code": "xBLO",
     "name": "Blon Gre",
     "nslink": "https://www.nationstates.net/nation=blon_gre",
@@ -203,7 +203,7 @@
     ]
   },
   "bluestoking_homeland": {
-    "id": 9999,
+    "id": 55,
     "code": "xBLH",
     "name": "Bluestocking Homeland",
     "nslink": "https://www.nationstates.net/nation=the_new_bluestocking_homeland",
@@ -218,7 +218,7 @@
     ]
   },
   "bunkaiia": {
-    "id": 38,
+    "id": 43,
     "code": "BUN",
     "name": "Bunkaiia",
     "nslink": "https://www.nationstates.net/nation=bunkaiia",
@@ -288,7 +288,7 @@
     ]
   },
   "canaltia": {
-    "id": 9999,
+    "id": 56,
     "code": "xCAN",
     "name": "Canaltia",
     "nslink": "https://www.nationstates.net/nation=canaltia",
@@ -303,7 +303,7 @@
     ]
   },
   "candelwhisper_archive": {
-    "id": 9999,
+    "id": 57,
     "code": "xCWA",
     "name": "Candlewhisper Archive",
     "nslink": "https://www.nationstates.net/nation=candlewhisper_archive",
@@ -318,7 +318,7 @@
     ]
   },
   "cannibaland": {
-    "id": 9999,
+    "id": 58,
     "code": "CAN",
     "name": "Cannibaland",
     "nslink": "https://www.nationstates.net/nation=cannibaland",
@@ -333,7 +333,7 @@
     ]
   },
   "cat-army": {
-    "id": 26,
+    "id": 27,
     "code": "CAT",
     "name": "Cat Army",
     "nslink": "https://www.nationstates.net/nation=cat_army",
@@ -364,7 +364,7 @@
     ]
   },
   "cat-herders-united": {
-    "id": 34,
+    "id": 35,
     "code": "CHU",
     "name": "Cat-Herders United",
     "nslink": "https://www.nationstates.net/nation=Cat-herders_united",
@@ -396,7 +396,7 @@
     ]
   },
   "caterasia": {
-    "id": 9999,
+    "id": 59,
     "code": "xCTA",
     "name": "Caterasia",
     "nslink": "https://www.nationstates.net/nation=caterasia",
@@ -411,7 +411,7 @@
     ]
   },
   "chan_island": {
-    "id": 9999,
+    "id": 60,
     "code": "CI",
     "name": "Chan Island",
     "nslink": "https://www.nationstates.net/nation=chan_island",
@@ -429,7 +429,7 @@
     ]
   },
   "chaplin": {
-    "id": 35,
+    "id": 37,
     "code": "CHP",
     "name": "Chaplin",
     "nslink": "https://www.nationstates.net/nation=chaplin",
@@ -440,7 +440,7 @@
     "verified": true
   },
   "chilledsville": {
-    "id": 9999,
+    "id": 61,
     "code": "xCHV",
     "name": "Chilledsville",
     "nslink": "https://www.nationstates.net/nation=chilledsville",
@@ -455,7 +455,7 @@
     ]
   },
   "clown-town-city": {
-    "id": 33,
+    "id": 34,
     "code": "CTC",
     "name": "Clown Town City",
     "nslink": "https://www.nationstates.net/nation=clown_town_city",
@@ -471,7 +471,7 @@
     ]
   },
   "columbiqash": {
-    "id": 22,
+    "id": 23,
     "code": "CQ",
     "name": "Columbiqash",
     "nslink": "https://www.nationstates.net/nation=columbiqash",
@@ -488,7 +488,7 @@
     ]
   },
   "daarwyrth": {
-    "id": 37,
+    "id": 42,
     "code": "DRW",
     "name": "Daarwyrth",
     "nslink": "https://www.nationstates.net/nation=daarwyrth",
@@ -504,7 +504,7 @@
     ]
   },
   "drasnia": {
-    "id": 9999,
+    "id": 62,
     "code": "xDRA",
     "name": "Drasnia",
     "nslink": "https://www.nationstates.net/nation=drasnia",
@@ -519,7 +519,7 @@
     ]
   },
   "dwardossa": {
-    "id": 9999,
+    "id": 63,
     "code": "xDWA",
     "name": "Dwardossa",
     "nslink": "https://www.nationstates.net/nation=dwardossa",
@@ -534,7 +534,7 @@
     ]
   },
   "ecologist-hegemony": {
-    "id": 34,
+    "id": 36,
     "code": "ETC",
     "name": "Ecologist Hegemony",
     "nslink": "https://www.nationstates.net/nation=ecologist_hegemony",
@@ -546,7 +546,7 @@
     "verified": true
   },
   "edible_plywood": {
-    "id": 9999,
+    "id": 64,
     "code": "xEDP",
     "name": "Edible Plywood",
     "nslink": "https://www.nationstates.net/nation=edible_plywood",
@@ -610,7 +610,7 @@
     ]
   },
   "elundris": {
-    "id": 9999,
+    "id": 65,
     "code": "xELU",
     "name": "Elundris",
     "nslink": "https://www.nationstates.net/nation=elundris",
@@ -625,7 +625,7 @@
     ]
   },
   "entitize": {
-    "id": 9999,
+    "id": 66,
     "code": "xENT",
     "name": "Entitize",
     "nslink": "https://www.nationstates.net/nation=entitize",
@@ -640,7 +640,7 @@
     ]
   },
   "eryndlynd": {
-    "id": 9999,
+    "id": 67,
     "code": "xERY",
     "name": "Eryndlynd",
     "nslink": "https://www.nationstates.net/nation=eryndlynd",
@@ -655,7 +655,7 @@
     ]
   },
   "esterild": {
-    "id": 9999,
+    "id": 68,
     "code": "xEST",
     "name": "Esterild",
     "nslink": "https://www.nationstates.net/nation=esterild",
@@ -670,7 +670,7 @@
     ]
   },
   "feladria": {
-    "id": 9999,
+    "id": 69,
     "code": "xFEL",
     "name": "Feladria",
     "nslink": "https://www.nationstates.net/nation=feladria",
@@ -685,7 +685,7 @@
     ]
   },
   "forfishing": {
-    "id": 9999,
+    "id": 70,
     "code": "FSH",
     "name": "Fish",
     "nslink": "https://www.nationstates.net/nation=ForFishing",
@@ -695,7 +695,7 @@
     "affiliation": 2026
   },
   "forgotten_beauty": {
-    "id": 9999,
+    "id": 71,
     "code": "xFGB",
     "name": "Forgotten Beauty",
     "nslink": "https://www.nationstates.net/nation=forgotten_beauty",
@@ -740,7 +740,7 @@
     ]
   },
   "frieden_und_freudenland": {
-    "id": 9999,
+    "id": 72,
     "code": "xFUF",
     "name": "Frieden Und Freudenland",
     "nslink": "https://www.nationstates.net/nation=frieden-und_freudenland",
@@ -755,7 +755,7 @@
     ]
   },
   "furilisca": {
-    "id": 21,
+    "id": 22,
     "code": "FUR",
     "name": "Furilisca",
     "nslink": "https://www.nationstates.net/nation=furilisca",
@@ -793,7 +793,7 @@
     ]
   },
   "garbelia": {
-    "id": 35,
+    "id": 38,
     "code": "GRB",
     "name": "Garbelia",
     "nslink": "https://www.nationstates.net/nation=garbelia",
@@ -806,7 +806,7 @@
     "verified": true
   },
   "glo": {
-    "id": 9999,
+    "id": 73,
     "code": "GFF",
     "name": "Glo XI",
     "nslink": "https://www.nationstates.net/nation=glo",
@@ -817,7 +817,7 @@
     "affiliation": 2026
   },
   "ironic_remarks": {
-    "id": 9999,
+    "id": 74,
     "code": "xIRR",
     "name": "Ironic Remarks",
     "nslink": "https://www.nationstates.net/nation=ironic_remarks",
@@ -871,7 +871,7 @@
     ]
   },
   "karaa": {
-    "id": 40,
+    "id": 47,
     "code": "GEK",
     "name": "Green Empire Karaa",
     "nslink": "https://century.nationstates.net/nation=karaa_theocracy",
@@ -882,7 +882,7 @@
     "verified": true
   },
   "kase": {
-    "id": 36,
+    "id": 41,
     "code": "KAS",
     "name": "Kase",
     "nslink": "https://www.nationstates.net/nation=kase",
@@ -910,7 +910,7 @@
     ]
   },
   "kawastyselir": {
-    "id": 9999,
+    "id": 75,
     "code": "xKAW",
     "name": "Kawastyselir",
     "nslink": "https://www.nationstates.net/nation=kawastyselir",
@@ -925,7 +925,7 @@
     ]
   },
   "kinganaryasia": {
-    "id": 9999,
+    "id": 76,
     "code": "xKIN",
     "name": "Kinganaryasia",
     "nslink": "https://www.nationstates.net/nation=kinganaryasia",
@@ -940,7 +940,7 @@
     ]
   },
   "klaus_devestatorie": {
-    "id": 9999,
+    "id": 77,
     "code": "KDV",
     "name": "Klaus Devestatorie",
     "nslink": "https://www.nationstates.net/nation=klaus_devestatorie",
@@ -951,7 +951,7 @@
     "affiliation": 2026
   },
   "love_and_nature": {
-    "id": 9999,
+    "id": 78,
     "code": "xLOV",
     "name": "Love and Nature",
     "nslink": "https://www.nationstates.net/nation=love_and_nature",
@@ -1014,7 +1014,7 @@
     ]
   },
   "mountain_ash_forests": {
-    "id": 9999,
+    "id": 79,
     "code": "XMAF",
     "name": "Mountain Ash Forests",
     "nslink": "https://www.nationstates.net/nation=mountain_ash_forests",
@@ -1029,7 +1029,7 @@
     ]
   },
   "mozolephies": {
-    "id": 32,
+    "id": 33,
     "code": "MOZ",
     "name": "Mozolephies",
     "nslink": "https://www.nationstates.net/nation=mozolephies",
@@ -1076,7 +1076,7 @@
     ]
   },
   "new-libertalia-kingdom": {
-    "id": 18,
+    "id": 19,
     "code": "NLK",
     "name": "New Libertalia Kingdom",
     "nslink": "https://www.nationstates.net/nation=new_libertalia_kingdom",
@@ -1104,7 +1104,7 @@
     ]
   },
   "nordustra": {
-    "id": 17,
+    "id": 18,
     "code": "NOR",
     "name": "Nordustra",
     "nslink": "https://www.nationstates.net/nation=nordustra",
@@ -1134,7 +1134,7 @@
     ]
   },
   "novian-republics": {
-    "id": 40,
+    "id": 48,
     "code": "CNR",
     "name": "Novian Republics",
     "nslink": "https://www.nationstates.net/nation=novian_republics",
@@ -1154,7 +1154,7 @@
     ]
   },
   "orcuo": {
-    "id": 23,
+    "id": 24,
     "code": "ORC",
     "name": "Orcuo",
     "nslink": "https://www.nationstates.net/nation=orcuo",
@@ -1185,7 +1185,7 @@
     ]
   },
   "oseao": {
-    "id": 9999,
+    "id": 80,
     "code": "OSE",
     "name": "Oseao",
     "nslink": "https://www.nationstates.net/nation=oseao",
@@ -1195,7 +1195,7 @@
     "affiliation": 2026
   },
   "ottterland": {
-    "id": 29,
+    "id": 30,
     "code": "OTL",
     "name": "Ottterland",
     "nslink": "https://www.nationstates.net/nation=ottterland",
@@ -1220,7 +1220,7 @@
     ]
   },
   "ownzone": {
-    "id": 39,
+    "id": 45,
     "code": "OZO",
     "name": "Ownzone",
     "nslink": "https://www.nationstates.net/nation=ownzone",
@@ -1237,7 +1237,7 @@
     ]
   },
   "palos_heights": {
-    "id": 9999,
+    "id": 81,
     "code": "xPHE",
     "name": "Palos Heights",
     "nslink": "https://www.nationstates.net/nation=palos_heights",
@@ -1252,7 +1252,7 @@
     ]
   },
   "ransium": {
-    "id": 9999,
+    "id": 82,
     "code": "xRAN",
     "name": "Ransium",
     "nslink": "https://www.nationstates.net/nation=ransium",
@@ -1306,7 +1306,7 @@
     ]
   },
   "republic-of-yucatan": {
-    "id": 24,
+    "id": 25,
     "code": "YUC",
     "name": "Republic of Yucatan",
     "nslink": "https://www.nationstates.net/nation=republic_of_yucatan",
@@ -1339,7 +1339,7 @@
     ]
   },
   "rkd": {
-    "id": 27,
+    "id": 28,
     "code": "RKD",
     "name": "RKD",
     "nslink": "https://www.nationstates.net/nation=rkd",
@@ -1451,7 +1451,7 @@
     ]
   },
   "sacara": {
-    "id": 9999,
+    "id": 83,
     "code": "xSAC",
     "name": "Sacara",
     "nslink": "https://www.nationstates.net/nation=sacara",
@@ -1466,7 +1466,7 @@
     ]
   },
   "sapnu_puas": {
-    "id": 9999,
+    "id": 84,
     "code": "xSAP",
     "name": "Sapnu Puas",
     "nslink": "https://www.nationstates.net/nation=sapnu_puas",
@@ -1481,7 +1481,7 @@
     ]
   },
   "schachland": {
-    "id": 28,
+    "id": 29,
     "code": "SCH",
     "name": "Schachland",
     "nslink": "https://www.nationstates.net/nation=schachland",
@@ -1504,7 +1504,7 @@
     ]
   },
   "seagull": {
-    "id": 9999,
+    "id": 85,
     "code": "xSEA",
     "name": "Seagull",
     "nslink": "https://www.nationstates.net/nation=seagull",
@@ -1519,7 +1519,7 @@
     ]
   },
   "sehir": {
-    "id": 31,
+    "id": 32,
     "code": "SEH",
     "name": "Sehir",
     "nslink": "https://www.nationstates.net/nation=sehir",
@@ -1562,7 +1562,7 @@
     ]
   },
   "taco_respublic": {
-    "id": 9999,
+    "id": 86,
     "code": "xTAC",
     "name": "Taco Respublic",
     "nslink": "https://www.nationstates.net/nation=taco_respublic",
@@ -1577,7 +1577,7 @@
     ]
   },
   "tauride": {
-    "id": 9999,
+    "id": 87,
     "code": "xTAU",
     "name": "Tauride",
     "nslink": "https://www.nationstates.net/nation=tauride",
@@ -1592,7 +1592,7 @@
     ]
   },
   "terrawynn": {
-    "id": 39,
+    "id": 46,
     "code": "TRW",
     "name": "Terrawynn",
     "nslink": "https://www.nationstates.net/nation=terrawynn",
@@ -1644,7 +1644,7 @@
     ]
   },
   "the_black_forrest": {
-    "id": 9999,
+    "id": 88,
     "code": "xTBF",
     "name": "The Black Forrest",
     "nslink": "https://www.nationstates.net/nation=the_black_forrest",
@@ -1659,7 +1659,7 @@
     ]
   },
   "the_cypher_nine": {
-    "id": 9999,
+    "id": 89,
     "code": "xCYN",
     "name": "The Cypher Nine",
     "nslink": "https://www.nationstates.net/nation=the_cypher_nine",
@@ -1674,7 +1674,7 @@
     ]
   },
   "the_void_territories": {
-    "id": 9999,
+    "id": 90,
     "code": "xTVT",
     "name": "The Void Territories",
     "nslink": "https://www.nationstates.net/nation=the_void_territories",
@@ -1689,7 +1689,7 @@
     ]
   },
   "trebenia": {
-    "id": 35,
+    "id": 39,
     "code": "TRE",
     "name": "Trebenia",
     "nslink": "https://www.nationstates.net/nation=trebenia",
@@ -1717,7 +1717,7 @@
     ]
   },
   "turbeaux": {
-    "id": 41,
+    "id": 49,
     "code": "TBX",
     "name": "Turbeaux",
     "nslink": "https://www.nationstates.net/nation=turbeaux",
@@ -1737,7 +1737,7 @@
     ]
   },
   "tylvana": {
-    "id": 19,
+    "id": 20,
     "code": "TYL",
     "name": "Tylvana",
     "nslink": "https://www.nationstates.net/nation=tylvana",
@@ -1802,7 +1802,7 @@
     ]
   },
   "valentian_kittens": {
-    "id": 9999,
+    "id": 91,
     "code": "VEZ",
     "name": "Valentian Kittens",
     "nslink": "https://www.nationstates.net/nation=valentine_z",
@@ -1819,7 +1819,7 @@
     ]
   },
   "vanenia": {
-    "id": 9999,
+    "id": 92,
     "code": "xVAN",
     "name": "Vanenia",
     "nslink": "https://www.nationstates.net/nation=vanenia",
@@ -1834,7 +1834,7 @@
     ]
   },
   "velkia_and_the_islands": {
-    "id": 9999,
+    "id": 93,
     "code": "xVEL",
     "name": "Velkia and the Islands",
     "nslink": "https://www.nationstates.net/nation=velkia_and_the_islands",
@@ -1899,7 +1899,7 @@
     ]
   },
   "wantevolo": {
-    "id": 9999,
+    "id": 94,
     "code": "xWAN",
     "name": "Wantevolo",
     "nslink": "https://www.nationstates.net/nation=wantevolo",
@@ -1914,7 +1914,7 @@
     ]
   },
   "washeyye": {
-    "id": 25,
+    "id": 26,
     "code": "WAS",
     "name": "Washeyye",
     "nslink": "https://www.nationstates.net/nation=washeyye",
@@ -1941,7 +1941,7 @@
     ]
   },
   "window_land": {
-    "id": 9999,
+    "id": 95,
     "code": "xWIN",
     "name": "Window Land",
     "nslink": "https://www.nationstates.net/nation=window_land",
@@ -1956,7 +1956,7 @@
     ]
   },
   "woodland_green": {
-    "id": 43,
+    "id": 52,
     "code": "WLG",
     "name": "Woodland Green",
     "nslink": "https://www.nationstates.net/nation=woodland_green",
@@ -1966,7 +1966,7 @@
     "verified": true
   },
   "zane-farbe-eslanudial": {
-    "id": 35,
+    "id": 40,
     "code": "ZFE",
     "name": "Zane Farbe Eslanudial",
     "nslink": "https://www.nationstates.net/nation=zane_farbe_eslanudial",
@@ -2008,7 +2008,7 @@
     ]
   },
   "ziotah_and_riverside": {
-    "id": 9999,
+    "id": 96,
     "code": "xZIO",
     "name": "Ziotah and Riverside",
     "nslink": "https://www.nationstates.net/nation=ziotah_and_riverside",
@@ -2023,7 +2023,7 @@
     ]
   },
   "zylonox": {
-    "id": 41,
+    "id": 50,
     "code": "ZYX",
     "name": "Zylonox",
     "nslink": "https://century.nationstates.net/nation=zylonox",

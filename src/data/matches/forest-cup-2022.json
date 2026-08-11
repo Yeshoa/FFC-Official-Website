@@ -43,7 +43,9 @@
       }
     ],
     "team1Code": "EIN",
-    "team2Code": "BIL"
+    "team2Code": "BIL",
+    "team1Id": 7,
+    "team2Id": 1
   },
   {
     "tournament_id": 1,
@@ -69,7 +71,9 @@
       }
     ],
     "team1Code": "STR",
-    "team2Code": "DRW"
+    "team2Code": "DRW",
+    "team1Id": 9,
+    "team2Id": 42
   },
   {
     "tournament_id": 1,
@@ -106,7 +110,9 @@
       }
     ],
     "team1Code": "ATS",
-    "team2Code": "BUN"
+    "team2Code": "BUN",
+    "team1Id": 6,
+    "team2Id": 43
   },
   {
     "tournament_id": 1,
@@ -132,7 +138,9 @@
       }
     ],
     "team1Code": "CHU",
-    "team2Code": "CNR"
+    "team2Code": "CNR",
+    "team1Id": 35,
+    "team2Id": 48
   },
   {
     "tournament_id": 1,
@@ -159,7 +167,9 @@
       }
     ],
     "team1Code": "RLS",
-    "team2Code": "CAC"
+    "team2Code": "CAC",
+    "team1Id": 4,
+    "team2Id": 5
   },
   {
     "tournament_id": 1,
@@ -193,7 +203,9 @@
       }
     ],
     "team1Code": "TBX",
-    "team2Code": "TRE"
+    "team2Code": "TRE",
+    "team1Id": 49,
+    "team2Id": 39
   },
   {
     "tournament_id": 1,
@@ -231,7 +243,9 @@
       }
     ],
     "team1Code": "REA",
-    "team2Code": "TRW"
+    "team2Code": "TRW",
+    "team1Id": 3,
+    "team2Id": 46
   },
   {
     "tournament_id": 1,
@@ -258,7 +272,9 @@
       }
     ],
     "team1Code": "JUT",
-    "team2Code": "KAS"
+    "team2Code": "KAS",
+    "team1Id": 2,
+    "team2Id": 41
   },
   {
     "tournament_id": 1,
@@ -285,7 +301,9 @@
       }
     ],
     "team1Code": "EIN",
-    "team2Code": "STR"
+    "team2Code": "STR",
+    "team1Id": 7,
+    "team2Id": 9
   },
   {
     "tournament_id": 1,
@@ -311,7 +329,9 @@
       }
     ],
     "team1Code": "BIL",
-    "team2Code": "DRW"
+    "team2Code": "DRW",
+    "team1Id": 1,
+    "team2Id": 42
   },
   {
     "tournament_id": 1,
@@ -351,7 +371,9 @@
       }
     ],
     "team1Code": "ATS",
-    "team2Code": "CHU"
+    "team2Code": "CHU",
+    "team1Id": 6,
+    "team2Id": 35
   },
   {
     "tournament_id": 1,
@@ -385,7 +407,9 @@
       }
     ],
     "team1Code": "BUN",
-    "team2Code": "CNR"
+    "team2Code": "CNR",
+    "team1Id": 43,
+    "team2Id": 48
   },
   {
     "tournament_id": 1,
@@ -423,7 +447,9 @@
       }
     ],
     "team1Code": "RLS",
-    "team2Code": "TBX"
+    "team2Code": "TBX",
+    "team1Id": 4,
+    "team2Id": 49
   },
   {
     "tournament_id": 1,
@@ -457,7 +483,9 @@
       }
     ],
     "team1Code": "CAC",
-    "team2Code": "TRE"
+    "team2Code": "TRE",
+    "team1Id": 5,
+    "team2Id": 39
   },
   {
     "tournament_id": 1,
@@ -489,7 +517,9 @@
       }
     ],
     "team1Code": "REA",
-    "team2Code": "JUT"
+    "team2Code": "JUT",
+    "team1Id": 3,
+    "team2Id": 2
   },
   {
     "tournament_id": 1,
@@ -515,7 +545,9 @@
       }
     ],
     "team1Code": "TRW",
-    "team2Code": "KAS"
+    "team2Code": "KAS",
+    "team1Id": 46,
+    "team2Id": 41
   },
   {
     "tournament_id": 1,
@@ -547,7 +579,9 @@
       }
     ],
     "team1Code": "STR",
-    "team2Code": "BIL"
+    "team2Code": "BIL",
+    "team1Id": 9,
+    "team2Id": 1
   },
   {
     "tournament_id": 1,
@@ -565,7 +599,9 @@
       "team2_goals": 0
     },
     "team1Code": "DRW",
-    "team2Code": "EIN"
+    "team2Code": "EIN",
+    "team1Id": 42,
+    "team2Id": 7
   },
   {
     "tournament_id": 1,
@@ -592,7 +628,9 @@
       }
     ],
     "team1Code": "CHU",
-    "team2Code": "BUN"
+    "team2Code": "BUN",
+    "team1Id": 35,
+    "team2Id": 43
   },
   {
     "tournament_id": 1,
@@ -626,7 +664,9 @@
       }
     ],
     "team1Code": "CNR",
-    "team2Code": "ATS"
+    "team2Code": "ATS",
+    "team1Id": 48,
+    "team2Id": 6
   },
   {
     "tournament_id": 1,
@@ -667,7 +707,9 @@
       }
     ],
     "team1Code": "TBX",
-    "team2Code": "CAC"
+    "team2Code": "CAC",
+    "team1Id": 49,
+    "team2Id": 5
   },
   {
     "tournament_id": 1,
@@ -707,7 +749,9 @@
       }
     ],
     "team1Code": "TRE",
-    "team2Code": "RLS"
+    "team2Code": "RLS",
+    "team1Id": 39,
+    "team2Id": 4
   },
   {
     "tournament_id": 1,
@@ -721,7 +765,9 @@
     "date": "2022-12-16T01:40:00.000Z",
     "link": "https://youtu.be/aP8APqz4n0U?si=HbAWePGdQrSR1Lu-&t=709",
     "team1Code": "JUT",
-    "team2Code": "TRW"
+    "team2Code": "TRW",
+    "team1Id": 2,
+    "team2Id": 46
   },
   {
     "tournament_id": 1,
@@ -759,7 +805,9 @@
       }
     ],
     "team1Code": "KAS",
-    "team2Code": "REA"
+    "team2Code": "REA",
+    "team1Id": 41,
+    "team2Id": 3
   },
   {
     "tournament_id": 1,
@@ -803,7 +851,9 @@
       }
     ],
     "team1Code": "DRW",
-    "team2Code": "BUN"
+    "team2Code": "BUN",
+    "team1Id": 42,
+    "team2Id": 43
   },
   {
     "tournament_id": 1,
@@ -855,7 +905,9 @@
       }
     ],
     "team1Code": "CAC",
-    "team2Code": "JUT"
+    "team2Code": "JUT",
+    "team1Id": 5,
+    "team2Id": 2
   },
   {
     "tournament_id": 1,
@@ -918,7 +970,9 @@
       }
     ],
     "team1Code": "ATS",
-    "team2Code": "EIN"
+    "team2Code": "EIN",
+    "team1Id": 6,
+    "team2Id": 7
   },
   {
     "tournament_id": 1,
@@ -962,7 +1016,9 @@
       }
     ],
     "team1Code": "REA",
-    "team2Code": "RLS"
+    "team2Code": "RLS",
+    "team1Id": 3,
+    "team2Id": 4
   },
   {
     "tournament_id": 1,
@@ -996,7 +1052,9 @@
       }
     ],
     "team1Code": "DRW",
-    "team2Code": "CAC"
+    "team2Code": "CAC",
+    "team1Id": 42,
+    "team2Id": 5
   },
   {
     "tournament_id": 1,
@@ -1038,7 +1096,9 @@
       }
     ],
     "team1Code": "ATS",
-    "team2Code": "REA"
+    "team2Code": "REA",
+    "team1Id": 6,
+    "team2Id": 3
   },
   {
     "tournament_id": 1,
@@ -1078,6 +1138,8 @@
       }
     ],
     "team1Code": "CAC",
-    "team2Code": "ATS"
+    "team2Code": "ATS",
+    "team1Id": 5,
+    "team2Id": 6
   }
 ]
