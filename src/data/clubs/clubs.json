@@ -1,1 +1,36 @@
-[]
+[
+  {
+    "id": 1,
+    "code": "BILKRA",
+    "name": "Krulta BK",
+    "shortName": "Krulta",
+    "federation": "BIL",
+    "founded": 1998,
+    "colors": {
+      "primary": "#2E7D32",
+      "secondary": "#A5D6A7"
+    },
+    "budget": 82,
+    "squad": {
+      "coach": "E. Krull",
+      "formation": "4-2-3-1"
+    }
+  },
+  {
+    "id": 2,
+    "code": "BILNOR",
+    "name": "Nordland FC",
+    "shortName": "Nordland",
+    "federation": "BIL",
+    "founded": 2005,
+    "colors": {
+      "primary": "#1565C0",
+      "secondary": "#90CAF9"
+    },
+    "budget": 64,
+    "squad": {
+      "coach": "T. Nordmann",
+      "formation": "4-4-2"
+    }
+  }
+]

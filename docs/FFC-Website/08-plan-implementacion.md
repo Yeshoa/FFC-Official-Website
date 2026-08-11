@@ -90,6 +90,12 @@
 - Componente `DomesticLeagueTable` (tabla) + `MemberClubs` (lista) reutilizables.
 - **Sin datos reales** (solo infraestructura + componente).
 
+> **Hecho (B2, infraestructura — sin datos reales, como corresponde):**
+> - `src/components/members/DomesticLeagueTable.astro`: tabla de posiciones desde `@data/leagues` (pos, club, PJ/PG/PE/PP/GF/GC/GD/Pts), con link a `/clubs/<code>` cuando el club tiene `clubCode`.
+> - `src/components/members/MemberClubs.astro`: lista de clubes de la federación desde `@data/clubs` (link a `/clubs/<code>`).
+> - Integrado en `member/[slug]` tras el `MemberHero`: **si hay liga → tabla; si no pero hay clubes → lista; si no → nada**.
+> - Sin datos reales, la sección no se muestra todavía (se agregan datos cuando el dueño los tenga).
+
 ### B3 · Plantilla (squad) compacta con estrellitas
 - Componente `SquadCompact`: **plantel completo** ordenado por posición con dorsal y **estrellitas del jugador** (derivadas del rating). **Sin XI/titulares** (sin boolean de titularidad).
 - Se muestra en `member/[slug]` (selección) y en `club/[slug]`.

@@ -1,0 +1,62 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { getLeague } from '@data/leagues';
+
+interface Props {
+  member: CollectionEntry<'members'>;
+}
+
+const { member } = Astro.props;
+const league = getLeague(member.data.code);
+---
+{
+  league ? (
+    <div class="bg-surface/80 shadow-lg rounded-lg p-6 mb-8">
+      <div class="flex items-baseline justify-between">
+        <h2 class="text-2xl font-semibold mb-4 border-b pb-2 border-primary">Domestic League</h2>
+        <span class="text-sm text-text-muted">Season {league.season}</span>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-center table-auto border-collapse">
+          <thead class="bg-primary-deep text-white">
+            <tr>
+              <th class="px-2 py-2 rounded-tl-lg" title="Position">#</th>
+              <th class="px-2 py-2 text-left" title="Club">Club</th>
+              <th class="px-2 py-2" title="Matches Played">Pld</th>
+              <th class="px-2 py-2" title="Wins">W</th>
+              <th class="px-2 py-2" title="Draws">D</th>
+              <th class="px-2 py-2" title="Losses">L</th>
+              <th class="px-2 py-2" title="Goals for">GF</th>
+              <th class="px-2 py-2" title="Goals against">GA</th>
+              <th class="px-2 py-2" title="Goal difference">GD</th>
+              <th class="px-2 py-2 rounded-tr-lg" title="Points">Pts</th>
+            </tr>
+          </thead>
+          <tbody>
+            {league.standings.map(row => {
+              const gd = row.goalsFor - row.goalsAgainst;
+              return (
+                <tr class="border-b border-primary-dark hover:bg-surface-raised/20">
+                  <td class="px-2 py-2 font-bold">{row.position}</td>
+                  <td class="px-2 py-2 text-left font-medium text-white">
+                    {row.clubCode ? (
+                      <a href={`/clubs/${row.clubCode}`} class="hover:underline">{row.club}</a>
+                    ) : row.club}
+                  </td>
+                  <td class="px-2 py-2">{row.played}</td>
+                  <td class="px-2 py-2 text-primary-muted">{row.won}</td>
+                  <td class="px-2 py-2 text-yellow-400">{row.drawn}</td>
+                  <td class="px-2 py-2 text-red-400">{row.lost}</td>
+                  <td class="px-2 py-2">{row.goalsFor}</td>
+                  <td class="px-2 py-2">{row.goalsAgainst}</td>
+                  <td class="px-2 py-2">{gd > 0 ? `+${gd}` : gd}</td>
+                  <td class="px-2 py-2 font-bold">{row.points}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  ) : null
+}

@@ -4,6 +4,8 @@ import { type CollectionEntry } from 'astro:content';
 // Components
 import App from '@layouts/App.astro';
 import MemberHero from '@components/members/MemberHero.astro';
+import DomesticLeagueTable from '@components/members/DomesticLeagueTable.astro';
+import MemberClubs from '@components/members/MemberClubs.astro';
 import ScoreDetails from '@components/members/ScoreDetails.astro';
 import TournamentParticipationTable from '@components/members/TournamentParticipationTable.astro';
 import MatchCard from '@components/matches/MatchCard.astro'; //Match card with stadium
@@ -22,6 +24,8 @@ import { getArticlesByTags } from 'src/utils/articleUtils';
 import { getAchievementsForMember } from '@lib/achievements/dynamics/index';
 import { FEATURES } from '@config/features';
 import { ROUTES } from '@config/routes';
+import { hasLeague } from '@data/leagues';
+import { loadClubsByFederation } from '@data/clubs';
 
 
 type MemberType = CollectionEntry<'members'>; // Should use @types/collections.d.ts
@@ -51,6 +55,11 @@ const memberData = member.data; // Member data
 const matches = await getMatches();
 const tournaments = await getTournaments();
 const members = await getMembers();
+
+// Liga doméstica / clubes de la federación del miembro (infra B2)
+const memberHasLeague = hasLeague(memberData.code);
+const memberClubs = loadClubsByFederation(memberData.code);
+const memberHasClubs = memberClubs.length > 0;
 
 // Filter played matches where the current member is team1 or team2
 /* SHOULD BE IN A UTIL */
@@ -155,6 +164,12 @@ const filteredArticles = getArticlesByTags(articles, filterTags);
   <div class="md:container m-auto p-4 py-8">
     <MemberHero memberData={memberData} ranking={memberRank} points={memberTotalScore} titles={titles} achievements={achievements} scoreBreakdown={memberScoreDetails} />
     <!-- <ScoreDetails scoreData={memberScoreDetails} /> -->
+
+    {memberHasLeague ? (
+      <DomesticLeagueTable member={member} />
+    ) : memberHasClubs ? (
+      <MemberClubs member={member} />
+    ) : null}
 
     <TournamentParticipationTable 
       member={member} 
