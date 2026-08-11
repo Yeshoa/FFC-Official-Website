@@ -148,127 +148,6 @@
         }
       }
     },
-    "squad": {
-      "coach": "Kruretj Bisaza",
-      "formation": "4-2-3-1",
-      "players": [
-        {
-          "number": 1,
-          "name": "E. Jadar",
-          "position": "GK"
-        },
-        {
-          "number": 2,
-          "name": "G. Velawa",
-          "position": "CB"
-        },
-        {
-          "number": 4,
-          "name": "A. Ritsa",
-          "position": "CB"
-        },
-        {
-          "number": 13,
-          "name": "H. Whletj",
-          "position": "RB"
-        },
-        {
-          "number": 3,
-          "name": "N. Kircjan",
-          "position": "LB"
-        },
-        {
-          "number": 17,
-          "name": "P. Rakaj",
-          "position": "DMF"
-        },
-        {
-          "number": 22,
-          "name": "B. Njazet",
-          "position": "CMF"
-        },
-        {
-          "number": 8,
-          "name": "A. Arhanv",
-          "position": "LMF"
-        },
-        {
-          "number": 7,
-          "name": "T. Ervaan",
-          "position": "RMF"
-        },
-        {
-          "number": 10,
-          "name": "D. Hajan",
-          "position": "AMF"
-        },
-        {
-          "number": 9,
-          "name": "C. Muniv",
-          "position": "CF"
-        },
-        {
-          "number": 12,
-          "name": "F. Kjell",
-          "position": "GK"
-        },
-        {
-          "number": 23,
-          "name": "B. Mataj",
-          "position": "GK"
-        },
-        {
-          "number": 6,
-          "name": "R. Asenus",
-          "position": "CB"
-        },
-        {
-          "number": 14,
-          "name": "E. Levin",
-          "position": "RB"
-        },
-        {
-          "number": 15,
-          "name": "S. Unsaj",
-          "position": "LB"
-        },
-        {
-          "number": 16,
-          "name": "Z. Adeon",
-          "position": "CMF"
-        },
-        {
-          "number": 5,
-          "name": "O. Azerotj",
-          "position": "RMF"
-        },
-        {
-          "number": 18,
-          "name": "V. Svema",
-          "position": "LMF"
-        },
-        {
-          "number": 19,
-          "name": "V. Tjenelsim",
-          "position": "AMF"
-        },
-        {
-          "number": 20,
-          "name": "D. Hrkadaj",
-          "position": "CB"
-        },
-        {
-          "number": 21,
-          "name": "S. Zjoakavj",
-          "position": "CF"
-        },
-        {
-          "number": 11,
-          "name": "H. Nuvljabawnj",
-          "position": "CF"
-        }
-      ]
-    },
     "manualAchievements": [
       "founder",
       "sponsor",
@@ -836,7 +715,7 @@
     "name": "Freistaat Ostpreussen",
     "nslink": "https://www.nationstates.net/nation=freistaat_ostpreussen",
     "flagPath": "/src/assets/images/members/op_flag.png",
-    "federation": "Ostpreußischer Fußballverband",
+    "federation": "OstpreuÃŸischer FuÃŸballverband",
     "logoPath": "/src/assets/images/members/freistaat_ostpreussen_logo.png",
     "feddispatch": "https://www.nationstates.net/nation=freistaat_ostpreussen/detail=factbook/id=main",
     "region": "Forest",
@@ -1230,7 +1109,7 @@
     "name": "Nordustra",
     "nslink": "https://www.nationstates.net/nation=nordustra",
     "flagPath": "/src/assets/images/members/NOR_flag.png",
-    "federation": "Nōrdustrās Natjonal Fotball Āssosjation",
+    "federation": "NÅrdustrÄs Natjonal Fotball Ä€ssosjation",
     "logoPath": "/src/assets/images/members/NOR_logo.png",
     "feddispatch": "https://www.nationstates.net/page=dispatch/id=1701548",
     "region": "Forest",

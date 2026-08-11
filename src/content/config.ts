@@ -85,6 +85,8 @@ const matchesCollection = defineCollection({
     team2: z.string(),
     team1Code: z.string().optional(),
     team2Code: z.string().optional(),
+    team1Type: z.enum(["national", "club"]).default("national"),
+    team2Type: z.enum(["national", "club"]).default("national"),
     stadium_id: z.number().optional(),
     neutralVenue: z.boolean().default(true),
     // Status and date
@@ -110,6 +112,7 @@ const matchesCollection = defineCollection({
         penalty: z.boolean().default(false).optional(),
         ownGoal: z.boolean().default(false).optional(),
         assist: z.string().optional(),
+        assistId: z.string().optional(),
       })
     ).optional(),
 
@@ -267,21 +270,7 @@ const membersCollection = defineCollection({
         edition: z.number(),
       })
     ).optional(),
-    
-    squad: z.object({
-      coach: z.string().optional().describe("Head coach name"),
-      formation: z.string().optional().describe("Preferred team formation, e.g. 4-3-3"),
-      captain: z.string().optional(),
-      players: z.array(
-        z.object({
-          number: z.number().describe("Jersey number"),
-          name: z.string().describe("Player name"),
-          position: z.string().describe("Position on the field"),
-          age: z.number().optional(),
 
-        }).passthrough() 
-      ).optional().describe("List of squad members"),
-    }).optional().describe("Squad configuration"),
     manualAchievements: z.array(z.string()).optional(),
   }),
 });

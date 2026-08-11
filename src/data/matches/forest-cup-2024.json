@@ -39,8 +39,8 @@
         "assist": "A. Shamurodov",
         "minute": 41,
         "penalty": false,
-        "playerId": "NOR_004",
-        "assistId": "NOR_001"
+        "playerId": "141",
+        "assistId": "138"
       },
       {
         "team": "Aresetia",
@@ -48,8 +48,8 @@
         "assist": "A. Zanzotti",
         "minute": 55,
         "penalty": false,
-        "playerId": "ARE_003",
-        "assistId": "ARE_001"
+        "playerId": "7",
+        "assistId": "5"
       }
     ],
     "team1Code": "NOR",
@@ -72,8 +72,8 @@
         "assist": "J. Teitur",
         "minute": 43,
         "penalty": false,
-        "playerId": "EIN_008",
-        "assistId": "EIN_005"
+        "playerId": "67",
+        "assistId": "64"
       }
     ],
     "team1Code": "EIN",
@@ -145,8 +145,8 @@
         "assist": "O. Stout",
         "minute": 36,
         "penalty": false,
-        "playerId": "CAC_005",
-        "assistId": "CAC_008"
+        "playerId": "38",
+        "assistId": "41"
       },
       {
         "team": "Republic of Yucatan",
@@ -203,7 +203,7 @@
         "player": "Nysnub",
         "minute": 4,
         "penalty": false,
-        "playerId": "ATS_008"
+        "playerId": "15"
       },
       {
         "team": "Atsvea",
@@ -211,8 +211,8 @@
         "assist": "C. Votnuc",
         "minute": 59,
         "penalty": false,
-        "playerId": "ATS_008",
-        "assistId": "ATS_004"
+        "playerId": "15",
+        "assistId": "11"
       }
     ],
     "team1Code": "ATS",
@@ -235,8 +235,8 @@
         "assist": "L. Azpesiatuc",
         "minute": 70,
         "penalty": false,
-        "playerId": "STR_002",
-        "assistId": "STR_001"
+        "playerId": "202",
+        "assistId": "201"
       }
     ],
     "team1Code": "WAS",
@@ -263,7 +263,7 @@
         "team": "Tylvana",
         "player": "O. Kuroda",
         "minute": 78,
-        "playerId": "TYL_001"
+        "playerId": "206"
       }
     ],
     "team1Code": "RLS",
@@ -285,8 +285,8 @@
         "player": "C. Van der Zaal",
         "assist": "8",
         "minute": 4,
-        "playerId": "RKD_003",
-        "assistId": "RKD_001"
+        "playerId": "176",
+        "assistId": "174"
       },
       {
         "team": "Realize",
@@ -356,8 +356,8 @@
         "player": "K. Reynisdóttir",
         "assist": "K. Héðinsdóttir",
         "minute": 13,
-        "playerId": "FUR_006",
-        "assistId": "FUR_005"
+        "playerId": "84",
+        "assistId": "83"
       },
       {
         "team": "Furilisca",
@@ -365,24 +365,24 @@
         "assist": "K. Reynisdóttir",
         "minute": 45,
         "aggregate": 3,
-        "playerId": "FUR_002",
-        "assistId": "FUR_006"
+        "playerId": "80",
+        "assistId": "84"
       },
       {
         "team": "Furilisca",
         "player": "M. Andersen",
         "assist": "D. Sigfúsdóttir",
         "minute": 59,
-        "playerId": "FUR_007",
-        "assistId": "FUR_002"
+        "playerId": "85",
+        "assistId": "80"
       },
       {
         "team": "Furilisca",
         "player": "E. Pálsdóttir",
         "assist": "K. Reynisdóttir",
         "minute": 75,
-        "playerId": "FUR_003",
-        "assistId": "FUR_006"
+        "playerId": "81",
+        "assistId": "84"
       }
     ],
     "team1Code": "MOZ",
@@ -417,16 +417,16 @@
         "player": "R. Tarasov",
         "assist": "I. Petrov",
         "minute": 15,
-        "playerId": "NAR_008",
-        "assistId": "NAR_005"
+        "playerId": "133",
+        "assistId": "130"
       },
       {
         "team": "Nardin",
         "player": "I. Petrov",
         "assist": "R. Tarasov",
         "minute": 39,
-        "playerId": "NAR_005",
-        "assistId": "NAR_008"
+        "playerId": "130",
+        "assistId": "133"
       },
       {
         "team": "Zerphen",
@@ -439,16 +439,16 @@
         "player": "I. Petrov",
         "assist": "A. Av Cerzi",
         "minute": 53,
-        "playerId": "NAR_005",
-        "assistId": "NAR_001"
+        "playerId": "130",
+        "assistId": "126"
       },
       {
         "team": "Nardin",
         "player": "I. Petrov",
         "assist": "R. Tarasov",
         "minute": 71,
-        "playerId": "NAR_005",
-        "assistId": "NAR_008"
+        "playerId": "130",
+        "assistId": "133"
       }
     ],
     "team1Code": "ZPH",
@@ -509,30 +509,30 @@
         "player": "S. Dehkandem",
         "assist": "T. Whisperbrook",
         "minute": 50,
-        "playerId": "LUM_005",
-        "assistId": "LUM_008"
+        "playerId": "120",
+        "assistId": "123"
       },
       {
         "team": "Cat Army",
         "player": "D. Jennings",
         "assist": "V. Atkinson",
         "minute": 72,
-        "playerId": "CAT_002",
-        "assistId": "CAT_003"
+        "playerId": "44",
+        "assistId": "45"
       },
       {
         "team": "Lumiose",
         "player": "M. Penosi",
         "assist": "T. Pescaster",
         "minute": 85,
-        "playerId": "LUM_004",
-        "assistId": "LUM_007"
+        "playerId": "119",
+        "assistId": "122"
       },
       {
         "team": "Cat Army",
         "player": "A. Scott",
         "minute": 90,
-        "playerId": "CAT_001"
+        "playerId": "43"
       }
     ],
     "team1Code": "LUM",
@@ -554,16 +554,16 @@
         "player": "H. Marremusen",
         "assist": "J. Østegårde",
         "minute": 50,
-        "playerId": "NOR_004",
-        "assistId": "NOR_005"
+        "playerId": "141",
+        "assistId": "142"
       },
       {
         "team": "Nordustra",
         "player": "H. Marremusen",
         "assist": "D. Sigmundson",
         "minute": 68,
-        "playerId": "NOR_004",
-        "assistId": "NOR_002"
+        "playerId": "141",
+        "assistId": "139"
       },
       {
         "team": "Anxious and Kevin",
@@ -589,7 +589,7 @@
         "team": "Aresetia",
         "player": "C. Glione",
         "minute": 50,
-        "playerId": "ARE_002"
+        "playerId": "6"
       },
       {
         "team": "Orcuo",
@@ -616,7 +616,7 @@
         "team": "Einswenn",
         "player": "H. Paulsen",
         "minute": 20,
-        "playerId": "EIN_002"
+        "playerId": "61"
       },
       {
         "team": "United Malay Federation",
@@ -665,8 +665,8 @@
         "player": "I. Darrow",
         "assist": "C. Islay",
         "minute": 58,
-        "playerId": "CAC_005",
-        "assistId": "CAC_002"
+        "playerId": "38",
+        "assistId": "35"
       },
       {
         "team": "Freistaat Ostpreussen",
@@ -679,8 +679,8 @@
         "player": "I. Darrow",
         "assist": "A. Tziyoniy",
         "minute": 73,
-        "playerId": "CAC_005",
-        "assistId": "CAC_001"
+        "playerId": "38",
+        "assistId": "34"
       }
     ],
     "team1Code": "CAC",
@@ -701,15 +701,15 @@
         "team": "Schachland",
         "player": "R. Inison",
         "minute": 12,
-        "playerId": "SCH_003"
+        "playerId": "198"
       },
       {
         "team": "Schachland",
         "player": "A. Bjornstaki",
         "assist": "D. Trod",
         "minute": 51,
-        "playerId": "SCH_001",
-        "assistId": "SCH_002"
+        "playerId": "196",
+        "assistId": "197"
       }
     ],
     "team1Code": "YUC",
@@ -731,31 +731,31 @@
         "player": "Nysnub",
         "assist": "B. Modron",
         "minute": 44,
-        "playerId": "ATS_008",
-        "assistId": "ATS_002"
+        "playerId": "15",
+        "assistId": "9"
       },
       {
         "team": "Atsvea",
         "player": "Nysnub",
         "assist": "B. Modron",
         "minute": 62,
-        "playerId": "ATS_008",
-        "assistId": "ATS_002"
+        "playerId": "15",
+        "assistId": "9"
       },
       {
         "team": "Atsvea",
         "player": "Nysnub",
         "assist": "A. Hoshar",
         "minute": 81,
-        "playerId": "ATS_008",
-        "assistId": "ATS_001"
+        "playerId": "15",
+        "assistId": "8"
       },
       {
         "team": "Atsvea",
         "player": "Nysnub",
         "minute": 90,
         "aggregate": 3,
-        "playerId": "ATS_008"
+        "playerId": "15"
       }
     ],
     "team1Code": "ATS",
@@ -830,16 +830,16 @@
         "player": "C. Van der Zaal",
         "assist": "A. Jansen",
         "minute": 6,
-        "playerId": "RKD_003",
-        "assistId": "RKD_002"
+        "playerId": "176",
+        "assistId": "175"
       },
       {
         "team": "RKD",
         "player": "J. Van de Pen",
         "assist": "S. Miller",
         "minute": 29,
-        "playerId": "RKD_004",
-        "assistId": "RKD_005"
+        "playerId": "177",
+        "assistId": "178"
       }
     ],
     "team1Code": "TYL",
@@ -881,21 +881,21 @@
         "team": "Ruinenlust",
         "player": "L. Nesar",
         "minute": 37,
-        "playerId": "RUI_003"
+        "playerId": "191"
       },
       {
         "team": "Ruinenlust",
         "player": "O. Swen",
         "assist": "J. Hauz",
         "minute": 71,
-        "playerId": "RUI_005",
-        "assistId": "RUI_002"
+        "playerId": "193",
+        "assistId": "190"
       },
       {
         "team": "Furilisca",
         "player": "D. Sigfúsdóttir",
         "minute": 81,
-        "playerId": "FUR_002"
+        "playerId": "80"
       }
     ],
     "team1Code": "RUI",
@@ -950,8 +950,8 @@
         "player": "R. Tarasov",
         "assist": "M. Romonivik",
         "minute": 27,
-        "playerId": "NAR_008",
-        "assistId": "NAR_007"
+        "playerId": "133",
+        "assistId": "132"
       }
     ],
     "team1Code": "CTC",
@@ -972,7 +972,7 @@
         "team": "Lumiose",
         "player": "T. Whisperbrook",
         "minute": 63,
-        "playerId": "LUM_008"
+        "playerId": "123"
       }
     ],
     "team1Code": "VH",
@@ -994,8 +994,8 @@
         "player": "D. Jennings",
         "assist": "A. Scott",
         "minute": 46,
-        "playerId": "CAT_002",
-        "assistId": "CAT_001"
+        "playerId": "44",
+        "assistId": "43"
       },
       {
         "team": "Sehir",
@@ -1028,8 +1028,8 @@
         "player": "K. Ojeveit",
         "assist": "H. Marremusen",
         "minute": 27,
-        "playerId": "NOR_006",
-        "assistId": "NOR_004"
+        "playerId": "143",
+        "assistId": "141"
       }
     ],
     "redCards": [
@@ -1109,30 +1109,30 @@
         "player": "O. Gro",
         "assist": "S. Kattell",
         "minute": 15,
-        "playerId": "EIN_008",
-        "assistId": "EIN_011"
+        "playerId": "67",
+        "assistId": "70"
       },
       {
         "team": "Einswenn",
         "player": "O. Gro",
         "minute": 27,
-        "playerId": "EIN_008"
+        "playerId": "67"
       },
       {
         "team": "Einswenn",
         "player": "O. Gro",
         "assist": "M. Solheim",
         "minute": 48,
-        "playerId": "EIN_008",
-        "assistId": "EIN_007"
+        "playerId": "67",
+        "assistId": "66"
       },
       {
         "team": "Einswenn",
         "player": "J. De Santis",
         "assist": "H. Paulsen",
         "minute": 74,
-        "playerId": "EIN_004",
-        "assistId": "EIN_002"
+        "playerId": "63",
+        "assistId": "61"
       }
     ],
     "team1Code": "OTL",
@@ -1193,8 +1193,8 @@
         "player": "M. Dartmouth",
         "assist": "O. Chumble",
         "minute": 89,
-        "playerId": "CAC_006",
-        "assistId": "CAC_007"
+        "playerId": "39",
+        "assistId": "40"
       }
     ],
     "team1Code": "SCH",
@@ -1222,24 +1222,24 @@
         "assist": "W. Honzo",
         "minute": 45,
         "aggregate": 1,
-        "playerId": "WAS_002",
-        "assistId": "WAS_004"
+        "playerId": "225",
+        "assistId": "227"
       },
       {
         "team": "Washeyye",
         "player": "W. Honzo",
         "assist": "I. Kiyomasu",
         "minute": 48,
-        "playerId": "WAS_004",
-        "assistId": "WAS_001"
+        "playerId": "227",
+        "assistId": "224"
       },
       {
         "team": "Washeyye",
         "player": "W. Honzo",
         "assist": "T. Kohei",
         "minute": 67,
-        "playerId": "WAS_004",
-        "assistId": "WAS_003"
+        "playerId": "227",
+        "assistId": "226"
       },
       {
         "team": "New Libertalia Kingdom",
@@ -1253,7 +1253,7 @@
         "player": "I. Kiyomasu",
         "minute": 86,
         "type": "red",
-        "playerId": "WAS_001"
+        "playerId": "224"
       }
     ],
     "team1Code": "WAS",
@@ -1275,54 +1275,54 @@
         "player": "N. Tethys",
         "assist": "K. Zaajaagah",
         "minute": 3,
-        "playerId": "ATS_007",
-        "assistId": "ATS_006"
+        "playerId": "14",
+        "assistId": "13"
       },
       {
         "team": "Atsvea",
         "player": "Nysnub",
         "assist": "B. Modron",
         "minute": 29,
-        "playerId": "ATS_008",
-        "assistId": "ATS_002"
+        "playerId": "15",
+        "assistId": "9"
       },
       {
         "team": "Atsvea",
         "player": "Nysnub",
         "assist": "N. Tethys",
         "minute": 57,
-        "playerId": "ATS_008",
-        "assistId": "ATS_007"
+        "playerId": "15",
+        "assistId": "14"
       },
       {
         "team": "Atsvea",
         "player": "Z. Nasus",
         "assist": "Nysnub",
         "minute": 62,
-        "playerId": "ATS_011",
-        "assistId": "ATS_008"
+        "playerId": "18",
+        "assistId": "15"
       },
       {
         "team": "Atsvea",
         "player": "B. Notsu",
         "assist": "Nysnub",
         "minute": 68,
-        "playerId": "ATS_003",
-        "assistId": "ATS_008"
+        "playerId": "10",
+        "assistId": "15"
       },
       {
         "team": "Atsvea",
         "player": "B. Notsu",
         "assist": "B. Modron",
         "minute": 77,
-        "playerId": "ATS_003",
-        "assistId": "ATS_002"
+        "playerId": "10",
+        "assistId": "9"
       },
       {
         "team": "Atsvea",
         "player": "B. Notsu",
         "minute": 88,
-        "playerId": "ATS_003"
+        "playerId": "10"
       }
     ],
     "team1Code": "STR",
@@ -1390,20 +1390,20 @@
         "player": "L. Nesar",
         "assist": "S. Ben",
         "minute": 9,
-        "playerId": "RUI_003",
-        "assistId": "RUI_006"
+        "playerId": "191",
+        "assistId": "194"
       },
       {
         "team": "Ruinenlust",
         "player": "O. Bonfis",
         "minute": 66,
-        "playerId": "RUI_004"
+        "playerId": "192"
       },
       {
         "team": "Ruinenlust",
         "player": "W. Rachs",
         "minute": 84,
-        "playerId": "RUI_007"
+        "playerId": "195"
       }
     ],
     "team1Code": "MOZ",
@@ -1430,7 +1430,7 @@
         "team": "Furilisca",
         "player": "E. Pálsdóttir",
         "minute": 65,
-        "playerId": "FUR_003"
+        "playerId": "81"
       }
     ],
     "team1Code": "FUR",
@@ -1478,8 +1478,8 @@
         "player": "I. Petrov",
         "assist": "C. Ulivaki",
         "minute": 80,
-        "playerId": "NAR_005",
-        "assistId": "NAR_003"
+        "playerId": "130",
+        "assistId": "128"
       }
     ],
     "team1Code": "NAR",
@@ -1501,8 +1501,8 @@
         "player": "T. Whisperbrook",
         "assist": "S. Dehkandem",
         "minute": 38,
-        "playerId": "LUM_008",
-        "assistId": "LUM_005"
+        "playerId": "123",
+        "assistId": "120"
       }
     ],
     "team1Code": "LUM",
@@ -1523,7 +1523,7 @@
         "team": "Cat Army",
         "player": "A. Scott",
         "minute": 22,
-        "playerId": "CAT_001"
+        "playerId": "43"
       },
       {
         "team": "Verdant Haven",
@@ -1535,7 +1535,7 @@
         "team": "Cat Army",
         "player": "V. Atkinson",
         "minute": 39,
-        "playerId": "CAT_003"
+        "playerId": "45"
       }
     ],
     "team1Code": "CAT",
@@ -1638,14 +1638,14 @@
         "player": "R. Tarasov",
         "assist": "A. Leszik",
         "minute": 3,
-        "playerId": "NAR_008",
-        "assistId": "NAR_002"
+        "playerId": "133",
+        "assistId": "127"
       },
       {
         "team": "Nardin",
         "player": "I. Petrov",
         "minute": 20,
-        "playerId": "NAR_005"
+        "playerId": "130"
       }
     ],
     "team1Code": "NAR",
@@ -1665,7 +1665,7 @@
         "team": "Einswenn",
         "player": "M. Solheim",
         "minute": 68,
-        "playerId": "EIN_007"
+        "playerId": "66"
       }
     ],
     "team1Code": "EIN",
@@ -1686,16 +1686,16 @@
         "player": "Z. Nasus",
         "assist": "C. Votnuc",
         "minute": 2,
-        "playerId": "ATS_011",
-        "assistId": "ATS_004"
+        "playerId": "18",
+        "assistId": "11"
       },
       {
         "team": "Atsvea",
         "player": "Nysnub",
         "assist": "C. Votnuc",
         "minute": 56,
-        "playerId": "ATS_008",
-        "assistId": "ATS_004"
+        "playerId": "15",
+        "assistId": "11"
       }
     ],
     "team1Code": "ATS",
@@ -1949,14 +1949,14 @@
         "player": "R. Tarasov",
         "assist": "A. Leszik",
         "minute": 50,
-        "playerId": "NAR_008",
-        "assistId": "NAR_002"
+        "playerId": "133",
+        "assistId": "127"
       },
       {
         "team": "Nardin",
         "player": "R. Tarasov",
         "minute": 81,
-        "playerId": "NAR_008"
+        "playerId": "133"
       }
     ],
     "team1Code": "RLS",
@@ -1977,8 +1977,8 @@
         "player": "O. Gro",
         "assist": "J. Teitur",
         "minute": 20,
-        "playerId": "EIN_008",
-        "assistId": "EIN_005"
+        "playerId": "67",
+        "assistId": "64"
       }
     ],
     "team1Code": "EIN",
@@ -1999,8 +1999,8 @@
         "player": "B. Dreamspell",
         "assist": "S. Dehkandem",
         "minute": 26,
-        "playerId": "LUM_001",
-        "assistId": "LUM_005"
+        "playerId": "116",
+        "assistId": "120"
       },
       {
         "team": "Jutsa",
@@ -2018,8 +2018,8 @@
         "player": "S. Eastoft",
         "assist": "M. Penosi",
         "minute": 78,
-        "playerId": "LUM_006",
-        "assistId": "LUM_004"
+        "playerId": "121",
+        "assistId": "119"
       },
       {
         "team": "Jutsa",
@@ -2033,7 +2033,7 @@
         "player": "T. Whitblossom",
         "minute": 86,
         "type": "red",
-        "playerId": "LUM_009"
+        "playerId": "124"
       }
     ],
     "team1Code": "JUT",
@@ -2053,7 +2053,7 @@
         "team": "Nardin",
         "player": "R. Tarasov",
         "minute": 47,
-        "playerId": "NAR_008"
+        "playerId": "133"
       },
       {
         "team": "United Malay Federation",
@@ -2065,16 +2065,16 @@
         "player": "I. Petrov",
         "assist": "M. Romonivik",
         "minute": 81,
-        "playerId": "NAR_005",
-        "assistId": "NAR_007"
+        "playerId": "130",
+        "assistId": "132"
       },
       {
         "team": "Nardin",
         "player": "J. Klarik",
         "assist": "F. Pavlov",
         "minute": 89,
-        "playerId": "NAR_006",
-        "assistId": "NAR_004"
+        "playerId": "131",
+        "assistId": "129"
       }
     ],
     "team1Code": "UMF",
@@ -2095,8 +2095,8 @@
         "player": "O. Gro",
         "assist": "J. Teitur",
         "minute": 18,
-        "playerId": "EIN_008",
-        "assistId": "EIN_005"
+        "playerId": "67",
+        "assistId": "64"
       },
       {
         "team": "Jutsa",
@@ -2138,15 +2138,15 @@
         "team": "Nardin",
         "player": "R. Tarasov",
         "minute": 32,
-        "playerId": "NAR_008"
+        "playerId": "133"
       },
       {
         "team": "Nardin",
         "player": "R. Tarasov",
         "assist": "C. Ulivaki",
         "minute": 81,
-        "playerId": "NAR_008",
-        "assistId": "NAR_003"
+        "playerId": "133",
+        "assistId": "128"
       }
     ],
     "team1Code": "NAR",

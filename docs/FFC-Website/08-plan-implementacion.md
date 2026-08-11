@@ -58,20 +58,30 @@
 
 ### B1 · Modelo de datos (jugadores, clubes, torneos, partidos, ligas)
 - Crear `src/data/players/players.json` central (multi-equipo). Cada jugador tiene:
-  - `id` global (se conservan `CAC_009`, `BIL_001`, etc.).
+  - `id` global autoincremental, único.
   - `position` principal, `nationality`, `birthdate?`, **`birthplace: { city?, state? }`** (nuevo).
   - **`skills`**: cada habilidad del simulador en escala **0-100** (`shortRange`, `mediumRange`, `longRange`, `heading`, `pace`, `agility`, `stamina`, `jumping`, `dribbling`, `fakes`, `ballControl`, `stability`, `positioning`, `vision`, `tackling`, `sliding`, `clearing`, `power`, arqueros `reflexes/gkPositioning/stretch/saveClose/catch`, `injuryResistance?`). Ver [[02-modelo-datos]] §2 y [[Simulador/00-simulador]] §6.
   - **`rating` (0-100) y estrellitas (0.5-6) DERIVADOS**: funciones puras `computePlayerRating(skills, position)` y `ratingToStars(rating)`. No se editan a mano.
 - Migrar `by-team` + `historical` + `squad` de frontmatter al JSON central; resolver homónimos una vez con el dueño.
-- Crear `src/data/clubs/` (JSON) con `federation`, `squad` por `playerId`, `code`, `colors`, `stadiumId`. **Sin badges/logros** en clubes.
+- Crear `src/data/clubs/` (JSON) con `federation`, `budget`, `squad` (solo `coach` + `formation`), `code`, `colors`, `stadiumId`. **Sin badges/logros** en clubes. Plantel **derivado** de `players.json` (ver [[02-modelo-datos]] §8).
 - Crear **infraestructura de ligas domésticas**: `src/data/leagues/<federation>.json` (tabla de la última temporada: PJ/PG/PE/PP/GF/GC/Pts) + schema + loader. **Solo infraestructura, sin datos reales** en esta iteración.
 - Crear `@data/players/index.ts`, `@data/clubs/index.ts`, `@data/leagues/index.ts` (loaders + getters: `getPlayerById`, `loadCurrentSquad`, `loadHistoricalSquad`).
 - Schema `matches`: agregar `assistId` y `team1Type/team2Type: 'national' | 'club'`.
 - Schema `tournaments`: `season` (hecho en A3) + validar `type`.
 - Normalizar `playerId` en los JSON de partidos (script `players:link`, ver B2).
-- Migrar `squad` de federaciones a referencia por `playerId` (coordinado con A5; el coach queda como campo del squad).
+- Migrar `squad` de federaciones: **eliminar `squad.players`** y completar `teams[]` en `players.json` (el plantel se deriva; el coach queda como campo del squad). Ver [[02-modelo-datos]] §8.
 - Migrar lookups de equipos de `teamName` → `teamCode` en utils (ver [[02-modelo-datos]] §10).
 - Escribir una **tabla de conversión rating 0-100 → estrellas** en `src/config/` (constante ajustable).
+
+> **Hecho (B1 · Fase 1 — solo el presente, 2026-08):**
+> - `src/data/players/players.json`: 239 jugadores centralizados desde `by-team`, cada uno con **id global numérico autoincremental** + `teams[]` (`teamCode`, `teamType: 'national'`, `status: 'active'`), `nationality`, `birthplace` (opcional, null), `skills` (placeholder vacío).
+> - `playerId`/`assistId`/`playerOutId`/`playerInId` de los 4 JSON de partidos remapeados a los ids globales (validar con `npm run players:link`).
+> - `@data/players/index.ts` reescrito sobre `players.json` (getters `getPlayerById(id)`, `loadCurrentSquad`, `loadHistoricalSquad`→no data aún). `playerUtils` ajustado.
+> - **`members.squad` eliminado** (schema + datos, era vestigio). El plantel se deriva de `players.json` `teams[]` (§8).
+> - Schema `matches`: `assistId` y `team1Type/team2Type` agregados.
+> - **Infraestructura** `@data/clubs` (empty `clubs.json` + getters) y `@data/leagues` (empty + getters). `src/config/rating.ts`: `computePlayerRating` + `ratingToStars` + tabla estimada.
+> - **Lookups teamCode**: `getMemberByCode` + `getMemberByMatchTeam(match, side)` en `memberUtils` (código primero, tipo `national|club`, fallback nombre). Aplicado en `getAllParticipants`. `getMemberByName` se mantiene donde la lógica es por nombre (logros, goles).
+> - **Pendiente Fase-2**: `historical/*` NO se migra al modelo de ids globales (decisión dueño: solo selecciones, no afecta simuladores; se usa el esquema anterior). Aplicar `getMemberByMatchTeam`/códigos al resto de `tournamentUtils` + logros + páginas forest-cup (lejos, sin tocar el motor de goles por nombre).
 
 ### B2 · Tabla de liga doméstica en `member/[slug]`
 - Si la federación **tiene** tabla de liga (`leagues/<code>.json`) → mostrar **tabla de la última temporada** en la página del miembro.
@@ -81,15 +91,15 @@
 - **Sin datos reales** (solo infraestructura + componente).
 
 ### B3 · Plantilla (squad) compacta con estrellitas
-- Componente `SquadCompact`: XI + suplentes con dorsal, posición y **estrellitas del jugador** (derivadas del rating).
+- Componente `SquadCompact`: **plantel completo** ordenado por posición con dorsal y **estrellitas del jugador** (derivadas del rating). **Sin XI/titulares** (sin boolean de titularidad).
 - Se muestra en `member/[slug]` (selección) y en `club/[slug]`.
-- El `squad` referencia `playerId`; el perfil se resuelve desde `players.json`.
+- El plantel se **deriva de `players.json`** (entradas de `teams[]` con `status: 'active'`); el perfil se resuelve desde el id global.
 - **Estrellas de poderío del equipo** (0.5-6) bajo el rating de la federación, calculadas del plantel (tabla del dueño).
 
 ### B4 · Página de club (`/clubs/<slug>`)
 - Estética CL (negro + rombos lima, ver B7).
 - `ClubHero` distinto del `MemberHero`: escudo/colores, federación dueña, **sin badges de logros**, con **rating del club (0-100) + estrellas**.
-- Plantel completo desde `squad` (compacto, ver B3).
+- Plantel completo (derivado de `players.json`, ver B3).
 - **Stats del club solo de torneos FFC** (Forest Cup + CL), **NO** de liga doméstica (esta es solo tabla de contexto).
 - Historial FCL y participaciones.
 - Índice `/clubs` (galería con rating).
@@ -122,9 +132,9 @@
 - Carga de datos de clubes y partidos CL (ida/vuelta, final simple).
 
 ### B11 · Simulador de mercado de pases (isla React)
-- Isla React en la sección CL: el usuario asigna presupuesto manualmente → sidebar con lista de jugadores (del JSON del mercado) + filtros → cancha central con 11 espacios titulares + banco → drag & drop de jugadores (validando presupuesto) → descargar plantilla como JSON o copiar al portapapeles.
-- Datos: JSON con los jugadores disponibles para comprar (sin BD ni infraestructura).
-- El output del participante se envía por privado/formulario (por verset).
+- Isla React en la sección CL: el participante **selecciona el club** con el que opera (cada club tiene su `budget` preasignado en la data, derivado del poder federativo FCL) → sidebar con lista de jugadores (del JSON del mercado) + filtros → cancha central con 11 espacios titulares + banco → drag & drop de jugadores (validando presupuesto) → **exportar plantilla/compras como JSON** o copiar al portapapeles.
+- Datos: JSON con los jugadores disponibles para comprar (sin BD ni infraestructura). Formato exacto del JSON de export: se define al desarrollar esta fase (ver [[09-dudas]] §3).
+- El output del participante se envía **externamente** (privado/email). Al cerrar el mercado, el dueño aplica las transferencias en `players.json` (`teams[]` + `status`) y hace una nueva build.
 
 ---
 

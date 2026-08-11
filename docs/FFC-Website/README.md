@@ -29,6 +29,7 @@ Documentación del proyecto **FFC (Forest Football Confederation) Official Websi
 | [[06-partidos]] | **Diseño objetivo**: páginas individuales de partido |
 | [[07-consistencia]] | **Diseño objetivo**: frontmatter, utils/lib, colores, componentes |
 | [[08-plan-implementacion]] | Plan de implementación por fases |
+| [[09-dudas]] | **Dudas y decisiones pendientes**: posibilidades y problemas que plantea el agente para que el dueño decida |
 | [[Simulador/00-simulador]] | **Diseño objetivo (borrador, NO confirmado)**: simulador de partidos |
 | [[Simulador/Simulador - Idea]] | Brain-dump del dueño sobre el simulador (referencia) |
 

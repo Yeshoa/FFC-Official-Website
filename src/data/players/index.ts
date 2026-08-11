@@ -1,79 +1,67 @@
-export interface PlayerEntry {
-  id: string;
+import playersData from './players.json';
+
+export type SkillId =
+  | 'shortRange' | 'mediumRange' | 'longRange'
+  | 'heading'
+  | 'pace' | 'agility' | 'stamina' | 'jumping'
+  | 'dribbling' | 'fakes' | 'ballControl'
+  | 'stability' | 'positioning' | 'vision'
+  | 'tackling' | 'sliding' | 'clearing' | 'power'
+  | 'reflexes' | 'gkPositioning' | 'stretch' | 'saveClose' | 'catch'
+  | 'injuryResistance';
+
+export interface PlayerTeamEntry {
+  teamCode: string;
+  teamType: 'national' | 'club';
+  number?: number | null;
+  from?: string;
+  to?: string;
+  status: 'active' | 'retired' | 'transferred';
+}
+
+export interface Player {
+  id: number;
   name: string;
   position: string;
-  number: number | null;
-  status: string;
+  nationality: string;
+  birthdate?: string | null;
+  birthplace?: { city?: string | null; state?: string | null };
+  skills: Partial<Record<SkillId, number>>;
+  teams: PlayerTeamEntry[];
+  stars?: { overall: number };
 }
 
-interface CurrentSquadFile {
-  teamCode: string;
-  teamName: string;
-  lastUpdated: string;
-  playerCount: number;
-  players: PlayerEntry[];
-}
+const players: Player[] = playersData as Player[];
 
-interface HistoricalSquadFile extends CurrentSquadFile {
-  tournament: string;
-  tournamentEdition: number;
-  snapshotDate: string;
-}
+const byId = new Map<number, Player>();
+const byTeam = new Map<string, Player[]>();
 
-const currentSquadFiles = import.meta.glob('./by-team/*.json', { eager: true }) as Record<
-  string,
-  { default: CurrentSquadFile }
->;
-
-const historicalSquadFiles = import.meta.glob('./historical/**/*.json', { eager: true }) as Record<
-  string,
-  { default: HistoricalSquadFile }
->;
-
-const playersById = new Map<string, PlayerEntry>();
-const currentSquadByTeamCode = new Map<string, PlayerEntry[]>();
-const historicalSquadByTeamCode = new Map<string, PlayerEntry[]>();
-
-function indexTeamSquad(teamCode: string, players: PlayerEntry[], target: Map<string, PlayerEntry[]>) {
-  const normalized = teamCode.trim().toLowerCase();
-  const existing = target.get(normalized) ?? [];
-  target.set(normalized, [...existing, ...players]);
-}
-
-for (const file of Object.values(currentSquadFiles)) {
-  const squad = file.default;
-  for (const player of squad.players) {
-    if (!playersById.has(player.id.toLowerCase())) {
-      playersById.set(player.id.toLowerCase(), player);
-    }
+for (const player of players) {
+  byId.set(player.id, player);
+  for (const team of player.teams) {
+    if (team.status !== 'active') continue;
+    const code = team.teamCode.trim().toLowerCase();
+    const list = byTeam.get(code) ?? [];
+    list.push(player);
+    byTeam.set(code, list);
   }
-  indexTeamSquad(squad.teamCode, squad.players, currentSquadByTeamCode);
 }
 
-for (const file of Object.values(historicalSquadFiles)) {
-  const squad = file.default;
-  for (const player of squad.players) {
-    if (!playersById.has(player.id.toLowerCase())) {
-      playersById.set(player.id.toLowerCase(), player);
-    }
-  }
-  indexTeamSquad(squad.teamCode, squad.players, historicalSquadByTeamCode);
+export function getPlayerById(id: number | string): Player | null {
+  if (id === null || id === undefined || id === '') return null;
+  const num = typeof id === 'number' ? id : Number(id);
+  if (Number.isNaN(num)) return null;
+  return byId.get(num) ?? null;
 }
 
-export function getPlayerById(teamCode: string, playerId: string): PlayerEntry | null {
-  if (!playerId) return null;
-
-  const direct = playersById.get(playerId.toLowerCase());
-  if (direct) return direct;
-
-  const teamSquad = currentSquadByTeamCode.get(teamCode.trim().toLowerCase());
-  return teamSquad?.find(player => player.id.toLowerCase() === playerId.toLowerCase()) ?? null;
+export function loadCurrentSquad(teamCode: string): Player[] {
+  return byTeam.get(teamCode.trim().toLowerCase()) ?? [];
 }
 
-export function loadCurrentSquad(teamCode: string): PlayerEntry[] {
-  return currentSquadByTeamCode.get(teamCode.trim().toLowerCase()) ?? [];
+export function loadHistoricalSquad(_teamCode: string): Player[] {
+  return [];
 }
 
-export function loadHistoricalSquad(teamCode: string): PlayerEntry[] {
-  return historicalSquadByTeamCode.get(teamCode.trim().toLowerCase()) ?? [];
+export function getAllPlayers(): Player[] {
+  return players;
 }

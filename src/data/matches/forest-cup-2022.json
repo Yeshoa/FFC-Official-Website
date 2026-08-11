@@ -26,7 +26,7 @@
         "player": "M. Solheim",
         "minute": 39,
         "penalty": false,
-        "playerId": "EIN_007"
+        "playerId": "66"
       },
       {
         "team": "Bilsa",
@@ -39,7 +39,7 @@
         "player": "M. Eriksen",
         "minute": 59,
         "penalty": false,
-        "playerId": "EIN_006"
+        "playerId": "65"
       }
     ],
     "team1Code": "EIN",
@@ -88,21 +88,21 @@
         "player": "Nysnub",
         "minute": 53,
         "penalty": false,
-        "playerId": "ATS_008"
+        "playerId": "15"
       },
       {
         "team": "Bunkaiia",
         "player": "B. Jaian",
         "minute": 60,
         "penalty": false,
-        "playerId": "BUN_001"
+        "playerId": "30"
       },
       {
         "team": "Bunkaiia",
         "player": "L. Keian",
         "minute": 85,
         "penalty": false,
-        "playerId": "BUN_004"
+        "playerId": "33"
       }
     ],
     "team1Code": "ATS",
@@ -155,7 +155,7 @@
         "player": "M. Dartmouth",
         "minute": 6,
         "penalty": false,
-        "playerId": "CAC_006"
+        "playerId": "39"
       }
     ],
     "team1Code": "RLS",
@@ -182,14 +182,14 @@
         "player": "T. Wolf",
         "minute": 62,
         "penalty": false,
-        "playerId": "TRE_002"
+        "playerId": "204"
       },
       {
         "team": "Trebenia",
         "player": "F. Elliott",
         "minute": 89,
         "penalty": false,
-        "playerId": "TRE_001"
+        "playerId": "203"
       }
     ],
     "team1Code": "TBX",
@@ -281,7 +281,7 @@
         "player": "R. Kask",
         "minute": 5,
         "penalty": false,
-        "playerId": "EIN_010"
+        "playerId": "69"
       }
     ],
     "team1Code": "EIN",
@@ -334,14 +334,14 @@
         "player": "Nysnub",
         "minute": 55,
         "penalty": true,
-        "playerId": "ATS_008"
+        "playerId": "15"
       },
       {
         "team": "Atsvea",
         "player": "Nysnub",
         "minute": 60,
         "penalty": false,
-        "playerId": "ATS_008"
+        "playerId": "15"
       },
       {
         "team": "Cat-Herders United",
@@ -374,14 +374,14 @@
         "player": "D. Tsafimakoua",
         "minute": 79,
         "penalty": false,
-        "playerId": "BUN_002"
+        "playerId": "31"
       },
       {
         "team": "Bunkaiia",
         "player": "G. Lotefin",
         "minute": 90,
         "penalty": false,
-        "playerId": "BUN_003"
+        "playerId": "32"
       }
     ],
     "team1Code": "BUN",
@@ -446,14 +446,14 @@
         "player": "M. Dartmouth",
         "minute": 35,
         "penalty": false,
-        "playerId": "CAC_006"
+        "playerId": "39"
       },
       {
         "team": "Cacusia",
         "player": "H. Blackmoor",
         "minute": 71,
         "penalty": false,
-        "playerId": "CAC_003"
+        "playerId": "36"
       }
     ],
     "team1Code": "CAC",
@@ -615,14 +615,14 @@
         "player": "Nysnub",
         "minute": 29,
         "penalty": false,
-        "playerId": "ATS_008"
+        "playerId": "15"
       },
       {
         "team": "Atsvea",
         "player": "E. Stell",
         "minute": 66,
         "penalty": false,
-        "playerId": "ATS_005"
+        "playerId": "12"
       }
     ],
     "team1Code": "CNR",
@@ -649,21 +649,21 @@
         "player": "H. Blackmoor",
         "minute": 20,
         "penalty": false,
-        "playerId": "CAC_003"
+        "playerId": "36"
       },
       {
         "team": "Cacusia",
         "player": "H. Blackmoor",
         "minute": 37,
         "penalty": false,
-        "playerId": "CAC_003"
+        "playerId": "36"
       },
       {
         "team": "Cacusia",
         "player": "M. Dartmouth",
         "minute": 74,
         "penalty": false,
-        "playerId": "CAC_006"
+        "playerId": "39"
       }
     ],
     "team1Code": "TBX",
@@ -696,7 +696,7 @@
         "player": "T. Wolf",
         "minute": 39,
         "penalty": false,
-        "playerId": "TRE_002"
+        "playerId": "204"
       },
       {
         "team": "Roless",
@@ -787,7 +787,7 @@
         "player": "G. Lotefin",
         "minute": 32,
         "penalty": false,
-        "playerId": "BUN_003"
+        "playerId": "32"
       },
       {
         "team": "Daarwyrth",
@@ -837,21 +837,21 @@
         "player": "M. Dartmouth",
         "minute": 29,
         "penalty": false,
-        "playerId": "CAC_006"
+        "playerId": "39"
       },
       {
         "team": "Cacusia",
         "player": "M. Dartmouth",
         "minute": 69,
         "penalty": false,
-        "playerId": "CAC_006"
+        "playerId": "39"
       },
       {
         "team": "Cacusia",
         "player": "M. Dartmouth",
         "minute": 74,
         "penalty": false,
-        "playerId": "CAC_006"
+        "playerId": "39"
       }
     ],
     "team1Code": "CAC",
@@ -879,42 +879,42 @@
         "player": "Nysnub",
         "minute": 3,
         "penalty": false,
-        "playerId": "ATS_008"
+        "playerId": "15"
       },
       {
         "team": "Einswenn",
         "player": "R. Jogi",
         "minute": 62,
         "penalty": false,
-        "playerId": "EIN_009"
+        "playerId": "68"
       },
       {
         "team": "Atsvea",
         "player": "E. Stell",
         "minute": 72,
         "penalty": false,
-        "playerId": "ATS_005"
+        "playerId": "12"
       },
       {
         "team": "Einswenn",
         "player": "T. Davis",
         "minute": 81,
         "penalty": false,
-        "playerId": "EIN_012"
+        "playerId": "71"
       },
       {
         "team": "Atsvea",
         "player": "S. Vythxo",
         "minute": 99,
         "penalty": false,
-        "playerId": "ATS_010"
+        "playerId": "17"
       },
       {
         "team": "Atsvea",
         "player": "K. Zaajaagah",
         "minute": 109,
         "penalty": false,
-        "playerId": "ATS_006"
+        "playerId": "13"
       }
     ],
     "team1Code": "ATS",
@@ -984,7 +984,7 @@
         "player": "C. Islay",
         "minute": 19,
         "penalty": false,
-        "playerId": "CAC_002"
+        "playerId": "35"
       },
       {
         "team": "Cacusia",
@@ -992,7 +992,7 @@
         "minute": 45,
         "aggregate": 1,
         "penalty": false,
-        "playerId": "CAC_003"
+        "playerId": "36"
       }
     ],
     "team1Code": "DRW",
@@ -1020,7 +1020,7 @@
         "player": "E. Stell",
         "minute": 17,
         "penalty": false,
-        "playerId": "ATS_005"
+        "playerId": "12"
       },
       {
         "team": "Reannia",
@@ -1034,7 +1034,7 @@
         "minute": 120,
         "aggregate": 3,
         "penalty": false,
-        "playerId": "ATS_008"
+        "playerId": "15"
       }
     ],
     "team1Code": "ATS",
@@ -1060,21 +1060,21 @@
         "player": "M. Dartmouth",
         "minute": 33,
         "penalty": false,
-        "playerId": "CAC_006"
+        "playerId": "39"
       },
       {
         "team": "Atsvea",
         "player": "O. Khisiddah",
         "minute": 36,
         "penalty": false,
-        "playerId": "ATS_009"
+        "playerId": "16"
       },
       {
         "team": "Atsvea",
         "player": "S. Vythxo",
         "minute": 65,
         "penalty": false,
-        "playerId": "ATS_010"
+        "playerId": "17"
       }
     ],
     "team1Code": "CAC",

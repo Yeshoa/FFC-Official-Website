@@ -57,6 +57,51 @@ export async function getMemberBySlug(
   const allMembers = memberCollection ?? members;
   return allMembers.find(member => member.id === slug) ?? null;
 }
+
+export function getMemberByCode(
+  code: string,
+  memberCollection: CollectionEntry<'members'>[],
+): CollectionEntry<'members'> | null;
+export function getMemberByCode(
+  code: string,
+  memberCollection?: CollectionEntry<'members'>[],
+): CollectionEntry<'members'> | null {
+  if (!code) return null;
+  return (memberCollection ?? members).find(
+    m => m.data.code === code,
+  ) ?? null;
+}
+
+interface MatchTeamSource {
+  team1: string;
+  team2: string;
+  team1Code?: string;
+  team2Code?: string;
+  team1Type?: 'national' | 'club';
+  team2Type?: 'national' | 'club';
+}
+
+// Resuelve el miembro (federación) de un lado del partido por CÓDIGO primero y cae al nombre.
+// `team1Type/team2Type` permite distinguir nacional vs club (club aún sin entidad: se resuelve por nombre hasta B4).
+export function getMemberByMatchTeam(
+  match: MatchTeamSource,
+  side: 'team1' | 'team2',
+  memberCollection?: CollectionEntry<'members'>[],
+): CollectionEntry<'members'> | null {
+  const code = side === 'team1' ? match.team1Code : match.team2Code;
+  const type = side === 'team1' ? match.team1Type : match.team2Type;
+  const name = side === 'team1' ? match.team1 : match.team2;
+
+  if (type !== 'club' && code) {
+    const byCode = memberCollection
+      ? getMemberByCode(code, memberCollection)
+      : getMemberByCode(code);
+    if (byCode) return byCode;
+  }
+  return memberCollection
+    ? getMemberByName(name, memberCollection)
+    : getMemberByName(name);
+}
 export function getMemberImage(
   memberName: string | undefined,
   memberCollection?: CollectionEntry<'members'>[],

@@ -1,0 +1,5260 @@
+[
+  {
+    "id": 1,
+    "name": "Åkerström",
+    "position": "FWD",
+    "nationality": "A&K",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "A&K",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "B. Boen",
+    "position": "FWD",
+    "nationality": "A&K",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "A&K",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Manninen",
+    "position": "FWD",
+    "nationality": "A&K",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "A&K",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "S. Granberg",
+    "position": "FWD",
+    "nationality": "A&K",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "A&K",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "name": "A. Zanzotti",
+    "position": "FWD",
+    "nationality": "ARE",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "ARE",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "name": "C. Glione",
+    "position": "FWD",
+    "nationality": "ARE",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "ARE",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "name": "R. Reginaldi",
+    "position": "FWD",
+    "nationality": "ARE",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "ARE",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "name": "A. Hoshar",
+    "position": "FWD",
+    "nationality": "ATS",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "ATS",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "name": "B. Modron",
+    "position": "FWD",
+    "nationality": "ATS",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "ATS",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "name": "B. Notsu",
+    "position": "FWD",
+    "nationality": "ATS",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "ATS",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "name": "C. Votnuc",
+    "position": "FWD",
+    "nationality": "ATS",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "ATS",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "name": "E. Stell",
+    "position": "FWD",
+    "nationality": "ATS",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "ATS",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "name": "K. Zaajaagah",
+    "position": "FWD",
+    "nationality": "ATS",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "ATS",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "name": "N. Tethys",
+    "position": "FWD",
+    "nationality": "ATS",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "ATS",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "name": "Nysnub",
+    "position": "FWD",
+    "nationality": "ATS",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "ATS",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "name": "O. Khisiddah",
+    "position": "FWD",
+    "nationality": "ATS",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "ATS",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 17,
+    "name": "S. Vythxo",
+    "position": "FWD",
+    "nationality": "ATS",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "ATS",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 18,
+    "name": "Z. Nasus",
+    "position": "FWD",
+    "nationality": "ATS",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "ATS",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 19,
+    "name": "Llanfairpwllgwyngyll",
+    "position": "FWD",
+    "nationality": "AZR",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "AZR",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 20,
+    "name": "Ru Inenlustian",
+    "position": "FWD",
+    "nationality": "AZR",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "AZR",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 21,
+    "name": "F. Hološko",
+    "position": "FWD",
+    "nationality": "BEX",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "BEX",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 22,
+    "name": "S. Ristovski",
+    "position": "FWD",
+    "nationality": "BEX",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "BEX",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 23,
+    "name": "Z. Lazarević",
+    "position": "FWD",
+    "nationality": "BEX",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "BEX",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 24,
+    "name": "A. Arhanv",
+    "position": "FWD",
+    "nationality": "BIL",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "BIL",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 25,
+    "name": "Arhanv",
+    "position": "FWD",
+    "nationality": "BIL",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "BIL",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 26,
+    "name": "C. Muniv",
+    "position": "FWD",
+    "nationality": "BIL",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "BIL",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 27,
+    "name": "Ervaan",
+    "position": "FWD",
+    "nationality": "BIL",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "BIL",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 28,
+    "name": "Hajan",
+    "position": "FWD",
+    "nationality": "BIL",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "BIL",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 29,
+    "name": "Sowjan",
+    "position": "FWD",
+    "nationality": "BIL",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "BIL",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 30,
+    "name": "B. Jaian",
+    "position": "FWD",
+    "nationality": "BUN",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "BUN",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 31,
+    "name": "D. Tsafimakoua",
+    "position": "FWD",
+    "nationality": "BUN",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "BUN",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 32,
+    "name": "G. Lotefin",
+    "position": "FWD",
+    "nationality": "BUN",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "BUN",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 33,
+    "name": "L. Keian",
+    "position": "FWD",
+    "nationality": "BUN",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "BUN",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 34,
+    "name": "A. Tziyoniy",
+    "position": "FWD",
+    "nationality": "CAC",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "CAC",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 35,
+    "name": "C. Islay",
+    "position": "FWD",
+    "nationality": "CAC",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "CAC",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 36,
+    "name": "H. Blackmoor",
+    "position": "FWD",
+    "nationality": "CAC",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "CAC",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 37,
+    "name": "H. Grey",
+    "position": "FWD",
+    "nationality": "CAC",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "CAC",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 38,
+    "name": "I. Darrow",
+    "position": "FWD",
+    "nationality": "CAC",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "CAC",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 39,
+    "name": "M. Dartmouth",
+    "position": "FWD",
+    "nationality": "CAC",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "CAC",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 40,
+    "name": "O. Chumble",
+    "position": "FWD",
+    "nationality": "CAC",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "CAC",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 41,
+    "name": "O. Stout",
+    "position": "FWD",
+    "nationality": "CAC",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "CAC",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 42,
+    "name": "S. Blair",
+    "position": "FWD",
+    "nationality": "CAC",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "CAC",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 43,
+    "name": "A. Scott",
+    "position": "FWD",
+    "nationality": "CAT",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "CAT",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 44,
+    "name": "D. Jennings",
+    "position": "FWD",
+    "nationality": "CAT",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "CAT",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 45,
+    "name": "V. Atkinson",
+    "position": "FWD",
+    "nationality": "CAT",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "CAT",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 46,
+    "name": "A. Fletcher",
+    "position": "FWD",
+    "nationality": "CI",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "CI",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 47,
+    "name": "B. Wellerman",
+    "position": "FWD",
+    "nationality": "CI",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "CI",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 48,
+    "name": "Butch Man",
+    "position": "FWD",
+    "nationality": "CI",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "CI",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 49,
+    "name": "C. F. Caravel",
+    "position": "FWD",
+    "nationality": "CI",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "CI",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 50,
+    "name": "Chan Island",
+    "position": "FWD",
+    "nationality": "CI",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "CI",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 51,
+    "name": "Boingo",
+    "position": "FWD",
+    "nationality": "CTC",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "CTC",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 52,
+    "name": "D. Doodle",
+    "position": "FWD",
+    "nationality": "CTC",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "CTC",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 53,
+    "name": "Fizzlepop",
+    "position": "FWD",
+    "nationality": "CTC",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "CTC",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 54,
+    "name": "Honkers",
+    "position": "FWD",
+    "nationality": "CTC",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "CTC",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 55,
+    "name": "T. Henderson",
+    "position": "FWD",
+    "nationality": "DRW",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "DRW",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 56,
+    "name": "T. Marsh",
+    "position": "FWD",
+    "nationality": "DRW",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "DRW",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 57,
+    "name": "Z. Young",
+    "position": "FWD",
+    "nationality": "DRW",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "DRW",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 58,
+    "name": "Álvarez",
+    "position": "FWD",
+    "nationality": "ETC",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "ETC",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 59,
+    "name": "Volkov",
+    "position": "FWD",
+    "nationality": "ETC",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "ETC",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 60,
+    "name": "A. Lund",
+    "position": "FWD",
+    "nationality": "EIN",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "EIN",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 61,
+    "name": "H. Paulsen",
+    "position": "FWD",
+    "nationality": "EIN",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "EIN",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 62,
+    "name": "I. Moje",
+    "position": "FWD",
+    "nationality": "EIN",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "EIN",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 63,
+    "name": "J. De Santis",
+    "position": "FWD",
+    "nationality": "EIN",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "EIN",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 64,
+    "name": "J. Teitur",
+    "position": "FWD",
+    "nationality": "EIN",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "EIN",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 65,
+    "name": "M. Eriksen",
+    "position": "FWD",
+    "nationality": "EIN",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "EIN",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 66,
+    "name": "M. Solheim",
+    "position": "FWD",
+    "nationality": "EIN",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "EIN",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 67,
+    "name": "O. Gro",
+    "position": "FWD",
+    "nationality": "EIN",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "EIN",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 68,
+    "name": "R. Jogi",
+    "position": "FWD",
+    "nationality": "EIN",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "EIN",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 69,
+    "name": "R. Kask",
+    "position": "FWD",
+    "nationality": "EIN",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "EIN",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 70,
+    "name": "S. Kattell",
+    "position": "FWD",
+    "nationality": "EIN",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "EIN",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 71,
+    "name": "T. Davis",
+    "position": "FWD",
+    "nationality": "EIN",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "EIN",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 72,
+    "name": "Big James",
+    "position": "FWD",
+    "nationality": "FSH",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "FSH",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 73,
+    "name": "James Again",
+    "position": "FWD",
+    "nationality": "FSH",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "FSH",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 74,
+    "name": "Nemo Jr.",
+    "position": "FWD",
+    "nationality": "FSH",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "FSH",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 75,
+    "name": "A. Lahnen",
+    "position": "FWD",
+    "nationality": "EPR",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "EPR",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 76,
+    "name": "H. Koerner",
+    "position": "FWD",
+    "nationality": "EPR",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "EPR",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 77,
+    "name": "J. Salzmann",
+    "position": "FWD",
+    "nationality": "EPR",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "EPR",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 78,
+    "name": "W. Frisch",
+    "position": "FWD",
+    "nationality": "EPR",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "EPR",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 79,
+    "name": "Á. Stefánsson",
+    "position": "FWD",
+    "nationality": "FUR",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "FUR",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 80,
+    "name": "D. Sigfúsdóttir",
+    "position": "FWD",
+    "nationality": "FUR",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "FUR",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 81,
+    "name": "E. Pálsdóttir",
+    "position": "FWD",
+    "nationality": "FUR",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "FUR",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 82,
+    "name": "H. Ásvaldsson",
+    "position": "FWD",
+    "nationality": "FUR",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "FUR",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 83,
+    "name": "K. Héðinsdóttir",
+    "position": "FWD",
+    "nationality": "FUR",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "FUR",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 84,
+    "name": "K. Reynisdóttir",
+    "position": "FWD",
+    "nationality": "FUR",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "FUR",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 85,
+    "name": "M. Andersen",
+    "position": "FWD",
+    "nationality": "FUR",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "FUR",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 86,
+    "name": "K. Ota",
+    "position": "FWD",
+    "nationality": "GRB",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "GRB",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 87,
+    "name": "L. Scritkyposs",
+    "position": "FWD",
+    "nationality": "GRB",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "GRB",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 88,
+    "name": "M. Verhoeven",
+    "position": "FWD",
+    "nationality": "GRB",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "GRB",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 89,
+    "name": "Nilsson",
+    "position": "FWD",
+    "nationality": "GFF",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "GFF",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 90,
+    "name": "Pettersson",
+    "position": "FWD",
+    "nationality": "GFF",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "GFF",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 91,
+    "name": "Sven",
+    "position": "FWD",
+    "nationality": "GFF",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "GFF",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 92,
+    "name": "Fuentes",
+    "position": null,
+    "nationality": "GEK",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "GEK",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 93,
+    "name": "Horak",
+    "position": null,
+    "nationality": "GEK",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "GEK",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 94,
+    "name": "Jamal",
+    "position": "FWD",
+    "nationality": "GEK",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "GEK",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 95,
+    "name": "R. Jamal",
+    "position": "FWD",
+    "nationality": "GEK",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "GEK",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 96,
+    "name": "C. Kuīyeī",
+    "position": "FWD",
+    "nationality": "JUT",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "JUT",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 97,
+    "name": "D. Xeinfe",
+    "position": "FWD",
+    "nationality": "JUT",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "JUT",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 98,
+    "name": "E. Ñuizvei",
+    "position": "FWD",
+    "nationality": "JUT",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "JUT",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 99,
+    "name": "E. Vaīve",
+    "position": "FWD",
+    "nationality": "JUT",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "JUT",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 100,
+    "name": "H. Kazñeisei",
+    "position": "FWD",
+    "nationality": "JUT",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "JUT",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 101,
+    "name": "I. Ruinlei",
+    "position": "FWD",
+    "nationality": "JUT",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "JUT",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 102,
+    "name": "K. Ocsdei",
+    "position": "FWD",
+    "nationality": "JUT",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "JUT",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 103,
+    "name": "K. Yuīkuīma",
+    "position": "FWD",
+    "nationality": "JUT",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "JUT",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 104,
+    "name": "M. Tepyet",
+    "position": "FWD",
+    "nationality": "JUT",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "JUT",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 105,
+    "name": "P. Ceruīkat",
+    "position": "FWD",
+    "nationality": "JUT",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "JUT",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 106,
+    "name": "P. Yujnep",
+    "position": "FWD",
+    "nationality": "JUT",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "JUT",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 107,
+    "name": "Q. Koîkaîn",
+    "position": "FWD",
+    "nationality": "JUT",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "JUT",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 108,
+    "name": "R. Cairoi",
+    "position": "FWD",
+    "nationality": "JUT",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "JUT",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 109,
+    "name": "T. Aīhuij",
+    "position": "FWD",
+    "nationality": "JUT",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "JUT",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 110,
+    "name": "U. Meilain",
+    "position": "FWD",
+    "nationality": "JUT",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "JUT",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 111,
+    "name": "X. Xayaīmaīc",
+    "position": "FWD",
+    "nationality": "JUT",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "JUT",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 112,
+    "name": "C. Schon",
+    "position": "FWD",
+    "nationality": "KAS",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "KAS",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 113,
+    "name": "E. Stanchinsky",
+    "position": "FWD",
+    "nationality": "KDV",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "KDV",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 114,
+    "name": "E. Vaillantcourt",
+    "position": null,
+    "nationality": "KDV",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "KDV",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 115,
+    "name": "L. Shanks",
+    "position": "FWD",
+    "nationality": "KDV",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "KDV",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 116,
+    "name": "B. Dreamspell",
+    "position": "FWD",
+    "nationality": "LUM",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "LUM",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 117,
+    "name": "B. Marlee",
+    "position": "FWD",
+    "nationality": "LUM",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "LUM",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 118,
+    "name": "C. Farnirne",
+    "position": "FWD",
+    "nationality": "LUM",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "LUM",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 119,
+    "name": "M. Penosi",
+    "position": "FWD",
+    "nationality": "LUM",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "LUM",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 120,
+    "name": "S. Dehkandem",
+    "position": "FWD",
+    "nationality": "LUM",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "LUM",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 121,
+    "name": "S. Eastoft",
+    "position": "FWD",
+    "nationality": "LUM",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "LUM",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 122,
+    "name": "T. Pescaster",
+    "position": "FWD",
+    "nationality": "LUM",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "LUM",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 123,
+    "name": "T. Whisperbrook",
+    "position": "FWD",
+    "nationality": "LUM",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "LUM",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 124,
+    "name": "T. Whitblossom",
+    "position": null,
+    "nationality": "LUM",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "LUM",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 125,
+    "name": "W. Leswalyn",
+    "position": "FWD",
+    "nationality": "LUM",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "LUM",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 126,
+    "name": "A. Av Cerzi",
+    "position": "FWD",
+    "nationality": "NAR",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "NAR",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 127,
+    "name": "A. Leszik",
+    "position": "FWD",
+    "nationality": "NAR",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "NAR",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 128,
+    "name": "C. Ulivaki",
+    "position": "FWD",
+    "nationality": "NAR",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "NAR",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 129,
+    "name": "F. Pavlov",
+    "position": "FWD",
+    "nationality": "NAR",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "NAR",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 130,
+    "name": "I. Petrov",
+    "position": "FWD",
+    "nationality": "NAR",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "NAR",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 131,
+    "name": "J. Klarik",
+    "position": "FWD",
+    "nationality": "NAR",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "NAR",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 132,
+    "name": "M. Romonivik",
+    "position": "FWD",
+    "nationality": "NAR",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "NAR",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 133,
+    "name": "R. Tarasov",
+    "position": "FWD",
+    "nationality": "NAR",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "NAR",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 134,
+    "name": "Ulministak",
+    "position": "FWD",
+    "nationality": "NAR",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "NAR",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 135,
+    "name": "A. Cunha",
+    "position": "FWD",
+    "nationality": "NLK",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "NLK",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 136,
+    "name": "O. Silveira",
+    "position": "FWD",
+    "nationality": "NLK",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "NLK",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 137,
+    "name": "U. Barbosa",
+    "position": "FWD",
+    "nationality": "NLK",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "NLK",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 138,
+    "name": "A. Shamurodov",
+    "position": "FWD",
+    "nationality": "NOR",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "NOR",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 139,
+    "name": "D. Sigmundson",
+    "position": "FWD",
+    "nationality": "NOR",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "NOR",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 140,
+    "name": "F. Torvald",
+    "position": null,
+    "nationality": "NOR",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "NOR",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 141,
+    "name": "H. Marremusen",
+    "position": "FWD",
+    "nationality": "NOR",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "NOR",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 142,
+    "name": "J. Østegårde",
+    "position": "FWD",
+    "nationality": "NOR",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "NOR",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 143,
+    "name": "K. Ojeveit",
+    "position": "FWD",
+    "nationality": "NOR",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "NOR",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 144,
+    "name": "K. Pontsblom",
+    "position": "FWD",
+    "nationality": "NOR",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "NOR",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 145,
+    "name": "L. Uye",
+    "position": "FWD",
+    "nationality": "NOR",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "NOR",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 146,
+    "name": "M. Miltshus",
+    "position": "FWD",
+    "nationality": "NOR",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "NOR",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 147,
+    "name": "M. Sevdal",
+    "position": "FWD",
+    "nationality": "NOR",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "NOR",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 148,
+    "name": "J. Odin",
+    "position": "FWD",
+    "nationality": "ORC",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "ORC",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 149,
+    "name": "V. Ocean",
+    "position": "FWD",
+    "nationality": "ORC",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "ORC",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 150,
+    "name": "Calyth",
+    "position": "FWD",
+    "nationality": "OSE",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "OSE",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 151,
+    "name": "Ithryn",
+    "position": "FWD",
+    "nationality": "OSE",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "OSE",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 152,
+    "name": "Vaesryn",
+    "position": "FWD",
+    "nationality": "OSE",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "OSE",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 153,
+    "name": "A. Soria",
+    "position": "FWD",
+    "nationality": "OTL",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "OTL",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 154,
+    "name": "P. Woods",
+    "position": "FWD",
+    "nationality": "OTL",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "OTL",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 155,
+    "name": "R. Díaz",
+    "position": "FWD",
+    "nationality": "OTL",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "OTL",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 156,
+    "name": "Y. Soriano",
+    "position": "FWD",
+    "nationality": "OTL",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "OTL",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 157,
+    "name": "Bayer",
+    "position": "FWD",
+    "nationality": "OZO",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "OZO",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 158,
+    "name": "Boon",
+    "position": "FWD",
+    "nationality": "OZO",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "OZO",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 159,
+    "name": "Eerkens",
+    "position": "FWD",
+    "nationality": "OZO",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "OZO",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 160,
+    "name": "Venner",
+    "position": "FWD",
+    "nationality": "OZO",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "OZO",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 161,
+    "name": "A. Manolis",
+    "position": "FWD",
+    "nationality": "REA",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "REA",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 162,
+    "name": "E. Leech",
+    "position": "FWD",
+    "nationality": "REA",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "REA",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 163,
+    "name": "J. Ponstantinople",
+    "position": "FWD",
+    "nationality": "REA",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "REA",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 164,
+    "name": "L. Celery",
+    "position": "FWD",
+    "nationality": "REA",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "REA",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 165,
+    "name": "M. Beet",
+    "position": "FWD",
+    "nationality": "REA",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "REA",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 166,
+    "name": "Olsson",
+    "position": "FWD",
+    "nationality": "REA",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "REA",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 167,
+    "name": "A. Martínez",
+    "position": "FWD",
+    "nationality": "YUC",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "YUC",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 168,
+    "name": "A. Morales",
+    "position": "FWD",
+    "nationality": "YUC",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "YUC",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 169,
+    "name": "D. Aguilar",
+    "position": "FWD",
+    "nationality": "YUC",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "YUC",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 170,
+    "name": "E. López",
+    "position": "FWD",
+    "nationality": "YUC",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "YUC",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 171,
+    "name": "G. Martínez",
+    "position": "FWD",
+    "nationality": "YUC",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "YUC",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 172,
+    "name": "J. Herrera",
+    "position": "FWD",
+    "nationality": "YUC",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "YUC",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 173,
+    "name": "L. Hernández",
+    "position": "FWD",
+    "nationality": "YUC",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "YUC",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 174,
+    "name": "8",
+    "position": "FWD",
+    "nationality": "RKD",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "RKD",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 175,
+    "name": "A. Jansen",
+    "position": "FWD",
+    "nationality": "RKD",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "RKD",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 176,
+    "name": "C. Van der Zaal",
+    "position": "FWD",
+    "nationality": "RKD",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "RKD",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 177,
+    "name": "J. Van de Pen",
+    "position": "FWD",
+    "nationality": "RKD",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "RKD",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 178,
+    "name": "S. Miller",
+    "position": "FWD",
+    "nationality": "RKD",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "RKD",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 179,
+    "name": "C. Fulton",
+    "position": "FWD",
+    "nationality": "RLS",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "RLS",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 180,
+    "name": "C. Mcarthur",
+    "position": "FWD",
+    "nationality": "RLS",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "RLS",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 181,
+    "name": "C. McArthur",
+    "position": "FWD",
+    "nationality": "RLS",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "RLS",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 182,
+    "name": "F. Kumar",
+    "position": "FWD",
+    "nationality": "RLS",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "RLS",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 183,
+    "name": "H. Carrol",
+    "position": "FWD",
+    "nationality": "RLS",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "RLS",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 184,
+    "name": "J. Greenaway",
+    "position": "FWD",
+    "nationality": "RLS",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "RLS",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 185,
+    "name": "L. Howell",
+    "position": "FWD",
+    "nationality": "RLS",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "RLS",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 186,
+    "name": "O. Chandler",
+    "position": "FWD",
+    "nationality": "RLS",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "RLS",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 187,
+    "name": "R. Carter",
+    "position": "FWD",
+    "nationality": "RLS",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "RLS",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 188,
+    "name": "R. Grimes",
+    "position": "FWD",
+    "nationality": "RLS",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "RLS",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 189,
+    "name": "Ben",
+    "position": "FWD",
+    "nationality": "RUN",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "RUN",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 190,
+    "name": "J. Hauz",
+    "position": "FWD",
+    "nationality": "RUN",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "RUN",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 191,
+    "name": "L. Nesar",
+    "position": "FWD",
+    "nationality": "RUN",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "RUN",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 192,
+    "name": "O. Bonfis",
+    "position": "FWD",
+    "nationality": "RUN",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "RUN",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 193,
+    "name": "O. Swen",
+    "position": "FWD",
+    "nationality": "RUN",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "RUN",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 194,
+    "name": "S. Ben",
+    "position": "FWD",
+    "nationality": "RUN",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "RUN",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 195,
+    "name": "W. Rachs",
+    "position": "FWD",
+    "nationality": "RUN",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "RUN",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 196,
+    "name": "A. Bjornstaki",
+    "position": "FWD",
+    "nationality": "SCH",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "SCH",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 197,
+    "name": "D. Trod",
+    "position": "FWD",
+    "nationality": "SCH",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "SCH",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 198,
+    "name": "R. Inison",
+    "position": "FWD",
+    "nationality": "SCH",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "SCH",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 199,
+    "name": "C. Beck",
+    "position": "FWD",
+    "nationality": "SEH",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "SEH",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 200,
+    "name": "H. Tomasson",
+    "position": "FWD",
+    "nationality": "SEH",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "SEH",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 201,
+    "name": "L. Azpesiatuc",
+    "position": "FWD",
+    "nationality": "STR",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "STR",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 202,
+    "name": "O. Irecen",
+    "position": "FWD",
+    "nationality": "STR",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "STR",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 203,
+    "name": "F. Elliott",
+    "position": "FWD",
+    "nationality": "TRE",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "TRE",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 204,
+    "name": "T. Wolf",
+    "position": "FWD",
+    "nationality": "TRE",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "TRE",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 205,
+    "name": "G. Hua-Bai",
+    "position": "FWD",
+    "nationality": "TBX",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "TBX",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 206,
+    "name": "O. Kuroda",
+    "position": "FWD",
+    "nationality": "TYL",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "TYL",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 207,
+    "name": "A. Hafizuddin",
+    "position": "FWD",
+    "nationality": "UMF",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "UMF",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 208,
+    "name": "C. Cross",
+    "position": "FWD",
+    "nationality": "UMF",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "UMF",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 209,
+    "name": "E. Hayes",
+    "position": "FWD",
+    "nationality": "UMF",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "UMF",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 210,
+    "name": "E. Šapêr",
+    "position": "FWD",
+    "nationality": "UMF",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "UMF",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 211,
+    "name": "S. Poole",
+    "position": "FWD",
+    "nationality": "UMF",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "UMF",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 212,
+    "name": "Š. Zamzuri",
+    "position": "FWD",
+    "nationality": "UMF",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "UMF",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 213,
+    "name": "C. Guanyu",
+    "position": "FWD",
+    "nationality": "VEZ",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "VEZ",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 214,
+    "name": "E. D'elia",
+    "position": "FWD",
+    "nationality": "VEZ",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "VEZ",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 215,
+    "name": "K. Konstantinovich",
+    "position": "FWD",
+    "nationality": "VEZ",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "VEZ",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 216,
+    "name": "K. Polańska",
+    "position": "FWD",
+    "nationality": "VEZ",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "VEZ",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 217,
+    "name": "L. Okonkwo",
+    "position": "FWD",
+    "nationality": "VEZ",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "VEZ",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 218,
+    "name": "Š. Sedláčková",
+    "position": "FWD",
+    "nationality": "VEZ",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "VEZ",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 219,
+    "name": "B. Clegg",
+    "position": "FWD",
+    "nationality": "VH",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "VH",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 220,
+    "name": "B. Vinter",
+    "position": "FWD",
+    "nationality": "VH",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "VH",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 221,
+    "name": "E. Zamorano",
+    "position": "FWD",
+    "nationality": "VH",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "VH",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 222,
+    "name": "J. Kennedy",
+    "position": "FWD",
+    "nationality": "VH",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "VH",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 223,
+    "name": "V. Stockmann",
+    "position": "FWD",
+    "nationality": "VH",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "VH",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 224,
+    "name": "I. Kiyomasu",
+    "position": "FWD",
+    "nationality": "WAS",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "WAS",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 225,
+    "name": "N. Dae-Won",
+    "position": "FWD",
+    "nationality": "WAS",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "WAS",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 226,
+    "name": "T. Kohei",
+    "position": "FWD",
+    "nationality": "WAS",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "WAS",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 227,
+    "name": "W. Honzo",
+    "position": "FWD",
+    "nationality": "WAS",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "WAS",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 228,
+    "name": "May",
+    "position": "FWD",
+    "nationality": "WLG",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "WLG",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 229,
+    "name": "Polanski",
+    "position": "FWD",
+    "nationality": "WLG",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "WLG",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 230,
+    "name": "Stone",
+    "position": "FWD",
+    "nationality": "WLG",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "WLG",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 231,
+    "name": "Taro",
+    "position": "FWD",
+    "nationality": "WLG",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "WLG",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 232,
+    "name": "Borin",
+    "position": "FWD",
+    "nationality": "ZFE",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "ZFE",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 233,
+    "name": "Elbek",
+    "position": "FWD",
+    "nationality": "ZFE",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "ZFE",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 234,
+    "name": "Karel",
+    "position": "FWD",
+    "nationality": "ZFE",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "ZFE",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 235,
+    "name": "Zaref",
+    "position": "FWD",
+    "nationality": "ZFE",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "ZFE",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 236,
+    "name": "D. Wrevian",
+    "position": "FWD",
+    "nationality": "ZPH",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "ZPH",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 237,
+    "name": "N. Lyriath",
+    "position": "FWD",
+    "nationality": "ZPH",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "ZPH",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 238,
+    "name": "P. Nyphon",
+    "position": "FWD",
+    "nationality": "ZPH",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "ZPH",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  },
+  {
+    "id": 239,
+    "name": "S. Fenthys",
+    "position": "FWD",
+    "nationality": "ZPH",
+    "birthdate": null,
+    "birthplace": {
+      "city": null,
+      "state": null
+    },
+    "skills": {},
+    "teams": [
+      {
+        "teamCode": "ZPH",
+        "teamType": "national",
+        "number": null,
+        "from": null,
+        "to": null,
+        "status": "active"
+      }
+    ]
+  }
+]

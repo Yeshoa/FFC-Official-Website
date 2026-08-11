@@ -72,10 +72,10 @@ npm run astro         # CLI de astro
 
 ## Reglas de trabajo / trampas conocidas
 
-1. **`src/data/players/index.ts` NO existe** pero `src/utils/playerUtils.ts` lo importa. Si vas a usar `playerUtils`, primero creá ese index (ver `docs/FFC-Website/02-modelo-datos.md`).
-2. **`assistId`** está en los JSON de partidos pero **no está en el schema** de `config.ts` (Zod lo ignora). Si lo vas a usar, agregalo al schema.
+1. ~~**`src/data/players/index.ts` NO existe** pero `src/utils/playerUtils.ts` lo importa~~ → **Resuelto (B1)**: `src/data/players/index.ts` existe y ahora lee el JSON central `src/data/players/players.json` (id **global numérico autoincremental** + `teams[]`). Si vas a usar `playerUtils`, se resuelve por id global.
+2. ~~**`assistId`** está en los JSON de partidos pero **no está en el schema** de `config.ts` (Zod lo ignora)~~ → **Resuelto (B1)**: `assistId` y `team1Type/team2Type` está en el schema de matches. Los `playerId`/`assistId` de los partidos apuntan al **id global numérico** de `players.json` (validar con `npm run players:link`).
 3. **No tocar** `_legacy-matches` ni los backups `_backup_*` salvo que se pida explícitamente.
-4. Los partidos referencian equipos por **nombre** (`team1/team2`) y por **código** (`team1Code/team2Code`). Al comparar contra `members`, se usa `getMemberByName`.
+4. Los partidos referencian equipos por **nombre** (`team1/team2`) y por **código** (`team1Code/team2Code`). Al comparar contra `members`, se usa `getMemberByName` (que también resuelve por código). Para resolver el miembro de un lado de partido con preferencia de código, usar `getMemberByMatchTeam(match, 'team1'|'team2')` (ver `[[02-modelo-datos]]` §10).
 5. `matches` se cargan con un `loader` que compone `forest-cup-{2020,2022,2024,2026}.json` y asigna `id: match-<tournament_id>-<match_id>`.
 6. El ranking solo incluye miembros **`verified`**.
 7. Git: solo commitear cuando se pida explícitamente. Las fases del refactor van en branches separadas (ver `docs/FFC-Website/08-plan-implementacion.md`).

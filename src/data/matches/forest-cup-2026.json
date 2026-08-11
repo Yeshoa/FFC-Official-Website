@@ -18,16 +18,16 @@
         "player": "S. Blair",
         "assist": "M. Dartmouth",
         "minute": 15,
-        "playerId": "CAC_009",
-        "assistId": "CAC_006"
+        "playerId": "42",
+        "assistId": "39"
       },
       {
         "team": "Nardin",
         "player": "I. Petrov",
         "assist": "Ulministak",
         "minute": 67,
-        "playerId": "NAR_005",
-        "assistId": "NAR_009"
+        "playerId": "130",
+        "assistId": "134"
       }
     ]
   },
@@ -122,32 +122,32 @@
         "player": "M. Solheim",
         "assist": "J. Teitur",
         "minute": 9,
-        "playerId": "EIN_007",
-        "assistId": "EIN_005"
+        "playerId": "66",
+        "assistId": "64"
       },
       {
         "team": "Einswenn",
         "player": "O. Gro",
         "assist": "A. Lund",
         "minute": 20,
-        "playerId": "EIN_008",
-        "assistId": "EIN_001"
+        "playerId": "67",
+        "assistId": "60"
       },
       {
         "team": "Einswenn",
         "player": "O. Gro",
         "assist": "H. Paulsen",
         "minute": 72,
-        "playerId": "EIN_008",
-        "assistId": "EIN_002"
+        "playerId": "67",
+        "assistId": "61"
       },
       {
         "team": "Einswenn",
         "player": "O. Gro",
         "assist": "H. Paulsen",
         "minute": 86,
-        "playerId": "EIN_008",
-        "assistId": "EIN_002"
+        "playerId": "67",
+        "assistId": "61"
       }
     ]
   },
@@ -190,7 +190,7 @@
         "team": "Lumiose",
         "player": "M. Penosi",
         "minute": 76,
-        "playerId": "LUM_004"
+        "playerId": "119"
       }
     ]
   },
@@ -445,8 +445,8 @@
         "player": "H. Grey",
         "assist": "S. Blair",
         "minute": 32,
-        "playerId": "CAC_004",
-        "assistId": "CAC_009"
+        "playerId": "37",
+        "assistId": "42"
       },
       {
         "team": "Cacusia",
@@ -454,8 +454,8 @@
         "assist": "H. Blackmoor",
         "minute": 45,
         "aggregate": 1,
-        "playerId": "CAC_006",
-        "assistId": "CAC_003"
+        "playerId": "39",
+        "assistId": "36"
       }
     ]
   },
@@ -478,8 +478,8 @@
         "player": "A. Av Cerzi",
         "assist": "F. Pavlov",
         "minute": 39,
-        "playerId": "NAR_001",
-        "assistId": "NAR_004"
+        "playerId": "126",
+        "assistId": "129"
       },
       {
         "team": "Clown Town City",
@@ -492,8 +492,8 @@
         "player": "J. Klarik",
         "assist": "R. Tarasov",
         "minute": 87,
-        "playerId": "NAR_006",
-        "assistId": "NAR_008"
+        "playerId": "131",
+        "assistId": "133"
       }
     ],
     "cards": [
@@ -502,7 +502,7 @@
         "player": "A. Leszik",
         "minute": 66,
         "type": "yellow",
-        "playerId": "NAR_002"
+        "playerId": "127"
       }
     ]
   },
@@ -568,21 +568,21 @@
         "team": "Nordustra",
         "player": "J. Østegårde",
         "minute": 7,
-        "playerId": "NOR_005"
+        "playerId": "142"
       },
       {
         "team": "Nordustra",
         "player": "K. Pontsblom",
         "minute": 16,
-        "playerId": "NOR_007"
+        "playerId": "144"
       },
       {
         "team": "Nordustra",
         "player": "K. Pontsblom",
         "assist": "L. Uye",
         "minute": 25,
-        "playerId": "NOR_007",
-        "assistId": "NOR_008"
+        "playerId": "144",
+        "assistId": "145"
       },
       {
         "team": "Woodland Green",
@@ -595,16 +595,16 @@
         "player": "M. Miltshus",
         "assist": "M. Sevdal",
         "minute": 62,
-        "playerId": "NOR_009",
-        "assistId": "NOR_010"
+        "playerId": "146",
+        "assistId": "147"
       },
       {
         "team": "Nordustra",
         "player": "M. Miltshus",
         "assist": "L. Uye",
         "minute": 73,
-        "playerId": "NOR_009",
-        "assistId": "NOR_008"
+        "playerId": "146",
+        "assistId": "145"
       }
     ],
     "cards": [
@@ -614,7 +614,7 @@
         "minute": 90,
         "aggregate": 2,
         "type": "yellow",
-        "playerId": "NOR_003"
+        "playerId": "140"
       }
     ]
   },
@@ -649,8 +649,8 @@
         "player": "O. Gro",
         "assist": "J. Teitur",
         "minute": 55,
-        "playerId": "EIN_008",
-        "assistId": "EIN_005"
+        "playerId": "67",
+        "assistId": "64"
       }
     ]
   },
@@ -673,8 +673,8 @@
         "player": "F. Hološko",
         "assist": "Z. Lazarević",
         "minute": 54,
-        "playerId": "BEX_001",
-        "assistId": "BEX_003"
+        "playerId": "21",
+        "assistId": "23"
       },
       {
         "team": "Oseao",
@@ -702,13 +702,13 @@
         "team": "Lumiose",
         "player": "B. Marlee",
         "minute": 10,
-        "playerId": "LUM_002"
+        "playerId": "117"
       },
       {
         "team": "Lumiose",
         "player": "C. Farnirne",
         "minute": 30,
-        "playerId": "LUM_003"
+        "playerId": "118"
       },
       {
         "team": "Lumiose",
@@ -716,24 +716,24 @@
         "assist": "T. Pescaster",
         "minute": 45,
         "aggregate": 2,
-        "playerId": "LUM_001",
-        "assistId": "LUM_007"
+        "playerId": "116",
+        "assistId": "122"
       },
       {
         "team": "Lumiose",
         "player": "B. Dreamspell",
         "assist": "C. Farnirne",
         "minute": 62,
-        "playerId": "LUM_001",
-        "assistId": "LUM_003"
+        "playerId": "116",
+        "assistId": "118"
       },
       {
         "team": "Lumiose",
         "player": "B. Dreamspell",
         "assist": "W. Leswalyn",
         "minute": 90,
-        "playerId": "LUM_001",
-        "assistId": "LUM_010"
+        "playerId": "116",
+        "assistId": "125"
       },
       {
         "team": "Ownzone",
@@ -797,8 +797,8 @@
         "player": "H. Ásvaldsson",
         "assist": "Á. Stefánsson",
         "minute": 58,
-        "playerId": "FUR_004",
-        "assistId": "FUR_001"
+        "playerId": "82",
+        "assistId": "79"
       }
     ]
   },
@@ -1018,16 +1018,16 @@
         "player": "M. Dartmouth",
         "assist": "I. Darrow",
         "minute": 8,
-        "playerId": "CAC_006",
-        "assistId": "CAC_005"
+        "playerId": "39",
+        "assistId": "38"
       },
       {
         "team": "Cacusia",
         "player": "H. Grey",
         "assist": "I. Darrow",
         "minute": 68,
-        "playerId": "CAC_004",
-        "assistId": "CAC_005"
+        "playerId": "37",
+        "assistId": "38"
       }
     ]
   },
@@ -1050,7 +1050,7 @@
         "player": "R. Tarasov",
         "penalty": true,
         "minute": 32,
-        "playerId": "NAR_008"
+        "playerId": "133"
       }
     ],
     "cards": [
@@ -1125,15 +1125,15 @@
         "team": "Nordustra",
         "player": "M. Miltshus",
         "minute": 7,
-        "playerId": "NOR_009"
+        "playerId": "146"
       },
       {
         "team": "Nordustra",
         "player": "J. Østegårde",
         "assist": "M. Sevdal",
         "minute": 23,
-        "playerId": "NOR_005",
-        "assistId": "NOR_010"
+        "playerId": "142",
+        "assistId": "147"
       },
       {
         "team": "Klaus Devestatorie",
@@ -1146,8 +1146,8 @@
         "player": "M. Miltshus",
         "assist": "J. Østegårde",
         "minute": 67,
-        "playerId": "NOR_009",
-        "assistId": "NOR_005"
+        "playerId": "146",
+        "assistId": "142"
       }
     ],
     "cards": [
@@ -1178,31 +1178,31 @@
         "player": "O. Gro",
         "assist": "M. Solheim",
         "minute": 3,
-        "playerId": "EIN_008",
-        "assistId": "EIN_007"
+        "playerId": "67",
+        "assistId": "66"
       },
       {
         "team": "Einswenn",
         "player": "A. Lund",
         "assist": "I. Moje",
         "minute": 13,
-        "playerId": "EIN_001",
-        "assistId": "EIN_003"
+        "playerId": "60",
+        "assistId": "62"
       },
       {
         "team": "Einswenn",
         "player": "O. Gro",
         "assist": "H. Paulsen",
         "minute": 55,
-        "playerId": "EIN_008",
-        "assistId": "EIN_002"
+        "playerId": "67",
+        "assistId": "61"
       },
       {
         "team": "Einswenn",
         "player": "J. Teitur",
         "penalty": true,
         "minute": 64,
-        "playerId": "EIN_005"
+        "playerId": "64"
       }
     ]
   },
@@ -1230,7 +1230,7 @@
         "team": "Bextoria",
         "player": "S. Ristovski",
         "minute": 19,
-        "playerId": "BEX_002"
+        "playerId": "22"
       },
       {
         "team": "Valentian Kittens",
@@ -1265,24 +1265,24 @@
         "player": "C. Farnirne",
         "assist": "T. Pescaster",
         "minute": 6,
-        "playerId": "LUM_003",
-        "assistId": "LUM_007"
+        "playerId": "118",
+        "assistId": "122"
       },
       {
         "team": "Lumiose",
         "player": "T. Pescaster",
         "assist": "B. Marlee",
         "minute": 39,
-        "playerId": "LUM_007",
-        "assistId": "LUM_002"
+        "playerId": "122",
+        "assistId": "117"
       },
       {
         "team": "Lumiose",
         "player": "M. Penosi",
         "assist": "S. Eastoft",
         "minute": 89,
-        "playerId": "LUM_004",
-        "assistId": "LUM_006"
+        "playerId": "119",
+        "assistId": "121"
       },
       {
         "team": "Glo XI",
@@ -2309,7 +2309,7 @@
     "date": "2026-05-16T19:30:00.000Z",
     "team1Code": "RLS",
     "team2Code": "RLZ",
-    "goals":[
+    "goals": [
       {
         "team": "Roless",
         "player": "H. Carrol",

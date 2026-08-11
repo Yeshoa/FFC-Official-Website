@@ -1,7 +1,7 @@
 import { type CollectionEntry } from 'astro:content';
 import { getTournaments, getMatches } from '@lib/collections';
 import { getMatchResult, getMatchWinnerIncludingPenalties } from './matchUtils';
-import { getMemberByName } from './memberUtils';
+import { getMemberByName, getMemberByMatchTeam } from './memberUtils';
 import type { Tournament } from '@ty/collections';
 import { getMatchesByTournament } from '@lib/collections';
 import { CURRENT_SEASON } from '@config/season';
@@ -724,13 +724,13 @@ export async function getAllParticipants(tournament: TournamentEntry) {
   const teams = new Set<string>();
   await Promise.all(
     matches.map(async (match) => {
-      const team1 = await getMemberByName(match.data.team1);
-      const team2 = await getMemberByName(match.data.team2);
+      const team1 = getMemberByMatchTeam(match.data, 'team1');
+      const team2 = getMemberByMatchTeam(match.data, 'team2');
       if (team1?.data.name) {
-        teams.add(match.data.team1);
+        teams.add(team1.data.name);
       }
       if (team2?.data.name) {
-        teams.add(match.data.team2);
+        teams.add(team2.data.name);
       }
     })
   );

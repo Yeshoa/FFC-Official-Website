@@ -56,7 +56,7 @@
 
 ## 4. Páginas de clubes
 
-- `/clubs/<slug>`: escudo, nombre, federación dueña, liga doméstica, plantel (de `club.squad` con `playerId`), historial CL, estadios.
+- `/clubs/<slug>`: escudo, nombre, federación dueña, liga doméstica, plantel (derivado de `players.json`, ver [[02-modelo-datos]] §8), historial CL, estadios.
 - Se enlaza desde la página del miembro (federación) que lo posee.
 - Estética CL (negro + lima) aunque el club participe o no de la CL, ya que es parte de la sección clubes.
 

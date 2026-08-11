@@ -6,7 +6,7 @@
  */
 
 import type { CollectionEntry } from 'astro:content';
-import { loadCurrentSquad, loadHistoricalSquad, getPlayerById } from '@data/players/index';
+import { getPlayerById } from '@data/players/index';
 
 export type Match = CollectionEntry<'matches'>['data'];
 
@@ -23,7 +23,7 @@ export function getGoalPlayerName(goal: Match['goals'][0], teamCode?: string): s
   }
   
   if (goal.playerId && teamCode) {
-    const player = getPlayerById(teamCode, goal.playerId);
+    const player = getPlayerById(goal.playerId);
     return player?.name || goal.player || '';
   }
   

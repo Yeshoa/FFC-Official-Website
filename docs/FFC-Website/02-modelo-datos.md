@@ -1,7 +1,7 @@
 # 02 — Diseño objetivo: modelo de datos
 
 > Define la estructura de datos canónica hacia donde evoluciona el proyecto.
-> Decisiones confirmadas: jugador multi-equipo · JSON central por jugador · 1 club → 1 federación · goles por id con script · **migrar contenido a JSON** · `squad` por referencia de ids.
+> Decisiones confirmadas: jugador multi-equipo · JSON central por jugador · 1 club → 1 federación · goles por id con script · **migrar contenido a JSON** · `squad` derivado de `players.json`.
 
 ---
 
@@ -37,7 +37,7 @@ type SkillId =
   | 'injuryResistance';
 
 interface Player {
-  id: string;                 // global único, ej: "CAC_009"
+  id: number;                 // global autoincremental, único (no por nacionalidad)
   name: string;               // nombre completo
   position: string;           // posición principal (GK, CB, CM, CF, …)
   nationality: string;        // código de federación (ej: "BIL")
@@ -64,7 +64,8 @@ interface Player {
 ### Decisiones
 - **Un jugador = una entidad**. Estar en selección y en club no duplica la ficha; se resuelve con `teams[]`.
 - El `id` de goles/lineups **debe** apuntar a este id global.
-- Migración: los ids actuales (`CAC_009`, `BIL_001`) se conservan como el id de la entidad, pero dejan de estar "atados" al equipo (un jugador que se transfiere mantiene su id).
+- **`id` global autoincremental** (numérico, sin formato por nacionalidad): no hay límite por federación y los ids nunca colisionan. La nacionalidad vive en el campo `nationality`, no en el id.
+- Migración: los ids actuales tipo `CAC_009`, `BIL_001` se remapean a los ids globales con una **tabla de conversión determinista** (script `players:link`), y todas las referencias en partidos (`playerId`) y planteles se actualizan. Un jugador que se transfiere mantiene su id.
 - **`position` es del jugador** (su posición principal) — sirve para futuras cartas de jugador. El `squad` del equipo puede **sobreescribir** posición/dorsal para ese equipo (ver §8).
 - **Lugar de nacimiento**: `city`/`state` se agregan para completar la ficha; opcional en la primera iteración (los datos se completan cuando el dueño los tenga).
 
@@ -97,12 +98,15 @@ interface Club {
   founded?: number;
   stadiumId?: number;      // opcional
   colors?: { primary: string; secondary: string };
-  squad?: { coach?: string; formation?: string; players: Array<{ playerId: string; number?: number; position?: string }> };
+  budget?: number;         // presupuesto FCL (derivado del poder federativo, se carga por el dueño)
+  squad?: { coach?: string; formation?: string };
 }
 ```
 
 ### Reglas
 - Un club pertenece a **una sola federación** (`federation`).
+- El **`budget`** es el presupuesto FCL del club: se carga por el dueño, derivado del poder federativo para la FCL (dato externo, normalizado según el formato FCL §4.3). No lo edita el participante; este solo lo gasta en el simulador de mercado de pases.
+- El **plantel del club se deriva de `players.json`** (ver §8): no se repite en `club.squad`.
 - La **liga doméstica** es el conjunto de clubes de una misma federación → se muestra en la página del miembro ("su liga doméstica, si la tiene").
 - En partidos, los equipos pueden ser **federación** o **club**: se identifica por `teamCode` con un prefijo o por un campo `teamType`/`entityType` en el partido.
 - **Sin badges/logros** en la página del club: los logros son de federaciones, no de clubes (decisión del dueño).
@@ -168,7 +172,7 @@ Cargar un gol pide el `playerId` y hay que buscarlo a mano. No se puede resolver
 ## 7. Cómo se resuelve "la página del miembro muestra su liga doméstica"
 
 - Desde `club.federation = <código miembro>` se listan los clubes de esa federación.
-- Si el club tiene `squad`, se muestra su plantel; si el jugador de la federación está en un club, se cruza por `playerId`.
+- Si el club tiene plantel, se muestra (derivado de `players.json`, ver §8); si el jugador de la federación está en un club, se cruza por `playerId`.
 
 ### Tabla de liga doméstica (hardcodeada en JSON)
 - Las **tablas de la liga doméstica se hardcodean en JSON** (sin calcularse): `src/data/leagues/<federation>.json`.
@@ -184,30 +188,27 @@ Cargar un gol pide el `playerId` y hay que buscarlo a mano. No se puede resolver
 
 ---
 
-## 8. Squad por referencia de ids
+## 8. Squad derivado de `players.json`
 
-> Decisión del dueño: no repetir cada jugador dentro del squad.
+> Decisión del dueño: `squad.players[]` es vestigio y se elimina. El plantel se obtiene de la data de jugadores; no hay marcador de titularidad.
 
 ### Problema
 El `squad.players[]` actual del frontmatter repite `name/position/age` de cada jugador, cuando esa info ya vive (o va a vivir) en `players.json`. Además el **coach no está en la data de jugadores**.
 
 ### Solución
-- El `squad` de un equipo (federación o club) **referencia ids** de jugadores y solo agrega lo *específico del equipo*:
+- El **plantel** de un equipo (federación o club) se **deriva de `players.json`**: se filtran los jugadores con una entrada en su `teams[]` cuyo `teamCode` coincida con el equipo y `status: 'active'`. Cero mantenimiento extra: el plantel se actualiza solo cuando se edita `teams[]`.
+- El `squad` del equipo queda solo con lo que **no es un jugador**:
 
 ```ts
 squad: {
   coach?: string;                    // el coach queda acá (no es un jugador)
   formation?: string;                // ej: "4-3-3"
-  players: Array<{
-    playerId: string;                // referencia a players.json
-    number?: number;                 // dorsal en ESTE equipo
-    position?: string;               // posición en ESTE equipo (sobreescribe la principal)
-  }>;
 }
 ```
 
-- El resto del perfil del jugador (nombre, `position` principal, `rating`, historial de equipos) se lee de `players.json`.
-- La **lista del equipo** se genera desde los jugadores que referencian ese `teamCode` en su `teams[]` (o desde `squad.players` si el dueño prefiere un XI explícito).
+- Lo **específico del equipo** por jugador (dorsal, etc.) vive en la entrada de `teams[]` del jugador (ya existe `number`); la posición usada en el equipo es la `position` principal del jugador salvo que se decida agregar un override.
+- **No hay boolean de titularidad**: la página del club/selección muestra el **plantel completo ordenado por posición** (no por XI/titulares).
+- El **XI concreto** de cada partido (quiénes juegan, quiénes van al banco) vive en el `lineup` del partido, que ya está en el schema de matches ([[06-partidos]]).
 - **Coach**: se mantiene como campo suelto del squad (no es jugador, no va a `players.json`).
 
 ---
@@ -255,12 +256,12 @@ squad: {
 
 ## 11. Migración (resumen)
 
-1. Crear `players.json` central fusionando `by-team` + `historical` + `squad` de frontmatter; resolver homónimos una sola vez con el dueño. Agregar `skills` (0-100, placeholder) y `birthplace` al schema.
+1. Crear `players.json` central fusionando `by-team` + `historical` + `squad` de frontmatter; **reasignar ids globales autoincrementales** (tabla de conversión desde `CAC_009`-style) y resolver homónimos una sola vez con el dueño. Agregar `skills` (0-100, placeholder) y `birthplace` al schema.
 2. Crear `club` collection + schema (JSON).
 3. Crear infraestructura de **ligas domésticas** (`src/data/leagues/`) con schema + loader + componentes (sin datos en la primera iteración).
 4. Agregar `assistId` y `team*Type` al schema de matches; normalizar ids de jugadores en los JSON.
 5. Agregar `season` a torneos; mantener `id` como secuencial.
 6. Ajustar `playerUtils.ts` para importar la fuente real (y crear `@data/players/index.ts` que hoy falta).
-7. Migrar `squad` de frontmatter a referencia por `playerId` (ver §8).
+7. Eliminar `squad.players` del frontmatter y completar `teams[]` en `players.json` (el plantel se deriva, ver §8).
 8. Migrar contenido de `.md` a JSON (ver §9).
 8. Migrar lookups de `teamName` a códigos (ver §10).
