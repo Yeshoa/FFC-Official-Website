@@ -2,7 +2,7 @@
   {
     "id": 1,
     "name": "Åkerström",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "A&K",
     "birthdate": null,
     "birthplace": {
@@ -26,7 +26,7 @@
   {
     "id": 2,
     "name": "B. Boen",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "A&K",
     "birthdate": null,
     "birthplace": {
@@ -50,7 +50,7 @@
   {
     "id": 3,
     "name": "Manninen",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "A&K",
     "birthdate": null,
     "birthplace": {
@@ -74,7 +74,7 @@
   {
     "id": 4,
     "name": "S. Granberg",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "A&K",
     "birthdate": null,
     "birthplace": {
@@ -98,7 +98,7 @@
   {
     "id": 5,
     "name": "A. Zanzotti",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "ARE",
     "birthdate": null,
     "birthplace": {
@@ -122,7 +122,7 @@
   {
     "id": 6,
     "name": "C. Glione",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "ARE",
     "birthdate": null,
     "birthplace": {
@@ -146,7 +146,7 @@
   {
     "id": 7,
     "name": "R. Reginaldi",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "ARE",
     "birthdate": null,
     "birthplace": {
@@ -170,7 +170,7 @@
   {
     "id": 8,
     "name": "A. Hoshar",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "ATS",
     "birthdate": null,
     "birthplace": {
@@ -194,7 +194,7 @@
   {
     "id": 9,
     "name": "B. Modron",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "ATS",
     "birthdate": null,
     "birthplace": {
@@ -218,7 +218,7 @@
   {
     "id": 10,
     "name": "B. Notsu",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "ATS",
     "birthdate": null,
     "birthplace": {
@@ -242,7 +242,7 @@
   {
     "id": 11,
     "name": "C. Votnuc",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "ATS",
     "birthdate": null,
     "birthplace": {
@@ -266,7 +266,7 @@
   {
     "id": 12,
     "name": "E. Stell",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "ATS",
     "birthdate": null,
     "birthplace": {
@@ -290,7 +290,7 @@
   {
     "id": 13,
     "name": "K. Zaajaagah",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "ATS",
     "birthdate": null,
     "birthplace": {
@@ -314,7 +314,7 @@
   {
     "id": 14,
     "name": "N. Tethys",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "ATS",
     "birthdate": null,
     "birthplace": {
@@ -338,7 +338,7 @@
   {
     "id": 15,
     "name": "Nysnub",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "ATS",
     "birthdate": null,
     "birthplace": {
@@ -362,7 +362,7 @@
   {
     "id": 16,
     "name": "O. Khisiddah",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "ATS",
     "birthdate": null,
     "birthplace": {
@@ -386,7 +386,7 @@
   {
     "id": 17,
     "name": "S. Vythxo",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "ATS",
     "birthdate": null,
     "birthplace": {
@@ -410,7 +410,7 @@
   {
     "id": 18,
     "name": "Z. Nasus",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "ATS",
     "birthdate": null,
     "birthplace": {
@@ -434,7 +434,7 @@
   {
     "id": 19,
     "name": "Llanfairpwllgwyngyll",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "AZR",
     "birthdate": null,
     "birthplace": {
@@ -458,7 +458,7 @@
   {
     "id": 20,
     "name": "Ru Inenlustian",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "AZR",
     "birthdate": null,
     "birthplace": {
@@ -482,7 +482,7 @@
   {
     "id": 21,
     "name": "F. Hološko",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "BEX",
     "birthdate": null,
     "birthplace": {
@@ -506,7 +506,7 @@
   {
     "id": 22,
     "name": "S. Ristovski",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "BEX",
     "birthdate": null,
     "birthplace": {
@@ -530,7 +530,7 @@
   {
     "id": 23,
     "name": "Z. Lazarević",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "BEX",
     "birthdate": null,
     "birthplace": {
@@ -554,23 +554,57 @@
   {
     "id": 24,
     "name": "A. Arhanv",
-    "position": "FWD",
+    "position": "GK",
     "nationality": "BIL",
     "birthdate": null,
     "birthplace": {
       "city": null,
       "state": null
     },
-    "skills": {},
+    "skills": {
+      "shortRange": 56,
+      "mediumRange": 52,
+      "longRange": 45,
+      "heading": 48,
+      "pace": 47,
+      "agility": 49,
+      "stamina": 45,
+      "jumping": 44,
+      "dribbling": 50,
+      "fakes": 44,
+      "ballControl": 51,
+      "stability": 53,
+      "positioning": 50,
+      "vision": 40,
+      "tackling": 47,
+      "sliding": 48,
+      "clearing": 54,
+      "power": 44,
+      "reflexes": 53,
+      "gkPositioning": 57,
+      "stretch": 57,
+      "saveClose": 67,
+      "catch": 69,
+      "injuryResistance": 42
+    },
     "teams": [
       {
         "teamCode": "BIL",
         "teamType": "national",
-        "number": null,
+        "number": 1,
         "from": null,
         "to": null,
         "status": "active",
         "teamId": 1
+      },
+      {
+        "teamCode": "BILKRA",
+        "teamType": "club",
+        "number": 1,
+        "from": "2026",
+        "to": null,
+        "status": "active",
+        "teamId": 97
       }
     ],
     "nationalityId": 1
@@ -578,23 +612,57 @@
   {
     "id": 25,
     "name": "Arhanv",
-    "position": "FWD",
+    "position": "CB",
     "nationality": "BIL",
     "birthdate": null,
     "birthplace": {
       "city": null,
       "state": null
     },
-    "skills": {},
+    "skills": {
+      "shortRange": 41,
+      "mediumRange": 49,
+      "longRange": 31,
+      "heading": 45,
+      "pace": 63,
+      "agility": 60,
+      "stamina": 49,
+      "jumping": 35,
+      "dribbling": 39,
+      "fakes": 45,
+      "ballControl": 43,
+      "stability": 28,
+      "positioning": 45,
+      "vision": 50,
+      "tackling": 48,
+      "sliding": 57,
+      "clearing": 56,
+      "power": 56,
+      "reflexes": 39,
+      "gkPositioning": 48,
+      "stretch": 39,
+      "saveClose": 42,
+      "catch": 31,
+      "injuryResistance": 29
+    },
     "teams": [
       {
         "teamCode": "BIL",
         "teamType": "national",
-        "number": null,
+        "number": 2,
         "from": null,
         "to": null,
         "status": "active",
         "teamId": 1
+      },
+      {
+        "teamCode": "BILKRA",
+        "teamType": "club",
+        "number": 4,
+        "from": "2026",
+        "to": null,
+        "status": "active",
+        "teamId": 97
       }
     ],
     "nationalityId": 1
@@ -602,23 +670,57 @@
   {
     "id": 26,
     "name": "C. Muniv",
-    "position": "FWD",
+    "position": "LB",
     "nationality": "BIL",
     "birthdate": null,
     "birthplace": {
       "city": null,
       "state": null
     },
-    "skills": {},
+    "skills": {
+      "shortRange": 44,
+      "mediumRange": 54,
+      "longRange": 51,
+      "heading": 64,
+      "pace": 64,
+      "agility": 56,
+      "stamina": 55,
+      "jumping": 40,
+      "dribbling": 47,
+      "fakes": 39,
+      "ballControl": 54,
+      "stability": 49,
+      "positioning": 51,
+      "vision": 36,
+      "tackling": 56,
+      "sliding": 65,
+      "clearing": 55,
+      "power": 57,
+      "reflexes": 49,
+      "gkPositioning": 45,
+      "stretch": 43,
+      "saveClose": 53,
+      "catch": 52,
+      "injuryResistance": 47
+    },
     "teams": [
       {
         "teamCode": "BIL",
         "teamType": "national",
-        "number": null,
+        "number": 3,
         "from": null,
         "to": null,
         "status": "active",
         "teamId": 1
+      },
+      {
+        "teamCode": "BILKRA",
+        "teamType": "club",
+        "number": 3,
+        "from": "2026",
+        "to": null,
+        "status": "active",
+        "teamId": 97
       }
     ],
     "nationalityId": 1
@@ -626,23 +728,57 @@
   {
     "id": 27,
     "name": "Ervaan",
-    "position": "FWD",
+    "position": "CM",
     "nationality": "BIL",
     "birthdate": null,
     "birthplace": {
       "city": null,
       "state": null
     },
-    "skills": {},
+    "skills": {
+      "shortRange": 55,
+      "mediumRange": 63,
+      "longRange": 65,
+      "heading": 45,
+      "pace": 56,
+      "agility": 47,
+      "stamina": 54,
+      "jumping": 60,
+      "dribbling": 61,
+      "fakes": 58,
+      "ballControl": 64,
+      "stability": 63,
+      "positioning": 55,
+      "vision": 72,
+      "tackling": 42,
+      "sliding": 50,
+      "clearing": 58,
+      "power": 65,
+      "reflexes": 52,
+      "gkPositioning": 40,
+      "stretch": 54,
+      "saveClose": 52,
+      "catch": 59,
+      "injuryResistance": 65
+    },
     "teams": [
       {
         "teamCode": "BIL",
         "teamType": "national",
-        "number": null,
+        "number": 4,
         "from": null,
         "to": null,
         "status": "active",
         "teamId": 1
+      },
+      {
+        "teamCode": "BILNOR",
+        "teamType": "club",
+        "number": 9,
+        "from": "2026",
+        "to": null,
+        "status": "active",
+        "teamId": 98
       }
     ],
     "nationalityId": 1
@@ -650,23 +786,57 @@
   {
     "id": 28,
     "name": "Hajan",
-    "position": "FWD",
+    "position": "CAM",
     "nationality": "BIL",
     "birthdate": null,
     "birthplace": {
       "city": null,
       "state": null
     },
-    "skills": {},
+    "skills": {
+      "shortRange": 74,
+      "mediumRange": 71,
+      "longRange": 65,
+      "heading": 67,
+      "pace": 64,
+      "agility": 62,
+      "stamina": 49,
+      "jumping": 54,
+      "dribbling": 71,
+      "fakes": 60,
+      "ballControl": 85,
+      "stability": 65,
+      "positioning": 64,
+      "vision": 82,
+      "tackling": 58,
+      "sliding": 68,
+      "clearing": 62,
+      "power": 52,
+      "reflexes": 53,
+      "gkPositioning": 64,
+      "stretch": 68,
+      "saveClose": 53,
+      "catch": 48,
+      "injuryResistance": 56
+    },
     "teams": [
       {
         "teamCode": "BIL",
         "teamType": "national",
-        "number": null,
+        "number": 5,
         "from": null,
         "to": null,
         "status": "active",
         "teamId": 1
+      },
+      {
+        "teamCode": "BILNOR",
+        "teamType": "club",
+        "number": 10,
+        "from": "2026",
+        "to": null,
+        "status": "active",
+        "teamId": 98
       }
     ],
     "nationalityId": 1
@@ -674,23 +844,57 @@
   {
     "id": 29,
     "name": "Sowjan",
-    "position": "FWD",
+    "position": "RW",
     "nationality": "BIL",
     "birthdate": null,
     "birthplace": {
       "city": null,
       "state": null
     },
-    "skills": {},
+    "skills": {
+      "shortRange": 63,
+      "mediumRange": 50,
+      "longRange": 38,
+      "heading": 33,
+      "pace": 50,
+      "agility": 61,
+      "stamina": 23,
+      "jumping": 45,
+      "dribbling": 39,
+      "fakes": 40,
+      "ballControl": 27,
+      "stability": 48,
+      "positioning": 44,
+      "vision": 54,
+      "tackling": 34,
+      "sliding": 25,
+      "clearing": 45,
+      "power": 49,
+      "reflexes": 37,
+      "gkPositioning": 31,
+      "stretch": 41,
+      "saveClose": 30,
+      "catch": 31,
+      "injuryResistance": 20
+    },
     "teams": [
       {
         "teamCode": "BIL",
         "teamType": "national",
-        "number": null,
+        "number": 6,
         "from": null,
         "to": null,
         "status": "active",
         "teamId": 1
+      },
+      {
+        "teamCode": "BILNOR",
+        "teamType": "club",
+        "number": 7,
+        "from": "2026",
+        "to": null,
+        "status": "active",
+        "teamId": 98
       }
     ],
     "nationalityId": 1
@@ -698,7 +902,7 @@
   {
     "id": 30,
     "name": "B. Jaian",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "BUN",
     "birthdate": null,
     "birthplace": {
@@ -722,7 +926,7 @@
   {
     "id": 31,
     "name": "D. Tsafimakoua",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "BUN",
     "birthdate": null,
     "birthplace": {
@@ -746,7 +950,7 @@
   {
     "id": 32,
     "name": "G. Lotefin",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "BUN",
     "birthdate": null,
     "birthplace": {
@@ -770,7 +974,7 @@
   {
     "id": 33,
     "name": "L. Keian",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "BUN",
     "birthdate": null,
     "birthplace": {
@@ -794,7 +998,7 @@
   {
     "id": 34,
     "name": "A. Tziyoniy",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "CAC",
     "birthdate": null,
     "birthplace": {
@@ -818,7 +1022,7 @@
   {
     "id": 35,
     "name": "C. Islay",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "CAC",
     "birthdate": null,
     "birthplace": {
@@ -842,7 +1046,7 @@
   {
     "id": 36,
     "name": "H. Blackmoor",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "CAC",
     "birthdate": null,
     "birthplace": {
@@ -866,7 +1070,7 @@
   {
     "id": 37,
     "name": "H. Grey",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "CAC",
     "birthdate": null,
     "birthplace": {
@@ -890,7 +1094,7 @@
   {
     "id": 38,
     "name": "I. Darrow",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "CAC",
     "birthdate": null,
     "birthplace": {
@@ -914,7 +1118,7 @@
   {
     "id": 39,
     "name": "M. Dartmouth",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "CAC",
     "birthdate": null,
     "birthplace": {
@@ -938,7 +1142,7 @@
   {
     "id": 40,
     "name": "O. Chumble",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "CAC",
     "birthdate": null,
     "birthplace": {
@@ -962,7 +1166,7 @@
   {
     "id": 41,
     "name": "O. Stout",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "CAC",
     "birthdate": null,
     "birthplace": {
@@ -986,7 +1190,7 @@
   {
     "id": 42,
     "name": "S. Blair",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "CAC",
     "birthdate": null,
     "birthplace": {
@@ -1010,7 +1214,7 @@
   {
     "id": 43,
     "name": "A. Scott",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "CAT",
     "birthdate": null,
     "birthplace": {
@@ -1034,7 +1238,7 @@
   {
     "id": 44,
     "name": "D. Jennings",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "CAT",
     "birthdate": null,
     "birthplace": {
@@ -1058,7 +1262,7 @@
   {
     "id": 45,
     "name": "V. Atkinson",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "CAT",
     "birthdate": null,
     "birthplace": {
@@ -1082,7 +1286,7 @@
   {
     "id": 46,
     "name": "A. Fletcher",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "CI",
     "birthdate": null,
     "birthplace": {
@@ -1106,7 +1310,7 @@
   {
     "id": 47,
     "name": "B. Wellerman",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "CI",
     "birthdate": null,
     "birthplace": {
@@ -1130,7 +1334,7 @@
   {
     "id": 48,
     "name": "Butch Man",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "CI",
     "birthdate": null,
     "birthplace": {
@@ -1154,7 +1358,7 @@
   {
     "id": 49,
     "name": "C. F. Caravel",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "CI",
     "birthdate": null,
     "birthplace": {
@@ -1178,7 +1382,7 @@
   {
     "id": 50,
     "name": "Chan Island",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "CI",
     "birthdate": null,
     "birthplace": {
@@ -1202,7 +1406,7 @@
   {
     "id": 51,
     "name": "Boingo",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "CTC",
     "birthdate": null,
     "birthplace": {
@@ -1226,7 +1430,7 @@
   {
     "id": 52,
     "name": "D. Doodle",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "CTC",
     "birthdate": null,
     "birthplace": {
@@ -1250,7 +1454,7 @@
   {
     "id": 53,
     "name": "Fizzlepop",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "CTC",
     "birthdate": null,
     "birthplace": {
@@ -1274,7 +1478,7 @@
   {
     "id": 54,
     "name": "Honkers",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "CTC",
     "birthdate": null,
     "birthplace": {
@@ -1298,7 +1502,7 @@
   {
     "id": 55,
     "name": "T. Henderson",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "DRW",
     "birthdate": null,
     "birthplace": {
@@ -1322,7 +1526,7 @@
   {
     "id": 56,
     "name": "T. Marsh",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "DRW",
     "birthdate": null,
     "birthplace": {
@@ -1346,7 +1550,7 @@
   {
     "id": 57,
     "name": "Z. Young",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "DRW",
     "birthdate": null,
     "birthplace": {
@@ -1370,7 +1574,7 @@
   {
     "id": 58,
     "name": "Álvarez",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "ETC",
     "birthdate": null,
     "birthplace": {
@@ -1394,7 +1598,7 @@
   {
     "id": 59,
     "name": "Volkov",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "ETC",
     "birthdate": null,
     "birthplace": {
@@ -1418,7 +1622,7 @@
   {
     "id": 60,
     "name": "A. Lund",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "EIN",
     "birthdate": null,
     "birthplace": {
@@ -1442,7 +1646,7 @@
   {
     "id": 61,
     "name": "H. Paulsen",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "EIN",
     "birthdate": null,
     "birthplace": {
@@ -1466,7 +1670,7 @@
   {
     "id": 62,
     "name": "I. Moje",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "EIN",
     "birthdate": null,
     "birthplace": {
@@ -1490,7 +1694,7 @@
   {
     "id": 63,
     "name": "J. De Santis",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "EIN",
     "birthdate": null,
     "birthplace": {
@@ -1514,7 +1718,7 @@
   {
     "id": 64,
     "name": "J. Teitur",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "EIN",
     "birthdate": null,
     "birthplace": {
@@ -1538,7 +1742,7 @@
   {
     "id": 65,
     "name": "M. Eriksen",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "EIN",
     "birthdate": null,
     "birthplace": {
@@ -1562,7 +1766,7 @@
   {
     "id": 66,
     "name": "M. Solheim",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "EIN",
     "birthdate": null,
     "birthplace": {
@@ -1586,7 +1790,7 @@
   {
     "id": 67,
     "name": "O. Gro",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "EIN",
     "birthdate": null,
     "birthplace": {
@@ -1610,7 +1814,7 @@
   {
     "id": 68,
     "name": "R. Jogi",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "EIN",
     "birthdate": null,
     "birthplace": {
@@ -1634,7 +1838,7 @@
   {
     "id": 69,
     "name": "R. Kask",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "EIN",
     "birthdate": null,
     "birthplace": {
@@ -1658,7 +1862,7 @@
   {
     "id": 70,
     "name": "S. Kattell",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "EIN",
     "birthdate": null,
     "birthplace": {
@@ -1682,7 +1886,7 @@
   {
     "id": 71,
     "name": "T. Davis",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "EIN",
     "birthdate": null,
     "birthplace": {
@@ -1706,7 +1910,7 @@
   {
     "id": 72,
     "name": "Big James",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "FSH",
     "birthdate": null,
     "birthplace": {
@@ -1730,7 +1934,7 @@
   {
     "id": 73,
     "name": "James Again",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "FSH",
     "birthdate": null,
     "birthplace": {
@@ -1754,7 +1958,7 @@
   {
     "id": 74,
     "name": "Nemo Jr.",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "FSH",
     "birthdate": null,
     "birthplace": {
@@ -1778,7 +1982,7 @@
   {
     "id": 75,
     "name": "A. Lahnen",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "EPR",
     "birthdate": null,
     "birthplace": {
@@ -1802,7 +2006,7 @@
   {
     "id": 76,
     "name": "H. Koerner",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "EPR",
     "birthdate": null,
     "birthplace": {
@@ -1826,7 +2030,7 @@
   {
     "id": 77,
     "name": "J. Salzmann",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "EPR",
     "birthdate": null,
     "birthplace": {
@@ -1850,7 +2054,7 @@
   {
     "id": 78,
     "name": "W. Frisch",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "EPR",
     "birthdate": null,
     "birthplace": {
@@ -1874,7 +2078,7 @@
   {
     "id": 79,
     "name": "Á. Stefánsson",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "FUR",
     "birthdate": null,
     "birthplace": {
@@ -1898,7 +2102,7 @@
   {
     "id": 80,
     "name": "D. Sigfúsdóttir",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "FUR",
     "birthdate": null,
     "birthplace": {
@@ -1922,7 +2126,7 @@
   {
     "id": 81,
     "name": "E. Pálsdóttir",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "FUR",
     "birthdate": null,
     "birthplace": {
@@ -1946,7 +2150,7 @@
   {
     "id": 82,
     "name": "H. Ásvaldsson",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "FUR",
     "birthdate": null,
     "birthplace": {
@@ -1970,7 +2174,7 @@
   {
     "id": 83,
     "name": "K. Héðinsdóttir",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "FUR",
     "birthdate": null,
     "birthplace": {
@@ -1994,7 +2198,7 @@
   {
     "id": 84,
     "name": "K. Reynisdóttir",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "FUR",
     "birthdate": null,
     "birthplace": {
@@ -2018,7 +2222,7 @@
   {
     "id": 85,
     "name": "M. Andersen",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "FUR",
     "birthdate": null,
     "birthplace": {
@@ -2042,7 +2246,7 @@
   {
     "id": 86,
     "name": "K. Ota",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "GRB",
     "birthdate": null,
     "birthplace": {
@@ -2066,7 +2270,7 @@
   {
     "id": 87,
     "name": "L. Scritkyposs",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "GRB",
     "birthdate": null,
     "birthplace": {
@@ -2090,7 +2294,7 @@
   {
     "id": 88,
     "name": "M. Verhoeven",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "GRB",
     "birthdate": null,
     "birthplace": {
@@ -2114,7 +2318,7 @@
   {
     "id": 89,
     "name": "Nilsson",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "GFF",
     "birthdate": null,
     "birthplace": {
@@ -2138,7 +2342,7 @@
   {
     "id": 90,
     "name": "Pettersson",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "GFF",
     "birthdate": null,
     "birthplace": {
@@ -2162,7 +2366,7 @@
   {
     "id": 91,
     "name": "Sven",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "GFF",
     "birthdate": null,
     "birthplace": {
@@ -2186,7 +2390,7 @@
   {
     "id": 92,
     "name": "Fuentes",
-    "position": null,
+    "position": "CF",
     "nationality": "GEK",
     "birthdate": null,
     "birthplace": {
@@ -2210,7 +2414,7 @@
   {
     "id": 93,
     "name": "Horak",
-    "position": null,
+    "position": "CF",
     "nationality": "GEK",
     "birthdate": null,
     "birthplace": {
@@ -2234,7 +2438,7 @@
   {
     "id": 94,
     "name": "Jamal",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "GEK",
     "birthdate": null,
     "birthplace": {
@@ -2258,7 +2462,7 @@
   {
     "id": 95,
     "name": "R. Jamal",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "GEK",
     "birthdate": null,
     "birthplace": {
@@ -2282,7 +2486,7 @@
   {
     "id": 96,
     "name": "C. Kuīyeī",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "JUT",
     "birthdate": null,
     "birthplace": {
@@ -2306,7 +2510,7 @@
   {
     "id": 97,
     "name": "D. Xeinfe",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "JUT",
     "birthdate": null,
     "birthplace": {
@@ -2330,7 +2534,7 @@
   {
     "id": 98,
     "name": "E. Ñuizvei",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "JUT",
     "birthdate": null,
     "birthplace": {
@@ -2354,7 +2558,7 @@
   {
     "id": 99,
     "name": "E. Vaīve",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "JUT",
     "birthdate": null,
     "birthplace": {
@@ -2378,7 +2582,7 @@
   {
     "id": 100,
     "name": "H. Kazñeisei",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "JUT",
     "birthdate": null,
     "birthplace": {
@@ -2402,7 +2606,7 @@
   {
     "id": 101,
     "name": "I. Ruinlei",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "JUT",
     "birthdate": null,
     "birthplace": {
@@ -2426,7 +2630,7 @@
   {
     "id": 102,
     "name": "K. Ocsdei",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "JUT",
     "birthdate": null,
     "birthplace": {
@@ -2450,7 +2654,7 @@
   {
     "id": 103,
     "name": "K. Yuīkuīma",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "JUT",
     "birthdate": null,
     "birthplace": {
@@ -2474,7 +2678,7 @@
   {
     "id": 104,
     "name": "M. Tepyet",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "JUT",
     "birthdate": null,
     "birthplace": {
@@ -2498,7 +2702,7 @@
   {
     "id": 105,
     "name": "P. Ceruīkat",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "JUT",
     "birthdate": null,
     "birthplace": {
@@ -2522,7 +2726,7 @@
   {
     "id": 106,
     "name": "P. Yujnep",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "JUT",
     "birthdate": null,
     "birthplace": {
@@ -2546,7 +2750,7 @@
   {
     "id": 107,
     "name": "Q. Koîkaîn",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "JUT",
     "birthdate": null,
     "birthplace": {
@@ -2570,7 +2774,7 @@
   {
     "id": 108,
     "name": "R. Cairoi",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "JUT",
     "birthdate": null,
     "birthplace": {
@@ -2594,7 +2798,7 @@
   {
     "id": 109,
     "name": "T. Aīhuij",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "JUT",
     "birthdate": null,
     "birthplace": {
@@ -2618,7 +2822,7 @@
   {
     "id": 110,
     "name": "U. Meilain",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "JUT",
     "birthdate": null,
     "birthplace": {
@@ -2642,7 +2846,7 @@
   {
     "id": 111,
     "name": "X. Xayaīmaīc",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "JUT",
     "birthdate": null,
     "birthplace": {
@@ -2666,7 +2870,7 @@
   {
     "id": 112,
     "name": "C. Schon",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "KAS",
     "birthdate": null,
     "birthplace": {
@@ -2690,7 +2894,7 @@
   {
     "id": 113,
     "name": "E. Stanchinsky",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "KDV",
     "birthdate": null,
     "birthplace": {
@@ -2714,7 +2918,7 @@
   {
     "id": 114,
     "name": "E. Vaillantcourt",
-    "position": null,
+    "position": "CF",
     "nationality": "KDV",
     "birthdate": null,
     "birthplace": {
@@ -2738,7 +2942,7 @@
   {
     "id": 115,
     "name": "L. Shanks",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "KDV",
     "birthdate": null,
     "birthplace": {
@@ -2762,7 +2966,7 @@
   {
     "id": 116,
     "name": "B. Dreamspell",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "LUM",
     "birthdate": null,
     "birthplace": {
@@ -2786,7 +2990,7 @@
   {
     "id": 117,
     "name": "B. Marlee",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "LUM",
     "birthdate": null,
     "birthplace": {
@@ -2810,7 +3014,7 @@
   {
     "id": 118,
     "name": "C. Farnirne",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "LUM",
     "birthdate": null,
     "birthplace": {
@@ -2834,7 +3038,7 @@
   {
     "id": 119,
     "name": "M. Penosi",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "LUM",
     "birthdate": null,
     "birthplace": {
@@ -2858,7 +3062,7 @@
   {
     "id": 120,
     "name": "S. Dehkandem",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "LUM",
     "birthdate": null,
     "birthplace": {
@@ -2882,7 +3086,7 @@
   {
     "id": 121,
     "name": "S. Eastoft",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "LUM",
     "birthdate": null,
     "birthplace": {
@@ -2906,7 +3110,7 @@
   {
     "id": 122,
     "name": "T. Pescaster",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "LUM",
     "birthdate": null,
     "birthplace": {
@@ -2930,7 +3134,7 @@
   {
     "id": 123,
     "name": "T. Whisperbrook",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "LUM",
     "birthdate": null,
     "birthplace": {
@@ -2954,7 +3158,7 @@
   {
     "id": 124,
     "name": "T. Whitblossom",
-    "position": null,
+    "position": "CF",
     "nationality": "LUM",
     "birthdate": null,
     "birthplace": {
@@ -2978,7 +3182,7 @@
   {
     "id": 125,
     "name": "W. Leswalyn",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "LUM",
     "birthdate": null,
     "birthplace": {
@@ -3002,7 +3206,7 @@
   {
     "id": 126,
     "name": "A. Av Cerzi",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "NAR",
     "birthdate": null,
     "birthplace": {
@@ -3026,7 +3230,7 @@
   {
     "id": 127,
     "name": "A. Leszik",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "NAR",
     "birthdate": null,
     "birthplace": {
@@ -3050,7 +3254,7 @@
   {
     "id": 128,
     "name": "C. Ulivaki",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "NAR",
     "birthdate": null,
     "birthplace": {
@@ -3074,7 +3278,7 @@
   {
     "id": 129,
     "name": "F. Pavlov",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "NAR",
     "birthdate": null,
     "birthplace": {
@@ -3098,7 +3302,7 @@
   {
     "id": 130,
     "name": "I. Petrov",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "NAR",
     "birthdate": null,
     "birthplace": {
@@ -3122,7 +3326,7 @@
   {
     "id": 131,
     "name": "J. Klarik",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "NAR",
     "birthdate": null,
     "birthplace": {
@@ -3146,7 +3350,7 @@
   {
     "id": 132,
     "name": "M. Romonivik",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "NAR",
     "birthdate": null,
     "birthplace": {
@@ -3170,7 +3374,7 @@
   {
     "id": 133,
     "name": "R. Tarasov",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "NAR",
     "birthdate": null,
     "birthplace": {
@@ -3194,7 +3398,7 @@
   {
     "id": 134,
     "name": "Ulministak",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "NAR",
     "birthdate": null,
     "birthplace": {
@@ -3218,7 +3422,7 @@
   {
     "id": 135,
     "name": "A. Cunha",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "NLK",
     "birthdate": null,
     "birthplace": {
@@ -3242,7 +3446,7 @@
   {
     "id": 136,
     "name": "O. Silveira",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "NLK",
     "birthdate": null,
     "birthplace": {
@@ -3266,7 +3470,7 @@
   {
     "id": 137,
     "name": "U. Barbosa",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "NLK",
     "birthdate": null,
     "birthplace": {
@@ -3290,7 +3494,7 @@
   {
     "id": 138,
     "name": "A. Shamurodov",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "NOR",
     "birthdate": null,
     "birthplace": {
@@ -3314,7 +3518,7 @@
   {
     "id": 139,
     "name": "D. Sigmundson",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "NOR",
     "birthdate": null,
     "birthplace": {
@@ -3338,7 +3542,7 @@
   {
     "id": 140,
     "name": "F. Torvald",
-    "position": null,
+    "position": "CF",
     "nationality": "NOR",
     "birthdate": null,
     "birthplace": {
@@ -3362,7 +3566,7 @@
   {
     "id": 141,
     "name": "H. Marremusen",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "NOR",
     "birthdate": null,
     "birthplace": {
@@ -3386,7 +3590,7 @@
   {
     "id": 142,
     "name": "J. Østegårde",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "NOR",
     "birthdate": null,
     "birthplace": {
@@ -3410,7 +3614,7 @@
   {
     "id": 143,
     "name": "K. Ojeveit",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "NOR",
     "birthdate": null,
     "birthplace": {
@@ -3434,7 +3638,7 @@
   {
     "id": 144,
     "name": "K. Pontsblom",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "NOR",
     "birthdate": null,
     "birthplace": {
@@ -3458,7 +3662,7 @@
   {
     "id": 145,
     "name": "L. Uye",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "NOR",
     "birthdate": null,
     "birthplace": {
@@ -3482,7 +3686,7 @@
   {
     "id": 146,
     "name": "M. Miltshus",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "NOR",
     "birthdate": null,
     "birthplace": {
@@ -3506,7 +3710,7 @@
   {
     "id": 147,
     "name": "M. Sevdal",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "NOR",
     "birthdate": null,
     "birthplace": {
@@ -3530,7 +3734,7 @@
   {
     "id": 148,
     "name": "J. Odin",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "ORC",
     "birthdate": null,
     "birthplace": {
@@ -3554,7 +3758,7 @@
   {
     "id": 149,
     "name": "V. Ocean",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "ORC",
     "birthdate": null,
     "birthplace": {
@@ -3578,7 +3782,7 @@
   {
     "id": 150,
     "name": "Calyth",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "OSE",
     "birthdate": null,
     "birthplace": {
@@ -3602,7 +3806,7 @@
   {
     "id": 151,
     "name": "Ithryn",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "OSE",
     "birthdate": null,
     "birthplace": {
@@ -3626,7 +3830,7 @@
   {
     "id": 152,
     "name": "Vaesryn",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "OSE",
     "birthdate": null,
     "birthplace": {
@@ -3650,7 +3854,7 @@
   {
     "id": 153,
     "name": "A. Soria",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "OTL",
     "birthdate": null,
     "birthplace": {
@@ -3674,7 +3878,7 @@
   {
     "id": 154,
     "name": "P. Woods",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "OTL",
     "birthdate": null,
     "birthplace": {
@@ -3698,7 +3902,7 @@
   {
     "id": 155,
     "name": "R. Díaz",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "OTL",
     "birthdate": null,
     "birthplace": {
@@ -3722,7 +3926,7 @@
   {
     "id": 156,
     "name": "Y. Soriano",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "OTL",
     "birthdate": null,
     "birthplace": {
@@ -3746,7 +3950,7 @@
   {
     "id": 157,
     "name": "Bayer",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "OZO",
     "birthdate": null,
     "birthplace": {
@@ -3770,7 +3974,7 @@
   {
     "id": 158,
     "name": "Boon",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "OZO",
     "birthdate": null,
     "birthplace": {
@@ -3794,7 +3998,7 @@
   {
     "id": 159,
     "name": "Eerkens",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "OZO",
     "birthdate": null,
     "birthplace": {
@@ -3818,7 +4022,7 @@
   {
     "id": 160,
     "name": "Venner",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "OZO",
     "birthdate": null,
     "birthplace": {
@@ -3842,7 +4046,7 @@
   {
     "id": 161,
     "name": "A. Manolis",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "REA",
     "birthdate": null,
     "birthplace": {
@@ -3866,7 +4070,7 @@
   {
     "id": 162,
     "name": "E. Leech",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "REA",
     "birthdate": null,
     "birthplace": {
@@ -3890,7 +4094,7 @@
   {
     "id": 163,
     "name": "J. Ponstantinople",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "REA",
     "birthdate": null,
     "birthplace": {
@@ -3914,7 +4118,7 @@
   {
     "id": 164,
     "name": "L. Celery",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "REA",
     "birthdate": null,
     "birthplace": {
@@ -3938,7 +4142,7 @@
   {
     "id": 165,
     "name": "M. Beet",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "REA",
     "birthdate": null,
     "birthplace": {
@@ -3962,7 +4166,7 @@
   {
     "id": 166,
     "name": "Olsson",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "REA",
     "birthdate": null,
     "birthplace": {
@@ -3986,7 +4190,7 @@
   {
     "id": 167,
     "name": "A. Martínez",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "YUC",
     "birthdate": null,
     "birthplace": {
@@ -4010,7 +4214,7 @@
   {
     "id": 168,
     "name": "A. Morales",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "YUC",
     "birthdate": null,
     "birthplace": {
@@ -4034,7 +4238,7 @@
   {
     "id": 169,
     "name": "D. Aguilar",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "YUC",
     "birthdate": null,
     "birthplace": {
@@ -4058,7 +4262,7 @@
   {
     "id": 170,
     "name": "E. López",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "YUC",
     "birthdate": null,
     "birthplace": {
@@ -4082,7 +4286,7 @@
   {
     "id": 171,
     "name": "G. Martínez",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "YUC",
     "birthdate": null,
     "birthplace": {
@@ -4106,7 +4310,7 @@
   {
     "id": 172,
     "name": "J. Herrera",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "YUC",
     "birthdate": null,
     "birthplace": {
@@ -4130,7 +4334,7 @@
   {
     "id": 173,
     "name": "L. Hernández",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "YUC",
     "birthdate": null,
     "birthplace": {
@@ -4154,7 +4358,7 @@
   {
     "id": 174,
     "name": "8",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "RKD",
     "birthdate": null,
     "birthplace": {
@@ -4178,7 +4382,7 @@
   {
     "id": 175,
     "name": "A. Jansen",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "RKD",
     "birthdate": null,
     "birthplace": {
@@ -4202,7 +4406,7 @@
   {
     "id": 176,
     "name": "C. Van der Zaal",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "RKD",
     "birthdate": null,
     "birthplace": {
@@ -4226,7 +4430,7 @@
   {
     "id": 177,
     "name": "J. Van de Pen",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "RKD",
     "birthdate": null,
     "birthplace": {
@@ -4250,7 +4454,7 @@
   {
     "id": 178,
     "name": "S. Miller",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "RKD",
     "birthdate": null,
     "birthplace": {
@@ -4274,31 +4478,7 @@
   {
     "id": 179,
     "name": "C. Fulton",
-    "position": "FWD",
-    "nationality": "RLS",
-    "birthdate": null,
-    "birthplace": {
-      "city": null,
-      "state": null
-    },
-    "skills": {},
-    "teams": [
-      {
-        "teamCode": "RLS",
-        "teamType": "national",
-        "number": null,
-        "from": null,
-        "to": null,
-        "status": "active",
-        "teamId": 4
-      }
-    ],
-    "nationalityId": 4
-  },
-  {
-    "id": 180,
-    "name": "C. Mcarthur",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "RLS",
     "birthdate": null,
     "birthplace": {
@@ -4322,7 +4502,7 @@
   {
     "id": 181,
     "name": "C. McArthur",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "RLS",
     "birthdate": null,
     "birthplace": {
@@ -4346,7 +4526,7 @@
   {
     "id": 182,
     "name": "F. Kumar",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "RLS",
     "birthdate": null,
     "birthplace": {
@@ -4370,7 +4550,7 @@
   {
     "id": 183,
     "name": "H. Carrol",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "RLS",
     "birthdate": null,
     "birthplace": {
@@ -4394,7 +4574,7 @@
   {
     "id": 184,
     "name": "J. Greenaway",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "RLS",
     "birthdate": null,
     "birthplace": {
@@ -4418,7 +4598,7 @@
   {
     "id": 185,
     "name": "L. Howell",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "RLS",
     "birthdate": null,
     "birthplace": {
@@ -4442,7 +4622,7 @@
   {
     "id": 186,
     "name": "O. Chandler",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "RLS",
     "birthdate": null,
     "birthplace": {
@@ -4466,7 +4646,7 @@
   {
     "id": 187,
     "name": "R. Carter",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "RLS",
     "birthdate": null,
     "birthplace": {
@@ -4490,7 +4670,7 @@
   {
     "id": 188,
     "name": "R. Grimes",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "RLS",
     "birthdate": null,
     "birthplace": {
@@ -4514,7 +4694,7 @@
   {
     "id": 189,
     "name": "Ben",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "RUN",
     "birthdate": null,
     "birthplace": {
@@ -4538,7 +4718,7 @@
   {
     "id": 190,
     "name": "J. Hauz",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "RUN",
     "birthdate": null,
     "birthplace": {
@@ -4562,7 +4742,7 @@
   {
     "id": 191,
     "name": "L. Nesar",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "RUN",
     "birthdate": null,
     "birthplace": {
@@ -4586,7 +4766,7 @@
   {
     "id": 192,
     "name": "O. Bonfis",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "RUN",
     "birthdate": null,
     "birthplace": {
@@ -4610,7 +4790,7 @@
   {
     "id": 193,
     "name": "O. Swen",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "RUN",
     "birthdate": null,
     "birthplace": {
@@ -4634,7 +4814,7 @@
   {
     "id": 194,
     "name": "S. Ben",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "RUN",
     "birthdate": null,
     "birthplace": {
@@ -4658,7 +4838,7 @@
   {
     "id": 195,
     "name": "W. Rachs",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "RUN",
     "birthdate": null,
     "birthplace": {
@@ -4682,7 +4862,7 @@
   {
     "id": 196,
     "name": "A. Bjornstaki",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "SCH",
     "birthdate": null,
     "birthplace": {
@@ -4706,7 +4886,7 @@
   {
     "id": 197,
     "name": "D. Trod",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "SCH",
     "birthdate": null,
     "birthplace": {
@@ -4730,7 +4910,7 @@
   {
     "id": 198,
     "name": "R. Inison",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "SCH",
     "birthdate": null,
     "birthplace": {
@@ -4754,7 +4934,7 @@
   {
     "id": 199,
     "name": "C. Beck",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "SEH",
     "birthdate": null,
     "birthplace": {
@@ -4778,7 +4958,7 @@
   {
     "id": 200,
     "name": "H. Tomasson",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "SEH",
     "birthdate": null,
     "birthplace": {
@@ -4802,7 +4982,7 @@
   {
     "id": 201,
     "name": "L. Azpesiatuc",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "STR",
     "birthdate": null,
     "birthplace": {
@@ -4826,7 +5006,7 @@
   {
     "id": 202,
     "name": "O. Irecen",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "STR",
     "birthdate": null,
     "birthplace": {
@@ -4850,7 +5030,7 @@
   {
     "id": 203,
     "name": "F. Elliott",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "TRE",
     "birthdate": null,
     "birthplace": {
@@ -4874,7 +5054,7 @@
   {
     "id": 204,
     "name": "T. Wolf",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "TRE",
     "birthdate": null,
     "birthplace": {
@@ -4898,7 +5078,7 @@
   {
     "id": 205,
     "name": "G. Hua-Bai",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "TBX",
     "birthdate": null,
     "birthplace": {
@@ -4922,7 +5102,7 @@
   {
     "id": 206,
     "name": "O. Kuroda",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "TYL",
     "birthdate": null,
     "birthplace": {
@@ -4946,7 +5126,7 @@
   {
     "id": 207,
     "name": "A. Hafizuddin",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "UMF",
     "birthdate": null,
     "birthplace": {
@@ -4970,7 +5150,7 @@
   {
     "id": 208,
     "name": "C. Cross",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "UMF",
     "birthdate": null,
     "birthplace": {
@@ -4994,7 +5174,7 @@
   {
     "id": 209,
     "name": "E. Hayes",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "UMF",
     "birthdate": null,
     "birthplace": {
@@ -5018,7 +5198,7 @@
   {
     "id": 210,
     "name": "E. Šapêr",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "UMF",
     "birthdate": null,
     "birthplace": {
@@ -5042,7 +5222,7 @@
   {
     "id": 211,
     "name": "S. Poole",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "UMF",
     "birthdate": null,
     "birthplace": {
@@ -5066,7 +5246,7 @@
   {
     "id": 212,
     "name": "Š. Zamzuri",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "UMF",
     "birthdate": null,
     "birthplace": {
@@ -5090,7 +5270,7 @@
   {
     "id": 213,
     "name": "C. Guanyu",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "VEZ",
     "birthdate": null,
     "birthplace": {
@@ -5114,7 +5294,7 @@
   {
     "id": 214,
     "name": "E. D'elia",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "VEZ",
     "birthdate": null,
     "birthplace": {
@@ -5138,7 +5318,7 @@
   {
     "id": 215,
     "name": "K. Konstantinovich",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "VEZ",
     "birthdate": null,
     "birthplace": {
@@ -5162,7 +5342,7 @@
   {
     "id": 216,
     "name": "K. Polańska",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "VEZ",
     "birthdate": null,
     "birthplace": {
@@ -5186,7 +5366,7 @@
   {
     "id": 217,
     "name": "L. Okonkwo",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "VEZ",
     "birthdate": null,
     "birthplace": {
@@ -5210,7 +5390,7 @@
   {
     "id": 218,
     "name": "Š. Sedláčková",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "VEZ",
     "birthdate": null,
     "birthplace": {
@@ -5234,7 +5414,7 @@
   {
     "id": 219,
     "name": "B. Clegg",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "VH",
     "birthdate": null,
     "birthplace": {
@@ -5258,7 +5438,7 @@
   {
     "id": 220,
     "name": "B. Vinter",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "VH",
     "birthdate": null,
     "birthplace": {
@@ -5282,7 +5462,7 @@
   {
     "id": 221,
     "name": "E. Zamorano",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "VH",
     "birthdate": null,
     "birthplace": {
@@ -5306,7 +5486,7 @@
   {
     "id": 222,
     "name": "J. Kennedy",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "VH",
     "birthdate": null,
     "birthplace": {
@@ -5330,7 +5510,7 @@
   {
     "id": 223,
     "name": "V. Stockmann",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "VH",
     "birthdate": null,
     "birthplace": {
@@ -5354,7 +5534,7 @@
   {
     "id": 224,
     "name": "I. Kiyomasu",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "WAS",
     "birthdate": null,
     "birthplace": {
@@ -5378,7 +5558,7 @@
   {
     "id": 225,
     "name": "N. Dae-Won",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "WAS",
     "birthdate": null,
     "birthplace": {
@@ -5402,7 +5582,7 @@
   {
     "id": 226,
     "name": "T. Kohei",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "WAS",
     "birthdate": null,
     "birthplace": {
@@ -5426,7 +5606,7 @@
   {
     "id": 227,
     "name": "W. Honzo",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "WAS",
     "birthdate": null,
     "birthplace": {
@@ -5450,7 +5630,7 @@
   {
     "id": 228,
     "name": "May",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "WLG",
     "birthdate": null,
     "birthplace": {
@@ -5474,7 +5654,7 @@
   {
     "id": 229,
     "name": "Polanski",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "WLG",
     "birthdate": null,
     "birthplace": {
@@ -5498,7 +5678,7 @@
   {
     "id": 230,
     "name": "Stone",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "WLG",
     "birthdate": null,
     "birthplace": {
@@ -5522,7 +5702,7 @@
   {
     "id": 231,
     "name": "Taro",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "WLG",
     "birthdate": null,
     "birthplace": {
@@ -5546,7 +5726,7 @@
   {
     "id": 232,
     "name": "Borin",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "ZFE",
     "birthdate": null,
     "birthplace": {
@@ -5570,7 +5750,7 @@
   {
     "id": 233,
     "name": "Elbek",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "ZFE",
     "birthdate": null,
     "birthplace": {
@@ -5594,7 +5774,7 @@
   {
     "id": 234,
     "name": "Karel",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "ZFE",
     "birthdate": null,
     "birthplace": {
@@ -5618,7 +5798,7 @@
   {
     "id": 235,
     "name": "Zaref",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "ZFE",
     "birthdate": null,
     "birthplace": {
@@ -5642,7 +5822,7 @@
   {
     "id": 236,
     "name": "D. Wrevian",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "ZPH",
     "birthdate": null,
     "birthplace": {
@@ -5666,7 +5846,7 @@
   {
     "id": 237,
     "name": "N. Lyriath",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "ZPH",
     "birthdate": null,
     "birthplace": {
@@ -5690,7 +5870,7 @@
   {
     "id": 238,
     "name": "P. Nyphon",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "ZPH",
     "birthdate": null,
     "birthplace": {
@@ -5714,7 +5894,7 @@
   {
     "id": 239,
     "name": "S. Fenthys",
-    "position": "FWD",
+    "position": "CF",
     "nationality": "ZPH",
     "birthdate": null,
     "birthplace": {

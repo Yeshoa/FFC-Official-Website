@@ -18,6 +18,7 @@
 | 6 | Ranking FCL: métricas exactas | abierta |
 | 7 | React / SSR vs deploy de Netlify | abierta |
 | 8 | Navegación de `articles`/`sponsors` en la sección CL | abierta |
+| 9 | Jugadores históricos: snapshots y retiro | decidida |
 
 ---
 
@@ -152,6 +153,8 @@ Propuesta provisional (constante ajustable en `src/config/`):
 
 La idea: la mayoría queda en 2–3.5, 4+ es muy bueno, 5+ rarísimo. Se puede repensar cuando el dueño revise. **Decisión del dueño: pendiente.**
 
+> **Decisión (B3, 2026):** las **estrellas de poderío del equipo** usan la tabla del dueño ([[Plan del usuario/02 - Segunda actualización]], columna **"Rating 2"**) pero en escala **0–100** (media del plantel activo), **escalando los thresholds de la tabla del dueño ÷1.6** y dejando `TEAM_RATING_TO_STARS` en `src/config/rating.ts` **ajustable a mano**. Mientras no haya skills reales el poderío queda en 0.5★ (placeholder).
+
 ---
 
 ## 6. Ranking FCL: métricas exactas — `[abierta]`
@@ -189,6 +192,30 @@ Posibilidades:
 3. **Navbar CL sin articles/sponsors** y se acceden desde el footer/global.
 
 > **Recomendación del agente**: la **opción 1** (navbar CL + links globales con estética CL) es la más simple y no duplica contenido. **Decisión del dueño: pendiente.**
+
+---
+
+## 9. Jugadores históricos: snapshots y retiro — `[decidida]`
+
+Nota del dueño `[[Plan del usuario/05 - Jugadores históricos]]`: retiro de jugadores, goles por id que cuenten
+**toda la carrera**, y skills por torneo en `data/players/historical` para cartas de jugadores históricos.
+
+Estado del modelo (lo que ya existe y lo que falta):
+- **Retiro**: `teams[].status: 'active' | 'retired' | 'transferred'` ya existe (por equipo); no hay flag global.
+- **Carrera por id**: los goles apuntan al `playerId` global (diseño B1/B6); es deuda de datos, no de modelo.
+- **Snapshots**: `historical/<torneo>/<code>.json` guarda `id` legacy (`ROL_001`), `name`, `position` legacy
+  (`FWD`), `number`, `status` — **sin skills** y **sin vínculo al id global**.
+
+> **Decisiones del dueño (2026):**
+> 1. **Vínculo con el jugador**: referenciar el **`playerId` global** en cada entrada del snapshot (opcional
+>    si el jugador no existe en `players.json`). "No es 100% necesario, pero estaría perfecto que lo haga
+>    para poder hacer cosas en el futuro."
+> 2. **Skills obligatorias**: **TODOS** los jugadores del snapshot deben tener las skills del torneo (regla
+>    ALL_SKILLS 0–100). El dueño planea un **álbum de figuritas** (o similar) que use toda la data.
+> 3. **Retiro**: se mantiene el **actual** (`teams[].status` por entrada, sin flag global).
+> 4. **Carta histórica**: **no está planeada aún**; el formato del snapshot queda listo para el futuro.
+
+> Diseño integrado en [[02-modelo-datos]] §2 "Jugadores históricos".
 
 ---
 

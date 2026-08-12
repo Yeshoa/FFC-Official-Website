@@ -60,6 +60,13 @@ export function loadCurrentSquad(teamCode: string): Player[] {
   return byTeam.get(teamCode.trim().toLowerCase()) ?? [];
 }
 
+// Plantel activo resolviendo por id global de equipo (fuente de verdad de la Fase D).
+export function loadCurrentSquadByTeamId(teamId: number): Player[] {
+  return players.filter((player) =>
+    player.teams.some((t) => t.status === 'active' && t.teamId === teamId),
+  );
+}
+
 export function loadHistoricalSquad(_teamCode: string): Player[] {
   return [];
 }

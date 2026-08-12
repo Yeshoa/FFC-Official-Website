@@ -4,6 +4,7 @@ import { type CollectionEntry } from 'astro:content';
 // Components
 import App from '@layouts/App.astro';
 import MemberHero from '@components/members/MemberHero.astro';
+import SquadCompact from '@components/members/SquadCompact.astro';
 import DomesticLeagueTable from '@components/members/DomesticLeagueTable.astro';
 import MemberClubs from '@components/members/MemberClubs.astro';
 import ScoreDetails from '@components/members/ScoreDetails.astro';
@@ -164,6 +165,8 @@ const filteredArticles = getArticlesByTags(articles, filterTags);
   <div class="md:container m-auto p-4 py-8">
     <MemberHero memberData={memberData} ranking={memberRank} points={memberTotalScore} titles={titles} achievements={achievements} scoreBreakdown={memberScoreDetails} />
     <!-- <ScoreDetails scoreData={memberScoreDetails} /> -->
+
+    <SquadCompact teamId={memberData.id} teamCode={memberData.code} teamName={memberData.name} teamType="national" />
 
     {memberHasLeague ? (
       <DomesticLeagueTable member={member} />

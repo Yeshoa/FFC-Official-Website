@@ -1,0 +1,113 @@
+---
+// ClubStats: stats del club SOLO de torneos FFC (Forest Cup + Champions League).
+// NO incluye la liga doméstica (esa es una tabla estática de contexto en el miembro).
+import type { CollectionEntry } from 'astro:content';
+import { getTournaments, getMatches } from '@lib/collections';
+import {
+  getTeamStatsInTournament,
+  getTeamFinalResult,
+  getTopScorerOfTeamInTournament,
+  getTeamPositionInTournament,
+} from 'src/utils/tournamentUtils';
+
+interface Props {
+  clubId: number;
+}
+
+const { clubId } = Astro.props;
+const tournaments = await getTournaments();
+const matches = await getMatches();
+
+const ffcTournaments = tournaments
+  .filter((t) => t.data.type === 'forest-cup' || t.data.type === 'forestian-champions-league')
+  .sort((a, b) => a.data.edition - b.data.edition);
+
+const participated = await Promise.all(
+  ffcTournaments.map(async (t) => {
+    const stats = await getTeamStatsInTournament(clubId, t.data.id);
+    const playedAny = stats.played > 0;
+    return { t, stats, playedAny };
+  }),
+);
+
+const rows = participated
+  .filter(({ playedAny }) => playedAny)
+  .map(async ({ t, stats }) => {
+    const position = await getTeamPositionInTournament(t, clubId);
+    const topScorer = await getTopScorerOfTeamInTournament(clubId, t.data.id);
+    const result = await getTeamFinalResult(clubId, t);
+    return {
+      t,
+      position,
+      stats,
+      topScorer,
+      resultLabel:
+        result.status === 'not_participated'
+          ? 'Didn\u2019t participate'
+          : result.status === 'in_progress'
+            ? result.currentStage
+            : result.result,
+      resultClass:
+        result.status === 'not_participated' ? '' :
+        result.status === 'in_progress' ? 'text-red-400 animate-pulse' :
+        result.result === 'Champion' ? 'text-amber-400 font-black' :
+        result.result === 'Finalist' ? 'text-sky-300 font-bold' :
+        result.result === 'Third-Place' ? 'text-amber-500 font-bold' :
+        result.result === 'Semifinalist' ? 'text-primary-muted font-semibold' :
+        result.result === 'Quarterfinalist' ? 'text-primary-muted' :
+        result.result === 'Round of 16' ? 'text-primary-light' :
+        result.result === 'Round of 32' ? 'text-primary-soft' : '',
+    };
+  });
+
+const resolvedRows = await Promise.all(rows);
+---
+
+<div class="bg-surface/80 shadow-lg rounded-lg p-6 mb-8">
+  <h2 class="text-2xl font-semibold mb-4 border-b pb-2 border-primary">FFC Stats</h2>
+  {resolvedRows.length > 0 ? (
+    <div class="overflow-x-auto">
+      <table class="w-full text-center table-auto border-collapse">
+        <thead class="bg-primary-deep text-white">
+          <tr>
+            <th class="px-2 py-2 rounded-tl-lg">Tournament</th>
+            <th class="px-2 py-2">Result</th>
+            <th class="px-2 py-2">Pos</th>
+            <th class="px-2 py-2">Pld</th>
+            <th class="px-2 py-2">W</th>
+            <th class="px-2 py-2">D</th>
+            <th class="px-2 py-2">L</th>
+            <th class="px-2 py-2">GF</th>
+            <th class="px-2 py-2">GA</th>
+            <th class="px-2 py-2">GD</th>
+            <th class="px-2 py-2">Pts</th>
+            <th class="px-2 py-2 rounded-tr-lg">Top Scorer</th>
+          </tr>
+        </thead>
+        <tbody>
+          {resolvedRows.map((r) => (
+            <tr class="border-b border-primary-dark hover:bg-surface-raised/20">
+              <td class="px-2 py-2 font-semibold">{r.t.data.name}</td>
+              <td class={`px-2 py-2 ${r.resultClass}`}>{r.resultLabel}</td>
+              <td class="px-2 py-2 font-black">{r.position ?? '—'}°</td>
+              <td class="px-2 py-2">{r.stats.played}</td>
+              <td class="px-2 py-2">{r.stats.won}</td>
+              <td class="px-2 py-2">{r.stats.draw}</td>
+              <td class="px-2 py-2">{r.stats.lost}</td>
+              <td class="px-2 py-2">{r.stats.goalsFor}</td>
+              <td class="px-2 py-2">{r.stats.goalsAgainst}</td>
+              <td class="px-2 py-2">{r.stats.gd > 0 ? `+${r.stats.gd}` : r.stats.gd}</td>
+              <td class="px-2 py-2 font-bold">{r.stats.points}</td>
+              <td class="px-2 py-2 truncate">{r.topScorer || '—'}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  ) : (
+    <p class="text-text-muted italic">This club has no FFC tournament stats yet.</p>
+  )}
+  {matches.length === 0 && (
+    <p class="mt-2 text-xs text-text-muted">No stored matches to compute stats from.</p>
+  )}
+</div>

@@ -39,7 +39,7 @@ type SkillId =
 interface Player {
   id: number;                 // global autoincremental, único (no por nacionalidad)
   name: string;               // nombre completo
-  position: string;           // posición principal (GK, CB, CM, CF, …)
+  position: string;           // posición principal (ver "Posiciones" más abajo)
   nationality: string;        // código de federación (ej: "BIL")
   birthdate?: string;
   birthplace?: {              // lugar de nacimiento
@@ -47,6 +47,7 @@ interface Player {
     state?: string;           // estado/provincia/región
   };
   // Habilidades del simulador — escala 0-100 por habilidad
+  // REGLA: TODAS las habilidades, sin importar la posición (ver "Posiciones" abajo)
   skills: Partial<Record<SkillId, number>>;
   stars?: { overall: number };        // reservado; ver "Rating / Estrellas" abajo
   // Equipos actuales e históricos
@@ -69,14 +70,82 @@ interface Player {
 - **`position` es del jugador** (su posición principal) — sirve para futuras cartas de jugador. El `squad` del equipo puede **sobreescribir** posición/dorsal para ese equipo (ver §8).
 - **Lugar de nacimiento**: `city`/`state` se agregan para completar la ficha; opcional en la primera iteración (los datos se completan cuando el dueño los tenga).
 
+### Posiciones (vocabulario canónico)
+
+| Rol (color de badge) | Posiciones | Abreviatura |
+|---------------------|------------|-------------|
+| Arquero (**amarillo**) | Arquero | `GK` |
+| Defensa (**azul/celeste**) | Defensa central · Lateral izq · Lateral der | `CB` · `LB` · `RB` |
+| Mediocampo (**verde**) | Mediocentro · Medio defensivo · Medio ofensivo · Medio por derecha · Medio por izquierda | `CM` · `CDM` · `CAM` · `RM` · `LM` |
+| Delantera (**rojo**) | Delantero centro · Extremo izq · Extremo der | `CF` · `LW` · `RW` |
+
+- Vocabulario cerrado de **12 posiciones** (`GK, CB, LB, RB, CM, CDM, CAM, RM, LM, CF, LW, RW`), definido en `src/config/positions.ts`.
+- El rol (y su color) se resuelve con `positionToRole(position)` (**mapa explícito**, no heurística): `GK`→amarillo · `DEF`→azul · `MID`→verde · `FWD`→rojo.
+- El badge de posición se muestra con **fondo del color del rol**.
+- Las antiguas siglas (`FWD`, `ST`, etc.) se normalizaron a este vocabulario (script de migración: `FWD`→`CF`, `ST`→`CF`).
+
+### Regla: todas las habilidades, siempre
+
+- **Todos los jugadores, sin importar su posición, deben tener asignadas TODAS las habilidades** (`ALL_SKILLS`, lista canónica en `src/config/positions.ts`). El hecho de que un jugador sea arquero no lo exime de tener skills de campo (y viceversa).
+- El `rating` se sigue derivando solo de las skills ponderadas por el rol (ver abajo), pero la **data** debe contener el set completo.
+- El dueño puede dejar las del rol con valores reales y el resto como placeholder; **la validación** (`npm run players:link`) reporta jugadores con skills incompletas.
+
 ### Rating / Estrellas (derivados, no editables a mano)
+
 - **Skills** se guardan en escala **0–100** (consistente con el d100 del simulador).
 - **`rating` del jugador (0–100)** se **calcula automáticamente** desde las skills con una ponderación según `position` (función pura, ej. `computePlayerRating(skills, position)`). No se edita a mano: si cambia una skill, cambia el rating.
 - **Estrellitas (0.5–6, pasos de 0.5)** se **derivan del rating 0–100** con una tabla de conversión (`ratingToStars(rating)`). `6` es excepcional/rarísimo. La tabla exacta se define en una constante (config) y se ajusta con el dueño más adelante.
+- **Color del badge de OVR** según el valor (más alto = más llamativo): tabla de thresholds `OVR_RATING_COLORS` en `src/config/rating.ts`, **definida por el dueño** junto con los thresholds.
 - **Rating de equipo (federación/club)** es la agregación de ratings de su plantel (media ponderada, también 0–100 → estrellas). La tabla de "poderío de selección" del dueño ([[Plan del usuario/02 - Segunda actualización]]) aplica a **equipos**, no a jugadores individuales.
 - Se muestran estrellitas junto a cada jugador en el squad (ver [[02-modelo-datos]] §8 y fase B3 del plan).
 
 > Nota: la fuente canónica recomendada es **JSON central** (decisión confirmada). Si más adelante se quiere integración con `astro:content`, se puede envolver el JSON con un `loader` como ya hace `matches`.
+
+### Jugadores históricos (snapshots por torneo)
+
+> Nota del dueño ([[Plan del usuario/05 - Jugadores históricos]]): registrar retiros, que los goles cuenten
+> **toda la carrera** (por id global) y guardar los **skills del torneo** en `data/players/historical`
+> para futuras **cartas de jugadores históricos**.
+
+- **Retiro**: el jugador se marca retirado **por entrada de `teams[]`** (`status: 'retired'`); si no le queda
+  ninguna entrada `active`, deja de aparecer en los planteles derivados. El jugador **mantiene su id y sus
+  goles de carrera** (los partidos lo siguen referenciando por `playerId`, incluso retirado). Helper de
+  conveniencia: `isPlayerRetired(player)` (ninguna entrada `active`).
+- **Carrera por id**: los goles ya apuntan al `playerId` global ([[10-carga-de-goles]]); sumar los goles de
+  toda la carrera (selección + club + todos los torneos) es agregar por id. Es **deuda de datos** (faltan
+  ids en ~314 goles y equipos sin plantel), no de modelo.
+- **Snapshot histórico** (`src/data/players/historical/<torneo>/<code>.json`): hoy guarda jugadores con id
+  legacy (`ROL_001`), `position` legacy (`FWD`) y **sin skills**. El formato objetivo agrega `playerId`
+  **global** (vincula con `players.json` y la carrera) + `skills` (snapshot 0–100, todas las skills) y
+  normaliza `position` al vocabulario canónico ([[02-modelo-datos]] "Posiciones"):
+
+```json
+{
+  "teamCode": "ROL",
+  "teamName": "Roless",
+  "tournament": "forest-cup-2026",
+  "tournamentEdition": 3,
+  "snapshotDate": "2026-05-13",
+  "players": [
+    {
+      "playerId": 181,
+      "name": "C. McArthur",
+      "position": "CF",
+      "number": 9,
+      "skills": { }
+    }
+  ]
+}
+```
+
+- La **carta histórica** (futuro) combina **stats de carrera** (goles/partidos agregados por `playerId` desde los
+  partidos) + **skills del torneo** (del snapshot). No está planeada aún; el formato del snapshot queda listo.
+- `playerId` es opcional si el jugador no existe en `players.json` (ej. planteles de torneos viejos sin
+  ficha): la carta se arma igual del snapshot.
+- **`skills` es obligatorio para TODOS los jugadores del snapshot** (misma regla ALL_SKILLS 0–100): el dueño
+  planea un **álbum de figuritas** (o similar) que use toda la data histórica. La validación de completitud
+  se puede sumar a `npm run players:link`.
+- Decisiones confirmadas: [[09-dudas]] §9.
 
 ---
 
@@ -210,6 +279,16 @@ squad: {
 - **No hay boolean de titularidad**: la página del club/selección muestra el **plantel completo ordenado por posición** (no por XI/titulares).
 - El **XI concreto** de cada partido (quiénes juegan, quiénes van al banco) vive en el `lineup` del partido, que ya está en el schema de matches ([[06-partidos]]).
 - **Coach**: se mantiene como campo suelto del squad (no es jugador, no va a `players.json`).
+
+### Display del squad (tabla compacta, `SquadCompact`)
+- **2 columnas**, sin columnas sueltas de Pos/OVR/Estrellas:
+  1. **Jugador**: `dorsal · [badge posición] nombre [badge OVR] ☆estrellitas` (todo en una celda).
+  2. **Club / Nacionalidad**:
+     - Si es **selección nacional** (`teamType: 'national'`): el **club** activo del jugador (entrada de `teams[]` con `teamType: 'club'`); sin club → `—`.
+     - Si es **club** (`teamType: 'club'`): la **nacionalidad** del jugador con **banderita** (flag del miembro) junto al nombre.
+- **Badge de posición**: fondo del color del rol (amarillo/azul/verde/rojo, ver "Posiciones").
+- **Badge de OVR**: fondo según `OVR_RATING_COLORS` (a mayor valor, color más llamativo).
+- Orden del plantel por rol `GK→DEF→MID→FWD`.
 
 ---
 

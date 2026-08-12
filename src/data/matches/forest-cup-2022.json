@@ -19,7 +19,8 @@
         "team": "Bilsa",
         "player": "Sowjan",
         "minute": 17,
-        "penalty": false
+        "penalty": false,
+        "playerId": "29"
       },
       {
         "team": "Einswenn",
@@ -32,7 +33,8 @@
         "team": "Bilsa",
         "player": "Sowjan",
         "minute": 75,
-        "penalty": false
+        "penalty": false,
+        "playerId": "29"
       },
       {
         "team": "Einswenn",
@@ -67,7 +69,8 @@
         "team": "Daarwyrth",
         "player": "Z. Young",
         "minute": 25,
-        "penalty": false
+        "penalty": false,
+        "playerId": "57"
       }
     ],
     "team1Code": "STR",
@@ -268,7 +271,8 @@
         "player": "H. Kazñeisei",
         "minute": 45,
         "aggregate": 1,
-        "penalty": false
+        "penalty": false,
+        "playerId": "100"
       }
     ],
     "team1Code": "JUT",
@@ -325,7 +329,8 @@
         "team": "Daarwyrth",
         "player": "T. Henderson",
         "minute": 82,
-        "penalty": false
+        "penalty": false,
+        "playerId": "55"
       }
     ],
     "team1Code": "BIL",
@@ -429,21 +434,24 @@
     "goals": [
       {
         "team": "Roless",
-        "player": "C. Mcarthur",
+        "player": "C. McArthur",
         "minute": 10,
-        "penalty": false
+        "penalty": false,
+        "playerId": "181"
       },
       {
         "team": "Roless",
         "player": "J. Greenaway",
         "minute": 30,
-        "penalty": false
+        "penalty": false,
+        "playerId": "184"
       },
       {
         "team": "Turbeaux",
         "player": "G. Hua-Bai",
         "minute": 81,
-        "penalty": false
+        "penalty": false,
+        "playerId": "205"
       }
     ],
     "team1Code": "RLS",
@@ -541,7 +549,8 @@
         "team": "Kase",
         "player": "C. Schon",
         "minute": 39,
-        "penalty": false
+        "penalty": false,
+        "playerId": "112"
       }
     ],
     "team1Code": "TRW",
@@ -569,13 +578,15 @@
         "team": "Bilsa",
         "player": "Sowjan",
         "minute": 68,
-        "penalty": false
+        "penalty": false,
+        "playerId": "29"
       },
       {
         "team": "Bilsa",
         "player": "Sowjan",
         "minute": 83,
-        "penalty": false
+        "penalty": false,
+        "playerId": "29"
       }
     ],
     "team1Code": "STR",
@@ -731,7 +742,8 @@
         "team": "Roless",
         "player": "F. Kumar",
         "minute": 33,
-        "penalty": true
+        "penalty": true,
+        "playerId": "182"
       },
       {
         "team": "Trebenia",
@@ -745,7 +757,8 @@
         "player": "J. Greenaway",
         "minute": 90,
         "aggregate": 3,
-        "penalty": false
+        "penalty": false,
+        "playerId": "184"
       }
     ],
     "team1Code": "TRE",
@@ -828,7 +841,8 @@
         "team": "Daarwyrth",
         "player": "T. Marsh",
         "minute": 8,
-        "penalty": false
+        "penalty": false,
+        "playerId": "56"
       },
       {
         "team": "Bunkaiia",
@@ -841,13 +855,15 @@
         "team": "Daarwyrth",
         "player": "T. Marsh",
         "minute": 82,
-        "penalty": false
+        "penalty": false,
+        "playerId": "56"
       },
       {
         "team": "Daarwyrth",
         "player": "T. Marsh",
         "minute": 88,
-        "penalty": false
+        "penalty": false,
+        "playerId": "56"
       }
     ],
     "team1Code": "DRW",
@@ -874,13 +890,15 @@
         "team": "Jutsa",
         "player": "R. Cairoi",
         "minute": 6,
-        "penalty": false
+        "penalty": false,
+        "playerId": "108"
       },
       {
         "team": "Jutsa",
         "player": "H. Kazñeisei",
         "minute": 22,
-        "penalty": false
+        "penalty": false,
+        "playerId": "100"
       },
       {
         "team": "Cacusia",
@@ -1000,7 +1018,8 @@
         "player": "J. Greenaway",
         "minute": 45,
         "aggregate": 2,
-        "penalty": false
+        "penalty": false,
+        "playerId": "184"
       },
       {
         "team": "Reannia",

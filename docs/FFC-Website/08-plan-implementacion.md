@@ -102,6 +102,16 @@
 - El plantel se **deriva de `players.json`** (entradas de `teams[]` con `status: 'active'`); el perfil se resuelve desde el id global.
 - **Estrellas de poderío del equipo** (0.5-6) bajo el rating de la federación, calculadas del plantel (tabla del dueño).
 
+> **Hecho (B3, infraestructura — sin skills reales todavía):**
+> - `src/components/members/SquadCompact.astro`: plantel completo derivado de `players.json` (por `teamId` global, fallback `teamCode`), **2 columnas** (`# · [pos] nombre [OVR] estrellitas` | `club`/`nacionalidad` con banderita). Sin XI/titulares.
+> - `src/components/ui/StarsDisplay.astro`: primitiva de estrellas 0.5–6 (completas/medias/vacías), reutilizable (club hero en B4, ranking en B5).
+> - `src/config/positions.ts`: **12 posiciones canónicas** (`GK, CB, LB, RB, CM, CDM, CAM, RM, LM, CF, LW, RW`), `positionToRole` (mapa explícito, no heurística) y **colores de badge por rol** (GK=amarillo, DEF=azul, MID=verde, FWD=rojo). `ALL_SKILLS` (todas las habilidades).
+> - `src/config/rating.ts`: `computeTeamRating(squad)` (media 0–100, sin skills → 0) + `TEAM_RATING_TO_STARS` (tabla del dueño "Rating 2" escalada a 0–100 ÷1.6, **thresholds editables a mano**) + `teamRatingToStars`. **`OVR_RATING_COLORS`**: tabla de colores del badge de OVR (thresholds → color, más "wow" a mayor valor), **definida por el dueño** en este archivo.
+> - `src/data/players/index.ts`: `loadCurrentSquadByTeamId(teamId)` (id global como fuente de verdad).
+> - **Regla: todos los jugadores deben tener TODAS las skills** (sin importar posición); validada por `players:link`. Posiciones legacy (`FWD`/`ST`/null) normalizadas a `CF`.
+> - Integrado en `member/[slug]` tras el `MemberHero`: header "Squad" + **Poderío del equipo** (estrellas + rating) a la derecha. También en `club/[slug]` (B4) con `teamType="club"`.
+> - **Pendiente**: los 239 jugadores no tienen skills aún (Bilsa se usó de demo).
+
 ### B4 · Página de club (`/clubs/<slug>`)
 - Estética CL (negro + rombos lima, ver B7).
 - `ClubHero` distinto del `MemberHero`: escudo/colores, federación dueña, **sin badges de logros**, con **rating del club (0-100) + estrellas**.
@@ -110,20 +120,53 @@
 - Historial FCL y participaciones.
 - Índice `/clubs` (galería con rating).
 
+> **Hecho (B4, infraestructura + data de ejemplo):**
+> - `src/pages/clubs/[slug].astro` + `/clubs/index.astro`: ruta por `club.code` (los links de `MemberClubs`/`DomesticLeagueTable` a `/clubs/<code>` ya resuelven).
+> - `src/components/clubs/ClubHero.astro`: escudo con `colors` del club, federación dueña (`getMemberById(federationId)`), **sin badges de logros**, **rating del club (0-100) + estrellas** (`computeTeamRating` + `teamRatingToStars`, reutiliza B3; no hace falta `computeClubRating` separado). Fondo con rombos lima (estética CL parcial; la completa es B7).
+> - `src/components/clubs/ClubCard.astro`: tarjeta para la galería con rating/estrellas.
+> - `SquadCompact` reutilizado con `teamType="club"` → la 2da columna es **Nacionalidad** (banderita + nombre del país del jugador).
+> - **Stats FFC** (Forest Cup + CL, NO liga doméstica): tabla por torneo con `getTeamStatsInTournament(club.id, ...)` + `getTeamFinalResult` (funcionan por id global de equipo). Sin partidos CL aún → filas "Didn't participate".
+> - **Data de prueba**: los 6 jugadores de BIL (ids 24-29) asignados a Krulta BK (BILKRA, id 97) y Nordland FC (BILNOR, id 98) con `teamType: 'club'` + dorsal. La columna "Club" de la selección BIL ya muestra el club de cada jugador.
+> - `ROUTES.clubs` agregado (`index`, `detail`).
+> - `/clubs` y `/clubs/<code>` usan el layout de la sección CL (`src/layouts/FCL.astro`), no el `App`/navbar FC.
+> - **Pendiente**: la estética CL completa (layout negro + rombos, home CL real) es **B7**.
+
 ### B5 · Rating de clubes y ranking FCL
 - `computeClubRating(squad)` = agregación de ratings de la plantilla (0-100 → estrellas).
 - **Ranking de la CL separado e independiente** del ranking de selecciones ([[03-ranking]] §5): no suma al ranking general.
 - Se expone en la sección CL (ej. `/forestian-champions-league/ranking`).
 
+> **Hecho (B5):**
+> - El rating de club ya existe como `computeTeamRating(squad)` + `teamRatingToStars` (B4/B3); no hace falta `computeClubRating` aparte (mismo cálculo).
+> - `src/pages/forestian-champions-league/ranking.astro`: ranking FCL **propio y separado** del de selecciones (no suma al general). Métrica actual: **rating del club** (agregación del plantel, 0-100 → estrellas); cuando existan partidos de CL se podrá sumar rendimiento FCL (ver [[09-dudas]] §6). Tabla: pos · club (escudo con colores + link) · federación · OVR · estrellas, con `getRankClass`.
+> - `ROUTES.championsLeague.ranking` agregado; link "FCL Ranking" desde `/clubs`.
+> - `/clubs`, `/clubs/<code>` y el ranking FCL usan el layout de la sección (`src/layouts/FCL.astro`).
+> - La estética/navbar CL completa es **B7**.
+
 ### B6 · Script CLI de carga de goles
 - `npm run players:link`: autocompleta `playerId` por `team + nombre`, reporta homónimos y escribe de vuelta.
 - Modo `--strict` para CI; completar `number` (dorsal) como desambiguador.
+
+> **Hecho (B6):**
+> - `scripts/players-link.mjs` reescrito como **autocompletador + validador**: autocompleta `playerId`/`assistId` (goles), `playerId` (tarjetas/penales), `playerOutId`/`playerInId` (cambios) y `playerId` (lineup) resolviendo por **equipo + nombre exacto** (id global primero, code de fallback).
+> - Ante **homónimos** muestra la lista (id · nombre · posición · dorsal · status) y **pregunta cuál elegir** (interactivo); con Enter saltea. `--dry-run` solo reporta; `--strict` falla si quedan referencias con nombre pero sin id.
+> - Valida al final: **huérfanos** (ids que no existen en `players.json`, ERROR) y **skills completas** (WARN / ERROR en strict). Escribe preservando los saltos de línea originales (CRLF).
+> - **Datos**: autocompletados 188 `playerId` + 125 `assistId` + 7 tarjetas + 11 penales en una pasada (goles con id: 346/666). Corregidos 5 penales legacy de Lumiose (`LUM_004`→id numérico). **Homónimo `C. Mcarthur`/`C. McArthur` fusionado** en un solo jugador (id 181, `C. McArthur`) con sus 9 goles/asistencias remapeados. Quedan **~123 referencias pendientes de decisión humana** (90 sin match por nombres que no coinciden, 33 sin plantel por equipos sin jugadores en `players.json`).
+> - **Instructivo para cargar goles**: [[10-carga-de-goles]].
+> - **Pendiente dueño**: cargar planteles faltantes y normalizar nombres de partido vs `players.json`.
 
 ### B7 · Layout y estética Champions League + navegación por sección
 - `src/layouts/ChampionsLeague.astro` (fondo negro + rombos verde lima).
 - Tokens CL (`--color-cl-black`, `--color-cl-lime` `#95ff00`, secundario `#00ff95`) y patrón de rombos CSS.
 - **Navbar por sección**: la página principal es FC por defecto; al entrar a la sección CL cambia el navbar a la navegación CL (home, ranking, clubs, etc.). Volver a FC con selector/navbar. Home de CL en `/fcl/index.astro` (o ruta equivalente), con sus derivados (ranking, etc.). `articles`/`sponsors` quedan globales (se resuelve navegación en el plan de detalle de esta fase).
 - Reemplazar placeholder `champions-league.astro`.
+
+> NOTA: No se si es posible hacer este diseño para el fondo y los detalles de la FCL: que hayan diamantes (rombos) con grosor delgado, y cuyos vértices sean circulos (como si fueran nodos conectados) y que sean predominantemente verdes (el color del token --color-cl-lime) y con algunas zonas cian (el token secundario). Y que cada diamante no sea solamente un diamante, sino que tenga repetidos diamantes de las mismas proporciones pero mas chicos dentro, entonces queda como un efecto partón.
+
+> **Parcialmente adelantado (B4/B5):**
+> - `src/layouts/FCL.astro`: layout de la sección CL con `Navbar`/`Footer` propios (`src/components/champions-league/`).
+> - `Navbar` CL: links **de la sección** (Home CL, Ranking FCL, Clubs) + volver a Forest Cup. La sección CL y `/clubs` usan este layout (NO el `App`/navbar FC).
+> - **Pendiente (B7 completo)**: estética CL (negro + rombos lima, tokens `--color-cl-*`), home CL real (reemplazar el placeholder "Coming soon"), y decidir la ruta de la home CL.
 
 ### B8 · Páginas individuales de partido
 - `src/pages/matches/[...match].astro` con `getStaticPaths`.

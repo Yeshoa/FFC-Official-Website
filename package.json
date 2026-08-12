@@ -8,6 +8,8 @@
     "preview": "astro preview",
     "astro": "astro",
     "players:link": "node scripts/players-link.mjs",
+    "players:link:dry": "node scripts/players-link.mjs --dry-run",
+    "players:link:strict": "node scripts/players-link.mjs --strict",
     "teams:link": "node scripts/teams-link.mjs"
   },
   "dependencies": {

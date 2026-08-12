@@ -30,6 +30,7 @@ Documentación del proyecto **FFC (Forest Football Confederation) Official Websi
 | [[07-consistencia]] | **Diseño objetivo**: frontmatter, utils/lib, colores, componentes |
 | [[08-plan-implementacion]] | Plan de implementación por fases |
 | [[09-dudas]] | **Dudas y decisiones pendientes**: posibilidades y problemas que plantea el agente para que el dueño decida |
+| [[10-carga-de-goles]] | **Instructivo del dueño**: cómo cargar goles y eventos de partido correctamente + uso de `players:link` |
 | [[Simulador/00-simulador]] | **Diseño objetivo (borrador, NO confirmado)**: simulador de partidos |
 | [[Simulador/Simulador - Idea]] | Brain-dump del dueño sobre el simulador (referencia) |
 
@@ -53,6 +54,7 @@ Documentación del proyecto **FFC (Forest Football Confederation) Official Websi
 14. **Ligas domésticas**: tablas **hardcodeadas en JSON** (`src/data/leagues/`), última temporada. **Solo infraestructura primero** (sin datos). La página del miembro muestra tabla → si no, lista de clubes → si no, nada. Las **stats de club solo cuentan torneos FFC**, no la liga doméstica.
 15. **Jugador + lugar de nacimiento**: se agregan `birthplace.city` y `birthplace.state` a la ficha (opcional en la primera iteración).
 16. **Navbar por sección**: la home es FC por defecto; al entrar a la sección CL cambia el navbar a la navegación CL. Verde CL `#95ff00` (secundario `#00ff95`).
+17. **Jugadores históricos**: snapshots por torneo en `data/players/historical` con **`playerId` global** (opcional si no existe) + **skills obligatorias** (ALL_SKILLS 0–100) para un futuro álbum de figuritas. Retiro por entrada `teams[].status`. Ver [[02-modelo-datos]] §2 y [[09-dudas]] §9.
 
 ---
 

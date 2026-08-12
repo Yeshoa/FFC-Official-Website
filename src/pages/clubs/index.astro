@@ -1,0 +1,54 @@
+---
+import FCLayout from '@layouts/FCL.astro';
+import Title from '@components/Title.astro';
+import ClubCard from '@components/clubs/ClubCard.astro';
+import { getAllClubs } from '@data/clubs';
+import { getMemberById } from 'src/utils/memberUtils';
+import { loadCurrentSquadByTeamId } from '@data/players';
+import { computeTeamRating, teamRatingToStars } from '@config/rating';
+
+const clubs = getAllClubs()
+  .map((club) => {
+    const squad = loadCurrentSquadByTeamId(club.id);
+    const rating = computeTeamRating(squad);
+    return {
+      club,
+      federation: getMemberById(club.federationId),
+      rating,
+      stars: teamRatingToStars(rating),
+    };
+  })
+  .sort((a, b) => b.rating - a.rating);
+---
+
+<FCLayout title="FFC - Clubs">
+  <main class="flex flex-col items-center pt-5">
+    <div class="flex flex-col items-center w-full max-w-8xl justify-center p-6">
+      <Title slideIn={true}>
+        Clubs
+        <span slot="subtitle">Forestian Champions League clubs</span>
+      </Title>
+
+      {clubs.length > 0 ? (
+        <div class="grid grid-custom xs:w-full gap-4 w-full">
+          {clubs.map(({ club, federation, rating, stars }) => (
+            <ClubCard
+              club={club}
+              federation={federation}
+              rating={rating}
+              stars={stars}
+            />
+          ))}
+        </div>
+      ) : (
+        <p class="text-text-muted italic mt-8">No clubs yet.</p>
+      )}
+    </div>
+  </main>
+</FCLayout>
+
+<style>
+  .grid-custom {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+</style>

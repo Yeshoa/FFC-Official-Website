@@ -51,7 +51,9 @@
         "team": "Green Empire Karaa",
         "player": "Jamal",
         "assist": "R. Jamal",
-        "minute": 9
+        "minute": 9,
+        "playerId": "94",
+        "assistId": "95"
       }
     ],
     "team1Id": 47,
@@ -75,7 +77,9 @@
         "team": "Roless",
         "player": "H. Carrol",
         "assist": "C. Fulton",
-        "minute": 39
+        "minute": 39,
+        "playerId": "183",
+        "assistId": "179"
       }
     ],
     "team1Id": 4,
@@ -99,13 +103,17 @@
         "team": "Woodland Green",
         "player": "Polanski",
         "assist": "Taro",
-        "minute": 5
+        "minute": 5,
+        "playerId": "229",
+        "assistId": "231"
       },
       {
         "team": "Woodland Green",
         "player": "Stone",
         "assist": "May",
-        "minute": 67
+        "minute": 67,
+        "playerId": "230",
+        "assistId": "228"
       }
     ],
     "team1Id": 77,
@@ -178,7 +186,8 @@
       {
         "team": "Oseao",
         "player": "Ithryn",
-        "minute": 65
+        "minute": 65,
+        "playerId": "151"
       }
     ],
     "team1Id": 91,
@@ -225,24 +234,30 @@
       {
         "team": "Glo XI",
         "player": "Sven",
-        "minute": 7
+        "minute": 7,
+        "playerId": "91"
       },
       {
         "team": "Ownzone",
         "player": "Bayer",
         "assist": "Boon",
-        "minute": 25
+        "minute": 25,
+        "playerId": "157",
+        "assistId": "158"
       },
       {
         "team": "Glo XI",
         "player": "Pettersson",
-        "minute": 48
+        "minute": 48,
+        "playerId": "90"
       },
       {
         "team": "Ownzone",
         "player": "Eerkens",
         "assist": "Boon",
-        "minute": 82
+        "minute": 82,
+        "playerId": "159",
+        "assistId": "158"
       }
     ],
     "team1Id": 45,
@@ -283,7 +298,9 @@
         "team": "Ecologist Hegemony",
         "player": "Volkov",
         "assist": "Álvarez",
-        "minute": 27
+        "minute": 27,
+        "playerId": "59",
+        "assistId": "58"
       }
     ],
     "team1Id": 33,
@@ -331,7 +348,9 @@
         "team": "Ruinenlust",
         "player": "O. Swen",
         "assist": "Ben",
-        "minute": 12
+        "minute": 12,
+        "playerId": "193",
+        "assistId": "189"
       }
     ],
     "team1Id": 13,
@@ -354,13 +373,16 @@
       {
         "team": "Jutsa",
         "player": "X. Xayaīmaīc",
-        "minute": 7
+        "minute": 7,
+        "playerId": "111"
       },
       {
         "team": "Jutsa",
         "player": "C. Kuīyeī",
         "assist": "E. Vaīve",
-        "minute": 23
+        "minute": 23,
+        "playerId": "96",
+        "assistId": "99"
       }
     ],
     "team1Id": 2,
@@ -440,19 +462,25 @@
         "team": "Garbelia",
         "player": "M. Verhoeven",
         "assist": "K. Ota",
-        "minute": 49
+        "minute": 49,
+        "playerId": "88",
+        "assistId": "86"
       },
       {
         "team": "Garbelia",
         "player": "M. Verhoeven",
         "assist": "L. Scritkyposs",
-        "minute": 58
+        "minute": 58,
+        "playerId": "88",
+        "assistId": "87"
       },
       {
         "team": "Fish",
         "player": "Big James",
         "assist": "James Again",
-        "minute": 77
+        "minute": 77,
+        "playerId": "72",
+        "assistId": "73"
       }
     ],
     "team1Id": 70,
@@ -519,7 +547,9 @@
         "team": "Clown Town City",
         "player": "D. Doodle",
         "assist": "Fizzlepop",
-        "minute": 55
+        "minute": 55,
+        "playerId": "52",
+        "assistId": "53"
       },
       {
         "team": "Nardin",
@@ -559,30 +589,38 @@
       {
         "team": "Roless",
         "player": "J. Greenaway",
-        "assist": "C. Mcarthur",
-        "minute": 31
+        "assist": "C. McArthur",
+        "minute": 31,
+        "playerId": "184",
+        "assistId": "181"
       },
       {
         "team": "Roless",
         "player": "O. Chandler",
         "assist": "R. Grimes",
-        "minute": 43
+        "minute": 43,
+        "playerId": "186",
+        "assistId": "188"
       },
       {
         "team": "Klaus Devestatorie",
         "player": "L. Shanks",
-        "minute": 52
+        "minute": 52,
+        "playerId": "115"
       },
       {
         "team": "Roless",
         "player": "J. Greenaway",
         "assist": "R. Grimes",
-        "minute": 64
+        "minute": 64,
+        "playerId": "184",
+        "assistId": "188"
       },
       {
         "team": "Klaus Devestatorie",
         "player": "E. Stanchinsky",
-        "minute": 66
+        "minute": 66,
+        "playerId": "113"
       }
     ],
     "team1Id": 4,
@@ -626,7 +664,9 @@
         "team": "Woodland Green",
         "player": "May",
         "assist": "Polanski",
-        "minute": 59
+        "minute": 59,
+        "playerId": "228",
+        "assistId": "229"
       },
       {
         "team": "Nordustra",
@@ -676,13 +716,17 @@
         "team": "Valentian Kittens",
         "player": "K. Konstantinovich",
         "assist": "K. Polańska",
-        "minute": 12
+        "minute": 12,
+        "playerId": "215",
+        "assistId": "216"
       },
       {
         "team": "Valentian Kittens",
         "player": "K. Konstantinovich",
         "assist": "Š. Sedláčková",
-        "minute": 34
+        "minute": 34,
+        "playerId": "215",
+        "assistId": "218"
       },
       {
         "team": "Einswenn",
@@ -722,7 +766,9 @@
         "team": "Oseao",
         "player": "Vaesryn",
         "assist": "Calyth",
-        "minute": 88
+        "minute": 88,
+        "playerId": "152",
+        "assistId": "150"
       }
     ],
     "team1Id": 80,
@@ -784,7 +830,9 @@
         "player": "Bayer",
         "assist": "Venner",
         "minute": 90,
-        "aggregate": 2
+        "aggregate": 2,
+        "playerId": "157",
+        "assistId": "160"
       }
     ],
     "team1Id": 14,
@@ -808,19 +856,25 @@
         "team": "Chan Island",
         "player": "A. Fletcher",
         "assist": "Butch Man",
-        "minute": 18
+        "minute": 18,
+        "playerId": "46",
+        "assistId": "48"
       },
       {
         "team": "Chan Island",
         "player": "Chan Island",
         "assist": "A. Fletcher",
-        "minute": 42
+        "minute": 42,
+        "playerId": "50",
+        "assistId": "46"
       },
       {
         "team": "Chan Island",
         "player": "C. F. Caravel",
         "assist": "Chan Island",
-        "minute": 90
+        "minute": 90,
+        "playerId": "49",
+        "assistId": "50"
       }
     ],
     "team1Id": 73,
@@ -870,7 +924,9 @@
         "team": "Anxious and Kevin",
         "player": "Åkerström",
         "assist": "Manninen",
-        "minute": 73
+        "minute": 73,
+        "playerId": "1",
+        "assistId": "3"
       }
     ],
     "team1Id": 36,
@@ -900,13 +956,15 @@
         "team": "Bilsa",
         "player": "A. Arhanv",
         "minute": 33,
-        "penalty": true
+        "penalty": true,
+        "playerId": "24"
       },
       {
         "team": "Bilsa",
         "player": "A. Arhanv",
         "minute": 72,
-        "penalty": true
+        "penalty": true,
+        "playerId": "24"
       }
     ],
     "team1Id": 1,
@@ -930,13 +988,17 @@
         "team": "Zane Farbe Eslanudial",
         "player": "Elbek",
         "assist": "Borin",
-        "minute": 54
+        "minute": 54,
+        "playerId": "233",
+        "assistId": "232"
       },
       {
         "team": "Zane Farbe Eslanudial",
         "player": "Karel",
         "assist": "Zaref",
-        "minute": 61
+        "minute": 61,
+        "playerId": "234",
+        "assistId": "235"
       }
     ],
     "team1Id": 21,
@@ -960,25 +1022,32 @@
         "team": "Jutsa",
         "player": "X. Xayaīmaīc",
         "assist": "P. Ceruīkat",
-        "minute": 14
+        "minute": 14,
+        "playerId": "111",
+        "assistId": "105"
       },
       {
         "team": "Jutsa",
         "player": "K. Yuīkuīma",
         "assist": "P. Ceruīkat",
         "minute": 45,
-        "aggregate": 2
+        "aggregate": 2,
+        "playerId": "103",
+        "assistId": "105"
       },
       {
         "team": "Jutsa",
         "player": "Q. Koîkaîn",
-        "minute": 57
+        "minute": 57,
+        "playerId": "107"
       },
       {
         "team": "Jutsa",
         "player": "K. Yuīkuīma",
         "assist": "C. Kuīyeī",
-        "minute": 72
+        "minute": 72,
+        "playerId": "103",
+        "assistId": "96"
       }
     ],
     "cards": [
@@ -986,7 +1055,8 @@
         "team": "Jutsa",
         "player": "Q. Koîkaîn",
         "type": "yellow",
-        "minute": 11
+        "minute": 11,
+        "playerId": "107"
       }
     ],
     "team1Id": 2,
@@ -1010,7 +1080,9 @@
         "team": "Azure Mines",
         "player": "Llanfairpwllgwyngyll",
         "assist": "Ru Inenlustian",
-        "minute": 88
+        "minute": 88,
+        "playerId": "19",
+        "assistId": "20"
       }
     ],
     "team1Id": 37,
@@ -1034,7 +1106,9 @@
         "team": "Fish",
         "player": "Big James",
         "assist": "Nemo Jr.",
-        "minute": 13
+        "minute": 13,
+        "playerId": "72",
+        "assistId": "74"
       }
     ],
     "team1Id": 8,
@@ -1057,7 +1131,8 @@
       {
         "team": "Garbelia",
         "player": "K. Ota",
-        "minute": 59
+        "minute": 59,
+        "playerId": "86"
       }
     ],
     "team1Id": 38,
@@ -1124,13 +1199,15 @@
         "team": "Green Empire Karaa",
         "player": "Horak",
         "type": "yellow",
-        "minute": 22
+        "minute": 22,
+        "playerId": "93"
       },
       {
         "team": "Green Empire Karaa",
         "player": "Fuentes",
         "type": "yellow",
-        "minute": 32
+        "minute": 32,
+        "playerId": "92"
       }
     ],
     "team1Id": 12,
@@ -1154,24 +1231,31 @@
         "team": "Roless",
         "player": "J. Greenaway",
         "assist": "L. Howell",
-        "minute": 25
+        "minute": 25,
+        "playerId": "184",
+        "assistId": "185"
       },
       {
         "team": "Roless",
         "player": "J. Greenaway",
         "assist": "C. Fulton",
-        "minute": 33
+        "minute": 33,
+        "playerId": "184",
+        "assistId": "179"
       },
       {
         "team": "Roless",
         "player": "J. Greenaway",
-        "minute": 69
+        "minute": 69,
+        "playerId": "184"
       },
       {
         "team": "Roless",
         "player": "J. Greenaway",
-        "assist": "C. Mcarthur",
-        "minute": 77
+        "assist": "C. McArthur",
+        "minute": 77,
+        "playerId": "184",
+        "assistId": "181"
       }
     ],
     "team1Id": 52,
@@ -1209,7 +1293,9 @@
         "team": "Klaus Devestatorie",
         "player": "E. Stanchinsky",
         "assist": "L. Shanks",
-        "minute": 34
+        "minute": 34,
+        "playerId": "113",
+        "assistId": "115"
       },
       {
         "team": "Nordustra",
@@ -1225,7 +1311,8 @@
         "team": "Klaus Devestatorie",
         "player": "E. Vaillantcourt",
         "type": "yellow",
-        "minute": 20
+        "minute": 20,
+        "playerId": "114"
       }
     ],
     "team1Id": 18,
@@ -1298,7 +1385,9 @@
         "team": "Valentian Kittens",
         "player": "L. Okonkwo",
         "assist": "Š. Sedláčková",
-        "minute": 3
+        "minute": 3,
+        "playerId": "217",
+        "assistId": "218"
       },
       {
         "team": "Bextoria",
@@ -1310,13 +1399,17 @@
         "team": "Valentian Kittens",
         "player": "L. Okonkwo",
         "assist": "E. D'elia",
-        "minute": 59
+        "minute": 59,
+        "playerId": "217",
+        "assistId": "214"
       },
       {
         "team": "Valentian Kittens",
         "player": "L. Okonkwo",
         "assist": "C. Guanyu",
-        "minute": 90
+        "minute": 90,
+        "playerId": "217",
+        "assistId": "213"
       }
     ],
     "team1Id": 51,
@@ -1364,7 +1457,8 @@
         "team": "Glo XI",
         "player": "Nilsson",
         "minute": 90,
-        "aggregate": 7
+        "aggregate": 7,
+        "playerId": "89"
       }
     ],
     "team1Id": 73,
@@ -1388,7 +1482,9 @@
         "team": "Chan Island",
         "player": "B. Wellerman",
         "assist": "Chan Island",
-        "minute": 41
+        "minute": 41,
+        "playerId": "47",
+        "assistId": "50"
       }
     ],
     "team1Id": 60,
@@ -1502,19 +1598,22 @@
         "team": "Bilsa",
         "player": "D. Hajan",
         "assist": "A. Arhanv",
-        "minute": 21
+        "minute": 21,
+        "assistId": "24"
       },
       {
         "team": "Bilsa",
         "player": "C. Muniv",
         "assist": "Vlajsaj",
-        "minute": 28
+        "minute": 28,
+        "playerId": "26"
       },
       {
         "team": "Bilsa",
         "player": "T. Ervaan",
         "assist": "C. Muniv",
-        "minute": 47
+        "minute": 47,
+        "assistId": "26"
       }
     ],
     "cards": [
@@ -1546,20 +1645,25 @@
         "team": "Ruinenlust",
         "player": "L. Nesar",
         "assist": "Alberia",
-        "minute": 8
+        "minute": 8,
+        "playerId": "191"
       },
       {
         "team": "Ruinenlust",
         "player": "L. Nesar",
         "assist": "O. Swen",
         "minute": 45,
-        "aggregate": 2
+        "aggregate": 2,
+        "playerId": "191",
+        "assistId": "193"
       },
       {
         "team": "Ruinenlust",
         "player": "L. Nesar",
         "assist": "W. Rachs",
-        "minute": 81
+        "minute": 81,
+        "playerId": "191",
+        "assistId": "195"
       }
     ],
     "team1Id": 40,
@@ -1583,30 +1687,38 @@
         "team": "Jutsa",
         "player": "P. Ceruīkat",
         "assist": "Q. Koîkaîn",
-        "minute": 11
+        "minute": 11,
+        "playerId": "105",
+        "assistId": "107"
       },
       {
         "team": "Jutsa",
         "player": "K. Yuīkuīma",
         "assist": "C. Kuīyeī",
-        "minute": 29
+        "minute": 29,
+        "playerId": "103",
+        "assistId": "96"
       },
       {
         "team": "Jutsa",
         "player": "K. Yuīkuīma",
-        "minute": 31
+        "minute": 31,
+        "playerId": "103"
       },
       {
         "team": "Jutsa",
         "player": "K. Yuīkuīma",
         "assist": "Q. Koîkaîn",
-        "minute": 79
+        "minute": 79,
+        "playerId": "103",
+        "assistId": "107"
       },
       {
         "team": "Jutsa",
         "player": "K. Jatanwaīd",
         "assist": "Q. Koîkaîn",
-        "minute": 89
+        "minute": 89,
+        "assistId": "107"
       }
     ],
     "team1Id": 37,
@@ -1688,13 +1800,16 @@
       {
         "team": "Sehir",
         "player": "C. Beck",
-        "minute": 8
+        "minute": 8,
+        "playerId": "199"
       },
       {
         "team": "Fish",
         "player": "Big James",
         "assist": "Nemo Jr.",
-        "minute": 24
+        "minute": 24,
+        "playerId": "72",
+        "assistId": "74"
       },
       {
         "team": "Sehir",
@@ -1706,14 +1821,16 @@
         "team": "Fish",
         "player": "Big James",
         "assist": "James Nine",
-        "minute": 58
+        "minute": 58,
+        "playerId": "72"
       },
       {
         "team": "Sehir",
         "player": "C. Beck",
         "penalty": true,
         "minute": 90,
-        "aggregate": 2
+        "aggregate": 2,
+        "playerId": "199"
       }
     ],
     "team1Id": 32,
@@ -1736,43 +1853,55 @@
         "team": "Cacusia",
         "player": "M. Dartmouth",
         "assist": "S. Blair",
-        "minute": 35
+        "minute": 35,
+        "playerId": "39",
+        "assistId": "42"
       },
       {
         "team": "Cacusia",
         "player": "M. Dartmouth",
         "assist": "L. McRaddish",
-        "minute": 40
+        "minute": 40,
+        "playerId": "39"
       },
       {
         "team": "Cacusia",
         "player": "H. Grey",
         "assist": "H. Blackmoor",
         "minute": 45,
-        "aggregate": 1
+        "aggregate": 1,
+        "playerId": "37",
+        "assistId": "36"
       },
       {
         "team": "Cacusia",
         "player": "M. Dartmouth",
         "assist": "H. Blackmoor",
-        "minute": 52
+        "minute": 52,
+        "playerId": "39",
+        "assistId": "36"
       },
       {
         "team": "Cacusia",
         "player": "S. Blair",
         "assist": "O. Stout",
-        "minute": 61
+        "minute": 61,
+        "playerId": "42",
+        "assistId": "41"
       },
       {
         "team": "Cacusia",
         "player": "M. Dartmouth",
         "assist": "H. Grey",
-        "minute": 66
+        "minute": 66,
+        "playerId": "39",
+        "assistId": "37"
       },
       {
         "team": "Cacusia",
         "player": "I. Darrow",
-        "minute": 69
+        "minute": 69,
+        "playerId": "38"
       }
     ],
     "cards": [
@@ -1780,7 +1909,8 @@
         "team": "Nordustra",
         "player": "M. Sevdal",
         "type": "yellow",
-        "minute": 88
+        "minute": 88,
+        "playerId": "147"
       }
     ],
     "team1Id": 5,
@@ -1803,38 +1933,47 @@
         "team": "Einswenn",
         "player": "O. Gro",
         "assist": "J. Teitur",
-        "minute": 7
+        "minute": 7,
+        "playerId": "67",
+        "assistId": "64"
       },
       {
         "team": "Einswenn",
         "player": "O. Gro",
         "assist": "S. Kattell",
-        "minute": 27
+        "minute": 27,
+        "playerId": "67",
+        "assistId": "70"
       },
       {
         "team": "Chan Island",
         "player": "Chan Island",
         "assist": "L. Messi",
-        "minute": 59
+        "minute": 59,
+        "playerId": "50"
       },
       {
         "team": "Einswenn",
         "player": "O. Gro",
         "assist": "J. Teitur",
-        "minute": 80
+        "minute": 80,
+        "playerId": "67",
+        "assistId": "64"
       },
       {
         "team": "Chan Island",
         "player": "L. Messi",
         "assist": "Butch Man",
-        "minute": 86
+        "minute": 86,
+        "assistId": "48"
       },
       {
         "team": "Einswenn",
         "player": "O. Gro",
         "assist": "H. Frey",
         "minute": 90,
-        "aggregate": 1
+        "aggregate": 1,
+        "playerId": "67"
       }
     ],
     "team1Id": 7,
@@ -1861,7 +2000,8 @@
       {
         "team": "Ruinenlust",
         "player": "O. Swen",
-        "minute": 53
+        "minute": 53,
+        "playerId": "193"
       }
     ],
     "cards": [
@@ -1892,24 +2032,30 @@
         "team": "Jutsa",
         "player": "K. Yuīkuīma",
         "assist": "C. Kuīyeī",
-        "minute": 11
+        "minute": 11,
+        "playerId": "103",
+        "assistId": "96"
       },
       {
         "team": "Jutsa",
         "player": "K. Yuīkuīma",
         "minute": 45,
-        "aggregate": 2
+        "aggregate": 2,
+        "playerId": "103"
       },
       {
         "team": "Jutsa",
         "player": "X. Xayaīmaīc",
-        "minute": 72
+        "minute": 72,
+        "playerId": "111"
       },
       {
         "team": "Jutsa",
         "player": "K. Yuīkuīma",
         "assist": "P. Ceruīkat",
-        "minute": 80
+        "minute": 80,
+        "playerId": "103",
+        "assistId": "105"
       }
     ],
     "cards": [
@@ -1938,27 +2084,34 @@
     "goals": [
       {
         "team": "Roless",
-        "player": "C. Mcarthur",
+        "player": "C. McArthur",
         "assist": "H. Carrol",
-        "minute": 6
+        "minute": 6,
+        "assistId": "183",
+        "playerId": "181"
       },
       {
         "team": "Roless",
         "player": "D. Harrington",
         "assist": "H. Carrol",
-        "minute": 44
+        "minute": 44,
+        "assistId": "183"
       },
       {
         "team": "Roless",
         "player": "J. Greenaway",
         "assist": "L. Howell",
-        "minute": 59
+        "minute": 59,
+        "playerId": "184",
+        "assistId": "185"
       },
       {
         "team": "Nardin",
         "player": "A. Av Cerzi",
         "assist": "F. Pavlov",
-        "minute": 66
+        "minute": 66,
+        "playerId": "126",
+        "assistId": "129"
       }
     ],
     "cards": [
@@ -1966,7 +2119,8 @@
         "team": "Nardin",
         "player": "F. Pavlov",
         "type": "yellow",
-        "minute": 47
+        "minute": 47,
+        "playerId": "129"
       }
     ],
     "team1Id": 4,
@@ -1989,7 +2143,8 @@
         "team": "Lumiose",
         "player": "M. Penosi",
         "assist": "R. Inmeress",
-        "minute": 115
+        "minute": 115,
+        "playerId": "119"
       }
     ],
     "team1Id": 14,
@@ -2012,13 +2167,15 @@
         "team": "Bilsa",
         "player": "C. Muniv",
         "assist": "T. Ervaan",
-        "minute": 20
+        "minute": 20,
+        "playerId": "26"
       },
       {
         "team": "Bilsa",
         "player": "C. Muniv",
         "assist": "B. Njazet",
-        "minute": 31
+        "minute": 31,
+        "playerId": "26"
       },
       {
         "team": "Bilsa",
@@ -2047,7 +2204,8 @@
         "team": "Azure Mines",
         "player": "Ru Inenlustian",
         "assist": "S. Keit",
-        "minute": 8
+        "minute": 8,
+        "playerId": "20"
       },
       {
         "team": "Realize",
@@ -2095,13 +2253,17 @@
         "player": "H. Grey",
         "assist": "I. Darrow",
         "minute": 45,
-        "aggregate": 2
+        "aggregate": 2,
+        "playerId": "37",
+        "assistId": "38"
       },
       {
         "team": "Einswenn",
         "player": "H. Paulsen",
         "assist": "M. Solheim",
-        "minute": 77
+        "minute": 77,
+        "playerId": "61",
+        "assistId": "66"
       },
       {
         "team": "Cacusia",
@@ -2114,7 +2276,8 @@
         "player": "O. Gro",
         "assist": "H. Frey",
         "minute": 120,
-        "aggregate": 1
+        "aggregate": 1,
+        "playerId": "67"
       }
     ],
     "penalties": [
@@ -2122,19 +2285,22 @@
         "order": 1,
         "team": "Cacusia",
         "player": "M. Dartmouth",
-        "scored": false
+        "scored": false,
+        "playerId": "39"
       },
       {
         "order": 2,
         "team": "Einswenn",
         "player": "O. Gro",
-        "scored": true
+        "scored": true,
+        "playerId": "67"
       },
       {
         "order": 3,
         "team": "Cacusia",
         "player": "H. Grey",
-        "scored": true
+        "scored": true,
+        "playerId": "37"
       },
       {
         "order": 4,
@@ -2146,13 +2312,15 @@
         "order": 5,
         "team": "Cacusia",
         "player": "H. Blackmoor",
-        "scored": false
+        "scored": false,
+        "playerId": "36"
       },
       {
         "order": 6,
         "team": "Einswenn",
         "player": "H. Paulsen",
-        "scored": false
+        "scored": false,
+        "playerId": "61"
       },
       {
         "order": 7,
@@ -2170,13 +2338,15 @@
         "order": 9,
         "team": "Cacusia",
         "player": "I. Darrow",
-        "scored": true
+        "scored": true,
+        "playerId": "38"
       },
       {
         "order": 10,
         "team": "Einswenn",
         "player": "S. Kattell",
-        "scored": false
+        "scored": false,
+        "playerId": "70"
       },
       {
         "order": 11,
@@ -2211,7 +2381,8 @@
         "team": "Jutsa",
         "player": "K. Jatanwaīd",
         "assist": "Q. Koîkaîn",
-        "minute": 84
+        "minute": 84,
+        "assistId": "107"
       }
     ],
     "team1Id": 13,
@@ -2234,25 +2405,33 @@
         "team": "Roless",
         "player": "J. Greenaway",
         "assist": "H. Carrol",
-        "minute": 21
+        "minute": 21,
+        "playerId": "184",
+        "assistId": "183"
       },
       {
         "team": "Roless",
         "player": "J. Greenaway",
         "assist": "C. Fulton",
-        "minute": 36
+        "minute": 36,
+        "playerId": "184",
+        "assistId": "179"
       },
       {
         "team": "Roless",
-        "player": "C. Mcarthur",
+        "player": "C. McArthur",
         "assist": "O. Chandler",
-        "minute": 40
+        "minute": 40,
+        "assistId": "186",
+        "playerId": "181"
       },
       {
         "team": "Roless",
         "player": "J. Greenaway",
         "assist": "R. Grimes",
-        "minute": 89
+        "minute": 89,
+        "playerId": "184",
+        "assistId": "188"
       }
     ],
     "team1Id": 4,
@@ -2275,7 +2454,8 @@
         "order": 1,
         "team": "Bilsa",
         "player": "A. Arhanv",
-        "scored": true
+        "scored": true,
+        "playerId": "24"
       },
       {
         "order": 2,
@@ -2299,7 +2479,8 @@
         "order": 5,
         "team": "Bilsa",
         "player": "C. Muniv",
-        "scored": true
+        "scored": true,
+        "playerId": "26"
       },
       {
         "order": 6,
@@ -2388,18 +2569,23 @@
         "team": "Einswenn",
         "player": "M. Solheim",
         "assist": "A. Lund",
-        "minute": 2
+        "minute": 2,
+        "playerId": "66",
+        "assistId": "60"
       },
       {
         "team": "Einswenn",
         "player": "O. Gro",
         "assist": "H. Paulsen",
-        "minute": 19
+        "minute": 19,
+        "playerId": "67",
+        "assistId": "61"
       },
       {
         "team": "Einswenn",
         "player": "O. Gro",
-        "minute": 63
+        "minute": 63,
+        "playerId": "67"
       }
     ],
     "cards": [
@@ -2407,7 +2593,8 @@
         "team": "Jutsa",
         "player": "K. Yuīkuīma",
         "minute": 6,
-        "type": "yellow"
+        "type": "yellow",
+        "playerId": "103"
       },
       {
         "team": "Jutsa",
@@ -2436,19 +2623,25 @@
         "team": "Roless",
         "player": "H. Carrol",
         "assist": "O. Chandler",
-        "minute": 11
+        "minute": 11,
+        "playerId": "183",
+        "assistId": "186"
       },
       {
         "team": "Roless",
         "player": "J. Greenaway",
         "assist": "H. Carrol",
-        "minute": 60
+        "minute": 60,
+        "playerId": "184",
+        "assistId": "183"
       },
       {
         "team": "Roless",
         "player": "H. Carrol",
         "assist": "J. Greenaway",
-        "minute": 90
+        "minute": 90,
+        "playerId": "183",
+        "assistId": "184"
       },
       {
         "team": "Realize",
@@ -2485,19 +2678,25 @@
         "team": "Roless",
         "player": "J. Greenaway",
         "assist": "H. Carrol",
-        "minute": 14
+        "minute": 14,
+        "playerId": "184",
+        "assistId": "183"
       },
       {
         "team": "Einswenn",
         "player": "M. Solheim",
         "assist": "A. Lund",
-        "minute": 54
+        "minute": 54,
+        "playerId": "66",
+        "assistId": "60"
       },
       {
         "team": "Roless",
         "player": "H. Carrol",
-        "assist": "C. Mcarthur",
-        "minute": 56
+        "assist": "C. McArthur",
+        "minute": 56,
+        "playerId": "183",
+        "assistId": "181"
       }
     ],
     "team1Id": 7,

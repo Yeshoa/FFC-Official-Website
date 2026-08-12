@@ -16,10 +16,15 @@ export const ROUTES = {
   championsLeague:{
     index: "/champions-league/",
     edition: (edition: number) => `/champions-league/${edition}/`,
+    ranking: "/forestian-champions-league/ranking/",
   },
   members: {
     index: "/members/",
     detail: (slug: string) => `/members/${slug}/`,
+  },
+  clubs: {
+    index: "/clubs/",
+    detail: (code: string) => `/clubs/${code}/`,
   },
   matches: {
     index: "/matches/",

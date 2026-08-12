@@ -1,0 +1,39 @@
+---
+// Primitiva: muestra estrellas 0.5-6 (pasos de 0.5) para ratings de jugador/equipo.
+import StarIcon from '@images/icons/star-solid.svg';
+
+interface Props {
+  value: number; // 0.5-6, pasos de 0.5
+  size?: string; // clases tailwind de tamaño (ej: 'w-4 h-4')
+  fillClass?: string;
+  emptyClass?: string;
+}
+
+const {
+  value,
+  size = 'w-4 h-4',
+  fillClass = 'fill-yellow-400',
+  emptyClass = 'fill-gray-700',
+} = Astro.props;
+
+const slots = Array.from({ length: 6 }, (_, i) => {
+  const half = value >= i + 0.5 && value < i + 1;
+  const full = value >= i + 1;
+  return { full, half };
+});
+---
+
+<span class="inline-flex items-center gap-0.5" aria-label={`${value} estrellas`}>
+  {slots.map(({ full, half }) => (
+    <span class="relative inline-block">
+      <StarIcon class={`${size} ${emptyClass}`} />
+      {full || half ? (
+        <span
+          class={`absolute top-0 left-0 h-full ${full ? 'w-full' : 'w-1/2'} overflow-hidden`}
+        >
+          <StarIcon class={`${size} ${fillClass}`} />
+        </span>
+      ) : null}
+    </span>
+  ))}
+</span>

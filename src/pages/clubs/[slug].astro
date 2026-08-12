@@ -1,0 +1,119 @@
+---
+import FCLayout from '@layouts/FCL.astro';
+import ClubHero from '@components/clubs/ClubHero.astro';
+import SquadCompact from '@components/members/SquadCompact.astro';
+import { getClubByCode, getAllClubs } from '@data/clubs';
+import { getMemberById } from 'src/utils/memberUtils';
+import { loadCurrentSquadByTeamId } from '@data/players';
+import { computeTeamRating, teamRatingToStars } from '@config/rating';
+import { getTournaments } from '@lib/collections';
+import { getTeamStatsInTournament, getTeamFinalResult } from 'src/utils/tournamentUtils';
+
+export async function getStaticPaths() {
+  return getAllClubs().map((club) => ({
+    params: { slug: club.code },
+    props: { club },
+  }));
+}
+
+const { club } = Astro.props;
+if (!club) return Astro.redirect('/404');
+
+const federation = getMemberById(club.federationId);
+const squad = loadCurrentSquadByTeamId(club.id);
+const rating = computeTeamRating(squad);
+const stars = teamRatingToStars(rating);
+
+// Stats del club SOLO de torneos FFC (Forest Cup + CL), no de liga doméstica.
+const tournaments = await getTournaments();
+const ffcTournaments = tournaments
+  .filter((t) => t.data.type === 'forest-cup' || t.data.type === 'forestian-champions-league')
+  .sort((a, b) => a.data.edition - b.data.edition);
+
+const participations = await Promise.all(
+  ffcTournaments.map(async (t) => {
+    const stats = await getTeamStatsInTournament(club.id, t.data.id);
+    const result = await getTeamFinalResult(club.id, t);
+    return { t, stats, result };
+  }),
+);
+---
+
+<FCLayout title={`FFC - ${club.name}`}>
+  <div class="md:container m-auto p-4 py-8">
+    <ClubHero club={club} federation={federation} rating={rating} stars={stars} />
+
+    <SquadCompact
+      teamId={club.id}
+      teamCode={club.code}
+      teamName={club.name}
+      coach={club.squad?.coach}
+      formation={club.squad?.formation}
+      teamType="club"
+    />
+
+    <div class="bg-surface/80 shadow-lg rounded-lg p-6 mb-8">
+      <h2 class="text-2xl font-semibold mb-4 border-b pb-2 border-primary">
+        FFC Tournaments
+      </h2>
+      {participations.length > 0 ? (
+        <div class="overflow-x-auto">
+          <table class="w-full text-center table-auto border-collapse">
+            <thead class="bg-primary-deep text-white">
+              <tr>
+                <th class="px-2 py-2 rounded-tl-lg">Tournament</th>
+                <th class="px-2 py-2">Result</th>
+                <th class="px-2 py-2">Pld</th>
+                <th class="px-2 py-2">W</th>
+                <th class="px-2 py-2">D</th>
+                <th class="px-2 py-2">L</th>
+                <th class="px-2 py-2">GF</th>
+                <th class="px-2 py-2">GA</th>
+                <th class="px-2 py-2">GD</th>
+                <th class="px-2 py-2 rounded-tr-lg">Pts</th>
+              </tr>
+            </thead>
+            <tbody>
+              {participations.map(({ t, stats, result }) => {
+                const resultLabel =
+                  result.status === 'not_participated'
+                    ? 'Didn\u2019t participate'
+                    : result.status === 'in_progress'
+                      ? result.currentStage
+                      : result.result;
+                return (
+                  <tr class="border-b border-primary-dark hover:bg-surface-raised/20">
+                    <td class="px-2 py-2 font-semibold">{t.data.name}</td>
+                    <td class="px-2 py-2">
+                      <span
+                        class={result.status === 'finished' && result.result === 'Champion'
+                          ? 'text-amber-400 font-bold'
+                          : result.status === 'finished' && result.result === 'Finalist'
+                            ? 'text-sky-300 font-bold'
+                            : result.status === 'in_progress'
+                              ? 'text-red-400 animate-pulse'
+                              : ''}
+                      >
+                        {resultLabel}
+                      </span>
+                    </td>
+                    <td class="px-2 py-2">{stats.played}</td>
+                    <td class="px-2 py-2 text-primary-muted">{stats.won}</td>
+                    <td class="px-2 py-2 text-yellow-400">{stats.draw}</td>
+                    <td class="px-2 py-2 text-red-400">{stats.lost}</td>
+                    <td class="px-2 py-2">{stats.goalsFor}</td>
+                    <td class="px-2 py-2">{stats.goalsAgainst}</td>
+                    <td class="px-2 py-2">{stats.gd > 0 ? `+${stats.gd}` : stats.gd}</td>
+                    <td class="px-2 py-2 font-bold">{stats.points}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      ) : (
+        <p class="text-text-muted italic">No FFC tournament data yet.</p>
+      )}
+    </div>
+  </div>
+</FCLayout>

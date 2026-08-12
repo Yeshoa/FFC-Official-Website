@@ -66,6 +66,7 @@
 
 - La CL tiene su **propio ranking/tabla** (ver [[03-ranking]] §5), no mezclado con el ranking general de federaciones.
 - Se expone en la sección CL (ej: `/forestian-champions-league/ranking`).
+- **Hecho (B5)**: la página `/forestian-champions-league/ranking` ordena los clubes por **rating del club** (agregación del plantel, 0-100 → estrellas), separado del ranking de selecciones. Cuando existan partidos de CL se podrá sumar rendimiento FCL (ver [[09-dudas]] §6).
 
 ---
 
@@ -83,5 +84,5 @@
 2. Navegación/footer de la sección CL.
 3. Páginas de clubes (modelo de datos primero, ver fase B).
 4. Home + season + fixtures/standings de la CL.
-5. Ranking CL propio.
+5. Ranking CL propio. ✅ (B5) — `/forestian-champions-league/ranking` por rating de club.
 6. Reemplazar placeholder `champions-league.astro`.
