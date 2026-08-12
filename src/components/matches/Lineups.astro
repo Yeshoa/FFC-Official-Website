@@ -1,0 +1,67 @@
+---
+// Lineups: formaciones + XI + suplentes + coach por equipo.
+import type { CollectionEntry } from 'astro:content';
+import type { TeamView } from '@ty/matchDetail';
+import { positionToRole, ROLE_STYLE, ROLE_ORDER } from '@config/positions';
+
+interface Props {
+  match: CollectionEntry<'matches'>;
+  team1: TeamView;
+  team2: TeamView;
+}
+
+const { match, team1, team2 } = Astro.props;
+const m = match.data;
+
+const sides = [
+  { key: 'team1' as const, team: team1, data: m.lineup?.team1 },
+  { key: 'team2' as const, team: team2, data: m.lineup?.team2 },
+];
+
+const hasLineup = Boolean(m.lineup && (m.lineup.team1?.players?.length || m.lineup.team2?.players?.length));
+---
+
+<section class="w-full">
+  <h2 class="text-2xl font-bold text-primary-light mb-5">Lineups</h2>
+  {hasLineup ? (
+    <div class="grid md:grid-cols-2 gap-6">
+      {sides.map(({ team, data }) => data && data.players ? (
+        <div class="bg-surface/40 rounded-2xl border border-primary/20 p-5">
+          <div class="flex items-start justify-between gap-3 mb-3 pb-2 border-b border-primary/20">
+            <h3 class="font-bold text-lg">{team.name}</h3>
+            <div class="text-right text-xs text-text-muted">
+              {data.formation && <p class="font-semibold text-primary-light">Formation {data.formation}</p>}
+              {data.coach && <p>Coach: {data.coach}</p>}
+            </div>
+          </div>
+          <div class="space-y-1">
+            {data.players
+              .slice()
+              .sort(
+                (a, b) =>
+                  (a.starter ? 0 : 1) - (b.starter ? 0 : 1) ||
+                  ROLE_ORDER[positionToRole(a.position)] - ROLE_ORDER[positionToRole(b.position)] ||
+                  (a.number ?? 0) - (b.number ?? 0),
+              )
+              .map((p, idx) => {
+                const roleStyle = ROLE_STYLE[positionToRole(p.position)] ?? ROLE_STYLE.FWD;
+                return (
+                  <div key={idx} class={`flex items-center gap-2 text-sm ${p.starter ? '' : 'opacity-70'}`}>
+                    <span class="inline-flex items-center justify-center w-7 h-7 rounded bg-surface text-xs font-bold tabular-nums ring-1 ring-primary/30 shrink-0">{p.number ?? '–'}</span>
+                    <span class={`inline-flex items-center justify-center min-w-[38px] px-1 rounded text-[10px] font-bold ${roleStyle} shrink-0`}>{p.position || '–'}</span>
+                    <span class="truncate">{p.name}</span>
+                    {p.captain && <span class="text-yellow-400 font-bold text-xs" title="Captain">(C)</span>}
+                    {!p.starter && <span class="text-text-muted text-xs ms-auto shrink-0">Sub</span>}
+                  </div>
+                );
+              })}
+          </div>
+        </div>
+      ) : (
+        <p class="text-text-muted italic">Lineup not available.</p>
+      ))}
+    </div>
+  ) : (
+    <p class="text-text-muted italic">Lineup not available for this match.</p>
+  )}
+</section>

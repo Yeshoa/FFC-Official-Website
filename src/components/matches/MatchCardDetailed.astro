@@ -9,6 +9,7 @@ import defaultFlag from '@images/tournaments/default-flag.png';
 import { getTournaments } from '@lib/collections';
 import { LOCALE } from '@config/constants';
 import { getStadiumById } from '@utils/stadiumUtils';
+import { ROUTES } from '@config/routes';
 
 const tournaments = await getTournaments();
 
@@ -199,7 +200,7 @@ const hour = match.data.date.toLocaleTimeString(LOCALE, {hour12: false, hour: 'n
       </div>
 
       {/* Enlace Detalles/Video */}
-      <div class="flex justify-center items-start w-full h-full col-span-1">
+      <div class="flex flex-col items-center justify-start gap-1 w-full h-full col-span-1">
         {match.data.link ? (
           <a href={match.data.link} target="_blank" rel="noopener noreferrer" title="Watch Match" 
             class="bg-blue-500/70 hover:bg-blue-400 text-white px-1 xs:px-2 xs:py-1 rounded-full text-xs transition-colors">
@@ -208,6 +209,13 @@ const hour = match.data.date.toLocaleTimeString(LOCALE, {hour12: false, hour: 'n
         ) : (
           <span class="text-gray-600 text-xs md:text-sm" title="No link available">Watch</span>
         )}
+        <a
+          href={ROUTES.matches.detail(match.id)}
+          class="text-primary-soft hover:text-primary-light underline text-xs"
+          title="Match details"
+        >
+          Details
+        </a>
       </div>
 
       {/* Goles Equipo 2 */}

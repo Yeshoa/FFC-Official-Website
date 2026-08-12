@@ -176,6 +176,19 @@
 - `src/pages/matches/[...match].astro` con `getStaticPaths`.
 - Componentes: MatchDetailHeader, Lineups, MatchStatsPanel, MatchTimeline.
 
+> **Hecho (B8):**
+> - `src/pages/matches/[match].astro` con `getStaticPaths` sobre todas las colecciones de matches (**236 páginas**, `/matches/match-<torneo>-<match>`). Layout `App` (FC). Redirige a `/404` si el id no existe.
+> - Componentes en `src/components/matches/`:
+>   - `MatchDetailHeader.astro`: breadcrumb, torneo/etapa/grupo/fixture, fecha/hora, estadio + capacidad, marcador con ganador resaltado, **penales** (si hubo), leg (ida/vuelta), link al video.
+>   - `PenaltyShootout.astro`: detalle de la **tanda de penales** — cada pateador por equipo con ✓ (convirtió) / ✗ (falló) y resultado final.
+>   - `MatchTimeline.astro`: eventos (goles con asistencia/penal/OG, tarjetas amarilla/roja/2ª amarilla, cambios) ordenados por minuto.
+>   - `Lineups.astro`: formación + coach + XI/suplentes por equipo con **badges de posición** por rol (`@config/positions`) y dorsal.
+>   - `MatchStatsPanel.astro`: tabla comparativa (posesión, tiros, tiros al arco, córners, faltas, offsides).
+> - **Equipos resueltos por id global** con `getTeamById` (selección **o** club) → vista normalizada `TeamView` en `src/types/matchDetail.ts` (`@ty/matchDetail`). Links a `/members/<slug>` o `/clubs/<code>`.
+> - `MatchCardDetailed` ahora enlaza a la página de detalle (link "Details" junto a Watch).
+> - **Datos actuales**: sin lineups/stats/cambios todavía → estados vacíos ("not available"). Goles/tarjetas/penales sí renderizan (verificado en las 4 definiciones por penales).
+> - Sección "More matches" (mismo torneo) al final.
+
 ### B9 · Páginas de logros por federación
 - Ruta `/members/<slug>/achievements` (obtenidos / por obtener / secretos como `?` / progreso / puntaje).
 
