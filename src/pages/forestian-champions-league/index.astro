@@ -1,0 +1,117 @@
+---
+// Home de la sección Champions League (FCL). Estética CL: negro + rombos lima.
+// El contenido de temporada/partidos real se arma en B10 (cuando exista el torneo CL).
+import FCLayout from '@layouts/FCL.astro';
+import { Image } from 'astro:assets';
+import FFCLogo from '@images/FFC-logo.webp';
+import { getAllClubs } from '@data/clubs';
+import { getMemberById } from 'src/utils/memberUtils';
+import { loadCurrentSquadByTeamId } from '@data/players';
+import { computeTeamRating, teamRatingToStars } from '@config/rating';
+import { ROUTES } from '@config/routes';
+import ClubCard from '@components/clubs/ClubCard.astro';
+
+const clubs = getAllClubs()
+  .map((club) => {
+    const squad = loadCurrentSquadByTeamId(club.id);
+    const rating = computeTeamRating(squad);
+    return {
+      club,
+      federation: getMemberById(club.federationId),
+      rating,
+      stars: teamRatingToStars(rating),
+    };
+  })
+  .sort((a, b) => b.rating - a.rating || a.club.name.localeCompare(b.club.name));
+
+const topClubs = clubs.slice(0, 8);
+---
+
+<FCLayout title="FFC - Forestian Champions League">
+  <!-- HERO -->
+  <section class="relative overflow-hidden bg-gradient-to-b from-black via-cl-black to-black">
+    <div class="cl-pattern absolute inset-0 opacity-20 pointer-events-none"></div>
+    <div class="relative z-10 w-full max-w-screen-xl mx-auto px-4 py-16 md:py-24 flex flex-col items-center text-center gap-6">
+      <Image
+        src={FFCLogo}
+        alt="FFC Logo"
+        width={160}
+        loading="eager"
+        class="drop-shadow-[0_0_20px_rgba(149,255,0,0.35)]"
+      />
+      <h1 class="text-5xl md:text-7xl font-black tracking-tight uppercase">
+        <span class="text-cl-lime">Forestian</span> <span class="text-white">Champions League</span>
+      </h1>
+      <p class="max-w-2xl text-lg text-text-muted">
+        The club competition of the Forest Football Confederation: groups, knockout rounds and a
+        single final where the best clubs of Forest fight for continental glory.
+      </p>
+      <div class="flex flex-wrap items-center justify-center gap-3">
+        <a
+          href={ROUTES.championsLeague.ranking}
+          class="px-6 py-3 rounded-lg bg-cl-lime text-black font-bold hover:bg-white transition-colors"
+        >
+          FCL Ranking
+        </a>
+        <a
+          href={ROUTES.clubs.index}
+          class="px-6 py-3 rounded-lg border border-cl-lime/50 text-cl-lime hover:bg-cl-lime/10 transition-colors"
+        >
+          Clubs
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <div class="w-full max-w-screen-xl mx-auto px-4 py-12 space-y-16">
+    <!-- RANKING PREVIEW -->
+    <section>
+      <div class="flex items-end justify-between mb-6">
+        <div>
+          <h2 class="text-3xl font-bold text-cl-lime uppercase">Club Ranking</h2>
+          <p class="text-text-muted">Top clubs by squad rating</p>
+        </div>
+        <a
+          href={ROUTES.championsLeague.ranking}
+          class="text-cl-lime hover:text-cl-lime-secondary text-sm font-semibold"
+        >
+          See full ranking →
+        </a>
+      </div>
+      {topClubs.length > 0 ? (
+        <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
+          {topClubs.map(({ club, federation, rating, stars }) => (
+            <ClubCard club={club} federation={federation} rating={rating} stars={stars} />
+          ))}
+        </div>
+      ) : (
+        <p class="text-text-muted italic">No clubs registered yet.</p>
+      )}
+    </section>
+
+    <!-- FORMAT -->
+    <section class="rounded-3xl border border-cl-lime/20 bg-surface/20 p-8 md:p-10">
+      <h2 class="text-3xl font-bold text-cl-lime uppercase mb-6">Format</h2>
+      <div class="grid md:grid-cols-3 gap-6 text-sm">
+        <div class="space-y-1">
+          <p class="text-cl-lime font-bold uppercase tracking-wide">Group Stage</p>
+          <p class="text-text-muted">Clubs are drawn into groups and play a round-robin to advance to the knockout stage.</p>
+        </div>
+        <div class="space-y-1">
+          <p class="text-cl-lime font-bold uppercase tracking-wide">Knockout Rounds</p>
+          <p class="text-text-muted">From the Round of 32 to the semi-finals, ties are played over two legs, decided on aggregate.</p>
+        </div>
+        <div class="space-y-1">
+          <p class="text-cl-lime font-bold uppercase tracking-wide">The Final</p>
+          <p class="text-text-muted">A single match decides the champion of the Forestian Champions League.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SEASON -->
+    <section class="text-center">
+      <p class="text-text-muted uppercase tracking-widest text-sm">Season 2027</p>
+      <p class="text-white text-xl mt-1">Details will be announced soon.</p>
+    </section>
+  </div>
+</FCLayout>

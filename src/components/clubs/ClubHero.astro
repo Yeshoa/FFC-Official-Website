@@ -19,9 +19,9 @@ const primary = club.colors?.primary ?? '#95ff00';
 const secondary = club.colors?.secondary ?? '#00ff95';
 ---
 
-<section class="club-hero relative overflow-hidden bg-gradient-to-br from-surface via-surface-raised to-black text-white">
-  <!-- Fondo con rombos lima (estética CL) -->
-  <div class="absolute inset-0 diamond-pattern opacity-20 pointer-events-none"></div>
+<section class="club-hero relative overflow-hidden bg-gradient-to-br from-cl-black via-black to-cl-black text-white">
+  <!-- Fondo con rombos lima con nodos (estética CL, patrón global .cl-pattern) -->
+  <div class="cl-pattern absolute inset-0 opacity-20 pointer-events-none"></div>
   <div class="relative z-10 w-full max-w-screen-xl px-4 py-10 mx-auto">
     <div class="flex flex-col md:flex-row items-center gap-8">
       <!-- Escudo -->
@@ -101,13 +101,3 @@ const secondary = club.colors?.secondary ?? '#00ff95';
     </div>
   </div>
 </section>
-
-<style>
-  .diamond-pattern {
-    background-image:
-      linear-gradient(45deg, transparent 75%, rgba(149, 255, 0, 0.5) 75%, rgba(149, 255, 0, 0.5) 78%, transparent 78%),
-      linear-gradient(45deg, transparent 75%, rgba(149, 255, 0, 0.5) 75%, rgba(149, 255, 0, 0.5) 78%, transparent 78%);
-    background-size: 40px 40px;
-    background-position: 0 0, 20px 20px;
-  }
-</style>

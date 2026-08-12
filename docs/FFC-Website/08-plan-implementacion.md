@@ -163,10 +163,14 @@
 
 > NOTA: No se si es posible hacer este diseño para el fondo y los detalles de la FCL: que hayan diamantes (rombos) con grosor delgado, y cuyos vértices sean circulos (como si fueran nodos conectados) y que sean predominantemente verdes (el color del token --color-cl-lime) y con algunas zonas cian (el token secundario). Y que cada diamante no sea solamente un diamante, sino que tenga repetidos diamantes de las mismas proporciones pero mas chicos dentro, entonces queda como un efecto partón.
 
-> **Parcialmente adelantado (B4/B5):**
-> - `src/layouts/FCL.astro`: layout de la sección CL con `Navbar`/`Footer` propios (`src/components/champions-league/`).
-> - `Navbar` CL: links **de la sección** (Home CL, Ranking FCL, Clubs) + volver a Forest Cup. La sección CL y `/clubs` usan este layout (NO el `App`/navbar FC).
-> - **Pendiente (B7 completo)**: estética CL (negro + rombos lima, tokens `--color-cl-*`), home CL real (reemplazar el placeholder "Coming soon"), y decidir la ruta de la home CL.
+> **Hecho (B7):**
+> - **Patrón CL global** `.cl-pattern` en `src/styles/global.css`: rombos (diamantes) de grosor delgado con **vértices circulares** (nodos conectados), verde lima (`--color-cl-lime`) con **acentos cian** (`--color-cl-lime-secondary`) en zonas alternadas, y **diamantes anidados más chicos** dentro (efecto patrón). Implementado como SVG data-uri ligero (sin assets). Es la **nota del dueño** de esta fase.
+> - **`FCL.astro`**: fondo `bg-cl-black` + patrón a baja opacidad (reutilizable en toda la sección).
+> - **`Navbar`/`Footer` CL** restyling a paleta cl (negro + lima, hover cian).
+> - **Home real de CL en `/forestian-champions-league/`** (`src/pages/forestian-champions-league/index.astro`): hero con estética CL, ranking preview (top clubes por rating), sección formato (grupos → llaves → final) y nota de season 2027.
+> - **Rutas**: `ROUTES.championsLeague.index` → `/forestian-champions-league/`; `champions-league.astro` (placeholder) pasa a **redirect** a la home.
+> - `ClubHero` reutiliza `.cl-pattern` (se eliminó el patrón local).
+> - **Pendiente**: `articles`/`sponsors` globales en la sección CL (ver [[09-dudas]] §8) y contenido de temporada/partidos CL en B10.
 
 ### B8 · Páginas individuales de partido
 - `src/pages/matches/[...match].astro` con `getStaticPaths`.

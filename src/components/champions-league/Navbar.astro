@@ -37,7 +37,7 @@ const isActive = (href: string) => {
 ---
 
 <div class="main__cont">
-  <nav class="navbar__top bg-background w-full z-20 top-0 start-0 border-b border-primary">
+  <nav class="navbar__top bg-cl-black w-full z-20 top-0 start-0 border-b border-cl-lime/30">
     <div class="navbar__cont max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-3 gap-2">
       <div class="hamburger flex md:hidden">
         <span class="bar"></span>
@@ -57,9 +57,9 @@ const isActive = (href: string) => {
               <li class="group" key={link.href}>
                 <a
                   href={link.href}
-                  class={`py-2 px-3 rounded-sm flex gap-2 items-center ${active ? 'text-primary' : 'text-white group-hover:text-primary-light'}`}
+                  class={`py-2 px-3 rounded-sm flex gap-2 items-center ${active ? 'text-cl-lime' : 'text-white group-hover:text-cl-lime-secondary'}`}
                 >
-                  <Icon width={link.iconWidth} class={`${active ? 'fill-primary' : 'fill-white group-hover:fill-primary-light'}`} />
+                  <Icon width={link.iconWidth} class={`${active ? 'fill-cl-lime' : 'fill-white group-hover:fill-cl-lime-secondary'}`} />
                   <span class="inline">{link.label}</span>
                 </a>
               </li>
@@ -68,9 +68,9 @@ const isActive = (href: string) => {
           <li class="group">
             <a
               href={ROUTES.forestCup.index}
-              class="py-2 px-3 rounded-sm flex gap-2 items-center text-white group-hover:text-primary-light"
+              class="py-2 px-3 rounded-sm flex gap-2 items-center text-white group-hover:text-cl-lime-secondary"
             >
-              <Cup width={20} class="fill-white group-hover:fill-primary-light" />
+              <Cup width={20} class="fill-white group-hover:fill-cl-lime-secondary" />
               <span class="inline">Forest Cup</span>
             </a>
           </li>
@@ -80,14 +80,14 @@ const isActive = (href: string) => {
   </nav>
 
   <!-- NAVBAR MOBILE -->
-  <div class="navbar border-r-1 border-primary flex flex-col" id="navbar-sticky">
-    <header class="navbar__header py-8 px-4 flex items-center justify-between border-b-1 border-primary">
+  <div class="navbar border-r-1 border-cl-lime/30 flex flex-col" id="navbar-sticky">
+    <header class="navbar__header py-8 px-4 flex items-center justify-between border-b-1 border-cl-lime/30">
       <div class="navbar__header__logo">
         <a href={ROUTES.championsLeague.index}>
           <Image src={FFCLogo} alt="FFC Logo" loading="eager" height={100} quality={70} format="webp" class="navbar__phone__logo"/>
         </a>
       </div>
-      <XMark width={30} class="fill-white cursor-pointer close__btn" />
+      <XMark width={30} class="fill-cl-lime cursor-pointer close__btn" />
     </header>
 
     <ul class="flex flex-col p-4 font-medium gap-3">
@@ -98,9 +98,9 @@ const isActive = (href: string) => {
           <li class="group" key={link.href}>
             <a
               href={link.href}
-              class={`py-2 px-3 rounded-sm flex gap-2 items-center ${active ? 'text-primary' : 'text-white group-hover:text-primary-light'}`}
+              class={`py-2 px-3 rounded-sm flex gap-2 items-center ${active ? 'text-cl-lime' : 'text-white group-hover:text-cl-lime-secondary'}`}
             >
-              <Icon width={link.iconWidth} class={`${active ? 'fill-primary' : 'fill-white group-hover:fill-primary-light'}`} />
+              <Icon width={link.iconWidth} class={`${active ? 'fill-cl-lime' : 'fill-white group-hover:fill-cl-lime-secondary'}`} />
               <span class="inline">{link.label}</span>
             </a>
           </li>
@@ -109,9 +109,9 @@ const isActive = (href: string) => {
       <li class="group">
         <a
           href={ROUTES.forestCup.index}
-          class="py-2 px-3 rounded-sm flex gap-2 items-center text-white group-hover:text-primary-light"
+          class="py-2 px-3 rounded-sm flex gap-2 items-center text-white group-hover:text-cl-lime-secondary"
         >
-          <Cup width={20} class="fill-white group-hover:fill-primary-light" />
+          <Cup width={20} class="fill-white group-hover:fill-cl-lime-secondary" />
           <span class="inline">Forest Cup</span>
         </a>
       </li>
@@ -137,7 +137,7 @@ const isActive = (href: string) => {
       width: 30px;
       height: 3px;
       margin: 4px auto;
-      background-color: white;
+      background-color: var(--color-cl-lime);
       transition: all 0.3s ease-in-out;
     }
   }
@@ -148,7 +148,7 @@ const isActive = (href: string) => {
     width: 70%;
     top: 0;
     left: 0;
-    background-color: var(--color-green-950);
+    background-color: var(--color-cl-black);
     z-index: 50;
     will-change: transform;
     transform: translateX(-100%);

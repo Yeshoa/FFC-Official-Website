@@ -14,8 +14,8 @@ export const ROUTES = {
     edition: (edition: number) => `/forest-cup/${edition}/`,
   },
   championsLeague:{
-    index: "/champions-league/",
-    edition: (edition: number) => `/champions-league/${edition}/`,
+    index: "/forestian-champions-league/",
+    edition: (edition: number) => `/forestian-champions-league/${edition}/`,
     ranking: "/forestian-champions-league/ranking/",
   },
   members: {

@@ -59,6 +59,15 @@
 	grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
 }
 
+/* ===== Patrón CL: rombos con nodos circulares (estética FCL, B7) =====
+   Diamantes de grosor delgado con vértices circulares (nodos conectados),
+   en verde lima (--color-cl-lime) con acentos cian (--color-cl-lime-secondary),
+   y diamantes más chicos anidados dentro (efecto patrón). */
+.cl-pattern {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240' viewBox='0 0 240 240'><g fill='none' stroke='%2395ff00'><polygon points='120,10 230,120 120,230 10,120' stroke-opacity='0.55' stroke-width='1.2'/><polygon points='120,65 175,120 120,175 65,120' stroke-opacity='0.35' stroke-width='1'/><polygon points='120,92.5 147.5,120 120,147.5 92.5,120' stroke-opacity='0.22' stroke-width='1'/></g><g fill='%2395ff00'><circle cx='120' cy='10' r='4' opacity='0.9'/><circle cx='230' cy='120' r='4' opacity='0.9'/><circle cx='120' cy='230' r='4' opacity='0.9'/><circle cx='10' cy='120' r='4' opacity='0.9'/><circle cx='120' cy='65' r='2.5' opacity='0.7'/><circle cx='175' cy='120' r='2.5' opacity='0.7'/><circle cx='120' cy='175' r='2.5' opacity='0.7'/><circle cx='65' cy='120' r='2.5' opacity='0.7'/><circle cx='120' cy='92.5' r='1.6' opacity='0.5'/><circle cx='147.5' cy='120' r='1.6' opacity='0.5'/><circle cx='120' cy='147.5' r='1.6' opacity='0.5'/><circle cx='92.5' cy='120' r='1.6' opacity='0.5'/></g><g fill='none' stroke='%2300ff95'><polygon points='36,10 62,36 36,62 10,36' stroke-opacity='0.5' stroke-width='1.2'/><polygon points='204,178 230,204 204,230 178,204' stroke-opacity='0.5' stroke-width='1.2'/></g><g fill='%2300ff95'><circle cx='36' cy='10' r='3' opacity='0.85'/><circle cx='62' cy='36' r='3' opacity='0.85'/><circle cx='36' cy='62' r='3' opacity='0.85'/><circle cx='10' cy='36' r='3' opacity='0.85'/><circle cx='204' cy='178' r='3' opacity='0.85'/><circle cx='230' cy='204' r='3' opacity='0.85'/><circle cx='204' cy='230' r='3' opacity='0.85'/><circle cx='178' cy='204' r='3' opacity='0.85'/></g></svg>");
+  background-size: 240px 240px;
+}
+
  @keyframes slide-in {
 	from {
 	  transform: translateY(-10px);
