@@ -1,62 +1,101 @@
 ---
-import type { CollectionEntry } from 'astro:content';
-import { getLeague } from '@data/leagues';
+// DomesticLeagueTable: tabla de posiciones de una liga doméstica con zonas
+// (descenso en rojo, clasificación a Champions League en verde) + leyenda.
+// Referencia clubes por id global; el display (nombre/colores/link) se resuelve de clubs.json.
+import { getClubById } from '@data/clubs';
+import { ROUTES } from '@config/routes';
+import type { League } from '@data/leagues';
 
 interface Props {
-  member: CollectionEntry<'members'>;
+  league: League;
 }
 
-const { member } = Astro.props;
-const league = getLeague(member.data.code);
+const { league } = Astro.props;
+
+const isClZone = (pos: number) => league.championsLeaguePositions.includes(pos);
+const isRelegation = (pos: number) => league.relegationPositions.includes(pos);
+const hasZones = league.relegationPositions.length > 0 || league.championsLeaguePositions.length > 0;
 ---
-{
-  league ? (
-    <div class="bg-surface/80 shadow-lg rounded-lg p-6 mb-8">
-      <div class="flex items-baseline justify-between">
-        <h2 class="text-2xl font-semibold mb-4 border-b pb-2 border-primary">Domestic League</h2>
-        <span class="text-sm text-text-muted">Season {league.season}</span>
-      </div>
-      <div class="overflow-x-auto">
-        <table class="w-full text-center table-auto border-collapse">
-          <thead class="bg-primary-deep text-white">
-            <tr>
-              <th class="px-2 py-2 rounded-tl-lg" title="Position">#</th>
-              <th class="px-2 py-2 text-left" title="Club">Club</th>
-              <th class="px-2 py-2" title="Matches Played">Pld</th>
-              <th class="px-2 py-2" title="Wins">W</th>
-              <th class="px-2 py-2" title="Draws">D</th>
-              <th class="px-2 py-2" title="Losses">L</th>
-              <th class="px-2 py-2" title="Goals for">GF</th>
-              <th class="px-2 py-2" title="Goals against">GA</th>
-              <th class="px-2 py-2" title="Goal difference">GD</th>
-              <th class="px-2 py-2 rounded-tr-lg" title="Points">Pts</th>
-            </tr>
-          </thead>
-          <tbody>
-            {league.standings.map(row => {
-              const gd = row.goalsFor - row.goalsAgainst;
-              return (
-                <tr class="border-b border-primary-dark hover:bg-surface-raised/20">
-                  <td class="px-2 py-2 font-bold">{row.position}</td>
-                  <td class="px-2 py-2 text-left font-medium text-white">
-                    {row.clubCode ? (
-                      <a href={`/clubs/${row.clubCode}`} class="hover:underline">{row.club}</a>
-                    ) : row.club}
-                  </td>
-                  <td class="px-2 py-2">{row.played}</td>
-                  <td class="px-2 py-2 text-primary-muted">{row.won}</td>
-                  <td class="px-2 py-2 text-yellow-400">{row.drawn}</td>
-                  <td class="px-2 py-2 text-red-400">{row.lost}</td>
-                  <td class="px-2 py-2">{row.goalsFor}</td>
-                  <td class="px-2 py-2">{row.goalsAgainst}</td>
-                  <td class="px-2 py-2">{gd > 0 ? `+${gd}` : gd}</td>
-                  <td class="px-2 py-2 font-bold">{row.points}</td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
+
+<div class="bg-surface/80 shadow-lg rounded-lg p-6 mb-8">
+  <div class="flex items-baseline justify-between">
+    <h2 class="text-2xl font-semibold mb-4 border-b pb-2 border-primary">
+      Domestic League
+      <span class="text-base font-medium text-text-muted"> · Division {league.division}</span>
+    </h2>
+    <span class="text-sm text-text-muted">Season {league.season}</span>
+  </div>
+
+  {hasZones && (
+    <div class="flex flex-wrap items-center gap-4 mb-4 text-xs text-text-muted">
+      {league.championsLeaguePositions.length > 0 && (
+        <span class="inline-flex items-center gap-1.5">
+          <span class="w-3 h-3 rounded-sm bg-emerald-500/70"></span>
+          Champions League qualification
+        </span>
+      )}
+      {league.relegationPositions.length > 0 && (
+        <span class="inline-flex items-center gap-1.5">
+          <span class="w-3 h-3 rounded-sm bg-red-500/70"></span>
+          Relegation
+        </span>
+      )}
     </div>
-  ) : null
-}
+  )}
+
+  <div class="overflow-x-auto">
+    <table class="w-full text-center table-auto border-collapse">
+      <thead class="bg-primary-deep text-white">
+        <tr>
+          <th class="px-2 py-2 rounded-tl-lg" title="Position">#</th>
+          <th class="px-2 py-2 text-left" title="Club">Club</th>
+          <th class="px-2 py-2" title="Matches Played">Pld</th>
+          <th class="px-2 py-2" title="Wins">W</th>
+          <th class="px-2 py-2" title="Draws">D</th>
+          <th class="px-2 py-2" title="Losses">L</th>
+          <th class="px-2 py-2" title="Goals for">GF</th>
+          <th class="px-2 py-2" title="Goals against">GA</th>
+          <th class="px-2 py-2" title="Goal difference">GD</th>
+          <th class="px-2 py-2 rounded-tr-lg" title="Points">Pts</th>
+        </tr>
+      </thead>
+      <tbody>
+        {league.standings.map((row) => {
+          const club = getClubById(row.clubId);
+          const gd = row.goalsFor - row.goalsAgainst;
+          const zoneClass = isClZone(row.position)
+            ? 'bg-emerald-500/10'
+            : isRelegation(row.position)
+              ? 'bg-red-500/10'
+              : '';
+          return (
+            <tr class={`border-b border-primary-dark hover:bg-surface-raised/20 ${zoneClass}`}>
+              <td class="px-2 py-2 font-bold">{row.position}</td>
+              <td class="px-2 py-2 text-left font-medium text-white">
+                {club ? (
+                  <a
+                    href={ROUTES.clubs.detail(club.slug)}
+                    class="inline-flex items-center gap-2 hover:underline"
+                  >
+                    <span class="inline-block w-2 h-2 rounded-full" style={{ backgroundColor: club.colors?.primary }}></span>
+                    {club.name}
+                  </a>
+                ) : (
+                  row.clubName ?? `#${row.clubId}`
+                )}
+              </td>
+              <td class="px-2 py-2">{row.played}</td>
+              <td class="px-2 py-2 text-primary-muted">{row.won}</td>
+              <td class="px-2 py-2 text-yellow-400">{row.drawn}</td>
+              <td class="px-2 py-2 text-red-400">{row.lost}</td>
+              <td class="px-2 py-2">{row.goalsFor}</td>
+              <td class="px-2 py-2">{row.goalsAgainst}</td>
+              <td class="px-2 py-2">{gd > 0 ? `+${gd}` : gd}</td>
+              <td class="px-2 py-2 font-bold">{row.points}</td>
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
+  </div>
+</div>

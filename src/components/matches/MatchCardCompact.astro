@@ -3,7 +3,7 @@ import  { type CollectionEntry } from 'astro:content';
 import { getTournaments } from '@lib/collections';
 import { LOCALE } from '@config/constants';
 import { getMatchResult, getPenaltiesResult } from 'src/utils/matchUtils';
-import { getMemberImage } from 'src/utils/memberUtils';
+import { getTeamById, getTeamView } from 'src/utils/memberUtils';
 import { Image } from 'astro:assets';
 
 interface Props {
@@ -18,8 +18,10 @@ const { team1, team2 } = match;
 const { team1: score1, team2: score2 } = getMatchResult(match);
 const penalties = getPenaltiesResult(match);
 
-const team1Image = getMemberImage(team1);
-const team2Image = getMemberImage(team2);
+const [team1View, team2View] = await Promise.all([
+  getTeamById(match.team1Id).then((ref) => getTeamView(ref, team1)),
+  getTeamById(match.team2Id).then((ref) => getTeamView(ref, team2)),
+]);
 
 // Texto de penales si aplica
 const penaltyText = penalties
@@ -37,10 +39,15 @@ const penaltyText = penalties
   <div class="w-full flex items-center justify-center gap-2 text-sm text-white">
     <!-- Team 1 -->
     <div class="flex items-center gap-2 flex-1 justify-end">
-      <span class="truncate max-w-[100px] text-right" title={team1}>{team1}</span>
-      {team1Image ? (
-        <Image src={team1Image} alt={team1} class="w-5 h-4 object-cover rounded-sm" loading="lazy" format="webp"
+      <span class="truncate max-w-[100px] text-right" title={team1}>{team1View.name}</span>
+      {team1View.flag ? (
+        <Image src={team1View.flag} alt={team1View.name} class="w-5 h-4 object-cover rounded-sm" loading="lazy" format="webp"
         quality={1} />
+      ) : team1View.type === 'club' ? (
+        <span class="w-5 h-4 rounded-sm flex items-center justify-center text-[9px] font-black ring-1 ring-gray-600"
+          style={{ backgroundColor: `${team1View.color ?? '#95ff00'}22`, color: team1View.color ?? '#95ff00' }}>
+          {team1View.name[0]}
+        </span>
       ) : (
         <div class="w-5 h-4 bg-gray-600 rounded-sm" />
       )}
@@ -58,13 +65,18 @@ const penaltyText = penalties
   
     <!-- Team 2 -->
     <div class="flex items-center gap-2 flex-1">
-      {team2Image ? (
-        <Image src={team2Image} alt={team2} class="w-5 h-4 object-cover rounded-sm" loading="lazy" 
+      {team2View.flag ? (
+        <Image src={team2View.flag} alt={team2View.name} class="w-5 h-4 object-cover rounded-sm" loading="lazy" 
         format="webp" quality={1} />
+      ) : team2View.type === 'club' ? (
+        <span class="w-5 h-4 rounded-sm flex items-center justify-center text-[9px] font-black ring-1 ring-gray-600"
+          style={{ backgroundColor: `${team2View.color ?? '#95ff00'}22`, color: team2View.color ?? '#95ff00' }}>
+          {team2View.name[0]}
+        </span>
       ) : (
         <div class="w-5 h-4 bg-gray-600 rounded-sm" />
       )}
-      <span class="truncate max-w-[100px]" title={team2}>{team2}</span>
+      <span class="truncate max-w-[100px]" title={team2}>{team2View.name}</span>
     </div>
   </div>
 </div>

@@ -8,4 +8,5 @@ export interface TeamView {
   flag?: ImageMetadata | null;
   href?: string;
   type: 'national' | 'club';
+  color?: string; // color primario del club (para iniciales/acentos)
 }

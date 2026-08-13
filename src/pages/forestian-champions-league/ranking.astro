@@ -55,7 +55,7 @@ const clubs = getAllClubs()
                     <td class={`py-2 font-semibold border-r border-primary-dark ${getRankClass(index + 1)}`}>{index + 1}</td>
                     <td class="ps-2 py-2 text-left">
                       <a
-                        href={ROUTES.clubs.detail(club.code)}
+                        href={ROUTES.clubs.detail(club.slug)}
                         class="inline-flex items-center gap-3 font-semibold hover:underline text-white"
                         title={club.name}
                       >

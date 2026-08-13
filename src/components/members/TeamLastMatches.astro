@@ -1,0 +1,31 @@
+---
+// TeamLastMatches: últimos partidos jugados de un equipo (selección o club), por id global.
+import type { CollectionEntry } from 'astro:content';
+import MatchCardDetailed from '@components/matches/MatchCardDetailed.astro';
+
+interface Props {
+  teamId: number;
+  matches: CollectionEntry<'matches'>[];
+  teamKind?: 'national' | 'club';
+}
+
+const { teamId, matches, teamKind = 'national' } = Astro.props;
+
+const played = matches
+  .filter(m => m.data.status === 'played' && (m.data.team1Id === teamId || m.data.team2Id === teamId))
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 6);
+---
+
+<div class="bg-surface/80 shadow-lg rounded-lg p-6">
+  <h2 class="text-2xl font-semibold mb-4 text-white border-b pb-2 border-primary">Last Matches Played</h2>
+  {played.length > 0 ? (
+    <div class="flex flex-col gap-4">
+      {played.map(match => (
+        <MatchCardDetailed match={match} />
+      ))}
+    </div>
+  ) : (
+    <p class="text-text-muted italic">This {teamKind === 'club' ? 'club' : 'National Team'} hasn't played any matches yet.</p>
+  )}
+</div>

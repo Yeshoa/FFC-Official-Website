@@ -158,26 +158,29 @@ interface Player {
 
 ```ts
 interface Club {
-  id: number;
-  code: string;            // ej: "BILS_FC" — identificador de equipo en partidos
+  id: number;              // id global (fuente de verdad, Fase D)
+  code: string;            // SOLO VISUAL. Libre, puede repetirse. NO se usa como key/ruta.
   name: string;
   shortName?: string;
-  federation: string;      // código de federación dueña (1 club → 1 federación)
+  federation: string;      // código de federación dueña (1 club → 1 federación, display)
+  federationId?: number;   // id global de la federación dueña (fuente de verdad)
   logoPath?: string;
   founded?: number;
   stadiumId?: number;      // opcional
   colors?: { primary: string; secondary: string };
   budget?: number;         // presupuesto FCL (derivado del poder federativo, se carga por el dueño)
   squad?: { coach?: string; formation?: string };
+  slug: string;            // ruta única DERIVADA del nombre (slugify + sufijo numérico si hay duplicado)
 }
 ```
 
 ### Reglas
-- Un club pertenece a **una sola federación** (`federation`).
+- Un club pertenece a **una sola federación** (`federationId`).
+- **`code` es solo display** (decisión del dueño): puede repetirse y no tiene reglas de formato. No se usa como key ni como ruta. La **ruta del club es un `slug` derivado del nombre** (`/clubs/<slug>`); si dos clubes se llaman igual, se agrega un sufijo numérico (`-2`, `-3`).
 - El **`budget`** es el presupuesto FCL del club: se carga por el dueño, derivado del poder federativo para la FCL (dato externo, normalizado según el formato FCL §4.3). No lo edita el participante; este solo lo gasta en el simulador de mercado de pases.
 - El **plantel del club se deriva de `players.json`** (ver §8): no se repite en `club.squad`.
-- La **liga doméstica** es el conjunto de clubes de una misma federación → se muestra en la página del miembro ("su liga doméstica, si la tiene").
-- En partidos, los equipos pueden ser **federación** o **club**: se identifica por `teamCode` con un prefijo o por un campo `teamType`/`entityType` en el partido.
+- La **liga doméstica** se define en `src/data/leagues/` por **`clubId`** (no por code) y con **divisiones** (ver §7). La página del miembro muestra la **primera división** de su federación; la del club muestra la división donde juega ese club.
+- En partidos, los equipos pueden ser **federación** o **club**: se identifica por `team1Id/team2Id` (id global) + `team1Type/team2Type`.
 - **Sin badges/logros** en la página del club: los logros son de federaciones, no de clubes (decisión del dueño).
 - El **rating del club** se deriva de su plantel (mismo mecanismo que el rating de federación), para el ranking FCL.
 
@@ -240,16 +243,33 @@ Cargar un gol pide el `playerId` y hay que buscarlo a mano. No se puede resolver
 
 ## 7. Cómo se resuelve "la página del miembro muestra su liga doméstica"
 
-- Desde `club.federation = <código miembro>` se listan los clubes de esa federación.
+- Desde `club.federationId` se listan los clubes de esa federación.
 - Si el club tiene plantel, se muestra (derivado de `players.json`, ver §8); si el jugador de la federación está en un club, se cruza por `playerId`.
 
-### Tabla de liga doméstica (hardcodeada en JSON)
-- Las **tablas de la liga doméstica se hardcodean en JSON** (sin calcularse): `src/data/leagues/<federation>.json`.
-- Contienen la tabla de la **última temporada** de esa federación: clubes, partidos jugados/ganados/empatados/perdidos, goles a favor/en contra, puntos.
-- La página del miembro muestra:
-  1. Si la federación **tiene tabla de liga** (`leagues/<code>.json`) → se muestra la **tabla**.
-  2. Si **no** tiene tabla pero **tiene clubes** → se muestra la **lista de clubes** de la federación.
-  3. Si no tiene nada → no se muestra sección.
+### Ligas domésticas (hardcodeadas en JSON, con divisiones)
+- Las **tablas de liga se hardcodean en JSON** (sin calcularse): `src/data/leagues/leagues.json` → **array de ligas**.
+- Cada liga pertenece a una federación (`federationId`), tiene **`division`** (una federación puede tener varias divisiones) y su **`season`**.
+- Los clubes se referencian por **`clubId`** (id global, NO por code: el code es visual y puede repetirse).
+- Campos de zonas: **`relegationPositions: number[]`** (posiciones que descienden) y **`championsLeaguePositions: number[]`** (posiciones que clasifican a la Champions League). En la tabla, las filas de descenso se muestran en **tono rojo**, las de clasificación a CL en **tono verde/brilloso**, con **leyenda**.
+- Getters en `@data/leagues`: `getFirstDivision(federationId)`, `getLeaguesByFederation(federationId)`, `getLeagueForClub(clubId)`.
+
+```json
+{
+  "id": "bil-div1",
+  "name": "Bilsa First Division",
+  "division": 1,
+  "federationId": 1,
+  "season": 2026,
+  "relegationPositions": [17, 18],
+  "championsLeaguePositions": [1, 2, 3, 4],
+  "standings": [
+    { "position": 1, "clubId": 97, "played": 2, "won": 1, "drawn": 1, "lost": 0, "goalsFor": 4, "goalsAgainst": 2, "points": 4 }
+  ]
+}
+```
+
+- **Página del miembro**: muestra la **primera división** de su federación (`getFirstDivision`). Si no hay liga pero tiene clubes → **lista de clubes**; si no tiene nada → no se muestra sección.
+- **Página del club**: muestra la **división donde juega ese club** (`getLeagueForClub`); si no hay liga → mensaje "aún no hay registro de liga local".
 - **Las stats del club solo cuentan torneos FFC** (Forest Cup + Champions League), **NO** la liga doméstica: esta es solo una tabla estática de contexto.
 
 ### Infraestructura primero (decisión dueño 2026)

@@ -1,7 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
-import { getMemberByName } from 'src/utils/memberUtils';
+import { getMatchTeamViews } from 'src/utils/memberUtils';
 import { areThereScorers, getMatchWinner, getMatchResult, getMatchRedCards } from 'src/utils/matchUtils';
 import GoalIcon from '@images/icons/futbol-regular-full.svg';
 import PenaltyIcon from '@images/icons/penalty.svg';
@@ -33,8 +33,7 @@ if (hasPenaltyShootout) {
   penaltyScore2 = penalties.filter(p => p.team === match.data.team2 && p.scored).length;
   penaltyInfo = `(${penaltyScore1}-${penaltyScore2})`;
 }
-const team1 = await getMemberByName(match.data.team1) || { data: { name: match.data.team1, code: match.data.team1 } };
-const team2 = await getMemberByName(match.data.team2) || { data: { name: match.data.team2, code: match.data.team2 } };
+const { team1, team2 } = await getMatchTeamViews(match);
 const winner = getMatchWinner(match.data);
 const redCards = getMatchRedCards(match.data);
 const tournament = tournaments.find(t => t.data.id === match.data.tournament_id);
@@ -85,14 +84,14 @@ const hour = match.data.date.toLocaleTimeString(LOCALE, {hour12: false, hour: 'n
   <div class="grid grid-cols-7 items-center w-full gap-2 mb-2">
     {/* Equipo 1 */}
     <div class="flex items-center justify-end col-span-3 gap-2 text-right overflow-visible">
-      <a class={`${winner === match.data.team1 ? 'font-bold' : 'font-light'} md:text-lg truncate hover:underline`} href={team1?.data ? `/members/${team1?.id}` : '#'}>
-        <span class="hidden xs:inline">{team1?.data ? team1?.data.name : match.data.team1}</span>
-        <span class="xs:hidden">{team1?.data ? team1?.data.code : match.data.team1}</span>
+      <a class={`${winner === match.data.team1 ? 'font-bold' : 'font-light'} md:text-lg truncate hover:underline`} href={team1.href ?? '#'}>
+        <span class="hidden xs:inline">{team1.name}</span>
+        <span class="xs:hidden">{team1.code ?? team1.name}</span>
       </a>
-      {team1?.data?.flagPath ? (
+      {team1.flag ? (
         <Image
-          src={team1.data.flagPath || defaultFlag}
-          alt={team1.data.name}
+          src={team1.flag}
+          alt={team1.name}
           class="h-5 w-8 md:h-6 md:w-9 rounded-sm object-cover ring-1 ring-gray-500 flex-shrink-0"
           height={48}
           loading="lazy"
@@ -100,8 +99,15 @@ const hour = match.data.date.toLocaleTimeString(LOCALE, {hour12: false, hour: 'n
           format="webp"
           quality={10}
         />
-       ) : ( 
-         <Image
+      ) : team1.type === 'club' ? (
+        <span
+          class="h-5 w-8 md:h-6 md:w-9 rounded-sm flex items-center justify-center text-[10px] font-black ring-1 ring-gray-500 flex-shrink-0"
+          style={{ backgroundColor: `${team1.color ?? '#95ff00'}22`, color: team1.color ?? '#95ff00' }}
+        >
+          {team1.name[0]}
+        </span>
+      ) : (
+        <Image
           src={defaultFlag}
           alt="Default Flag"
           class="h-5 w-8 md:h-6 md:w-9 rounded-sm object-cover ring-1 ring-gray-500 flex-shrink-0"
@@ -111,7 +117,7 @@ const hour = match.data.date.toLocaleTimeString(LOCALE, {hour12: false, hour: 'n
           format="webp"
           quality={10}
         />
-       )}
+      )}
     </div>
     {/* Marcador */}
     <div class="text-center">
@@ -131,10 +137,10 @@ const hour = match.data.date.toLocaleTimeString(LOCALE, {hour12: false, hour: 'n
     </div>
     {/* Equipo 2 */}
     <div class="flex items-center col-span-3 gap-2 text-left overflow-visible">
-       {team2?.data?.flagPath ? (
+      {team2.flag ? (
         <Image
-          src={team2.data.flagPath || defaultFlag}
-          alt={team2.data.name}
+          src={team2.flag}
+          alt={team2.name}
           class="h-5 w-8 md:h-6 md:w-9 rounded-sm object-cover ring-1 ring-gray-500 flex-shrink-0"
           height={48}
           loading="lazy"
@@ -142,6 +148,13 @@ const hour = match.data.date.toLocaleTimeString(LOCALE, {hour12: false, hour: 'n
           format="webp"
           quality={10}
         />
+      ) : team2.type === 'club' ? (
+        <span
+          class="h-5 w-8 md:h-6 md:w-9 rounded-sm flex items-center justify-center text-[10px] font-black ring-1 ring-gray-500 flex-shrink-0"
+          style={{ backgroundColor: `${team2.color ?? '#95ff00'}22`, color: team2.color ?? '#95ff00' }}
+        >
+          {team2.name[0]}
+        </span>
       ) : (
         <Image
           src={defaultFlag}
@@ -154,9 +167,9 @@ const hour = match.data.date.toLocaleTimeString(LOCALE, {hour12: false, hour: 'n
           quality={10}
         />
       )}
-      <a class={`${winner === match.data.team2 ? 'font-bold' : 'font-light'} md:text-lg truncate hover:underline`} href={team2?.data ? `/members/${team2?.id}` : '#'}>
-        <span class="hidden xs:inline">{team2?.data ? team2?.data.name : match.data.team2}</span>
-        <span class="xs:hidden">{team2?.data ? team2?.data.code : match.data.team2}</span>
+      <a class={`${winner === match.data.team2 ? 'font-bold' : 'font-light'} md:text-lg truncate hover:underline`} href={team2.href ?? '#'}>
+        <span class="hidden xs:inline">{team2.name}</span>
+        <span class="xs:hidden">{team2.code ?? team2.name}</span>
       </a>
     </div>
   </div>

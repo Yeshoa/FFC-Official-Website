@@ -192,10 +192,26 @@
 ### B9 · Páginas de logros por federación
 - Ruta `/members/<slug>/achievements` (obtenidos / por obtener / secretos como `?` / progreso / puntaje).
 
+> **Hecho (B9):**
+> - `src/pages/members/[slug]/achievements.astro` (**96 páginas**, `/members/<slug>/achievements/`).
+> - **Obtenidos**: grid de `AchievementCard` (flip cards con nombre, descripción, rareza y estrellas). **Todos los logros obtenidos se ven con su nombre/ícono**, incluso los marcados `visible:false` en la data (corrección del dueño: un secreto se revela al obtenerlo).
+> - **Por obtener**: logros no logrados agrupados por categoría; los **visibles** como cards locked con tooltip, y los **secretos** (`visible:false`) como **`?`** sin revelar detalles (solo se ocultan hasta obtenerlos).
+> - **Progreso**: barra de completitud (obtenidos/total, %) en el header.
+> - Link "View all achievements →" en la página del miembro + `ROUTES.members.achievements(slug)`.
+> - **Pendiente**: progreso `current/target` en los logros NO logrados — hoy los evaluadores dinámicos devuelven `null` cuando no se alcanza el umbral, así que los locked no muestran barra de progreso todavía (requiere refactor del engine para exponer progreso en estado no logrado).
+
 ### B10 · Forestian Champions League (contenido)
 - Torneo CL con `type: 'forestian-champions-league'` y `season`.
 - Rutas de la sección (home, season, fixtures, standings, ranking CL propio).
 - Carga de datos de clubes y partidos CL (ida/vuelta, final simple).
+
+> **Hecho (adelanto post-B9, 2026): paridad de la página de club + ligas domésticas v2**
+> - **Ruta de clubes por slug** (el `code` es visual y puede repetirse): `@data/clubs` deriva `slug` del nombre con dedup (`-2`, `-3`), `getClubBySlug`, y se migraron todos los links (`ClubCard`, ranking FCL, matches, MemberClubs, liga). Ruta `/clubs/<slug>`.
+> - **Ligas domésticas v2** (`src/data/leagues/leagues.json` → array): campo `division` (varias divisiones por federación), `federationId`, y zonas **`relegationPositions`** / **`championsLeaguePositions`** (listas de posiciones). Los clubes se referencian por **`clubId`** (nunca por code). Getters: `getFirstDivision`, `getLeaguesByFederation`, `getLeagueForClub`.
+> - **`DomesticLeagueTable`** con filas de descenso en **rojo**, clasificación a CL en **verde**, **leyenda**, header "Division {n} · Season {año}", links por slug. Miembro → **primera división**; club → la división donde juega ese club (o mensaje "aún no hay registro de liga local").
+> - **Refactor "team-agnostic"** (por id global): `getTeamView`/`getMatchTeamViews` en `memberUtils`; `MatchCardDetailed` y `MatchCardCompact` resuelven equipos por id (bandera para selección, inicial con color para club); `getTeamHeadToHeadStats` en `matchUtils`; nuevos `TeamLastMatches` y `TeamHeadToHead`; `ScorersTable`, `RecordsAndStats` y `TournamentParticipationTable` con `teamId`/`teamName`.
+> - **`/clubs/<slug>` espeja a la selección** (sin hero nuevo, sin logros, sin noticias): Hero → Squad → Liga doméstica → Participaciones **Champions League** (solo CL; sin torneos CL → estado vacío; **se eliminó la tabla de "FFC Tournaments" que listaba Forest Cup**) → Últimos partidos → H2H → Goleadores/Asistidores → Récords. `ClubStats.astro` eliminado.
+> - `member/[slug]` usa los componentes compartidos (visual idéntico) + liga primera división con zonas/leyenda.
 
 ### B11 · Simulador de mercado de pases (isla React)
 - Isla React en la sección CL: el participante **selecciona el club** con el que opera (cada club tiene su `budget` preasignado en la data, derivado del poder federativo FCL) → sidebar con lista de jugadores (del JSON del mercado) + filtros → cancha central con 11 espacios titulares + banco → drag & drop de jugadores (validando presupuesto) → **exportar plantilla/compras como JSON** o copiar al portapapeles.

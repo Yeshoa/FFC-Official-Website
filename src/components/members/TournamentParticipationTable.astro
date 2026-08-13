@@ -9,19 +9,18 @@ import { getTeamStatsInTournament, getTeamFinalResult, getTopScorerOfTeamInTourn
   getAllParticipantIds, lostLastPlayoff } from '../../utils/tournamentUtils';
 import { CURRENT_SEASON } from '@config/season';
 import { getTournaments } from '@lib/collections';
-import type { Member } from '@ty/collections';
 
 const tournaments = await getTournaments();
 
 interface Props {
-  member: Member;
+  teamId: number;
+  teamName: string;
   matches: CollectionEntry<'matches'>[];
   type: 'forest-cup' | 'forestian-champions-league';
+  teamKind?: 'national' | 'club';
 }
-// Member para mostrar los datos del miembro, tournaments y matches para obtener los datos de los torneos, members para las ediciones
-const { member, matches, type } = Astro.props;
-const memberName = member.data.name;
-const memberId = member.data.id;
+// teamId/teamName para identificar al equipo (selección o club); tournaments y matches para los datos.
+const { teamId, teamName, matches, type, teamKind = 'national' } = Astro.props;
 // Filtrar los torneos por tipo
 const allEditions = tournaments
   .filter(t => t.data.type === type)
@@ -31,12 +30,12 @@ const tournamentsData = await Promise.all(
   allEditions.map(async (t) => {
     const isFutureOrCurrent = t.data.season >= CURRENT_SEASON;
     const host = await getMemberByName(t.data.host || '') || null;
-    const hostClass = t.data.host === memberName ? 'text-amber-400 font-bold' : '';
-    const didParticipate = await getAllParticipantIds(t).then(ids => ids.includes(memberId));
+    const hostClass = t.data.host === teamName ? 'text-amber-400 font-bold' : '';
+    const didParticipate = await getAllParticipantIds(t).then(ids => ids.includes(teamId));
     const stats = await getStatsForTournament(t.data.id);
     const topScorer = await getTopScorerInTournament(t.data.id);
     const position = await getTeamPositionInTournamentById(t.data.id);
-    const lostPlayoff = await lostLastPlayoff(t.data.id, memberId);
+    const lostPlayoff = await lostLastPlayoff(t.data.id, teamId);
     const result = await getTeamFinalResultInTournament(t.data.id);
     const resultLabel =
       result.status === 'not_participated' ? null :
@@ -70,19 +69,19 @@ const tournamentsData = await Promise.all(
   })
 );
 function getStatsForTournament(tournamentId: number) {
-  return getTeamStatsInTournament(memberId, tournamentId);
+  return getTeamStatsInTournament(teamId, tournamentId);
 }
 // Función auxiliar para obtener el máximo goleador del equipo de un torneo
 function getTopScorerInTournament(tournamentId: number) {
-  return getTopScorerOfTeamInTournament(memberId, tournamentId);
+  return getTopScorerOfTeamInTournament(teamId, tournamentId);
 }
 
 function getTeamPositionInTournamentById(tournamentId: number) {
-  return getTeamPositionInTournament(tournaments.find(t => t.data.id === tournamentId)!, memberId);
+  return getTeamPositionInTournament(tournaments.find(t => t.data.id === tournamentId)!, teamId);
 }
 
 function getTeamFinalResultInTournament(tournamentId: number) {
-  return getTeamFinalResult(memberId, tournaments.find(t => t.data.id === tournamentId)!);
+  return getTeamFinalResult(teamId, tournaments.find(t => t.data.id === tournamentId)!);
 }
 
 // Calcular qué torneos tienen partidos sin jugar
@@ -100,6 +99,8 @@ for (const tournamentData of tournamentsData) {
 
 <div class="bg-surface/80 shadow-lg rounded-lg p-6 mb-8">
 <h2 class="text-2xl font-semibold mb-4 border-b pb-2 border-primary">{type === 'forest-cup' ? 'Forest Cup' : 'Champions League'} Participations</h2>
+{allEditions.length > 0 ? (
+<>
 <h6 class="md:hidden text-center mb-2 text-text-muted">Swipe to see the full table</h6>
   <div class="overflow-x-auto">
     <table class="w-full text-center table-auto border-collapse">
@@ -273,4 +274,8 @@ for (const tournamentData of tournamentsData) {
       </tbody>
     </table>
   </div>
+</>
+) : (
+  <p class="text-text-muted italic">No {type === 'forest-cup' ? 'Forest Cup' : 'Champions League'} participation yet.</p>
+)}
 </div>

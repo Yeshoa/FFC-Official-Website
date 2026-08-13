@@ -23,7 +23,7 @@ export async function getStaticPaths() {
 function toTeamView(ref: TeamRef | null, fallbackName: string): TeamView {
   if (!ref) return { name: fallbackName, type: 'national' };
   if (ref.type === 'club' && ref.club) {
-    return { name: ref.club.name, code: ref.club.code, href: ROUTES.clubs.detail(ref.club.code), type: 'club' };
+    return { name: ref.club.name, code: ref.club.slug, href: ROUTES.clubs.detail(ref.club.slug), type: 'club' };
   }
   if (ref.member) {
     return {

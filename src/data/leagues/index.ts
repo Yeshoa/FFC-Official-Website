@@ -1,10 +1,12 @@
 import leaguesData from './leagues.json';
 
+// Los clubes se referencian por id global (`clubId`), NUNCA por code (el code es visual
+// y puede repetirse). La liga pertenece a una federación (`federationId`) y puede tener
+// varias divisiones (`division`).
 export interface LeagueStandingRow {
   position: number;
-  club: string;
-  clubCode?: string;
-  clubId?: number; // id global del club (fuente de verdad)
+  clubId: number;
+  clubName?: string; // fallback de display si el club no existe aún en clubs.json
   played: number;
   won: number;
   drawn: number;
@@ -15,23 +17,39 @@ export interface LeagueStandingRow {
 }
 
 export interface League {
+  id: string;
+  name: string;
+  division: number;
+  federationId: number; // id global de la federación (fuente de verdad)
   season: number;
-  federation: string;
+  relegationPositions: number[]; // posiciones que descienden (tono rojo)
+  championsLeaguePositions: number[]; // posiciones que clasifican a la CL (tono verde)
   standings: LeagueStandingRow[];
 }
 
-const leagues: Record<string, League> = leaguesData as Record<string, League>;
+const leagues: League[] = leaguesData as League[];
 
-export function getLeague(federation: string): League | null {
-  if (!federation) return null;
-  const code = federation.trim().toLowerCase();
-  return leagues[code] ?? null;
+// Primera división de una federación (lo que se muestra en la página del miembro).
+export function getFirstDivision(federationId: number): League | null {
+  return (
+    leagues
+      .filter((l) => l.federationId === federationId)
+      .sort((a, b) => a.division - b.division)[0] ?? null
+  );
 }
 
-export function hasLeague(federation: string): boolean {
-  return getLeague(federation) !== null;
+// Todas las divisiones de una federación (para futuras vistas de ligas).
+export function getLeaguesByFederation(federationId: number): League[] {
+  return leagues
+    .filter((l) => l.federationId === federationId)
+    .sort((a, b) => a.division - b.division);
 }
 
-export function getAllLeagues(): Record<string, League> {
+// La división donde juega un club (lo que se muestra en la página del club).
+export function getLeagueForClub(clubId: number): League | null {
+  return leagues.find((l) => l.standings.some((row) => row.clubId === clubId)) ?? null;
+}
+
+export function getAllLeagues(): League[] {
   return leagues;
 }

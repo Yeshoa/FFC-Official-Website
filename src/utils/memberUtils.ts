@@ -5,6 +5,8 @@ import { TIERS } from '../lib/scoreUtils';
 import { getMembers } from '@lib/collections';
 import { getAllClubs, getClubById, type Club } from '@data/clubs';
 import { CURRENT_SEASON } from '@config/season';
+import { ROUTES } from '@config/routes';
+import type { TeamView } from '@ty/matchDetail';
 
 
 // Cache para evitar múltiples llamadas
@@ -57,12 +59,50 @@ export async function getTeamById(
   return null;
 }
 
+// Vista normalizada de un equipo (selección o club) para UI compartida.
+// Selección -> bandera + link a /members; club -> inicial con color + link a /clubs/<slug>.
+export function getTeamView(ref: TeamRef | null, fallbackName: string): TeamView {
+  if (!ref) return { name: fallbackName, type: 'national' };
+  if (ref.type === 'club' && ref.club) {
+    return {
+      name: ref.club.name,
+      code: ref.club.slug,
+      href: ROUTES.clubs.detail(ref.club.slug),
+      type: 'club',
+      color: ref.club.colors?.primary,
+    };
+  }
+  if (ref.member) {
+    return {
+      name: ref.member.data.name,
+      code: ref.member.data.code,
+      flag: ref.member.data.flagPath ?? null,
+      href: ROUTES.members.detail(ref.member.id),
+      type: 'national',
+    };
+  }
+  return { name: fallbackName, type: 'national' };
+}
+
+// Resuelve las vistas de ambos equipos de un partido por id global.
+export async function getMatchTeamViews(
+  match: CollectionEntry<'matches'>,
+): Promise<{ team1: TeamView; team2: TeamView }> {
+  const [ref1, ref2] = await Promise.all([
+    getTeamById(match.data.team1Id),
+    getTeamById(match.data.team2Id),
+  ]);
+  return {
+    team1: getTeamView(ref1, match.data.team1),
+    team2: getTeamView(ref2, match.data.team2),
+  };
+}
+
 // Resuelve el id global de un equipo a partir de su code/name (display -> id).
 export function getTeamIdByRef(
   code?: string,
   name?: string,
-): number | null {
-  if (code) {
+): number | null {  if (code) {
     const m = members.find(m => m.data.code === code);
     if (m) return m.data.id;
     const club = getAllClubs().find(c => c.code.toLowerCase() === code.toLowerCase());

@@ -1,17 +1,25 @@
 ---
+// Página de club: espeja la de selección (miembro) pero con ClubHero propio,
+// sin logros y con participaciones SOLO de Champions League (los clubes no juegan la Forest Cup).
 import FCLayout from '@layouts/FCL.astro';
 import ClubHero from '@components/clubs/ClubHero.astro';
 import SquadCompact from '@components/members/SquadCompact.astro';
-import { getClubByCode, getAllClubs } from '@data/clubs';
+import DomesticLeagueTable from '@components/members/DomesticLeagueTable.astro';
+import TournamentParticipationTable from '@components/members/TournamentParticipationTable.astro';
+import TeamLastMatches from '@components/members/TeamLastMatches.astro';
+import TeamHeadToHead from '@components/members/TeamHeadToHead.astro';
+import ScorersTable from '@components/tournaments/ScorersTable.astro';
+import RecordsAndStats from '@components/members/RecordsAndStats.astro';
+import { getClubBySlug, getAllClubs } from '@data/clubs';
 import { getMemberById } from 'src/utils/memberUtils';
 import { loadCurrentSquadByTeamId } from '@data/players';
 import { computeTeamRating, teamRatingToStars } from '@config/rating';
-import { getTournaments } from '@lib/collections';
-import { getTeamStatsInTournament, getTeamFinalResult } from 'src/utils/tournamentUtils';
+import { getMatches } from '@lib/collections';
+import { getLeagueForClub } from '@data/leagues';
 
 export async function getStaticPaths() {
   return getAllClubs().map((club) => ({
-    params: { slug: club.code },
+    params: { slug: club.slug },
     props: { club },
   }));
 }
@@ -24,18 +32,10 @@ const squad = loadCurrentSquadByTeamId(club.id);
 const rating = computeTeamRating(squad);
 const stars = teamRatingToStars(rating);
 
-// Stats del club SOLO de torneos FFC (Forest Cup + CL), no de liga doméstica.
-const tournaments = await getTournaments();
-const ffcTournaments = tournaments
-  .filter((t) => t.data.type === 'forest-cup' || t.data.type === 'forestian-champions-league')
-  .sort((a, b) => a.data.edition - b.data.edition);
-
-const participations = await Promise.all(
-  ffcTournaments.map(async (t) => {
-    const stats = await getTeamStatsInTournament(club.id, t.data.id);
-    const result = await getTeamFinalResult(club.id, t);
-    return { t, stats, result };
-  }),
+const matches = await getMatches();
+const clubLeague = getLeagueForClub(club.id);
+const clubMatches = matches.filter(
+  (m) => m.data.status === 'played' && (m.data.team1Id === club.id || m.data.team2Id === club.id),
 );
 ---
 
@@ -52,68 +52,31 @@ const participations = await Promise.all(
       teamType="club"
     />
 
-    <div class="bg-surface/80 shadow-lg rounded-lg p-6 mb-8">
-      <h2 class="text-2xl font-semibold mb-4 border-b pb-2 border-primary">
-        FFC Tournaments
-      </h2>
-      {participations.length > 0 ? (
-        <div class="overflow-x-auto">
-          <table class="w-full text-center table-auto border-collapse">
-            <thead class="bg-primary-deep text-white">
-              <tr>
-                <th class="px-2 py-2 rounded-tl-lg">Tournament</th>
-                <th class="px-2 py-2">Result</th>
-                <th class="px-2 py-2">Pld</th>
-                <th class="px-2 py-2">W</th>
-                <th class="px-2 py-2">D</th>
-                <th class="px-2 py-2">L</th>
-                <th class="px-2 py-2">GF</th>
-                <th class="px-2 py-2">GA</th>
-                <th class="px-2 py-2">GD</th>
-                <th class="px-2 py-2 rounded-tr-lg">Pts</th>
-              </tr>
-            </thead>
-            <tbody>
-              {participations.map(({ t, stats, result }) => {
-                const resultLabel =
-                  result.status === 'not_participated'
-                    ? 'Didn\u2019t participate'
-                    : result.status === 'in_progress'
-                      ? result.currentStage
-                      : result.result;
-                return (
-                  <tr class="border-b border-primary-dark hover:bg-surface-raised/20">
-                    <td class="px-2 py-2 font-semibold">{t.data.name}</td>
-                    <td class="px-2 py-2">
-                      <span
-                        class={result.status === 'finished' && result.result === 'Champion'
-                          ? 'text-amber-400 font-bold'
-                          : result.status === 'finished' && result.result === 'Finalist'
-                            ? 'text-sky-300 font-bold'
-                            : result.status === 'in_progress'
-                              ? 'text-red-400 animate-pulse'
-                              : ''}
-                      >
-                        {resultLabel}
-                      </span>
-                    </td>
-                    <td class="px-2 py-2">{stats.played}</td>
-                    <td class="px-2 py-2 text-primary-muted">{stats.won}</td>
-                    <td class="px-2 py-2 text-yellow-400">{stats.draw}</td>
-                    <td class="px-2 py-2 text-red-400">{stats.lost}</td>
-                    <td class="px-2 py-2">{stats.goalsFor}</td>
-                    <td class="px-2 py-2">{stats.goalsAgainst}</td>
-                    <td class="px-2 py-2">{stats.gd > 0 ? `+${stats.gd}` : stats.gd}</td>
-                    <td class="px-2 py-2 font-bold">{stats.points}</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
-      ) : (
-        <p class="text-text-muted italic">No FFC tournament data yet.</p>
-      )}
+    {clubLeague ? (
+      <DomesticLeagueTable league={clubLeague} />
+    ) : (
+      <div class="bg-surface/80 shadow-lg rounded-lg p-6 mb-8">
+        <h2 class="text-2xl font-semibold mb-4 border-b pb-2 border-primary">Domestic League</h2>
+        <p class="text-text-muted italic">No domestic league record available for this club yet.</p>
+      </div>
+    )}
+
+    <TournamentParticipationTable
+      teamId={club.id}
+      teamName={club.name}
+      matches={matches}
+      type="forestian-champions-league"
+      teamKind="club"
+    />
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+      <TeamLastMatches teamId={club.id} matches={matches} teamKind="club" />
+      <div class="bg-surface/80 shadow-lg rounded-lg p-6">
+        <TeamHeadToHead teamId={club.id} matches={matches} teamKind="club" />
+        <ScorersTable teamId={club.id} teamName={club.name} matches={clubMatches} />
+      </div>
     </div>
+
+    <RecordsAndStats teamId={club.id} teamName={club.name} matches={clubMatches} teamKind="club" />
   </div>
 </FCLayout>

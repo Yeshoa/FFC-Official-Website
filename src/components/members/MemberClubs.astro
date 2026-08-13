@@ -1,6 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import { loadClubsByFederation, loadClubsByFederationId } from '@data/clubs';
+import { ROUTES } from '@config/routes';
 
 interface Props {
   member: CollectionEntry<'members'>;
@@ -19,7 +20,7 @@ const clubs = member.data.id !== undefined
         {clubs.map(club => (
           <li key={club.id}>
             <a
-              href={`/clubs/${club.code}`}
+              href={ROUTES.clubs.detail(club.slug)}
               class="flex items-center gap-3 rounded-lg border border-primary-dark bg-surface-raised/30 px-4 py-3 hover:bg-surface-raised/50 transition"
             >
               <span class="font-medium text-white">{club.name}</span>

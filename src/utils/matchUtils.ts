@@ -207,6 +207,58 @@ export function getMatchGoals(match: Match, teamId: number): { gf: number, ga: n
   return { gf, ga };
 }
 
+// ── Head-to-head por id global (miembro o club) ─────────────────────────────
+export interface TeamH2HStats {
+  opponentId: number;
+  played: number;
+  wins: number;
+  draws: number;
+  losses: number;
+  goalsFor: number;
+  goalsAgainst: number;
+  difference: number;
+}
+
+// Historial entre un equipo y sus rivales (solo partidos jugados).
+export function getTeamHeadToHeadStats(
+  teamId: number,
+  matches: CollectionEntry<'matches'>[],
+): TeamH2HStats[] {
+  const map = new Map<number, TeamH2HStats>();
+  for (const m of matches) {
+    if (m.data.status !== 'played') continue;
+    const isTeam1 = m.data.team1Id === teamId;
+    const isTeam2 = m.data.team2Id === teamId;
+    if (!isTeam1 && !isTeam2) continue;
+    const opponentId = isTeam1 ? m.data.team2Id : m.data.team1Id;
+    if (opponentId === undefined || opponentId === null) continue;
+
+    const goals = m.data.goals ?? [];
+    const teamName = isTeam1 ? m.data.team1 : m.data.team2;
+    const gf = goals.filter((g) => g.team === teamName).length;
+    const ga = goals.length - gf;
+
+    const entry = map.get(opponentId) ?? {
+      opponentId, played: 0, wins: 0, draws: 0, losses: 0,
+      goalsFor: 0, goalsAgainst: 0, difference: 0,
+    };
+    entry.played++;
+    entry.goalsFor += gf;
+    entry.goalsAgainst += ga;
+    if (gf > ga) { entry.wins++; entry.difference++; }
+    else if (gf === ga) entry.draws++;
+    else { entry.losses++; entry.difference--; }
+    map.set(opponentId, entry);
+  }
+
+  return [...map.values()].sort((a, b) =>
+    b.played - a.played ||
+    b.wins - a.wins ||
+    (b.goalsFor - b.goalsAgainst) - (a.goalsFor - a.goalsAgainst) ||
+    b.goalsFor - a.goalsFor,
+  );
+}
+
 function getStreak(
   teamId: number,
   allMatches: Match[],

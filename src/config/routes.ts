@@ -21,6 +21,7 @@ export const ROUTES = {
   members: {
     index: "/members/",
     detail: (slug: string) => `/members/${slug}/`,
+    achievements: (slug: string) => `/members/${slug}/achievements/`,
   },
   clubs: {
     index: "/clubs/",

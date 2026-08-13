@@ -1,26 +1,53 @@
 ---
+// ScorersTable: goleadores y asistidores. Soporta dos modos:
+//  - Torneo (miembros de todas las selecciones): `members` completo.
+//  - Equipo único (selección o club): `teamId` + `teamName` (resuelve por id global).
 import { Image } from 'astro:assets';
-import type { ImageMetadata } from 'astro';
-import { getMemberByName } from 'src/utils/memberUtils';
 import type { CollectionEntry } from 'astro:content';
+import { getMemberByName, getTeamById, getTeamView } from 'src/utils/memberUtils';
+import { ROUTES } from '@config/routes';
+import type { Member } from '@ty/collections';
+import type { TeamView } from '@ty/matchDetail';
 
 interface Props {
-  members: CollectionEntry<'members'>[];
+  members?: Member[];
   matches: CollectionEntry<'matches'>[];
   tournamentId?: number;
+  teamId?: number;
+  teamName?: string;
 }
 
-const { members, matches, tournamentId } = Astro.props;
+const { members = [], matches, tournamentId, teamId, teamName } = Astro.props;
 
 const filteredMatches = tournamentId
   ? matches.filter(m => m.data.tournament_id === tournamentId)
   : matches;
 
-type MemberEntry = CollectionEntry<'members'>;
-const goalStats = new Map<string, { player: string; team: MemberEntry | string; goals: number; assists: number }>();
-const assistStats = new Map<string, { player: string; team: MemberEntry | string; assists: number; goals: number }>();
+type TeamRef = TeamView | string;
 
-const singleTeam = members.length === 1 ? members[0].data.name : null;
+const goalStats = new Map<string, { player: string; team: TeamRef; goals: number; assists: number }>();
+const assistStats = new Map<string, { player: string; team: TeamRef; assists: number; goals: number }>();
+
+const singleTeam = teamName ?? (members.length === 1 ? members[0].data.name : null);
+
+// Resuelve el display del equipo de un gol (bandera para selección, inicial para club).
+async function resolveTeam(teamLabel: string): Promise<TeamRef> {
+  if (teamId !== undefined && teamId !== null) {
+    const ref = await getTeamById(teamId);
+    return getTeamView(ref, teamLabel);
+  }
+  const member = await getMemberByName(teamLabel);
+  if (member) {
+    return {
+      name: member.data.name,
+      code: member.data.code,
+      flag: member.data.flagPath ?? null,
+      href: ROUTES.members.detail(member.id),
+      type: 'national',
+    };
+  }
+  return teamLabel;
+}
 
 for (const match of filteredMatches) {
   if (!match.data.goals) continue;
@@ -33,7 +60,7 @@ for (const match of filteredMatches) {
       if (!goalStats.has(key)) {
         goalStats.set(key, {
           player: goal.player,
-          team: await getMemberByName(goal.team),
+          team: await resolveTeam(goal.team),
           goals: 1,
           assists: 0,
         });
@@ -51,16 +78,12 @@ for (const match of filteredMatches) {
       if (!assistStats.has(assistKey)) {
         assistStats.set(assistKey, {
           player: goal.assist,
-          team: await getMemberByName(goal.team),
+          team: await resolveTeam(goal.team),
           assists: 1,
           goals: 0,
         });
       } else {
         assistStats.get(assistKey)!.assists++;
-      }
-
-      if (goalStats.has(assistKey)) {
-        goalStats.get(assistKey)!.assists++;
       }
     }
   }
@@ -74,6 +97,7 @@ const topAssisters = Array.from(assistStats.values())
   .sort((a, b) => b.assists - a.assists || b.goals - a.goals)
   .slice(0, 10);
 ---
+
 <section class="flex items-start flex-col sm:flex-row px-1">
 {topScorers.length >= 1 && (
   <div class="overflow-x-auto w-full">
@@ -90,16 +114,24 @@ const topAssisters = Array.from(assistStats.values())
           <tr class="border-b border-primary-dark hover:bg-surface-raised/30 transition duration-150" key={index}>
             <td class="px-4 py-2 font-semibold">
               <div class="flex items-center gap-2">
-                {typeof entry.team !== 'string' && (
+                {typeof entry.team !== 'string' && entry.team.flag && (
                   <Image
-                    src={entry.team.data.flagPath}
-                    alt={entry.team.data.name}
+                    src={entry.team.flag}
+                    alt={entry.team.name}
                     class="w-6 h-4 object-cover rounded shrink-0"
                     height={36}
                     loading="lazy"
                     quality={10}
                     format="webp"
                   />
+                )}
+                {typeof entry.team !== 'string' && !entry.team.flag && entry.team.type === 'club' && (
+                  <span
+                    class="w-6 h-4 rounded shrink-0 flex items-center justify-center text-[10px] font-black ring-1 ring-gray-600"
+                    style={{ backgroundColor: `${entry.team.color ?? '#95ff00'}22`, color: entry.team.color ?? '#95ff00' }}
+                  >
+                    {entry.team.name[0]}
+                  </span>
                 )}
                 {entry.player}
               </div>
@@ -127,16 +159,24 @@ const topAssisters = Array.from(assistStats.values())
           <tr class="border-b border-primary-dark hover:bg-surface-raised/30 transition duration-150" key={index}>
             <td class="px-4 py-2 font-semibold">
               <div class="flex items-center gap-2">
-                {typeof entry.team !== 'string' && (
+                {typeof entry.team !== 'string' && entry.team.flag && (
                   <Image
-                    src={entry.team.data.flagPath}
-                    alt={entry.team.data.name}
+                    src={entry.team.flag}
+                    alt={entry.team.name}
                     class="w-6 h-4 object-cover rounded shrink-0"
                     height={36}
                     loading="lazy"
                     quality={10}
                     format="webp"
                   />
+                )}
+                {typeof entry.team !== 'string' && !entry.team.flag && entry.team.type === 'club' && (
+                  <span
+                    class="w-6 h-4 rounded shrink-0 flex items-center justify-center text-[10px] font-black ring-1 ring-gray-600"
+                    style={{ backgroundColor: `${entry.team.color ?? '#95ff00'}22`, color: entry.team.color ?? '#95ff00' }}
+                  >
+                    {entry.team.name[0]}
+                  </span>
                 )}
                 {entry.player}
               </div>
