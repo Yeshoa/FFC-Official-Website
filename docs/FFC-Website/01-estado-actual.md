@@ -42,6 +42,7 @@
 
 ### `members` (loader `objectLoader` desde `src/data/members.json`)
 - Identifica a cada **federación**: `id`, `code` (3 letras, ej: `BIL`), `name`, `region`, `founded`, `affiliation`, `verified`, `founder`, `flagPath`, `logoPath`, `nslink`, `feddispatch`.
+- `allowsForeignMarket` (boolean, default `false`): si los jugadores de la federación pueden ser fichados por clubes extranjeros en el mercado FCL (ver [[09-dudas]] §10).
 - **Score**: `score.rp/events/bonus` — records dinámicos indexados por **tournament id como string** (`"2": { history: 20 }`).
 - `additionalPoints`, `tierHistory[]` (tier + edition).
 - **`squad`**: coach, formation, `players[]` con `number/name/position/age` — **sin `id`**. Esta es la definición de plantel actual.

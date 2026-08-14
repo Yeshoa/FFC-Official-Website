@@ -19,6 +19,7 @@
 | 7 | React / SSR vs deploy de Netlify | abierta |
 | 8 | Navegación de `articles`/`sponsors` en la sección CL | abierta |
 | 9 | Jugadores históricos: snapshots y retiro | decidida |
+| 10 | Mercado de pases: elegibilidad, retiro y retención | decidida |
 
 ---
 
@@ -105,7 +106,23 @@ Posibilidades:
 > - El presupuesto **deriva del puntaje/poder de la federación para la FCL**, que es un dato **externo** (no proviene de nada de esta web). El dueño lo materializa como un **`budget` preasignado por club** en la data (normalización según `[[Forestian Champions League — Formato y reglas base]]` §4.3). La asignación manual desaparece.
 > - **Flujo del mercado**: el simulador de mercado de pases (isla React) lee los **clubes + presupuestos preasignados** de la data del sitio → el participante **selecciona el club** con el que quiere operar → hace sus compras con ese presupuesto → al terminar **exporta un JSON** (o copia el texto) y lo envía **externamente** (mensaje privado o email).
 > - Al cerrar el mercado, el dueño coloca a los jugadores en sus clubes (`teams[]` + `status`) y hace una nueva build.
-> - **Pendiente**: el formato exacto del JSON de export se define al desarrollar el simulador (fase B11).
+> - **Formato del JSON de export (definido en B11)** — el simulador lo arma y permite copiar/descargar:
+>
+> ```json
+> {
+>   "season": 2027,
+>   "club": { "id": 97, "code": "BILKRA", "name": "Krulta BK" },
+>   "formation": "4-4-2",
+>   "budget": { "total": 82, "spent": 35, "remaining": 47 },
+>   "signings": [
+>     { "playerId": 150, "name": "S. Blair", "position": "CF", "usedAs": "CB", "rating": 62, "price": 15 }
+>   ],
+>   "starters": [ { "playerId": 24, "name": "A. Arhanv", "position": "GK", "usedAs": "GK", "rating": 77, "price": 12 }, null ],
+>   "bench": [ null, { "playerId": 28, "name": "Hajan", "position": "CAM", "usedAs": "CAM", "rating": 79, "price": 13 } ],
+>   "reservas": [ null ]
+> }
+> ```
+> - `starters` = 11 slots (formación), `bench` = 12, `reservas` = 9 (opcionales). `signings` = todos los jugadores colocados. `usedAs` = posición donde se usó (para banca/reservas = posición natural), `rating` = overall **recalculado para esa posición**. `playerId` es el id global en `players.json` si existe, si no `null`.
 
 ---
 
@@ -212,10 +229,43 @@ Estado del modelo (lo que ya existe y lo que falta):
 >    para poder hacer cosas en el futuro."
 > 2. **Skills obligatorias**: **TODOS** los jugadores del snapshot deben tener las skills del torneo (regla
 >    ALL_SKILLS 0–100). El dueño planea un **álbum de figuritas** (o similar) que use toda la data.
-> 3. **Retiro**: se mantiene el **actual** (`teams[].status` por entrada, sin flag global).
+> 3. **Retiro**: se mantiene el `teams[].status` por entrada **y se suma un flag global `retired`** en el
+>    jugador para el retiro 100% (ver [[09-dudas]] §10).
 > 4. **Carta histórica**: **no está planeada aún**; el formato del snapshot queda listo para el futuro.
 
 > Diseño integrado en [[02-modelo-datos]] §2 "Jugadores históricos".
+
+---
+
+## 10. Mercado de pases: elegibilidad, retiro y retención entre temporadas — `[decidida]`
+
+Decisiones del dueño (2026) sobre el mercado FCL (B11) y su flujo entre temporadas.
+
+### Elegibilidad: los jugadores con club son comprables
+- Un jugador es comprable **salvo que esté retirado 100%**. **Tener club activo no lo excluye**: los jugadores
+  con club aparecen en el mercado (con su club actual en la card).
+- Se elimina la lógica previa que excluía a quienes tenían club; `transferListed` queda **sin efecto** en el filtro.
+
+### Retiro 100% = flag explícito
+- Nuevo campo `retired?: boolean` en el jugador ([[02-modelo-datos]] §2), default `false`.
+- `isPlayerRetired` = `retired === true` **o** ninguna entrada `teams[]` con `status: 'active'` (fallback legacy).
+- Resuelve la ambigüedad *"no tiene club ≠ está retirado"*: un jugador sin club pero activo es un **agente libre**, comprable.
+
+### Retención entre temporadas (Modelo A: retención con costo)
+- Para que mantener un jugador ya comprado **no salga gratis** en la siguiente ventana, se usará una
+  **retención con costo**: mantener a un jugador cuesta un **% fijo de su valor de mercado** (sueldo derivado
+  por fórmula, sin dato extra) que descuenta del presupuesto de la temporada.
+- No renovado → vuelve al pool abierto.
+- El **% de retención queda pendiente de afinado** (constante en `src/config/market.ts`). Implementación en el
+  simulador (panel "plantel actual" + renovaciones + export `renewals`): pendiente (B11-3).
+
+### Mercado extranjero: `allowsForeignMarket`
+- Nuevo booleano en la **federación** (member): `allowsForeignMarket`, **default `false`** (el dueño lo activa
+  manualmente).
+- Regla de elegibilidad en el simulador, según el club elegido:
+  - Un jugador aparece para un club de su **misma federación**: **siempre**.
+  - Un jugador aparece para un club **extranjero**: solo si su federación tiene `allowsForeignMarket: true`.
+  - **Sin club elegido** (modo exploración): se muestra todo.
 
 ---
 

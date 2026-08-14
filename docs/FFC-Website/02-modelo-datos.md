@@ -59,6 +59,7 @@ interface Player {
     to?: string;              // hasta cuándo (opcional si es actual)
     status: 'active' | 'retired' | 'transferred';
   }>;
+  retired?: boolean;          // retirado 100% (fuera del mercado de pases FCL; ver "Jugadores históricos" abajo)
 }
 ```
 
@@ -107,10 +108,11 @@ interface Player {
 > **toda la carrera** (por id global) y guardar los **skills del torneo** en `data/players/historical`
 > para futuras **cartas de jugadores históricos**.
 
-- **Retiro**: el jugador se marca retirado **por entrada de `teams[]`** (`status: 'retired'`); si no le queda
+- **Retiro**: el jugador se marca retirado **por entrada de `teams[]`** (`status: 'retired'`) **o por flag global
+  `retired: true`** (retiro 100%, usado por el mercado de pases FCL). Si no le queda
   ninguna entrada `active`, deja de aparecer en los planteles derivados. El jugador **mantiene su id y sus
   goles de carrera** (los partidos lo siguen referenciando por `playerId`, incluso retirado). Helper de
-  conveniencia: `isPlayerRetired(player)` (ninguna entrada `active`).
+  conveniencia: `isPlayerRetired(player)` = `retired === true` **o** ninguna entrada `active`.
 - **Carrera por id**: los goles ya apuntan al `playerId` global ([[10-carga-de-goles]]); sumar los goles de
   toda la carrera (selección + club + todos los torneos) es agregar por id. Es **deuda de datos** (faltan
   ids en ~314 goles y equipos sin plantel), no de modelo.

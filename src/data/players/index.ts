@@ -27,10 +27,14 @@ export interface Player {
   nationality: string;
   nationalityId?: number; // id global del miembro (fuente de verdad)
   birthdate?: string | null;
+  age?: number; // para precios de mercado (fallback si no hay birthdate)
   birthplace?: { city?: string | null; state?: string | null };
   skills: Partial<Record<SkillId, number>>;
   teams: PlayerTeamEntry[];
   stars?: { overall: number };
+  marketPrice?: number; // override manual del precio de mercado (millones)
+  transferListed?: boolean; // en venta a pesar de tener club
+  retired?: boolean; // retirado 100% (fuera del mercado de pases)
 }
 
 const players: Player[] = playersData as Player[];
@@ -54,6 +58,11 @@ export function getPlayerById(id: number | string): Player | null {
   const num = typeof id === 'number' ? id : Number(id);
   if (Number.isNaN(num)) return null;
   return byId.get(num) ?? null;
+}
+
+// Retirado 100% = flag explícito `retired` o ninguna entrada de teams[] con status 'active'.
+export function isPlayerRetired(player: Player): boolean {
+  return !!player.retired || !player.teams.some((t) => t.status === 'active');
 }
 
 export function loadCurrentSquad(teamCode: string): Player[] {

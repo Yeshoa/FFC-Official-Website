@@ -131,6 +131,7 @@
     "affiliation": 2024,
     "verified": true,
     "founder": true,
+    "allowsForeignMarket": true,
     "score": {
       "rp": {
         "2024": {
@@ -975,6 +976,7 @@
     "logoPath": "/src/assets/images/members/lumiose_logo.png",
     "feddispatch": "https://www.nationstates.net/nation=lumiose/detail=factbook/id=2536430",
     "region": "Forest",
+    "allowsForeignMarket": true,
     "founded": 1881,
     "affiliation": 2024,
     "verified": true,

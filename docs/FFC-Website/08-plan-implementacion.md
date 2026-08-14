@@ -233,6 +233,31 @@
 - Datos: JSON con los jugadores disponibles para comprar (sin BD ni infraestructura). Formato exacto del JSON de export: se define al desarrollar esta fase (ver [[09-dudas]] §3).
 - El output del participante se envía **externamente** (privado/email). Al cerrar el mercado, el dueño aplica las transferencias en `players.json` (`teams[]` + `status`) y hace una nueva build.
 
+> **Hecho (B11, infraestructura + placeholder):**
+> - **Isla React** `MarketSimulator.tsx` en `/forestian-champions-league/market/` (`client:load`): selector de club (con `budget`), formaciones (4-4-2 / 4-3-3 / 3-5-2), **campo 11 titulares + banco (7)**, **drag & drop** (HTML5 nativo, sin librería) + click para enviar al banco / quitar, **validación de rol** por slot y de **presupuesto**, filtros por rol + búsqueda, y **export JSON** (copiar al portapapeles + descargar `.json`).
+> - **Datos**: `src/data/market.json` (`season` + `players[]` con `playerId` global opcional, `name`, `position`, `club?`, `price`). **Placeholder** — el dueño lo rellena con el mercado real.
+> - **Formato de export** definido en [[09-dudas]] §3.
+> - Ruta `ROUTES.championsLeague.market` + link "Market" en el navbar CL.
+> - **Pendiente dueño**: llenar `market.json` con los jugadores disponibles (y de paso, más clubes con `budget` en `clubs.json` y más plantel en `players.json` cuando se necesite).
+
+> **Hecho (B11-2, rework según nota del dueño [[Plan del usuario/06 - Market]]):**
+> - **Selector federación → club**: primero federación (compacta), luego clubes de esa federación **ordenados por su última liga** (`getFirstDivision`; sin liga → alfabético), con `budget`.
+> - **Filtros por posición exacta** (12 canónicas) + búsqueda.
+> - **Lista**: bandera, nombre, badge de posición, **estrellitas + overall**, precio. **Oscurecida y no seleccionable si no entra en el presupuesto** o si el slot seleccionado exige arquero.
+> - **Carta de jugador** (`PlayerCard`, 2:3): fondo por rating + glow, **nodos circulares en esquinas** (estética FCL), posición + overall grande, bandera + CODE + nombre, **estrellas centradas sobre los stats**, 3 categorías de skill (Físico/Técnica/Táctica; `gkSkills` solo para arqueros), valor. **Preview en panel lateral** al clickear un jugador.
+> - **Formación**: archivo `src/config/formations.ts` (10 presets) + **selector compacto** (dropdown). Slots con **posición exacta**. **Sin límite de rol** salvo slots GK. **Overall re-calculado por posición** (`computePlayerRating(skills, usedAs)`).
+> - **Interacción**: **click-to-place** (jugador → slot o slot → jugador) con instructivo; click en carta colocada la quita. Sin drag & drop.
+> - **Slots GK**: posición GK de la cancha y primer slot de la banca exigen arquero (oscurecen no-GK). **Export validado** (GK en cancha y en banca).
+> - **Plantilla**: 11 titulares + **banca de 12** + **sección reservas de 9** (opcionales) → máx 32.
+> - **Export JSON** actualizado (formation, usedAs, rating, starters/bench/reservas, signings) en [[09-dudas]] §3.
+> - **Datos**: `market.json` ahora incluye `skills` (0-100) y `nationality` (placeholder — el dueño los rellena con valores reales).
+
+> **Hecho (B11-3, reglas del mercado — ver [[09-dudas]] §10):**
+> - **Elegibilidad**: son comprables **todos los no-retirados**, tengan o no club (se elimina la exclusión por club activo; `transferListed` sin efecto). El `club` actual se muestra en la card.
+> - **Retiro 100%**: nuevo flag `retired?: boolean` en el jugador (default `false`); `isPlayerRetired` lo usa con fallback a `teams[]`.
+> - **Mercado extranjero**: nuevo booleano `allowsForeignMarket` en la federación (default `false`). En el simulador, un jugador aparece para un club extranjero solo si su federación lo permite; para un club de su misma federación siempre; sin club elegido se muestra todo.
+> - **Pendiente (retención Modelo A)**: mantener un jugador costará un **% de su valor de mercado** por temporada (constante `RETENTION_RATE` en `src/config/market.ts`, % pendiente de afinado). UI: panel "plantel actual" con renovaciones + export `renewals`.
+
 ---
 
 ## FASE C — Simulador de partidos

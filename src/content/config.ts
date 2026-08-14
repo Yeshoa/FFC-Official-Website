@@ -220,6 +220,10 @@ const membersCollection = defineCollection({
     verified: z.boolean().default(false),
     founder: z.boolean().default(false),
 
+    // Mercado FCL: si los jugadores de esta federación pueden ser fichados por clubes extranjeros.
+    // false = solo clubes de su misma federación pueden ficharlos (default). true = abiertos al mercado externo.
+    allowsForeignMarket: z.boolean().default(false),
+
     // Links
     nslink: z.string().url(),
     feddispatch: z.string().url().optional(),
