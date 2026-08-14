@@ -75,7 +75,7 @@ const memberScoreDetails = await getMemberScoreDetails(member, CURRENT_SEASON);
 const memberTotalScore = memberTotalScoreResult.totalScore;
 const titles = tournaments
   .filter(t => t.data.champion === memberData.name)
-  .map(t => ({ year: t.data.edition }));
+  .map(t => ({ year: t.data.season }));
 
 const achievements = FEATURES.achievements ? await getAchievementsForMember(memberData.name) : [];
 

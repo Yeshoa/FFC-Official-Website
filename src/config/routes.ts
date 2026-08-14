@@ -11,11 +11,11 @@ export const ROUTES = {
   },
   forestCup: {
     index: "/forest-cup/",
-    edition: (edition: number) => `/forest-cup/${edition}/`,
+    season: (season: number) => `/forest-cup/${season}/`,
   },
   championsLeague:{
     index: "/forestian-champions-league/",
-    edition: (edition: number) => `/forestian-champions-league/${edition}/`,
+    season: (season: number) => `/forestian-champions-league/${season}/`,
     ranking: "/forestian-champions-league/ranking/",
   },
   members: {

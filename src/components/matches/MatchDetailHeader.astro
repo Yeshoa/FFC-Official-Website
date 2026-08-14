@@ -7,6 +7,7 @@ import type { TeamView } from '@ty/matchDetail';
 import { getMatchResult, getPenaltiesResult } from 'src/utils/matchUtils';
 import { ROUTES } from '@config/routes';
 import { LOCALE } from '@config/constants';
+import { getTournamentUrl } from 'src/utils/tournamentUtils';
 import GoalIcon from '@images/icons/futbol-regular-full.svg';
 
 interface Props {
@@ -47,7 +48,7 @@ const team2Strong = winner === 'team2';
     <a href={ROUTES.matches.index} class="hover:text-primary-light underline transition-colors">Matches</a>
     <span aria-hidden>›</span>
     {tournament ? (
-      <a href={`/${tournament.data.type}/${tournament.data.edition}`} class="hover:text-primary-light underline transition-colors">{tournament.data.name}</a>
+      <a href={getTournamentUrl(tournament.data)} class="hover:text-primary-light underline transition-colors">{tournament.data.name}</a>
     ) : (
       <span>Match</span>
     )}

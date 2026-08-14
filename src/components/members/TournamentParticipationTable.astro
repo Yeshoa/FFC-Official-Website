@@ -4,7 +4,7 @@ import type { CollectionEntry } from 'astro:content';
 import { getMemberByName } from 'src/utils/memberUtils';
 import { getMatchResult } from 'src/utils/matchUtils';
 import { Image } from 'astro:assets';
-import { getTeamStatsInTournament, getTeamFinalResult, getTopScorerOfTeamInTournament, 
+import { getTournamentUrl, getTeamStatsInTournament, getTeamFinalResult, getTopScorerOfTeamInTournament, 
   getTeamPositionInTournament, getTeamByPosition, getFinalResult, getThirdPlaceResult, 
   getAllParticipantIds, lostLastPlayoff } from '../../utils/tournamentUtils';
 import { CURRENT_SEASON } from '@config/season';
@@ -24,7 +24,7 @@ const { teamId, teamName, matches, type, teamKind = 'national' } = Astro.props;
 // Filtrar los torneos por tipo
 const allEditions = tournaments
   .filter(t => t.data.type === type)
-  .sort((a, b) => a.data.edition - b.data.edition);
+  .sort((a, b) => (a.data.season ?? a.data.edition) - (b.data.season ?? b.data.edition));
 // Función auxiliar para obtener las estadísticas de un torneo
 const tournamentsData = await Promise.all(
   allEditions.map(async (t) => {
@@ -129,7 +129,7 @@ for (const tournamentData of tournamentsData) {
               <tr class="border-b border-primary-dark italic bg-red-900/10 text-red-300">
                 <td class={`px-2 py-2 flex flex-col items-center gap-1 justify-center`}>
                   {t.host && <a href={`/members/${t.host.id}`} class="flex-shrink-0"><Image src={t.host.data.flagPath} alt={t.host.data.name} height={20} class="rounded-sm max-h-14" loading={'lazy'} quality={10} format={'webp'} /></a>}
-                  <a href={`/${type}/${t.t.data.edition}`} class={`hover:underline ${t.hostClass}`}>{t.t.data.edition}</a>
+                  <a href={getTournamentUrl(t.t.data)} class={`hover:underline ${t.hostClass}`}>{t.t.data.season ?? t.t.data.edition}</a>
                 </td>
                 <td colspan="12" class="py-2">Didn't participate</td>
               </tr>
@@ -141,7 +141,7 @@ for (const tournamentData of tournamentsData) {
               <tr class="border-b border-primary-dark italic bg-blue-800/10 text-primary-light">
                 <td class="px-2 py-2 flex flex-col items-center gap-1 justify-center">
                   {t.host && <a href={`/members/${t.host.id}`} class="flex-shrink-0"><Image src={t.host.data.flagPath} alt={t.host.data.name} height={20} class="rounded-sm max-h-14" loading={'lazy'} quality={10} format={'webp'} /></a>}
-                  <a href={`/${type}/${t.t.data.edition}`} class={`hover:underline ${t.hostClass}`}>{t.t.data.edition}</a>
+                  <a href={getTournamentUrl(t.t.data)} class={`hover:underline ${t.hostClass}`}>{t.t.data.season ?? t.t.data.edition}</a>
                 </td>
                 <td colspan="12" class="py-2">To be determined</td>
               </tr>
@@ -153,7 +153,7 @@ for (const tournamentData of tournamentsData) {
               <tr class="border-b border-primary-dark italic bg-blue-800/10 text-primary-light">
                 <td class="px-2 py-2 flex flex-col items-center gap-1 justify-center">
                   {t.host && <a href={`/members/${t.host.id}`} class="flex-shrink-0"><Image src={t.host.data.flagPath} alt={t.host.data.name} height={20} class="rounded-sm max-h-14" loading={'lazy'} quality={10} format={'webp'} /></a>}
-                  <a href={`/${type}/${t.t.data.edition}`} class={`hover:underline ${t.hostClass}`}>{t.t.data.edition}</a>
+                  <a href={getTournamentUrl(t.t.data)} class={`hover:underline ${t.hostClass}`}>{t.t.data.season ?? t.t.data.edition}</a>
                 </td>
                 <td colspan="12" class="py-2">
                   {t.result.currentStage}
@@ -168,7 +168,7 @@ for (const tournamentData of tournamentsData) {
               <tr class="border-b border-primary-dark italic bg-red-900/10 text-red-300">
                 <td class={`px-2 py-2 flex flex-col items-center gap-1 justify-center`}>
                   {t.host && <a href={`/members/${t.host.id}`} class="flex-shrink-0"><Image src={t.host.data.flagPath} alt={t.host.data.name} height={20} class="rounded-sm max-h-14" loading={'lazy'} quality={10} format={'webp'} /></a>}
-                  <a href={`/${type}/${t.t.data.edition}`} class={`hover:underline ${t.hostClass}`}>{t.t.data.edition}</a>
+                  <a href={getTournamentUrl(t.t.data)} class={`hover:underline ${t.hostClass}`}>{t.t.data.season ?? t.t.data.edition}</a>
                 </td>
                 <td colspan="12" class="py-2">Didn't qualify</td>
               </tr>
@@ -181,7 +181,7 @@ for (const tournamentData of tournamentsData) {
               <tr class="border-b border-primary-dark italic bg-surface-raised/20 text-primary-light">
                 <td class="px-2 py-2 flex flex-col items-center gap-1 justify-center">
                   {t.host && <a href={`/members/${t.host.id}`} class="flex-shrink-0"><Image src={t.host.data.flagPath} alt={t.host.data.name} height={20} class="rounded-sm max-h-14" loading={'lazy'} quality={10} format={'webp'} /></a>}
-                  <a href={`/${type}/${t.t.data.edition}`} class={`hover:underline ${t.hostClass}`}>{t.t.data.edition}</a>
+                  <a href={getTournamentUrl(t.t.data)} class={`hover:underline ${t.hostClass}`}>{t.t.data.season ?? t.t.data.edition}</a>
                 </td>
                 <td colspan="12" class="py-2">
                   Reached {t.resultLabel}
@@ -194,7 +194,7 @@ for (const tournamentData of tournamentsData) {
             <tr class="border-b border-primary-dark hover:bg-surface-raised/20">
               <td class={`px-2 py-2 flex flex-col items-center gap-1 justify-center ${t.hostClass}`}>
                 {t.host && <a href={`/members/${t.host.id}`} class="flex-shrink-0"><Image src={t.host.data.flagPath} alt={t.host.data.name} height={20} class="rounded-sm max-h-14" quality={10} format={'webp'} /></a>}
-                <a href={`/${type}/${t.t.data.edition}`} class={`hover:underline`}>{t.t.data.edition}</a>
+                <a href={getTournamentUrl(t.t.data)} class={`hover:underline`}>{t.t.data.season ?? t.t.data.edition}</a>
               </td>
               <td class={`px-2 py-2 ${t.resultClass}`}>{t.resultLabel}</td>
               <td class="px-2 py-2 font-black">{t.position}°</td>

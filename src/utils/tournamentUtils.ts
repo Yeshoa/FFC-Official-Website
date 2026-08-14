@@ -5,6 +5,15 @@ import { getMemberById } from './memberUtils';
 import type { Tournament } from '@ty/collections';
 import { getMatchesByTournament } from '@lib/collections';
 import { CURRENT_SEASON } from '@config/season';
+import { ROUTES } from '@config/routes';
+
+// URL canónica de un torneo por su temporada (año). FC -> /forest-cup/<season>/, CL -> /forestian-champions-league/<season>/.
+export function getTournamentUrl(t: { type: string; season?: number; edition: number }): string {
+  const year = t.season ?? t.edition;
+  return t.type === 'forestian-champions-league'
+    ? ROUTES.championsLeague.season(year)
+    : ROUTES.forestCup.season(year);
+}
 
 // 🟢 Tipos
 type TournamentEntry = CollectionEntry<'tournaments'>;

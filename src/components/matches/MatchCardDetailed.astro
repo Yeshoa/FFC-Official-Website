@@ -10,6 +10,7 @@ import { getTournaments } from '@lib/collections';
 import { LOCALE } from '@config/constants';
 import { getStadiumById } from '@utils/stadiumUtils';
 import { ROUTES } from '@config/routes';
+import { getTournamentUrl } from 'src/utils/tournamentUtils';
 
 const tournaments = await getTournaments();
 
@@ -37,7 +38,7 @@ const { team1, team2 } = await getMatchTeamViews(match);
 const winner = getMatchWinner(match.data);
 const redCards = getMatchRedCards(match.data);
 const tournament = tournaments.find(t => t.data.id === match.data.tournament_id);
-const tournamentUrl = tournament ? `/${tournament.data.type}/${tournament.data.edition}` : '';
+const tournamentUrl = tournament ? getTournamentUrl(tournament.data) : '';
 const tournamentName = tournament?.data.name ?? '';
 const tournamentShortName = tournament?.data.shortName ?? tournamentName;
 // const fixture = match.data.group ? `Group ${match.data.group} - ${match.data.fixture}` : match.data.fixture ?? 'Unknown';

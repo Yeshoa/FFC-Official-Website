@@ -46,7 +46,7 @@ export const awardAchievements: AchievementDefinition[] = [
       if (!tour) return null;
       const player = tour.data.prizes!.bestPlayer!.player;
       return achieved(this, {
-        description: `Player ${player} won the Golden Ball in FC ${tour.data.edition}.`
+        description: `Player ${player} won the Golden Ball in FC ${tour.data.season}.`
       });
     }
   },
@@ -69,7 +69,7 @@ export const awardAchievements: AchievementDefinition[] = [
       if (!tour) return null;
       const player = tour.data.prizes!.bestGoalkeeper!.player;
       return achieved(this, {
-        description: `Player ${player} won the Golden Glove in FC ${tour.data.edition}.`
+        description: `Player ${player} won the Golden Glove in FC ${tour.data.season}.`
       });
     }
   },
@@ -92,7 +92,7 @@ export const awardAchievements: AchievementDefinition[] = [
       if (!tour) return null;
       const player = tour.data.prizes!.topScorer!.player;
       return achieved(this, {
-        description: `Player ${player} won the Golden Boot in FC ${tour.data.edition}.`
+        description: `Player ${player} won the Golden Boot in FC ${tour.data.season}.`
       });
     }
   },
@@ -145,7 +145,7 @@ export const awardAchievements: AchievementDefinition[] = [
         const isBoot = topScorerMatches(t, member.data.id, member.data.name);
         if (isChampion && isBall && isBoot) {
           return achieved(this, {
-            description: `Won Cup, Golden Ball, and Golden Boot in FC ${t.data.edition}.`
+            description: `Won Cup, Golden Ball, and Golden Boot in FC ${t.data.season}.`
           });
         }
       }

@@ -1,7 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import { Image } from 'astro:assets';
-import { CURRENT_TOURNAMENT_ID, getTeamPositionInTournament, getTeamByPosition, getFinalResult, getThirdPlaceResult } from 'src/utils/tournamentUtils';
+import { CURRENT_TOURNAMENT_ID, getTeamPositionInTournament, getTeamByPosition, getFinalResult, getThirdPlaceResult, getTournamentUrl } from 'src/utils/tournamentUtils';
 import { getMemberByName } from 'src/utils/memberUtils';
 import { getMatchResult } from 'src/utils/matchUtils';
 import Title from '@components/Title.astro';
@@ -17,7 +17,7 @@ const { tournaments, matches, type } = Astro.props;
 // Filtrar los torneos por tipo y ordenarlos
 const allEditions = tournaments
   .filter(t => t.data.type === type)
-  .sort((a, b) => b.data.edition - a.data.edition);
+  .sort((a, b) => (b.data.season ?? b.data.edition) - (a.data.season ?? a.data.edition));
 
 // Precompute data for each tournament
 const tournamentData = await Promise.all(
@@ -80,7 +80,7 @@ const title = type === 'forest-cup' ? 'Forest Cup History' : 'Forestian Champion
       </tr>
     </thead>
     <tbody>
-      {tournamentData.sort((b, a) => b.tournament.data.edition - a.tournament.data.edition).map(({ tournament, isFutureOrCurrent, host, champion, runnerUp, third, fourth, finalResult, /* thirdPlaceResult, */ bestPlayer, topScorers }) => (
+      {tournamentData.sort((b, a) => (b.tournament.data.season ?? b.tournament.data.edition) - (a.tournament.data.season ?? a.tournament.data.edition)).map(({ tournament, isFutureOrCurrent, host, champion, runnerUp, third, fourth, finalResult, /* thirdPlaceResult, */ bestPlayer, topScorers }) => (
         isFutureOrCurrent ? (
           <tr class="border-b border-primary-dark bg-blue-900/10 text-primary-light italic" key={tournament.data.id}>
             <td class="px-2 py-3 flex flex-col items-center gap-1 justify-center">
@@ -89,7 +89,7 @@ const title = type === 'forest-cup' ? 'Forest Cup History' : 'Forestian Champion
                   <Image src={host.data.flagPath} alt={host.data.name} height={20} class="rounded-sm object-cover max-h-6" loading="lazy" quality={40} format="webp" />
                 </a>
               )}
-              <a href={`/${type}/${tournament.data.edition}`} class="hover:underline">{tournament.data.edition}</a>
+              <a href={getTournamentUrl(tournament.data)} class="hover:underline">{tournament.data.season ?? tournament.data.edition}</a>
             </td>
             <td colSpan={8} class="py-3">
               To be disputed
@@ -103,7 +103,7 @@ const title = type === 'forest-cup' ? 'Forest Cup History' : 'Forestian Champion
                   <Image src={host.data.flagPath} alt={host.data.name} height={20} class="rounded-sm object-cover max-h-6" loading="lazy" quality={40} format="webp" />
                 </a>
               )}
-              <a href={`/${type}/${tournament.data.edition}`} class="hover:underline">{tournament.data.edition}</a>
+              <a href={getTournamentUrl(tournament.data)} class="hover:underline">{tournament.data.season ?? tournament.data.edition}</a>
             </td>
             <td class="px-2 py-3 font-semibold">
               {champion && (

@@ -14,7 +14,7 @@ const currentRoleplays = getCurrentRoleplays();
 const currentBonuses = getCurrentBonuses();
 
 const tournaments = await getTournaments();
-const nextEdition = tournaments.filter(t => t.data.season === CURRENT_SEASON)[0].data.edition;
+const nextSeason = tournaments.find(t => t.data.season === CURRENT_SEASON)?.data.season;
 ---
 
 <aside class="shrink-0 opacity-0 animate-[slide-in_1s_ease-in-out_forwards_.5s] order-3 mb-6">

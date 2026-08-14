@@ -190,8 +190,9 @@ interface Club {
 
 ### Cambios a `tournaments`
 - Ya existe `type: 'forest-cup' | 'forestian-champions-league'`. Mantener.
-- Agregar **`season: number`** (año) explícito. `edition` sigue como "edición del torneo" (1, 2, 3, 4).
+- **`season: number` = año (canónico)**; **`edition` = ordinal (1, 2, 3…)**. Normalizado (2026): FC migró `edition` de año a ordinal (2020→1, 2022→2, 2024→3, 2026→4). **Todo lo que significa "año" usa `season`** (URLs con `getTournamentUrl`, display, orden, decay, logros). FC y CL quedan iguales: `{edition: ordinal, season: año}`.
 - `id` numérico **deja de ser la fuente de la temporada**: pasa a ser solo un identificador de colección.
+- Nota: `events`/`roleplays`/`bonuses` y `tierHistory.edition` (miembros) usan `edition` = año/temporada; es otra colección y se mantiene así.
 
 ```ts
 {

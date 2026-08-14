@@ -17,7 +17,9 @@ import TournamentTopFour from '@components/tournaments/TournamentTopFour.astro';
 const members = await getMembers();
 const matches = await getMatches();
 let tournaments = await getTournaments();
-tournaments = tournaments.sort((a, b) => a.data.id - b.data.id);
+tournaments = tournaments
+  .filter((t) => t.data.type === 'forest-cup')
+  .sort((a, b) => a.data.id - b.data.id);
 const matchDatas = matches.map((entry) => entry.data);
 const tournamentType = "forest-cup";
 const articles = await getArticles();

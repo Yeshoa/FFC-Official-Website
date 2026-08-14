@@ -45,7 +45,7 @@ const playoffMatches = fcMatches.filter(match => match.data.stage === 'playoff')
 const articles = await getArticles();
 const filterTags = [
   "forest-cup",
-  "forest-cup-" + FCData.edition,
+  "forest-cup-" + FCData.season,
 ];
 const filteredArticles = getArticlesByTags(articles, filterTags);
 

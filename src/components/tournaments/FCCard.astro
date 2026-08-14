@@ -36,7 +36,7 @@ const {
 const mainImage = cardImg || heroImg; // CardImg
 /* Route redirect depending on the tournament type */
 // const tournamentLink = `/${type}/${edition}`;
-const tournamentLink = type === 'forestian-champions-league' ? ROUTES.championsLeague.edition(edition) : ROUTES.forestCup.edition(edition);
+const tournamentLink = type === 'forestian-champions-league' ? ROUTES.championsLeague.season(data.season) : ROUTES.forestCup.season(data.season);
 const hostFlag = await getMemberImage(host) || defaultFlag; // If there is no host yet, use the default flag
 ---
 

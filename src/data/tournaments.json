@@ -11,7 +11,7 @@
     "banner": "src/assets/images/tournaments/2020/logo2.png",
     "heroImg": "src/assets/images/tournaments/2020/heroImg.png",
     "cardImg": "src/assets/images/tournaments/2020/heroImg.png",
-    "edition": 2020,
+    "edition": 1,
     "season": 2020,
     "pots": [
       {
@@ -147,7 +147,7 @@
     "banner": "src/assets/images/tournaments/2022/logo.png",
     "heroImg": "src/assets/images/tournaments/2022/atsvea-champions.png",
     "cardImg": "src/assets/images/tournaments/2022/cardImg.png",
-    "edition": 2022,
+    "edition": 2,
     "season": 2022,
     "pots": [
       {
@@ -252,7 +252,7 @@
     "banner": "src/assets/images/tournaments/2024/banner.png",
     "heroImg": "src/assets/images/tournaments/2024/celebration.png",
     "cardImg": "src/assets/images/tournaments/2024/cardImg.png",
-    "edition": 2024,
+    "edition": 3,
     "season": 2024,
     "loadingType": "eager",
     "pots": [
@@ -389,7 +389,7 @@
     "banner": "src/assets/images/tournaments/2026/banner.png",
     "cardImg": "src/assets/images/tournaments/2026/heroImg.png",
     "heroImg": "src/assets/images/tournaments/2026/roless-c.png",
-    "edition": 2026,
+    "edition": 4,
     "season": 2026,
     "loadingType": "eager",
     "prizes": {
@@ -414,5 +414,25 @@
     },
     "hostId": 5,
     "championId": 4
+  },
+  "champions-league-2027": {
+    "id": 4,
+    "type": "forestian-champions-league",
+    "name": "Forestian Champions League 2027",
+    "shortName": "FCL 2027",
+    "image": "src/assets/images/tournaments/trophy_panoramic.png",
+    "banner": "src/assets/images/tournaments/trophy_panoramic.png",
+    "heroImg": "src/assets/images/tournaments/trophy_panoramic.png",
+    "cardImg": "src/assets/images/tournaments/trophy_panoramic.png",
+    "edition": 1,
+    "season": 2027,
+    "pots": [
+      {
+        "pot": 1,
+        "teams": ["Krulta BK", "Nordland FC"],
+        "teamCodes": ["KRA", "NOR"],
+        "teamIds": [97, 98]
+      }
+    ]
   }
 }

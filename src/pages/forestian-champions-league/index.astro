@@ -10,6 +10,12 @@ import { loadCurrentSquadByTeamId } from '@data/players';
 import { computeTeamRating, teamRatingToStars } from '@config/rating';
 import { ROUTES } from '@config/routes';
 import ClubCard from '@components/clubs/ClubCard.astro';
+import { getTournaments } from '@lib/collections';
+
+const clTournaments = (await getTournaments())
+  .filter((t) => t.data.type === 'forestian-champions-league')
+  .sort((a, b) => b.data.season - a.data.season);
+const latestSeason = clTournaments[0]?.data.season ?? null;
 
 const clubs = getAllClubs()
   .map((club) => {
@@ -109,9 +115,16 @@ const topClubs = clubs.slice(0, 8);
     </section>
 
     <!-- SEASON -->
-    <section class="text-center">
-      <p class="text-text-muted uppercase tracking-widest text-sm">Season 2027</p>
-      <p class="text-white text-xl mt-1">Details will be announced soon.</p>
-    </section>
+    {latestSeason !== null && (
+      <section class="text-center">
+        <p class="text-text-muted uppercase tracking-widest text-sm">Season {latestSeason}</p>
+        <a
+          href={ROUTES.championsLeague.season(latestSeason)}
+          class="inline-block mt-3 px-6 py-3 rounded-lg bg-cl-lime text-black font-bold hover:bg-white transition-colors"
+        >
+          Go to the season
+        </a>
+      </section>
+    )}
   </div>
 </FCLayout>

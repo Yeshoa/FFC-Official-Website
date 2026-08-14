@@ -52,7 +52,7 @@ const baseAchievements: AchievementDefinition[] = [
       const { tournaments, member } = context;
       const editions = tournaments
         .filter(t => hostIdsEqual(t, member.data.id, member.data.name))
-        .map(t => t.data.edition);
+        .map(t => t.data.season);
       return createAchievementResult(this, editions, {
         singularText: "Hosted the Forest Cup in",
         pluralText: "Hosted the Forest Cup",
@@ -84,7 +84,7 @@ const baseAchievements: AchievementDefinition[] = [
       const { tournaments, member } = context;
       const won = tournaments.find(t => championIdsEqual(t, member.data.id, member.data.name));
       return won ? achieved(this, {
-        description: `Won the Forest Cup ${won.data.edition}.`,
+        description: `Won the Forest Cup ${won.data.season}.`,
         current: 1,
         target: 1,
         progress: 100,
@@ -109,7 +109,7 @@ const baseAchievements: AchievementDefinition[] = [
       const won = tournaments.filter(t => championIdsEqual(t, member.data.id, member.data.name));
       if (won.length !== 2) return null;
       const editions = won
-        .map(t => t.data.edition)
+        .map(t => t.data.season)
         .sort((a, b) => a - b);
       const desc = `Won Forest Cup ${editions[0]} and ${editions[1]}.`;
       return achieved(this, {
@@ -138,7 +138,7 @@ const baseAchievements: AchievementDefinition[] = [
       const won = tournaments.filter(t => championIdsEqual(t, member.data.id, member.data.name));
       if (won.length < 3) return null;
       const editions = won
-        .map(t => t.data.edition)
+        .map(t => t.data.season)
         .sort((a, b) => a - b);
       const list = editions.map((e, i, arr) => i === arr.length - 1 && arr.length > 1 ? ` and ${e}` : e).join(', ');
       const newDescription = `Won the Forest Cup ${editions.length} times (${list}).`;
@@ -176,7 +176,7 @@ const baseAchievements: AchievementDefinition[] = [
           return gf < ga;
         }).length;
         if (lost === 0 && played.length > 0) {
-          unbeatenEditions.push(t.data.edition);
+          unbeatenEditions.push(t.data.season);
         }
       }
       return createAchievementResult(this, unbeatenEditions, {
@@ -214,7 +214,7 @@ const baseAchievements: AchievementDefinition[] = [
           return gf > ga;
         }).length;
         if (wins === played.length && played.length > 0){
-          perfectEditions.push(t.data.edition);
+          perfectEditions.push(t.data.season);
         }
       }
       return createAchievementResult(this, perfectEditions, {
@@ -259,7 +259,7 @@ const baseAchievements: AchievementDefinition[] = [
         ).length;
 
         if (wins === played.length && played.length > 0 && awardsCount === 4) {
-          ultimateEditions.push(t.data.edition);
+          ultimateEditions.push(t.data.season);
         }
       }
       return createAchievementResult(this, ultimateEditions, {

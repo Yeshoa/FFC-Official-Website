@@ -1,0 +1,123 @@
+---
+// CLStandings: tablas de grupos de la Champions League (clubes), por id global.
+// Reutiliza MatchCardCompact (ya resuelve clubes) para los partidos del grupo.
+import type { CollectionEntry } from 'astro:content';
+import { getClubById } from '@data/clubs';
+import { ROUTES } from '@config/routes';
+import MatchCardCompact from '@components/matches/MatchCardCompact.astro';
+
+interface Props {
+  matches: CollectionEntry<'matches'>[];
+}
+
+const { matches } = Astro.props;
+
+const groupMatches = matches.filter((m) => m.data.stage?.toLowerCase().includes('group'));
+
+const matchesByGroup = groupMatches.reduce<Record<string, CollectionEntry<'matches'>[]>>((acc, m) => {
+  const group = m.data.group || 'Unknown';
+  if (!acc[group]) acc[group] = [];
+  acc[group].push(m);
+  return acc;
+}, {});
+
+interface Row {
+  teamId: number;
+  clubName: string;
+  slug: string;
+  color?: string;
+  played: number;
+  wins: number;
+  draws: number;
+  losses: number;
+  gf: number;
+  ga: number;
+  gd: number;
+  pts: number;
+}
+
+function buildTable(gm: CollectionEntry<'matches'>[]): Row[] {
+  const table = new Map<number, Row>();
+  for (const m of gm) {
+    const ids = [m.data.team1Id, m.data.team2Id];
+    for (const id of ids) {
+      if (id === undefined || id === null || table.has(id)) continue;
+      const club = getClubById(id);
+      table.set(id, {
+        teamId: id,
+        clubName: club?.name ?? `#${id}`,
+        slug: club?.slug ?? '',
+        color: club?.colors?.primary,
+        played: 0, wins: 0, draws: 0, losses: 0, gf: 0, ga: 0, gd: 0, pts: 0,
+      });
+    }
+    if (m.data.status !== 'played') continue;
+    const { team1, team2, goals = [] } = m.data;
+    const g1 = goals.filter((g) => g.team === team1).length;
+    const g2 = goals.filter((g) => g.team === team2).length;
+    const r1 = m.data.team1Id != null ? table.get(m.data.team1Id) : undefined;
+    const r2 = m.data.team2Id != null ? table.get(m.data.team2Id) : undefined;
+    if (!r1 || !r2) continue;
+    r1.played++; r2.played++;
+    r1.gf += g1; r1.ga += g2;
+    r2.gf += g2; r2.ga += g1;
+    if (g1 > g2) { r1.wins++; r2.losses++; r1.pts += 3; }
+    else if (g2 > g1) { r2.wins++; r1.losses++; r2.pts += 3; }
+    else { r1.draws++; r2.draws++; r1.pts++; r2.pts++; }
+  }
+  return [...table.values()]
+    .map((r) => ({ ...r, gd: r.gf - r.ga }))
+    .sort((a, b) => b.pts - a.pts || b.gd - a.gd || b.gf - a.gf);
+}
+---
+
+<div class="w-full grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-4 gap-6 px-4">
+  {Object.entries(matchesByGroup).map(([group, gm]) => {
+    const table = buildTable(gm);
+    return (
+      <div class="bg-surface/40 rounded-2xl border border-cl-lime/20 p-4 flex flex-col">
+        <h3 class="text-center text-2xl font-black text-cl-lime mb-3">Group {group}</h3>
+        <table class="w-full text-sm mb-2">
+          <thead>
+            <tr class="border-b border-cl-lime/20 text-cl-lime">
+              <th class="px-1 py-1 text-left">°</th>
+              <th class="px-1 py-1 text-left">Club</th>
+              <th class="px-1 py-1">Pts</th>
+              <th class="px-1 py-1 hidden sm:table-cell">W</th>
+              <th class="px-1 py-1 hidden sm:table-cell">D</th>
+              <th class="px-1 py-1 hidden sm:table-cell">L</th>
+              <th class="px-1 py-1 hidden md:table-cell">GF</th>
+              <th class="px-1 py-1 hidden md:table-cell">GA</th>
+              <th class="px-1 py-1">GD</th>
+            </tr>
+          </thead>
+          <tbody>
+            {table.map((r, i) => (
+              <tr key={r.teamId} class="border-b border-cl-lime/10 last:border-b-0">
+                <td class="px-1 py-1.5 text-left">{i + 1}</td>
+                <td class="px-1 py-1.5 text-left whitespace-nowrap">
+                  <a href={r.slug ? ROUTES.clubs.detail(r.slug) : '#'} class="inline-flex items-center gap-2 hover:underline">
+                    <span class="inline-block w-2 h-2 rounded-full" style={{ backgroundColor: r.color }}></span>
+                    {r.clubName}
+                  </a>
+                </td>
+                <td class="px-1 py-1.5 font-semibold">{r.pts}</td>
+                <td class="px-1 py-1.5 hidden sm:table-cell">{r.wins}</td>
+                <td class="px-1 py-1.5 hidden sm:table-cell">{r.draws}</td>
+                <td class="px-1 py-1.5 hidden sm:table-cell">{r.losses}</td>
+                <td class="px-1 py-1.5 hidden md:table-cell">{r.gf}</td>
+                <td class="px-1 py-1.5 hidden md:table-cell">{r.ga}</td>
+                <td class="px-1 py-1.5">{r.gd}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <div class="mt-auto grid gap-2">
+          {gm.map((m) => (
+            <MatchCardCompact match={m.data} />
+          ))}
+        </div>
+      </div>
+    );
+  })}
+</div>

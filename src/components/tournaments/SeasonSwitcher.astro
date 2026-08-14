@@ -1,0 +1,60 @@
+---
+// SeasonSwitcher: selector de temporadas de un mismo tipo de torneo.
+// Filtra al tipo del torneo actual (no mezcla FC con CL), muestra solo el año,
+// y con 5+ ediciones enmarca la actual al centro (2 previas, 2 siguientes).
+import { getTournaments } from '@lib/collections';
+import { getTournamentUrl } from '@utils/tournamentUtils';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  current: CollectionEntry<'tournaments'>['data'];
+  activeClass?: string;
+  idleClass?: string;
+}
+
+const {
+  current,
+  activeClass = 'text-amber-300 border-b-2 border-amber-300 pb-1 pointer-events-none',
+  idleClass = 'text-primary-soft hover:text-amber-200',
+} = Astro.props;
+
+const all = await getTournaments();
+const sameType = all
+  .filter((t) => t.data.type === current.type)
+  .sort((a, b) => (a.data.season ?? a.data.edition) - (b.data.season ?? b.data.edition));
+
+const currentIndex = sameType.findIndex((t) => t.data.id === current.id);
+
+// Ventana de 5 alrededor de la actual si hay 5+ ediciones; si no, todas.
+const visible = sameType.length >= 5
+  ? sameType.slice(Math.max(0, currentIndex - 2), Math.min(sameType.length, currentIndex + 3))
+  : sameType;
+
+const year = (t: CollectionEntry<'tournaments'>) => t.data.season ?? t.data.edition;
+---
+
+<nav class="absolute top-0 left-0 right-0 z-20 bg-surface/80 backdrop-blur-sm">
+  <div class="flex justify-center items-center py-3 px-4">
+    <div class="flex gap-6 overflow-x-auto scrollbar-hide">
+      {visible.map((tournament) => {
+        const isActive = tournament.data.id === current.id;
+        return (
+          <a
+            href={isActive ? '#' : getTournamentUrl(tournament.data)}
+            class:list={[
+              'text-sm font-medium whitespace-nowrap transition-all duration-300',
+              isActive ? activeClass : idleClass,
+            ]}
+          >
+            {year(tournament)}
+          </a>
+        );
+      })}
+    </div>
+  </div>
+</nav>
+
+<style>
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+  .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+</style>

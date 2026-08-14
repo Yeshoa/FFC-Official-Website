@@ -205,6 +205,21 @@
 - Rutas de la sección (home, season, fixtures, standings, ranking CL propio).
 - Carga de datos de clubes y partidos CL (ida/vuelta, final simple).
 
+> **Hecho (B10):**
+> - **Torneo CL 2027** en `tournaments.json` (`id: 4`, `type: 'forestian-champions-league'`, `edition: 1`, `season: 2027`) con `pots.teamIds` = ids de clubes (97, 98).
+> - **Partidos CL** `src/data/matches/champions-league-2027.json` (Grupo A, ida/vuelta con `leg`, `team1Type/team2Type: 'club'`, goles con `playerId`) + agregado al loader de `config.ts` (`players:link` valida 5 archivos, OK).
+> - **Página de temporada**: `/forestian-champions-league/<season>/` es **una sola página por edición** (espejo de `/forest-cup/<edition>`): **Hero → Stats → Standings (`#standings`) → Fixtures (`#matches`)** todo inline. Se eliminaron `/…/standings` y `/…/matches`.
+> - **`CLSeasonHero`** (sin imágenes, fuente Space Grotesk): edición **finalizada** → campeón (escudo + nombre) + "CHAMPIONS" + **estrellas = títulos CL acumulados**; edición **en curso/sin empezar** → texto "Forestian Champions League" + **año grande**. Botones → anclas `#standings`/`#matches`.
+> - **`SeasonSwitcher`** compartido (FC y CL): filtra al tipo del torneo actual, muestra **solo el año**, y con 5+ ediciones enmarca la actual al centro (2 previas, 2 siguientes). Reemplaza el nav inline de `TournamentHero`.
+> - **Fuente CL**: Space Grotesk (token `--font-cl`) aplicada al layout `FCL` → toda la sección CL se diferencia tipográficamente de la Forest Cup.
+> - **Conexión con clubes**: `/clubs/<slug>` muestra la participación CL 2027, últimos partidos, goleadores (A. Arhanv), H2H y récords. Los links de torneo van a `/forestian-champions-league/<season>/` (fix del bug `…/1`).
+> - **Pendiente**: más clubes/equipos y fase de knockout (R32→Final con ida/vuelta, `leg`) cuando existan más datos.
+
+> **Hecho (2026): normalización `edition`/`season`**
+> - **`season` = año (canónico)**, **`edition` = ordinal (1, 2, 3…)** para FC y CL por igual. Se migró **FC `edition` → 1..4** (antes era el año). Las URLs/display no cambian (usan `season`).
+> - `getTournamentUrl(t)` en `tournamentUtils` centraliza los links (CL → season, FC → season). `ROUTES.forestCup.edition` → `season`; `ROUTES.championsLeague.standings/matches` eliminados.
+> - Código que usaba `edition` como año → `season`: MatchCard* (labels/links), MatchDetailHeader, TournamentParticipationTable, TournamentHistoryTable, TournamentTopFour, FCCard*, Legend, `members/[slug]` (títulos), filterTags de forest-cup, logros (`dynamics/tournament.ts`, `awards.ts`). `events`/`roleplays`/`bonuses` y `tierHistory.edition` ya usaban `edition` = año (se mantienen, es otra colección).
+
 > **Hecho (adelanto post-B9, 2026): paridad de la página de club + ligas domésticas v2**
 > - **Ruta de clubes por slug** (el `code` es visual y puede repetirse): `@data/clubs` deriva `slug` del nombre con dedup (`-2`, `-3`), `getClubBySlug`, y se migraron todos los links (`ClubCard`, ranking FCL, matches, MemberClubs, liga). Ruta `/clubs/<slug>`.
 > - **Ligas domésticas v2** (`src/data/leagues/leagues.json` → array): campo `division` (varias divisiones por federación), `federationId`, y zonas **`relegationPositions`** / **`championsLeaguePositions`** (listas de posiciones). Los clubes se referencian por **`clubId`** (nunca por code). Getters: `getFirstDivision`, `getLeaguesByFederation`, `getLeagueForClub`.

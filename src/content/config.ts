@@ -8,6 +8,7 @@ import matches2020 from '../data/matches/forest-cup-2020.json';
 import matches2022 from '../data/matches/forest-cup-2022.json';
 import matches2024 from '../data/matches/forest-cup-2024.json';
 import matches2026 from '../data/matches/forest-cup-2026.json';
+import matchesCL2027 from '../data/matches/champions-league-2027.json';
 import tournamentsData from '../data/tournaments.json';
 import membersData from '../data/members.json';
 import achievementsData from '../data/achievements.json';
@@ -70,7 +71,7 @@ const tournamentsCollection = defineCollection({
 
 const matchesCollection = defineCollection({
   loader: () =>
-    [...matches2020, ...matches2022, ...matches2024, ...matches2026].map((match, index) => ({
+    [...matches2020, ...matches2022, ...matches2024, ...matches2026, ...matchesCL2027].map((match, index) => ({
       id: `match-${match.tournament_id}-${match.match_id ?? index + 1}`,
       ...match,
     })),

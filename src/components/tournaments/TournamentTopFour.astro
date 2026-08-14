@@ -42,7 +42,7 @@ for (const tournament of allEditions) {
     if (!palmaresMap.has(key)) {
       palmaresMap.set(key, { member: team, champion: [], runnerUp: [], third: [], fourth: [] });
     }
-    palmaresMap.get(key)![keys[i]].push(tournament.data.edition);
+    palmaresMap.get(key)![keys[i]].push(tournament.data.season ?? tournament.data.edition);
   });
 }
 
@@ -109,7 +109,7 @@ const palmares = Array.from(palmaresMap.values()).sort((a, b) =>
                     {entry[key].length}
                   </span>
                   {' '}
-                  <a href={ROUTES.forestCup.edition(entry[key][0])} class="text-text-muted text-xs hover:text-gray-300 hover:underline">
+                  <a href={ROUTES.forestCup.season(entry[key][0])} class="text-text-muted text-xs hover:text-gray-300 hover:underline">
                     ({entry[key].map(year => `'${year.toString().slice(-2)}`).join(', ')})
                   </a>
                 </span>

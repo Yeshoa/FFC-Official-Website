@@ -31,7 +31,7 @@ const penaltyText = penalties
 <div class="bg-surface/80 rounded-md px-4 py-3 w-full gap-2">
   <div class="text-xs text-gray-300 flex gap-1 justify-between px-3 pb-2">
     <div class="">
-      <span class="font-semibold">{tournament?.data.type === 'forest-cup' ? 'Forest Cup' : 'Champions League'} {tournament?.data.edition}</span>
+      <span class="font-semibold">{tournament?.data.type === 'forest-cup' ? 'Forest Cup' : 'Champions League'} {tournament?.data.season ?? tournament?.data.edition}</span>
       <span>{match.group ? 'Groups' : match.fixture ? match.fixture : ''}</span>
     </div>
     <span>{date.toLocaleDateString(LOCALE, { day: 'numeric', month: 'short', year: 'numeric' })}</span>

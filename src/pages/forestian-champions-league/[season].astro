@@ -1,0 +1,69 @@
+---
+// Temporada de la Champions League: una sola página por edición (espejo de /forest-cup/<edition>).
+// Hero -> Stats -> Standings (#standings) -> Fixtures (#matches), todo inline.
+import FCLayout from '@layouts/FCL.astro';
+import { getTournaments, getMatches } from '@lib/collections';
+import CLSeasonHero from '@components/champions-league/CLSeasonHero.astro';
+import CLStandings from '@components/champions-league/CLStandings.astro';
+import ScorersTable from '@components/tournaments/ScorersTable.astro';
+import MatchCardDetailed from '@components/matches/MatchCardDetailed.astro';
+
+export async function getStaticPaths() {
+  const tournaments = await getTournaments();
+  return tournaments
+    .filter((t) => t.data.type === 'forestian-champions-league')
+    .map((t) => ({
+      params: { season: String(t.data.season) },
+      props: { tournament: t },
+    }));
+}
+
+const { tournament } = Astro.props;
+if (!tournament) return Astro.redirect('/404');
+const data = tournament.data;
+
+const matches = await getMatches();
+const tournMatches = matches
+  .filter((m) => m.data.tournament_id === data.id)
+  .sort((a, b) => a.data.date.getTime() - b.data.date.getTime());
+
+const hasGroup = tournMatches.some((m) => m.data.stage?.toLowerCase().includes('group'));
+const hasPlayed = tournMatches.some((m) => m.data.status === 'played');
+const status = data.championId === undefined || data.championId === null
+  ? hasPlayed ? 'In progress' : hasGroup ? 'Group Stage' : 'First edition'
+  : undefined;
+---
+
+<FCLayout title={`FFC - ${data.name}`}>
+  <CLSeasonHero tournament={tournament} status={status} />
+
+  <main class="flex flex-col items-center pt-10">
+    <div class="w-full max-w-6xl px-4 space-y-14">
+      <section id="stats">
+        <ScorersTable matches={tournMatches} />
+      </section>
+
+      <section id="standings">
+        <h2 class="text-2xl font-bold text-cl-lime uppercase mb-5">Standings</h2>
+        {hasGroup ? (
+          <CLStandings matches={tournMatches} />
+        ) : (
+          <p class="text-text-muted italic">No group matches yet.</p>
+        )}
+      </section>
+
+      <section id="matches">
+        <h2 class="text-2xl font-bold text-cl-lime uppercase mb-5">Fixtures</h2>
+        {tournMatches.length > 0 ? (
+          <div class="grid grid-cols-1 gap-4">
+            {tournMatches.map((m) => (
+              <MatchCardDetailed match={m} />
+            ))}
+          </div>
+        ) : (
+          <p class="text-text-muted italic">No fixtures yet.</p>
+        )}
+      </section>
+    </div>
+  </main>
+</FCLayout>
