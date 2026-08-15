@@ -76,6 +76,7 @@
 - `CURRENT_TOURNAMENT_ID` se define en `src/utils/tournamentUtils.ts` como `sortedTournaments[0]?.data.id` — **el torneo de mayor id**, no el año.
 
 ### Problemas detectados en ranking
+> **Nota (2026):** estos problemas se resolvieron en **A3** (temporada por año, `score` por season, decay por temporadas FC cerradas) — ver [[03-ranking]]. Se mantienen como referencia del estado previo al refactor.
 1. `CURRENT_TOURNAMENT_ID = id más alto` mezcla "último torneo" con "temporada actual". Con la CL anual esto se rompe (ver [[03-ranking]]).
 2. Los points se indexan por **tournament id string** en frontmatter; un cambio de `id` rompe el historial.
 3. Decay se basa en *cantidad de torneos*, no en *años*: si hay 2 torneos por temporada (FC bianual + CL anual) los factores no corresponden a años reales.

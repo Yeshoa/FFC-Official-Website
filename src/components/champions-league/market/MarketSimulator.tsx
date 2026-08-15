@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { computePlayerRating, ratingToStars, ovrRatingColor } from '@config/rating';
 import { FORMATIONS, getFormationPositions } from '@config/formations';
 import { positionToRole } from '@config/positions';
-import { formatPrice, parsePriceInput } from '@config/market';
+import { RETENTION_RATE, formatPrice, parsePriceInput, retentionCost } from '@config/market';
 import { SKILL_CATEGORIES, skillCategoryValue } from '@config/skills';
 import { getPerksByIds } from '@data/perks';
 import type { FederationGroup, MarketNationality, MarketPlayer, MarketRole } from '@ty/market';
@@ -134,6 +134,11 @@ export default function MarketSimulator({ federations, players, season, national
     () => [...starters, ...bench, ...reservas].reduce((s, p) => s + (p?.price ?? 0), 0),
     [starters, bench, reservas],
   );
+  const squad = useMemo(
+    () => [...starters, ...bench, ...reservas].filter((p): p is MarketPlayer => p !== null),
+    [starters, bench, reservas],
+  );
+  const retentionTotal = squad.reduce((s, p) => s + retentionCost(p.price), 0);
   const budget = club?.budget ?? 0;
   const remaining = budget - spent;
   const spentPct = budget > 0 ? (spent / budget) * 100 : 0;
@@ -334,6 +339,15 @@ export default function MarketSimulator({ federations, players, season, national
     const benchOut = bench.map((_, i) => ref({ kind: 'bench', index: i }));
     const reservasOut = reservas.map((_, i) => ref({ kind: 'reserva', index: i }));
     const signings = [...startersOut, ...benchOut, ...reservasOut].filter(Boolean);
+    const renewals = [...starters, ...bench, ...reservas].filter(
+      (p): p is MarketPlayer => p !== null,
+    ).map((p) => ({
+      playerId: p.playerId ?? null,
+      name: p.name,
+      position: p.position,
+      marketValue: p.price,
+      renewalCost: retentionCost(p.price),
+    }));
     return {
       season,
       club: club ? { id: club.id, code: club.code, name: club.name } : null,
@@ -343,6 +357,7 @@ export default function MarketSimulator({ federations, players, season, national
       starters: startersOut,
       bench: benchOut,
       reservas: reservasOut,
+      renewals,
     };
   };
 
@@ -821,6 +836,40 @@ export default function MarketSimulator({ federations, players, season, national
               {reservas.map((_, i) => renderSlot({ kind: 'reserva', index: i }, `Reserve ${i + 1}`))}
             </div>
           </div>
+
+          {/* Retención: plantel actual (Modelo A) */}
+          <div className="bg-surface/40 border border-cl-lime/20 rounded-2xl p-5">
+            <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
+              <p className="text-xs uppercase tracking-widest text-text-muted">Current squad · Retention</p>
+              {squad.length > 0 && (
+                <span className="text-xs text-cl-lime font-bold">
+                  {formatPrice(retentionTotal)}/season
+                </span>
+              )}
+            </div>
+            {squad.length === 0 ? (
+              <p className="text-text-muted italic text-sm">No players placed yet.</p>
+            ) : (
+              <>
+                <div className="max-h-48 overflow-y-auto space-y-1 pr-1">
+                  {squad.map((p) => (
+                    <div key={p.id} className="flex items-center gap-2 text-xs">
+                      <span className="px-1 rounded text-[9px] font-bold bg-black/40 text-white">{p.position}</span>
+                      <span className="flex-1 truncate text-white/80">{p.name}</span>
+                      <span className="text-text-muted tabular-nums">{formatPrice(p.price)}</span>
+                      <span className="text-cl-lime font-bold tabular-nums w-16 text-right">
+                        {formatPrice(retentionCost(p.price))}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+                <p className="mt-2 text-[10px] text-text-muted">
+                  Keeping a player costs {Math.round(RETENTION_RATE * 100)}% of their market value per season
+                  (Modelo A). Deducted from next season's budget; not renewed → back to the pool.
+                </p>
+              </>
+            )}
+          </div>
         </div>
       </div>
 
@@ -850,7 +899,7 @@ export default function MarketSimulator({ federations, players, season, national
       {/* Instructivo */}
       <p className="text-xs text-text-muted bg-cl-lime/5 border border-cl-lime/20 rounded-lg px-3 py-2">
         How it works: <strong className="text-cl-lime">1</strong> pick a club ·{' '}
-        <strong className="text-cl-lime">2</strong> click a player (preview on the right) ·{' '}
+        <strong className="text-cl-lime">2</strong> click a player (details expand below) ·{' '}
         <strong className="text-cl-lime">3</strong> click a slot to place them. Click a placed card to remove. The GK
         slot and the first bench slot require a goalkeeper.
       </p>

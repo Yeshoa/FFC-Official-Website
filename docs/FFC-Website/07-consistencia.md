@@ -8,7 +8,7 @@
 
 ### Problemas
 - Props mal aprovechados o duplicados: muchas páginas/componentes reciben los mismos datos crudos y recalculan (por ej. standings, top scorers) en vez de recibir datos ya calculados desde un layer.
-- `score` indexado por tournament id (acoplado al problema de [[03-ranking]]).
+- `score` indexado por tournament id (acoplado al problema de [[03-ranking]]). → **Resuelto (A3)**: indexado por temporada (año).
 - Campos como `getCurrentRoleplayDataWithDefaults(memberName, ...)` reciben `memberName` sin usarlo.
 
 ### Objetivo

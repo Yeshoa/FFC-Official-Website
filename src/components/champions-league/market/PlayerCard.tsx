@@ -8,10 +8,9 @@ import type { MarketPlayer } from '@ty/market';
 interface Props {
   player: MarketPlayer;
   usedPosition?: string; // posición donde se está usando (si difiere de su natural)
-  compact?: boolean; // variante reducida para la cancha
 }
 
-export default function PlayerCard({ player, usedPosition, compact = false }: Props) {
+export default function PlayerCard({ player, usedPosition }: Props) {
   const pos = usedPosition ?? player.position;
   const rating = computePlayerRating(player.skills, pos);
   const stars = ratingToStars(rating);
@@ -28,14 +27,9 @@ export default function PlayerCard({ player, usedPosition, compact = false }: Pr
   const fullStars = Math.floor(stars);
   const hasHalf = stars - fullStars >= 0.5;
 
-  const box = compact
-    ? 'relative w-[96px] h-[144px] rounded-md overflow-hidden border text-white select-none'
-    : 'relative w-[150px] h-[225px] rounded-md overflow-hidden border text-white select-none';
-  const inner = compact ? 'relative z-10 flex flex-col h-full p-1' : 'relative z-10 flex flex-col h-full p-2.5';
-
   return (
     <div
-      className={box}
+      className="relative w-[150px] h-[225px] rounded-md overflow-hidden border text-white select-none"
       style={{
         background: `linear-gradient(160deg, ${ovr.bg} 0%, #050505 135%)`,
         borderColor: ovr.bg,
@@ -64,12 +58,12 @@ export default function PlayerCard({ player, usedPosition, compact = false }: Pr
         ))}
       </svg>
 
-      <div className={inner}>
+      <div className="relative z-10 flex flex-col h-full p-2.5">
         <div className="flex items-start justify-between">
           <span className="px-1 py-0.5 rounded bg-black/40 text-[10px] font-bold">{pos}</span>
           <div className="text-right">
             <span
-              className={`font-black leading-none tabular-nums ${compact ? 'text-xl' : 'text-3xl'}`}
+              className="font-black leading-none tabular-nums text-3xl"
               style={{ textShadow: '0 1px 4px rgba(0,0,0,0.6)' }}
             >
               {rating}
@@ -85,22 +79,18 @@ export default function PlayerCard({ player, usedPosition, compact = false }: Pr
             <img
               src={player.flagUrl}
               alt={player.nationality ?? ''}
-              className={`rounded-sm object-cover ring-1 ring-black/50 ${compact ? 'w-5 h-3' : 'w-7 h-4'}`}
+              className="rounded-sm object-cover ring-1 ring-black/50 w-7 h-4"
             />
           ) : (
             <span className="text-[9px] text-white/40">—</span>
           )}
-          {!compact && player.nationality && (
+          {player.nationality && (
             <span className="text-[8px] tracking-[0.2em] text-white/80">
               {player.nationality.toUpperCase()}
             </span>
           )}
-          {!compact && (
-            <span className="text-[8px] tracking-[0.2em] text-white/70 leading-none">{firstName || ' '}</span>
-          )}
-          <span
-            className={`font-black leading-tight tracking-wide ${compact ? 'text-[9px]' : 'text-[12px]'}`}
-          >
+          <span className="text-[8px] tracking-[0.2em] text-white/70 leading-none">{firstName || ' '}</span>
+          <span className="font-black leading-tight tracking-wide text-[12px]">
             {lastName || ' '}
           </span>
         </div>
@@ -110,7 +100,7 @@ export default function PlayerCard({ player, usedPosition, compact = false }: Pr
           {Array.from({ length: 5 }).map((_, i) => (
             <span
               key={i}
-              className={`${compact ? 'text-[10px]' : 'text-[13px]'} ${i < fullStars || (i === fullStars && hasHalf) ? 'text-yellow-300' : 'text-white/20'}`}
+              className={`text-[13px] ${i < fullStars || (i === fullStars && hasHalf) ? 'text-yellow-300' : 'text-white/20'}`}
             >
               ★
             </span>
@@ -118,11 +108,11 @@ export default function PlayerCard({ player, usedPosition, compact = false }: Pr
         </div>
 
         {/* Categorías */}
-        <div className={`grid grid-cols-3 ${compact ? 'mt-0.5 gap-0.5' : 'mt-1 gap-1'}`}>
+        <div className="grid grid-cols-3 mt-1 gap-1">
           {categories.map((c) => (
             <div key={c.id} className="bg-black/35 rounded px-0.5 py-0.5 text-center">
-              <div className={`tracking-wider text-white/70 ${compact ? 'text-[6px]' : 'text-[7px]'}`}>{c.id}</div>
-              <div className={`font-bold leading-tight tabular-nums ${compact ? 'text-[8px]' : 'text-[10px]'}`}>
+              <div className="tracking-wider text-white/70 text-[7px]">{c.id}</div>
+              <div className="font-bold leading-tight tabular-nums text-[10px]">
                 {c.value}
               </div>
             </div>
@@ -130,7 +120,7 @@ export default function PlayerCard({ player, usedPosition, compact = false }: Pr
         </div>
 
         {/* Perks */}
-        {perks.length > 0 && !compact && (
+        {perks.length > 0 && (
           <div className="mt-1 flex items-center justify-center gap-1">
             {perks.map((pk) => (
               <span
@@ -143,7 +133,7 @@ export default function PlayerCard({ player, usedPosition, compact = false }: Pr
           </div>
         )}
 
-        <div className={`text-center font-bold text-cl-lime ${compact ? 'mt-0.5 text-[9px]' : 'mt-1 text-[11px]'}`}>
+        <div className="text-center font-bold text-cl-lime mt-1 text-[11px]">
           {formatPrice(player.price)}
         </div>
       </div>

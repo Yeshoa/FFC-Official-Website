@@ -30,12 +30,14 @@
 - Definir tokens semánticos en `src/styles/global.css` (`@theme`): primary, surface, text, tier colors, rarity tokens.
 - Migrar clases hardcodeadas repetidas a tokens/clases compartidas sin cambiar el aspecto.
 
-### A3 · Temporada y ranking (base)
+### A3 · Temporada y ranking (base) ✅
 - Agregar `season` a `tournaments` (schema + datos existentes: 2020→2020, 2022→2022, 2024→2024, 2026→2026).
 - Crear `src/config/season.ts` con `CURRENT_SEASON`.
 - Refactorizar `rankingUtils`/`scoreUtils`: indexar score por **temporada**, decay por **años**.
 - Migrar frontmatter de `score` de ids de torneo → temporadas (script de migración + validación).
 - **El ranking de selecciones mantiene su lógica intacta** (ya está bien); solo cambia cómo se detecta la temporada actual y los torneos anteriores para el decay. Verificar que el resultado del ranking sea idéntico antes/después (golden snapshot).
+
+> **Hecho (A3, 2026):** `season` (año) en todos los torneos; **`CURRENT_SEASON`** en `src/config/season.ts` (constante editable a mano, no derivada solo de datos); `score` del frontmatter indexado por **año** (`{ season: { activity: points } }`) en `rp`/`events`/`bonus` (schema + data migrada); decay por **temporadas FC cerradas** con `getLastFourSeasons` (últimas 4, factores `[1.0, 0.5, 0.25, 0.1]`) y `CURRENT_TOURNAMENT_ID` derivado de `CURRENT_SEASON` (ver [[03-ranking]]). La CL **no suma** al ranking de selecciones (tiene su propio ranking, B10).
 
 ### A4 · Motor de logros (refactor) + badges
 - Pipeline central `evaluateAchievements` + `AchievementResult` (progress/current/target/visible).
@@ -235,28 +237,39 @@
 
 > **Hecho (B11, infraestructura + placeholder):**
 > - **Isla React** `MarketSimulator.tsx` en `/forestian-champions-league/market/` (`client:load`): selector de club (con `budget`), formaciones (4-4-2 / 4-3-3 / 3-5-2), **campo 11 titulares + banco (7)**, **drag & drop** (HTML5 nativo, sin librería) + click para enviar al banco / quitar, **validación de rol** por slot y de **presupuesto**, filtros por rol + búsqueda, y **export JSON** (copiar al portapapeles + descargar `.json`).
-> - **Datos**: `src/data/market.json` (`season` + `players[]` con `playerId` global opcional, `name`, `position`, `club?`, `price`). **Placeholder** — el dueño lo rellena con el mercado real.
+> - **Datos**: el mercado se **deriva de `players.json`** (`getMarketablePlayers` en `@data/market`; no hay `market.json`): no-retirados con `skills` 0-100, `nationality`, `club?`, `price` (`marketPrice` override o fórmula `computeMarketPrice`). El dueño alimenta el mercado vía `players.json`.
 > - **Formato de export** definido en [[09-dudas]] §3.
 > - Ruta `ROUTES.championsLeague.market` + link "Market" en el navbar CL.
-> - **Pendiente dueño**: llenar `market.json` con los jugadores disponibles (y de paso, más clubes con `budget` en `clubs.json` y más plantel en `players.json` cuando se necesite).
+> - **Pendiente dueño**: más clubes con `budget` en `clubs.json` y más plantel/skills en `players.json` cuando se necesite (el mercado se genera solo desde `players.json`).
 
 > **Hecho (B11-2, rework según nota del dueño [[Plan del usuario/06 - Market]]):**
 > - **Selector federación → club**: primero federación (compacta), luego clubes de esa federación **ordenados por su última liga** (`getFirstDivision`; sin liga → alfabético), con `budget`.
 > - **Filtros por posición exacta** (12 canónicas) + búsqueda.
 > - **Lista**: bandera, nombre, badge de posición, **estrellitas + overall**, precio. **Oscurecida y no seleccionable si no entra en el presupuesto** o si el slot seleccionado exige arquero.
-> - **Carta de jugador** (`PlayerCard`, 2:3): fondo por rating + glow, **nodos circulares en esquinas** (estética FCL), posición + overall grande, bandera + CODE + nombre, **estrellas centradas sobre los stats**, 3 categorías de skill (Físico/Técnica/Táctica; `gkSkills` solo para arqueros), valor. **Preview en panel lateral** al clickear un jugador.
+> - **Carta de jugador** (`PlayerCard`, 2:3): fondo por rating + glow, **nodos circulares en esquinas** (estética FCL), posición + overall grande, bandera + CODE + nombre, **estrellas centradas sobre los stats**, 3 categorías de skill (Físico/Técnica/Táctica; `gkSkills` solo para arqueros), valor. **Detalle compacto inline** bajo el item seleccionado al clickear un jugador (reemplaza el preview flotante; ver B11-4).
 > - **Formación**: archivo `src/config/formations.ts` (10 presets) + **selector compacto** (dropdown). Slots con **posición exacta**. **Sin límite de rol** salvo slots GK. **Overall re-calculado por posición** (`computePlayerRating(skills, usedAs)`).
 > - **Interacción**: **click-to-place** (jugador → slot o slot → jugador) con instructivo; click en carta colocada la quita. Sin drag & drop.
 > - **Slots GK**: posición GK de la cancha y primer slot de la banca exigen arquero (oscurecen no-GK). **Export validado** (GK en cancha y en banca).
 > - **Plantilla**: 11 titulares + **banca de 12** + **sección reservas de 9** (opcionales) → máx 32.
 > - **Export JSON** actualizado (formation, usedAs, rating, starters/bench/reservas, signings) en [[09-dudas]] §3.
-> - **Datos**: `market.json` ahora incluye `skills` (0-100) y `nationality` (placeholder — el dueño los rellena con valores reales).
+> - **Datos**: `skills` (0-100) y `nationality` por jugador en `players.json` (el mercado los toma de ahí; el dueño los rellena con valores reales).
 
 > **Hecho (B11-3, reglas del mercado — ver [[09-dudas]] §10):**
 > - **Elegibilidad**: son comprables **todos los no-retirados**, tengan o no club (se elimina la exclusión por club activo; `transferListed` sin efecto). El `club` actual se muestra en la card.
 > - **Retiro 100%**: nuevo flag `retired?: boolean` en el jugador (default `false`); `isPlayerRetired` lo usa con fallback a `teams[]`.
 > - **Mercado extranjero**: nuevo booleano `allowsForeignMarket` en la federación (default `false`). En el simulador, un jugador aparece para un club extranjero solo si su federación lo permite; para un club de su misma federación siempre; sin club elegido se muestra todo.
-> - **Pendiente (retención Modelo A)**: mantener un jugador costará un **% de su valor de mercado** por temporada (constante `RETENTION_RATE` en `src/config/market.ts`, % pendiente de afinado). UI: panel "plantel actual" con renovaciones + export `renewals`.
+> - **Retención (Modelo A)**: mantener un jugador cuesta un **% fijo de su valor de mercado** por temporada. **Implementada en B11-4** (ver abajo).
+
+> **Hecho (B11-4, market v2 + UI + retención — 2026):**
+> - **Clubes con logos** (73 de Bilsa) + **resolver de imágenes por glob** (`src/utils/imageAssets.ts`: `import.meta.glob` eager → `resolveImage(srcPath)` → `ImageMetadata`). Los botones de club muestran **logo + code** (sin logo → solo code). Ligas por división y zonas CL: ver B10.
+> - **Sidebar sticky hasta reservas**: la lista del mercado ocupa todo el alto del viewport y termina junto a la sección de reservas.
+> - **Cartas completas en cancha/banca/reserva** (`PlayerCard` sin variante compacta, 150×225; slot vacío del mismo tamaño). La **lista sigue compacta**.
+> - **Detalle inline bajo el item seleccionado** de la lista (OVR, categorías PHY/TEC/TAC, edad, forma, club, perks) — reemplaza el overlay/preview flotante.
+> - **Sort con dirección asc/desc**: botón ↑/↓ junto al selector; por defecto value/OVR desc y age asc; al cambiar de key se resetea al sentido natural.
+> - **Jugadores del equipo en verde** en la lista (fondo `emerald`), para indicar que ya están en la plantilla.
+> - **Toggle "Out of budget"** (default **ON**): muestra u oculta los jugadores que exceden el presupuesto restante.
+> - **OVR colorido por valor** en la lista (`ovrRatingColor`, badge con fondo/texto como la carta).
+> - **Retención (Modelo A)**: `RETENTION_RATE` (default 10%) + `retentionCost(price)` en `src/config/market.ts`. Panel **"Current squad · Retention"** en el simulador (jugadores colocados con su costo de renovación + total por temporada) y **`renewals`** agregado al export JSON (ver [[09-dudas]] §3).
 
 ---
 
@@ -295,13 +308,17 @@
 - Migración de datos con `scripts/teams-migrate.mjs`: resuelve `team1Id/team2Id` en los 4 JSON de matches (incluye los 7 códigos alias: `xVND`, `RUI`, `xOWN`, `xCHI`, `AKE`, `TRZ`, `ROL`), `hostId/championId/teamIds/teamId` en tournaments, `clubId` en leagues, `teamId/nationalityId` en players.
 - Resolver: `getMemberById`, `getTeamById` (→ `{ type, member?, club? }`), `getMemberByMatchTeam` (id primero, fallback code→name), cache `memberByIdCache` en `collections.ts`.
 
-### D2 · Refactor de comparaciones
+### D2 · Refactor de comparaciones ✅
 - Reemplazar `member.data.name` por comparación por `id` en `src/lib/achievements/dynamics/*` (61 ocurrencias), `tournamentUtils.ts`, `matchUtils.ts` y `memberUtils.ts`.
 - La función de participación (`getTournamentsByMemberParticipation`) pasa a comparar `team1Id`/`team2Id` === `member.data.id` (deja de matchear por nombre+código).
 
-### D3 · Script `npm run teams:link` (validador de unicidad)
+> **Hecho (D2):** los comparadores de logros (`dynamics/*`) comparan **por id global primero** con **fallback a nombre** para datos legacy sin `teamId`/`hostId`/`championId` (`hostIdsEqual`, `championIdsEqual`, `prizeMatches`, `objectPrizeMatches`, `championMatches`); `getTournamentsByMemberParticipation` compara `team1Id`/`team2Id === member.data.id`; resolver central `getMemberByMatchTeam` (id → code → name).
+
+### D3 · Script `npm run teams:link` (validador de unicidad) ✅
 - Verifica **unicidad global** de ids entre `members.json` + `clubs.json` (evita que el dueño ponga dos `id: 5` sin darse cuenta).
 - Reporta referencias huérfanas (`team1Id`/`hostId`/`teamId`/`clubId` sin entidad) y códigos no mapeados. Modo `--strict` para CI.
+
+> **Hecho (D3):** `scripts/teams-link.mjs` valida unicidad global de ids (members + clubs) y reporta referencias huérfanas y códigos no mapeados; `--strict` para CI.
 
 ---
 
@@ -313,25 +330,25 @@
 3.  Branch "refactor/fase-a3"  →  A3   ✅ mergeado
 4.  Branch "refactor/fase-a4"  →  A4   ✅ mergeado
 5.  Branch "refactor/fase-a5"  →  A5   ✅ mergeado
-6.  Branch "feature/fase-b1"   →  B1
-7.  Branch "feature/fase-b2"   →  B2
-8.  Branch "feature/fase-b3"   →  B3
-9.  Branch "feature/fase-b4"   →  B4
-10. Branch "feature/fase-b5"   →  B5
-11. Branch "feature/fase-b6"   →  B6
-12. Branch "feature/fase-b7"   →  B7
-13. Branch "feature/fase-b8"   →  B8
-14. Branch "feature/fase-b9"   →  B9
-15. Branch "feature/fase-b10"  →  B10
-16. Branch "feature/fase-b11"  →  B11 (mercado de pases)
+6.  Branch "feature/fase-b1"   →  B1  ✅ mergeado
+7.  Branch "feature/fase-b2"   →  B2  ✅ mergeado
+8.  Branch "feature/fase-b3"   →  B3  ✅ mergeado
+9.  Branch "feature/fase-b4"   →  B4  ✅ mergeado
+10. Branch "feature/fase-b5"   →  B5  ✅ mergeado
+11. Branch "feature/fase-b6"   →  B6  ✅ mergeado
+12. Branch "feature/fase-b7"   →  B7  ✅ mergeado
+13. Branch "feature/fase-b8"   →  B8  ✅ mergeado
+14. Branch "feature/fase-b9"   →  B9  ✅ mergeado
+15. Branch "feature/fase-b10"  →  B10 ✅ mergeado
+16. Branch "feature/fase-b11"  →  B11 (mercado de pases)  ✅ mergeado
 17. Branch "feature/fase-d1"   →  D1   (ids globales únicos: schema + datos + resolver)  ✅ mergeado
-18. Branch "feature/fase-d2"   →  D2   (refactor de comparaciones por id)
-19. Branch "feature/fase-d3"   →  D3   (script teams:link validador de unicidad)
+18. Branch "feature/fase-d2"   →  D2   (refactor de comparaciones por id)  ✅ mergeado
+19. Branch "feature/fase-d3"   →  D3   (script teams:link validador de unicidad)  ✅ mergeado
 ```
 
 > La Fase C (simulador) **no tiene orden asignado**: está pendiente de confirmación (ver "FASE C — Simulador de partidos" arriba).
 
-> La Fase D (identidad por `id`) **ya no está diferida**: D1 está hecho (ids globales únicos en members+clubs, schema con `team1Id/team2Id`/`hostId`/`teamId`/`clubId`, resolver central). Quedan D2 (comparaciones por id) y D3 (validador).
+> La Fase D (identidad por `id`) **está completa**: D1 (ids globales únicos, schema, resolver central), D2 (comparaciones por id con fallback a nombre en logros/partidos/ligas) y D3 (validador `teams:link`) están hechos. El único pendiente de código es la **Fase C** (simulador de partidos).
 
 > Cada fase produce su propio doc/checklist si es necesario; este plan se actualiza al cerrar cada una.
 

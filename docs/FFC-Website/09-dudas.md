@@ -119,10 +119,15 @@ Posibilidades:
 >   ],
 >   "starters": [ { "playerId": 24, "name": "A. Arhanv", "position": "GK", "usedAs": "GK", "rating": 77, "price": 12 }, null ],
 >   "bench": [ null, { "playerId": 28, "name": "Hajan", "position": "AM", "usedAs": "AM", "rating": 79, "price": 13 } ],
->   "reservas": [ null ]
+>   "reservas": [ null ],
+>   "renewals": [
+>     { "playerId": 24, "name": "A. Arhanv", "position": "GK", "marketValue": 12, "renewalCost": 1.2 },
+>     { "playerId": 28, "name": "Hajan", "position": "AM", "marketValue": 13, "renewalCost": 1.3 }
+>   ]
 > }
 > ```
 > - `starters` = 11 slots (formación), `bench` = 12, `reservas` = 9 (opcionales). `signings` = todos los jugadores colocados. `usedAs` = posición donde se usó (para banca/reservas = posición natural), `rating` = overall **recalculado para esa posición**. `playerId` es el id global en `players.json` si existe, si no `null`.
+> - `renewals` = **retención (Modelo A)**: costo de mantener el plantel la próxima temporada. `renewalCost` = `marketValue` × `RETENTION_RATE` (default 10%, ajustable en `src/config/market.ts`). Se descuenta del presupuesto de la próxima temporada; no renovado → vuelve al pool (ver §10).
 
 ---
 
@@ -256,8 +261,7 @@ Decisiones del dueño (2026) sobre el mercado FCL (B11) y su flujo entre tempora
   **retención con costo**: mantener a un jugador cuesta un **% fijo de su valor de mercado** (sueldo derivado
   por fórmula, sin dato extra) que descuenta del presupuesto de la temporada.
 - No renovado → vuelve al pool abierto.
-- El **% de retención queda pendiente de afinado** (constante en `src/config/market.ts`). Implementación en el
-  simulador (panel "plantel actual" + renovaciones + export `renewals`): pendiente (B11-3).
+- El **% de retención es ajustable a mano** (`RETENTION_RATE`, default **10%**) en `src/config/market.ts`. **Implementado (B11-4)**: panel "Current squad · Retention" en el simulador (jugadores colocados + costo de renovación + total por temporada) y export `renewals` en el JSON (ver [[08-plan-implementacion]] B11-4).
 
 ### Mercado extranjero: `allowsForeignMarket`
 - Nuevo booleano en la **federación** (member): `allowsForeignMarket`, **default `false`** (el dueño lo activa

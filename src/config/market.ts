@@ -94,6 +94,15 @@ export function computeMarketPrice({ rating, age, position, injuryResistance, fo
   return Math.max(MIN_PRICE, Math.round(raw * 20) / 20);
 }
 
+// Retención entre temporadas (Modelo A): mantener un jugador ya comprado cuesta un %
+// fijo de su valor de mercado por temporada (sueldo derivado, sin dato extra).
+export const RETENTION_RATE = 0.1; // 10% — ajustable a mano
+
+// Costo de renovación de un jugador (millones, pasos de 50K, mínimo 1K).
+export function retentionCost(price: number): number {
+  return Math.max(MIN_PRICE, Math.round(price * RETENTION_RATE * 20) / 20);
+}
+
 // Formatea millones a K/M: 0.001 → "1K", 0.95 → "950K", 1.3 → "1.3M", 15 → "15M".
 export function formatPrice(millions: number): string {
   if (millions >= 1) {

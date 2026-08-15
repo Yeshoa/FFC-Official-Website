@@ -58,6 +58,8 @@ Documentación del proyecto **FFC (Forest Football Confederation) Official Websi
 17. **Jugadores históricos**: snapshots por torneo en `data/players/historical` con **`playerId` global** (opcional si no existe) + **skills obligatorias** (ALL_SKILLS 0–100) para un futuro álbum de figuritas. Retiro por entrada `teams[].status`. Ver [[02-modelo-datos]] §2 y [[09-dudas]] §9.
 18. **Código de club = visual**: el `code` de los clubes es **solo display**, puede repetirse y no tiene reglas de formato; la **ruta** del club es un **`slug` derivado del nombre** (con sufijo numérico si hay duplicado). Ver [[02-modelo-datos]] §3.
 19. **Nombre de jugador separado**: `players.json` guarda **`firstName` + `lastName`** (sin campo `name`); el nombre compuesto se deriva con `getPlayerName(player)`. Los nombres de pila faltantes se generan por idioma de la nacionalidad (Bilsa/Stralla usan el generador bilsano). Ver [[11-migracion-jugadores-pes]].
+20. **Mercado derivado de `players.json`**: el mercado de pases se genera de `players.json` (no hay `market.json`); `price` por `marketPrice` o fórmula (`computeMarketPrice`). Ver [[09-dudas]] §3 y [[08-plan-implementacion]] B11.
+21. **Retención (Modelo A)**: mantener un jugador cuesta `RETENTION_RATE` (10%, ajustable) de su valor de mercado por temporada; panel "Current squad · Retention" en el simulador + export `renewals`. Ver [[09-dudas]] §10.
 
 ---
 
@@ -81,7 +83,7 @@ FASE A — Consistencia de lo existente (no toca visual)   ✅ mergeada
   A4  Motor de logros (refactor) + badges
   A5  Contenido .md → JSON (colección por colección)
 
-FASE B — Nuevo modelo (Champions League + clubes)
+FASE B — Nuevo modelo (Champions League + clubes)  ✅ completa
   B1  Modelo de datos: jugadores (skills 0-100 + rating derivado + birthplace),
       clubes, ligas domésticas (infraestructura), torneos, partidos
   B2  Tabla de liga doméstica + lista de clubes en member/[slug]
@@ -93,7 +95,12 @@ FASE B — Nuevo modelo (Champions League + clubes)
   B8  Páginas individuales de partido
   B9  Páginas de logros por federación
   B10 Forestian Champions League (contenido)
-  B11 Simulador de mercado de pases (isla React)
+  B11 Simulador de mercado de pases (isla React)  ✅ (v2: logos, cartas completas, sort asc/desc, retención Modelo A)
+
+FASE D — Identidad global por id (selecciones + clubes)  ✅ completa
+  D1  Ids globales únicos: schema + datos + resolver central
+  D2  Refactor de comparaciones por id (logros/partidos/ligas)
+  D3  Script teams:link (validador de unicidad)
 
 FASE C — Simulador de partidos ⚠️ NO CONFIRMADA, muy susceptible a cambios
   C1  Motor puro (RNG con semilla, zonas, cascada de chequeos)
