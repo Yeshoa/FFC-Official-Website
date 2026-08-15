@@ -1,7 +1,7 @@
 {
   "bersa": {
     "name": "Bersa",
-    "image": "src/assets/images/sponsors/bersa.png",
+    "image": "/src/assets/images/sponsors/bersa.png",
     "member": "Einswenn",
     "type": "Sport",
     "backgroundColor": "#000000",
@@ -10,7 +10,7 @@
   },
   "bothub": {
     "name": "Bothub moe",
-    "image": "src/assets/images/sponsors/bothub.png",
+    "image": "/src/assets/images/sponsors/bothub.png",
     "type": "AI",
     "description": "AI and freedom, contribute to that mission.",
     "backgroundColor": "#141108"
@@ -21,12 +21,12 @@
     "member": "Garbelia",
     "tier": "global",
     "type": "Military",
-    "image": "src/assets/images/sponsors/canopy_defence.png",
+    "image": "/src/assets/images/sponsors/canopy_defence.png",
     "description": "Suppliers of ballistic and nuclear contracts in Forest and beyond."
   },
   "ecoking": {
     "name": "EcoKing",
-    "image": "src/assets/images/sponsors/ecoking.png",
+    "image": "/src/assets/images/sponsors/ecoking.png",
     "member": "Bilsa",
     "backgroundColor": "#008c00",
     "type": "Energy",
@@ -34,7 +34,7 @@
   },
   "einsair": {
     "name": "Einsair",
-    "image": "src/assets/images/sponsors/einsair.png",
+    "image": "/src/assets/images/sponsors/einsair.png",
     "member": "Einswenn",
     "backgroundColor": "#0d349f",
     "type": "Airline",
@@ -42,7 +42,7 @@
   },
   "einset-royal": {
     "name": "Einset Royal",
-    "image": "src/assets/images/sponsors/einset_royal.png",
+    "image": "/src/assets/images/sponsors/einset_royal.png",
     "member": "Einswenn",
     "backgroundColor": "#e4f900",
     "type": "Luxury",
@@ -50,7 +50,7 @@
   },
   "elrican": {
     "name": "Elrican",
-    "image": "src/assets/images/sponsors/elrican.png",
+    "image": "/src/assets/images/sponsors/elrican.png",
     "member": "Lumiose",
     "backgroundColor": "#004f2d",
     "type": "Malt Beverage",
@@ -58,7 +58,7 @@
   },
   "esn": {
     "name": "ESN",
-    "image": "src/assets/images/sponsors/esn.png",
+    "image": "/src/assets/images/sponsors/esn.png",
     "member": "Anxious and Kevin",
     "backgroundColor": "#000000",
     "type": "Festival",
@@ -66,7 +66,7 @@
   },
   "farvret": {
     "name": "Farvret",
-    "image": "src/assets/images/sponsors/farvret.png",
+    "image": "/src/assets/images/sponsors/farvret.png",
     "backgroundColor": "#000000",
     "tier": "supplier",
     "member": "Nordustra",
@@ -75,14 +75,14 @@
   },
   "forest": {
     "name": "Forest",
-    "image": "src/assets/images/forest.png",
+    "image": "/src/assets/images/forest.png",
     "backgroundColor": "#095a09",
     "type": "Ruinenlustian Dictatorship",
     "description": "The official provider of Jutsaposts for the FFC"
   },
   "frej": {
     "name": "Frej",
-    "image": "src/assets/images/sponsors/frej.png",
+    "image": "/src/assets/images/sponsors/frej.png",
     "member": "Einswenn",
     "backgroundColor": "#2b2929",
     "type": "Clothes",
@@ -91,14 +91,14 @@
   "norduskap": {
     "name": "Norduskap",
     "backgroundColor": "#cec4ec",
-    "image": "src/assets/images/sponsors/norduskap.png",
+    "image": "/src/assets/images/sponsors/norduskap.png",
     "member": "Nordustra",
     "type": "Airline",
     "description": "Sole flag carrier of Nordustra, official sponsor of the NNFA and frequent sponsor of regional sporting events."
   },
   "northern-wings": {
     "name": "Northern Wings",
-    "image": "src/assets/images/sponsors/nw.png",
+    "image": "/src/assets/images/sponsors/nw.png",
     "member": "Einswenn",
     "tier": "national",
     "backgroundColor": "#0d919f",
@@ -107,7 +107,7 @@
   },
   "oberalon": {
     "name": "Oberalon",
-    "image": "src/assets/images/sponsors/oberalon.png",
+    "image": "/src/assets/images/sponsors/oberalon.png",
     "backgroundColor": "#000000",
     "tier": "supplier",
     "type": "Sportwear",
@@ -121,11 +121,11 @@
     "member": "Cacusia",
     "type": "Information technology",
     "description": "Software developer, data harvester, and online storage and publishing company.",
-    "image": "src/assets/images/sponsors/oculus.png"
+    "image": "/src/assets/images/sponsors/oculus.png"
   },
   "sbotjunj": {
     "name": "Sbotjunj",
-    "image": "src/assets/images/sponsors/sbotjunj.png",
+    "image": "/src/assets/images/sponsors/sbotjunj.png",
     "backgroundColor": "#f03c00",
     "tier": "supplier",
     "type": "Sportwear",
@@ -135,7 +135,7 @@
   "sealecruise": {
     "name": "sealecruise",
     "backgroundColor": "#17beea",
-    "image": "src/assets/images/sponsors/sealecruise.png",
+    "image": "/src/assets/images/sponsors/sealecruise.png",
     "member": "Roless",
     "tier": "global",
     "type": "Cruise Line",
@@ -143,7 +143,7 @@
   },
   "startex": {
     "name": "Startex",
-    "image": "src/assets/images/sponsors/startex.png",
+    "image": "/src/assets/images/sponsors/startex.png",
     "member": "Einswenn",
     "backgroundColor": "#157e3b",
     "type": "Space",
@@ -152,7 +152,7 @@
   "sundilja": {
     "name": "Sundilja",
     "backgroundColor": "#7ed2e6",
-    "image": "src/assets/images/sponsors/sundilja.png",
+    "image": "/src/assets/images/sponsors/sundilja.png",
     "member": "Nordustra",
     "type": "Clean energy provider (Energy)",
     "description": "Leading energy provider in Nordustra, operating entirely on environmentally-friendly and renewable sources."
@@ -164,18 +164,18 @@
     "member": "Cacusia",
     "type": "Information technology",
     "description": "Telecommunications provider",
-    "image": "src/assets/images/sponsors/telenetix.png"
+    "image": "/src/assets/images/sponsors/telenetix.png"
   },
   "tms": {
     "name": "TMS",
-    "image": "src/assets/images/sponsors/tms.png",
+    "image": "/src/assets/images/sponsors/tms.png",
     "backgroundColor": "#000000",
     "type": "Gaming",
     "description": "Chaddest community in Bolbonópolis."
   },
   "vgala": {
     "name": "Vgala",
-    "image": "src/assets/images/sponsors/vgala.png",
+    "image": "/src/assets/images/sponsors/vgala.png",
     "backgroundColor": "#d0ff00",
     "tier": "supplier",
     "type": "Sportwear",
@@ -184,7 +184,7 @@
   },
   "white-island-stadium": {
     "name": "White Island Stadium",
-    "image": "src/assets/images/sponsors/wis.png",
+    "image": "/src/assets/images/sponsors/wis.png",
     "member": "Einswenn",
     "tier": "national",
     "type": "Stadium",

@@ -1,9 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap');
 @import "tailwindcss";
-@tailwind utilities;
 @plugin '@tailwindcss/typography';
 
 @theme {
+  /* Breakpoint extra-small (antes definido en tailwind.config.mjs, hoy muerto) */
+  --breakpoint-xs: 400px;
+
   /* ===== Paleta base (verde bosque) ===== */
   --color-mint-500: oklch(0.72 0.11 178);
   --color-forest: oklch(58.35% 0.1686 143.03);
