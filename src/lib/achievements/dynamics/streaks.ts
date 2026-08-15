@@ -5,7 +5,7 @@ import { getAllGoals, getAllMatchesByTeam,
    getNoGoalStreak, getNoWinStreak, getUnbeatenStreak,
    getWinStreak, getMatchGoals } from 'src/utils/matchUtils';
 import { type Category, CATEGORIES, type Subcategory, ALIGNMENTS, type Alignment } from '../utils';
-import { computeProgress } from '../types';
+import { computeProgress, lockedResult } from '../types';
 
 const thisCategory = CATEGORIES[2];
 
@@ -184,7 +184,7 @@ function createStatAchievement(
         case "===": meetsThreshold = currentValue === threshold; break;
       }
 
-      if (!meetsThreshold) return null;
+      if (!meetsThreshold) return lockedResult(this, currentValue, threshold);
 
       let newDescription = descriptionTemplate;
       newDescription = newDescription.replace("${threshold}", threshold);
@@ -254,7 +254,7 @@ function createMaxStatAchievement(
       const max = Math.max(...stats.map(s => s.value));
       const current = statFunction(member.data.id, matches, tournaments, members);
 
-      if (current !== max) return null;
+      if (current !== max) return lockedResult(this, current, max);
 
       let newDescription = descriptionTemplate;
       newDescription = newDescription.replace("${value}", max);
@@ -295,8 +295,8 @@ function createMaxStatAchievement(
         }
       }
 
-      // Si no se alcanza ningún umbral, no se otorga logro
-      if (!selectedAchievement) return null;
+      // Si no se alcanza ningún umbral, no se otorga logro (pero se muestra progreso hacia el tope).
+      if (!selectedAchievement) return lockedResult(this, current, maxThreshold);
       const newRarity = selectedAchievement.rarity + 1;
       let newStars = current
       if(starDivisor > 0) newStars = Math.floor(current/starDivisor);

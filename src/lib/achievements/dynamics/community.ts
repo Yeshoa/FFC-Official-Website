@@ -1,5 +1,6 @@
 import Trophy from '@images/achievements/king.webp';
 import type { AchievementDefinition, AchievementResult } from '../types';
+import { lockedResult } from '../types';
 import { type Category, CATEGORIES, ALIGNMENTS, type Subcategory, type Alignment } from '../utils';
 import type { CollectionEntry } from 'astro:content';
 import { getSponsors, getArticles } from '@lib/collections';
@@ -36,7 +37,7 @@ const makeArticleAchievement = (
   evaluate: function (context) {
     const { member } = context;
     const articles = articleCollection.filter(article => article.data.nation === member.data.name);
-    if (articles.length < minArticles) return null;
+    if (articles.length < minArticles) return lockedResult(this, articles.length, minArticles);
     const newStars = articles.length;
     return achieved(this, {
       description: `Wrote ${newStars} article${ newStars === 1 ? '' : 's'}.`,
@@ -70,7 +71,7 @@ const makeSponsorAchievements = (
   evaluate: function (context) {
     const { member } = context;
     const sponsors = sponsorCollection.filter(sponsor => sponsor.data.member === member.data.name);
-    if (sponsors.length < minSponsors) return null;
+    if (sponsors.length < minSponsors) return lockedResult(this, sponsors.length, minSponsors);
     const newStars = sponsors.length;
     return achieved(this, {
       description: `Provided ${newStars} sponsor${ newStars === 1 ? '' : 's'} to the Confederation.`,

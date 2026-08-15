@@ -1,5 +1,6 @@
 import Trophy from '@images/achievements/king.webp';
 import type { AchievementDefinition, AchievementResult } from '../types';
+import { lockedResult } from '../types';
 import { type Category, CATEGORIES, ALIGNMENTS, type Subcategory, type Alignment } from '../utils';
 import type { CollectionEntry } from 'astro:content';
 import { getMemberById } from 'src/utils/memberUtils';
@@ -58,8 +59,16 @@ export const baseAchievements: AchievementDefinition[] = [
         return diffs.filter(d => getMemberById(d.winner, members)?.data.verified);
       });
 
-      // 4) If the member won one of them
-      if (!biggestWins.some(w => w.winner === memberId)) return null;
+      // 4) Si el miembro ganó una de ellas
+      let memberBest = 0;
+      for (const m of verifiedMatches) {
+        if (m.data.team1Id !== memberId && m.data.team2Id !== memberId) continue;
+        const { team1, team2 } = getGoalsByTeam(m.data);
+        const gf = m.data.team1Id === memberId ? team1 : team2;
+        const ga = m.data.team1Id === memberId ? team2 : team1;
+        memberBest = Math.max(memberBest, gf - ga);
+      }
+      if (!biggestWins.some(w => w.winner === memberId)) return lockedResult(this, memberBest, maxDiff);
 
       const win = biggestWins.find(w => w.winner === memberId)!;
       const opponent = getMemberById(win.loser, members)?.data.name ?? `#${win.loser}`;
@@ -132,6 +141,7 @@ stars: 1,
       const rivalIds = [...counts.entries()].filter(([,c]) => c>=minMatches).map(([r])=>r);
       const rivals = rivalIds.map(memberNameById);
       const newStars = rivals.length;
+      const maxCount = counts.size ? Math.max(...counts.values()) : 0;
       const list = rivals.map((r, i, arr) => i === arr.length - 1 && rivals.length > 1 ? ` and ${r}` : r).join(', ');
       return rivals.length
         ? achieved(this, {
@@ -141,7 +151,7 @@ stars: 1,
             target: 1,
             progress: 100,
           })
-        : null;
+        : lockedResult(this, maxCount, minMatches);
   }
 });
 
@@ -184,6 +194,7 @@ stars: 1,
     const rivals = rivalIds.map(memberNameById);
 
     const newStars = rivals.length;
+    const maxCount = counts.size ? Math.max(...counts.values()) : 0;
 
     const list = rivals.map((r, i, arr) => i === arr.length - 1 && rivals.length > 1 ? ` and ${r}` : r).join(', ');
     return rivals.length
@@ -194,7 +205,7 @@ stars: 1,
           target: 1,
           progress: 100,
         })
-      : null;
+      : lockedResult(this, maxCount, minWins);
   }
 });
 
@@ -236,6 +247,7 @@ stars: 1,
     const rivalIds = [...counts.entries()].filter(([,c]) => c>=minLosses).map(([r])=>r);
     const rivals = rivalIds.map(memberNameById);
     const newStars = rivals.length;
+    const maxCount = counts.size ? Math.max(...counts.values()) : 0;
 
     const list = rivals.map((r, i, arr) => i === arr.length - 1 && rivals.length > 1 ? ` and ${r}` : r).join(', ');
     return rivals.length
@@ -246,7 +258,7 @@ stars: 1,
           target: 1,
           progress: 100,
         })
-      : null;
+      : lockedResult(this, maxCount, minLosses);
   }
 });
 
@@ -281,7 +293,13 @@ stars: 1,
       const { gf, ga } = getMatchGoals(m, memberId);
       return gf - ga >= minDif;
     })
-    if (wonMatchesByDif.length === 0) return null;
+    let maxDifScored = 0;
+    for (const m of matches) {
+      if (m.data.team1Id !== memberId && m.data.team2Id !== memberId) continue;
+      const { gf, ga } = getMatchGoals(m, memberId);
+      maxDifScored = Math.max(maxDifScored, gf - ga);
+    }
+    if (wonMatchesByDif.length === 0) return lockedResult(this, maxDifScored, minDif);
     for (const m of wonMatchesByDif) {
       if (m.data.team1Id === memberId) counts.set(m.data.team2Id!, (counts.get(m.data.team2Id!)||0)+1);
       if (m.data.team2Id === memberId) counts.set(m.data.team1Id!, (counts.get(m.data.team1Id!)||0)+1);
@@ -343,7 +361,8 @@ stars: 1,
     const rivalIds = Object.keys(eliminations).map(Number).filter(id => eliminations[id] >= minEliminations);
     const rivals = rivalIds.map(memberNameById);
     const newStars = rivals.length;
-    if (!rivals.length) return null;
+    const maxCount = Object.values(eliminations).length ? Math.max(...Object.values(eliminations)) : 0;
+    if (!rivals.length) return lockedResult(this, maxCount, minEliminations);
     const list = rivals.map((r, i, arr) => i === arr.length - 1 && rivals.length > 1 ? ` and ${r}` : r).join(', ');
     return achieved(this, {
       stars: newStars,

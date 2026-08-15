@@ -200,7 +200,7 @@
 > - **Por obtener**: logros no logrados agrupados por categoría; los **visibles** como cards locked con tooltip, y los **secretos** (`visible:false`) como **`?`** sin revelar detalles (solo se ocultan hasta obtenerlos).
 > - **Progreso**: barra de completitud (obtenidos/total, %) en el header.
 > - Link "View all achievements →" en la página del miembro + `ROUTES.members.achievements(slug)`.
-> - **Pendiente**: progreso `current/target` en los logros NO logrados — hoy los evaluadores dinámicos devuelven `null` cuando no se alcanza el umbral, así que los locked no muestran barra de progreso todavía (requiere refactor del engine para exponer progreso en estado no logrado).
+> - **Hecho (2026, progreso en locked)**: los evaluadores dinámicos devuelven ahora un resultado **`achieved: false` con `current`/`target`/`progress`** (helper `lockedResult` en `types.ts`) en vez de `null` cuando hay progreso medible (goals, rachas, rivalidad, artículos/sponsors, multi-campeón, veteran, premios, "longest"/all-time-scorer). El engine (`evaluateAll`) recolecta estos resultados y expone `getMemberAchievementsDetailed` (`{ achieved, lockedProgress }`); la página de logros muestra **barra de progreso** y **`current / target`** en los locked visibles. Los binarios (host, campeón único, unbeaten/perfect/ultimate, tiers) siguen sin barra (no hay progreso parcial significativo).
 
 ### B10 · Forestian Champions League (contenido)
 - Torneo CL con `type: 'forestian-champions-league'` y `season`.

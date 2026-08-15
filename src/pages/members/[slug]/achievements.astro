@@ -8,7 +8,7 @@ import App from '@layouts/App.astro';
 import Title from '@components/Title.astro';
 import AchievementCard from '@components/achievements/AchievementCard.astro';
 import { getMembers, getAchievements } from '@lib/collections';
-import { getAchievementsForMember, dynamicDefs } from '@lib/achievements/dynamics/index';
+import { getMemberAchievementsDetailed, dynamicDefs } from '@lib/achievements/dynamics/index';
 import { hierarchy, type Alignment } from '@lib/achievements/utils';
 import { ROUTES } from '@config/routes';
 
@@ -35,7 +35,7 @@ export async function getStaticPaths() {
 const { member } = Astro.props;
 if (!member) return Astro.redirect('/404');
 
-const achieved = await getAchievementsForMember(member.data.name);
+const { achieved, lockedProgress } = await getMemberAchievementsDetailed(member.data.name);
 const staticAchievements = await getAchievements();
 
 const achievedIds = new Set(achieved.map((a) => a.id));
@@ -51,6 +51,9 @@ interface PendingItem {
   category: string;
   alignment: Alignment;
   visible: boolean;
+  current?: number;
+  target?: number;
+  progress?: number;
 }
 
 const pending: PendingItem[] = [];
@@ -61,6 +64,7 @@ for (const def of dynamicDefs) {
   if (achievedIds.has(def.id)) continue;
   const higher = hierarchy[def.id];
   if (higher && achievedIds.has(higher)) continue;
+  const progress = lockedProgress[def.id];
   pending.push({
     id: def.id,
     name: def.name,
@@ -70,6 +74,9 @@ for (const def of dynamicDefs) {
     category: def.category,
     alignment: def.alignment,
     visible: def.visible,
+    current: progress?.current,
+    target: progress?.target,
+    progress: progress?.progress,
   });
 }
 
@@ -155,10 +162,20 @@ const defaultIcon = TrophyIcon;
                       >
                         <Image src={p.icon} alt="" class="w-10 h-10 object-contain opacity-30 grayscale" loading="lazy" />
                         <span class="text-center text-[10px] leading-tight text-slate-400 px-1">{p.name}</span>
+                        {p.progress != null && p.progress < 100 && (
+                          <div class="absolute bottom-1.5 left-1/2 -translate-x-1/2 w-20">
+                            <div class="h-1 rounded-full bg-black/50 overflow-hidden">
+                              <div class="h-full bg-primary rounded-full" style={`width:${p.progress}%`}></div>
+                            </div>
+                          </div>
+                        )}
                         <div class="pointer-events-none absolute bottom-full left-1/2 z-50 mb-2 w-52 -translate-x-1/2">
                           <div class="rounded-lg border border-surface-muted bg-surface-strong/95 p-2 text-center opacity-0 shadow-xl transition-opacity duration-200 group-hover:opacity-100">
                             <p class="text-xs font-bold text-primary">{p.name}</p>
                             <p class="mt-1 text-[10px] leading-tight text-primary-strong">{p.description}</p>
+                            {p.current != null && p.target != null && p.target > 1 && (
+                              <p class="mt-1 text-[10px] font-semibold text-primary-light">{p.current} / {p.target}</p>
+                            )}
                           </div>
                         </div>
                       </div>

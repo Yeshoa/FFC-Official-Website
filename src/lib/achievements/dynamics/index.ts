@@ -24,6 +24,7 @@ for (const def of dynamicAchievements) {
 
 export {
   getAchievementsForMember,
+  getMemberAchievementsDetailed,
   getMembersWithAchievement,
   findDuplicatedUniqueIds,
   clearAchievementsCache,
@@ -36,6 +37,7 @@ export type {
   AchievementContext,
   AchievementDefinition,
   AchievementEvaluate,
+  MemberAchievementsDetail,
 } from '../types';
 
 export { CATEGORIES, SUBCATEGORIES, ALIGNMENTS, hierarchy } from '../utils';

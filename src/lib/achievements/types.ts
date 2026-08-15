@@ -63,3 +63,21 @@ export function computeProgress(current: number, target: number): number {
   if (target <= 0) return 0;
   return Math.min(100, Math.round((current / target) * 100));
 }
+
+/** Resultado de un logro NO logrado con progreso medible (para la barra de los locked). */
+export function lockedResult(
+  def: { id: string; visible?: boolean },
+  current: number,
+  target: number,
+  extra: Partial<AchievementResult> = {},
+): AchievementResult {
+  return {
+    id: def.id,
+    achieved: false,
+    visible: def.visible ?? true,
+    current,
+    target,
+    progress: computeProgress(current, target),
+    ...extra,
+  };
+}

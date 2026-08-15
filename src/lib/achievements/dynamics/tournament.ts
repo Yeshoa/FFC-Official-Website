@@ -1,5 +1,6 @@
 import Trophy from '@images/achievements/king.webp';
 import type { AchievementDefinition, AchievementResult, AchievementContext } from '../types';
+import { lockedResult } from '../types';
 import { type Category, CATEGORIES, type Subcategory, type Alignment, ALIGNMENTS } from '../utils';
 import type { CollectionEntry } from 'astro:content';
 import { getTournamentsByMemberParticipation } from '@utils/tournamentUtils';
@@ -107,7 +108,7 @@ const baseAchievements: AchievementDefinition[] = [
     evaluate: function (context) {
       const { tournaments, member } = context;
       const won = tournaments.filter(t => championIdsEqual(t, member.data.id, member.data.name));
-      if (won.length !== 2) return null;
+      if (won.length !== 2) return lockedResult(this, won.length, 2);
       const editions = won
         .map(t => t.data.season)
         .sort((a, b) => a - b);
@@ -136,7 +137,7 @@ const baseAchievements: AchievementDefinition[] = [
     evaluate: function (context) {
       const { tournaments, member } = context;
       const won = tournaments.filter(t => championIdsEqual(t, member.data.id, member.data.name));
-      if (won.length < 3) return null;
+      if (won.length < 3) return lockedResult(this, won.length, 3);
       const editions = won
         .map(t => t.data.season)
         .sort((a, b) => a - b);
@@ -291,7 +292,7 @@ const baseAchievements: AchievementDefinition[] = [
 
       const participationCount = participatedTournaments.length;
 
-      if (participationCount < 2) return null;
+      if (participationCount < 2) return lockedResult(this, participationCount, 2);
 
       const newStars = participationCount;
       const newRarity = participationCount > 8 ? 6 : participationCount - 2;
@@ -337,7 +338,7 @@ const makePrizeAchievement = (
     const memberName = member.data.name;
     const wonTypes = (Object.keys(prizeCheckers) as PrizeType[])
       .filter(type => tournaments.some(t => prizeCheckers[type](t, memberId, memberName)));
-    if (wonTypes.length < minTypes) return null;
+    if (wonTypes.length < minTypes) return lockedResult(this, wonTypes.length, minTypes);
     const pretty = {
       topScorer:      'Golden Boot',
       bestPlayer:     'Golden Ball',

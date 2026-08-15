@@ -72,17 +72,27 @@ function applySuppressions(achievements: Achievement[]): Achievement[] {
   return achievements.filter(ach => !suppressedIds.has(ach.id));
 }
 
-/** Logros obtenidos por el miembro, con jerarquías y supresiones aplicadas. */
-export async function evaluateAchievements(
+/** Detalle de logros de un miembro: logrados + progreso de los no logrados. */
+export interface MemberAchievementsDetail {
+  achieved: Achievement[];
+  lockedProgress: Record<string, AchievementResult>;
+}
+
+/** Evalúa todas las definiciones habilitadas y separa logrados de "en progreso". */
+async function evaluateAll(
   member: Member,
   context: AchievementContext,
-): Promise<Achievement[]> {
+): Promise<{ achieved: Achievement[]; inProgress: AchievementResult[] }> {
   const duplicatedUniques = await findDuplicatedUniqueIds(context);
 
   const enabledDefs = definitions.filter(d => d.enabled);
-  const dynamic = (
-    await Promise.all(enabledDefs.map(def => safeEvaluate(def, context, member)))
-  )
+  const evaluated = await Promise.all(enabledDefs.map(def => safeEvaluate(def, context, member)));
+
+  const inProgress = evaluated.filter(
+    (r): r is AchievementResult => !!r && !r.achieved && r.progress != null,
+  );
+
+  const dynamic = evaluated
     .map((result, i) => ({ def: enabledDefs[i], result }))
     .filter(({ result }) => !!result?.achieved)
     .filter(({ def, result }) => !(def.unique && duplicatedUniques.has(result!.id)))
@@ -122,7 +132,16 @@ export async function evaluateAchievements(
     if (a.stars !== b.stars) return (a.stars ?? 0) - (b.stars ?? 0);
     return a.name.localeCompare(b.name);
   });
-  return all;
+  return { achieved: all, inProgress };
+}
+
+/** Logros obtenidos por el miembro, con jerarquías y supresiones aplicadas. */
+export async function evaluateAchievements(
+  member: Member,
+  context: AchievementContext,
+): Promise<Achievement[]> {
+  const { achieved } = await evaluateAll(member, context);
+  return achieved;
 }
 
 /** API pública por nombre (usada por las páginas). */
@@ -139,6 +158,21 @@ export async function getAchievementsForMember(name: string): Promise<Achievemen
   memberAchievementsCache = new Map(memberAchievementsCache ?? []);
   memberAchievementsCache.set(name, achievements);
   return achievements;
+}
+
+/** Logrados + progreso de los no logrados (para la página de logros con barras). */
+export async function getMemberAchievementsDetailed(name: string): Promise<MemberAchievementsDetail> {
+  const context = await buildContext();
+  const member = context.members.find(m => m.data.name === name);
+  if (!member) return { achieved: [], lockedProgress: {} };
+
+  const { achieved, inProgress } = await evaluateAll(member, context);
+  const achievedIds = new Set(achieved.map(a => a.id));
+  const lockedProgress: Record<string, AchievementResult> = {};
+  for (const r of inProgress) {
+    if (!achievedIds.has(r.id)) lockedProgress[r.id] = r;
+  }
+  return { achieved, lockedProgress };
 }
 
 /** Consulta inversa: miembros que tienen el logro (dinámico o manual). */
