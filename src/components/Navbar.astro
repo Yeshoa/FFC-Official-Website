@@ -9,7 +9,6 @@ import Cup from '@images/icons/trophy-solid.svg';
 import Join from '@images/icons/user-solid.svg';
 import XMark from '@images/icons/circle-xmark-solid.svg';
 import Search from '@images/icons/magnifying-glass-solid.svg';
-import Handshake from '@images/icons/handshake-solid-full.svg';
 import Newspaper from '@images/icons/newspaper-solid-full.svg';
 import YTLogo from '@images/youtube.png';
 import TwitchLogo from '@images/twitch.png';
@@ -34,8 +33,8 @@ const NAV_LINKS = {
     iconWidth: 20
   },
   championsLeague: {
-    href: ROUTES.championsLeague,
-    label: 'Champions League',
+    href: ROUTES.championsLeague.index,
+    label: 'Go to FCL',
     shortLabel: 'FCL',
     icon: Cup,
     iconWidth: 20,
@@ -59,12 +58,6 @@ const NAV_LINKS = {
     label: 'Articles',
     shortLabel: 'News',
     icon: Newspaper,
-    iconWidth: 20
-  },
-  sponsor: {
-    href: ROUTES.sponsors.index,
-    label: 'Sponsors',
-    icon: Handshake,
     iconWidth: 20
   },
   joinFFC: {
@@ -178,7 +171,7 @@ const getIconClasses = (link: NavLink, isActive: boolean) => {
     
     <ul class="flex flex-col p-4 font-medium gap-3">
       {Object.entries(NAV_LINKS).map(([key, link]) => {
-        if (link.enabled === false || key === 'championsLeague') return null;
+        if (link.enabled === false) return null;
         const isActive = isActiveLink(link.href, currentPath);
         const Icon = link.icon;
         return (

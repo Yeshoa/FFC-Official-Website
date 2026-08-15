@@ -1,7 +1,7 @@
 ---
 const currentPath = Astro.url.pathname;
 import { Image } from 'astro:assets';
-import FFCLogo from '@images/FFC-logo.webp';
+import FCLNavbar from '@images/tournaments/FCL/FCL navbar.png';
 import Home from '@images/icons/house-solid.svg';
 import Ranking from '@images/icons/ranking-star-solid.svg';
 import Cup from '@images/icons/trophy-solid.svg';
@@ -37,6 +37,10 @@ const NAV_LINKS = [
 ];
 
 const isActive = (href: string) => {
+  // La home de la sección solo se marca activa en su propia ruta (no en /ranking, /market, etc.).
+  if (href === ROUTES.championsLeague.index) {
+    return currentPath === ROUTES.championsLeague.index || currentPath === ROUTES.championsLeague.index.replace(/\/$/, '');
+  }
   const normalizedHref = href.endsWith('/') ? href : href + '/';
   const normalizedPath = currentPath.endsWith('/') ? currentPath : currentPath + '/';
   return normalizedPath.startsWith(normalizedHref);
@@ -52,7 +56,7 @@ const isActive = (href: string) => {
         <span class="bar"></span>
       </div>
       <a href={ROUTES.championsLeague.index} class="flex items-center m-auto space-x-3 rtl:space-x-reverse md:m-0 flex-shrink-0">
-        <Image src={FFCLogo} alt="FFC Logo" loading="eager" height={100} quality={70} format="webp" class="navbar__logo"/>
+        <Image src={FCLNavbar} alt="FFC - Champions League" loading="eager" width={200} quality={70} format="webp" class="navbar__logo"/>
       </a>
 
       <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
@@ -74,11 +78,11 @@ const isActive = (href: string) => {
           })}
           <li class="group">
             <a
-              href={ROUTES.forestCup.index}
+              href={ROUTES.home}
               class="py-2 px-3 rounded-sm flex gap-2 items-center text-white group-hover:text-cl-lime-secondary"
             >
               <Cup width={20} class="fill-white group-hover:fill-cl-lime-secondary" />
-              <span class="inline">Forest Cup</span>
+              <span class="inline">Return to FFC</span>
             </a>
           </li>
         </ul>
@@ -91,7 +95,7 @@ const isActive = (href: string) => {
     <header class="navbar__header py-8 px-4 flex items-center justify-between border-b-1 border-cl-lime/30">
       <div class="navbar__header__logo">
         <a href={ROUTES.championsLeague.index}>
-          <Image src={FFCLogo} alt="FFC Logo" loading="eager" height={100} quality={70} format="webp" class="navbar__phone__logo"/>
+          <Image src={FCLNavbar} alt="FFC - Champions League" loading="eager" width={200} quality={70} format="webp" class="navbar__phone__logo"/>
         </a>
       </div>
       <XMark width={30} class="fill-cl-lime cursor-pointer close__btn" />
@@ -115,11 +119,11 @@ const isActive = (href: string) => {
       })}
       <li class="group">
         <a
-          href={ROUTES.forestCup.index}
+          href={ROUTES.home}
           class="py-2 px-3 rounded-sm flex gap-2 items-center text-white group-hover:text-cl-lime-secondary"
         >
           <Cup width={20} class="fill-white group-hover:fill-cl-lime-secondary" />
-          <span class="inline">Forest Cup</span>
+          <span class="inline">Return to FFC</span>
         </a>
       </li>
     </ul>
