@@ -1,8 +1,10 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { computePlayerRating, ratingToStars } from '@config/rating';
+import { computePlayerRating, ratingToStars, ovrRatingColor } from '@config/rating';
 import { FORMATIONS, getFormationPositions } from '@config/formations';
 import { positionToRole } from '@config/positions';
 import { formatPrice, parsePriceInput } from '@config/market';
+import { SKILL_CATEGORIES, skillCategoryValue } from '@config/skills';
+import { getPerksByIds } from '@data/perks';
 import type { FederationGroup, MarketNationality, MarketPlayer, MarketRole } from '@ty/market';
 import PlayerCard from './PlayerCard';
 
@@ -44,6 +46,52 @@ const POSITION_ROWS: (string | null)[][] = [
 
 type Slot = { kind: 'starter' | 'bench' | 'reserva'; index: number };
 
+// Detalle compacto inline bajo el item seleccionado de la lista (reemplaza el overlay flotante).
+function PlayerListDetail({ player }: { player: MarketPlayer }) {
+  const isGK = positionToRole(player.position) === 'GK';
+  const categories = SKILL_CATEGORIES.map((c) => ({
+    ...c,
+    value: skillCategoryValue(player.skills, c, isGK),
+  }));
+  const perks = getPerksByIds(player.perks);
+  return (
+    <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-[11px]">
+      {categories.map((c) => (
+        <span key={c.id} className="text-text-muted">
+          <span className="text-white/80 font-semibold">{c.id}</span> {c.value}
+        </span>
+      ))}
+      {player.age != null && (
+        <span className="text-text-muted">
+          Age <span className="text-white/80 font-semibold">{player.age}</span>
+        </span>
+      )}
+      {player.form != null && (
+        <span className="text-text-muted">
+          Form <span className="text-white/80 font-semibold">{player.form}</span>
+        </span>
+      )}
+      {player.club && (
+        <span className="text-text-muted">
+          Club <span className="text-white/80 font-semibold">{player.club}</span>
+        </span>
+      )}
+      {perks.length > 0 && (
+        <span className="flex items-center gap-1">
+          {perks.map((pk) => (
+            <span
+              key={pk.id}
+              title={`${pk.name} — ${pk.description}`}
+              className="w-4 h-4 inline-block"
+              dangerouslySetInnerHTML={{ __html: pk.image }}
+            />
+          ))}
+        </span>
+      )}
+    </div>
+  );
+}
+
 export default function MarketSimulator({ federations, players, season, nationalities }: Props) {
   const [fedCode, setFedCode] = useState<string | null>(federations[0]?.code ?? null);
   const [clubId, setClubId] = useState<number | null>(null);
@@ -63,6 +111,8 @@ export default function MarketSimulator({ federations, players, season, national
   const natPanelRef = useRef<HTMLDivElement | null>(null);
   const fedPanelRef = useRef<HTMLDivElement | null>(null);
   const [sortKey, setSortKey] = useState<'value' | 'age' | 'overall'>('value');
+  const [sortDir, setSortDir] = useState<'asc' | 'desc'>('desc');
+  const [showOutOfBudget, setShowOutOfBudget] = useState(true);
   const [minPrice, setMinPrice] = useState<string>('');
   const [maxPrice, setMaxPrice] = useState<string>('');
   const [minRating, setMinRating] = useState<string>('');
@@ -233,24 +283,28 @@ export default function MarketSimulator({ federations, players, season, national
     if (mr != null && rating < mr) return false;
     if (xr != null && rating > xr) return false;
     if (query.trim() !== '' && !p.name.toLowerCase().includes(query.trim().toLowerCase())) return false;
+    if (!showOutOfBudget && findPlayerSlot(p.id) === null && p.price > remaining) return false;
     return true;
   });
 
   const sorted = useMemo(() => {
     const arr = [...filtered];
+    const dir = sortDir === 'asc' ? 1 : -1;
     if (sortKey === 'age') {
-      arr.sort((a, b) => (a.age ?? 999) - (b.age ?? 999) || a.name.localeCompare(b.name));
+      arr.sort(
+        (a, b) => ((a.age ?? 999) - (b.age ?? 999)) * dir || a.name.localeCompare(b.name),
+      );
     } else if (sortKey === 'overall') {
       arr.sort(
         (a, b) =>
-          computePlayerRating(b.skills, b.position) - computePlayerRating(a.skills, a.position) ||
+          (computePlayerRating(a.skills, a.position) - computePlayerRating(b.skills, b.position)) * dir ||
           a.name.localeCompare(b.name),
       );
     } else {
-      arr.sort((a, b) => b.price - a.price || a.name.localeCompare(b.name));
+      arr.sort((a, b) => (a.price - b.price) * dir || a.name.localeCompare(b.name));
     }
     return arr;
-  }, [filtered, sortKey]);
+  }, [filtered, sortKey, sortDir]);
 
   const isDisabled = (p: MarketPlayer) => {
     const alreadyIn = findPlayerSlot(p.id) !== null;
@@ -349,10 +403,9 @@ export default function MarketSimulator({ federations, players, season, national
           <PlayerCard
             player={p}
             usedPosition={s.kind === 'starter' ? formationPositions[s.index] : p.position}
-            compact
           />
         ) : (
-          <div className="w-[96px] h-[144px] rounded-md border-2 border-dashed border-cl-lime/30 bg-black/20 flex flex-col items-center justify-center gap-1 text-center">
+          <div className="w-[150px] h-[225px] rounded-md border-2 border-dashed border-cl-lime/30 bg-black/20 flex flex-col items-center justify-center gap-1 text-center">
             <span className="px-1 py-0.5 rounded bg-cl-lime/15 text-cl-lime text-[10px] font-bold">{pos}</span>
             <span className="text-[9px] uppercase tracking-widest text-text-muted">{label}</span>
             {locked && <span className="text-[8px] text-yellow-400">GK required</span>}
@@ -370,7 +423,7 @@ export default function MarketSimulator({ federations, players, season, national
 
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.6fr] gap-6 items-start">
         {/* Mercado */}
-        <aside className="bg-surface/40 rounded-2xl border border-cl-lime/20 p-4 flex flex-col gap-3 sticky top-[72px] self-start h-[calc(100vh-72px)] overflow-hidden">
+        <aside className="bg-surface/40 rounded-2xl border border-cl-lime/20 p-4 flex flex-col gap-3 sticky top-[72px] self-start h-[calc(100vh-72px)]">
           {/* Federación y club */}
           <div className="flex flex-wrap items-center gap-3">
             <div ref={fedPanelRef} className="relative">
@@ -473,7 +526,6 @@ export default function MarketSimulator({ federations, players, season, national
             </div>
           )}
 
-          <h3 className="text-lg font-bold text-cl-lime">Market · Season {season}</h3>
           <div className="space-y-2">
             {/* Toggles de filtros: posición y nacionalidades */}
             <div className="flex flex-wrap items-center gap-2">
@@ -615,7 +667,11 @@ export default function MarketSimulator({ federations, players, season, national
               />
               <select
                 value={sortKey}
-                onChange={(e) => setSortKey(e.target.value as 'value' | 'age' | 'overall')}
+                onChange={(e) => {
+                  const key = e.target.value as 'value' | 'age' | 'overall';
+                  setSortKey(key);
+                  setSortDir(key === 'age' ? 'asc' : 'desc');
+                }}
                 title="Sort players"
                 className="bg-black/40 border border-cl-lime/30 rounded-lg px-2 py-1.5 text-xs text-white focus:outline-none focus:border-cl-lime"
               >
@@ -623,6 +679,27 @@ export default function MarketSimulator({ federations, players, season, national
                 <option value="age">Sort: Age</option>
                 <option value="overall">Sort: OVR</option>
               </select>
+              <button
+                type="button"
+                onClick={() => setSortDir((d) => (d === 'asc' ? 'desc' : 'asc'))}
+                title={sortDir === 'asc' ? 'Ascending' : 'Descending'}
+                className="w-9 py-1.5 inline-flex items-center justify-center rounded-lg border border-cl-lime/30 bg-black/40 text-cl-lime text-xs font-bold hover:border-cl-lime/60 transition-colors"
+              >
+                {sortDir === 'asc' ? '↑' : '↓'}
+              </button>
+              <button
+                type="button"
+                onClick={() => setShowOutOfBudget((v) => !v)}
+                title="Toggle visibility of players that exceed the remaining budget"
+                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs font-bold transition-colors ${
+                  showOutOfBudget
+                    ? 'bg-cl-lime/15 text-cl-lime border-cl-lime'
+                    : 'border-cl-lime/30 text-cl-lime/80 hover:border-cl-lime/60'
+                }`}
+              >
+                Out of budget
+                <span className="text-[9px]">{showOutOfBudget ? 'ON' : 'OFF'}</span>
+              </button>
               <button
                 type="button"
                 onClick={clearFilters}
@@ -638,31 +715,55 @@ export default function MarketSimulator({ federations, players, season, national
             <div className="min-h-0 h-full overflow-y-auto space-y-1.5 pr-1">
               {sorted.map((p) => {
                 const disabled = isDisabled(p);
+                const inTeam = findPlayerSlot(p.id) !== null;
+                const selected = selectedPlayerId === p.id;
                 const r = computePlayerRating(p.skills, p.position);
                 const stars = ratingToStars(r);
+                const ovr = ovrRatingColor(r);
                 return (
-                  <div
-                    key={p.id}
-                    onClick={() => !disabled && selectPlayer(p.id)}
-                    title={disabled ? (slotLock ? 'Goalkeeper required here' : 'Over budget') : 'Click to select'}
-                    className={`flex items-center gap-2 rounded-lg px-2.5 py-1.5 text-sm border transition-colors ${
-                      disabled
-                        ? 'border-cl-lime/5 bg-black/30 opacity-40 cursor-not-allowed'
-                        : selectedPlayerId === p.id
-                          ? 'border-cl-lime bg-cl-lime/10 cursor-pointer'
-                          : 'border-cl-lime/10 bg-black/30 cursor-pointer hover:border-cl-lime/50'
-                    }`}
-                  >
-                    {p.flagUrl ? (
-                      <img src={p.flagUrl} alt={p.nationality ?? ''} className="w-5 h-3.5 rounded-sm object-cover" />
-                    ) : (
-                      <span className="w-5 h-3.5 rounded-sm bg-gray-700" />
+                  <div key={p.id}>
+                    <div
+                      onClick={() => !disabled && selectPlayer(p.id)}
+                      title={
+                        disabled
+                          ? slotLock
+                            ? 'Goalkeeper required here'
+                            : 'Over budget'
+                          : inTeam
+                            ? 'Already in team — click to select'
+                            : 'Click to select'
+                      }
+                      className={`flex items-center gap-2 rounded-lg px-2.5 py-1.5 text-sm border transition-colors ${
+                        disabled
+                          ? 'border-cl-lime/5 bg-black/30 opacity-40 cursor-not-allowed'
+                          : inTeam
+                            ? 'bg-emerald-500/15 border-emerald-400/60 cursor-pointer hover:border-emerald-300'
+                            : selected
+                              ? 'border-cl-lime bg-cl-lime/10 cursor-pointer'
+                              : 'border-cl-lime/10 bg-black/30 cursor-pointer hover:border-cl-lime/50'
+                      }`}
+                    >
+                      {p.flagUrl ? (
+                        <img src={p.flagUrl} alt={p.nationality ?? ''} className="w-5 h-3.5 rounded-sm object-cover" />
+                      ) : (
+                        <span className="w-5 h-3.5 rounded-sm bg-gray-700" />
+                      )}
+                      <span className={`px-1 rounded text-[9px] font-bold ${ROLE_BADGE[p.role]}`}>{p.position}</span>
+                      <span className="flex-1 truncate font-medium text-white">{p.name}</span>
+                      <span
+                        className="px-1 rounded text-[10px] font-bold tabular-nums"
+                        style={{ backgroundColor: ovr.bg, color: ovr.text }}
+                      >
+                        {r}
+                      </span>
+                      <span className="text-[10px] text-yellow-300 tabular-nums">{'★'.repeat(Math.round(stars))}</span>
+                      <span className="font-bold text-cl-lime text-xs">{formatPrice(p.price)}</span>
+                    </div>
+                    {selected && (
+                      <div className="mt-1.5 rounded-lg border border-cl-lime/20 bg-black/40 px-3 py-2">
+                        <PlayerListDetail player={p} />
+                      </div>
                     )}
-                    <span className={`px-1 rounded text-[9px] font-bold ${ROLE_BADGE[p.role]}`}>{p.position}</span>
-                    <span className="flex-1 truncate font-medium text-white">{p.name}</span>
-                    <span className="text-[10px] text-cl-lime tabular-nums">{r}</span>
-                    <span className="text-[10px] text-yellow-300 tabular-nums">{'★'.repeat(Math.round(stars))}</span>
-                    <span className="font-bold text-cl-lime text-xs">{formatPrice(p.price)}</span>
                   </div>
                 );
               })}
@@ -671,20 +772,6 @@ export default function MarketSimulator({ federations, players, season, national
               )}
             </div>
 
-            {/* Preview de la carta en overlay flotante (no consume ancho del grid) */}
-            {selectedPlayer && (
-              <div className="absolute top-0 right-0 z-20">
-                <button
-                  type="button"
-                  onClick={() => setSelectedPlayerId(null)}
-                  className="absolute -top-2 -right-2 z-10 w-6 h-6 rounded-full bg-cl-lime text-black text-sm font-bold flex items-center justify-center hover:bg-white transition-colors"
-                  title="Close preview"
-                >
-                  ×
-                </button>
-                <PlayerCard player={selectedPlayer} />
-              </div>
-            )}
           </div>
         </aside>
 

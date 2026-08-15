@@ -1095,7 +1095,7 @@
   },
   {
     "id": 29,
-    "position": "RW",
+    "position": "CF",
     "nationality": "BIL",
     "birthdate": null,
     "birthplace": {
@@ -1135,13 +1135,13 @@
         "number": 6,
         "from": null,
         "to": null,
-        "status": "active",
+        "status": "retired",
         "teamId": 1
       }
     ],
     "nationalityId": 1,
     "lastName": "Sowjan",
-    "firstName": "MI"
+    "firstName": "Nederj"
   },
   {
     "id": 30,
@@ -8000,6 +8000,9 @@
     "playingStyle": "Target Man",
     "positions": [
       "CF"
+    ],
+    "perks": [
+      1
     ],
     "pesId": 117644
   },
@@ -25185,6 +25188,15 @@
         "to": null,
         "status": "active",
         "teamId": 1
+      },
+      {
+        "teamCode": "BAX",
+        "teamType": "club",
+        "number": 8,
+        "from": null,
+        "to": "Bax",
+        "status": "active",
+        "teamId": 102
       }
     ]
   },
