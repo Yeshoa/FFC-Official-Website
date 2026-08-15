@@ -1,0 +1,239 @@
+{
+  "id": "bil-div1",
+  "name": "Bilsa Lighe 1",
+  "division": 1,
+  "federationId": 1,
+  "season": 2026,
+  "logoPath": "/src/assets/images/leagues/bilsa/division-1.png",
+  "relegationPositions": [
+    20
+  ],
+  "championsLeaguePositions": [
+    1,
+    2,
+    3,
+    4
+  ],
+  "standings": [
+    {
+      "position": 1,
+      "clubId": 102,
+      "played": 10,
+      "won": 6,
+      "drawn": 2,
+      "lost": 2,
+      "goalsFor": 16,
+      "goalsAgainst": 3,
+      "points": 20
+    },
+    {
+      "position": 2,
+      "clubId": 107,
+      "played": 4,
+      "won": 2,
+      "drawn": 1,
+      "lost": 1,
+      "goalsFor": 3,
+      "goalsAgainst": 1,
+      "points": 7
+    },
+    {
+      "position": 3,
+      "clubId": 112,
+      "played": 7,
+      "won": 3,
+      "drawn": 1,
+      "lost": 3,
+      "goalsFor": 8,
+      "goalsAgainst": 5,
+      "points": 10
+    },
+    {
+      "position": 4,
+      "clubId": 108,
+      "played": 10,
+      "won": 5,
+      "drawn": 2,
+      "lost": 3,
+      "goalsFor": 12,
+      "goalsAgainst": 5,
+      "points": 17
+    },
+    {
+      "position": 5,
+      "clubId": 113,
+      "played": 5,
+      "won": 2,
+      "drawn": 1,
+      "lost": 2,
+      "goalsFor": 5,
+      "goalsAgainst": 3,
+      "points": 7
+    },
+    {
+      "position": 6,
+      "clubId": 100,
+      "played": 7,
+      "won": 3,
+      "drawn": 1,
+      "lost": 3,
+      "goalsFor": 5,
+      "goalsAgainst": 8,
+      "points": 10
+    },
+    {
+      "position": 7,
+      "clubId": 103,
+      "played": 5,
+      "won": 2,
+      "drawn": 1,
+      "lost": 2,
+      "goalsFor": 4,
+      "goalsAgainst": 4,
+      "points": 7
+    },
+    {
+      "position": 8,
+      "clubId": 99,
+      "played": 4,
+      "won": 1,
+      "drawn": 1,
+      "lost": 2,
+      "goalsFor": 3,
+      "goalsAgainst": 5,
+      "points": 4
+    },
+    {
+      "position": 9,
+      "clubId": 110,
+      "played": 7,
+      "won": 2,
+      "drawn": 1,
+      "lost": 4,
+      "goalsFor": 5,
+      "goalsAgainst": 9,
+      "points": 7
+    },
+    {
+      "position": 10,
+      "clubId": 97,
+      "played": 6,
+      "won": 2,
+      "drawn": 1,
+      "lost": 3,
+      "goalsFor": 6,
+      "goalsAgainst": 5,
+      "points": 7
+    },
+    {
+      "position": 11,
+      "clubId": 104,
+      "played": 8,
+      "won": 2,
+      "drawn": 2,
+      "lost": 4,
+      "goalsFor": 5,
+      "goalsAgainst": 8,
+      "points": 8
+    },
+    {
+      "position": 12,
+      "clubId": 106,
+      "played": 7,
+      "won": 2,
+      "drawn": 1,
+      "lost": 4,
+      "goalsFor": 5,
+      "goalsAgainst": 8,
+      "points": 7
+    },
+    {
+      "position": 13,
+      "clubId": 115,
+      "played": 7,
+      "won": 2,
+      "drawn": 1,
+      "lost": 4,
+      "goalsFor": 8,
+      "goalsAgainst": 8,
+      "points": 7
+    },
+    {
+      "position": 14,
+      "clubId": 105,
+      "played": 3,
+      "won": 0,
+      "drawn": 0,
+      "lost": 3,
+      "goalsFor": 0,
+      "goalsAgainst": 5,
+      "points": 0
+    },
+    {
+      "position": 15,
+      "clubId": 109,
+      "played": 8,
+      "won": 2,
+      "drawn": 1,
+      "lost": 5,
+      "goalsFor": 4,
+      "goalsAgainst": 12,
+      "points": 7
+    },
+    {
+      "position": 16,
+      "clubId": 111,
+      "played": 9,
+      "won": 2,
+      "drawn": 2,
+      "lost": 5,
+      "goalsFor": 7,
+      "goalsAgainst": 11,
+      "points": 8
+    },
+    {
+      "position": 17,
+      "clubId": 98,
+      "played": 5,
+      "won": 1,
+      "drawn": 1,
+      "lost": 3,
+      "goalsFor": 3,
+      "goalsAgainst": 6,
+      "points": 4
+    },
+    {
+      "position": 18,
+      "clubId": 116,
+      "played": 6,
+      "won": 1,
+      "drawn": 1,
+      "lost": 4,
+      "goalsFor": 4,
+      "goalsAgainst": 7,
+      "points": 4
+    },
+    {
+      "position": 19,
+      "clubId": 101,
+      "played": 6,
+      "won": 1,
+      "drawn": 1,
+      "lost": 4,
+      "goalsFor": 3,
+      "goalsAgainst": 8,
+      "points": 4
+    },
+    {
+      "position": 20,
+      "clubId": 114,
+      "played": 8,
+      "won": 1,
+      "drawn": 2,
+      "lost": 5,
+      "goalsFor": 3,
+      "goalsAgainst": 6,
+      "points": 5
+    }
+  ]
+}

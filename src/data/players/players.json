@@ -859,15 +859,6 @@
         "to": null,
         "status": "active",
         "teamId": 1
-      },
-      {
-        "teamCode": "BILKRA",
-        "teamType": "club",
-        "number": 1,
-        "from": "2026",
-        "to": null,
-        "status": "active",
-        "teamId": 97
       }
     ],
     "nationalityId": 1,
@@ -918,15 +909,6 @@
         "to": null,
         "status": "active",
         "teamId": 1
-      },
-      {
-        "teamCode": "BILKRA",
-        "teamType": "club",
-        "number": 4,
-        "from": "2026",
-        "to": null,
-        "status": "active",
-        "teamId": 97
       }
     ],
     "nationalityId": 1,
@@ -977,15 +959,6 @@
         "to": null,
         "status": "active",
         "teamId": 1
-      },
-      {
-        "teamCode": "BILKRA",
-        "teamType": "club",
-        "number": 3,
-        "from": "2026",
-        "to": null,
-        "status": "active",
-        "teamId": 97
       }
     ],
     "nationalityId": 1,
@@ -1045,15 +1018,6 @@
         "to": null,
         "status": "active",
         "teamId": 1
-      },
-      {
-        "teamCode": "BILNOR",
-        "teamType": "club",
-        "number": 9,
-        "from": "2026",
-        "to": null,
-        "status": "active",
-        "teamId": 98
       }
     ],
     "nationalityId": 1,
@@ -1114,15 +1078,6 @@
         "to": null,
         "status": "active",
         "teamId": 1
-      },
-      {
-        "teamCode": "BILNOR",
-        "teamType": "club",
-        "number": 10,
-        "from": "2026",
-        "to": null,
-        "status": "active",
-        "teamId": 98
       }
     ],
     "nationalityId": 1,
@@ -1182,15 +1137,6 @@
         "to": null,
         "status": "active",
         "teamId": 1
-      },
-      {
-        "teamCode": "BILNOR",
-        "teamType": "club",
-        "number": 7,
-        "from": "2026",
-        "to": null,
-        "status": "active",
-        "teamId": 98
       }
     ],
     "nationalityId": 1,

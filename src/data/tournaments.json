@@ -440,18 +440,9 @@
     "pots": [
       {
         "pot": 1,
-        "teams": [
-          "Krulta BK",
-          "Nordland FC"
-        ],
-        "teamCodes": [
-          "KRA",
-          "NOR"
-        ],
-        "teamIds": [
-          97,
-          98
-        ]
+        "teams": [],
+        "teamCodes": [],
+        "teamIds": []
       }
     ]
   }

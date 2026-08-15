@@ -1,4 +1,8 @@
-import leaguesData from './leagues.json';
+// Las ligas se cargan de un archivo por división: <federacion>/division-<n>.json.
+const leagueFiles = import.meta.glob('./**/division-*.json', {
+  eager: true,
+  import: 'default',
+}) as Record<string, League>;
 
 // Los clubes se referencian por id global (`clubId`), NUNCA por code (el code es visual
 // y puede repetirse). La liga pertenece a una federación (`federationId`) y puede tener
@@ -22,12 +26,15 @@ export interface League {
   division: number;
   federationId: number; // id global de la federación (fuente de verdad)
   season: number;
+  logoPath?: string; // logo de la división (escudo de la liga)
   relegationPositions: number[]; // posiciones que descienden (tono rojo)
   championsLeaguePositions: number[]; // posiciones que clasifican a la CL (tono verde)
   standings: LeagueStandingRow[];
 }
 
-const leagues: League[] = leaguesData as League[];
+const leagues: League[] = Object.values(leagueFiles).sort(
+  (a, b) => a.federationId - b.federationId || a.division - b.division,
+);
 
 // Primera división de una federación (lo que se muestra en la página del miembro).
 export function getFirstDivision(federationId: number): League | null {

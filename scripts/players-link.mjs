@@ -16,7 +16,11 @@ const root = join(__dirname, '..');
 
 const players = JSON.parse(readFileSync(join(root, 'src/data/players/players.json'), 'utf8'));
 const members = Object.values(JSON.parse(readFileSync(join(root, 'src/data/members.json'), 'utf8')));
-const clubs = JSON.parse(readFileSync(join(root, 'src/data/clubs/clubs.json'), 'utf8'));
+// Clubes por país: todos los .json del directorio src/data/clubs.
+const clubsDir = join(root, 'src/data/clubs');
+const clubs = readdirSync(clubsDir)
+  .filter((f) => f.endsWith('.json'))
+  .flatMap((f) => JSON.parse(readFileSync(join(clubsDir, f), 'utf8')));
 
 const args = process.argv.slice(2);
 const strict = args.includes('--strict');

@@ -1,4 +1,4 @@
-import { readFileSync, writeFileSync } from 'node:fs';
+import { readFileSync, writeFileSync, readdirSync, mkdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -8,11 +8,36 @@ const read = (p) => JSON.parse(readFileSync(join(root, p), 'utf8'));
 const write = (p, data) =>
   writeFileSync(join(root, p), JSON.stringify(data, null, 2) + '\n', 'utf8');
 
+// Lee recursivamente todos los .json de un directorio y los aplana (objeto o array).
+function readJsonFiles(dir) {
+  const out = [];
+  const abs = join(root, dir);
+  for (const entry of readdirSync(abs, { withFileTypes: true })) {
+    const full = join(dir, entry.name);
+    if (entry.isDirectory()) out.push(...readJsonFiles(full));
+    else if (entry.name.endsWith('.json')) {
+      const data = read(full);
+      out.push(...(Array.isArray(data) ? data : [data]));
+    }
+  }
+  return out;
+}
+
+// Escribe una lista de ligas a archivos por división: <federacion>/division-<n>.json
+function writeLeagues(leagues) {
+  for (const league of leagues) {
+    const fedCode = String(league.federationId ?? league.federation ?? 'fed');
+    const dir = join('src/data/leagues', fedCode);
+    mkdirSync(join(root, dir), { recursive: true });
+    write(join(dir, `division-${league.division}.json`), league);
+  }
+}
+
 // ---------------------------------------------------------------------------
 // 1. Renumeración determinista de members y clubs (ids globales únicos)
 // ---------------------------------------------------------------------------
 const members = read('src/data/members.json');
-const clubs = read('src/data/clubs/clubs.json');
+const clubs = readJsonFiles('src/data/clubs');
 
 // Mismo orden que produce getMembers(): file order estable ordenado por id.
 const memberOrder = Object.entries(members).sort((a, b) => a[1].id - b[1].id);
@@ -39,7 +64,17 @@ write('src/data/members.json', members);
 for (const club of clubs) {
   club.id = nextId++;
 }
-write('src/data/clubs/clubs.json', clubs);
+// Clubes por país: un archivo <federacion>.json por federación dueña.
+const clubsByFed = new Map();
+for (const club of clubs) {
+  const key = (club.federation ?? 'fed').toLowerCase();
+  const list = clubsByFed.get(key) ?? [];
+  list.push(club);
+  clubsByFed.set(key, list);
+}
+for (const [fed, list] of clubsByFed) {
+  write(join('src/data/clubs', `${fed}.json`), list);
+}
 
 console.log(`Renumerados: members=${memberOrder.length} clubs=${clubs.length} (secuencia global 1..${nextId - 1})`);
 
@@ -110,13 +145,13 @@ write('src/data/tournaments.json', tournaments);
 // ---------------------------------------------------------------------------
 // 4. Leagues: clubId por club name/code
 // ---------------------------------------------------------------------------
-const leagues = read('src/data/leagues/leagues.json');
-for (const league of Object.values(leagues)) {
+const leagues = readJsonFiles('src/data/leagues');
+for (const league of leagues) {
   for (const row of league.standings ?? []) {
     row.clubId = resolveTeam(row.clubCode, row.club);
   }
 }
-write('src/data/leagues/leagues.json', leagues);
+writeLeagues(leagues);
 
 // ---------------------------------------------------------------------------
 // 5. Players: teams[].teamId + nationality -> id global

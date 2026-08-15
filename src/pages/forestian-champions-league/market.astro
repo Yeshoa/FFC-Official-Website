@@ -8,7 +8,9 @@ import { getAllClubs } from '@data/clubs';
 import { getMembers, getTournaments } from '@lib/collections';
 import { getFirstDivision } from '@data/leagues';
 import { getMarketablePlayers } from '@data/market';
+import { resolveImage } from '@utils/imageAssets';
 import type { MarketClub, MarketPlayer, FederationGroup, MarketNationality } from '@ty/market';
+import type { ImageMetadata } from 'astro';
 
 // Season = última Champions League (fallback 2027).
 const clTournaments = (await getTournaments())
@@ -17,7 +19,7 @@ const clTournaments = (await getTournaments())
 const season = clTournaments[0]?.data.season ?? 2027;
 
 // Banderas de federaciones resueltas a URLs servidas.
-async function flagUrl(flagPath: string | undefined, width = 40): Promise<string | undefined> {
+async function flagUrl(flagPath: string | ImageMetadata | undefined, width = 40): Promise<string | undefined> {
   if (!flagPath) return undefined;
   try {
     const img = await getImage({ src: flagPath, width, format: 'webp' });
@@ -32,7 +34,7 @@ const memberByCode = new Map(members.filter((m) => m.data.code).map((m) => [m.da
 const memberById = new Map(members.map((m) => [m.data.id, m]));
 
 // Federaciones con clubes, ordenados por su última liga (fallback alfabético).
-const byFed = new Map<number, MarketClub[]>();
+const byFed = new Map<number, (MarketClub & { logoPath?: string })[]>();
 for (const c of getAllClubs()) {
   if (c.federationId == null) continue;
   const list = byFed.get(c.federationId) ?? [];
@@ -43,6 +45,7 @@ for (const c of getAllClubs()) {
     shortName: c.shortName,
     colors: c.colors,
     budget: c.budget ?? 0,
+    logoPath: c.logoPath,
   });
   byFed.set(c.federationId, list);
 }
@@ -53,18 +56,32 @@ for (const [fedId, clubs] of byFed) {
   if (!member) continue;
   const league = getFirstDivision(fedId);
   const posMap = new Map((league?.standings ?? []).map((r, i) => [r.clubId, i + 1]));
+  const clPositions = new Set(league?.championsLeaguePositions ?? []);
   clubs.sort((a, b) => {
     const pa = posMap.get(a.id) ?? Number.MAX_SAFE_INTEGER;
     const pb = posMap.get(b.id) ?? Number.MAX_SAFE_INTEGER;
     if (pa !== pb) return pa - pb;
     return a.name.localeCompare(b.name);
   });
+  // Solo se pueden elegir los clubes en zona de clasificación a la CL de la primera división.
+  const qualified = clubs.filter((c) => clPositions.has(posMap.get(c.id) ?? -1));
+  if (qualified.length === 0) continue;
   federations.push({
     id: fedId,
     code: member.data.code ?? '',
     name: member.data.name,
     flagUrl: await flagUrl(member.data.flagPath, 64),
-    clubs,
+    clubs: await Promise.all(
+      qualified.map(async (c) => ({
+        id: c.id,
+        code: c.code,
+        name: c.name,
+        shortName: c.shortName,
+        colors: c.colors,
+        budget: c.budget ?? 0,
+        logoUrl: await flagUrl(resolveImage(c.logoPath) ?? undefined, 64),
+      })),
+    ),
   });
 }
 federations.sort((a, b) => a.name.localeCompare(b.name));
@@ -96,12 +113,6 @@ nationalities.sort((a, b) => a.name.localeCompare(b.name));
 <FCLayout title="FFC - FCL Transfer Market">
   <main class="flex flex-col items-center pt-5">
     <div class="w-full max-w-7xl px-4 py-6">
-      <div class="text-center mb-8">
-        <h1 class="text-3xl md:text-4xl font-black text-cl-lime uppercase">Transfer Market</h1>
-        <p class="text-text-muted mt-1">
-          Pick your club, build your squad within budget, and export the JSON.
-        </p>
-      </div>
       <MarketSimulator
         client:load
         federations={federations}

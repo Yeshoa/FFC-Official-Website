@@ -59,7 +59,10 @@ export default function MarketSimulator({ federations, players, season, national
   const [filterNat, setFilterNat] = useState<string>('ALL');
   const [showPosFilter, setShowPosFilter] = useState(false);
   const [showNatFilter, setShowNatFilter] = useState(false);
+  const [showFedPanel, setShowFedPanel] = useState(false);
   const natPanelRef = useRef<HTMLDivElement | null>(null);
+  const fedPanelRef = useRef<HTMLDivElement | null>(null);
+  const [sortKey, setSortKey] = useState<'value' | 'age' | 'overall'>('value');
   const [minPrice, setMinPrice] = useState<string>('');
   const [maxPrice, setMaxPrice] = useState<string>('');
   const [minRating, setMinRating] = useState<string>('');
@@ -156,15 +159,16 @@ export default function MarketSimulator({ federations, players, season, national
     setNatQuery('');
   };
 
-  // Cierra el panel flotante de nacionalidades al hacer click fuera.
+  // Cierra los paneles flotantes (federación y nacionalidades) al hacer click fuera.
   useEffect(() => {
-    if (!showNatFilter) return;
+    if (!showFedPanel && !showNatFilter) return;
     const onClick = (e: MouseEvent) => {
+      if (fedPanelRef.current && !fedPanelRef.current.contains(e.target as Node)) setShowFedPanel(false);
       if (natPanelRef.current && !natPanelRef.current.contains(e.target as Node)) setShowNatFilter(false);
     };
     document.addEventListener('mousedown', onClick);
     return () => document.removeEventListener('mousedown', onClick);
-  }, [showNatFilter]);
+  }, [showFedPanel, showNatFilter]);
 
   const selectPlayer = (pid: string) => {
     const p = playerById.get(pid);
@@ -231,6 +235,22 @@ export default function MarketSimulator({ federations, players, season, national
     if (query.trim() !== '' && !p.name.toLowerCase().includes(query.trim().toLowerCase())) return false;
     return true;
   });
+
+  const sorted = useMemo(() => {
+    const arr = [...filtered];
+    if (sortKey === 'age') {
+      arr.sort((a, b) => (a.age ?? 999) - (b.age ?? 999) || a.name.localeCompare(b.name));
+    } else if (sortKey === 'overall') {
+      arr.sort(
+        (a, b) =>
+          computePlayerRating(b.skills, b.position) - computePlayerRating(a.skills, a.position) ||
+          a.name.localeCompare(b.name),
+      );
+    } else {
+      arr.sort((a, b) => b.price - a.price || a.name.localeCompare(b.name));
+    }
+    return arr;
+  }, [filtered, sortKey]);
 
   const isDisabled = (p: MarketPlayer) => {
     const alreadyIn = findPlayerSlot(p.id) !== null;
@@ -326,9 +346,13 @@ export default function MarketSimulator({ federations, players, season, national
         }`}
       >
         {p ? (
-          <PlayerCard player={p} usedPosition={s.kind === 'starter' ? formationPositions[s.index] : p.position} />
+          <PlayerCard
+            player={p}
+            usedPosition={s.kind === 'starter' ? formationPositions[s.index] : p.position}
+            compact
+          />
         ) : (
-          <div className="w-[150px] h-[225px] rounded-md border-2 border-dashed border-cl-lime/30 bg-black/20 flex flex-col items-center justify-center gap-1 text-center">
+          <div className="w-[96px] h-[144px] rounded-md border-2 border-dashed border-cl-lime/30 bg-black/20 flex flex-col items-center justify-center gap-1 text-center">
             <span className="px-1 py-0.5 rounded bg-cl-lime/15 text-cl-lime text-[10px] font-bold">{pos}</span>
             <span className="text-[9px] uppercase tracking-widest text-text-muted">{label}</span>
             {locked && <span className="text-[8px] text-yellow-400">GK required</span>}
@@ -340,14 +364,6 @@ export default function MarketSimulator({ federations, players, season, national
 
   return (
     <div className="w-full space-y-6">
-      {/* Instructivo */}
-      <p className="text-xs text-text-muted bg-cl-lime/5 border border-cl-lime/20 rounded-lg px-3 py-2">
-        How it works: <strong className="text-cl-lime">1</strong> pick a club ·{' '}
-        <strong className="text-cl-lime">2</strong> click a player (preview on the right) ·{' '}
-        <strong className="text-cl-lime">3</strong> click a slot to place them. Click a placed card to remove. The GK
-        slot and the first bench slot require a goalkeeper.
-      </p>
-
       {message && (
         <p className="text-sm text-red-300 bg-red-900/20 border border-red-800 rounded-lg px-3 py-2">{message}</p>
       )}
@@ -357,33 +373,66 @@ export default function MarketSimulator({ federations, players, season, national
         <aside className="bg-surface/40 rounded-2xl border border-cl-lime/20 p-4 flex flex-col gap-3 sticky top-[72px] self-start h-[calc(100vh-72px)] overflow-hidden">
           {/* Federación y club */}
           <div className="flex flex-wrap items-center gap-3">
-            <select
-              value={fedCode ?? ''}
-              onChange={(e) => {
-                setFedCode(e.target.value);
-                setClubId(null);
-              }}
-              className="bg-black/40 border border-cl-lime/30 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-cl-lime"
-            >
-              {federations.map((f) => (
-                <option key={f.code} value={f.code}>
-                  {f.name}
-                </option>
-              ))}
-            </select>
+            <div ref={fedPanelRef} className="relative">
+              <button
+                type="button"
+                onClick={() => setShowFedPanel((v) => !v)}
+                className={`inline-flex items-center gap-2 bg-black/40 border border-cl-lime/30 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-cl-lime transition-colors ${
+                  showFedPanel ? 'border-cl-lime' : ''
+                }`}
+              >
+                {fed?.flagUrl ? (
+                  <img src={fed.flagUrl} alt="" className="w-6 h-4 rounded-sm object-cover" />
+                ) : (
+                  <span className="w-6 h-4 rounded-sm bg-gray-700" />
+                )}
+                <span>{fed?.name ?? 'Select federation'}</span>
+                <span className="text-[9px]">{showFedPanel ? '▾' : '▸'}</span>
+              </button>
+              {showFedPanel && (
+                <div className="absolute left-0 top-full mt-2 z-30 w-64 max-w-[calc(100vw-2rem)] bg-black/95 border border-cl-lime/30 rounded-xl p-1.5 max-h-64 overflow-y-auto shadow-lg shadow-black/50">
+                  {federations.map((f) => (
+                    <button
+                      key={f.code}
+                      type="button"
+                      onClick={() => {
+                        setFedCode(f.code);
+                        setClubId(null);
+                        setShowFedPanel(false);
+                      }}
+                      className={`w-full flex items-center gap-2 px-2 py-1.5 rounded-lg text-sm transition-colors ${
+                        f.code === fedCode ? 'bg-cl-lime/15 text-cl-lime' : 'text-white hover:bg-cl-lime/10'
+                      }`}
+                    >
+                      {f.flagUrl ? (
+                        <img src={f.flagUrl} alt="" className="w-6 h-4 rounded-sm object-cover" />
+                      ) : (
+                        <span className="w-6 h-4 rounded-sm bg-gray-700" />
+                      )}
+                      <span className="flex-1 text-left">{f.name}</span>
+                      <span className="text-[10px] text-text-muted">{f.code}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
             <div className="flex flex-wrap gap-2">
               {fed?.clubs.map((c) => (
                 <button
                   key={c.id}
                   type="button"
                   onClick={() => setClubId(c.id)}
-                  className={`px-4 py-2 rounded-lg border text-sm font-semibold transition-colors ${
+                  title={c.name}
+                  className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border text-xs font-semibold transition-colors ${
                     c.id === clubId
                       ? 'bg-cl-lime text-black border-cl-lime'
                       : 'border-cl-lime/40 text-cl-lime hover:bg-cl-lime/10'
                   }`}
                 >
-                  {c.name}
+                  {c.logoUrl ? (
+                    <img src={c.logoUrl} alt={c.name} className="w-5 h-5 object-contain" />
+                  ) : null}
+                  {c.code}
                 </button>
               ))}
               {fed && fed.clubs.length === 0 && (
@@ -394,6 +443,7 @@ export default function MarketSimulator({ federations, players, season, national
 
           {club && (
             <div className="space-y-1.5">
+              <p className="text-sm font-bold text-white">{club.name}</p>
               <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm">
                 <span className="text-text-muted">Budget</span>
                 <span className="font-bold text-cl-lime">{formatPrice(budget)}</span>
@@ -563,6 +613,16 @@ export default function MarketSimulator({ federations, players, season, national
                 placeholder="Search…"
                 className="flex-1 min-w-[120px] bg-black/40 border border-cl-lime/30 rounded-lg px-3 py-1.5 text-sm text-white placeholder:text-text-muted focus:outline-none focus:border-cl-lime"
               />
+              <select
+                value={sortKey}
+                onChange={(e) => setSortKey(e.target.value as 'value' | 'age' | 'overall')}
+                title="Sort players"
+                className="bg-black/40 border border-cl-lime/30 rounded-lg px-2 py-1.5 text-xs text-white focus:outline-none focus:border-cl-lime"
+              >
+                <option value="value">Sort: Value</option>
+                <option value="age">Sort: Age</option>
+                <option value="overall">Sort: OVR</option>
+              </select>
               <button
                 type="button"
                 onClick={clearFilters}
@@ -573,10 +633,10 @@ export default function MarketSimulator({ federations, players, season, national
             </div>
           </div>
 
-          <div className="flex-1 min-h-0 grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-4">
+          <div className="flex-1 min-h-0 relative">
             {/* Lista */}
-            <div className="min-h-0 overflow-y-auto space-y-1.5 pr-1">
-              {filtered.map((p) => {
+            <div className="min-h-0 h-full overflow-y-auto space-y-1.5 pr-1">
+              {sorted.map((p) => {
                 const disabled = isDisabled(p);
                 const r = computePlayerRating(p.skills, p.position);
                 const stars = ratingToStars(r);
@@ -606,24 +666,25 @@ export default function MarketSimulator({ federations, players, season, national
                   </div>
                 );
               })}
-              {filtered.length === 0 && (
+              {sorted.length === 0 && (
                 <p className="text-text-muted italic text-sm py-4 text-center">No players match.</p>
               )}
             </div>
 
-            {/* Preview de la carta */}
-            <div className="min-h-0 overflow-y-auto flex flex-col items-center gap-2">
-              <span className="text-[10px] uppercase tracking-widest text-text-muted">Preview</span>
-              {selectedPlayer ? (
+            {/* Preview de la carta en overlay flotante (no consume ancho del grid) */}
+            {selectedPlayer && (
+              <div className="absolute top-0 right-0 z-20">
+                <button
+                  type="button"
+                  onClick={() => setSelectedPlayerId(null)}
+                  className="absolute -top-2 -right-2 z-10 w-6 h-6 rounded-full bg-cl-lime text-black text-sm font-bold flex items-center justify-center hover:bg-white transition-colors"
+                  title="Close preview"
+                >
+                  ×
+                </button>
                 <PlayerCard player={selectedPlayer} />
-              ) : (
-                <div className="w-[150px] h-[225px] rounded-md border border-dashed border-cl-lime/20 bg-black/10 flex items-center justify-center">
-                  <span className="text-[10px] text-text-muted text-center px-3">
-                    Click a player to preview their card
-                  </span>
-                </div>
-              )}
-            </div>
+              </div>
+            )}
           </div>
         </aside>
 
@@ -666,38 +727,46 @@ export default function MarketSimulator({ federations, players, season, national
             </div>
           </div>
 
-          {/* Reservas */}
+          {/* Reservas (dentro del grid: el sticky de la lista las cubre y termina con ellas) */}
           <div className="bg-surface/40 border border-cl-lime/20 rounded-2xl p-5">
             <p className="text-xs uppercase tracking-widest text-text-muted mb-3">Reserves ({RESERVA_SIZE} · optional)</p>
             <div className="flex flex-wrap gap-2.5">
               {reservas.map((_, i) => renderSlot({ kind: 'reserva', index: i }, `Reserve ${i + 1}`))}
             </div>
           </div>
-
-          {/* Export */}
-          <div className="flex flex-wrap items-center gap-2">
-            <button
-              type="button"
-              onClick={() => runExport('copy')}
-              className="px-4 py-2 rounded-lg bg-cl-lime text-black font-bold text-sm hover:bg-white transition-colors"
-            >
-              Copy export JSON
-            </button>
-            <button
-              type="button"
-              onClick={() => runExport('download')}
-              className="px-4 py-2 rounded-lg border border-cl-lime/50 text-cl-lime font-bold text-sm hover:bg-cl-lime/10 transition-colors"
-            >
-              Download
-            </button>
-          </div>
-          {exported && (
-            <pre className="bg-black/50 border border-cl-lime/20 rounded-xl p-3 text-xs text-cl-lime overflow-x-auto max-h-56 overflow-y-auto whitespace-pre-wrap">
-              {exported}
-            </pre>
-          )}
         </div>
       </div>
+
+      {/* Export */}
+      <div className="flex flex-wrap items-center gap-2">
+        <button
+          type="button"
+          onClick={() => runExport('copy')}
+          className="px-4 py-2 rounded-lg bg-cl-lime text-black font-bold text-sm hover:bg-white transition-colors"
+        >
+          Copy export JSON
+        </button>
+        <button
+          type="button"
+          onClick={() => runExport('download')}
+          className="px-4 py-2 rounded-lg border border-cl-lime/50 text-cl-lime font-bold text-sm hover:bg-cl-lime/10 transition-colors"
+        >
+          Download
+        </button>
+      </div>
+      {exported && (
+        <pre className="bg-black/50 border border-cl-lime/20 rounded-xl p-3 text-xs text-cl-lime overflow-x-auto max-h-56 overflow-y-auto whitespace-pre-wrap">
+          {exported}
+        </pre>
+      )}
+
+      {/* Instructivo */}
+      <p className="text-xs text-text-muted bg-cl-lime/5 border border-cl-lime/20 rounded-lg px-3 py-2">
+        How it works: <strong className="text-cl-lime">1</strong> pick a club ·{' '}
+        <strong className="text-cl-lime">2</strong> click a player (preview on the right) ·{' '}
+        <strong className="text-cl-lime">3</strong> click a slot to place them. Click a placed card to remove. The GK
+        slot and the first bench slot require a goalkeeper.
+      </p>
     </div>
   );
 }

@@ -1,10 +1,26 @@
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = join(__dirname, '..');
 const read = (p) => JSON.parse(readFileSync(join(root, p), 'utf8'));
+
+// Lee recursivamente todos los .json de un directorio y los aplana.
+// Cada archivo puede ser un objeto o un array de objetos.
+function readJsonFiles(dir) {
+  const out = [];
+  const abs = join(root, dir);
+  for (const entry of readdirSync(abs, { withFileTypes: true })) {
+    const full = join(dir, entry.name);
+    if (entry.isDirectory()) out.push(...readJsonFiles(full));
+    else if (entry.name.endsWith('.json')) {
+      const data = read(full);
+      out.push(...(Array.isArray(data) ? data : [data]));
+    }
+  }
+  return out;
+}
 
 const strict = process.argv.includes('--strict');
 
@@ -13,7 +29,7 @@ const strict = process.argv.includes('--strict');
 const LEGACY_ALIAS_CODES = new Set(['XVND', 'RUI', 'XOWN', 'XCHI', 'AKE', 'TRZ', 'ROL']);
 
 const members = read('src/data/members.json');
-const clubs = read('src/data/clubs/clubs.json');
+const clubs = readJsonFiles('src/data/clubs');
 const matchesByYear = {
   2020: read('src/data/matches/forest-cup-2020.json'),
   2022: read('src/data/matches/forest-cup-2022.json'),
@@ -21,7 +37,7 @@ const matchesByYear = {
   2026: read('src/data/matches/forest-cup-2026.json'),
 };
 const tournaments = read('src/data/tournaments.json');
-const leagues = read('src/data/leagues/leagues.json');
+const leagues = readJsonFiles('src/data/leagues');
 const players = read('src/data/players/players.json');
 
 const errors = [];
@@ -121,12 +137,9 @@ for (const [slug, t] of Object.entries(tournaments)) {
   }
 }
 
-for (const [fed, league] of Object.entries(leagues)) {
+for (const league of leagues) {
   for (const row of league.standings ?? []) {
-    isOrphan(row.clubId, `league ${fed} ${row.club} clubId`);
-    if (row.clubCode && !teamByCode.has(row.clubCode.toLowerCase())) {
-      warn(`league ${fed} ${row.club}: clubCode "${row.clubCode}" no está en clubs`);
-    }
+    isOrphan(row.clubId, `league ${league.id} ${row.clubId} clubId`);
   }
 }
 

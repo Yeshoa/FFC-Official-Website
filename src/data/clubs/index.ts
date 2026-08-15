@@ -1,4 +1,9 @@
-import clubsData from './clubs.json';
+// Clubes por país: un archivo <codigo-federacion>.json por federación dueña.
+// Se cargan todos los .json del directorio (futuras federaciones = agregar archivo).
+const clubFiles = import.meta.glob('./*.json', { eager: true, import: 'default' }) as Record<
+  string,
+  Omit<Club, 'slug'>[]
+>;
 
 export interface ClubSquad {
   coach?: string;
@@ -36,10 +41,12 @@ function slugify(s: string): string {
     .replace(/^-+|-+$/g, '');
 }
 
-const clubs: Club[] = (clubsData as Omit<Club, 'slug'>[]).map((club) => {
-  const base = slugify(club.name) || 'club';
-  return { ...club, slug: base };
-});
+const clubs: Club[] = Object.values(clubFiles)
+  .flat()
+  .map((club) => {
+    const base = slugify(club.name) || 'club';
+    return { ...club, slug: base };
+  });
 
 // Si dos clubes se llaman igual, el slug choca: se agrega un sufijo numérico (-2, -3...).
 const slugCounts = new Map<string, number>();

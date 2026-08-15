@@ -28,6 +28,7 @@ export interface MarketClub {
   shortName?: string;
   colors?: { primary: string; secondary: string };
   budget: number; // presupuesto FCL preasignado (millones)
+  logoUrl?: string; // URL servida del logo del club (si tiene)
 }
 
 // Federación (miembro) con sus clubes ordenados por su última liga (fallback alfabético).

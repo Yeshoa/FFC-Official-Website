@@ -12,7 +12,7 @@ const root = path.join(__dirname, '..');
 const MATCHES_DIR = path.join(root, 'src/data/matches');
 const TOURNAMENTS_PATH = path.join(root, 'src/data/tournaments.json');
 const MEMBERS_PATH = path.join(root, 'src/data/members.json');
-const CLUBS_PATH = path.join(root, 'src/data/clubs/clubs.json');
+const CLUBS_DIR = path.join(root, 'src/data/clubs');
 const PLAYERS_PATH = path.join(root, 'src/data/players/players.json');
 const BILSAN_PATH = path.join(__dirname, 'import', 'bilsan-names.json');
 
@@ -92,7 +92,11 @@ for (const m of members) {
 }
 
 // Clubes por nombre (los códigos de club pueden colisionar con códigos de miembro, ej "NOR").
-const clubs = Object.values(JSON.parse(fs.readFileSync(CLUBS_PATH, 'utf8')));
+const clubs = Object.values(
+  fs.readdirSync(CLUBS_DIR)
+    .filter((f) => f.endsWith('.json'))
+    .flatMap((f) => JSON.parse(fs.readFileSync(path.join(CLUBS_DIR, f), 'utf8'))),
+);
 const clubByName = new Map();
 for (const c of clubs) clubByName.set(norm(c.name), c);
 

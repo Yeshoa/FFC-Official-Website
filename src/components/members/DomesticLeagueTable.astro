@@ -2,8 +2,10 @@
 // DomesticLeagueTable: tabla de posiciones de una liga doméstica con zonas
 // (descenso en rojo, clasificación a Champions League en verde) + leyenda.
 // Referencia clubes por id global; el display (nombre/colores/link) se resuelve de clubs.json.
+import { Image } from 'astro:assets';
 import { getClubById } from '@data/clubs';
 import { ROUTES } from '@config/routes';
+import { resolveImage } from '@utils/imageAssets';
 import type { League } from '@data/leagues';
 
 interface Props {
@@ -12,6 +14,8 @@ interface Props {
 
 const { league } = Astro.props;
 
+const leagueLogo = resolveImage(league.logoPath);
+
 const isClZone = (pos: number) => league.championsLeaguePositions.includes(pos);
 const isRelegation = (pos: number) => league.relegationPositions.includes(pos);
 const hasZones = league.relegationPositions.length > 0 || league.championsLeaguePositions.length > 0;
@@ -19,9 +23,21 @@ const hasZones = league.relegationPositions.length > 0 || league.championsLeague
 
 <div class="bg-surface/80 shadow-lg rounded-lg p-6 mb-8">
   <div class="flex items-baseline justify-between">
-    <h2 class="text-2xl font-semibold mb-4 border-b pb-2 border-primary">
-      Domestic League
-      <span class="text-base font-medium text-text-muted"> · Division {league.division}</span>
+    <h2 class="text-2xl font-semibold mb-4 border-b pb-2 border-primary flex items-center gap-3">
+      {leagueLogo && (
+        <Image
+          src={leagueLogo}
+          alt={`Logo de ${league.name}`}
+          width={44}
+          quality={70}
+          format="webp"
+          class="h-9 w-9 object-contain"
+        />
+      )}
+      <span>
+        Domestic League
+        <span class="text-base font-medium text-text-muted"> · Division {league.division}</span>
+      </span>
     </h2>
     <span class="text-sm text-text-muted">Season {league.season}</span>
   </div>

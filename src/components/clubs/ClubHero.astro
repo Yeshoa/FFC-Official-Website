@@ -5,6 +5,7 @@ import { Image } from 'astro:assets';
 import type { Club } from '@data/clubs';
 import type { Member } from '@ty/collections';
 import { ROUTES } from '@config/routes';
+import { resolveImage } from '@utils/imageAssets';
 import StarsDisplay from '@components/ui/StarsDisplay.astro';
 
 interface Props {
@@ -17,6 +18,7 @@ interface Props {
 const { club, federation, rating, stars } = Astro.props;
 const primary = club.colors?.primary ?? '#95ff00';
 const secondary = club.colors?.secondary ?? '#00ff95';
+const logo = resolveImage(club.logoPath);
 ---
 
 <section class="club-hero relative overflow-hidden bg-gradient-to-br from-cl-black via-black to-cl-black text-white">
@@ -30,9 +32,9 @@ const secondary = club.colors?.secondary ?? '#00ff95';
           class="w-36 h-36 rounded-2xl border-2 flex items-center justify-center shadow-2xl"
           style={{ backgroundColor: `${primary}18`, borderColor: primary }}
         >
-          {club.logoPath ? (
+          {logo ? (
             <Image
-              src={club.logoPath}
+              src={logo}
               alt={`Logo de ${club.name}`}
               width={160}
               loading="eager"
