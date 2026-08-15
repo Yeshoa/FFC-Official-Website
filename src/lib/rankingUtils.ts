@@ -272,7 +272,7 @@ export async function getRankedMembers(
       .map(async (member) => {
   const result = await getMemberScoreDetails(member, currentSeason);
         return {
-          slug: result.member.id,
+          slug: result.member.slug,
           name: result.member.name,
           code: result.member.code,
           flag: result.member.flag,

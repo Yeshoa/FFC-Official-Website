@@ -1,4 +1,5 @@
 import Trophy from '@images/achievements/king.webp';
+import { getPrizePlayerName } from 'src/utils/playerUtils';
 import type { AchievementDefinition, AchievementResult } from '../types';
 import type { Category } from '../utils';
 import { ALIGNMENTS, type Subcategory } from '../utils';
@@ -44,7 +45,7 @@ export const awardAchievements: AchievementDefinition[] = [
       const { tournaments, member } = context;
       const tour = tournaments.find(t => t.data.prizes?.bestPlayer && objectPrizeMatches(t.data.prizes.bestPlayer, member.data.id, member.data.name));
       if (!tour) return null;
-      const player = tour.data.prizes!.bestPlayer!.player;
+      const player = getPrizePlayerName(tour.data.prizes!.bestPlayer!);
       return achieved(this, {
         description: `Player ${player} won the Golden Ball in FC ${tour.data.season}.`
       });
@@ -67,7 +68,7 @@ export const awardAchievements: AchievementDefinition[] = [
       const { tournaments, member } = context;
       const tour = tournaments.find(t => t.data.prizes?.bestGoalkeeper && objectPrizeMatches(t.data.prizes.bestGoalkeeper, member.data.id, member.data.name));
       if (!tour) return null;
-      const player = tour.data.prizes!.bestGoalkeeper!.player;
+      const player = getPrizePlayerName(tour.data.prizes!.bestGoalkeeper!);
       return achieved(this, {
         description: `Player ${player} won the Golden Glove in FC ${tour.data.season}.`
       });
@@ -90,7 +91,7 @@ export const awardAchievements: AchievementDefinition[] = [
       const { tournaments, member } = context;
       const tour = tournaments.find(t => topScorerMatches(t, member.data.id, member.data.name));
       if (!tour) return null;
-      const player = tour.data.prizes!.topScorer!.player;
+      const player = getPrizePlayerName(tour.data.prizes!.topScorer![0]);
       return achieved(this, {
         description: `Player ${player} won the Golden Boot in FC ${tour.data.season}.`
       });

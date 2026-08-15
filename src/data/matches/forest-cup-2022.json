@@ -137,7 +137,8 @@
         "team": "Cat-Herders United",
         "player": "Garfield",
         "minute": 53,
-        "penalty": false
+        "penalty": false,
+        "playerId": "950"
       }
     ],
     "team1Code": "CHU",
@@ -230,19 +231,22 @@
         "team": "Reannia",
         "player": "D. Vela",
         "minute": 7,
-        "penalty": false
+        "penalty": false,
+        "playerId": "951"
       },
       {
         "team": "Reannia",
         "player": "J. Carmona",
         "minute": 12,
-        "penalty": false
+        "penalty": false,
+        "playerId": "952"
       },
       {
         "team": "Reannia",
         "player": "J. Carmona",
         "minute": 51,
-        "penalty": false
+        "penalty": false,
+        "playerId": "952"
       }
     ],
     "team1Code": "REA",
@@ -372,7 +376,8 @@
         "team": "Cat-Herders United",
         "player": "J. L. Meowri",
         "minute": 64,
-        "penalty": false
+        "penalty": false,
+        "playerId": "953"
       }
     ],
     "team1Code": "ATS",
@@ -515,13 +520,15 @@
         "team": "Reannia",
         "player": "J. Carmona",
         "minute": 34,
-        "penalty": false
+        "penalty": false,
+        "playerId": "952"
       },
       {
         "team": "Reannia",
         "player": "D. Vela",
         "minute": 75,
-        "penalty": false
+        "penalty": false,
+        "playerId": "951"
       }
     ],
     "team1Code": "REA",
@@ -635,7 +642,8 @@
         "player": "J. L. Meowri",
         "minute": 45,
         "aggregate": 2,
-        "penalty": false
+        "penalty": false,
+        "playerId": "953"
       }
     ],
     "team1Code": "CHU",
@@ -802,19 +810,22 @@
         "team": "Reannia",
         "player": "J. Carmona",
         "minute": 8,
-        "penalty": false
+        "penalty": false,
+        "playerId": "952"
       },
       {
         "team": "Reannia",
         "player": "S. Sterling",
         "minute": 37,
-        "penalty": false
+        "penalty": false,
+        "playerId": "954"
       },
       {
         "team": "Reannia",
         "player": "S. Sterling",
         "minute": 67,
-        "penalty": false
+        "penalty": false,
+        "playerId": "954"
       }
     ],
     "team1Code": "KAS",
@@ -1011,7 +1022,8 @@
         "team": "Reannia",
         "player": "S. Sterling",
         "minute": 9,
-        "penalty": false
+        "penalty": false,
+        "playerId": "954"
       },
       {
         "team": "Roless",
@@ -1025,13 +1037,15 @@
         "team": "Reannia",
         "player": "D. Vela",
         "minute": 77,
-        "penalty": false
+        "penalty": false,
+        "playerId": "951"
       },
       {
         "team": "Reannia",
         "player": "S. Sterling",
         "minute": 82,
-        "penalty": false
+        "penalty": false,
+        "playerId": "954"
       }
     ],
     "team1Code": "REA",
@@ -1103,7 +1117,8 @@
         "team": "Reannia",
         "player": "D. Vela",
         "minute": 23,
-        "penalty": false
+        "penalty": false,
+        "playerId": "951"
       },
       {
         "team": "Atsvea",

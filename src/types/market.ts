@@ -6,13 +6,17 @@ export type MarketRole = 'GK' | 'DEF' | 'MID' | 'FWD';
 export interface MarketPlayer {
   id: string; // id dentro del mercado
   playerId?: number; // id global en players.json si el jugador existe
-  name: string;
+  name: string; // nombre compuesto (display en listas)
+  firstName?: string;
+  lastName?: string;
   position: string; // posición natural
   role: MarketRole; // derivado de position
   nationality?: string; // código de federación (bandera)
   flagUrl?: string; // URL servida de la bandera (resuelta en frontmatter)
   club?: string; // club actual (display)
   age?: number;
+  form?: number; // 0-100, factor de precio
+  perks?: number[]; // ids de perks (ver @data/perks)
   price: number; // precio de compra (millones)
   skills: Partial<Record<SkillId, number>>;
 }

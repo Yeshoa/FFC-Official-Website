@@ -1,4 +1,5 @@
 import playersData from './players.json';
+import type { Position } from '@config/positions';
 
 export type SkillId =
   | 'shortRange' | 'mediumRange' | 'longRange'
@@ -22,13 +23,21 @@ export interface PlayerTeamEntry {
 
 export interface Player {
   id: number;
-  name: string;
+  firstName: string;
+  lastName: string;
   position: string;
   nationality: string;
   nationalityId?: number; // id global del miembro (fuente de verdad)
   birthdate?: string | null;
   age?: number; // para precios de mercado (fallback si no hay birthdate)
   birthplace?: { city?: string | null; state?: string | null };
+  height?: number; // centímetros (puede modular el juego aéreo en el simulador)
+  foot?: 'left' | 'right'; // pierna buena
+  form?: number; // 0-100, forma actual (factor de precio)
+  playingStyle?: string; // estilo de juego (nombre)
+  positions?: Position[]; // posiciones secundarias (incluye la principal)
+  perks?: number[]; // ids de perks (ver @data/perks)
+  pesId?: number; // id PES original (trazabilidad de la migración)
   skills: Partial<Record<SkillId, number>>;
   teams: PlayerTeamEntry[];
   stars?: { overall: number };
@@ -58,6 +67,11 @@ export function getPlayerById(id: number | string): Player | null {
   const num = typeof id === 'number' ? id : Number(id);
   if (Number.isNaN(num)) return null;
   return byId.get(num) ?? null;
+}
+
+// Nombre compuesto "Nombre Apellido" (antes campo `name`; ahora derivado).
+export function getPlayerName(player: Pick<Player, 'firstName' | 'lastName'>): string {
+  return [player.firstName, player.lastName].filter(Boolean).join(' ');
 }
 
 // Retirado 100% = flag explícito `retired` o ninguna entrada de teams[] con status 'active'.

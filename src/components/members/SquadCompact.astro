@@ -5,7 +5,7 @@
 // Tabla de 2 columnas: jugador | club (selección) / nacionalidad (club).
 import { Image } from 'astro:assets';
 import type { Player } from '@data/players/index';
-import { loadCurrentSquad, loadCurrentSquadByTeamId } from '@data/players';
+import { getPlayerName, loadCurrentSquad, loadCurrentSquadByTeamId } from '@data/players';
 import {
   computePlayerRating,
   computeTeamRating,
@@ -101,7 +101,7 @@ rows.sort(
   (a, b) =>
     ROLE_ORDER[a.role] - ROLE_ORDER[b.role] ||
     a.position.localeCompare(b.position) ||
-    a.player.name.localeCompare(b.player.name),
+    getPlayerName(a.player).localeCompare(getPlayerName(b.player)),
 );
 
 const teamRating = computeTeamRating(squad);
@@ -154,7 +154,7 @@ const teamStars = teamRatingToStars(teamRating);
                       >
                         {position}
                       </span>
-                      <span class="font-medium text-white">{player.name}</span>
+                      <span class="font-medium text-white">{getPlayerName(player)}</span>
                       {rating > 0 && (
                         <span
                           class="inline-flex items-center rounded px-1.5 py-0.5 text-xs font-bold"

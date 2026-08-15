@@ -118,7 +118,7 @@ Posibilidades:
 >     { "playerId": 150, "name": "S. Blair", "position": "CF", "usedAs": "CB", "rating": 62, "price": 15 }
 >   ],
 >   "starters": [ { "playerId": 24, "name": "A. Arhanv", "position": "GK", "usedAs": "GK", "rating": 77, "price": 12 }, null ],
->   "bench": [ null, { "playerId": 28, "name": "Hajan", "position": "CAM", "usedAs": "CAM", "rating": 79, "price": 13 } ],
+>   "bench": [ null, { "playerId": 28, "name": "Hajan", "position": "AM", "usedAs": "AM", "rating": 79, "price": 13 } ],
 >   "reservas": [ null ]
 > }
 > ```

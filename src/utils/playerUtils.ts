@@ -6,28 +6,32 @@
  */
 
 import type { CollectionEntry } from 'astro:content';
-import { getPlayerById } from '@data/players/index';
+import { getPlayerById, getPlayerName } from '@data/players/index';
 
 export type Match = CollectionEntry<'matches'>['data'];
 
 /**
  * Get player name from a goal entry
- * Uses playerId if available, otherwise falls back to player name
+ * Prefiere el perfil (playerId → firstName/lastName); cae al nombre guardado solo si no hay id.
  * @param goal Goal object from match data
- * @param teamCode Team code for lookups
  * @returns Player name or empty string
  */
-export function getGoalPlayerName(goal: Match['goals'][0], teamCode?: string): string {
-  if (goal.player) {
-    return goal.player;
-  }
-  
-  if (goal.playerId && teamCode) {
+export function getGoalPlayerName(goal: Match['goals'][0]): string {
+  if (goal.playerId) {
     const player = getPlayerById(goal.playerId);
-    return player?.name || goal.player || '';
+    if (player) return getPlayerName(player);
   }
-  
-  return '';
+
+  return goal.player ?? '';
+}
+
+// Nombre de un ganador de premio (prizes de torneo): perfil si hay playerId, si no el guardado.
+export function getPrizePlayerName(prize: { player?: string; playerId?: number }): string {
+  if (prize.playerId != null) {
+    const player = getPlayerById(prize.playerId);
+    if (player) return getPlayerName(player);
+  }
+  return prize.player ?? '';
 }
 
 /**
@@ -172,7 +176,7 @@ export function getTopScorers(matches: Match[], limit: number = 10): Array<{
     if (!match.goals || match.status !== 'played') continue;
     
     for (const goal of match.goals) {
-      if (!goal.player) continue;
+      if (!goal.player && !goal.playerId) continue;
       
       const key = goal.playerId || goal.player;
       
@@ -182,7 +186,7 @@ export function getTopScorers(matches: Match[], limit: number = 10): Array<{
       } else {
         scorers.set(key, {
           playerId: goal.playerId,
-          playerName: goal.player,
+          playerName: getGoalPlayerName(goal),
           goals: 1
         });
       }

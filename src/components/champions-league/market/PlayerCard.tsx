@@ -2,6 +2,7 @@ import { computePlayerRating, ratingToStars, ovrRatingColor } from '@config/rati
 import { SKILL_CATEGORIES, skillCategoryValue } from '@config/skills';
 import { positionToRole } from '@config/positions';
 import { formatPrice } from '@config/market';
+import { getPerksByIds } from '@data/perks';
 import type { MarketPlayer } from '@ty/market';
 
 interface Props {
@@ -19,7 +20,9 @@ export default function PlayerCard({ player, usedPosition }: Props) {
     ...c,
     value: skillCategoryValue(player.skills, c, isGK),
   }));
-  const name = player.name.toUpperCase();
+  const perks = getPerksByIds(player.perks);
+  const firstName = (player.firstName ?? '').toUpperCase();
+  const lastName = (player.lastName ?? '').toUpperCase();
 
   const fullStars = Math.floor(stars);
   const hasHalf = stars - fullStars >= 0.5;
@@ -86,7 +89,8 @@ export default function PlayerCard({ player, usedPosition }: Props) {
               {player.nationality.toUpperCase()}
             </span>
           )}
-          <span className="text-[12px] font-black leading-tight tracking-wide">{name}</span>
+          <span className="text-[8px] tracking-[0.2em] text-white/70 leading-none">{firstName || ' '}</span>
+          <span className="text-[12px] font-black leading-tight tracking-wide">{lastName || ' '}</span>
         </div>
 
         {/* Estrellitas (centradas sobre los stats) */}
@@ -110,6 +114,20 @@ export default function PlayerCard({ player, usedPosition }: Props) {
             </div>
           ))}
         </div>
+
+        {/* Perks */}
+        {perks.length > 0 && (
+          <div className="mt-1 flex items-center justify-center gap-1">
+            {perks.map((pk) => (
+              <span
+                key={pk.id}
+                title={`${pk.name} — ${pk.description}`}
+                className="w-4 h-4 inline-block"
+                dangerouslySetInnerHTML={{ __html: pk.image }}
+              />
+            ))}
+          </div>
+        )}
 
         <div className="mt-1 text-center text-[11px] font-bold text-cl-lime">{formatPrice(player.price)}</div>
       </div>

@@ -4,6 +4,7 @@ import { Image } from 'astro:assets';
 import { CURRENT_TOURNAMENT_ID, getTeamPositionInTournament, getTeamByPosition, getFinalResult, getThirdPlaceResult, getTournamentUrl } from 'src/utils/tournamentUtils';
 import { getMemberByName } from 'src/utils/memberUtils';
 import { getMatchResult } from 'src/utils/matchUtils';
+import { getPrizePlayerName } from 'src/utils/playerUtils';
 import Title from '@components/Title.astro';
 
 interface Props {
@@ -32,12 +33,13 @@ const tournamentData = await Promise.all(
     const thirdPlaceResult = await getThirdPlaceResult(tournament);
     const prizes = tournament.data.prizes;
     const bestPlayer = prizes?.bestPlayer
-      ? { ...prizes.bestPlayer, member: await getMemberByName(prizes.bestPlayer.team) }
+      ? { ...prizes.bestPlayer, playerName: getPrizePlayerName(prizes.bestPlayer), member: await getMemberByName(prizes.bestPlayer.team) }
       : null;
     const topScorers = Array.isArray(prizes?.topScorer) && prizes?.topScorer.length > 0
       ? await Promise.all(
           prizes.topScorer.map(async (scorer) => ({
             ...scorer,
+            playerName: getPrizePlayerName(scorer),
             member: await getMemberByName(scorer.team),
           }))
         )
@@ -160,7 +162,7 @@ const title = type === 'forest-cup' ? 'Forest Cup History' : 'Forestian Champion
                   {bestPlayer.member?.data?.flagPath && (
                     <Image src={bestPlayer.member.data.flagPath} alt={bestPlayer.member.data.name} height={14} class="rounded-sm object-cover max-h-4" loading="lazy" quality={10} format="webp" />
                   )}
-                  <span class="ml-1 truncate">{bestPlayer.player}</span>
+                  <span class="ml-1 truncate">{bestPlayer.playerName}</span>
                 </div>
               ) : (
                 <span class="text-text-muted italic">N/A</span>
@@ -175,7 +177,7 @@ const title = type === 'forest-cup' ? 'Forest Cup History' : 'Forestian Champion
                       {top.member?.data?.flagPath && (
                         <Image src={top.member.data.flagPath} alt={top.member.data.name} width={20} height={14} class="rounded-sm object-cover max-h-4" loading="lazy" quality={10} format="webp" />
                       )}
-                      <span class="ml-1 truncate">{top.player}</span>
+                      <span class="ml-1 truncate">{top.playerName}</span>
                       <span class="ml-1 text-primary-light font-bold">({top.goals})</span>
                     </div>
                   );

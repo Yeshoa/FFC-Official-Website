@@ -6,20 +6,23 @@ import type { MarketRole } from '@ty/market';
 
 export const MIN_PRICE = 0.001; // 1K en millones
 
-// Base por overall (thresholds ajustables).
+// Base por overall (thresholds ajustables, escala nueva de rating).
 export const RATING_PRICE: { min: number; price: number }[] = [
   { min: 0, price: 0.001 },
-  { min: 50, price: 1 },
-  { min: 55, price: 2 },
-  { min: 60, price: 3.5 },
-  { min: 65, price: 6 },
-  { min: 70, price: 9 },
-  { min: 75, price: 15 },
-  { min: 80, price: 24 },
-  { min: 85, price: 38 },
-  { min: 90, price: 55 },
-  { min: 95, price: 80 },
-  { min: 100, price: 100 },
+  { min: 20, price: 0.5 },
+  { min: 28, price: 1.5 },
+  { min: 35, price: 4 },
+  { min: 42, price: 7 },
+  { min: 48, price: 11 },
+  { min: 54, price: 16 },
+  { min: 60, price: 24 },
+  { min: 66, price: 34 },
+  { min: 72, price: 48 },
+  { min: 78, price: 65 },
+  { min: 84, price: 85 },
+  { min: 90, price: 110 },
+  { min: 95, price: 140 },
+  { min: 100, price: 180 },
 ];
 
 // Curva de edad: joven con potencial sale caro, pico 23-27, declive después.
@@ -53,19 +56,41 @@ export function injuryFactor(injuryResistance: number | undefined): number {
   return 0.9 + v / 500;
 }
 
+// Form (0-100): 0 → 0.9, 100 → 1.1 (factor de forma actual).
+export const FORM_PRICE_RANGE = 0.2; // rango total (0.9-1.1), ajustable a mano
+export function formFactor(form: number | undefined): number {
+  if (typeof form !== 'number' || Number.isNaN(form)) return 1;
+  const f = Math.min(100, Math.max(0, form));
+  return 0.9 + (f / 100) * FORM_PRICE_RANGE;
+}
+
+// Perks: cada perk suma un % fijo al precio (boost configurable).
+export const PERK_PRICE_BOOST = 0.03; // +3% por perk
+export function perkFactor(perks: number[] | undefined): number {
+  return 1 + (perks?.length ?? 0) * PERK_PRICE_BOOST;
+}
+
 export interface MarketPriceInput {
   rating: number;
   age?: number | null;
   position: string;
   injuryResistance?: number;
+  form?: number;
+  perks?: number[];
 }
 
 // Calcula el precio en millones (mínimo 1K, pasos de 50K).
-export function computeMarketPrice({ rating, age, position, injuryResistance }: MarketPriceInput): number {
+export function computeMarketPrice({ rating, age, position, injuryResistance, form, perks }: MarketPriceInput): number {
   const role = positionToRole(position);
   let base = RATING_PRICE[0].price;
   for (const t of RATING_PRICE) if (rating >= t.min) base = t.price;
-  const raw = base * ageFactor(age) * (POSITION_FACTOR[role] ?? 1) * injuryFactor(injuryResistance);
+  const raw =
+    base *
+    ageFactor(age) *
+    (POSITION_FACTOR[role] ?? 1) *
+    injuryFactor(injuryResistance) *
+    formFactor(form) *
+    perkFactor(perks);
   return Math.max(MIN_PRICE, Math.round(raw * 20) / 20);
 }
 

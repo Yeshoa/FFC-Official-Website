@@ -2,6 +2,7 @@ import { type CollectionEntry } from 'astro:content';
 import { getTournaments, getMatches } from '@lib/collections';
 import { getMatchResult, getMatchWinnerIncludingPenaltiesId } from './matchUtils';
 import { getMemberById } from './memberUtils';
+import { getGoalPlayerName } from './playerUtils';
 import type { Tournament } from '@ty/collections';
 import { getMatchesByTournament } from '@lib/collections';
 import { CURRENT_SEASON } from '@config/season';
@@ -115,14 +116,17 @@ export async function getTopScorerOfTeamInTournament(
     return match.data.goals.filter(goal => goal.team === teamName && goal.player);
   });
 
-  const scorerMap: Record<string, number> = {};
+  const scorerMap: Record<string, { count: number; name: string }> = {};
   for (const goal of relevantGoals) {
-    if (!goal.player) continue;
-    scorerMap[goal.player] = (scorerMap[goal.player] || 0) + 1;
+    if (!goal.player && !goal.playerId) continue;
+    const key = goal.playerId ?? goal.player;
+    const entry = scorerMap[key] ?? { count: 0, name: getGoalPlayerName(goal) };
+    entry.count++;
+    scorerMap[key] = entry;
   }
 
-  const top = Object.entries(scorerMap).sort((a, b) => b[1] - a[1])[0];
-  return top ? `${top[0]} (${top[1]})` : '';
+  const top = Object.entries(scorerMap).sort((a, b) => b[1].count - a[1].count)[0];
+  return top ? `${top[1].name} (${top[1].count})` : '';
 }
 
 /* export async function getTeamPositionInTournament(

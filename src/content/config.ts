@@ -61,10 +61,10 @@ const tournamentsCollection = defineCollection({
     heroImg: image().optional(), // Imágen para Tournament Hero
     cardImg: image().optional(), // Imágen para Tournament Card
     prizes: z.object({ // Estructura más detallada para premios
-      topScorer: z.array(z.object({ player: z.string(), team: z.string(), goals: z.number(), teamId: z.number().optional() })).optional(),
-      bestPlayer: z.object({ player: z.string(), team: z.string(), teamId: z.number().optional() }).optional(),
-      bestGoalkeeper: z.object({ player: z.string(), team: z.string(), teamId: z.number().optional() }).optional(),
-      bestGoal: z.object({ player: z.string(), team: z.string(), teamId: z.number().optional() }).optional(),
+      topScorer: z.array(z.object({ player: z.string(), team: z.string(), goals: z.number(), teamId: z.number().optional(), playerId: z.number().optional() })).optional(),
+      bestPlayer: z.object({ player: z.string(), team: z.string(), teamId: z.number().optional(), playerId: z.number().optional() }).optional(),
+      bestGoalkeeper: z.object({ player: z.string(), team: z.string(), teamId: z.number().optional(), playerId: z.number().optional() }).optional(),
+      bestGoal: z.object({ player: z.string(), team: z.string(), teamId: z.number().optional(), playerId: z.number().optional() }).optional(),
     }).optional(),
   }),
 });

@@ -27,6 +27,9 @@ const interactive = process.stdin.isTTY && !strict;
 const norm = (s) =>
   String(s ?? '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
 
+// Nombre compuesto del jugador (antes campo `name`, ahora derivado de firstName/lastName).
+const playerNameOf = (p) => [p.firstName, p.lastName].filter(Boolean).join(' ');
+
 // ── Índices ──────────────────────────────────────────────────────────────
 const byTeamId = new Map();
 const byTeamCode = new Map();
@@ -148,7 +151,24 @@ async function resolveRef(file, ctx, teamRef, playerName, assign) {
   }
 
   const q = norm(playerName);
-  const exact = roster.filter((p) => norm(p.name) === q);
+  const matches = (p) => {
+    const full = norm(playerNameOf(p));
+    const last = norm(p.lastName ?? '');
+    if (full === q) return true;
+    if (last === '') return false;
+    if (last === q) return true;
+    const refTokens = q.split(' ').filter(Boolean);
+    return refTokens[refTokens.length - 1] === last;
+  };
+  let exact = roster.filter(matches);
+  // Desempate de homónimos por inicial de la ref ("O. Vydra" → Ote Vydra, no Lutra).
+  if (exact.length > 1) {
+    const refInitial = (q.match(/^([a-z])\. /) || [])[1] ?? null;
+    if (refInitial) {
+      const byInitial = exact.filter((p) => norm(p.firstName ?? '')[0] === refInitial);
+      if (byInitial.length > 0) exact = byInitial;
+    }
+  }
 
   if (exact.length === 1) {
     assign(String(exact[0].id));
@@ -159,7 +179,7 @@ async function resolveRef(file, ctx, teamRef, playerName, assign) {
     const lines = exact
       .map((p) => {
         const te = teamEntry(p, teamRef);
-        return `    ${p.id} · ${p.name} · ${p.position} · dorsal ${te?.number ?? 'sin dorsal'} · ${te?.status ?? '?'}`;
+        return `    ${p.id} · ${playerNameOf(p)} · ${p.position} · dorsal ${te?.number ?? 'sin dorsal'} · ${te?.status ?? '?'}`;
       })
       .join('\n');
     if (interactive) {
@@ -171,23 +191,23 @@ async function resolveRef(file, ctx, teamRef, playerName, assign) {
         return;
       }
     } else {
-      console.warn(`  ! [homónimo] ${ctx}: "${playerName}" -> ${exact.map((p) => p.id + ':' + p.name).join(', ')}`);
+      console.warn(`  ! [homónimo] ${ctx}: "${playerName}" -> ${exact.map((p) => p.id + ':' + playerNameOf(p)).join(', ')}`);
     }
     report.homonymsSkipped++;
-    report.unresolved.push({ file, ctx, team: teamRef.name, name: playerName, reason: 'homónimo sin resolver', candidates: exact.map((p) => p.id + ' ' + p.name) });
+    report.unresolved.push({ file, ctx, team: teamRef.name, name: playerName, reason: 'homónimo sin resolver', candidates: exact.map((p) => p.id + ' ' + playerNameOf(p)) });
     return;
   }
 
   report.noMatch++;
   const suggestions = roster.filter((p) => {
-    const n = norm(p.name);
+    const n = norm(playerNameOf(p));
     return n !== q && (n.includes(q) || q.includes(n));
   });
   report.unresolved.push({
     file, ctx, team: teamRef.name, name: playerName, reason: 'sin match',
-    suggestions: suggestions.map((p) => p.id + ':' + p.name),
+    suggestions: suggestions.map((p) => p.id + ':' + playerNameOf(p)),
   });
-  const hint = suggestions.length > 0 ? ` (¿quizás ${suggestions.map((p) => p.id + ':' + p.name).join(', ')}?)` : '';
+  const hint = suggestions.length > 0 ? ` (¿quizás ${suggestions.map((p) => p.id + ':' + playerNameOf(p)).join(', ')}?)` : '';
   console.warn(`  ? ${ctx}: "${playerName}" no matchea ningún jugador de ${teamRef.name}${hint}`);
 }
 
@@ -361,7 +381,7 @@ if (strict && report.unresolved.length > 0) {
 }
 
 if (missingSkills.length > 0) {
-  const examples = missingSkills.slice(0, 3).map((p) => `${p.id} ${p.name}`).join(', ');
+  const examples = missingSkills.slice(0, 3).map((p) => `${p.id} ${playerNameOf(p)}`).join(', ');
   const msg = `\nWARN: ${missingSkills.length}/${players.length} jugadores sin TODAS las habilidades: ${examples}...`;
   if (strict) {
     console.error(msg);

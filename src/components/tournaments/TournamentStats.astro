@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 import { getMemberByName } from 'src/utils/memberUtils'; 
+import { getGoalPlayerName, getPrizePlayerName } from 'src/utils/playerUtils';
 import type { CollectionEntry } from 'astro:content';
 import Title from '@components/Title.astro';
 
@@ -24,65 +25,44 @@ for (const match of playedMatches) { // Solo procesar partidos jugados
   for (const goal of match.data.goals) {
     totalGoals++; // Contar cada gol para las estadísticas globales
 
-    const key = `${goal.player}-${goal.team}`;
+    const key = `${goal.playerId ?? goal.player}-${goal.team}`;
+    const assistKey = goal.assist ? `${goal.assistId ?? goal.assist}-${goal.team}` : null;
+    const goalName = getGoalPlayerName(goal);
+    const assistName = assistKey
+      ? getGoalPlayerName({ ...goal, player: goal.assist, playerId: goal.assistId })
+      : '';
 
     // Goleadores (ignorar autogoles para la tabla de goleadores)
     if (!goal.ownGoal) {
       if (!goalStats.has(key)) {
-        goalStats.set(key, {
-          player: goal.player,
-          team: goal.team,
-          goals: 1,
-          assists: 0, // Inicializar asistencias para este jugador
-        });
+        goalStats.set(key, { player: goalName, team: goal.team, goals: 1, assists: 0 });
       } else {
         const entry = goalStats.get(key)!;
         entry.goals++;
       }
       // Si el asistente ya está en goalStats, sumar su asistencia (aunque no haya marcado gol aún)
-      if (goal.assist) {
-         const assistKey = `${goal.assist}-${goal.team}`;
-         if (goalStats.has(assistKey)) {
-           goalStats.get(assistKey)!.assists++;
-         }
-         // Si el asistente NO está en goalStats aún (ej. solo dio asistencias), añadirlo
-         else if (!goalStats.has(assistKey)) {
-            goalStats.set(assistKey, {
-              player: goal.assist,
-              team: goal.team,
-              goals: 0,
-              assists: 1,
-            });
-         }
+      if (assistKey) {
+        if (goalStats.has(assistKey)) goalStats.get(assistKey)!.assists++;
+        // Si el asistente NO está en goalStats aún (ej. solo dio asistencias), añadirlo
+        else goalStats.set(assistKey, { player: assistName, team: goal.team, goals: 0, assists: 1 });
       }
     }
 
     // Asistencias (contar asistencias aunque el gol sea en propia puerta, si se especifica)
-    if (goal.assist) {
-      const assistKey = `${goal.assist}-${goal.team}`;
+    if (assistKey) {
       if (!assistStats.has(assistKey)) {
-        assistStats.set(assistKey, {
-          player: goal.assist,
-          team: goal.team,
-          assists: 1,
-          goals: 0, // Inicializar goles para este jugador
-        });
+        assistStats.set(assistKey, { player: assistName, team: goal.team, assists: 1, goals: 0 });
       } else {
         const entry = assistStats.get(assistKey)!;
         entry.assists++;
       }
-       // Si el goleador ya está en assistStats, sumar su gol (aunque no haya asistido aún)
+      // Si el goleador ya está en assistStats, sumar su gol (aunque no haya asistido aún)
       if (!goal.ownGoal && assistStats.has(key)) {
-         assistStats.get(key)!.goals++;
+        assistStats.get(key)!.goals++;
       }
-       // Si el goleador NO está en assistStats aún (ej. solo marcó goles), añadirlo
+      // Si el goleador NO está en assistStats aún (ej. solo marcó goles), añadirlo
       else if (!goal.ownGoal && !assistStats.has(key)) {
-        assistStats.set(key, {
-          player: goal.player,
-          team: goal.team,
-          assists: 0,
-          goals: 1,
-        });
+        assistStats.set(key, { player: goalName, team: goal.team, assists: 0, goals: 1 });
       }
     }
   }
@@ -128,13 +108,14 @@ const bestGoalkeeper = prizes?.bestGoalkeeper;
 const bestGoal = prizes?.bestGoal;
 
 const resolvedPrizes = {
-  bestPlayer: bestPlayer ? { ...bestPlayer, member: await getMemberByName(bestPlayer.team) } : null,
-  bestGoalkeeper: bestGoalkeeper ? { ...bestGoalkeeper, member: await getMemberByName(bestGoalkeeper.team) } : null,
-  bestGoal: bestGoal ? { ...bestGoal, member: await getMemberByName(bestGoal.team) } : null,
+  bestPlayer: bestPlayer ? { ...bestPlayer, playerName: getPrizePlayerName(bestPlayer), member: await getMemberByName(bestPlayer.team) } : null,
+  bestGoalkeeper: bestGoalkeeper ? { ...bestGoalkeeper, playerName: getPrizePlayerName(bestGoalkeeper), member: await getMemberByName(bestGoalkeeper.team) } : null,
+  bestGoal: bestGoal ? { ...bestGoal, playerName: getPrizePlayerName(bestGoal), member: await getMemberByName(bestGoal.team) } : null,
   topScorers: await Promise.all(
     Array.isArray(officialTopScorers) && officialTopScorers
       ? officialTopScorers.map(async (s) => ({
           ...s,
+          playerName: getPrizePlayerName(s),
           member: await getMemberByName(s.team),
         }))
       : []
@@ -157,7 +138,7 @@ const statsCols = topAssisters.length > 0 ? "grid grid-cols-1 lg:grid-cols-3 gap
           <div class="flex items-center gap-2 p-2 rounded hover:bg-primary-deep/30 transition">
             <a href={`/members/${resolvedPrizes.bestPlayer.member.id}`} class="flex items-center gap-2 hover:underline">
               <Image src={resolvedPrizes.bestPlayer.member.data.flagPath} alt={resolvedPrizes.bestPlayer.member.data.name} class="w-6 h-4 object-cover rounded" height={16} quality={40} format='webp' loading={"lazy"}/>
-              <span class="font-medium">{resolvedPrizes.bestPlayer.player}</span> ({resolvedPrizes.bestPlayer.team})
+              <span class="font-medium">{resolvedPrizes.bestPlayer.playerName}</span> ({resolvedPrizes.bestPlayer.team})
             </a>
           </div>
         </div>
@@ -169,7 +150,7 @@ const statsCols = topAssisters.length > 0 ? "grid grid-cols-1 lg:grid-cols-3 gap
             <div class="flex items-center gap-2 mb-1 p-2 rounded hover:bg-primary-deep/30 transition">
               <a href={`/members/${scorer.member.id}`} class="flex items-center gap-2 hover:underline">
                 <Image src={scorer.member.data.flagPath} alt={scorer.member.data.name} class="w-6 h-4 object-cover rounded" height={16} quality={40} format='webp' loading={"lazy"}/>
-                <span class="font-medium">{scorer.player}</span> ({scorer.team})
+                <span class="font-medium">{scorer.playerName}</span> ({scorer.team})
               </a>
               <span class="ml-auto font-bold text-primary-light">{scorer.goals} Goals</span>
             </div>
@@ -182,7 +163,7 @@ const statsCols = topAssisters.length > 0 ? "grid grid-cols-1 lg:grid-cols-3 gap
            <div class="flex items-center gap-2 p-2 rounded hover:bg-primary-deep/30 transition">
               <a href={`/members/${resolvedPrizes.bestGoalkeeper.member.id}`} class="flex items-center gap-2 hover:underline">
                 <Image src={resolvedPrizes.bestGoalkeeper.member.data.flagPath} loading={"lazy"} alt={resolvedPrizes.bestGoalkeeper.member.data.name} class="w-6 h-4 object-cover rounded" height={16} quality={40} format='webp' />
-                <span class="font-medium">{resolvedPrizes.bestGoalkeeper.player}</span> ({resolvedPrizes.bestGoalkeeper.team})
+                <span class="font-medium">{resolvedPrizes.bestGoalkeeper.playerName}</span> ({resolvedPrizes.bestGoalkeeper.team})
               </a>
           </div>
         </div>
@@ -193,7 +174,7 @@ const statsCols = topAssisters.length > 0 ? "grid grid-cols-1 lg:grid-cols-3 gap
            <div class="flex items-center gap-2 p-2 rounded hover:bg-primary-deep/30 transition">
               <a href={`/members/${resolvedPrizes.bestGoal.member.id}`} class="flex items-center gap-2 hover:underline">
                 <Image src={resolvedPrizes.bestGoal.member.data.flagPath} loading={"lazy"} alt={resolvedPrizes.bestGoal.member.data.name} class="w-6 h-4 object-cover rounded" height={16} quality={40} format='webp' />
-                <span class="font-medium">{resolvedPrizes.bestGoal.player}</span> ({resolvedPrizes.bestGoal.team})
+                <span class="font-medium">{resolvedPrizes.bestGoal.playerName}</span> ({resolvedPrizes.bestGoal.team})
               </a>
           </div>
         </div>

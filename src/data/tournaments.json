@@ -217,23 +217,27 @@
           "player": "M. Dartmouth",
           "team": "Cacusia",
           "goals": 7,
-          "teamId": 5
+          "teamId": 5,
+          "playerId": 39
         }
       ],
       "bestPlayer": {
         "player": "D. Vela",
         "team": "Reannia",
-        "teamId": 3
+        "teamId": 3,
+        "playerId": 951
       },
       "bestGoalkeeper": {
         "player": "Ksatsthas",
         "team": "Atsvea",
-        "teamId": 6
+        "teamId": 6,
+        "playerId": 960
       },
       "bestGoal": {
         "player": "T. Wolf",
         "team": "Trebenia",
-        "teamId": 39
+        "teamId": 39,
+        "playerId": 204
       }
     },
     "hostId": 1,
@@ -355,23 +359,27 @@
           "player": "Nysnub",
           "team": "Atsvea",
           "goals": 9,
-          "teamId": 6
+          "teamId": 6,
+          "playerId": 15
         }
       ],
       "bestPlayer": {
         "player": "R. Tarasov",
         "team": "Nardin",
-        "teamId": 12
+        "teamId": 12,
+        "playerId": 133
       },
       "bestGoalkeeper": {
         "player": "I. Hans",
         "team": "Einswenn",
-        "teamId": 7
+        "teamId": 7,
+        "playerId": 552
       },
       "bestGoal": {
         "player": "I. Darrow",
         "team": "Cacusia",
-        "teamId": 5
+        "teamId": 5,
+        "playerId": 38
       }
     },
     "hostId": 11,
@@ -398,18 +406,21 @@
           "player": "O. Gro",
           "team": "Einswenn",
           "goals": 13,
-          "teamId": 7
+          "teamId": 7,
+          "playerId": 67
         }
       ],
       "bestPlayer": {
         "player": "O. Gro",
         "team": "Einswenn",
-        "teamId": 7
+        "teamId": 7,
+        "playerId": 67
       },
       "bestGoalkeeper": {
         "player": "E. Jadar",
         "team": "Bilsa",
-        "teamId": 1
+        "teamId": 1,
+        "playerId": 504
       }
     },
     "hostId": 5,
@@ -429,9 +440,18 @@
     "pots": [
       {
         "pot": 1,
-        "teams": ["Krulta BK", "Nordland FC"],
-        "teamCodes": ["KRA", "NOR"],
-        "teamIds": [97, 98]
+        "teams": [
+          "Krulta BK",
+          "Nordland FC"
+        ],
+        "teamCodes": [
+          "KRA",
+          "NOR"
+        ],
+        "teamIds": [
+          97,
+          98
+        ]
       }
     ]
   }

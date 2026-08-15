@@ -8,9 +8,9 @@ bueno a ver. primero arreglemos los filtros:
 Una caja 3x6 así (| es vacío)
 
 LWF - CF - RWF
-|-CAM-|
+|-AM-|
 LM-CM-RM
-|-CDM-|
+|-DM-|
 LB-CB-RB
 |-GK-|
 

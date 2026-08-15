@@ -10,6 +10,8 @@
     "players:link": "node scripts/players-link.mjs",
     "players:link:dry": "node scripts/players-link.mjs --dry-run",
     "players:link:strict": "node scripts/players-link.mjs --strict",
+    "players:import": "node scripts/import-pes-players.mjs",
+    "players:import:dry": "node scripts/import-pes-players.mjs --dry-run",
     "teams:link": "node scripts/teams-link.mjs"
   },
   "dependencies": {

@@ -2,7 +2,7 @@
 // Marketable = NO retirado 100%. Tengan o no club activo: un jugador con club también es comprable.
 // La elegibilidad por nacionalidad (mercado externo) se resuelve en el simulador según el club elegido.
 // Precio = marketPrice (override manual) o computeMarketPrice (formula rating×edad×posicion×lesiones).
-import { getAllPlayers, isPlayerRetired } from '@data/players';
+import { getAllPlayers, getPlayerName, isPlayerRetired } from '@data/players';
 import { computePlayerRating } from '@config/rating';
 import { positionToRole } from '@config/positions';
 import { computeMarketPrice } from '@config/market';
@@ -20,17 +20,23 @@ export function getMarketablePlayers(): MarketPlayer[] {
           age: p.age,
           position: p.position,
           injuryResistance: p.skills.injuryResistance,
+          form: p.form,
+          perks: p.perks,
         });
       const clubEntry = p.teams.find((t) => t.teamType === 'club' && t.status === 'active');
       return {
         id: `p-${p.id}`,
         playerId: p.id,
-        name: p.name,
+        name: getPlayerName(p),
+        firstName: p.firstName,
+        lastName: p.lastName,
         position: p.position,
         role: positionToRole(p.position),
         nationality: p.nationality,
         club: clubEntry?.teamCode,
         age: p.age,
+        form: p.form,
+        perks: p.perks,
         price,
         skills: p.skills,
       };

@@ -31,6 +31,7 @@ Documentación del proyecto **FFC (Forest Football Confederation) Official Websi
 | [[08-plan-implementacion]] | Plan de implementación por fases |
 | [[09-dudas]] | **Dudas y decisiones pendientes**: posibilidades y problemas que plantea el agente para que el dueño decida |
 | [[10-carga-de-goles]] | **Instructivo del dueño**: cómo cargar goles y eventos de partido correctamente + uso de `players:link` |
+| [[11-migracion-jugadores-pes]] | **Plan aprobado**: migración de los 832 jugadores del CSV PES (FC 2026) a `players.json` + campos nuevos (height, foot, form, playingStyle, positions) + perks |
 | [[Simulador/00-simulador]] | **Diseño objetivo (borrador, NO confirmado)**: simulador de partidos |
 | [[Simulador/Simulador - Idea]] | Brain-dump del dueño sobre el simulador (referencia) |
 
@@ -56,6 +57,7 @@ Documentación del proyecto **FFC (Forest Football Confederation) Official Websi
 16. **Navbar por sección**: la home es FC por defecto; al entrar a la sección CL cambia el navbar a la navegación CL. Verde CL `#95ff00` (secundario `#00ff95`).
 17. **Jugadores históricos**: snapshots por torneo en `data/players/historical` con **`playerId` global** (opcional si no existe) + **skills obligatorias** (ALL_SKILLS 0–100) para un futuro álbum de figuritas. Retiro por entrada `teams[].status`. Ver [[02-modelo-datos]] §2 y [[09-dudas]] §9.
 18. **Código de club = visual**: el `code` de los clubes es **solo display**, puede repetirse y no tiene reglas de formato; la **ruta** del club es un **`slug` derivado del nombre** (con sufijo numérico si hay duplicado). Ver [[02-modelo-datos]] §3.
+19. **Nombre de jugador separado**: `players.json` guarda **`firstName` + `lastName`** (sin campo `name`); el nombre compuesto se deriva con `getPlayerName(player)`. Los nombres de pila faltantes se generan por idioma de la nacionalidad (Bilsa/Stralla usan el generador bilsano). Ver [[11-migracion-jugadores-pes]].
 
 ---
 

@@ -105,7 +105,7 @@
 > **Hecho (B3, infraestructura — sin skills reales todavía):**
 > - `src/components/members/SquadCompact.astro`: plantel completo derivado de `players.json` (por `teamId` global, fallback `teamCode`), **2 columnas** (`# · [pos] nombre [OVR] estrellitas` | `club`/`nacionalidad` con banderita). Sin XI/titulares.
 > - `src/components/ui/StarsDisplay.astro`: primitiva de estrellas 0.5–6 (completas/medias/vacías), reutilizable (club hero en B4, ranking en B5).
-> - `src/config/positions.ts`: **12 posiciones canónicas** (`GK, CB, LB, RB, CM, CDM, CAM, RM, LM, CF, LW, RW`), `positionToRole` (mapa explícito, no heurística) y **colores de badge por rol** (GK=amarillo, DEF=azul, MID=verde, FWD=rojo). `ALL_SKILLS` (todas las habilidades).
+> - `src/config/positions.ts`: **12 posiciones canónicas** (`GK, CB, LB, RB, CM, DM, AM, RM, LM, CF, LW, RW`), `positionToRole` (mapa explícito, no heurística) y **colores de badge por rol** (GK=amarillo, DEF=azul, MID=verde, FWD=rojo). `ALL_SKILLS` (todas las habilidades).
 > - `src/config/rating.ts`: `computeTeamRating(squad)` (media 0–100, sin skills → 0) + `TEAM_RATING_TO_STARS` (tabla del dueño "Rating 2" escalada a 0–100 ÷1.6, **thresholds editables a mano**) + `teamRatingToStars`. **`OVR_RATING_COLORS`**: tabla de colores del badge de OVR (thresholds → color, más "wow" a mayor valor), **definida por el dueño** en este archivo.
 > - `src/data/players/index.ts`: `loadCurrentSquadByTeamId(teamId)` (id global como fuente de verdad).
 > - **Regla: todos los jugadores deben tener TODAS las skills** (sin importar posición); validada por `players:link`. Posiciones legacy (`FWD`/`ST`/null) normalizadas a `CF`.

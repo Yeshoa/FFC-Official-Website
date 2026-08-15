@@ -26,6 +26,7 @@
     "region": "Forest",
     "founded": 2002,
     "affiliation": 2024,
+    "allowsForeignMarket": true,
     "verified": true,
     "score": {
       "rp": {
@@ -114,6 +115,7 @@
     "flagPath": "/src/assets/images/members/bextoria_flag.png",
     "logoPath": "/src/assets/images/members/bextoria_logo.png",
     "region": "Forest",
+    "allowsForeignMarket": true,
     "affiliation": 2026,
     "verified": true
   },
@@ -253,6 +255,7 @@
     "region": "Forest",
     "founded": 1877,
     "affiliation": 2024,
+    "allowsForeignMarket": true,
     "verified": true,
     "founder": true,
     "score": {
@@ -420,6 +423,7 @@
     "flagPath": "/src/assets/images/members/chan_island_flag.webp",
     "logoPath": "/src/assets/images/members/chan_island_logo.png",
     "region": "Forest",
+    "allowsForeignMarket": true,
     "verified": true,
     "affiliation": 2026,
     "tierHistory": [
@@ -463,6 +467,7 @@
     "flagPath": "/src/assets/images/members/ctc_flag.png",
     "region": "Forest",
     "affiliation": 2024,
+    "allowsForeignMarket": true,
     "verified": true,
     "tierHistory": [
       {
@@ -573,6 +578,7 @@
     "region": "Forest",
     "founded": 2013,
     "affiliation": 2024,
+    "allowsForeignMarket": true,
     "verified": true,
     "founder": true,
     "score": {
@@ -803,6 +809,7 @@
     "logoPath": "/src/assets/images/members/garbelia_logo.png",
     "feddispatch": "https://forum.nationstates.net/viewtopic.php?p=38856080#p38856080",
     "region": "Forest",
+    "allowsForeignMarket": true,
     "affiliation": 2026,
     "verified": true
   },
@@ -843,6 +850,7 @@
     "region": "Forest",
     "founded": 2022,
     "affiliation": 2024,
+    "allowsForeignMarket": true,
     "verified": true,
     "founder": true,
     "score": {
@@ -1039,6 +1047,7 @@
     "logoPath": "/src/assets/images/members/mozolephies_logo.png",
     "region": "Forest",
     "affiliation": 2024,
+    "allowsForeignMarket": true,
     "verified": true,
     "tierHistory": [
       {
@@ -1377,6 +1386,7 @@
     "region": "Forest",
     "founded": 1986,
     "affiliation": 2024,
+    "allowsForeignMarket": true,
     "verified": true,
     "founder": true,
     "score": {
@@ -1528,6 +1538,7 @@
     "flagPath": "/src/assets/images/members/sehir_flag.png",
     "region": "Forest",
     "affiliation": 2024,
+    "allowsForeignMarket": true,
     "verified": true,
     "tierHistory": [
       {
@@ -1547,6 +1558,7 @@
     "region": "Forest",
     "founded": 2020,
     "affiliation": 2024,
+    "allowsForeignMarket": true,
     "verified": true,
     "founder": true,
     "manualAchievements": [
@@ -1617,6 +1629,7 @@
     "logoPath": "/src/assets/images/members/the_realizer_logo.png",
     "region": "Forest",
     "affiliation": 2024,
+    "allowsForeignMarket": true,
     "verified": true,
     "founder": true,
     "score": {
@@ -2032,6 +2045,7 @@
     "flagPath": "/src/assets/images/members/zylonox_flag.png",
     "logoPath": "/src/assets/images/members/zylonox_logo.png",
     "region": "Concord",
+    "allowsForeignMarket": true,
     "affiliation": 2026,
     "verified": false
   }

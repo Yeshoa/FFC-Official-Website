@@ -3,23 +3,23 @@ import type { SkillId } from '@data/players/index';
 // Vocabulario canónico de posiciones (Fase B3). Siglas en inglés, cerradas.
 export type Position =
   | 'GK' | 'CB' | 'LB' | 'RB'
-  | 'CM' | 'CDM' | 'CAM' | 'RM' | 'LM'
+  | 'CM' | 'DM' | 'AM' | 'RM' | 'LM'
   | 'CF' | 'LW' | 'RW';
 
 export const CANONICAL_POSITIONS: Position[] = [
   'GK', 'CB', 'LB', 'RB',
-  'CM', 'CDM', 'CAM', 'RM', 'LM',
+  'CM', 'DM', 'AM', 'RM', 'LM',
   'CF', 'LW', 'RW',
 ];
 
 export type Role = 'GK' | 'DEF' | 'MID' | 'FWD';
 
-// Mapa explícito posición → rol (reemplaza la heurística, que clasificaba mal CDM/LW/RW/CF).
+// Mapa explícito posición → rol (reemplaza la heurística, que clasificaba mal DM/LW/RW/CF).
 // Incluye siglas legacy (`FWD`/`ST`) para la transición hasta normalizar la data.
 const POSITION_ROLE: Record<string, Role> = {
   GK: 'GK',
   CB: 'DEF', LB: 'DEF', RB: 'DEF',
-  CM: 'MID', CDM: 'MID', CAM: 'MID', RM: 'MID', LM: 'MID',
+  CM: 'MID', DM: 'MID', AM: 'MID', RM: 'MID', LM: 'MID',
   CF: 'FWD', LW: 'FWD', RW: 'FWD',
   FWD: 'FWD', ST: 'FWD',
 };

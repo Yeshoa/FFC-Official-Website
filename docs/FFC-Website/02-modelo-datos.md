@@ -77,10 +77,10 @@ interface Player {
 |---------------------|------------|-------------|
 | Arquero (**amarillo**) | Arquero | `GK` |
 | Defensa (**azul/celeste**) | Defensa central · Lateral izq · Lateral der | `CB` · `LB` · `RB` |
-| Mediocampo (**verde**) | Mediocentro · Medio defensivo · Medio ofensivo · Medio por derecha · Medio por izquierda | `CM` · `CDM` · `CAM` · `RM` · `LM` |
+| Mediocampo (**verde**) | Mediocentro · Medio defensivo · Medio ofensivo · Medio por derecha · Medio por izquierda | `CM` · `DM` · `AM` · `RM` · `LM` |
 | Delantera (**rojo**) | Delantero centro · Extremo izq · Extremo der | `CF` · `LW` · `RW` |
 
-- Vocabulario cerrado de **12 posiciones** (`GK, CB, LB, RB, CM, CDM, CAM, RM, LM, CF, LW, RW`), definido en `src/config/positions.ts`.
+- Vocabulario cerrado de **12 posiciones** (`GK, CB, LB, RB, CM, DM, AM, RM, LM, CF, LW, RW`), definido en `src/config/positions.ts`.
 - El rol (y su color) se resuelve con `positionToRole(position)` (**mapa explícito**, no heurística): `GK`→amarillo · `DEF`→azul · `MID`→verde · `FWD`→rojo.
 - El badge de posición se muestra con **fondo del color del rol**.
 - Las antiguas siglas (`FWD`, `ST`, etc.) se normalizaron a este vocabulario (script de migración: `FWD`→`CF`, `ST`→`CF`).

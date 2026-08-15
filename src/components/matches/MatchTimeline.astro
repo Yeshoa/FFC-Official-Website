@@ -2,6 +2,7 @@
 // MatchTimeline: línea de tiempo de eventos (goles, tarjetas, cambios) por minuto.
 import type { CollectionEntry } from 'astro:content';
 import type { TeamView } from '@ty/matchDetail';
+import { getGoalPlayerName } from 'src/utils/playerUtils';
 import GoalIcon from '@images/icons/futbol-regular-full.svg';
 import PenaltyIcon from '@images/icons/penalty.svg';
 
@@ -28,11 +29,13 @@ interface TimelineEvent {
 const events: TimelineEvent[] = [];
 
 for (const g of m.goals ?? []) {
-  if (!g.player) continue;
+  if (!g.player && !g.playerId) continue;
   const teamKey = g.team === m.team1 ? 'team1' : g.team === m.team2 ? 'team2' : null;
   if (!teamKey) continue;
   const type: EventType = g.ownGoal ? 'own-goal' : g.penalty ? 'penalty-goal' : 'goal';
-  const text = g.player + (g.ownGoal ? ' (OG)' : '') + (g.assist ? ` · ${g.assist}` : '');
+  const scorer = getGoalPlayerName(g);
+  const assist = g.assist ? getGoalPlayerName({ ...g, player: g.assist, playerId: g.assistId }) : null;
+  const text = scorer + (g.ownGoal ? ' (OG)' : '') + (assist ? ` · ${assist}` : '');
   events.push({ minute: g.minute ?? 0, extra: g.aggregate, teamKey, teamName: teamKey === 'team1' ? team1.name : team2.name, type, text });
 }
 

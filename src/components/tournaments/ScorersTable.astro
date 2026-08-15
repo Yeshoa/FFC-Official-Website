@@ -5,6 +5,7 @@
 import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 import { getMemberByName, getTeamById, getTeamView } from 'src/utils/memberUtils';
+import { getGoalPlayerName } from 'src/utils/playerUtils';
 import { ROUTES } from '@config/routes';
 import type { Member } from '@ty/collections';
 import type { TeamView } from '@ty/matchDetail';
@@ -53,31 +54,31 @@ for (const match of filteredMatches) {
   if (!match.data.goals) continue;
 
   for (const goal of match.data.goals) {
-    if (singleTeam && goal.team !== singleTeam || goal.player === undefined) continue;
-    const key = `${goal.player}-${goal.team}`;
+    if (singleTeam && goal.team !== singleTeam || (goal.player === undefined && goal.playerId === undefined)) continue;
+    const goalKey = `${goal.playerId ?? goal.player}-${goal.team}`;
 
     if (!goal.ownGoal) {
-      if (!goalStats.has(key)) {
-        goalStats.set(key, {
-          player: goal.player,
+      if (!goalStats.has(goalKey)) {
+        goalStats.set(goalKey, {
+          player: getGoalPlayerName(goal),
           team: await resolveTeam(goal.team),
           goals: 1,
           assists: 0,
         });
       } else {
-        goalStats.get(key)!.goals++;
+        goalStats.get(goalKey)!.goals++;
       }
     }
 
-    if (assistStats.has(key)) {
-      assistStats.get(key)!.goals++;
+    if (assistStats.has(goalKey)) {
+      assistStats.get(goalKey)!.goals++;
     }
 
     if (goal.assist) {
-      const assistKey = `${goal.assist}-${goal.team}`;
+      const assistKey = `${goal.assistId ?? goal.assist}-${goal.team}`;
       if (!assistStats.has(assistKey)) {
         assistStats.set(assistKey, {
-          player: goal.assist,
+          player: getGoalPlayerName({ ...goal, player: goal.assist, playerId: goal.assistId }),
           team: await resolveTeam(goal.team),
           assists: 1,
           goals: 0,

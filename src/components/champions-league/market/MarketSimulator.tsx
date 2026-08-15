@@ -35,9 +35,9 @@ const ROLE_POS_BORDER: Record<MarketRole, string> = {
 // Cuadro de posiciones estilo cancha (3 columnas); null = hueco.
 const POSITION_ROWS: (string | null)[][] = [
   ['LW', 'CF', 'RW'],
-  [null, 'CAM', null],
+  [null, 'AM', null],
   ['LM', 'CM', 'RM'],
-  [null, 'CDM', null],
+  [null, 'DM', null],
   ['LB', 'CB', 'RB'],
   [null, 'GK', null],
 ];

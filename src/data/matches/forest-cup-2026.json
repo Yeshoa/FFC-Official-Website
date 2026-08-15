@@ -324,7 +324,9 @@
         "team": "Bilsa",
         "player": "T. Ervaan",
         "assist": "D. Hajan",
-        "minute": 37
+        "minute": 37,
+        "playerId": "27",
+        "assistId": "28"
       }
     ],
     "team1Id": 1,
@@ -423,13 +425,16 @@
         "team": "Realize",
         "player": "Olsson",
         "ownGoal": true,
-        "minute": 57
+        "minute": 57,
+        "playerId": "958"
       },
       {
         "team": "Realize",
         "player": "M. Beet",
         "assist": "L. Celery",
-        "minute": 69
+        "minute": 69,
+        "playerId": "744",
+        "assistId": "743"
       }
     ],
     "cards": [
@@ -438,7 +443,8 @@
         "player": "M. Beet",
         "minute": 45,
         "aggregate": 1,
-        "type": "yellow"
+        "type": "yellow",
+        "playerId": "744"
       }
     ],
     "team1Id": 8,
@@ -950,7 +956,9 @@
         "team": "Bilsa",
         "player": "T. Ervaan",
         "assist": "D. Hajan",
-        "minute": 6
+        "minute": 6,
+        "playerId": "27",
+        "assistId": "28"
       },
       {
         "team": "Bilsa",
@@ -1507,24 +1515,30 @@
       {
         "team": "Ecologist Hegemony",
         "player": "Duarte",
-        "minute": 3
+        "minute": 3,
+        "playerId": "863"
       },
       {
         "team": "Furilisca",
         "player": "G. Hallmundsdóttir",
-        "minute": 29
+        "minute": 29,
+        "playerId": "663"
       },
       {
         "team": "Furilisca",
         "player": "E. Guðjónsdóttir",
         "assist": "B. Þormóðsson",
-        "minute": 55
+        "minute": 55,
+        "playerId": "664",
+        "assistId": "661"
       },
       {
         "team": "Ecologist Hegemony",
         "player": "Vermont",
         "assist": "Kovacevic",
-        "minute": 68
+        "minute": 68,
+        "playerId": "861",
+        "assistId": "864"
       }
     ],
     "team1Id": 36,
@@ -1548,25 +1562,33 @@
         "team": "Anxious and Kevin",
         "player": "Järnefelt",
         "assist": "Bœn",
-        "minute": 21
+        "minute": 21,
+        "playerId": "367",
+        "assistId": "357"
       },
       {
         "team": "Anxious and Kevin",
         "player": "Saugstad",
         "assist": "Rosenblad",
-        "minute": 27
+        "minute": 27,
+        "playerId": "353",
+        "assistId": "351"
       },
       {
         "team": "Anxious and Kevin",
         "player": "Bœn",
         "assist": "Järnefelt",
-        "minute": 84
+        "minute": 84,
+        "playerId": "357",
+        "assistId": "367"
       },
       {
         "team": "Anxious and Kevin",
         "player": "Järnefelt",
         "assist": "Kussikk",
-        "minute": 87
+        "minute": 87,
+        "playerId": "367",
+        "assistId": "365"
       }
     ],
     "cards": [
@@ -1574,7 +1596,8 @@
         "team": "Anxious and Kevin",
         "player": "Landsverk",
         "type": "yellow",
-        "minute": 44
+        "minute": 44,
+        "playerId": "355"
       }
     ],
     "team1Id": 11,
@@ -1599,21 +1622,24 @@
         "player": "D. Hajan",
         "assist": "A. Arhanv",
         "minute": 21,
-        "assistId": "24"
+        "assistId": "24",
+        "playerId": "28"
       },
       {
         "team": "Bilsa",
         "player": "C. Muniv",
         "assist": "Vlajsaj",
         "minute": 28,
-        "playerId": "26"
+        "playerId": "26",
+        "assistId": "508"
       },
       {
         "team": "Bilsa",
         "player": "T. Ervaan",
         "assist": "C. Muniv",
         "minute": 47,
-        "assistId": "26"
+        "assistId": "26",
+        "playerId": "27"
       }
     ],
     "cards": [
@@ -1621,7 +1647,8 @@
         "team": "Bilsa",
         "player": "P. Rakaj",
         "type": "yellow",
-        "minute": 89
+        "minute": 89,
+        "playerId": "509"
       }
     ],
     "team1Id": 21,
@@ -1646,7 +1673,8 @@
         "player": "L. Nesar",
         "assist": "Alberia",
         "minute": 8,
-        "playerId": "191"
+        "playerId": "191",
+        "assistId": "616"
       },
       {
         "team": "Ruinenlust",
@@ -1718,7 +1746,8 @@
         "player": "K. Jatanwaīd",
         "assist": "Q. Koîkaîn",
         "minute": 89,
-        "assistId": "107"
+        "assistId": "107",
+        "playerId": "610"
       }
     ],
     "team1Id": 37,
@@ -1757,19 +1786,24 @@
       {
         "team": "Realize",
         "player": "E. Leek",
-        "minute": 48
+        "minute": 48,
+        "playerId": "746"
       },
       {
         "team": "Garbelia",
         "player": "O. Vydra",
         "assist": "M. Katō",
-        "minute": 57
+        "minute": 57,
+        "playerId": "264",
+        "assistId": "261"
       },
       {
         "team": "Realize",
         "player": "D. Onion",
         "assist": "O. Parnsley",
-        "minute": 65
+        "minute": 65,
+        "playerId": "747",
+        "assistId": "959"
       }
     ],
     "cards": [
@@ -1777,7 +1811,8 @@
         "team": "Garbelia",
         "player": "O. Otterata",
         "type": "yellow",
-        "minute": 44
+        "minute": 44,
+        "playerId": "269"
       }
     ],
     "team1Id": 38,
@@ -1815,14 +1850,17 @@
         "team": "Sehir",
         "player": "Mathisen",
         "assist": "Holm",
-        "minute": 56
+        "minute": 56,
+        "playerId": "575",
+        "assistId": "573"
       },
       {
         "team": "Fish",
         "player": "Big James",
         "assist": "James Nine",
         "minute": 58,
-        "playerId": "72"
+        "playerId": "72",
+        "assistId": "396"
       },
       {
         "team": "Sehir",
@@ -1862,7 +1900,8 @@
         "player": "M. Dartmouth",
         "assist": "L. McRaddish",
         "minute": 40,
-        "playerId": "39"
+        "playerId": "39",
+        "assistId": "283"
       },
       {
         "team": "Cacusia",
@@ -1950,7 +1989,8 @@
         "player": "Chan Island",
         "assist": "L. Messi",
         "minute": 59,
-        "playerId": "50"
+        "playerId": "50",
+        "assistId": "819"
       },
       {
         "team": "Einswenn",
@@ -1965,7 +2005,8 @@
         "player": "L. Messi",
         "assist": "Butch Man",
         "minute": 86,
-        "assistId": "48"
+        "assistId": "48",
+        "playerId": "819"
       },
       {
         "team": "Einswenn",
@@ -1973,7 +2014,8 @@
         "assist": "H. Frey",
         "minute": 90,
         "aggregate": 1,
-        "playerId": "67"
+        "playerId": "67",
+        "assistId": "563"
       }
     ],
     "team1Id": 7,
@@ -1995,7 +2037,8 @@
       {
         "team": "Ruinenlust",
         "player": "Bonfis",
-        "minute": 41
+        "minute": 41,
+        "playerId": "192"
       },
       {
         "team": "Ruinenlust",
@@ -2009,7 +2052,8 @@
         "team": "Anxious and Kevin",
         "player": "Öström",
         "type": "yellow",
-        "minute": 29
+        "minute": 29,
+        "playerId": "360"
       }
     ],
     "team1Id": 11,
@@ -2063,7 +2107,8 @@
         "team": "Garbelia",
         "player": "O. Otterata",
         "type": "yellow",
-        "minute": 88
+        "minute": 88,
+        "playerId": "269"
       }
     ],
     "team1Id": 2,
@@ -2095,7 +2140,8 @@
         "player": "D. Harrington",
         "assist": "H. Carrol",
         "minute": 44,
-        "assistId": "183"
+        "assistId": "183",
+        "playerId": "243"
       },
       {
         "team": "Roless",
@@ -2144,7 +2190,8 @@
         "player": "M. Penosi",
         "assist": "R. Inmeress",
         "minute": 115,
-        "playerId": "119"
+        "playerId": "119",
+        "assistId": "503"
       }
     ],
     "team1Id": 14,
@@ -2168,20 +2215,24 @@
         "player": "C. Muniv",
         "assist": "T. Ervaan",
         "minute": 20,
-        "playerId": "26"
+        "playerId": "26",
+        "assistId": "27"
       },
       {
         "team": "Bilsa",
         "player": "C. Muniv",
         "assist": "B. Njazet",
         "minute": 31,
-        "playerId": "26"
+        "playerId": "26",
+        "assistId": "510"
       },
       {
         "team": "Bilsa",
         "player": "D. Hajan",
         "assist": "T. Ervaan",
-        "minute": 57
+        "minute": 57,
+        "playerId": "28",
+        "assistId": "27"
       }
     ],
     "team1Id": 1,
@@ -2205,31 +2256,40 @@
         "player": "Ru Inenlustian",
         "assist": "S. Keit",
         "minute": 8,
-        "playerId": "20"
+        "playerId": "20",
+        "assistId": "639"
       },
       {
         "team": "Realize",
         "player": "D. Onion",
         "assist": "E. Leek",
-        "minute": 14
+        "minute": 14,
+        "playerId": "747",
+        "assistId": "746"
       },
       {
         "team": "Realize",
         "player": "D. Onion",
         "assist": "E. Leek",
-        "minute": 34
+        "minute": 34,
+        "playerId": "747",
+        "assistId": "746"
       },
       {
         "team": "Realize",
         "player": "D. Onion",
         "assist": "E. Leek",
-        "minute": 49
+        "minute": 49,
+        "playerId": "747",
+        "assistId": "746"
       },
       {
         "team": "Realize",
         "player": "E. Leek",
         "assist": "M. Beet",
-        "minute": 57
+        "minute": 57,
+        "playerId": "746",
+        "assistId": "744"
       }
     ],
     "team1Id": 8,
@@ -2269,7 +2329,9 @@
         "team": "Cacusia",
         "player": "E. Solomon",
         "assist": "K. Mysteweitz",
-        "minute": 94
+        "minute": 94,
+        "playerId": "294",
+        "assistId": "290"
       },
       {
         "team": "Einswenn",
@@ -2277,7 +2339,8 @@
         "assist": "H. Frey",
         "minute": 120,
         "aggregate": 1,
-        "playerId": "67"
+        "playerId": "67",
+        "assistId": "563"
       }
     ],
     "penalties": [
@@ -2306,7 +2369,8 @@
         "order": 4,
         "team": "Einswenn",
         "player": "T. Marcos",
-        "scored": false
+        "scored": false,
+        "playerId": "561"
       },
       {
         "order": 5,
@@ -2326,13 +2390,15 @@
         "order": 7,
         "team": "Cacusia",
         "player": "K. Mysteweitz",
-        "scored": false
+        "scored": false,
+        "playerId": "290"
       },
       {
         "order": 8,
         "team": "Einswenn",
         "player": "H. Frey",
-        "scored": true
+        "scored": true,
+        "playerId": "563"
       },
       {
         "order": 9,
@@ -2352,13 +2418,15 @@
         "order": 11,
         "team": "Cacusia",
         "player": "E. Solomon",
-        "scored": false
+        "scored": false,
+        "playerId": "294"
       },
       {
         "order": 12,
         "team": "Einswenn",
         "player": "L. Filip",
-        "scored": true
+        "scored": true,
+        "playerId": "560"
       }
     ],
     "team1Id": 5,
@@ -2382,7 +2450,8 @@
         "player": "K. Jatanwaīd",
         "assist": "Q. Koîkaîn",
         "minute": 84,
-        "assistId": "107"
+        "assistId": "107",
+        "playerId": "610"
       }
     ],
     "team1Id": 13,
@@ -2461,19 +2530,22 @@
         "order": 2,
         "team": "Realize",
         "player": "D. Onion",
-        "scored": true
+        "scored": true,
+        "playerId": "747"
       },
       {
         "order": 3,
         "team": "Bilsa",
         "player": "B. Njazet",
-        "scored": true
+        "scored": true,
+        "playerId": "510"
       },
       {
         "order": 4,
         "team": "Realize",
         "player": "F. Artichoke",
-        "scored": true
+        "scored": true,
+        "playerId": "762"
       },
       {
         "order": 5,
@@ -2486,67 +2558,78 @@
         "order": 6,
         "team": "Realize",
         "player": "P. Cress",
-        "scored": true
+        "scored": true,
+        "playerId": "760"
       },
       {
         "order": 7,
         "team": "Bilsa",
         "player": "M. Zarzahaj",
-        "scored": false
+        "scored": false,
+        "playerId": "522"
       },
       {
         "order": 8,
         "team": "Realize",
         "player": "M. Pepper",
-        "scored": false
+        "scored": false,
+        "playerId": "738"
       },
       {
         "order": 9,
         "team": "Bilsa",
         "player": "H. Azersej",
-        "scored": true
+        "scored": true,
+        "playerId": "523"
       },
       {
         "order": 10,
         "team": "Realize",
         "player": "A. Pea",
-        "scored": true
+        "scored": true,
+        "playerId": "755"
       },
       {
         "order": 11,
         "team": "Bilsa",
         "player": "D. Zehaj",
-        "scored": true
+        "scored": true,
+        "playerId": "518"
       },
       {
         "order": 12,
         "team": "Realize",
         "player": "H. Turnip",
-        "scored": true
+        "scored": true,
+        "playerId": "740"
       },
       {
         "order": 13,
         "team": "Bilsa",
         "player": "A. Ritsa",
-        "scored": true
+        "scored": true,
+        "playerId": "506"
       },
       {
         "order": 14,
         "team": "Realize",
         "player": "K. Radish",
-        "scored": true
+        "scored": true,
+        "playerId": "741"
       },
       {
         "order": 15,
         "team": "Bilsa",
         "player": "W. Sevil",
-        "scored": false
+        "scored": false,
+        "playerId": "516"
       },
       {
         "order": 16,
         "team": "Realize",
         "player": "L. Celery",
-        "scored": true
+        "scored": true,
+        "playerId": "743"
       }
     ],
     "team1Id": 1,
@@ -2600,7 +2683,8 @@
         "team": "Jutsa",
         "player": "F. Toremeīỹa",
         "minute": 89,
-        "type": "yellow"
+        "type": "yellow",
+        "playerId": "595"
       }
     ],
     "team1Id": 7,
@@ -2647,7 +2731,9 @@
         "team": "Realize",
         "player": "D. Onion",
         "assist": "F. Artichoke",
-        "minute": 89
+        "minute": 89,
+        "playerId": "747",
+        "assistId": "762"
       }
     ],
     "cards": [
@@ -2655,7 +2741,8 @@
         "team": "Roless",
         "player": "K. Burke",
         "type": "yellow",
-        "minute": 72
+        "minute": 72,
+        "playerId": "242"
       }
     ],
     "team1Id": 4,
