@@ -48,9 +48,10 @@
   --color-rarity-ultimate: oklch(29.1% 0.149 302.717); /* purple-950 */
 
   /* ===== Champions League (estética propia) ===== */
-  --color-cl-black: oklch(0.12 0.008 152);
-  --color-cl-lime: #95ff00;
-  --color-cl-lime-secondary: #00ff95;
+  --color-cl-black: #000014;
+  /* --color-cl-black: oklch(0.12 0.008 152); */
+  --color-cl-lime: #b4ff00;
+  --color-cl-lime-secondary: #00ffb4;
 
   --breakpoint-xs: 400px;
   --breakpoint-2md: 900px;
