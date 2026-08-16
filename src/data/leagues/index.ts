@@ -20,6 +20,14 @@ export interface LeagueStandingRow {
   points: number;
 }
 
+// Score del ranking de ligas (análogo al de federaciones, con sus propios inputs).
+// Indexado por temporada (año): { season: { activity: points } }.
+export interface LeagueScore {
+  rp: Record<string, Record<string, number>>;
+  events: Record<string, Record<string, number>>;
+  bonus: Record<string, Record<string, number>>;
+}
+
 export interface League {
   id: string;
   name: string;
@@ -30,6 +38,7 @@ export interface League {
   relegationPositions: number[]; // posiciones que descienden (tono rojo)
   championsLeaguePositions: number[]; // posiciones que clasifican a la CL (tono verde)
   standings: LeagueStandingRow[];
+  score?: LeagueScore; // ranking de ligas (eventos/bonuses por temporada); lo carga el dueño
 }
 
 const leagues: League[] = Object.values(leagueFiles).sort(

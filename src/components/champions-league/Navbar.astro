@@ -5,6 +5,7 @@ import FCLNavbar from '@images/tournaments/FCL/FCL navbar.png';
 import Home from '@images/icons/house-solid.svg';
 import Ranking from '@images/icons/ranking-star-solid.svg';
 import Cup from '@images/icons/trophy-solid.svg';
+import Futbol from '@images/icons/futbol-regular-full.svg';
 import Handshake from '@images/icons/handshake-solid-full.svg';
 import XMark from '@images/icons/circle-xmark-solid.svg';
 import { ROUTES } from '@config/routes';
@@ -17,15 +18,21 @@ const NAV_LINKS = [
     iconWidth: 20,
   },
   {
-    href: ROUTES.championsLeague.ranking,
-    label: 'Ranking',
-    icon: Ranking,
+    href: ROUTES.championsLeague.leagues,
+    label: 'Leagues',
+    icon: Futbol,
     iconWidth: 20,
   },
   {
     href: ROUTES.clubs.index,
     label: 'Clubs',
     icon: Cup,
+    iconWidth: 20,
+  },
+  {
+    href: ROUTES.championsLeague.ranking,
+    label: 'Ranking',
+    icon: Ranking,
     iconWidth: 20,
   },
   {

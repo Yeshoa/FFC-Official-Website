@@ -70,7 +70,25 @@
 
 ---
 
-## 6. Integración con el modelo
+## 6. Ranking de ligas (domésticas)
+
+> Diseño del ranking de ligas de la sección CL (ver [[Plan del usuario/09 - Sección champions league]]): análogo al ranking de federaciones, pero con **inputs propios de la liga** (rp/events/bonus por temporada). El dueño carga los datos; mientras no haya, las ligas quedan en 0.
+
+### Modelo de datos
+- Cada liga (`src/data/leagues/<fed>/division-<n>.json`) puede tener `score`: `{ rp, events, bonus }` indexados por **temporada** (`{ season: { activity: points } }`), mismo esquema que el `score` de los miembros ([[02-modelo-datos]]). Tipo `LeagueScore` en `@data/leagues`.
+
+### Cálculo
+- `src/lib/leagueRankingUtils.ts`: `getLeagueSeasonScore(league, season)` suma rp/events/bonus de la temporada; `getRankedLeagues` ordena por total (desc, tiebreak nombre); `getTopLeagues` para vistas compactas.
+- Por ahora **sin decay ni normalización** (suma directa); extensible cuando haya data real.
+
+### UI
+- Página `/forestian-champions-league/leagues` (`ROUTES.championsLeague.leagues`): tabla con posición, liga (logo + nombre), federación, división, RP/EV/BO y total.
+- Navbar FCL: botón **Leagues** (Home · Leagues · Clubs · Ranking · Market).
+- Home FCL: panel compacto de rankings con toggle **Clubs/Leagues**.
+
+---
+
+## 7. Integración con el modelo
 
 - Clubes: ver [[02-modelo-datos]] §3.
 - Torneos: `type: 'forestian-champions-league'` + `season` (año).
@@ -78,7 +96,7 @@
 
 ---
 
-## 7. Pasos de implementación (resumen)
+## 8. Pasos de implementación (resumen)
 
 1. Layout CL + tokens de color (negro/lima) + patrón de rombos.
 2. Navegación/footer de la sección CL.

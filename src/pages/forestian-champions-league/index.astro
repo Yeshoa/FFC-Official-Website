@@ -7,9 +7,11 @@ import FCLayout from '@layouts/FCL.astro';
 import { Image } from 'astro:assets';
 import FCLHero from '@images/tournaments/FCL/FCL banner.png';
 import { getAllClubs } from '@data/clubs';
+import { getAllLeagues } from '@data/leagues';
 import { getMemberById } from 'src/utils/memberUtils';
 import { loadCurrentSquadByTeamId } from '@data/players';
 import { computeTeamRating, teamRatingToStars } from '@config/rating';
+import { getTopLeagues } from '@lib/leagueRankingUtils';
 import { ROUTES } from '@config/routes';
 import { getTournaments, getMatches, getArticles } from '@lib/collections';
 import { getArticlesByTags } from 'src/utils/articleUtils';
@@ -42,6 +44,9 @@ const clubs = getAllClubs()
   })
   .sort((a, b) => b.rating - a.rating || a.club.name.localeCompare(b.club.name));
 const topClubs = clubs.slice(0, 8);
+
+// Top ligas por ranking (compacto para la home).
+const topLeagues = getTopLeagues(getAllLeagues(), 8);
 
 // Artículos de la sección (tag FCL / champions-league).
 const articles = await getArticles();
@@ -153,9 +158,36 @@ const clArticles = getArticlesByTags(articles, ['FCL', 'champions-league']);
           </div>
 
           <div id="ranking-leagues" class="ranking-panel space-y-1 hidden">
-            <p class="text-text-muted italic text-sm py-4 text-center">
-              League ranking coming soon.
-            </p>
+            {topLeagues.map(({ league, score }, index) => (
+              <a
+                href={ROUTES.championsLeague.leagues}
+                key={league.id}
+                class="flex items-center gap-2 rounded-lg px-2 py-1.5 text-sm border border-cl-lime/10 bg-black/30 hover:border-cl-lime/50 transition-colors"
+                title={league.name}
+              >
+                <span class="w-5 text-right text-cl-lime font-bold tabular-nums text-xs">{index + 1}</span>
+                <span
+                  class="w-6 h-6 rounded flex items-center justify-center border text-[9px] font-black"
+                  style={{ backgroundColor: '#b4ff0018', borderColor: '#b4ff0055', color: '#b4ff00' }}
+                >
+                  {league.name[0]?.toUpperCase()}
+                </span>
+                <span class="flex-1 truncate font-medium text-white">{league.name}</span>
+                <span class="text-text-muted text-[10px]">D{league.division}</span>
+                <span class={`font-bold text-xs tabular-nums ${score.total > 0 ? 'text-cl-lime' : 'text-text-muted'}`}>
+                  {score.total || '-'}
+                </span>
+              </a>
+            ))}
+            {topLeagues.length === 0 && (
+              <p class="text-text-muted italic text-sm py-4 text-center">No leagues registered yet.</p>
+            )}
+            <a
+              href={ROUTES.championsLeague.leagues}
+              class="block text-center text-xs text-cl-lime hover:text-cl-lime-secondary font-semibold pt-2"
+            >
+              See full league ranking →
+            </a>
           </div>
         </div>
       </div>

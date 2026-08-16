@@ -1,0 +1,85 @@
+---
+// Ranking de ligas (FCL): ligas ordenadas por su puntaje de temporada (rp/events/bonus
+// en `league.score`). El dueño carga los datos; mientras no haya, quedan en 0.
+import FCLayout from '@layouts/FCL.astro';
+import Title from '@components/Title.astro';
+import { Image } from 'astro:assets';
+import { getAllLeagues } from '@data/leagues';
+import { getMemberById } from 'src/utils/memberUtils';
+import { getRankedLeagues } from '@lib/leagueRankingUtils';
+import { resolveImage } from '@utils/imageAssets';
+import { ROUTES } from '@config/routes';
+
+const ranked = getRankedLeagues(getAllLeagues());
+const hasScores = ranked.some((r) => r.score.total > 0);
+---
+
+<FCLayout title="FFC - Champions League League Ranking">
+  <main class="flex flex-col items-center pt-5">
+    <div class="flex flex-col items-center w-full max-w-5xl justify-center p-6">
+      <Title slideIn={true} color="text-cl-lime">
+        League Ranking
+        <span slot="subtitle">Domestic leagues ordered by season points · does not affect the general ranking</span>
+      </Title>
+
+      {ranked.length > 0 ? (
+        <div class="w-full overflow-x-auto rounded-lg">
+          <table class="w-full border-collapse text-sm">
+            <thead class="bg-cl-lime/10 uppercase">
+              <tr>
+                <th class="w-8 px-2 py-3 text-center border-b border-cl-lime/30 rounded-tl-xl text-cl-lime" title="Position">°</th>
+                <th class="py-3 text-left border-b border-cl-lime/30 min-w-[180px] text-cl-lime">League</th>
+                <th class="py-3 text-left border-b border-cl-lime/30 hidden sm:table-cell text-cl-lime">Federation</th>
+                <th class="w-12 px-2 py-3 text-center border-b border-cl-lime/30 text-cl-lime" title="Division">Div</th>
+                <th class="w-14 px-2 py-3 text-center border-b border-cl-lime/30" title="Roleplay">RP</th>
+                <th class="w-14 px-2 py-3 text-center border-b border-cl-lime/30" title="Events">EV</th>
+                <th class="w-14 px-2 py-3 text-center border-b border-cl-lime/30" title="Bonus">BO</th>
+                <th class="w-16 px-2 py-3 text-center border-b border-cl-lime/30 rounded-tr-xl text-cl-lime" title="Total">Total</th>
+              </tr>
+            </thead>
+            <tbody class="text-center text-white/80">
+              {ranked.map(({ league, score }, index) => {
+                const federation = getMemberById(league.federationId);
+                const logo = resolveImage(league.logoPath);
+                return (
+                  <tr class="border-b border-cl-lime/10 hover:bg-cl-lime/5 transition duration-150 odd:bg-surface/20">
+                    <td class="py-2 font-semibold border-r border-cl-lime/10 text-cl-lime">{index + 1}</td>
+                    <td class="ps-2 py-2 text-left">
+                      <span class="inline-flex items-center gap-2.5 font-semibold text-white" title={league.name}>
+                        {logo ? (
+                          <Image src={logo} alt={league.name} width={40} loading="lazy" quality={60} format="webp" class="w-7 h-7 rounded object-contain" />
+                        ) : (
+                          <span class="w-7 h-7 rounded bg-cl-lime/10 border border-cl-lime/40 flex items-center justify-center text-[10px] font-black text-cl-lime">
+                            {league.name[0]?.toUpperCase()}
+                          </span>
+                        )}
+                        <span class="truncate">{league.name}</span>
+                      </span>
+                    </td>
+                    <td class="hidden sm:table-cell ps-2 py-2 text-left text-text-muted">
+                      {federation?.data.name ?? `Federation #${league.federationId}`}
+                    </td>
+                    <td class="px-2 py-2 text-text-muted">D{league.division}</td>
+                    <td class="px-2 py-2 tabular-nums">{score.roleplay || '-'}</td>
+                    <td class="px-2 py-2 tabular-nums">{score.events || '-'}</td>
+                    <td class="px-2 py-2 tabular-nums">{score.bonus || '-'}</td>
+                    <td class={`px-2 py-2 font-bold tabular-nums ${score.total > 0 ? 'text-cl-lime' : 'text-text-muted'}`}>
+                      {score.total || '-'}
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+          {!hasScores && (
+            <p class="text-text-muted italic text-sm text-center py-4">
+              No league points loaded yet — the owner will add rp/events/bonus per league.
+            </p>
+          )}
+        </div>
+      ) : (
+        <p class="text-text-muted italic mt-8">No leagues yet.</p>
+      )}
+    </div>
+  </main>
+</FCLayout>

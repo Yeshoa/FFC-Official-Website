@@ -18,6 +18,7 @@ export const ROUTES = {
     season: (season: number) => `/forestian-champions-league/${season}/`,
     market: "/forestian-champions-league/market/",
     ranking: "/forestian-champions-league/ranking/",
+    leagues: "/forestian-champions-league/leagues/",
   },
   members: {
     index: "/members/",
