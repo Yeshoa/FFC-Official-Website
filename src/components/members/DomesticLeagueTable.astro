@@ -106,7 +106,13 @@ const headPad = compact ? 'px-2 py-1.5' : 'px-2 py-2';
           const clubLogo = club ? resolveImage(club.logoPath) : null;
           return (
             <tr class={`border-b ${rowBorder} hover:bg-surface-raised/20 ${zoneClass} ${selfClass}`}>
-              <td class={`${compact ? 'px-1.5 py-1.5' : 'px-2 py-2'} font-bold`}>{row.position}</td>
+              <td class={`${compact ? 'px-1.5 py-1.5' : 'px-2 py-2'}`}>
+                {isSelf ? (
+                  <span class={`inline-flex w-6 h-6 items-center justify-center rounded-full text-xs font-black ${isFcl ? 'bg-cl-lime text-black' : 'bg-primary text-white'}`}>{row.position}</span>
+                ) : (
+                  <span class="font-bold">{row.position}</span>
+                )}
+              </td>
               <td class={`${compact ? 'px-1.5 py-1.5' : 'px-2 py-2'} text-left font-medium text-white`}>
                 {club ? (
                   <a
@@ -127,9 +133,6 @@ const headPad = compact ? 'px-2 py-1.5' : 'px-2 py-2';
                       <span class={`inline-block rounded-full ${compact ? 'w-2 h-2' : 'w-2.5 h-2.5'}`} style={{ backgroundColor: club.colors?.primary }}></span>
                     )}
                     {club.name}
-                    {isSelf && (
-                      <span class={`text-[9px] uppercase tracking-wider px-1 py-0.5 rounded ${isFcl ? 'bg-cl-lime text-black' : 'bg-primary text-white'}`}>You</span>
-                    )}
                   </a>
                 ) : (
                   row.clubName ?? `#${row.clubId}`
