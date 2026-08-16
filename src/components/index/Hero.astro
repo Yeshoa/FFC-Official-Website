@@ -10,7 +10,8 @@ import Button from '@components/Button.astro';
 interface Props {
   heroTitle: string;
   heroSubtitle: string;
-  ctas: Array<{ text: string; href: string; noblank?: boolean; logo: ImageMetadata }>;
+  heroLogo: ImageMetadata; // logo grande de la FFC en el hero
+  ctas: Array<{ text: string; href: string; noblank?: boolean }>;
   carouselImages: Array<{
     src: ImageMetadata;
     alt: string;
@@ -20,7 +21,7 @@ interface Props {
 }
 
 // Obtenemos las props
-const { heroTitle, heroSubtitle, ctas, carouselImages } = Astro.props;
+const { heroTitle, heroSubtitle, heroLogo, ctas, carouselImages } = Astro.props;
 
 // Validamos que haya al menos una imagen en el carrusel
 if (carouselImages.length === 0) {
@@ -44,7 +45,7 @@ if (carouselImages.length === 0) {
       ))}
     </div>
     <div class="hero__flex">
-      <Image src={ctas[0]?.logo} alt="Logo" height={300} class="hero__logo" format="webp" loading="eager" />
+      <Image src={heroLogo} alt="Logo" height={300} class="hero__logo" format="webp" loading="eager" />
       <div class="hero__text">
         <h1 class="hero__title">{heroTitle}</h1>
         <p class="hero__subtitle">{heroSubtitle}</p>

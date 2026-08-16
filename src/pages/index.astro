@@ -23,6 +23,7 @@ import DrawArticle from '@images/articles/2026-draw/banner.jpg';
 import FCHistory from '@images/tournaments/fc-history.png';
 import FC26Logo from '@images/tournaments/2026/logo.png';
 import FFCBanner from '@images/articles/welcome/gradient.png';
+import Logo from '@images/logo.png';
 import Members from '@images/members3.png';
 import Signup from '@images/articles/sign-up/inscription.jpg';
 import RankingImage from '@images/articles/ranking/tiers.png';
@@ -34,9 +35,6 @@ import CarrouselImgFour from '@images/FFC Background.png';
 import CarrouselImgFive from '@images/tournaments/2026/roless-c.png';
 import CarrouselImgSix from '@images/nysnub3.png';
 import CarrouselImgSeven from '@images/arboreball.png';
-
-import CupIcon from '@images/icons/trophy-solid.svg';
-import FutbolIcon from '@images/icons/futbol-regular-full.svg';
 
 // Datos para el carrusel del Hero
 const carouselImages = [
@@ -144,9 +142,10 @@ const articles = await getArticles();
   <Hero
     heroTitle="Welcome to the FFC"
     heroSubtitle="Explore the Football Community of Forest"
+    heroLogo={Logo}
     ctas={[
-      { text: 'Forest Cup', href: ROUTES.forestCup.index, logo: CupIcon },
-      { text: 'Champions League', href: ROUTES.championsLeague.index, logo: FutbolIcon },
+      { text: 'Forest Cup', href: ROUTES.forestCup.index },
+      { text: 'Champions League', href: ROUTES.championsLeague.index },
     ]}
     carouselImages={carouselImages}
   />
