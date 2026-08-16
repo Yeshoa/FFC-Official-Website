@@ -52,7 +52,7 @@ if (carouselImages.length === 0) {
         <div class="hero__btn__cont">
           {ctas.map((c) => (
             <Button hideArrow={true} link={c.href} self={!c.noblank} customClass={c.fcl ? 'hero__btn hero__btn--fcl' : 'hero__btn'}>
-              <JoinImg width={18} class="hero__btn__icon mr-2" fill={"#fff"} />{c.text}
+              <JoinImg width={18} class="hero__btn__icon mr-2" fill="currentColor" />{c.text}
             </Button>
           ))}
         </div>
@@ -206,11 +206,19 @@ if (carouselImages.length === 0) {
       }
     }
     .hero__btn--fcl {
-      background: var(--color-cl-lime);
-      color: #000;
+      background: var(--color-cl-black);
+      color: var(--color-cl-lime);
+      .hero__btn__icon {
+        color: var(--color-cl-lime);
+        fill: currentColor;
+      }
       &:hover {
-        background: #fff;
-        color: #000;
+        background: var(--color-cl-lime);
+        color: var(--color-cl-black);
+        .hero__btn__icon {
+          color: var(--color-cl-black);
+          fill: currentColor;
+        }
       }
     }
     .hero__btn__cont {
