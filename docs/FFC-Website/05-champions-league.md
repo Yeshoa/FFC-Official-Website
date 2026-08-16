@@ -86,6 +86,11 @@
 - Navbar FCL: botón **Leagues** (Home · Leagues · Clubs · Ranking · Market).
 - Home FCL: panel compacto de rankings con toggle **Clubs/Leagues**.
 
+### Clasificación a la CL (pots)
+- Los clubes clasificados a la edición actual se derivan de las ligas: cada liga define `championsLeaguePositions` → `clubId`s de esas posiciones en su `standings`.
+- `npm run qualify:cl` (scripts/qualify-cl.mjs) agrega los clasificados y llena `pots[0].teamIds/teamCodes/teams` del torneo CL más reciente en `tournaments-cl.json`.
+- La página `/clubs` solo muestra los clubes en `pots.teamIds` de la edición actual.
+
 ---
 
 ## 7. Integración con el modelo
