@@ -11,9 +11,17 @@ interface Props {
   teamId: number;
   matches: CollectionEntry<'matches'>[];
   teamKind?: 'national' | 'club';
+  theme?: 'ffc' | 'fcl';
 }
 
-const { teamId, matches, teamKind = 'national' } = Astro.props;
+const { teamId, matches, teamKind = 'national', theme = 'ffc' } = Astro.props;
+const isFcl = theme === 'fcl';
+const headClass = isFcl ? 'bg-cl-lime/15 text-cl-lime' : 'bg-primary-deep text-white';
+const rowBorder = isFcl ? 'border-cl-lime/15' : 'border-primary-dark';
+const tableBorder = isFcl ? 'border-cl-lime/20' : 'border-primary-dark';
+const headingBorder = isFcl ? 'border-cl-lime/20' : 'border-primary';
+const textSoft = isFcl ? 'text-cl-lime/80' : 'text-primary-soft';
+const textAccent = isFcl ? 'text-cl-lime' : 'text-primary-muted';
 
 const stats = getTeamHeadToHeadStats(teamId, matches);
 
@@ -31,12 +39,12 @@ const rows: Row[] = await Promise.all(
 ---
 
 <div>
-  <h2 class="text-2xl font-semibold mb-4 text-white border-b pb-2 border-primary">Historic Head-to-Head</h2>
+  <h2 class={`text-2xl font-semibold mb-4 text-white border-b pb-2 ${headingBorder}`}>Historic Head-to-Head</h2>
   {rows.length > 0 ? (
     <div class="overflow-x-auto pb-0">
-      <table class="min-w-full border border-primary-dark overflow-hidden rounded-lg text-xs xs:text-sm">
+      <table class={`min-w-full border ${tableBorder} overflow-hidden rounded-lg text-xs xs:text-sm`}>
         <thead>
-          <tr class="bg-primary-deep text-white">
+          <tr class={headClass}>
             <th scope="col" class="px-4 py-2 text-left tracking-wider">
               <span class="hidden xs:inline">Opponent</span>
               <span class="xs:hidden">Opp</span>
@@ -53,7 +61,7 @@ const rows: Row[] = await Promise.all(
         </thead>
         <tbody>
           {rows.map((s) => (
-            <tr key={s.opponentId} class="border-b border-primary-dark hover:bg-surface-raised/30 transition duration-150">
+            <tr key={s.opponentId} class={`border-b ${rowBorder} hover:bg-surface-raised/30 transition duration-150`}>
               <td class="px-1 xs:px-4 py-2 whitespace-nowrap font-medium text-white">
                 <a href={s.view.href ?? '#'} class="flex items-center gap-2 hover:underline truncate">
                   {s.view.flag ? (
@@ -80,17 +88,17 @@ const rows: Row[] = await Promise.all(
                   <span class="sm:hidden">{s.view.code ?? s.view.name}</span>
                 </a>
               </td>
-              <td class={`px-1 py-2 whitespace-nowrap text-center text-primary-soft font-bold
-                ${s.difference > 0 ? 'text-primary-muted' : s.difference < 0 ? 'text-red-400' : 'text-gray-300'}`}>
+              <td class={`px-1 py-2 whitespace-nowrap text-center ${textSoft} font-bold
+                ${s.difference > 0 ? (isFcl ? 'text-cl-lime' : 'text-primary-muted') : s.difference < 0 ? 'text-red-400' : 'text-gray-300'}`}>
                 {s.difference === 0 ? '-' : s.difference > 0 ? `+${s.difference}` : s.difference}
               </td>
-              <td class="px-1 py-2 whitespace-nowrap text-center text-primary-soft">{s.played}</td>
-              <td class="px-1 py-2 whitespace-nowrap text-center text-primary-muted">{s.wins}</td>
+              <td class={`px-1 py-2 whitespace-nowrap text-center ${textSoft}`}>{s.played}</td>
+              <td class={`px-1 py-2 whitespace-nowrap text-center ${textAccent}`}>{s.wins}</td>
               <td class="px-1 py-2 whitespace-nowrap text-center text-yellow-400">{s.draws}</td>
               <td class="px-1 py-2 whitespace-nowrap text-center text-red-400">{s.losses}</td>
-              <td class="px-1 py-2 whitespace-nowrap text-center text-primary-soft">{s.goalsFor}</td>
-              <td class="px-1 py-2 whitespace-nowrap text-center text-primary-soft">{s.goalsAgainst}</td>
-              <td class="px-1 py-2 whitespace-nowrap text-center text-primary-soft">{s.goalsFor - s.goalsAgainst}</td>
+              <td class={`px-1 py-2 whitespace-nowrap text-center ${textSoft}`}>{s.goalsFor}</td>
+              <td class={`px-1 py-2 whitespace-nowrap text-center ${textSoft}`}>{s.goalsAgainst}</td>
+              <td class={`px-1 py-2 whitespace-nowrap text-center ${textSoft}`}>{s.goalsFor - s.goalsAgainst}</td>
             </tr>
           ))}
         </tbody>

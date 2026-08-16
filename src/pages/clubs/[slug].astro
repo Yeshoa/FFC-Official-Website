@@ -56,7 +56,7 @@ const clubMatches = matches.filter(
       />
 
       {clubLeague ? (
-        <DomesticLeagueTable league={clubLeague} theme="fcl" compact />
+        <DomesticLeagueTable league={clubLeague} theme="fcl" compact highlightClubId={club.id} />
       ) : (
         <div class="bg-cl-black/40 border border-cl-lime/20 rounded-lg p-6">
           <h2 class="text-xl font-semibold mb-4 border-b pb-2 border-cl-lime/20">Domestic League</h2>
@@ -72,16 +72,17 @@ const clubMatches = matches.filter(
       type="forestian-champions-league"
       teamKind="club"
       onlyParticipated
+      theme="fcl"
     />
 
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-      <TeamLastMatches teamId={club.id} matches={matches} teamKind="club" />
-      <div class="bg-surface/80 shadow-lg rounded-lg p-6">
-        <TeamHeadToHead teamId={club.id} matches={matches} teamKind="club" />
-        <ScorersTable teamId={club.id} teamName={club.name} matches={clubMatches} />
+      <TeamLastMatches teamId={club.id} matches={matches} teamKind="club" theme="fcl" />
+      <div class="bg-cl-black/40 border border-cl-lime/20 rounded-lg p-6">
+        <TeamHeadToHead teamId={club.id} matches={matches} teamKind="club" theme="fcl" />
+        <ScorersTable teamId={club.id} teamName={club.name} matches={clubMatches} theme="fcl" />
       </div>
     </div>
 
-    <RecordsAndStats teamId={club.id} teamName={club.name} matches={clubMatches} teamKind="club" />
+    <RecordsAndStats teamId={club.id} teamName={club.name} matches={clubMatches} teamKind="club" theme="fcl" />
   </div>
 </FCLayout>

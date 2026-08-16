@@ -8,9 +8,13 @@ interface Props {
   teamName: string;
   matches: CollectionEntry<'matches'>[];
   teamKind?: 'national' | 'club';
+  theme?: 'ffc' | 'fcl';
 }
 
-const { teamId, teamName, matches, teamKind = 'national' } = Astro.props;
+const { teamId, teamName, matches, teamKind = 'national', theme = 'ffc' } = Astro.props;
+const isFcl = theme === 'fcl';
+const boxClass = isFcl ? 'rounded-lg border border-cl-lime/20 bg-cl-black/40 col-span-2' : 'bg-surface/80 shadow-lg rounded-lg p-6 col-span-2';
+const headingBorder = isFcl ? 'border-cl-lime/20' : 'border-primary';
 
 const sortedMatches = matches.map(match => match.data).slice().reverse(); // cronológico
 
@@ -86,8 +90,8 @@ for (const match of sortedMatches) {
 }
 ---
 
-<div class="bg-surface/80 shadow-lg rounded-lg p-6 col-span-2">
-  <h2 class="text-2xl font-semibold mb-4 text-white border-b pb-2 border-primary">Records</h2>
+<div class={`${boxClass} ${isFcl ? 'p-6' : ''}`}>
+  <h2 class={`text-2xl font-semibold mb-4 text-white border-b pb-2 ${headingBorder}`}>Records</h2>
   {matches.length > 0 ? (
     <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-4">
       

@@ -13,9 +13,10 @@ interface Props {
   league: League;
   theme?: 'ffc' | 'fcl';
   compact?: boolean;
+  highlightClubId?: number; // id del club actual (su fila se destaca)
 }
 
-const { league, theme = 'ffc', compact = false } = Astro.props;
+const { league, theme = 'ffc', compact = false, highlightClubId } = Astro.props;
 
 const leagueLogo = resolveImage(league.logoPath);
 
@@ -91,14 +92,20 @@ const headPad = compact ? 'px-2 py-1.5' : 'px-2 py-2';
         {league.standings.map((row) => {
           const club = getClubById(row.clubId);
           const gd = row.goalsFor - row.goalsAgainst;
-          const zoneClass = isClZone(row.position)
+          const isSelf = highlightClubId !== undefined && row.clubId === highlightClubId;
+          const zoneClass = !isSelf && isClZone(row.position)
             ? 'bg-emerald-500/10'
-            : isRelegation(row.position)
+            : !isSelf && isRelegation(row.position)
               ? 'bg-red-500/10'
               : '';
+          const selfClass = isSelf
+            ? isFcl
+              ? 'bg-cl-lime/15 font-semibold'
+              : 'bg-primary/10 font-semibold'
+            : '';
           const clubLogo = club ? resolveImage(club.logoPath) : null;
           return (
-            <tr class={`border-b ${rowBorder} hover:bg-surface-raised/20 ${zoneClass}`}>
+            <tr class={`border-b ${rowBorder} hover:bg-surface-raised/20 ${zoneClass} ${selfClass}`}>
               <td class={`${compact ? 'px-1.5 py-1.5' : 'px-2 py-2'} font-bold`}>{row.position}</td>
               <td class={`${compact ? 'px-1.5 py-1.5' : 'px-2 py-2'} text-left font-medium text-white`}>
                 {club ? (
@@ -120,6 +127,9 @@ const headPad = compact ? 'px-2 py-1.5' : 'px-2 py-2';
                       <span class={`inline-block rounded-full ${compact ? 'w-2 h-2' : 'w-2.5 h-2.5'}`} style={{ backgroundColor: club.colors?.primary }}></span>
                     )}
                     {club.name}
+                    {isSelf && (
+                      <span class={`text-[9px] uppercase tracking-wider px-1 py-0.5 rounded ${isFcl ? 'bg-cl-lime text-black' : 'bg-primary text-white'}`}>You</span>
+                    )}
                   </a>
                 ) : (
                   row.clubName ?? `#${row.clubId}`
