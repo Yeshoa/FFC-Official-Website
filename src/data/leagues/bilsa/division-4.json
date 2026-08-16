@@ -150,5 +150,25 @@
       "goalsAgainst": 9,
       "points": 4
     }
+  ],
+  "history": [
+    {
+      "season": 2026,
+      "championId": 115,
+      "runnerUpId": 116,
+      "thirdId": 117
+    },
+    {
+      "season": 2024,
+      "championId": 116,
+      "runnerUpId": 115,
+      "thirdId": 118
+    },
+    {
+      "season": 2022,
+      "championId": 115,
+      "runnerUpId": 117,
+      "thirdId": 118
+    }
   ]
 }

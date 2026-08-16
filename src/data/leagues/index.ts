@@ -28,6 +28,14 @@ export interface LeagueScore {
   bonus: Record<string, Record<string, number>>;
 }
 
+// Historial de campeones de una división: top 3 por temporada, referenciado por id de club.
+export interface LeagueChampionSeason {
+  season: number; // año
+  championId: number; // club campeón (id global)
+  runnerUpId?: number; // subcampeón
+  thirdId?: number; // 3ero
+}
+
 export interface League {
   id: string;
   name: string;
@@ -39,6 +47,7 @@ export interface League {
   championsLeaguePositions: number[]; // posiciones que clasifican a la CL (tono verde)
   standings: LeagueStandingRow[];
   score?: LeagueScore; // ranking de ligas (eventos/bonuses por temporada); lo carga el dueño
+  history?: LeagueChampionSeason[]; // campeones históricos por temporada; lo carga el dueño
 }
 
 const leagues: League[] = Object.values(leagueFiles).sort(
@@ -68,4 +77,9 @@ export function getLeagueForClub(clubId: number): League | null {
 
 export function getAllLeagues(): League[] {
   return leagues;
+}
+
+// Liga/división por id (para las páginas de división).
+export function getLeagueById(id: string): League | null {
+  return leagues.find((l) => l.id === id) ?? null;
 }

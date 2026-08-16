@@ -1,0 +1,112 @@
+---
+// Página de una liga/división: tabla de posiciones + historial de campeones.
+// Header con bandera del país, logo de la división, nombre, país, división y temporada.
+import FCLayout from '@layouts/FCL.astro';
+import { Image } from 'astro:assets';
+import { getAllLeagues, getLeagueById, type League } from '@data/leagues';
+import { getMemberById } from 'src/utils/memberUtils';
+import { getClubById } from '@data/clubs';
+import { resolveImage } from '@utils/imageAssets';
+import DefaultLeagueLogo from '@images/leagues/default.png';
+import DomesticLeagueTable from '@components/members/DomesticLeagueTable.astro';
+import StarIcon from '@images/icons/star-solid.svg';
+import { ROUTES } from '@config/routes';
+
+export async function getStaticPaths() {
+  return getAllLeagues().map((league) => ({
+    params: { league: league.id },
+    props: { league },
+  }));
+}
+
+const { league } = Astro.props as { league: League };
+if (!league) return Astro.redirect('/404');
+
+const federation = getMemberById(league.federationId);
+const logo = resolveImage(league.logoPath);
+
+// Historial cronológico (para contar títulos) y display nuevo → viejo.
+const history = (league.history ?? []).slice().sort((a, b) => a.season - b.season);
+const titleCount = new Map<number, number>();
+const rows = history.map((h) => {
+  const ordinal = (titleCount.get(h.championId) ?? 0) + 1;
+  titleCount.set(h.championId, ordinal);
+  return { ...h, ordinal };
+});
+rows.reverse();
+
+const clubName = (id?: number) => (id != null ? (getClubById(id)?.name ?? `#${id}`) : '—');
+---
+
+<FCLayout title={`FFC - ${league.name}`}>
+  <main class="flex flex-col items-center pt-5">
+    <div class="flex flex-col items-center w-full max-w-4xl justify-center p-6">
+      <nav class="w-full text-xs text-text-muted mb-4">
+        <a href={ROUTES.championsLeague.leagues} class="hover:text-cl-lime underline transition-colors">Leagues</a>
+        <span aria-hidden class="mx-1">›</span>
+        <span>{league.name}</span>
+      </nav>
+
+      <div class="w-full rounded-2xl border border-cl-lime/20 bg-cl-black/40 p-5 mb-8">
+        <div class="flex items-center gap-4">
+          {federation?.data.flagPath && (
+            <Image
+              src={federation.data.flagPath}
+              alt={federation.data.name}
+              width={96}
+              loading="eager"
+              quality={70}
+              format="webp"
+              class="w-16 h-11 rounded-md object-cover ring-1 ring-cl-lime/40"
+            />
+          )}
+          <Image
+            src={logo ?? DefaultLeagueLogo}
+            alt={`Logo de ${league.name}`}
+            width={96}
+            loading="eager"
+            quality={70}
+            format="webp"
+            class="w-16 h-16 object-contain"
+          />
+          <div class="min-w-0 flex-1">
+            <h1 class="text-2xl font-black text-white truncate">{league.name}</h1>
+            <p class="text-sm text-text-muted truncate">
+              {federation?.data.name ?? `Federation #${league.federationId}`} · Division {league.division} · Season {league.season}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <DomesticLeagueTable league={league} theme="fcl" />
+
+      <section class="w-full">
+        <h2 class="text-xl font-bold text-cl-lime uppercase mb-3">Champions History</h2>
+        {rows.length > 0 ? (
+          <div class="rounded-2xl border border-cl-lime/20 bg-cl-black/40 p-4 divide-y divide-cl-lime/10">
+            {rows.map((r) => (
+              <div key={r.season} class="flex items-center gap-3 py-2.5">
+                <span class="w-14 shrink-0 text-cl-lime font-bold tabular-nums">{r.season}</span>
+                <span class="flex-1 min-w-0 flex items-center gap-2">
+                  <StarIcon class="w-4 h-4 fill-amber-400 shrink-0" />
+                  <span class="font-semibold text-white truncate">{clubName(r.championId)}</span>
+                  <span class="text-xs text-text-muted shrink-0">({r.ordinal})</span>
+                </span>
+                <span class="flex-1 min-w-0 flex items-center gap-2">
+                  <span class="w-3 h-3 rounded-full bg-slate-300 shrink-0" />
+                  <span class="text-white/80 truncate">{clubName(r.runnerUpId)}</span>
+                </span>
+                <span class="flex-1 min-w-0 flex items-center gap-2">
+                  <span class="w-3 h-3 rounded-full bg-amber-700 shrink-0" />
+                  <span class="text-white/80 truncate">{clubName(r.thirdId)}</span>
+                </span>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p class="text-text-muted italic text-sm py-4">No champions history loaded yet.</p>
+        )}
+      </section>
+    </div>
+  </main>
+</FCLayout>

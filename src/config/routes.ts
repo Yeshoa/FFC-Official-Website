@@ -19,6 +19,7 @@ export const ROUTES = {
     market: "/forestian-champions-league/market/",
     ranking: "/forestian-champions-league/ranking/",
     leagues: "/forestian-champions-league/leagues/",
+    league: (id: string) => `/forestian-champions-league/leagues/${id}/`,
   },
   members: {
     index: "/members/",

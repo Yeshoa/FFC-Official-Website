@@ -14,6 +14,7 @@ import { computeTeamRating, teamRatingToStars } from '@config/rating';
 import { getRankedLeagues } from '@lib/leagueRankingUtils';
 import { resolveImage } from '@utils/imageAssets';
 import DefaultClubLogo from '@images/clubs/default.png';
+import DefaultLeagueLogo from '@images/leagues/default.png';
 import StarsDisplay from '@components/ui/StarsDisplay.astro';
 import { ROUTES } from '@config/routes';
 
@@ -110,7 +111,8 @@ const rankedLeagues = getRankedLeagues(firstDivisions);
                   <th class="w-8 px-2 py-3 text-center border-b border-cl-lime/30 rounded-tl-xl" title="Position">°</th>
                   <th class="py-3 text-left border-b border-cl-lime/30 min-w-[140px]">League</th>
                   <th class="py-3 text-left border-b border-cl-lime/30 hidden sm:table-cell">Federation</th>
-                  <th class="w-16 px-2 py-3 text-center border-b border-cl-lime/30 rounded-tr-xl" title="Points">Pts</th>
+                  <th class="w-16 px-2 py-3 text-center border-b border-cl-lime/30" title="Points">Pts</th>
+                  <th class="w-20 px-2 py-3 text-center border-b border-cl-lime/30 rounded-tr-xl" title="See League">League</th>
                 </tr>
               </thead>
               <tbody class="text-center text-white/80">
@@ -121,22 +123,32 @@ const rankedLeagues = getRankedLeagues(firstDivisions);
                     <tr class="border-b border-cl-lime/10 hover:bg-cl-lime/5 transition duration-150 odd:bg-surface/20">
                       <td class="py-2 font-semibold border-r border-cl-lime/10 text-cl-lime">{index + 1}</td>
                       <td class="ps-2 py-2 text-left">
-                        <span class="inline-flex items-center gap-2.5 font-semibold text-white" title={league.name}>
+                        <a
+                          href={ROUTES.championsLeague.league(league.id)}
+                          class="inline-flex items-center gap-2.5 font-semibold text-white hover:underline"
+                          title={league.name}
+                        >
                           {logo ? (
                             <Image src={logo} alt={league.name} width={40} loading="lazy" quality={60} format="webp" class="w-7 h-7 rounded object-contain" />
                           ) : (
-                            <span class="w-7 h-7 rounded bg-cl-lime/10 border border-cl-lime/40 flex items-center justify-center text-[10px] font-black text-cl-lime">
-                              {league.name[0]?.toUpperCase()}
-                            </span>
+                            <Image src={DefaultLeagueLogo} alt={league.name} width={40} loading="lazy" quality={60} format="webp" class="w-7 h-7 rounded object-contain opacity-70" />
                           )}
                           <span class="truncate">{league.name}</span>
-                        </span>
+                        </a>
                       </td>
                       <td class="hidden sm:table-cell ps-2 py-2 text-left text-text-muted">
                         {federation?.data.name ?? `Federation #${league.federationId}`}
                       </td>
                       <td class={`px-2 py-2 font-bold tabular-nums ${score.total > 0 ? 'text-cl-lime' : 'text-text-muted'}`}>
                         {score.total || '-'}
+                      </td>
+                      <td class="px-2 py-2">
+                        <a
+                          href={ROUTES.championsLeague.league(league.id)}
+                          class="inline-block rounded border border-cl-lime/50 text-cl-lime px-2 py-1 text-[10px] font-bold hover:bg-cl-lime/10 transition-colors whitespace-nowrap"
+                        >
+                          See League
+                        </a>
                       </td>
                     </tr>
                   );
