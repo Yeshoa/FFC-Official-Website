@@ -1,10 +1,11 @@
 ---
 import type { ImageMetadata } from 'astro';
 import { Image } from 'astro:assets';
+import StarsDisplay from '@components/ui/StarsDisplay.astro';
 
 import DefaultLogo from '@images/members/default_logo.png';
 
-const { name, code, slug, index = 0 } = Astro.props;
+const { name, code, slug, index = 0, stars = 0 } = Astro.props;
 let { flagPath, logoPath } = Astro.props;
 
 const logoClass = logoPath 
@@ -26,4 +27,9 @@ const loading = index < 24 ? "eager" : "lazy";
     class="h-6 w-10 rounded-xl object-cover ring-1 ring-primary-dark" alt={name} loading={loading}/>}
     <p class="text-sm my-2">{code}</p>
   </div>
+  {stars > 0 && (
+    <div class="flex items-center justify-center">
+      <StarsDisplay value={stars} size="w-3 h-3" />
+    </div>
+  )}
 </a>

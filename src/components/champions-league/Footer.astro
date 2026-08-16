@@ -1,5 +1,8 @@
 ---
 import { Image } from 'astro:assets';
+import { getArticles } from '@lib/collections';
+import { getArticlesByTags } from 'src/utils/articleUtils';
+import RelatedNews from '@components/articles/RelatedNews.astro';
 import FooterImage from '../../assets/images/Footer.png';
 import Sponsor1 from '../../assets/images/sponsors/bersa.png';
 import Sponsor2 from '../../assets/images/sponsors/ecoking.png';
@@ -10,9 +13,16 @@ import Sponsor6 from '../../assets/images/sponsors/frej.png';
 import Sponsor7 from '../../assets/images/sponsors/nw.png';
 import Sponsor8 from '../../assets/images/sponsors/startex.png';
 import Sponsor9 from '../../assets/images/sponsors/wis.png';
+
+const clArticles = getArticlesByTags(await getArticles(), ['FCL', 'champions-league']);
 ---
 <footer class="bg-cl-black/70 border-t border-cl-lime/20">
   <div class="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
+      {clArticles.length > 0 && (
+        <div class="mb-8">
+          <RelatedNews articles={clArticles} max={4} />
+        </div>
+      )}
       <div class="md:flex md:justify-between">
         <div class="mb-6 md:mb-0">
             <a href="https://www.nationstates.net/page=dispatch/id=2525675" target="_blank" class="flex items-center">

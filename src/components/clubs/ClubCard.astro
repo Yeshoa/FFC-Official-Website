@@ -1,5 +1,6 @@
 ---
-// ClubCard: tarjeta de la galería /clubs. Escudo, nombre, federación, rating + estrellas.
+// ClubCard: tarjeta de la galería /clubs (estilo member card, estética CL).
+// Escudo grande, bandera + code de la federación, nombre del club y estrellas del equipo.
 import { Image } from 'astro:assets';
 import type { Club } from '@data/clubs';
 import type { Member } from '@ty/collections';
@@ -15,16 +16,16 @@ interface Props {
 }
 
 const { club, federation, rating, stars } = Astro.props;
-const primary = club.colors?.primary ?? '#95ff00';
+const primary = club.colors?.primary ?? '#b4ff00';
 const logo = resolveImage(club.logoPath);
 ---
 
 <a
   href={ROUTES.clubs.detail(club.slug)}
-  class="flex flex-col items-center gap-3 p-5 border border-primary-deep rounded-3xl hover:ring-2 hover:ring-primary-light transition-all duration-300"
+  class="flex flex-col p-4 border gap-4 ring-0 hover:ring-2 hover:ring-cl-lime transition-all duration-300 border-cl-lime/30 items-center rounded-4xl bg-cl-black/30"
 >
   <div
-    class="w-20 h-20 rounded-2xl border flex items-center justify-center"
+    class="w-24 h-24 rounded-2xl border flex items-center justify-center"
     style={{ backgroundColor: `${primary}18`, borderColor: primary }}
   >
     {logo ? (
@@ -35,24 +36,32 @@ const logo = resolveImage(club.logoPath);
         quality={60}
         format="webp"
         loading="lazy"
-        class="w-12 h-12 object-contain"
+        class="w-16 h-16 object-contain"
       />
     ) : (
-      <span class="text-3xl font-black" style={{ color: primary }}>
+      <span class="text-4xl font-black" style={{ color: primary }}>
         {club.shortName?.[0] ?? club.name[0]}
       </span>
     )}
   </div>
 
-  <div class="flex flex-col items-center gap-1">
-    <p class="text-sm font-semibold text-center">{club.name}</p>
-    {federation && (
-      <p class="text-xs text-text-muted">{federation.data.name}</p>
+  <div class="w-full flex gap-2 items-center justify-center">
+    {federation?.data.flagPath && (
+      <Image
+        src={federation.data.flagPath}
+        width={60}
+        quality={60}
+        format="webp"
+        class="h-6 w-10 rounded-xl object-cover ring-1 ring-cl-lime/40"
+        alt={federation.data.name}
+        loading="lazy"
+      />
     )}
+    <p class="text-sm font-bold">{federation?.data.code ?? club.federation}</p>
   </div>
 
-  <div class="flex items-center gap-2">
-    <span class="text-sm font-bold" style={{ color: primary }}>{rating}</span>
+  <div class="flex flex-col items-center gap-1">
+    <p class="text-sm font-semibold text-center text-white">{club.name}</p>
     <StarsDisplay value={stars} size="w-3 h-3" />
   </div>
 </a>
