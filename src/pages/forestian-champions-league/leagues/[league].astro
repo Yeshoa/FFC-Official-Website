@@ -12,6 +12,7 @@ import DomesticLeagueTable from '@components/members/DomesticLeagueTable.astro';
 import StarIcon from '@images/icons/star-solid.svg';
 import { ROUTES } from '@config/routes';
 import { LINKS } from '@config/links';
+import Image from 'astro/components/Image.astro';
 
 export async function getStaticPaths() {
   return getAllLeagues().map((league) => ({
@@ -81,7 +82,7 @@ const clubName = (id?: number) => (id != null ? (getClubById(id)?.name ?? `#${id
               <div class="min-w-0">
                 <h1 class="text-3xl sm:text-4xl md:text-5xl font-black text-white leading-tight">{league.name}</h1>
                 <p class="text-base md:text-lg text-text-muted mt-2">
-                  {federation?.data.name ?? `Federation #${league.federationId}`} · Division {league.division} · Season {league.season}
+                  {federation?.data.name ?? `Federation #${league.federationId}`} Division {league.division}
                 </p>
               </div>
             </div>
@@ -121,15 +122,45 @@ const clubName = (id?: number) => (id != null ? (getClubById(id)?.name ?? `#${id
                   <span class="w-14 shrink-0 text-cl-lime font-bold tabular-nums">{r.season}</span>
                   <span class="flex-1 min-w-0 flex items-center gap-2">
                     <StarIcon class="w-4 h-4 fill-amber-400 shrink-0" />
+                    <Image
+                      src={getClubById(r.championId)?.logoPath ?? DefaultLeagueLogo}
+                      alt={clubName(r.championId)}
+                      width={24}
+                      height={24}
+                      loading="lazy"
+                      quality={70}
+                      format="webp"
+                      class="w-6 h-6 object-contain shrink-0 rounded-sm"
+                    />
                     <span class="font-semibold text-white truncate">{clubName(r.championId)}</span>
                     <span class="text-xs text-text-muted shrink-0">({r.ordinal})</span>
                   </span>
                   <span class="flex-1 min-w-0 flex items-center gap-2">
                     <span class="w-3 h-3 rounded-full bg-slate-300 shrink-0" />
+                    <Image
+                      src={getClubById(r.runnerUpId)?.logoPath ?? DefaultLeagueLogo}
+                      alt={clubName(r.runnerUpId)}
+                      width={24}
+                      height={24}
+                      loading="lazy"
+                      quality={70}
+                      format="webp"
+                      class="w-6 h-6 object-contain shrink-0 rounded-sm"
+                    />
                     <span class="text-white/80 truncate">{clubName(r.runnerUpId)}</span>
                   </span>
                   <span class="flex-1 min-w-0 flex items-center gap-2">
                     <span class="w-3 h-3 rounded-full bg-amber-700 shrink-0" />
+                    <Image
+                      src={getClubById(r.thirdId)?.logoPath ?? DefaultLeagueLogo}
+                      alt={clubName(r.thirdId)}
+                      width={24}
+                      height={24}
+                      loading="lazy"
+                      quality={70}
+                      format="webp"
+                      class="w-6 h-6 object-contain shrink-0 rounded-sm"
+                    />
                     <span class="text-white/80 truncate">{clubName(r.thirdId)}</span>
                   </span>
                 </div>

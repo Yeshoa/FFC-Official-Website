@@ -17,4 +17,5 @@ Cosas que se me vinieron a la mente:
 | 126-160 | 128-159  | 5.5       |
 | 160+    | 160+     | 6         |
 - Otra cosa que se me ocurrió, es que la pagina principal sea basada en la forest cup, pero cuando uno cambie a champions league, también cambie el navbar, y sea la navegación de la champions league. para volver a la navegación anterior, tiene que hacer click en forest cup, o podría haber algún selector para decidir si estar en la sección de champions league o de forest cup(por defecto). entonces si alguien hace click en home desde el navbar de la champions league, lo va /fcl/index.astro, lo mismo con ranking, y bueno... no se como será con articles y sponsors ya que esos son globales..... mmmmmmmmm, dame ideas.
-- el verde de la champions sería este: #95ff00 y puede tener como secundario este: #00ff95
+- el verde de la champions sería este: #b4ff00 y puede tener como secundario este: #00ffb4
+- el negro champions sería #000014

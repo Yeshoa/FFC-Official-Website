@@ -159,7 +159,7 @@
 
 ### B7 · Layout y estética Champions League + navegación por sección
 - `src/layouts/ChampionsLeague.astro` (fondo negro + rombos verde lima).
-- Tokens CL (`--color-cl-black`, `--color-cl-lime` `#95ff00`, secundario `#00ff95`) y patrón de rombos CSS.
+- Tokens CL (`--color-cl-black` `#000014`, `--color-cl-lime` `#b4ff00`, secundario `#00ffb4) y patrón de rombos CSS.
 - **Navbar por sección**: la página principal es FC por defecto; al entrar a la sección CL cambia el navbar a la navegación CL (home, ranking, clubs, etc.). Volver a FC con selector/navbar. Home de CL en `/fcl/index.astro` (o ruta equivalente), con sus derivados (ranking, etc.). `articles`/`sponsors` quedan globales (se resuelve navegación en el plan de detalle de esta fase).
 - Reemplazar placeholder `champions-league.astro`.
 

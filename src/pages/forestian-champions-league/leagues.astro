@@ -25,7 +25,7 @@ const hasScores = ranked.some((r) => r.score.total > 0);
 
 <FCLayout title="FFC - Champions League Leagues">
   <main class="flex flex-col items-center pt-5">
-    <div class="flex flex-col items-center w-full max-w-5xl justify-center p-6">
+    <div class="flex flex-col items-center w-full max-w-7xl justify-center p-6">
       <Title slideIn={true} color="text-cl-lime">
         Leagues
         <span slot="subtitle">Domestic leagues of the Forest Football Confederation</span>
@@ -69,7 +69,14 @@ const hasScores = ranked.some((r) => r.score.total > 0);
                   <div class="min-w-0 flex-1">
                     <h2 class="text-lg font-bold text-white truncate">{first.name}</h2>
                     <p class="text-sm text-text-muted truncate">{federation?.data.name ?? `Federation #${fid}`}</p>
+                    
                   </div>
+                  <a
+                    href={ROUTES.championsLeague.league(first.id)}
+                    class="mt-4 sm:inline-block rounded-lg border border-cl-lime/50 text-cl-lime px-3 py-1.5 text-xs font-bold hover:bg-cl-lime/10 transition-colors self-start hidden md:hidden lg:inline-block"
+                  >
+                    See League →
+                  </a>
                   <div class="text-right shrink-0">
                     {rank != null && (
                       <span class="block text-2xl font-black text-cl-lime tabular-nums">#{rank}</span>
@@ -121,14 +128,14 @@ const hasScores = ranked.some((r) => r.score.total > 0);
                       );
                     })}
                   </div>
+                    <a
+                      href={ROUTES.championsLeague.league(first.id)}
+                      class="mt-4 inline-block rounded-lg border border-cl-lime/50 text-cl-lime px-3 py-1.5 text-xs font-bold hover:bg-cl-lime/10 transition-colors self-start sm:hidden md:inline-block lg:hidden"
+                    >
+                      See League →
+                    </a>  
                 )}
-
-                <a
-                  href={ROUTES.championsLeague.league(first.id)}
-                  class="mt-4 inline-block rounded-lg border border-cl-lime/50 text-cl-lime px-3 py-1.5 text-xs font-bold hover:bg-cl-lime/10 transition-colors"
-                >
-                  See League →
-                </a>
+                
               </div>
             );
           })}

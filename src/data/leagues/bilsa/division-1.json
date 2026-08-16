@@ -238,22 +238,22 @@
   ],
   "history": [
     {
-      "season": 2026,
-      "championId": 102,
-      "runnerUpId": 107,
-      "thirdId": 108
+      "season": 2018,
+      "championId": 132,
+      "runnerUpId": 109,
+      "thirdId": 152
     },
     {
-      "season": 2024,
-      "championId": 107,
-      "runnerUpId": 102,
-      "thirdId": 112
+      "season": 2017,
+      "championId": 109,
+      "runnerUpId": 132,
+      "thirdId": 152
     },
     {
-      "season": 2022,
-      "championId": 102,
-      "runnerUpId": 108,
-      "thirdId": 112
+      "season": 2016,
+      "championId": 141,
+      "runnerUpId": 109,
+      "thirdId": 149
     }
   ]
 }

@@ -6,6 +6,7 @@
 import FCLayout from '@layouts/FCL.astro';
 import { Image } from 'astro:assets';
 import FCLHero from '@images/tournaments/FCL/FCL banner.png';
+import FCLogo from '@images/tournaments/FCL/FCL Logo.svg';
 import { getAllClubs } from '@data/clubs';
 import { getAllLeagues } from '@data/leagues';
 import { getMemberById } from 'src/utils/memberUtils';
@@ -46,10 +47,10 @@ const clubs = getAllClubs()
     };
   })
   .sort((a, b) => b.rating - a.rating || a.club.name.localeCompare(b.club.name));
-const topClubs = clubs.slice(0, 8);
+const topClubs = clubs.slice(0, 10);
 
 // Top ligas por ranking (compacto para la home).
-const topLeagues = getTopLeagues(getAllLeagues(), 8);
+const topLeagues = getTopLeagues(getAllLeagues(), 10);
 
 // Artículos de la sección (tag FCL / champions-league).
 const articles = await getArticles();
@@ -58,36 +59,40 @@ const clArticles = getArticlesByTags(articles, ['FCL', 'champions-league']);
 
 <FCLayout title="FFC - Forestian Champions League">
   <!-- HERO full viewport -->
-  <section class="relative overflow-hidden flex items-center justify-center min-h-screen">
+  <section class="relative overflow-hidden flex items-center min-h-screen">
     <div class="absolute inset-0 overflow-hidden">
       <Image src={FCLHero} alt="" class="h-full w-full object-cover" loading="eager" format="webp" />
       <div class="absolute inset-0 bg-gradient-to-b from-cl-black/70 via-cl-black/40 to-cl-black"></div>
     </div>
     <div class="cl-pattern absolute inset-0 opacity-20 pointer-events-none"></div>
-    <div class="relative z-10 w-full max-w-screen-xl mx-auto px-4 py-24 flex flex-col items-center text-center gap-6">
-      <p class="text-sm uppercase tracking-[0.3em] text-cl-lime">Forestian Champions League</p>
-      <h1 class="text-5xl md:text-8xl font-black tracking-tight uppercase">
-        <span class="text-white">Champions</span> <span class="text-cl-lime">League</span>
-      </h1>
-      <p class="max-w-2xl text-lg text-text-muted">
-        The club competition of the Forest Football Confederation: groups, knockout rounds and a
-        single final where the best clubs of Forest fight for continental glory.
-      </p>
-      <div class="flex flex-wrap items-center justify-center gap-3">
-        {latestSeason != null && (
-          <a
-            href={ROUTES.championsLeague.season(latestSeason)}
-            class="px-6 py-3 rounded-lg bg-cl-lime text-black font-bold hover:bg-white transition-colors"
-          >
-            Season {latestSeason}
-          </a>
-        )}
-        <a
-          href="#history"
-          class="px-6 py-3 rounded-lg border border-cl-lime/50 text-cl-lime hover:bg-cl-lime/10 transition-colors"
-        >
-          History
-        </a>
+    <div class="relative z-10 w-full max-w-screen-xl mx-auto px-4 py-24">
+      <div class="flex flex-col md:flex-row items-center gap-8 md:gap-16 text-center md:text-left">
+        <FCLogo class="w-44 md:w-72 h-auto text-cl-lime shrink-0" />
+
+        <div class="flex flex-col items-center md:items-start gap-6">
+          <div class="flex flex-col leading-none">
+            <span class="font-ffc font-bold text-white text-5xl md:text-7xl">FFC</span>
+            <span class="font-cl font-black text-cl-lime text-4xl md:text-7xl">CHAMPIONS</span>
+            <span class="font-cl font-black text-cl-lime text-4xl md:text-7xl">LEAGUE</span>
+          </div>
+
+          <div class="flex flex-wrap items-center justify-center md:justify-start gap-3">
+            {latestSeason != null && (
+              <a
+                href={ROUTES.championsLeague.season(latestSeason)}
+                class="px-6 py-3 rounded-lg bg-cl-lime text-black font-bold hover:bg-white transition-colors"
+              >
+                Season {latestSeason}
+              </a>
+            )}
+            <a
+              href="#history"
+              class="px-6 py-3 rounded-lg border border-cl-lime/50 text-cl-lime hover:bg-cl-lime/10 transition-colors"
+            >
+              History
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -110,7 +115,7 @@ const clArticles = getArticlesByTags(articles, ['FCL', 'champions-league']);
           <div class="flex gap-2 mb-4" role="tablist">
             <button
               type="button"
-              class="ranking-tab px-4 py-1.5 rounded-lg text-xs font-bold border border-cl-lime/20 text-cl-lime/70 hover:border-cl-lime/60 transition-colors"
+              class="ranking-tab px-4 py-1.5 rounded-lg text-xs font-bold border border-cl-lime/40 text-cl-lime hover:border-cl-lime/60 transition-colors"
               data-panel="ranking-leagues"
               aria-selected="true"
             >
