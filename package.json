@@ -3,7 +3,8 @@
   "type": "module",
   "version": "1.0.0",
   "scripts": {
-    "dev": "astro dev",
+    "dev": "node scripts/dev.mjs",
+    "kill:dev": "node scripts/dev.mjs --kill",
     "build": "astro build --config ./astro.config.prod.mjs",
     "preview": "astro preview",
     "astro": "astro",

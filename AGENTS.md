@@ -13,13 +13,15 @@ Guía para agentes y desarrolladores que trabajan en este repositorio. **Leer an
 ## Comandos
 
 ```bash
-npm run dev           # servidor de desarrollo
+npm run dev           # servidor de desarrollo (wrapper scripts/dev.mjs: mata dev servers huérfanos + arranca astro directo)
+npm run kill:dev      # mata dev servers colgados de este proyecto (node con 'astro dev' en su command line)
 npm run build         # build de producción (usa astro.config.prod.mjs)
 npm run preview       # previsualizar build
 npm run astro         # CLI de astro
 ```
 
 - **Siempre verificar `npm run build` tras un cambio.** Es el único "lint/typecheck" efectivo del proyecto (Astro compila TS + valida schemas Zod de content collections en build).
+- **`npm run dev` ya no es `astro dev`**: pasa por `scripts/dev.mjs`, que (1) mata procesos `node.exe` huérfanos de ESTE proyecto que corran `astro dev` (un dev server colgado puede acumular GB de RAM y hacer crashear builds con stack trace nativo — ya pasó: un node con 6.2 GB agotó la memoria), y (2) spawnea astro directo (sin npm/cmd) para que el Ctrl+C se propague limpio. Si el build crashea "de la nada", primero revisar RAM/orfanos: `npm run kill:dev` y `(Get-CimInstance Win32_OperatingSystem).FreePhysicalMemory/1MB`. El wrapper loguea lo que mata (`[dev] killed stale dev servers: <pid>`).
 
 ## Convenciones de código
 
