@@ -14,9 +14,10 @@ interface Props {
   theme?: 'ffc' | 'fcl';
   compact?: boolean;
   highlightClubId?: number; // id del club actual (su fila se destaca)
+  showSeeLeague?: boolean; // botón "See League" en el header (ocultarlo en la propia página de la liga)
 }
 
-const { league, theme = 'ffc', compact = false, highlightClubId } = Astro.props;
+const { league, theme = 'ffc', compact = false, highlightClubId, showSeeLeague = true } = Astro.props;
 
 const leagueLogo = resolveImage(league.logoPath);
 
@@ -54,16 +55,18 @@ const headPad = compact ? 'px-2 py-1.5' : 'px-2 py-2';
       <span class={`font-bold text-cl-lime ${compact ? 'text-sm' : 'text-lg'}`}>
         Season {league.season}
       </span>
-      <a
-        href={ROUTES.championsLeague.league(league.id)}
-        class={`rounded-lg border font-bold transition-colors ${
-          isFcl
-            ? 'border-cl-lime/50 text-cl-lime hover:bg-cl-lime/10'
-            : 'border-primary text-primary-soft hover:bg-primary/20'
-        } ${compact ? 'px-2 py-1 text-[10px]' : 'px-3 py-1.5 text-xs'}`}
-      >
-        See League →
-      </a>
+      {showSeeLeague && (
+        <a
+          href={ROUTES.championsLeague.league(league.id)}
+          class={`rounded-lg border font-bold transition-colors ${
+            isFcl
+              ? 'border-cl-lime/50 text-cl-lime hover:bg-cl-lime/10'
+              : 'border-primary text-primary-soft hover:bg-primary/20'
+          } ${compact ? 'px-2 py-1 text-[10px]' : 'px-3 py-1.5 text-xs'}`}
+        >
+          See League →
+        </a>
+      )}
     </div>
   </div>
 
