@@ -1,7 +1,8 @@
 ---
 // SeasonSwitcher: selector de temporadas de un mismo tipo de torneo.
-// Filtra al tipo del torneo actual (no mezcla FC con CL), muestra solo el año,
-// y con 5+ ediciones enmarca la actual al centro (2 previas, 2 siguientes).
+// Filtra al tipo del torneo actual (no mezcla FC con CL). En la Forest Cup muestra el
+// nombre de la edición (Cacusia 2026); en la CL solo el año. Con 5+ ediciones enmarca
+// la actual al centro (2 previas, 2 siguientes).
 import { getTournaments } from '@lib/collections';
 import { getTournamentUrl } from '@utils/tournamentUtils';
 import type { CollectionEntry } from 'astro:content';
@@ -31,6 +32,10 @@ const visible = sameType.length >= 5
   : sameType;
 
 const year = (t: CollectionEntry<'tournaments'>) => t.data.season ?? t.data.edition;
+
+// En la Forest Cup se muestra el nombre de la edición (Cacusia 2026); en la CL solo el año.
+const label = (t: CollectionEntry<'tournaments'>) =>
+  current.type === 'forest-cup' ? (t.data.name ?? `${year(t)}`) : `${year(t)}`;
 ---
 
 <nav class="absolute top-0 left-0 right-0 z-20 bg-surface/80 backdrop-blur-sm">
@@ -46,7 +51,7 @@ const year = (t: CollectionEntry<'tournaments'>) => t.data.season ?? t.data.edit
               isActive ? activeClass : idleClass,
             ]}
           >
-            {year(tournament)}
+            {label(tournament)}
           </a>
         );
       })}
