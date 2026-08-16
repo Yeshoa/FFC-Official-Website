@@ -1,22 +1,34 @@
 ---
-// Home de la sección Champions League (FCL). Estética CL: negro + rombos lima.
-// El contenido de temporada/partidos real se arma en B10 (cuando exista el torneo CL).
+// Home de la sección Champions League (FCL). Rediseño según plan del dueño:
+// hero full-viewport con 2 CTAs (temporada actual + historia), artículos FCL a la
+// izquierda + ranking compacto (toggle clubes/ligas) a la derecha, tabla histórica de
+// clubes (top 30), goleadores/asistidores top 10 y lista compacta de ediciones+campeón.
 import FCLayout from '@layouts/FCL.astro';
 import { Image } from 'astro:assets';
-import FFCLogo from '@images/FFC-logo.webp';
+import FCLHero from '@images/tournaments/FCL/FCL banner.png';
 import { getAllClubs } from '@data/clubs';
 import { getMemberById } from 'src/utils/memberUtils';
 import { loadCurrentSquadByTeamId } from '@data/players';
 import { computeTeamRating, teamRatingToStars } from '@config/rating';
 import { ROUTES } from '@config/routes';
-import ClubCard from '@components/clubs/ClubCard.astro';
-import { getTournaments } from '@lib/collections';
+import { getTournaments, getMatches, getArticles } from '@lib/collections';
+import { getArticlesByTags } from 'src/utils/articleUtils';
+import RelatedNews from '@components/articles/RelatedNews.astro';
+import ScorersTable from '@components/tournaments/ScorersTable.astro';
+import ClubHistoricalTable from '@components/champions-league/home/ClubHistoricalTable.astro';
 
 const clTournaments = (await getTournaments())
   .filter((t) => t.data.type === 'forestian-champions-league')
   .sort((a, b) => b.data.season - a.data.season);
-const latestSeason = clTournaments[0]?.data.season ?? null;
+const latestTournament = clTournaments[0] ?? null;
+const latestSeason = latestTournament?.data.season ?? null;
 
+const allMatches = await getMatches();
+const clMatches = latestTournament
+  ? allMatches.filter((m) => m.data.tournament_id === latestTournament.data.id)
+  : [];
+
+// Ranking de clubes por rating del plantel (compacto para la home).
 const clubs = getAllClubs()
   .map((club) => {
     const squad = loadCurrentSquadByTeamId(club.id);
@@ -29,102 +41,182 @@ const clubs = getAllClubs()
     };
   })
   .sort((a, b) => b.rating - a.rating || a.club.name.localeCompare(b.club.name));
-
 const topClubs = clubs.slice(0, 8);
+
+// Artículos de la sección (tag FCL / champions-league).
+const articles = await getArticles();
+const clArticles = getArticlesByTags(articles, ['FCL', 'champions-league']);
 ---
 
 <FCLayout title="FFC - Forestian Champions League">
-  <!-- HERO -->
-  <section class="relative overflow-hidden bg-gradient-to-b from-black via-cl-black to-black">
+  <!-- HERO full viewport -->
+  <section class="relative overflow-hidden flex items-center justify-center min-h-screen">
+    <div class="absolute inset-0 overflow-hidden">
+      <Image src={FCLHero} alt="" class="h-full w-full object-cover" loading="eager" format="webp" />
+      <div class="absolute inset-0 bg-gradient-to-b from-cl-black/70 via-cl-black/40 to-cl-black"></div>
+    </div>
     <div class="cl-pattern absolute inset-0 opacity-20 pointer-events-none"></div>
-    <div class="relative z-10 w-full max-w-screen-xl mx-auto px-4 py-16 md:py-24 flex flex-col items-center text-center gap-6">
-      <Image
-        src={FFCLogo}
-        alt="FFC Logo"
-        width={160}
-        loading="eager"
-        class="drop-shadow-[0_0_20px_rgba(149,255,0,0.35)]"
-      />
-      <h1 class="text-5xl md:text-7xl font-black tracking-tight uppercase">
-        <span class="text-cl-lime">Forestian</span> <span class="text-white">Champions League</span>
+    <div class="relative z-10 w-full max-w-screen-xl mx-auto px-4 py-24 flex flex-col items-center text-center gap-6">
+      <p class="text-sm uppercase tracking-[0.3em] text-cl-lime">Forestian Champions League</p>
+      <h1 class="text-5xl md:text-8xl font-black tracking-tight uppercase">
+        <span class="text-white">Champions</span> <span class="text-cl-lime">League</span>
       </h1>
       <p class="max-w-2xl text-lg text-text-muted">
         The club competition of the Forest Football Confederation: groups, knockout rounds and a
         single final where the best clubs of Forest fight for continental glory.
       </p>
       <div class="flex flex-wrap items-center justify-center gap-3">
+        {latestSeason != null && (
+          <a
+            href={ROUTES.championsLeague.season(latestSeason)}
+            class="px-6 py-3 rounded-lg bg-cl-lime text-black font-bold hover:bg-white transition-colors"
+          >
+            Season {latestSeason}
+          </a>
+        )}
         <a
-          href={ROUTES.championsLeague.ranking}
-          class="px-6 py-3 rounded-lg bg-cl-lime text-black font-bold hover:bg-white transition-colors"
-        >
-          FCL Ranking
-        </a>
-        <a
-          href={ROUTES.clubs.index}
+          href="#history"
           class="px-6 py-3 rounded-lg border border-cl-lime/50 text-cl-lime hover:bg-cl-lime/10 transition-colors"
         >
-          Clubs
+          History
         </a>
       </div>
     </div>
   </section>
 
   <div class="w-full max-w-screen-xl mx-auto px-4 py-12 space-y-16">
-    <!-- RANKING PREVIEW -->
-    <section>
-      <div class="flex items-end justify-between mb-6">
-        <div>
-          <h2 class="text-3xl font-bold text-cl-lime uppercase">Club Ranking</h2>
-          <p class="text-text-muted">Top clubs by squad rating</p>
-        </div>
-        <a
-          href={ROUTES.championsLeague.ranking}
-          class="text-cl-lime hover:text-cl-lime-secondary text-sm font-semibold"
-        >
-          See full ranking →
-        </a>
+    <!-- Artículos + ranking compacto -->
+    <section class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+      <div>
+        <h2 class="text-2xl font-bold text-cl-lime uppercase mb-5">Champions League News</h2>
+        {clArticles.length > 0 ? (
+          <RelatedNews articles={clArticles} max={4} />
+        ) : (
+          <p class="text-text-muted italic">No Champions League articles yet.</p>
+        )}
       </div>
-      {topClubs.length > 0 ? (
-        <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
-          {topClubs.map(({ club, federation, rating, stars }) => (
-            <ClubCard club={club} federation={federation} rating={rating} stars={stars} />
-          ))}
+
+      <div>
+        <h2 class="text-2xl font-bold text-cl-lime uppercase mb-5">Rankings</h2>
+        <div class="rounded-2xl border border-cl-lime/20 bg-surface/20 p-4">
+          <div class="flex gap-2 mb-4" role="tablist">
+            <button
+              type="button"
+              class="ranking-tab px-4 py-1.5 rounded-lg text-xs font-bold border border-cl-lime/40 text-cl-lime hover:bg-cl-lime/10 transition-colors"
+              data-panel="ranking-clubs"
+              aria-selected="true"
+            >
+              Clubs
+            </button>
+            <button
+              type="button"
+              class="ranking-tab px-4 py-1.5 rounded-lg text-xs font-bold border border-cl-lime/20 text-cl-lime/70 hover:border-cl-lime/60 transition-colors"
+              data-panel="ranking-leagues"
+              aria-selected="false"
+            >
+              Leagues
+            </button>
+          </div>
+
+          <div id="ranking-clubs" class="ranking-panel space-y-1">
+            {topClubs.map(({ club, rating, stars }, index) => {
+              const primary = club.colors?.primary ?? '#b4ff00';
+              return (
+                <a
+                  href={ROUTES.clubs.detail(club.slug)}
+                  key={club.id}
+                  class="flex items-center gap-2 rounded-lg px-2 py-1.5 text-sm border border-cl-lime/10 bg-black/30 hover:border-cl-lime/50 transition-colors"
+                  title={club.name}
+                >
+                  <span class="w-5 text-right text-cl-lime font-bold tabular-nums text-xs">{index + 1}</span>
+                  <span
+                    class="w-6 h-6 rounded flex items-center justify-center border text-[9px] font-black"
+                    style={{ backgroundColor: `${primary}22`, borderColor: primary, color: primary }}
+                  >
+                    {club.name[0]?.toUpperCase()}
+                  </span>
+                  <span class="flex-1 truncate font-medium text-white">{club.name}</span>
+                  <span class="text-yellow-300 text-[10px]">{'★'.repeat(Math.round(stars))}</span>
+                  <span class="font-bold text-cl-lime text-xs tabular-nums">{rating || '-'}</span>
+                </a>
+              );
+            })}
+            {topClubs.length === 0 && (
+              <p class="text-text-muted italic text-sm py-4 text-center">No clubs registered yet.</p>
+            )}
+            <a
+              href={ROUTES.championsLeague.ranking}
+              class="block text-center text-xs text-cl-lime hover:text-cl-lime-secondary font-semibold pt-2"
+            >
+              See full ranking →
+            </a>
+          </div>
+
+          <div id="ranking-leagues" class="ranking-panel space-y-1 hidden">
+            <p class="text-text-muted italic text-sm py-4 text-center">
+              League ranking coming soon.
+            </p>
+          </div>
         </div>
-      ) : (
-        <p class="text-text-muted italic">No clubs registered yet.</p>
-      )}
+      </div>
     </section>
 
-    <!-- FORMAT -->
-    <section class="rounded-3xl border border-cl-lime/20 bg-surface/20 p-8 md:p-10">
-      <h2 class="text-3xl font-bold text-cl-lime uppercase mb-6">Format</h2>
-      <div class="grid md:grid-cols-3 gap-6 text-sm">
-        <div class="space-y-1">
-          <p class="text-cl-lime font-bold uppercase tracking-wide">Group Stage</p>
-          <p class="text-text-muted">Clubs are drawn into groups and play a round-robin to advance to the knockout stage.</p>
-        </div>
-        <div class="space-y-1">
-          <p class="text-cl-lime font-bold uppercase tracking-wide">Knockout Rounds</p>
-          <p class="text-text-muted">From the Round of 32 to the semi-finals, ties are played over two legs, decided on aggregate.</p>
-        </div>
-        <div class="space-y-1">
-          <p class="text-cl-lime font-bold uppercase tracking-wide">The Final</p>
-          <p class="text-text-muted">A single match decides the champion of the Forestian Champions League.</p>
-        </div>
+    <!-- Histórico de clubes (top 30) -->
+    <section id="history">
+      <h2 class="text-2xl font-bold text-cl-lime uppercase mb-5">Historical Table</h2>
+      <div class="rounded-2xl border border-cl-lime/20 bg-surface/20 p-4">
+        <ClubHistoricalTable matches={clMatches} />
       </div>
     </section>
 
-    <!-- SEASON -->
-    {latestSeason !== null && (
-      <section class="text-center">
-        <p class="text-text-muted uppercase tracking-widest text-sm">Season {latestSeason}</p>
-        <a
-          href={ROUTES.championsLeague.season(latestSeason)}
-          class="inline-block mt-3 px-6 py-3 rounded-lg bg-cl-lime text-black font-bold hover:bg-white transition-colors"
-        >
-          Go to the season
-        </a>
+    <!-- Goleadores y asistidores -->
+    {clMatches.length > 0 && (
+      <section>
+        <ScorersTable matches={clMatches} />
       </section>
     )}
+
+    <!-- Ediciones + campeón (compacto) -->
+    <section>
+      <h2 class="text-2xl font-bold text-cl-lime uppercase mb-5">Editions</h2>
+      <div class="rounded-2xl border border-cl-lime/20 bg-surface/20 p-4 divide-y divide-cl-lime/10">
+        {clTournaments.length === 0 && (
+          <p class="text-text-muted italic text-sm py-4 text-center">No editions yet.</p>
+        )}
+        {clTournaments.map((t) => (
+          <a
+            href={ROUTES.championsLeague.season(t.data.season)}
+            key={t.data.id}
+            class="flex items-center justify-between gap-3 px-2 py-2.5 hover:bg-cl-lime/5 transition-colors rounded-lg"
+          >
+            <div class="flex items-center gap-3">
+              <span class="text-cl-lime font-black text-lg tabular-nums">{t.data.season}</span>
+              <span class="text-text-muted text-sm">{t.data.name}</span>
+            </div>
+            <span class="text-sm font-semibold text-amber-300">{t.data.champion ?? 'TBD'}</span>
+          </a>
+        ))}
+      </div>
+    </section>
   </div>
 </FCLayout>
+
+<script>
+  // Toggle del panel de rankings (clubes/ligas).
+  document.querySelectorAll('.ranking-tab').forEach((tab) => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.ranking-tab').forEach((t) => {
+        const active = t === tab;
+        t.classList.toggle('bg-cl-lime/10', active);
+        t.classList.toggle('text-cl-lime', active);
+        t.classList.toggle('border-cl-lime/40', active);
+        t.classList.toggle('text-cl-lime/70', !active);
+        t.classList.toggle('border-cl-lime/20', !active);
+        t.setAttribute('aria-selected', String(active));
+      });
+      document.querySelectorAll('.ranking-panel').forEach((p) => {
+        p.classList.toggle('hidden', p.id !== tab.dataset.panel);
+      });
+    });
+  });
+</script>
