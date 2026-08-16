@@ -18,9 +18,10 @@ interface Props {
   matches: CollectionEntry<'matches'>[];
   type: 'forest-cup' | 'forestian-champions-league';
   teamKind?: 'national' | 'club';
+  onlyParticipated?: boolean; // solo ediciones donde el equipo participó
 }
 // teamId/teamName para identificar al equipo (selección o club); tournaments y matches para los datos.
-const { teamId, teamName, matches, type, teamKind = 'national' } = Astro.props;
+const { teamId, teamName, matches, type, teamKind = 'national', onlyParticipated = false } = Astro.props;
 // Filtrar los torneos por tipo
 const allEditions = tournaments
   .filter(t => t.data.type === type)
@@ -95,11 +96,14 @@ for (const tournamentData of tournamentsData) {
     tournamentHasPendingMatches.set(tourneId, pendingInTournament);
   }
 }
+
+// Solo ediciones donde el equipo participó (para clubes con muchas ediciones).
+const displayed = onlyParticipated ? tournamentsData.filter((t) => t.didParticipate) : tournamentsData;
 ---
 
 <div class="bg-surface/80 shadow-lg rounded-lg p-6 mb-8">
 <h2 class="text-2xl font-semibold mb-4 border-b pb-2 border-primary">{type === 'forest-cup' ? 'Forest Cup' : 'Champions League'} Participations</h2>
-{allEditions.length > 0 ? (
+{displayed.length > 0 ? (
 <>
 <h6 class="md:hidden text-center mb-2 text-text-muted">Swipe to see the full table</h6>
   <div class="overflow-x-auto">
@@ -122,7 +126,7 @@ for (const tournamentData of tournamentsData) {
         </tr>
       </thead>
       <tbody class="">
-        {tournamentsData.map(t => {
+        {displayed.map(t => {
           // No participó
           if (t.result.status === 'not_participated') {
             return (

@@ -98,13 +98,15 @@ const filteredArticles = getArticlesByTags(articles, filterTags);
     </div>
     <!-- <ScoreDetails scoreData={memberScoreDetails} /> -->
 
-    <SquadCompact teamId={memberData.id} teamCode={memberData.code} teamName={memberData.name} teamType="national" />
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
+      <SquadCompact teamId={memberData.id} teamCode={memberData.code} teamName={memberData.name} teamType="national" showClub compact />
 
-    {firstDivision ? (
-      <DomesticLeagueTable league={firstDivision} />
-    ) : memberHasClubs ? (
-      <MemberClubs member={member} />
-    ) : null}
+      {firstDivision ? (
+        <DomesticLeagueTable league={firstDivision} compact />
+      ) : memberHasClubs ? (
+        <MemberClubs member={member} />
+      ) : null}
+    </div>
 
     <TournamentParticipationTable
       teamId={memberData.id}

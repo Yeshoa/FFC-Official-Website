@@ -1,39 +1,40 @@
 ---
-// Plantel compacto derivado de players.json: ordenado por posición, con dorsal,
-// badge de posición (color por rol), badge de OVR (color por valor) y estrellitas.
-// Sin XI/titulares. Poderío del equipo en el header.
-// Tabla de 2 columnas: jugador | club (selección) / nacionalidad (club).
+// Plantel compacto derivado de players.json. Fila: posición · dorsal · bandera (sin code/país)
+// · Nombre **Apellido**, con estrellas + OVR (color por valor) a la derecha.
+// `showClub` agrega una columna final con el club (logo + code) del jugador.
+// `theme` cambia los colores (ffc verde / fcl lima).
 import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
 import type { Player } from '@data/players/index';
 import { getPlayerName, loadCurrentSquad, loadCurrentSquadByTeamId } from '@data/players';
-import {
-  computePlayerRating,
-  computeTeamRating,
-  ovrRatingColor,
-  ratingToStars,
-  teamRatingToStars,
-} from '@config/rating';
+import { computePlayerRating, ovrRatingColor, ratingToStars } from '@config/rating';
 import { positionToRole, ROLE_ORDER, ROLE_STYLE, type Role } from '@config/positions';
 import { getClubByCode, getClubById } from '@data/clubs';
 import { getMemberById } from 'src/utils/memberUtils';
+import { resolveImage } from '@utils/imageAssets';
 import StarsDisplay from '@components/ui/StarsDisplay.astro';
 
 interface Props {
-  teamId?: number; // id global del equipo (fuente de verdad)
-  teamCode: string; // código del equipo (fallback + buscar entrada dorsal)
+  teamId?: number;
+  teamCode: string;
   teamName?: string;
   coach?: string | null;
   formation?: string | null;
-  teamType?: 'national' | 'club'; // define la 2da columna (club vs nacionalidad)
+  teamType?: 'national' | 'club';
+  theme?: 'ffc' | 'fcl';
+  compact?: boolean;
+  showClub?: boolean;
 }
 
 const {
   teamId,
   teamCode,
-  teamName,
   coach = null,
   formation = null,
   teamType = 'national',
+  theme = 'ffc',
+  compact = false,
+  showClub = false,
 } = Astro.props;
 
 const squad: Player[] =
@@ -48,8 +49,8 @@ interface SquadRow {
   position: string;
   rating: number;
   stars: number;
-  clubName: string | null; // selección: club activo del jugador
-  nationality: { name: string; flag: ImageMetadata | null } | null; // club: nacionalidad
+  flag: { name: string; src: ImageMetadata | null } | null;
+  club: { name: string; code: string; logo: ImageMetadata | null } | null;
 }
 
 const rows: SquadRow[] = squad.map((player) => {
@@ -63,26 +64,18 @@ const rows: SquadRow[] = squad.map((player) => {
   const rating = computePlayerRating(player.skills, player.position);
   const position = player.position || 'CF';
 
-  let clubName: string | null = null;
-  if (teamType === 'national') {
-    const clubEntry = player.teams.find(
-      (t) => t.teamType === 'club' && t.status === 'active',
-    );
-    if (clubEntry) {
-      const club =
-        clubEntry.teamId !== undefined && clubEntry.teamId !== null
-          ? getClubById(clubEntry.teamId)
-          : getClubByCode(clubEntry.teamCode);
-      clubName = club?.name ?? clubEntry.teamCode;
-    }
-  }
+  const nat = getMemberById(player.nationalityId);
+  const flag = nat ? { name: nat.data.name, src: nat.data.flagPath ?? null } : null;
 
-  let nationality: { name: string; flag: ImageMetadata | null } | null = null;
-  if (teamType === 'club') {
-    const member = getMemberById(player.nationalityId);
-    nationality = member
-      ? { name: member.data.name, flag: member.data.flagPath }
-      : null;
+  let club: SquadRow['club'] = null;
+  const clubEntry = player.teams.find((t) => t.teamType === 'club' && t.status === 'active');
+  if (clubEntry) {
+    const c =
+      clubEntry.teamId !== undefined && clubEntry.teamId !== null
+        ? getClubById(clubEntry.teamId)
+        : getClubByCode(clubEntry.teamCode);
+    if (c) club = { name: c.name, code: c.code, logo: resolveImage(c.logoPath) };
+    else club = { name: clubEntry.teamCode, code: clubEntry.teamCode, logo: null };
   }
 
   return {
@@ -92,8 +85,8 @@ const rows: SquadRow[] = squad.map((player) => {
     position,
     rating,
     stars: ratingToStars(rating),
-    clubName,
-    nationality,
+    flag,
+    club,
   };
 });
 
@@ -104,96 +97,106 @@ rows.sort(
     getPlayerName(a.player).localeCompare(getPlayerName(b.player)),
 );
 
-const teamRating = computeTeamRating(squad);
-const teamStars = teamRatingToStars(teamRating);
+const isFcl = theme === 'fcl';
+const headClass = isFcl ? 'bg-cl-lime/15 text-cl-lime' : 'bg-primary-deep text-white';
+const rowBorder = isFcl ? 'border-cl-lime/15' : 'border-primary-dark';
+const boxClass = isFcl
+  ? 'rounded-lg border border-cl-lime/20 bg-cl-black/40'
+  : 'bg-surface/80 shadow-lg rounded-lg';
+const pad = compact ? 'p-3' : 'p-6';
+const textRow = compact ? 'text-xs' : 'text-sm';
+const headPad = compact ? 'px-2 py-1.5' : 'px-3 py-2';
 ---
 
 {
   rows.length > 0 ? (
-    <div class="bg-surface/80 shadow-lg rounded-lg p-6 mb-8">
-      <div class="flex items-baseline justify-between gap-4 flex-wrap mb-4 border-b pb-2 border-primary">
-        <div class="flex items-center gap-2 flex-wrap">
-          <h2 class="text-2xl font-semibold text-white">Squad</h2>
-          {teamName && <span class="text-sm text-text-muted">{teamName}</span>}
-          {coach && <span class="text-sm text-text-muted">Coach: {coach}</span>}
-          {formation && (
-            <span class="text-sm text-text-muted">Formation: {formation}</span>
-          )}
-        </div>
-        <div class="flex items-center gap-2">
-          <span class="text-sm text-text-muted">Power:</span>
-          <StarsDisplay value={teamStars} size="w-4 h-4" />
-          <span class="text-sm font-semibold text-primary-muted">
-            {teamRating || '-'}
-          </span>
-        </div>
+    <div class={`${boxClass} ${pad} mb-8`}>
+      <div class="flex items-center gap-2 flex-wrap mb-3 border-b pb-2 border-primary">
+        <h2 class="text-xl font-semibold text-white">Squad</h2>
+        {coach && <span class="text-sm text-text-muted">Coach: {coach}</span>}
+        {formation && <span class="text-sm text-text-muted">Formation: {formation}</span>}
       </div>
       <div class="overflow-x-auto">
-        <table class="w-full text-sm table-auto border-collapse">
-          <thead class="bg-primary-deep text-white">
+        <table class={`w-full table-auto border-collapse ${textRow}`}>
+          <thead class={headClass}>
             <tr>
-              <th scope="col" class="px-3 py-2 rounded-tl-lg text-left" title="Player">Player</th>
-              <th scope="col" class="px-3 py-2 rounded-tr-lg text-right">
-                {teamType === 'national' ? 'Club' : 'Nationality'}
-              </th>
+              <th scope="col" class={`${headPad} rounded-tl-lg text-left`} title="Player">Player</th>
+              <th scope="col" class={`${headPad} rounded-tr-lg text-right`} title="Rating">OVR</th>
+              {showClub && (
+                <th scope="col" class={`${headPad} text-right`} title="Club">Club</th>
+              )}
             </tr>
           </thead>
           <tbody>
-            {rows.map(({ player, number, position, role, rating, stars, clubName, nationality }) => {
+            {rows.map(({ player, number, position, role, rating, stars, flag, club }) => {
               const ovrColor = ovrRatingColor(rating);
+              const firstName = (player.firstName ?? '').trim();
+              const lastName = (player.lastName ?? '').trim();
               return (
-                <tr class="border-b border-primary-dark hover:bg-surface-raised/20">
-                  <td class="px-3 py-2">
+                <tr class={`border-b ${rowBorder} hover:bg-surface-raised/20`}>
+                  <td class={`${compact ? 'px-2 py-1.5' : 'px-3 py-2'} text-left`}>
                     <div class="flex items-center gap-2">
-                      <span class="w-6 shrink-0 text-center font-semibold text-primary-muted">
-                        {number ?? ''}
-                      </span>
                       <span
-                        class={`inline-flex items-center rounded px-1.5 py-0.5 text-xs font-bold ${ROLE_STYLE[role]}`}
+                        class={`inline-flex items-center rounded px-1.5 py-0.5 font-bold ${ROLE_STYLE[role]}`}
                         title={position}
                       >
                         {position}
                       </span>
-                      <span class="font-medium text-white">{getPlayerName(player)}</span>
+                      <span class="w-6 shrink-0 text-center font-semibold text-text-muted">
+                        {number ?? ''}
+                      </span>
+                      {flag?.src && (
+                        <Image
+                          src={flag.src}
+                          alt={flag.name}
+                          class="w-5 h-3.5 object-cover rounded-sm shrink-0"
+                          height={24}
+                          loading="lazy"
+                          quality={10}
+                          format="webp"
+                        />
+                      )}
+                      <span class="font-medium text-white truncate">
+                        {firstName} {lastName ? <strong>{lastName}</strong> : ''}
+                      </span>
+                    </div>
+                  </td>
+                  <td class={`${compact ? 'px-2 py-1.5' : 'px-3 py-2'} text-right`}>
+                    <div class="flex items-center justify-end gap-2">
+                      <StarsDisplay value={stars} size="w-3 h-3" />
                       {rating > 0 && (
                         <span
-                          class="inline-flex items-center rounded px-1.5 py-0.5 text-xs font-bold"
+                          class="inline-flex items-center rounded px-1.5 py-0.5 text-xs font-bold tabular-nums"
                           style={{ backgroundColor: ovrColor.bg, color: ovrColor.text }}
                           title={`OVR ${rating}`}
                         >
                           {rating}
                         </span>
                       )}
-                      <StarsDisplay value={stars} size="w-3 h-3" />
                     </div>
                   </td>
-                  <td class="px-3 py-2 text-right">
-                    {teamType === 'national' ? (
-                      clubName ? (
-                        <span class="text-text-muted">{clubName}</span>
+                  {showClub && (
+                    <td class={`${compact ? 'px-2 py-1.5' : 'px-3 py-2'} text-right`}>
+                      {club ? (
+                        <span class="inline-flex items-center gap-1.5 justify-end" title={club.name}>
+                          {club.logo && (
+                            <Image
+                              src={club.logo}
+                              alt={club.name}
+                              width={32}
+                              loading="lazy"
+                              quality={60}
+                              format="webp"
+                              class="w-5 h-5 object-contain"
+                            />
+                          )}
+                          <span class="text-xs font-bold text-text-muted">{club.code}</span>
+                        </span>
                       ) : (
                         <span class="text-text-muted/50">—</span>
-                      )
-                    ) : nationality ? (
-                      <div class="flex items-center justify-end gap-2">
-                        {nationality.flag && (
-                          <Image
-                            src={nationality.flag}
-                            alt={nationality.name}
-                            class="w-6 h-4 object-cover rounded"
-                            height={24}
-                            width={36}
-                            loading="lazy"
-                            quality={10}
-                            format="webp"
-                          />
-                        )}
-                        <span class="text-text-muted">{nationality.name}</span>
-                      </div>
-                    ) : (
-                      <span class="text-text-muted/50">—</span>
-                    )}
-                  </td>
+                      )}
+                    </td>
+                  )}
                 </tr>
               );
             })}

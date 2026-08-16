@@ -43,23 +43,27 @@ const clubMatches = matches.filter(
   <div class="md:container m-auto p-4 py-8">
     <ClubHero club={club} federation={federation} rating={rating} stars={stars} />
 
-    <SquadCompact
-      teamId={club.id}
-      teamCode={club.code}
-      teamName={club.name}
-      coach={club.squad?.coach}
-      formation={club.squad?.formation}
-      teamType="club"
-    />
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
+      <SquadCompact
+        teamId={club.id}
+        teamCode={club.code}
+        teamName={club.name}
+        coach={club.squad?.coach}
+        formation={club.squad?.formation}
+        teamType="club"
+        theme="fcl"
+        compact
+      />
 
-    {clubLeague ? (
-      <DomesticLeagueTable league={clubLeague} />
-    ) : (
-      <div class="bg-surface/80 shadow-lg rounded-lg p-6 mb-8">
-        <h2 class="text-2xl font-semibold mb-4 border-b pb-2 border-primary">Domestic League</h2>
-        <p class="text-text-muted italic">No domestic league record available for this club yet.</p>
-      </div>
-    )}
+      {clubLeague ? (
+        <DomesticLeagueTable league={clubLeague} theme="fcl" compact />
+      ) : (
+        <div class="bg-cl-black/40 border border-cl-lime/20 rounded-lg p-6">
+          <h2 class="text-xl font-semibold mb-4 border-b pb-2 border-cl-lime/20">Domestic League</h2>
+          <p class="text-text-muted italic">No domestic league record available for this club yet.</p>
+        </div>
+      )}
+    </div>
 
     <TournamentParticipationTable
       teamId={club.id}
@@ -67,6 +71,7 @@ const clubMatches = matches.filter(
       matches={matches}
       type="forestian-champions-league"
       teamKind="club"
+      onlyParticipated
     />
 
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
