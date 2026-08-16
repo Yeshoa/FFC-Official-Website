@@ -9,7 +9,8 @@ import matches2022 from '../data/matches/forest-cup-2022.json';
 import matches2024 from '../data/matches/forest-cup-2024.json';
 import matches2026 from '../data/matches/forest-cup-2026.json';
 import matchesCL2027 from '../data/matches/champions-league-2027.json';
-import tournamentsData from '../data/tournaments.json';
+import tournamentsFCData from '../data/tournaments-fc.json';
+import tournamentsCLData from '../data/tournaments-cl.json';
 import membersData from '../data/members.json';
 import achievementsData from '../data/achievements.json';
 import sponsorsData from '../data/sponsors.json';
@@ -29,6 +30,9 @@ function objectLoader(name: string, data: Record<string, Record<string, unknown>
     },
   };
 }
+
+// Torneos separados por competición: forest cups y champions leagues (decisión del dueño).
+const tournamentsData = { ...tournamentsFCData, ...tournamentsCLData };
 
 const tournamentsCollection = defineCollection({
   loader: objectLoader('tournaments', tournamentsData),
