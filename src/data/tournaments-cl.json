@@ -13,9 +13,24 @@
     "pots": [
       {
         "pot": 1,
-        "teams": [],
-        "teamCodes": [],
-        "teamIds": []
+        "teams": [
+          "Bax",
+          "Bjelaz",
+          "Butler",
+          "Dazilla"
+        ],
+        "teamCodes": [
+          "BAX",
+          "BJE",
+          "BUT",
+          "DAZ"
+        ],
+        "teamIds": [
+          102,
+          107,
+          108,
+          112
+        ]
       }
     ]
   }

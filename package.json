@@ -13,7 +13,8 @@
     "players:link:strict": "node scripts/players-link.mjs --strict",
     "players:import": "node scripts/import-pes-players.mjs",
     "players:import:dry": "node scripts/import-pes-players.mjs --dry-run",
-    "teams:link": "node scripts/teams-link.mjs"
+    "teams:link": "node scripts/teams-link.mjs",
+    "qualify:cl": "node scripts/qualify-cl.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.3.14",

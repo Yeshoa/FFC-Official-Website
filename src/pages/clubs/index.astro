@@ -6,8 +6,19 @@ import { getAllClubs } from '@data/clubs';
 import { getMemberById } from 'src/utils/memberUtils';
 import { loadCurrentSquadByTeamId } from '@data/players';
 import { computeTeamRating, teamRatingToStars } from '@config/rating';
+import { getTournaments } from '@lib/collections';
+
+// Solo clubes clasificados a la edición actual de la CL (pots del torneo CL más reciente).
+const clTournaments = (await getTournaments())
+  .filter((t) => t.data.type === 'forestian-champions-league')
+  .sort((a, b) => b.data.season - a.data.season);
+const latest = clTournaments[0] ?? null;
+const qualifiedIds = new Set(
+  latest ? (latest.data.pots ?? []).flatMap((p) => p.teamIds ?? []) : [],
+);
 
 const clubs = getAllClubs()
+  .filter((club) => qualifiedIds.has(club.id))
   .map((club) => {
     const squad = loadCurrentSquadByTeamId(club.id);
     const rating = computeTeamRating(squad);
@@ -41,7 +52,7 @@ const clubs = getAllClubs()
           ))}
         </div>
       ) : (
-        <p class="text-text-muted italic mt-8">No clubs yet.</p>
+        <p class="text-text-muted italic mt-8">No clubs qualified to the current Champions League yet.</p>
       )}
     </div>
   </main>
