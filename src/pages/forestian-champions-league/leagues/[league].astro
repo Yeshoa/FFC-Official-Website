@@ -11,6 +11,7 @@ import DefaultLeagueLogo from '@images/leagues/default.png';
 import DomesticLeagueTable from '@components/members/DomesticLeagueTable.astro';
 import StarIcon from '@images/icons/star-solid.svg';
 import { ROUTES } from '@config/routes';
+import { LINKS } from '@config/links';
 
 export async function getStaticPaths() {
   return getAllLeagues().map((league) => ({
@@ -24,6 +25,9 @@ if (!league) return Astro.redirect('/404');
 
 const federation = getMemberById(league.federationId);
 const logo = resolveImage(league.logoPath);
+
+// Divisiones del mismo país (para navegar entre ellas).
+const divisions = getLeaguesByFederation(league.federationId);
 
 // Historial cronológico (para contar títulos) y display nuevo → viejo.
 const history = (league.history ?? []).slice().sort((a, b) => a.season - b.season);
@@ -40,62 +44,69 @@ const clubName = (id?: number) => (id != null ? (getClubById(id)?.name ?? `#${id
 
 <FCLayout title={`FFC - ${league.name}`}>
   <main class="flex flex-col items-center pt-5">
-    <div class="flex flex-col items-center w-full max-w-4xl justify-center p-6">
+    <div class="flex flex-col items-center w-full max-w-8xl justify-center p-6">
       <nav class="w-full text-xs text-text-muted mb-4">
         <a href={ROUTES.championsLeague.leagues} class="hover:text-cl-lime underline transition-colors">Leagues</a>
         <span aria-hidden class="mx-1">›</span>
         <span>{league.name}</span>
       </nav>
 
-      <div class="w-full rounded-2xl border border-cl-lime/20 bg-cl-black/40 p-5 mb-8">
-        <div class="flex items-center gap-4">
-          {federation?.data.flagPath && (
-            <Image
-              src={federation.data.flagPath}
-              alt={federation.data.name}
-              width={96}
-              loading="eager"
-              quality={70}
-              format="webp"
-              class="w-16 h-11 rounded-md object-cover ring-1 ring-cl-lime/40"
-            />
-          )}
+      <div class="w-full rounded-2xl border border-cl-lime/20 bg-cl-black/40 p-6 md:p-10 mb-8">
+        <div class="flex flex-col md:flex-row items-center gap-6 md:gap-12">
           <Image
             src={logo ?? DefaultLeagueLogo}
-            alt={`Logo de ${league.name}`}
-            width={96}
+            alt={`${league.name} Logo`}
+            width={256}
             loading="eager"
             quality={70}
             format="webp"
-            class="w-16 h-16 object-contain"
+            class="w-40 h-40 md:w-52 md:h-52 object-contain shrink-0"
           />
-          <div class="min-w-0 flex-1">
-            <h1 class="text-2xl font-black text-white truncate">{league.name}</h1>
-            <p class="text-sm text-text-muted truncate">
-              {federation?.data.name ?? `Federation #${league.federationId}`} · Division {league.division} · Season {league.season}
-            </p>
-          </div>
-        </div>
 
-        {getLeaguesByFederation(league.federationId).length > 1 && (
-          <div class="mt-4 flex flex-wrap items-center gap-2">
-            <span class="text-[10px] uppercase tracking-wider text-text-muted">Divisions</span>
-            {getLeaguesByFederation(league.federationId).map((l) =>
-              l.id === league.id ? (
-                <span key={l.id} class="px-2 py-0.5 rounded bg-cl-lime text-black text-xs font-bold">{l.division}</span>
-              ) : (
-                <a
-                  key={l.id}
-                  href={ROUTES.championsLeague.league(l.id)}
-                  title={l.name}
-                  class="px-2 py-0.5 rounded border border-cl-lime/40 text-cl-lime text-xs font-bold hover:bg-cl-lime/10 transition-colors"
-                >
-                  {l.division}
+          <div class="flex-1 min-w-0 flex flex-col gap-5 text-center md:text-left">
+            <div class="flex flex-col sm:flex-row items-center gap-4">
+              {federation?.data.flagPath && (
+                <a href={ROUTES.members.detail(federation.id)} rel="noopener noreferrer" class="shrink-0">
+                  <Image
+                    src={federation.data.flagPath}
+                    alt={federation.data.name}
+                    width={160}
+                    loading="eager"
+                    quality={70}
+                    format="webp"
+                    class="w-24 h-16 md:w-28 md:h-[74px] rounded-md object-cover ring-1 ring-cl-lime/40"
+                  />
                 </a>
-              ),
+              )}
+              <div class="min-w-0">
+                <h1 class="text-3xl sm:text-4xl md:text-5xl font-black text-white leading-tight">{league.name}</h1>
+                <p class="text-base md:text-lg text-text-muted mt-2">
+                  {federation?.data.name ?? `Federation #${league.federationId}`} · Division {league.division} · Season {league.season}
+                </p>
+              </div>
+            </div>
+
+            {divisions.length > 1 && (
+              <div class="flex flex-wrap items-center justify-center md:justify-start gap-2">
+                <span class="text-xs uppercase tracking-wider text-text-muted">Divisions</span>
+                {divisions.map((l) =>
+                  l.id === league.id ? (
+                    <span key={l.id} class="px-3 py-1 rounded bg-cl-lime text-black text-sm font-bold">{l.division}</span>
+                  ) : (
+                    <a
+                      key={l.id}
+                      href={ROUTES.championsLeague.league(l.id)}
+                      title={l.name}
+                      class="px-3 py-1 rounded border border-cl-lime/40 text-cl-lime text-sm font-bold hover:bg-cl-lime/10 transition-colors"
+                    >
+                      {l.division}
+                    </a>
+                  ),
+                )}
+              </div>
             )}
           </div>
-        )}
+        </div>
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start w-full">
