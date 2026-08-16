@@ -1,11 +1,13 @@
 ---
 // ClubCard: tarjeta de la galería /clubs (estilo member card, estética CL).
-// Escudo grande, bandera + code de la federación, nombre del club y estrellas del equipo.
+// Logo grande sin recuadro (fallback clubs/default.png), bandera + code de la federación,
+// nombre del club y estrellas del equipo.
 import { Image } from 'astro:assets';
 import type { Club } from '@data/clubs';
 import type { Member } from '@ty/collections';
 import { ROUTES } from '@config/routes';
 import { resolveImage } from '@utils/imageAssets';
+import DefaultClubLogo from '@images/clubs/default.png';
 import StarsDisplay from '@components/ui/StarsDisplay.astro';
 
 interface Props {
@@ -16,35 +18,27 @@ interface Props {
 }
 
 const { club, federation, rating, stars } = Astro.props;
-const primary = club.colors?.primary ?? '#b4ff00';
 const logo = resolveImage(club.logoPath);
+const logoClass = logo
+  ? "max-h-32 w-auto max-w-32"
+  : "max-h-32 w-auto max-w-32 opacity-60";
 ---
 
 <a
   href={ROUTES.clubs.detail(club.slug)}
   class="flex flex-col p-4 border gap-4 ring-0 hover:ring-2 hover:ring-cl-lime transition-all duration-300 border-cl-lime/30 items-center rounded-4xl bg-cl-black/30"
 >
-  <div
-    class="w-24 h-24 rounded-2xl border flex items-center justify-center"
-    style={{ backgroundColor: `${primary}18`, borderColor: primary }}
-  >
-    {logo ? (
-      <Image
-        src={logo}
-        alt={`Logo de ${club.name}`}
-        width={96}
-        quality={60}
-        format="webp"
-        loading="lazy"
-        class="w-16 h-16 object-contain"
-      />
-    ) : (
-      <span class="text-4xl font-black" style={{ color: primary }}>
-        {club.shortName?.[0] ?? club.name[0]}
-      </span>
-    )}
+  <div class="flex h-full items-center">
+    <Image
+      src={logo ?? DefaultClubLogo}
+      class={logoClass}
+      alt={`Logo de ${club.name}`}
+      width={220}
+      quality={60}
+      format="webp"
+      loading="lazy"
+    />
   </div>
-
   <div class="w-full flex gap-2 items-center justify-center">
     {federation?.data.flagPath && (
       <Image

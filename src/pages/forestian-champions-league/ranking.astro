@@ -1,15 +1,19 @@
 ---
-// Ranking FCL: ranking propio de la Champions League, separado e independiente
-// del ranking de selecciones (NO suma al ranking general). Métrica: rating del
-// club (agregación del plantel, 0-100 → estrellas). Cuando existan partidos de
-// CL, se podrá sumar rendimiento FCL (ver [[03-ranking]] §5 y [[09-dudas]] §6).
+// Ranking FCL: propio y separado del ranking de selecciones. Dos columnas:
+// - Clubes: por rating del plantel (0-100 → estrellas).
+// - Ligas: primeras divisiones por puntaje de temporada (rp/events/bonus).
+// Cuando existan partidos de CL se podrá sumar rendimiento FCL (ver [[03-ranking]] §5 y [[09-dudas]] §6).
 import FCLayout from '@layouts/FCL.astro';
 import Title from '@components/Title.astro';
+import { Image } from 'astro:assets';
 import { getAllClubs } from '@data/clubs';
+import { getAllLeagues, getFirstDivision } from '@data/leagues';
 import { getMemberById } from 'src/utils/memberUtils';
 import { loadCurrentSquadByTeamId } from '@data/players';
 import { computeTeamRating, teamRatingToStars } from '@config/rating';
-import { getRankClass } from '@lib/rankingUtils';
+import { getRankedLeagues } from '@lib/leagueRankingUtils';
+import { resolveImage } from '@utils/imageAssets';
+import DefaultClubLogo from '@images/clubs/default.png';
 import StarsDisplay from '@components/ui/StarsDisplay.astro';
 import { ROUTES } from '@config/routes';
 
@@ -25,67 +29,125 @@ const clubs = getAllClubs()
     };
   })
   .sort((a, b) => b.rating - a.rating || a.club.name.localeCompare(b.club.name));
+
+// Ligas: solo primeras divisiones (una por país), ordenadas por puntaje.
+const federationIds = [...new Set(getAllLeagues().map((l) => l.federationId))].sort((a, b) => a - b);
+const firstDivisions = federationIds
+  .map((fid) => getFirstDivision(fid))
+  .filter((l): l is NonNullable<typeof l> => l !== null);
+const rankedLeagues = getRankedLeagues(firstDivisions);
 ---
 
 <FCLayout title="FFC - Champions League Ranking">
   <main class="flex flex-col items-center pt-5">
-    <div class="flex flex-col items-center w-full max-w-5xl justify-center p-6">
+    <div class="flex flex-col items-center w-full max-w-6xl justify-center p-6">
       <Title slideIn={true} color="text-cl-lime">
         Champions League Ranking
-        <span slot="subtitle">Club ranking · does not affect the general ranking</span>
+        <span slot="subtitle">Clubs and domestic leagues · does not affect the general ranking</span>
       </Title>
 
-      {clubs.length > 0 ? (
-        <div class="w-full overflow-x-auto rounded-lg">
-          <table class="w-full border-collapse text-sm">
-            <thead class="bg-primary-deep uppercase">
-              <tr>
-                <th class="w-8 px-2 py-3 text-center border-b border-primary rounded-tl-xl" title="Position">°</th>
-                <th class="py-3 text-left border-b border-primary min-w-[120px]">Club</th>
-                <th class="py-3 text-left border-b border-primary hidden sm:table-cell">Federation</th>
-                <th class="w-16 px-2 py-3 text-center border-b border-primary" title="Rating">OVR</th>
-                <th class="w-28 px-2 py-3 text-center border-b border-primary rounded-tr-xl" title="Stars">Rating</th>
-              </tr>
-            </thead>
-            <tbody class="text-center text-primary-light">
-              {clubs.map(({ club, federation, rating, stars }, index) => {
-                const primary = club.colors?.primary ?? '#95ff00';
-                return (
-                  <tr class="border-b border-primary-dark hover:bg-primary-deep/30 transition duration-150 odd:bg-surface-raised/30">
-                    <td class={`py-2 font-semibold border-r border-primary-dark ${getRankClass(index + 1)}`}>{index + 1}</td>
-                    <td class="ps-2 py-2 text-left">
-                      <a
-                        href={ROUTES.clubs.detail(club.slug)}
-                        class="inline-flex items-center gap-3 font-semibold hover:underline text-white"
-                        title={club.name}
-                      >
-                        <span
-                          class="inline-flex h-8 w-8 items-center justify-center rounded-lg border text-xs font-black"
-                          style={{ backgroundColor: `${primary}18`, borderColor: primary, color: primary }}
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start w-full">
+        {/* Clubes */}
+        <section class="w-full overflow-x-auto rounded-lg">
+          <h2 class="text-xl font-bold text-cl-lime uppercase mb-3">Clubs</h2>
+          {clubs.length > 0 ? (
+            <table class="w-full border-collapse text-sm">
+              <thead class="bg-cl-lime/10 uppercase text-cl-lime">
+                <tr>
+                  <th class="w-8 px-2 py-3 text-center border-b border-cl-lime/30 rounded-tl-xl" title="Position">°</th>
+                  <th class="py-3 text-left border-b border-cl-lime/30 min-w-[140px]">Club</th>
+                  <th class="w-14 px-2 py-3 text-center border-b border-cl-lime/30" title="Rating">OVR</th>
+                  <th class="w-28 px-2 py-3 text-center border-b border-cl-lime/30 rounded-tr-xl" title="Stars">Rating</th>
+                </tr>
+              </thead>
+              <tbody class="text-center text-white/80">
+                {clubs.map(({ club, rating, stars }, index) => {
+                  const logo = resolveImage(club.logoPath);
+                  return (
+                    <tr class="border-b border-cl-lime/10 hover:bg-cl-lime/5 transition duration-150 odd:bg-surface/20">
+                      <td class="py-2 font-semibold border-r border-cl-lime/10 text-cl-lime">{index + 1}</td>
+                      <td class="ps-2 py-2 text-left">
+                        <a
+                          href={ROUTES.clubs.detail(club.slug)}
+                          class="inline-flex items-center gap-2.5 font-semibold hover:underline text-white"
+                          title={club.name}
                         >
-                          {club.shortName?.[0] ?? club.name[0]}
+                          <Image
+                            src={logo ?? DefaultClubLogo}
+                            alt={club.name}
+                            width={40}
+                            loading="lazy"
+                            quality={60}
+                            format="webp"
+                            class="w-7 h-7 rounded object-contain"
+                          />
+                          <span class="truncate">{club.name}</span>
+                        </a>
+                      </td>
+                      <td class="px-2 py-2 font-bold text-cl-lime tabular-nums">{rating || '-'}</td>
+                      <td class="px-2 py-2">
+                        <div class="flex justify-center">
+                          <StarsDisplay value={stars} size="w-3.5 h-3.5" />
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          ) : (
+            <p class="text-text-muted italic mt-4">No clubs yet.</p>
+          )}
+        </section>
+
+        {/* Ligas (primeras divisiones) */}
+        <section class="w-full overflow-x-auto rounded-lg">
+          <h2 class="text-xl font-bold text-cl-lime uppercase mb-3">Leagues</h2>
+          {rankedLeagues.length > 0 ? (
+            <table class="w-full border-collapse text-sm">
+              <thead class="bg-cl-lime/10 uppercase text-cl-lime">
+                <tr>
+                  <th class="w-8 px-2 py-3 text-center border-b border-cl-lime/30 rounded-tl-xl" title="Position">°</th>
+                  <th class="py-3 text-left border-b border-cl-lime/30 min-w-[140px]">League</th>
+                  <th class="py-3 text-left border-b border-cl-lime/30 hidden sm:table-cell">Federation</th>
+                  <th class="w-16 px-2 py-3 text-center border-b border-cl-lime/30 rounded-tr-xl" title="Points">Pts</th>
+                </tr>
+              </thead>
+              <tbody class="text-center text-white/80">
+                {rankedLeagues.map(({ league, score }, index) => {
+                  const federation = getMemberById(league.federationId);
+                  const logo = resolveImage(league.logoPath);
+                  return (
+                    <tr class="border-b border-cl-lime/10 hover:bg-cl-lime/5 transition duration-150 odd:bg-surface/20">
+                      <td class="py-2 font-semibold border-r border-cl-lime/10 text-cl-lime">{index + 1}</td>
+                      <td class="ps-2 py-2 text-left">
+                        <span class="inline-flex items-center gap-2.5 font-semibold text-white" title={league.name}>
+                          {logo ? (
+                            <Image src={logo} alt={league.name} width={40} loading="lazy" quality={60} format="webp" class="w-7 h-7 rounded object-contain" />
+                          ) : (
+                            <span class="w-7 h-7 rounded bg-cl-lime/10 border border-cl-lime/40 flex items-center justify-center text-[10px] font-black text-cl-lime">
+                              {league.name[0]?.toUpperCase()}
+                            </span>
+                          )}
+                          <span class="truncate">{league.name}</span>
                         </span>
-                        <span class="truncate">{club.name}</span>
-                      </a>
-                    </td>
-                    <td class="hidden sm:table-cell ps-2 py-2 text-left text-text-muted">
-                      {federation?.data.name ?? club.federation}
-                    </td>
-                    <td class="px-2 py-2 font-bold" style={{ color: primary }}>{rating || '-'}</td>
-                    <td class="px-2 py-2">
-                      <div class="flex justify-center">
-                        <StarsDisplay value={stars} size="w-3.5 h-3.5" />
-                      </div>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
-      ) : (
-        <p class="text-text-muted italic mt-8">No clubs yet.</p>
-      )}
+                      </td>
+                      <td class="hidden sm:table-cell ps-2 py-2 text-left text-text-muted">
+                        {federation?.data.name ?? `Federation #${league.federationId}`}
+                      </td>
+                      <td class={`px-2 py-2 font-bold tabular-nums ${score.total > 0 ? 'text-cl-lime' : 'text-text-muted'}`}>
+                        {score.total || '-'}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          ) : (
+            <p class="text-text-muted italic mt-4">No leagues yet.</p>
+          )}
+        </section>
+      </div>
     </div>
   </main>
 </FCLayout>

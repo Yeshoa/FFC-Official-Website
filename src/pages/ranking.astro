@@ -20,7 +20,7 @@ const filterTags = [
   "ranking",
 ];
 
-const filteredArticles = getArticlesByTags(articles, filterTags);
+const filteredArticles = getArticlesByTags(articles, filterTags, ['FCL', 'champions-league']);
 
 const currentSeason = CURRENT_SEASON;
 const date = new Date().toLocaleString(LOCALE, { month: 'long', day: 'numeric', year: 'numeric' });

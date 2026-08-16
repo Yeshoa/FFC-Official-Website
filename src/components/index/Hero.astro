@@ -11,7 +11,7 @@ interface Props {
   heroTitle: string;
   heroSubtitle: string;
   heroLogo: ImageMetadata; // logo grande de la FFC en el hero
-  ctas: Array<{ text: string; href: string; noblank?: boolean }>;
+  ctas: Array<{ text: string; href: string; noblank?: boolean; fcl?: boolean }>;
   carouselImages: Array<{
     src: ImageMetadata;
     alt: string;
@@ -51,7 +51,7 @@ if (carouselImages.length === 0) {
         <p class="hero__subtitle">{heroSubtitle}</p>
         <div class="hero__btn__cont">
           {ctas.map((c) => (
-            <Button hideArrow={true} link={c.href} self={!c.noblank} customClass="hero__btn">
+            <Button hideArrow={true} link={c.href} self={!c.noblank} customClass={c.fcl ? 'hero__btn hero__btn--fcl' : 'hero__btn'}>
               <JoinImg width={18} class="hero__btn__icon mr-2" fill={"#fff"} />{c.text}
             </Button>
           ))}
@@ -203,6 +203,14 @@ if (carouselImages.length === 0) {
       }
       &:hover .hero__btn__icon {
         transform: translateX(0) scale(1.2);
+      }
+    }
+    .hero__btn--fcl {
+      background: var(--color-cl-lime);
+      color: #000;
+      &:hover {
+        background: #fff;
+        color: #000;
       }
     }
     .hero__btn__cont {

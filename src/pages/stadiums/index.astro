@@ -18,7 +18,7 @@ const members = await getMembers();
 const filterTags = [
   "stadium",
 ]
-const filteredArticles = getArticlesByTags(articles, filterTags);
+const filteredArticles = getArticlesByTags(articles, filterTags, ['FCL', 'champions-league']);
 
 const stadiumsByNation = stadiums.reduce((acc, stadium) => {
   const nation = stadium.data.nation || 'Unknown';

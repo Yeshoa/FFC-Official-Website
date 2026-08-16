@@ -16,7 +16,7 @@ const articles = await getArticles();
 const filterTags = [
   "sponsor",
 ]
-const filteredArticles = getArticlesByTags(articles, filterTags);
+const filteredArticles = getArticlesByTags(articles, filterTags, ['FCL', 'champions-league']);
 
 // Define tier order and display mapping
 const tierOrder = ['global', 'supplier', 'national'];

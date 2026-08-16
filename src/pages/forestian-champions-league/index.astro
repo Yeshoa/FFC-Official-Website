@@ -12,6 +12,8 @@ import { getMemberById } from 'src/utils/memberUtils';
 import { loadCurrentSquadByTeamId } from '@data/players';
 import { computeTeamRating, teamRatingToStars } from '@config/rating';
 import { getTopLeagues } from '@lib/leagueRankingUtils';
+import { resolveImage } from '@utils/imageAssets';
+import DefaultClubLogo from '@images/clubs/default.png';
 import { ROUTES } from '@config/routes';
 import { getTournaments, getMatches, getArticles } from '@lib/collections';
 import { getArticlesByTags } from 'src/utils/articleUtils';
@@ -107,25 +109,73 @@ const clArticles = getArticlesByTags(articles, ['FCL', 'champions-league']);
           <div class="flex gap-2 mb-4" role="tablist">
             <button
               type="button"
-              class="ranking-tab px-4 py-1.5 rounded-lg text-xs font-bold border border-cl-lime/40 text-cl-lime hover:bg-cl-lime/10 transition-colors"
-              data-panel="ranking-clubs"
-              aria-selected="true"
-            >
-              Clubs
-            </button>
-            <button
-              type="button"
               class="ranking-tab px-4 py-1.5 rounded-lg text-xs font-bold border border-cl-lime/20 text-cl-lime/70 hover:border-cl-lime/60 transition-colors"
               data-panel="ranking-leagues"
-              aria-selected="false"
+              aria-selected="true"
             >
               Leagues
             </button>
+            <button
+              type="button"
+              class="ranking-tab px-4 py-1.5 rounded-lg text-xs font-bold border border-cl-lime/40 text-cl-lime hover:bg-cl-lime/10 transition-colors"
+              data-panel="ranking-clubs"
+              aria-selected="false"
+            >
+              Clubs
+            </button>
           </div>
 
-          <div id="ranking-clubs" class="ranking-panel space-y-1">
+          <div id="ranking-leagues" class="ranking-panel space-y-1">
+            {topLeagues.map(({ league, score }, index) => {
+              const logo = resolveImage(league.logoPath);
+              return (
+                <a
+                  href={ROUTES.championsLeague.leagues}
+                  key={league.id}
+                  class="flex items-center gap-2 rounded-lg px-2 py-1.5 text-sm border border-cl-lime/10 bg-black/30 hover:border-cl-lime/50 transition-colors"
+                  title={league.name}
+                >
+                  <span class="w-5 text-right text-cl-lime font-bold tabular-nums text-xs">{index + 1}</span>
+                  {logo ? (
+                    <Image
+                      src={logo}
+                      alt={league.name}
+                      width={40}
+                      loading="lazy"
+                      quality={60}
+                      format="webp"
+                      class="w-6 h-6 rounded object-contain"
+                    />
+                  ) : (
+                    <span
+                      class="w-6 h-6 rounded flex items-center justify-center border text-[9px] font-black"
+                      style={{ backgroundColor: '#b4ff0018', borderColor: '#b4ff0055', color: '#b4ff00' }}
+                    >
+                      {league.name[0]?.toUpperCase()}
+                    </span>
+                  )}
+                  <span class="flex-1 truncate font-medium text-white">{league.name}</span>
+                  <span class="text-text-muted text-[10px]">D{league.division}</span>
+                  <span class={`font-bold text-xs tabular-nums ${score.total > 0 ? 'text-cl-lime' : 'text-text-muted'}`}>
+                    {score.total || '-'}
+                  </span>
+                </a>
+              );
+            })}
+            {topLeagues.length === 0 && (
+              <p class="text-text-muted italic text-sm py-4 text-center">No leagues registered yet.</p>
+            )}
+            <a
+              href={ROUTES.championsLeague.leagues}
+              class="block text-center text-xs text-cl-lime hover:text-cl-lime-secondary font-semibold pt-2"
+            >
+              See full league ranking →
+            </a>
+          </div>
+
+          <div id="ranking-clubs" class="ranking-panel space-y-1 hidden">
             {topClubs.map(({ club, rating, stars }, index) => {
-              const primary = club.colors?.primary ?? '#b4ff00';
+              const logo = resolveImage(club.logoPath);
               return (
                 <a
                   href={ROUTES.clubs.detail(club.slug)}
@@ -134,12 +184,27 @@ const clArticles = getArticlesByTags(articles, ['FCL', 'champions-league']);
                   title={club.name}
                 >
                   <span class="w-5 text-right text-cl-lime font-bold tabular-nums text-xs">{index + 1}</span>
-                  <span
-                    class="w-6 h-6 rounded flex items-center justify-center border text-[9px] font-black"
-                    style={{ backgroundColor: `${primary}22`, borderColor: primary, color: primary }}
-                  >
-                    {club.name[0]?.toUpperCase()}
-                  </span>
+                  {logo ? (
+                    <Image
+                      src={logo}
+                      alt={club.name}
+                      width={40}
+                      loading="lazy"
+                      quality={60}
+                      format="webp"
+                      class="w-6 h-6 rounded object-contain"
+                    />
+                  ) : (
+                    <Image
+                      src={DefaultClubLogo}
+                      alt={club.name}
+                      width={40}
+                      loading="lazy"
+                      quality={60}
+                      format="webp"
+                      class="w-6 h-6 rounded object-contain opacity-60"
+                    />
+                  )}
                   <span class="flex-1 truncate font-medium text-white">{club.name}</span>
                   <span class="text-yellow-300 text-[10px]">{'★'.repeat(Math.round(stars))}</span>
                   <span class="font-bold text-cl-lime text-xs tabular-nums">{rating || '-'}</span>
@@ -154,39 +219,6 @@ const clArticles = getArticlesByTags(articles, ['FCL', 'champions-league']);
               class="block text-center text-xs text-cl-lime hover:text-cl-lime-secondary font-semibold pt-2"
             >
               See full ranking →
-            </a>
-          </div>
-
-          <div id="ranking-leagues" class="ranking-panel space-y-1 hidden">
-            {topLeagues.map(({ league, score }, index) => (
-              <a
-                href={ROUTES.championsLeague.leagues}
-                key={league.id}
-                class="flex items-center gap-2 rounded-lg px-2 py-1.5 text-sm border border-cl-lime/10 bg-black/30 hover:border-cl-lime/50 transition-colors"
-                title={league.name}
-              >
-                <span class="w-5 text-right text-cl-lime font-bold tabular-nums text-xs">{index + 1}</span>
-                <span
-                  class="w-6 h-6 rounded flex items-center justify-center border text-[9px] font-black"
-                  style={{ backgroundColor: '#b4ff0018', borderColor: '#b4ff0055', color: '#b4ff00' }}
-                >
-                  {league.name[0]?.toUpperCase()}
-                </span>
-                <span class="flex-1 truncate font-medium text-white">{league.name}</span>
-                <span class="text-text-muted text-[10px]">D{league.division}</span>
-                <span class={`font-bold text-xs tabular-nums ${score.total > 0 ? 'text-cl-lime' : 'text-text-muted'}`}>
-                  {score.total || '-'}
-                </span>
-              </a>
-            ))}
-            {topLeagues.length === 0 && (
-              <p class="text-text-muted italic text-sm py-4 text-center">No leagues registered yet.</p>
-            )}
-            <a
-              href={ROUTES.championsLeague.leagues}
-              class="block text-center text-xs text-cl-lime hover:text-cl-lime-secondary font-semibold pt-2"
-            >
-              See full league ranking →
             </a>
           </div>
         </div>
