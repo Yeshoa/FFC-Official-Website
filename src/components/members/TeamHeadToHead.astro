@@ -1,0 +1,110 @@
+---
+// TeamHeadToHead: histórico enfrentamientos de un equipo (selección o club) contra sus rivales,
+// por id global. Los oponentes se resuelven por id (bandera para selección, inicial para club).
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import type { TeamView } from '@ty/matchDetail';
+import { getTeamHeadToHeadStats } from 'src/utils/matchUtils';
+import { getTeamById, getTeamView } from 'src/utils/memberUtils';
+
+interface Props {
+  teamId: number;
+  matches: CollectionEntry<'matches'>[];
+  teamKind?: 'national' | 'club';
+  theme?: 'ffc' | 'fcl';
+}
+
+const { teamId, matches, teamKind = 'national', theme = 'ffc' } = Astro.props;
+const isFcl = theme === 'fcl';
+const headClass = isFcl ? 'bg-cl-lime/15 text-cl-lime' : 'bg-primary-deep text-white';
+const rowBorder = isFcl ? 'border-cl-lime/15' : 'border-primary-dark';
+const tableBorder = isFcl ? 'border-cl-lime/20' : 'border-primary-dark';
+const headingBorder = isFcl ? 'border-cl-lime/20' : 'border-primary';
+const textSoft = isFcl ? 'text-cl-lime/80' : 'text-primary-soft';
+const textAccent = isFcl ? 'text-cl-lime' : 'text-primary-muted';
+
+const stats = getTeamHeadToHeadStats(teamId, matches);
+
+interface Row extends ReturnType<typeof getTeamHeadToHeadStats>[number] {
+  view: TeamView;
+}
+
+const rows: Row[] = await Promise.all(
+  stats.map(async (s) => {
+    const ref = await getTeamById(s.opponentId);
+    const view = getTeamView(ref, `#${s.opponentId}`);
+    return { ...s, view };
+  }),
+);
+---
+
+<div>
+  <h2 class={`text-2xl font-semibold mb-4 text-white border-b pb-2 ${headingBorder}`}>Historic Head-to-Head</h2>
+  {rows.length > 0 ? (
+    <div class="overflow-x-auto pb-0">
+      <table class={`min-w-full border ${tableBorder} overflow-hidden rounded-lg text-xs xs:text-sm`}>
+        <thead>
+          <tr class={headClass}>
+            <th scope="col" class="px-4 py-2 text-left tracking-wider">
+              <span class="hidden xs:inline">Opponent</span>
+              <span class="xs:hidden">Opp</span>
+            </th>
+            <th scope="col" class="px-1 py-2 text-center tracking-wider" title="Difference">Dif</th>
+            <th scope="col" class="px-1 py-2 text-center tracking-wider" title="Matches Played">Pld</th>
+            <th scope="col" class="px-1 py-2 text-center tracking-wider" title="Wins">W</th>
+            <th scope="col" class="px-1 py-2 text-center tracking-wider" title="Draws">D</th>
+            <th scope="col" class="px-1 py-2 text-center tracking-wider" title="Losses">L</th>
+            <th scope="col" class="px-1 py-2 text-center tracking-wider" title="Goals for">GF</th>
+            <th scope="col" class="px-1 py-2 text-center tracking-wider" title="Goals against">GA</th>
+            <th scope="col" class="px-1 py-2 text-center tracking-wider" title="Goal difference">GD</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((s) => (
+            <tr key={s.opponentId} class={`border-b ${rowBorder} hover:bg-surface-raised/30 transition duration-150`}>
+              <td class="px-1 xs:px-4 py-2 whitespace-nowrap font-medium text-white">
+                <a href={s.view.href ?? '#'} class="flex items-center gap-2 hover:underline truncate">
+                  {s.view.flag ? (
+                    <Image
+                      src={s.view.flag}
+                      alt={s.view.name}
+                      class="w-6 h-4 object-cover rounded"
+                      height={36}
+                      loading="lazy"
+                      quality={10}
+                      format="webp"
+                    />
+                  ) : s.view.type === 'club' ? (
+                    <span
+                      class="w-6 h-4 rounded flex items-center justify-center text-[10px] font-black ring-1 ring-gray-600"
+                      style={{ backgroundColor: `${s.view.color ?? '#95ff00'}22`, color: s.view.color ?? '#95ff00' }}
+                    >
+                      {s.view.name[0]}
+                    </span>
+                  ) : (
+                    <div class="w-6 h-4 bg-gray-600 rounded" />
+                  )}
+                  <span class="truncate hidden sm:inline">{s.view.name}</span>
+                  <span class="sm:hidden">{s.view.code ?? s.view.name}</span>
+                </a>
+              </td>
+              <td class={`px-1 py-2 whitespace-nowrap text-center ${textSoft} font-bold
+                ${s.difference > 0 ? (isFcl ? 'text-cl-lime' : 'text-primary-muted') : s.difference < 0 ? 'text-red-400' : 'text-gray-300'}`}>
+                {s.difference === 0 ? '-' : s.difference > 0 ? `+${s.difference}` : s.difference}
+              </td>
+              <td class={`px-1 py-2 whitespace-nowrap text-center ${textSoft}`}>{s.played}</td>
+              <td class={`px-1 py-2 whitespace-nowrap text-center ${textAccent}`}>{s.wins}</td>
+              <td class="px-1 py-2 whitespace-nowrap text-center text-yellow-400">{s.draws}</td>
+              <td class="px-1 py-2 whitespace-nowrap text-center text-red-400">{s.losses}</td>
+              <td class={`px-1 py-2 whitespace-nowrap text-center ${textSoft}`}>{s.goalsFor}</td>
+              <td class={`px-1 py-2 whitespace-nowrap text-center ${textSoft}`}>{s.goalsAgainst}</td>
+              <td class={`px-1 py-2 whitespace-nowrap text-center ${textSoft}`}>{s.goalsFor - s.goalsAgainst}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  ) : (
+    <p class="text-text-muted italic">There are no stats to show for this {teamKind === 'club' ? 'team' : 'National Team'}.</p>
+  )}
+</div>

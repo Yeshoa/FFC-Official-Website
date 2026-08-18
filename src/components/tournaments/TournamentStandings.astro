@@ -6,6 +6,7 @@ type TournamentEntry = CollectionEntry<'tournaments'>;
 import { Image } from 'astro:assets';
 import { getMemberByName } from "src/utils/memberUtils"; 
 import { getTournamentStandings } from 'src/utils/tournamentUtils'; 
+import { ROUTES } from '@config/routes';
 import Title from '@components/Title.astro';
 import defaulFlag from "@images/tournaments/default-flag.png";
 
@@ -31,7 +32,7 @@ const teamObjects = await Promise.all(finalSortedStats.map(async (team) => {
   <h6 class="md:hidden text-center mb-2">Swipe to see full standings</h6>
   <div class="overflow-x-auto w-full">
     <table class="min-w-[768px] lg:min-w-full w-full table-auto border-collapse text-sm">
-      <thead class="bg-green-800 text-white">
+      <thead class="bg-primary-deep text-white">
         <tr>
           <th class="px-4 py-2 text-center rounded-tl-lg" title="Position">°</th>
           <th class="py-2 text-center"></th>
@@ -51,24 +52,24 @@ const teamObjects = await Promise.all(finalSortedStats.map(async (team) => {
         {finalSortedStats.map((team, index) => { 
           const teamObject = teamObjects[index];
           return (
-          <tr class="border-b border-green-700 hover:bg-green-900/30 transition duration-150">
+          <tr class="border-b border-primary-dark hover:bg-surface-raised/30 transition duration-150">
             <td class="px-2 py-2">{index + 1}°</td>
-            <td class="py-2 sticky left-0 z-10 bg-green-900 md:bg-transparent">
+            <td class="py-2 sticky left-0 z-10 bg-surface-raised md:bg-transparent">
               <Image src={teamObject?.data.flagPath || teamObject?.data.logoPath || defaulFlag} alt={team.name} loading={"lazy"}
                       width={50}  class="h-6 w-10 object-cover rounded inline-block" quality={50} format="webp"/>
             </td>
             <td class="px-2 py-2 text-left">
-              <a href={`/members/${teamObject?.slug}`} class="font-semibold hover:underline">{team.name}</a>
+              <a href={ROUTES.members.detail(teamObject!.id)} class="font-semibold hover:underline">{team.name}</a>
             </td>
             <td class="px-2 py-2 font-bold">{team.points}</td>
-            <td class="px-2 py-2 text-green-200">{team.played}</td>
-            <td class="px-2 py-2 text-green-200">{team.won}</td>
-            <td class="px-2 py-2 text-green-200">{team.draw}</td>
-            <td class="px-2 py-2 text-green-200">{team.lost}</td>
-            <td class="px-2 py-2 text-green-200">{team.goalsFor}</td>
-            <td class="px-2 py-2 text-green-200">{team.goalsAgainst}</td>
-            <td class="px-2 py-2 text-green-100 font-medium">{team.gd}</td>
-            <td class="px-2 py-2 text-green-100 font-medium">{team.pr}%</td>
+            <td class="px-2 py-2 text-primary-soft">{team.played}</td>
+            <td class="px-2 py-2 text-primary-soft">{team.won}</td>
+            <td class="px-2 py-2 text-primary-soft">{team.draw}</td>
+            <td class="px-2 py-2 text-primary-soft">{team.lost}</td>
+            <td class="px-2 py-2 text-primary-soft">{team.goalsFor}</td>
+            <td class="px-2 py-2 text-primary-soft">{team.goalsAgainst}</td>
+            <td class="px-2 py-2 text-primary-faint font-medium">{team.gd}</td>
+            <td class="px-2 py-2 text-primary-faint font-medium">{team.pr}%</td>
           </tr>
         )})}
         {finalSortedStats.length === 0 && (

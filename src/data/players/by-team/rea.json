@@ -1,0 +1,50 @@
+{
+  "teamCode": "REA",
+  "teamName": "Realize",
+  "lastUpdated": "2026-05-13",
+  "playerCount": 6,
+  "players": [
+    {
+      "id": "REA_001",
+      "name": "A. Manolis",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "REA_002",
+      "name": "E. Leech",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "REA_003",
+      "name": "J. Ponstantinople",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "REA_004",
+      "name": "L. Celery",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "REA_005",
+      "name": "M. Beet",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "REA_006",
+      "name": "Olsson",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    }
+  ]
+}

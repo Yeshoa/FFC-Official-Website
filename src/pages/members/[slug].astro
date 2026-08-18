@@ -1,13 +1,16 @@
 ---
-import { Image } from 'astro:assets';
 import { type CollectionEntry } from 'astro:content';
 // Components
 import App from '@layouts/App.astro';
 import MemberHero from '@components/members/MemberHero.astro';
+import SquadCompact from '@components/members/SquadCompact.astro';
+import DomesticLeagueTable from '@components/members/DomesticLeagueTable.astro';
+import MemberClubs from '@components/members/MemberClubs.astro';
 import ScoreDetails from '@components/members/ScoreDetails.astro';
 import TournamentParticipationTable from '@components/members/TournamentParticipationTable.astro';
+import TeamLastMatches from '@components/members/TeamLastMatches.astro';
+import TeamHeadToHead from '@components/members/TeamHeadToHead.astro';
 import MatchCard from '@components/matches/MatchCard.astro'; //Match card with stadium
-import MatchCardDetailed from '@components/matches/MatchCardDetailed.astro';// Match card with tournament
 import ScorersTable from '@components/tournaments/ScorersTable.astro'; //This one shows both scorers and assists
 import RecordsAndStats from '@components/members/RecordsAndStats.astro';
 import RelatedNews from '@components/articles/RelatedNews.astro';
@@ -15,13 +18,15 @@ import RelatedNews from '@components/articles/RelatedNews.astro';
 import { getTournaments, getMatches, getMembers, getArticles } from '@lib/collections';
 
 // Utils
-import { CURRENT_TOURNAMENT_ID } from 'src/utils/tournamentUtils'; // Global constant for current tournament
+import { CURRENT_SEASON } from '@config/season';
 import { getMemberTotalScore, getMemberScoreDetails } from '@lib/rankingUtils';
-import { getMemberRank, getMemberByName } from 'src/utils/memberUtils';
+import { getMemberRank } from 'src/utils/memberUtils';
 import { getArticlesByTags } from 'src/utils/articleUtils';
 import { getAchievementsForMember } from '@lib/achievements/dynamics/index';
 import { FEATURES } from '@config/features';
 import { ROUTES } from '@config/routes';
+import { getFirstDivision } from '@data/leagues';
+import { loadClubsByFederation } from '@data/clubs';
 
 
 type MemberType = CollectionEntry<'members'>; // Should use @types/collections.d.ts
@@ -34,7 +39,7 @@ export const prerender = true;
 export async function getStaticPaths() {
   const members = await getMembers();
   return members.map((member: MemberType) => ({
-    params: { slug: member.slug },
+    params: { slug: member.id },
     props: { member },
   }));
 }
@@ -46,221 +51,79 @@ if (!member) {
   return Astro.redirect('/404');
 }
 
-const { Content } = await member.render(); // Markdown content of the member
 const memberData = member.data; // Member data
 // Collections
 const matches = await getMatches();
 const tournaments = await getTournaments();
 const members = await getMembers();
 
-// Filter played matches where the current member is team1 or team2
-/* SHOULD BE IN A UTIL */
-const playedMatches = matches
-  .filter(match => match.data.status === 'played' && (match.data.team1 === memberData.name || match.data.team2 === memberData.name))
-  .map(match => {
-    const score1 = match.data.goals?.filter(g => g.team === match.data.team1).length ?? 0;
-    const score2 = match.data.goals?.filter(g => g.team === match.data.team2).length ?? 0;
-    let penaltyScore1 = 0;
-    let penaltyScore2 = 0;
-    let penaltiesInfo = '';
-    if (match.data.penalties && match.data.penalties.length > 0) {
-      penaltyScore1 = match.data.penalties.filter(p => p.team === match.data.team1 && p.scored).length;
-      penaltyScore2 = match.data.penalties.filter(p => p.team === match.data.team2 && p.scored).length;
-      penaltiesInfo = `(${penaltyScore1}-${penaltyScore2} p)`;
-    }
+// Liga doméstica / clubes de la federación del miembro (infra B2)
+const firstDivision = getFirstDivision(memberData.id);
+const memberClubs = loadClubsByFederation(memberData.code);
+const memberHasClubs = memberClubs.length > 0;
 
-    return {
-      ...match,
-      score1,
-      score2,
-      penaltiesInfo,
-    };
-  });
+// Partidos jugados del miembro, por id global (fuente de verdad Fase D)
+const playedMatches = matches
+  .filter(match => match.data.status === 'played' && (match.data.team1Id === memberData.id || match.data.team2Id === memberData.id));
 // Sort played matches by date
 playedMatches.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 
-// --- Head-to-Head Logic ---
-interface H2HStats {
-  difference: number;
-  played: number;
-  wins: number;
-  draws: number;
-  losses: number;
-  goalsFor: number;
-  goalsAgainst: number;
-  opponentData: CollectionEntry<'members'> | null;
-}
-
-// Initialize and precompute H2H stats
-const h2hStats: Record<string, H2HStats> = {};
-
-for (const match of playedMatches) {
-  const opponentName = match.data.team1 === memberData.name ? match.data.team2 : match.data.team1;
-  if (!opponentName) continue;
-  if (!h2hStats[opponentName]) {
-    h2hStats[opponentName] = {
-      difference: 0,
-      played: 0,
-      wins: 0,
-      draws: 0,
-      losses: 0,
-      goalsFor: 0,
-      goalsAgainst: 0,
-      opponentData: await getMemberByName(opponentName),
-    };
-  }
-
-  h2hStats[opponentName].played++;
-  let memberScore = 0;
-  let opponentScore = 0;
-
-  if (match.data.team1 === memberData.name) {
-    memberScore = match.score1;
-    opponentScore = match.score2;
-  } else {
-    memberScore = match.score2;
-    opponentScore = match.score1;
-  }
-
-  h2hStats[opponentName].goalsFor += memberScore;
-  h2hStats[opponentName].goalsAgainst += opponentScore;
-
-  if (memberScore > opponentScore) {
-    h2hStats[opponentName].wins++;
-    h2hStats[opponentName].difference++;
-  } else if (memberScore < opponentScore) {
-    h2hStats[opponentName].losses++;
-    h2hStats[opponentName].difference--;
-  } else {
-    h2hStats[opponentName].draws++;
-  }
-}
 // this is for the member hero
-const memberRank = await getMemberRank(member, CURRENT_TOURNAMENT_ID);
-const memberTotalScoreResult = await getMemberTotalScore(member, CURRENT_TOURNAMENT_ID);
-const memberScoreDetails = await getMemberScoreDetails(member, CURRENT_TOURNAMENT_ID);
+const memberRank = await getMemberRank(member, CURRENT_SEASON);
+const memberTotalScoreResult = await getMemberTotalScore(member, CURRENT_SEASON);
+const memberScoreDetails = await getMemberScoreDetails(member, CURRENT_SEASON);
 const memberTotalScore = memberTotalScoreResult.totalScore;
 const titles = tournaments
   .filter(t => t.data.champion === memberData.name)
-  .map(t => ({ year: t.data.edition }));
+  .map(t => ({ year: t.data.season }));
 
-// This is the markdown content. If it is empty, it will not be rendered
-const hasContent = member?.body && member.body.trim() !== '';
-/*
-  This is for the achievements EMPTY IF FEATURES.achievements IS FALSE
-  TODO:
-  getAchievementsForMember should recieve a full member, not the name 
-*/
 const achievements = FEATURES.achievements ? await getAchievementsForMember(memberData.name) : [];
 
 // Articles
 const articles = await getArticles();
-const filterTags = [member.slug]; // the articles should have the nation slug as tag to be shown
+const filterTags = [member.id]; // the articles should have the nation slug as tag to be shown
 const filteredArticles = getArticlesByTags(articles, filterTags);
 ---
 
 <App title={`FFC - ${memberData.name}`}>
   <div class="md:container m-auto p-4 py-8">
     <MemberHero memberData={memberData} ranking={memberRank} points={memberTotalScore} titles={titles} achievements={achievements} scoreBreakdown={memberScoreDetails} />
+    <div class="flex justify-center mt-3">
+      <a
+        href={ROUTES.members.achievements(member.id)}
+        class="px-4 py-2 rounded-lg bg-surface border border-primary text-primary-soft text-sm font-semibold hover:bg-primary/20 hover:text-white transition-colors"
+      >
+        View all achievements →
+      </a>
+    </div>
     <!-- <ScoreDetails scoreData={memberScoreDetails} /> -->
 
-    <TournamentParticipationTable 
-      member={member} 
-      matches={matches} 
-      type="forest-cup" 
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
+      <SquadCompact teamId={memberData.id} teamCode={memberData.code} teamName={memberData.name} teamType="national" showClub compact />
+
+      {firstDivision ? (
+        <DomesticLeagueTable league={firstDivision} compact />
+      ) : memberHasClubs ? (
+        <MemberClubs member={member} />
+      ) : null}
+    </div>
+
+    <TournamentParticipationTable
+      teamId={memberData.id}
+      teamName={memberData.name}
+      matches={matches}
+      type="forest-cup"
     />
     <!-- Middle Section -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-      <!-- Left: Last Matches -->
-      <div class="bg-green-950/80 shadow-lg rounded-lg p-6">
-        <h2 class="text-2xl font-semibold mb-4 text-white border-b pb-2 border-green-600">Last Matches Played</h2>
-        {playedMatches.length > 0 ? (
-          <div class="flex flex-col gap-4">
-            {playedMatches.slice(0, 6).map((match) => (
-              <MatchCardDetailed match={match} />
-            ))}
-          </div>
-        ) : (
-          <p class="text-gray-400 italic">This National Team hasn't played any matches yet.</p>
-        )}
-      </div>
-      <!-- Right: Historic Head-to-Head -->
-      <div class="bg-green-950/80 shadow-lg rounded-lg p-6">
-        <h2 class="text-2xl font-semibold mb-4 text-white border-b pb-2 border-green-600">Historic Head-to-Head</h2>
-        {Object.keys(h2hStats).length > 0 ? (
-          <div class="overflow-x-auto pb-0">
-            <table class="min-w-full border border-green-700 overflow-hidden rounded-lg text-xs xs:text-sm">
-              <thead>
-                <tr class="bg-green-800 text-white">
-                  <th scope="col" class="px-4 py-2 text-left tracking-wider">
-                    <span class="hidden xs:inline">Opponent</span>
-                    <span class="xs:hidden">Opp</span>
-                  </th>
-                  <th scope="col" class="px-1 py-2 text-center tracking-wider" title="Difference">Dif</th>
-                  <th scope="col" class="px-1 py-2 text-center tracking-wider" title="Matches Played">Pld</th>
-                  <th scope="col" class="px-1 py-2 text-center tracking-wider" title="Wins">W</th>
-                  <th scope="col" class="px-1 py-2 text-center tracking-wider" title="Draws">D</th>
-                  <th scope="col" class="px-1 py-2 text-center tracking-wider" title="Losses">L</th>
-                  <th scope="col" class="px-1 py-2 text-center tracking-wider" title="Goals for">GF</th>
-                  <th scope="col" class="px-1 py-2 text-center tracking-wider" title="Goals against">GA</th>
-                  <th scope="col" class="px-1 py-2 text-center tracking-wider" title="Goal difference">GD</th>
-                </tr>
-              </thead>
-              <tbody>
-                {Object.entries(h2hStats)
-                  .sort(([, a], [, b]) => {
-                    if (b.played !== a.played) return b.played - a.played;
-                    if (b.wins !== a.wins) return b.wins - a.wins;
-                    const diffA = a.goalsFor - a.goalsAgainst;
-                    const diffB = b.goalsFor - b.goalsAgainst;
-                    if (diffB !== diffA) return diffB - diffA;
-                    return b.goalsFor - a.goalsFor;
-                  })
-                  .map(([opponentName, stats]) => (
-                    <tr key={opponentName} class="border-b border-green-700 hover:bg-green-900/30 transition duration-150">
-                      <td class="px-1 xs:px-4 py-2 whitespace-nowrap font-medium text-white">
-                        <a href={`${stats.opponentData?.slug ? ROUTES.members.detail(stats.opponentData?.slug) : '#'}`} 
-                        class="flex items-center gap-2 hover:underline truncate">
-                          <Image
-                            src={stats.opponentData?.data.flagPath || '/images/tournaments/default-flag.png'}
-                            alt={opponentName}
-                            class="w-6 h-4 object-cover rounded"
-                            height={36}
-                            loading="lazy"
-                            quality={10}
-                            format="webp"
-                          />
-                          <span class="truncate hidden sm:inline">{opponentName}</span>
-                          <span class="sm:hidden">{stats.opponentData?.data.code}</span>
-                        </a>
-                      </td>
-                      <td class={`px-1 py-2 whitespace-nowrap text-center text-green-200 font-bold
-                        ${stats.difference > 0 ? 'text-green-400' : stats.difference < 0 ? 'text-red-400' : 'text-gray-300'}`}>
-                        {stats.difference === 0 ? '-' : stats.difference > 0 ? `+${stats.difference}` : stats.difference}
-                      </td>
-                      <td class="px-1 py-2 whitespace-nowrap text-center text-green-200">{stats.played}</td>
-                      <td class="px-1 py-2 whitespace-nowrap text-center text-green-400">{stats.wins}</td>
-                      <td class="px-1 py-2 whitespace-nowrap text-center text-yellow-400">{stats.draws}</td>
-                      <td class="px-1 py-2 whitespace-nowrap text-center text-red-400">{stats.losses}</td>
-                      <td class="px-1 py-2 whitespace-nowrap text-center text-green-200">{stats.goalsFor}</td>
-                      <td class="px-1 py-2 whitespace-nowrap text-center text-green-200">{stats.goalsAgainst}</td>
-                      <td class="px-1 py-2 whitespace-nowrap text-center text-green-200">{stats.goalsFor - stats.goalsAgainst}</td>
-                    </tr>
-                  ))}
-              </tbody>
-            </table>
-          </div>
-        ) : (
-          <p class="text-gray-400 italic">There are no stats to show for this National Team</p>
-        )}
-        <!-- Right: Below H2H, Scorers and Assists -->
-        <!-- <section class="flex justify-center items-center flex-col"> -->
-          <ScorersTable members={members.filter(m => m.slug === member.slug)} matches={playedMatches} />
-        <!-- </section> -->
+      <TeamLastMatches teamId={memberData.id} matches={matches} />
+      <div class="bg-surface/80 shadow-lg rounded-lg p-6">
+        <TeamHeadToHead teamId={memberData.id} matches={matches} />
+        <ScorersTable teamId={memberData.id} teamName={memberData.name} matches={playedMatches} />
       </div>
     </div>
     <!-- Bottom: Records and Stats -->
-    <RecordsAndStats member={member} matches={playedMatches} />
+    <RecordsAndStats teamId={memberData.id} teamName={memberData.name} matches={playedMatches} />
     <!-- Related News only if there exists -->
     {filteredArticles.length > 0 && (
       <RelatedNews articles={filteredArticles} max={4} />

@@ -19,29 +19,35 @@
         "team": "Bilsa",
         "player": "Sowjan",
         "minute": 17,
-        "penalty": false
+        "penalty": false,
+        "playerId": "29"
       },
       {
         "team": "Einswenn",
         "player": "M. Solheim",
         "minute": 39,
-        "penalty": false
+        "penalty": false,
+        "playerId": "66"
       },
       {
         "team": "Bilsa",
         "player": "Sowjan",
         "minute": 75,
-        "penalty": false
+        "penalty": false,
+        "playerId": "29"
       },
       {
         "team": "Einswenn",
         "player": "M. Eriksen",
         "minute": 59,
-        "penalty": false
+        "penalty": false,
+        "playerId": "65"
       }
     ],
     "team1Code": "EIN",
-    "team2Code": "BIL"
+    "team2Code": "BIL",
+    "team1Id": 7,
+    "team2Id": 1
   },
   {
     "tournament_id": 1,
@@ -63,11 +69,14 @@
         "team": "Daarwyrth",
         "player": "Z. Young",
         "minute": 25,
-        "penalty": false
+        "penalty": false,
+        "playerId": "57"
       }
     ],
     "team1Code": "STR",
-    "team2Code": "DRW"
+    "team2Code": "DRW",
+    "team1Id": 9,
+    "team2Id": 42
   },
   {
     "tournament_id": 1,
@@ -85,23 +94,28 @@
         "team": "Atsvea",
         "player": "Nysnub",
         "minute": 53,
-        "penalty": false
+        "penalty": false,
+        "playerId": "15"
       },
       {
         "team": "Bunkaiia",
         "player": "B. Jaian",
         "minute": 60,
-        "penalty": false
+        "penalty": false,
+        "playerId": "30"
       },
       {
         "team": "Bunkaiia",
         "player": "L. Keian",
         "minute": 85,
-        "penalty": false
+        "penalty": false,
+        "playerId": "33"
       }
     ],
     "team1Code": "ATS",
-    "team2Code": "BUN"
+    "team2Code": "BUN",
+    "team1Id": 6,
+    "team2Id": 43
   },
   {
     "tournament_id": 1,
@@ -123,11 +137,14 @@
         "team": "Cat-Herders United",
         "player": "Garfield",
         "minute": 53,
-        "penalty": false
+        "penalty": false,
+        "playerId": "950"
       }
     ],
     "team1Code": "CHU",
-    "team2Code": "CNR"
+    "team2Code": "CNR",
+    "team1Id": 35,
+    "team2Id": 48
   },
   {
     "tournament_id": 1,
@@ -149,11 +166,14 @@
         "team": "Cacusia",
         "player": "M. Dartmouth",
         "minute": 6,
-        "penalty": false
+        "penalty": false,
+        "playerId": "39"
       }
     ],
     "team1Code": "RLS",
-    "team2Code": "CAC"
+    "team2Code": "CAC",
+    "team1Id": 4,
+    "team2Id": 5
   },
   {
     "tournament_id": 1,
@@ -175,17 +195,21 @@
         "team": "Trebenia",
         "player": "T. Wolf",
         "minute": 62,
-        "penalty": false
+        "penalty": false,
+        "playerId": "204"
       },
       {
         "team": "Trebenia",
         "player": "F. Elliott",
         "minute": 89,
-        "penalty": false
+        "penalty": false,
+        "playerId": "203"
       }
     ],
     "team1Code": "TBX",
-    "team2Code": "TRE"
+    "team2Code": "TRE",
+    "team1Id": 49,
+    "team2Id": 39
   },
   {
     "tournament_id": 1,
@@ -207,23 +231,28 @@
         "team": "Reannia",
         "player": "D. Vela",
         "minute": 7,
-        "penalty": false
+        "penalty": false,
+        "playerId": "951"
       },
       {
         "team": "Reannia",
         "player": "J. Carmona",
         "minute": 12,
-        "penalty": false
+        "penalty": false,
+        "playerId": "952"
       },
       {
         "team": "Reannia",
         "player": "J. Carmona",
         "minute": 51,
-        "penalty": false
+        "penalty": false,
+        "playerId": "952"
       }
     ],
     "team1Code": "REA",
-    "team2Code": "TRW"
+    "team2Code": "TRW",
+    "team1Id": 3,
+    "team2Id": 46
   },
   {
     "tournament_id": 1,
@@ -246,11 +275,14 @@
         "player": "H. Kazñeisei",
         "minute": 45,
         "aggregate": 1,
-        "penalty": false
+        "penalty": false,
+        "playerId": "100"
       }
     ],
     "team1Code": "JUT",
-    "team2Code": "KAS"
+    "team2Code": "KAS",
+    "team1Id": 2,
+    "team2Id": 41
   },
   {
     "tournament_id": 1,
@@ -272,11 +304,14 @@
         "team": "Einswenn",
         "player": "R. Kask",
         "minute": 5,
-        "penalty": false
+        "penalty": false,
+        "playerId": "69"
       }
     ],
     "team1Code": "EIN",
-    "team2Code": "STR"
+    "team2Code": "STR",
+    "team1Id": 7,
+    "team2Id": 9
   },
   {
     "tournament_id": 1,
@@ -298,11 +333,14 @@
         "team": "Daarwyrth",
         "player": "T. Henderson",
         "minute": 82,
-        "penalty": false
+        "penalty": false,
+        "playerId": "55"
       }
     ],
     "team1Code": "BIL",
-    "team2Code": "DRW"
+    "team2Code": "DRW",
+    "team1Id": 1,
+    "team2Id": 42
   },
   {
     "tournament_id": 1,
@@ -324,23 +362,28 @@
         "team": "Atsvea",
         "player": "Nysnub",
         "minute": 55,
-        "penalty": true
+        "penalty": true,
+        "playerId": "15"
       },
       {
         "team": "Atsvea",
         "player": "Nysnub",
         "minute": 60,
-        "penalty": false
+        "penalty": false,
+        "playerId": "15"
       },
       {
         "team": "Cat-Herders United",
         "player": "J. L. Meowri",
         "minute": 64,
-        "penalty": false
+        "penalty": false,
+        "playerId": "953"
       }
     ],
     "team1Code": "ATS",
-    "team2Code": "CHU"
+    "team2Code": "CHU",
+    "team1Id": 6,
+    "team2Id": 35
   },
   {
     "tournament_id": 1,
@@ -362,17 +405,21 @@
         "team": "Bunkaiia",
         "player": "D. Tsafimakoua",
         "minute": 79,
-        "penalty": false
+        "penalty": false,
+        "playerId": "31"
       },
       {
         "team": "Bunkaiia",
         "player": "G. Lotefin",
         "minute": 90,
-        "penalty": false
+        "penalty": false,
+        "playerId": "32"
       }
     ],
     "team1Code": "BUN",
-    "team2Code": "CNR"
+    "team2Code": "CNR",
+    "team1Id": 43,
+    "team2Id": 48
   },
   {
     "tournament_id": 1,
@@ -392,25 +439,30 @@
     "goals": [
       {
         "team": "Roless",
-        "player": "C. Mcarthur",
+        "player": "C. McArthur",
         "minute": 10,
-        "penalty": false
+        "penalty": false,
+        "playerId": "181"
       },
       {
         "team": "Roless",
         "player": "J. Greenaway",
         "minute": 30,
-        "penalty": false
+        "penalty": false,
+        "playerId": "184"
       },
       {
         "team": "Turbeaux",
         "player": "G. Hua-Bai",
         "minute": 81,
-        "penalty": false
+        "penalty": false,
+        "playerId": "205"
       }
     ],
     "team1Code": "RLS",
-    "team2Code": "TBX"
+    "team2Code": "TBX",
+    "team1Id": 4,
+    "team2Id": 49
   },
   {
     "tournament_id": 1,
@@ -432,17 +484,21 @@
         "team": "Cacusia",
         "player": "M. Dartmouth",
         "minute": 35,
-        "penalty": false
+        "penalty": false,
+        "playerId": "39"
       },
       {
         "team": "Cacusia",
         "player": "H. Blackmoor",
         "minute": 71,
-        "penalty": false
+        "penalty": false,
+        "playerId": "36"
       }
     ],
     "team1Code": "CAC",
-    "team2Code": "TRE"
+    "team2Code": "TRE",
+    "team1Id": 5,
+    "team2Id": 39
   },
   {
     "tournament_id": 1,
@@ -464,17 +520,21 @@
         "team": "Reannia",
         "player": "J. Carmona",
         "minute": 34,
-        "penalty": false
+        "penalty": false,
+        "playerId": "952"
       },
       {
         "team": "Reannia",
         "player": "D. Vela",
         "minute": 75,
-        "penalty": false
+        "penalty": false,
+        "playerId": "951"
       }
     ],
     "team1Code": "REA",
-    "team2Code": "JUT"
+    "team2Code": "JUT",
+    "team1Id": 3,
+    "team2Id": 2
   },
   {
     "tournament_id": 1,
@@ -496,11 +556,14 @@
         "team": "Kase",
         "player": "C. Schon",
         "minute": 39,
-        "penalty": false
+        "penalty": false,
+        "playerId": "112"
       }
     ],
     "team1Code": "TRW",
-    "team2Code": "KAS"
+    "team2Code": "KAS",
+    "team1Id": 46,
+    "team2Id": 41
   },
   {
     "tournament_id": 1,
@@ -522,17 +585,21 @@
         "team": "Bilsa",
         "player": "Sowjan",
         "minute": 68,
-        "penalty": false
+        "penalty": false,
+        "playerId": "29"
       },
       {
         "team": "Bilsa",
         "player": "Sowjan",
         "minute": 83,
-        "penalty": false
+        "penalty": false,
+        "playerId": "29"
       }
     ],
     "team1Code": "STR",
-    "team2Code": "BIL"
+    "team2Code": "BIL",
+    "team1Id": 9,
+    "team2Id": 1
   },
   {
     "tournament_id": 1,
@@ -550,7 +617,9 @@
       "team2_goals": 0
     },
     "team1Code": "DRW",
-    "team2Code": "EIN"
+    "team2Code": "EIN",
+    "team1Id": 42,
+    "team2Id": 7
   },
   {
     "tournament_id": 1,
@@ -573,11 +642,14 @@
         "player": "J. L. Meowri",
         "minute": 45,
         "aggregate": 2,
-        "penalty": false
+        "penalty": false,
+        "playerId": "953"
       }
     ],
     "team1Code": "CHU",
-    "team2Code": "BUN"
+    "team2Code": "BUN",
+    "team1Id": 35,
+    "team2Id": 43
   },
   {
     "tournament_id": 1,
@@ -599,17 +671,21 @@
         "team": "Atsvea",
         "player": "Nysnub",
         "minute": 29,
-        "penalty": false
+        "penalty": false,
+        "playerId": "15"
       },
       {
         "team": "Atsvea",
         "player": "E. Stell",
         "minute": 66,
-        "penalty": false
+        "penalty": false,
+        "playerId": "12"
       }
     ],
     "team1Code": "CNR",
-    "team2Code": "ATS"
+    "team2Code": "ATS",
+    "team1Id": 48,
+    "team2Id": 6
   },
   {
     "tournament_id": 1,
@@ -631,23 +707,28 @@
         "team": "Cacusia",
         "player": "H. Blackmoor",
         "minute": 20,
-        "penalty": false
+        "penalty": false,
+        "playerId": "36"
       },
       {
         "team": "Cacusia",
         "player": "H. Blackmoor",
         "minute": 37,
-        "penalty": false
+        "penalty": false,
+        "playerId": "36"
       },
       {
         "team": "Cacusia",
         "player": "M. Dartmouth",
         "minute": 74,
-        "penalty": false
+        "penalty": false,
+        "playerId": "39"
       }
     ],
     "team1Code": "TBX",
-    "team2Code": "CAC"
+    "team2Code": "CAC",
+    "team1Id": 49,
+    "team2Id": 5
   },
   {
     "tournament_id": 1,
@@ -669,24 +750,29 @@
         "team": "Roless",
         "player": "F. Kumar",
         "minute": 33,
-        "penalty": true
+        "penalty": true,
+        "playerId": "182"
       },
       {
         "team": "Trebenia",
         "player": "T. Wolf",
         "minute": 39,
-        "penalty": false
+        "penalty": false,
+        "playerId": "204"
       },
       {
         "team": "Roless",
         "player": "J. Greenaway",
         "minute": 90,
         "aggregate": 3,
-        "penalty": false
+        "penalty": false,
+        "playerId": "184"
       }
     ],
     "team1Code": "TRE",
-    "team2Code": "RLS"
+    "team2Code": "RLS",
+    "team1Id": 39,
+    "team2Id": 4
   },
   {
     "tournament_id": 1,
@@ -700,7 +786,9 @@
     "date": "2022-12-16T01:40:00.000Z",
     "link": "https://youtu.be/aP8APqz4n0U?si=HbAWePGdQrSR1Lu-&t=709",
     "team1Code": "JUT",
-    "team2Code": "TRW"
+    "team2Code": "TRW",
+    "team1Id": 2,
+    "team2Id": 46
   },
   {
     "tournament_id": 1,
@@ -722,23 +810,28 @@
         "team": "Reannia",
         "player": "J. Carmona",
         "minute": 8,
-        "penalty": false
+        "penalty": false,
+        "playerId": "952"
       },
       {
         "team": "Reannia",
         "player": "S. Sterling",
         "minute": 37,
-        "penalty": false
+        "penalty": false,
+        "playerId": "954"
       },
       {
         "team": "Reannia",
         "player": "S. Sterling",
         "minute": 67,
-        "penalty": false
+        "penalty": false,
+        "playerId": "954"
       }
     ],
     "team1Code": "KAS",
-    "team2Code": "REA"
+    "team2Code": "REA",
+    "team1Id": 41,
+    "team2Id": 3
   },
   {
     "tournament_id": 1,
@@ -759,29 +852,35 @@
         "team": "Daarwyrth",
         "player": "T. Marsh",
         "minute": 8,
-        "penalty": false
+        "penalty": false,
+        "playerId": "56"
       },
       {
         "team": "Bunkaiia",
         "player": "G. Lotefin",
         "minute": 32,
-        "penalty": false
+        "penalty": false,
+        "playerId": "32"
       },
       {
         "team": "Daarwyrth",
         "player": "T. Marsh",
         "minute": 82,
-        "penalty": false
+        "penalty": false,
+        "playerId": "56"
       },
       {
         "team": "Daarwyrth",
         "player": "T. Marsh",
         "minute": 88,
-        "penalty": false
+        "penalty": false,
+        "playerId": "56"
       }
     ],
     "team1Code": "DRW",
-    "team2Code": "BUN"
+    "team2Code": "BUN",
+    "team1Id": 42,
+    "team2Id": 43
   },
   {
     "tournament_id": 1,
@@ -802,35 +901,42 @@
         "team": "Jutsa",
         "player": "R. Cairoi",
         "minute": 6,
-        "penalty": false
+        "penalty": false,
+        "playerId": "108"
       },
       {
         "team": "Jutsa",
         "player": "H. Kazñeisei",
         "minute": 22,
-        "penalty": false
+        "penalty": false,
+        "playerId": "100"
       },
       {
         "team": "Cacusia",
         "player": "M. Dartmouth",
         "minute": 29,
-        "penalty": false
+        "penalty": false,
+        "playerId": "39"
       },
       {
         "team": "Cacusia",
         "player": "M. Dartmouth",
         "minute": 69,
-        "penalty": false
+        "penalty": false,
+        "playerId": "39"
       },
       {
         "team": "Cacusia",
         "player": "M. Dartmouth",
         "minute": 74,
-        "penalty": false
+        "penalty": false,
+        "playerId": "39"
       }
     ],
     "team1Code": "CAC",
-    "team2Code": "JUT"
+    "team2Code": "JUT",
+    "team1Id": 5,
+    "team2Id": 2
   },
   {
     "tournament_id": 1,
@@ -853,41 +959,49 @@
         "team": "Atsvea",
         "player": "Nysnub",
         "minute": 3,
-        "penalty": false
+        "penalty": false,
+        "playerId": "15"
       },
       {
         "team": "Einswenn",
         "player": "R. Jogi",
         "minute": 62,
-        "penalty": false
+        "penalty": false,
+        "playerId": "68"
       },
       {
         "team": "Atsvea",
         "player": "E. Stell",
         "minute": 72,
-        "penalty": false
+        "penalty": false,
+        "playerId": "12"
       },
       {
         "team": "Einswenn",
         "player": "T. Davis",
         "minute": 81,
-        "penalty": false
+        "penalty": false,
+        "playerId": "71"
       },
       {
         "team": "Atsvea",
         "player": "S. Vythxo",
         "minute": 99,
-        "penalty": false
+        "penalty": false,
+        "playerId": "17"
       },
       {
         "team": "Atsvea",
         "player": "K. Zaajaagah",
         "minute": 109,
-        "penalty": false
+        "penalty": false,
+        "playerId": "13"
       }
     ],
     "team1Code": "ATS",
-    "team2Code": "EIN"
+    "team2Code": "EIN",
+    "team1Id": 6,
+    "team2Id": 7
   },
   {
     "tournament_id": 1,
@@ -908,30 +1022,36 @@
         "team": "Reannia",
         "player": "S. Sterling",
         "minute": 9,
-        "penalty": false
+        "penalty": false,
+        "playerId": "954"
       },
       {
         "team": "Roless",
         "player": "J. Greenaway",
         "minute": 45,
         "aggregate": 2,
-        "penalty": false
+        "penalty": false,
+        "playerId": "184"
       },
       {
         "team": "Reannia",
         "player": "D. Vela",
         "minute": 77,
-        "penalty": false
+        "penalty": false,
+        "playerId": "951"
       },
       {
         "team": "Reannia",
         "player": "S. Sterling",
         "minute": 82,
-        "penalty": false
+        "penalty": false,
+        "playerId": "954"
       }
     ],
     "team1Code": "REA",
-    "team2Code": "RLS"
+    "team2Code": "RLS",
+    "team1Id": 3,
+    "team2Id": 4
   },
   {
     "tournament_id": 1,
@@ -952,18 +1072,22 @@
         "team": "Cacusia",
         "player": "C. Islay",
         "minute": 19,
-        "penalty": false
+        "penalty": false,
+        "playerId": "35"
       },
       {
         "team": "Cacusia",
         "player": "H. Blackmoor",
         "minute": 45,
         "aggregate": 1,
-        "penalty": false
+        "penalty": false,
+        "playerId": "36"
       }
     ],
     "team1Code": "DRW",
-    "team2Code": "CAC"
+    "team2Code": "CAC",
+    "team1Id": 42,
+    "team2Id": 5
   },
   {
     "tournament_id": 1,
@@ -986,24 +1110,29 @@
         "team": "Atsvea",
         "player": "E. Stell",
         "minute": 17,
-        "penalty": false
+        "penalty": false,
+        "playerId": "12"
       },
       {
         "team": "Reannia",
         "player": "D. Vela",
         "minute": 23,
-        "penalty": false
+        "penalty": false,
+        "playerId": "951"
       },
       {
         "team": "Atsvea",
         "player": "Nysnub",
         "minute": 120,
         "aggregate": 3,
-        "penalty": false
+        "penalty": false,
+        "playerId": "15"
       }
     ],
     "team1Code": "ATS",
-    "team2Code": "REA"
+    "team2Code": "REA",
+    "team1Id": 6,
+    "team2Id": 3
   },
   {
     "tournament_id": 1,
@@ -1024,22 +1153,27 @@
         "team": "Cacusia",
         "player": "M. Dartmouth",
         "minute": 33,
-        "penalty": false
+        "penalty": false,
+        "playerId": "39"
       },
       {
         "team": "Atsvea",
         "player": "O. Khisiddah",
         "minute": 36,
-        "penalty": false
+        "penalty": false,
+        "playerId": "16"
       },
       {
         "team": "Atsvea",
         "player": "S. Vythxo",
         "minute": 65,
-        "penalty": false
+        "penalty": false,
+        "playerId": "17"
       }
     ],
     "team1Code": "CAC",
-    "team2Code": "ATS"
+    "team2Code": "ATS",
+    "team1Id": 5,
+    "team2Id": 6
   }
 ]

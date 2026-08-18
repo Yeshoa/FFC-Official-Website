@@ -1,0 +1,36 @@
+{
+  "teamCode": "CLO",
+  "teamName": "Clown Town City",
+  "lastUpdated": "2026-05-13",
+  "playerCount": 4,
+  "players": [
+    {
+      "id": "CLO_001",
+      "name": "Boingo",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "CLO_002",
+      "name": "D. Doodle",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "CLO_003",
+      "name": "Fizzlepop",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "CLO_004",
+      "name": "Honkers",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    }
+  ]
+}

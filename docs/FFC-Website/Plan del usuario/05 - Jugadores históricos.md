@@ -1,0 +1,3 @@
+1. Pienso en tener una forma de registrar a un jugador en players.json como "retirado"
+2. Los goles en matches deben indicar al id de los jugadores de players.json, así les cuentan los goles de toda su carrera
+3. Tendría que tener la chance de guardar los skills de los jugadores en los eventos importantes, por eso existe data/players/historical -> allí tendrán guardados los skills que tenían en el torneo que participaron: La razón es que pienso agregar algún feature que muestre cartas de jugadores históricos.

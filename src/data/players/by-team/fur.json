@@ -1,0 +1,57 @@
+{
+  "teamCode": "FUR",
+  "teamName": "Furilisca",
+  "lastUpdated": "2026-05-13",
+  "playerCount": 7,
+  "players": [
+    {
+      "id": "FUR_001",
+      "name": "Á. Stefánsson",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "FUR_002",
+      "name": "D. Sigfúsdóttir",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "FUR_003",
+      "name": "E. Pálsdóttir",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "FUR_004",
+      "name": "H. Ásvaldsson",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "FUR_005",
+      "name": "K. Héðinsdóttir",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "FUR_006",
+      "name": "K. Reynisdóttir",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "FUR_007",
+      "name": "M. Andersen",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    }
+  ]
+}

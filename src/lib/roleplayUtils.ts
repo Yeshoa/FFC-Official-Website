@@ -1,5 +1,5 @@
 import { SCORING_CONFIG } from "./scoreUtils";
-import { CURRENT_TOURNAMENT_ID, getLastFourTournamentIds } from "../utils/tournamentUtils";
+import { CURRENT_SEASON } from "@config/season";
 import { getRoleplays, getMembers } from '@lib/collections';
 import type { Roleplay, Roleplays } from '@ty/collections';
 
@@ -9,7 +9,6 @@ const members = await getMembers();
 // Calcula los puntos de roleplay actuales
 export function calculateCurrentRoleplayPoints(
   memberName: string,
-  member?: any,
   RP_MAX: number = SCORING_CONFIG.RP_MAX
 ): {
   totalPoints: number
@@ -38,11 +37,11 @@ export function calculateCurrentRoleplayPoints(
 // Calcula los puntos de roleplay pasados con decay (NO incluye dispatchPoints)
 export function calculatePastRoleplayPoints(
   memberName: string,
-  lastFourTournamentIds: number[],
+  lastFourSeasons: number[],
   decayFactors: number[] = [1.0, 0.5, 0.25, 0.1]
 ): number {
-  return lastFourTournamentIds.reduce((sum, tournamentId, index) => {
-    const pastRoleplays = getRoleplaysByTournamentId(tournamentId);
+  return lastFourSeasons.reduce((sum, season, index) => {
+    const pastRoleplays = getRoleplaysBySeason(season);
     const totalTournamentRoleplay = pastRoleplays.reduce((s, rp) => {
       const points = (rp.participants[memberName] ?? 0) * (rp.weight ?? 1);
       return s + points;
@@ -52,9 +51,9 @@ export function calculatePastRoleplayPoints(
   }, 0);
 }
 
-// Helper para obtener roleplays actuales
+// Helper para obtener roleplays actuales (temporada actual)
 export const getCurrentRoleplays = (): Roleplays => {
-  return roleplays.filter(roleplay => roleplay.edition === CURRENT_TOURNAMENT_ID && roleplay.enabled !== false);
+  return roleplays.filter(roleplay => roleplay.edition === CURRENT_SEASON && roleplay.enabled !== false);
 };
 
 // Helper para obtener roleplays por miembro
@@ -62,22 +61,22 @@ export const getRoleplaysByMember = (memberName: string): Roleplays => {
   return roleplays.filter(rp => rp.participants[memberName] !== undefined && rp.enabled !== false);
 };
 
-// Helper para obtener roleplays por torneo
-export const getRoleplaysByTournamentId = (tournamentId: number): Roleplays => {
-  return roleplays.filter(rp => rp.edition === tournamentId && rp.enabled !== false);
+// Helper para obtener roleplays por temporada
+export const getRoleplaysBySeason = (season: number): Roleplays => {
+  return roleplays.filter(rp => rp.edition === season && rp.enabled !== false);
 };
 
-// Helper para obtener roleplays por miembro y torneo
-export const getRoleplaysByMemberAndEdition = (memberName: string, tournamentId: number): Roleplays => {
-  return roleplays.filter(rp => rp.participants[memberName] !== undefined && rp.edition === tournamentId && rp.enabled !== false);
+// Helper para obtener roleplays por miembro y temporada
+export const getRoleplaysByMemberAndSeason = (memberName: string, season: number): Roleplays => {
+  return roleplays.filter(rp => rp.participants[memberName] !== undefined && rp.edition === season && rp.enabled !== false);
 };
 
 // Helper para obtener roleplays actuales por miembro
 export const getCurrentRoleplaysByMember = (memberName: string): Roleplays => {
-  return getRoleplaysByMemberAndEdition(memberName, CURRENT_TOURNAMENT_ID);
+  return getRoleplaysByMemberAndSeason(memberName, CURRENT_SEASON);
 };
 
 // Helper para obtener roleplays pasados por miembro
 export const getPastRoleplaysByMember = (memberName: string): Roleplays => {
-  return roleplays.filter(rp => rp.participants[memberName] !== undefined && rp.edition !== CURRENT_TOURNAMENT_ID && rp.enabled !== false);
+  return roleplays.filter(rp => rp.participants[memberName] !== undefined && rp.edition !== CURRENT_SEASON && rp.enabled !== false);
 };

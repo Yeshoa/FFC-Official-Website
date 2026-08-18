@@ -1,0 +1,17 @@
+{
+  "teamCode": "TYL",
+  "teamName": "Tylvana",
+  "tournament": "forest-cup-2024",
+  "tournamentEdition": 2,
+  "snapshotDate": "2026-05-13",
+  "playerCount": 1,
+  "players": [
+    {
+      "id": "TYL_001",
+      "name": "O. Kuroda",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    }
+  ]
+}

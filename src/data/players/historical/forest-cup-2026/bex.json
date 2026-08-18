@@ -1,0 +1,31 @@
+{
+  "teamCode": "BEX",
+  "teamName": "Bextoria",
+  "tournament": "forest-cup-2026",
+  "tournamentEdition": 3,
+  "snapshotDate": "2026-05-13",
+  "playerCount": 3,
+  "players": [
+    {
+      "id": "BEX_001",
+      "name": "F. Hološko",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "BEX_002",
+      "name": "S. Ristovski",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "BEX_003",
+      "name": "Z. Lazarević",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    }
+  ]
+}

@@ -4,7 +4,7 @@
     "name": "Host nation",
     "description": "Base points for hosting a Forest Cup.",
     "code": "Host",
-    "edition": 3,
+    "edition": 2026,
     "type": "host",
     "maxScore": 15,
     "participants": {
@@ -16,7 +16,7 @@
     "name": "Host nation",
     "description": "Base points for hosting a Forest Cup.",
     "code": "Host",
-    "edition": 2,
+    "edition": 2024,
     "type": "host",
     "maxScore": 15,
     "participants": {
@@ -28,7 +28,7 @@
     "name": "Easter Eggs",
     "description": "4 Points per easter egg discovered.",
     "code": "Eggs",
-    "edition": 3,
+    "edition": 2026,
     "type": "eggs",
     "maxScore": 20,
     "participants": {
@@ -44,7 +44,7 @@
     "name": "Extra",
     "description": "Variable points for exceptional dedication.",
     "code": "XT",
-    "edition": 3,
+    "edition": 2026,
     "type": "extra",
     "maxScore": "Variable",
     "participants": {
@@ -60,7 +60,7 @@
     "name": "Easter Eggs",
     "description": "Easter eggs discovered in the 2024 tournament.",
     "code": "Eggs",
-    "edition": 2,
+    "edition": 2024,
     "type": "eggs",
     "maxScore": 20,
     "participants": {
@@ -77,7 +77,7 @@
     "name": "Extra",
     "description": "Variable points for exceptional dedication.",
     "code": "XT",
-    "edition": 2,
+    "edition": 2024,
     "type": "extra",
     "maxScore": "variable",
     "participants": {
@@ -94,7 +94,7 @@
     "name": "Poll Participation",
     "description": "Points for participating in the logo poll.",
     "code": "Poll",
-    "edition": 2,
+    "edition": 2024,
     "type": "poll",
     "maxScore": 2,
     "participants": {
@@ -109,7 +109,7 @@
     "name": "Extra",
     "description": "Variable points for exceptional dedication.",
     "code": "XT",
-    "edition": 1,
+    "edition": 2022,
     "type": "extra",
     "maxScore": "variable",
     "participants": {

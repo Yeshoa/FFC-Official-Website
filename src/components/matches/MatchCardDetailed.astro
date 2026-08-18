@@ -1,7 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
-import { getMemberByName } from 'src/utils/memberUtils';
+import { getMatchTeamViews } from 'src/utils/memberUtils';
 import { areThereScorers, getMatchWinner, getMatchResult, getMatchRedCards } from 'src/utils/matchUtils';
 import GoalIcon from '@images/icons/futbol-regular-full.svg';
 import PenaltyIcon from '@images/icons/penalty.svg';
@@ -9,6 +9,8 @@ import defaultFlag from '@images/tournaments/default-flag.png';
 import { getTournaments } from '@lib/collections';
 import { LOCALE } from '@config/constants';
 import { getStadiumById } from '@utils/stadiumUtils';
+import { ROUTES } from '@config/routes';
+import { getTournamentUrl } from 'src/utils/tournamentUtils';
 
 const tournaments = await getTournaments();
 
@@ -32,12 +34,11 @@ if (hasPenaltyShootout) {
   penaltyScore2 = penalties.filter(p => p.team === match.data.team2 && p.scored).length;
   penaltyInfo = `(${penaltyScore1}-${penaltyScore2})`;
 }
-const team1 = await getMemberByName(match.data.team1) || { data: { name: match.data.team1, code: match.data.team1 } };
-const team2 = await getMemberByName(match.data.team2) || { data: { name: match.data.team2, code: match.data.team2 } };
+const { team1, team2 } = await getMatchTeamViews(match);
 const winner = getMatchWinner(match.data);
 const redCards = getMatchRedCards(match.data);
 const tournament = tournaments.find(t => t.data.id === match.data.tournament_id);
-const tournamentUrl = tournament ? `/${tournament.data.type}/${tournament.data.edition}` : '';
+const tournamentUrl = tournament ? getTournamentUrl(tournament.data) : '';
 const tournamentName = tournament?.data.name ?? '';
 const tournamentShortName = tournament?.data.shortName ?? tournamentName;
 // const fixture = match.data.group ? `Group ${match.data.group} - ${match.data.fixture}` : match.data.fixture ?? 'Unknown';
@@ -46,12 +47,12 @@ const date = match.data.date.toLocaleDateString(LOCALE);
 const hour = match.data.date.toLocaleTimeString(LOCALE, {hour12: false, hour: 'numeric', minute: 'numeric'});
 ---
 
-<div class="flex flex-col justify-start items-center w-full max-w-5xl bg-gradient-to-br from-green-900/80 to-green-950/70 py-3 px-4 rounded-2xl shadow-md text-white hover:bg-green-700/90">
+<div class="flex flex-col justify-start items-center w-full max-w-5xl bg-gradient-to-br from-surface-raised/80 to-surface/70 py-3 px-4 rounded-2xl shadow-md text-white hover:bg-primary-dark/90">
   
-  <div class="flex flex-col xs:flex-row items-center justify-between w-full mb-2 pb-2 border-b border-green-700/50 min-w-0">
-    <div class="flex items-center gap-2 text-xs md:text-sm text-green-200 min-w-0">
+  <div class="flex flex-col xs:flex-row items-center justify-between w-full mb-2 pb-2 border-b border-primary-dark/50 min-w-0">
+    <div class="flex items-center gap-2 text-xs md:text-sm text-primary-soft min-w-0">
       {tournamentUrl ? (
-        <a href={tournamentUrl} class="font-medium hover:text-green-100 hover:underline transition-colors truncate">
+        <a href={tournamentUrl} class="font-medium hover:text-primary-faint hover:underline transition-colors truncate">
           <span class="sm:hidden">
             {tournamentShortName}
           </span>
@@ -62,17 +63,17 @@ const hour = match.data.date.toLocaleTimeString(LOCALE, {hour12: false, hour: 'n
       )}
       {fixture && (
         <>
-          <span class="text-green-400 flex-shrink-0">•</span>
+          <span class="text-primary-muted flex-shrink-0">•</span>
           <span class="font-light truncate">{fixture}</span>
         </>
       )}
     </div>
-    <div class="text-xs text-green-300 font-light mt-1 xs:mt-0 flex-shrink-0">
+    <div class="text-xs text-primary-light font-light mt-1 xs:mt-0 flex-shrink-0">
       <div class="flex items-center gap-1 overflow-hidden">
         <span class="flex-shrink-0">{date}</span>
         {match.data.status === 'scheduled' && (
           <>
-            <span class="text-green-400 flex-shrink-0 hidden sm:inline">•</span>
+            <span class="text-primary-muted flex-shrink-0 hidden sm:inline">•</span>
             <span class="font-light flex-shrink-0 hidden sm:inline">{hour} UTC</span>
           </>
         )}
@@ -84,14 +85,14 @@ const hour = match.data.date.toLocaleTimeString(LOCALE, {hour12: false, hour: 'n
   <div class="grid grid-cols-7 items-center w-full gap-2 mb-2">
     {/* Equipo 1 */}
     <div class="flex items-center justify-end col-span-3 gap-2 text-right overflow-visible">
-      <a class={`${winner === match.data.team1 ? 'font-bold' : 'font-light'} md:text-lg truncate hover:underline`} href={team1?.data ? `/members/${team1?.slug}` : '#'}>
-        <span class="hidden xs:inline">{team1?.data ? team1?.data.name : match.data.team1}</span>
-        <span class="xs:hidden">{team1?.data ? team1?.data.code : match.data.team1}</span>
+      <a class={`${winner === match.data.team1 ? 'font-bold' : 'font-light'} md:text-lg truncate hover:underline`} href={team1.href ?? '#'}>
+        <span class="hidden xs:inline">{team1.name}</span>
+        <span class="xs:hidden">{team1.code ?? team1.name}</span>
       </a>
-      {team1?.data?.flagPath ? (
+      {team1.flag ? (
         <Image
-          src={team1.data.flagPath || defaultFlag}
-          alt={team1.data.name}
+          src={team1.flag}
+          alt={team1.name}
           class="h-5 w-8 md:h-6 md:w-9 rounded-sm object-cover ring-1 ring-gray-500 flex-shrink-0"
           height={48}
           loading="lazy"
@@ -99,48 +100,13 @@ const hour = match.data.date.toLocaleTimeString(LOCALE, {hour12: false, hour: 'n
           format="webp"
           quality={10}
         />
-       ) : ( 
-         <Image
-          src={defaultFlag}
-          alt="Default Flag"
-          class="h-5 w-8 md:h-6 md:w-9 rounded-sm object-cover ring-1 ring-gray-500 flex-shrink-0"
-          height={48}
-          loading="lazy"
-          inferSize={true}
-          format="webp"
-          quality={10}
-        />
-       )}
-    </div>
-    {/* Marcador */}
-    <div class="text-center">
-        {match.data.status === 'played' ? (
-            <span class="text-sm xs:text-lg md:text-xl whitespace-nowrap font-bold">{score1} - {score2}</span>
-        ) : match.data.status === 'scheduled' ? (
-            <span class="text-sm xs:text-lg md:text-xl font-bold italic text-gray-300 block">vs</span>
-            // <span class="text-xs text-gray-400 block mt-0.5">
-            //     {match.data.date.toLocaleTimeString(LOCALE, {hour12: false, hour: 'numeric', minute: 'numeric'})}
-            // </span>
-        ) : (
-            <span class="text-sm font-light text-red-400">VS</span>
-        )}
-        {hasPenaltyShootout && penaltyInfo && (
-            <span class="block text-xs text-yellow-400 mt-0.5">{penaltyInfo}</span>
-        )}
-    </div>
-    {/* Equipo 2 */}
-    <div class="flex items-center col-span-3 gap-2 text-left overflow-visible">
-       {team2?.data?.flagPath ? (
-        <Image
-          src={team2.data.flagPath || defaultFlag}
-          alt={team2.data.name}
-          class="h-5 w-8 md:h-6 md:w-9 rounded-sm object-cover ring-1 ring-gray-500 flex-shrink-0"
-          height={48}
-          loading="lazy"
-          inferSize={true}
-          format="webp"
-          quality={10}
-        />
+      ) : team1.type === 'club' ? (
+        <span
+          class="h-5 w-8 md:h-6 md:w-9 rounded-sm flex items-center justify-center text-[10px] font-black ring-1 ring-gray-500 flex-shrink-0"
+          style={{ backgroundColor: `${team1.color ?? '#95ff00'}22`, color: team1.color ?? '#95ff00' }}
+        >
+          {team1.name[0]}
+        </span>
       ) : (
         <Image
           src={defaultFlag}
@@ -153,9 +119,58 @@ const hour = match.data.date.toLocaleTimeString(LOCALE, {hour12: false, hour: 'n
           quality={10}
         />
       )}
-      <a class={`${winner === match.data.team2 ? 'font-bold' : 'font-light'} md:text-lg truncate hover:underline`} href={team2?.data ? `/members/${team2?.slug}` : '#'}>
-        <span class="hidden xs:inline">{team2?.data ? team2?.data.name : match.data.team2}</span>
-        <span class="xs:hidden">{team2?.data ? team2?.data.code : match.data.team2}</span>
+    </div>
+    {/* Marcador */}
+    <div class="text-center">
+        {match.data.status === 'played' ? (
+            <span class="text-sm xs:text-lg md:text-xl whitespace-nowrap font-bold">{score1} - {score2}</span>
+        ) : match.data.status === 'scheduled' ? (
+            <span class="text-sm xs:text-lg md:text-xl font-bold italic text-gray-300 block">vs</span>
+            // <span class="text-xs text-text-muted block mt-0.5">
+            //     {match.data.date.toLocaleTimeString(LOCALE, {hour12: false, hour: 'numeric', minute: 'numeric'})}
+            // </span>
+        ) : (
+            <span class="text-sm font-light text-red-400">VS</span>
+        )}
+        {hasPenaltyShootout && penaltyInfo && (
+            <span class="block text-xs text-yellow-400 mt-0.5">{penaltyInfo}</span>
+        )}
+    </div>
+    {/* Equipo 2 */}
+    <div class="flex items-center col-span-3 gap-2 text-left overflow-visible">
+      {team2.flag ? (
+        <Image
+          src={team2.flag}
+          alt={team2.name}
+          class="h-5 w-8 md:h-6 md:w-9 rounded-sm object-cover ring-1 ring-gray-500 flex-shrink-0"
+          height={48}
+          loading="lazy"
+          inferSize={true}
+          format="webp"
+          quality={10}
+        />
+      ) : team2.type === 'club' ? (
+        <span
+          class="h-5 w-8 md:h-6 md:w-9 rounded-sm flex items-center justify-center text-[10px] font-black ring-1 ring-gray-500 flex-shrink-0"
+          style={{ backgroundColor: `${team2.color ?? '#95ff00'}22`, color: team2.color ?? '#95ff00' }}
+        >
+          {team2.name[0]}
+        </span>
+      ) : (
+        <Image
+          src={defaultFlag}
+          alt="Default Flag"
+          class="h-5 w-8 md:h-6 md:w-9 rounded-sm object-cover ring-1 ring-gray-500 flex-shrink-0"
+          height={48}
+          loading="lazy"
+          inferSize={true}
+          format="webp"
+          quality={10}
+        />
+      )}
+      <a class={`${winner === match.data.team2 ? 'font-bold' : 'font-light'} md:text-lg truncate hover:underline`} href={team2.href ?? '#'}>
+        <span class="hidden xs:inline">{team2.name}</span>
+        <span class="xs:hidden">{team2.code ?? team2.name}</span>
       </a>
     </div>
   </div>
@@ -177,7 +192,7 @@ const hour = match.data.date.toLocaleTimeString(LOCALE, {hour12: false, hour: 'n
             .map((goal, idx) => (
               <div key={`team1-goal-${idx}-${goal.player}-${goal.minute}`} class="flex items-center justify-end">
                 <span class="truncate me-1" title={goal.player}>{goal.player}</span>
-                <GoalIcon class="w-4 h-4 flex-shrink-0 fill-green-400" />
+                <GoalIcon class="w-4 h-4 flex-shrink-0 fill-primary-muted" />
                 {goal.penalty ? <PenaltyIcon class="w-4 h-4 flex-shrink-0 fill-yellow-400" /> : ""}
                 <span class="ms-1">
                   {goal.minute}{goal.aggregate !== undefined ? `+${goal.aggregate}` : ""}'
@@ -199,7 +214,7 @@ const hour = match.data.date.toLocaleTimeString(LOCALE, {hour12: false, hour: 'n
       </div>
 
       {/* Enlace Detalles/Video */}
-      <div class="flex justify-center items-start w-full h-full col-span-1">
+      <div class="flex flex-col items-center justify-start gap-1 w-full h-full col-span-1">
         {match.data.link ? (
           <a href={match.data.link} target="_blank" rel="noopener noreferrer" title="Watch Match" 
             class="bg-blue-500/70 hover:bg-blue-400 text-white px-1 xs:px-2 xs:py-1 rounded-full text-xs transition-colors">
@@ -208,6 +223,13 @@ const hour = match.data.date.toLocaleTimeString(LOCALE, {hour12: false, hour: 'n
         ) : (
           <span class="text-gray-600 text-xs md:text-sm" title="No link available">Watch</span>
         )}
+        <a
+          href={ROUTES.matches.detail(match.id)}
+          class="text-primary-soft hover:text-primary-light underline text-xs"
+          title="Match details"
+        >
+          Details
+        </a>
       </div>
 
       {/* Goles Equipo 2 */}
@@ -224,7 +246,7 @@ const hour = match.data.date.toLocaleTimeString(LOCALE, {hour12: false, hour: 'n
             .map((goal, idx) => (
               <div key={`team2-goal-${idx}-${goal.player}-${goal.minute}`} class="flex items-center justify-start">
                 <span class="truncate me-1" title={goal.player}>{goal.player}</span>
-                <GoalIcon class="w-4 h-4 flex-shrink-0 fill-green-400" />
+                <GoalIcon class="w-4 h-4 flex-shrink-0 fill-primary-muted" />
                 {goal.penalty ? <PenaltyIcon class="w-4 h-4 flex-shrink-0 fill-yellow-400" /> : ""}
                 <span class="ms-1">
                   {goal.minute}{goal.aggregate !== undefined ? `+${goal.aggregate}` : ""}'

@@ -1,0 +1,179 @@
+---
+// DomesticLeagueTable: tabla de posiciones de una liga doméstica con zonas
+// (descenso en rojo, clasificación a Champions League en verde) + leyenda.
+// Muestra el nombre literal de la liga, "Season YYYY" destacado, y el logo del club
+// (fallback puntito de color) a la izquierda del nombre. `theme` ffc/fcl, `compact` para 1/2 columna.
+import { Image } from 'astro:assets';
+import { getClubById } from '@data/clubs';
+import { ROUTES } from '@config/routes';
+import { resolveImage } from '@utils/imageAssets';
+import type { League } from '@data/leagues';
+
+interface Props {
+  league: League;
+  theme?: 'ffc' | 'fcl';
+  compact?: boolean;
+  highlightClubId?: number; // id del club actual (su fila se destaca)
+  showSeeLeague?: boolean; // botón "See League" en el header (ocultarlo en la propia página de la liga)
+}
+
+const { league, theme = 'ffc', compact = false, highlightClubId, showSeeLeague = true } = Astro.props;
+
+const leagueLogo = resolveImage(league.logoPath);
+
+const isClZone = (pos: number) => league.championsLeaguePositions.includes(pos);
+const isPromotion = (pos: number) => league.promotionPositions.includes(pos);
+const isRelegation = (pos: number) => league.relegationPositions.includes(pos);
+const hasZones = league.promotionPositions.length > 0 || league.relegationPositions.length > 0 || league.championsLeaguePositions.length > 0;
+
+const isFcl = theme === 'fcl';
+const headClass = isFcl ? 'bg-cl-lime/15 text-cl-lime' : 'bg-primary-deep text-white';
+const rowBorder = isFcl ? 'border-cl-lime/15' : 'border-primary-dark';
+const boxClass = isFcl
+  ? 'rounded-lg border border-cl-lime/20 bg-cl-black/40'
+  : 'bg-surface/80 shadow-lg rounded-lg';
+const pad = compact ? 'p-3' : 'p-6';
+const textRow = compact ? 'text-xs' : 'text-sm';
+const headPad = compact ? 'px-2 py-1.5' : 'px-2 py-2';
+---
+
+<div class={`${boxClass} ${pad} mb-8`}>
+  <div class="flex flex-wrap items-center justify-between gap-2 mb-3 border-b pb-2 border-primary">
+    <h2 class={`font-semibold text-white flex items-center gap-2 ${compact ? 'text-base' : 'text-xl'}`}>
+      {leagueLogo && (
+        <Image
+          src={leagueLogo}
+          alt={`Logo de ${league.name}`}
+          width={36}
+          quality={70}
+          format="webp"
+          class="h-7 w-7 object-contain"
+        />
+      )}
+      <span>{league.name}</span>
+    </h2>
+    <div class="flex items-center gap-3">
+      <span class={`font-bold text-cl-lime ${compact ? 'text-sm' : 'text-lg'}`}>
+        Season {league.season}
+      </span>
+      {showSeeLeague && (
+        <a
+          href={ROUTES.championsLeague.league(league.id)}
+          class={`rounded-lg border font-bold transition-colors ${
+            isFcl
+              ? 'border-cl-lime/50 text-cl-lime hover:bg-cl-lime/10'
+              : 'border-primary text-primary-soft hover:bg-primary/20'
+          } ${compact ? 'px-2 py-1 text-[10px]' : 'px-3 py-1.5 text-xs'}`}
+        >
+          See League →
+        </a>
+      )}
+    </div>
+  </div>
+
+  {hasZones && (
+    <div class="flex flex-wrap items-center gap-4 mb-4 text-xs text-text-muted">
+      {league.championsLeaguePositions.length > 0 && (
+        <span class="inline-flex items-center gap-1.5">
+          <span class="w-3 h-3 rounded-sm bg-emerald-500/70"></span>
+          Champions League qualification
+        </span>
+      )}
+      {league.promotionPositions.length > 0 && (
+        <span class="inline-flex items-center gap-1.5">
+          <span class="w-3 h-3 rounded-sm bg-green-500/70"></span>
+          Promotion
+        </span>
+      )}
+      {league.relegationPositions.length > 0 && (
+        <span class="inline-flex items-center gap-1.5">
+          <span class="w-3 h-3 rounded-sm bg-red-500/70"></span>
+          Relegation
+        </span>
+      )}
+    </div>
+  )}
+
+  <div class="overflow-x-auto">
+    <table class={`w-full text-center table-auto border-collapse ${textRow}`}>
+      <thead class={headClass}>
+        <tr>
+          <th class={`${headPad} rounded-tl-lg`} title="Position">#</th>
+          <th class={`${headPad} text-left`} title="Club">Club</th>
+          <th class={headPad} title="Matches Played">Pld</th>
+          <th class={headPad} title="Wins">W</th>
+          <th class={headPad} title="Draws">D</th>
+          <th class={headPad} title="Losses">L</th>
+          <th class={headPad} title="Goals for">GF</th>
+          <th class={headPad} title="Goals against">GA</th>
+          <th class={headPad} title="Goal difference">GD</th>
+          <th class={`${headPad} rounded-tr-lg`} title="Points">Pts</th>
+        </tr>
+      </thead>
+      <tbody>
+        {league.standings.map((row) => {
+          const club = getClubById(row.clubId);
+          const gd = row.goalsFor - row.goalsAgainst;
+          const isSelf = highlightClubId !== undefined && row.clubId === highlightClubId;
+          const zoneClass = !isSelf && isClZone(row.position)
+            ? 'bg-emerald-500/10'
+            : !isSelf && isRelegation(row.position)
+              ? 'bg-red-500/10'
+              : !isSelf && isPromotion(row.position)
+                ? 'bg-green-500/10'
+                : '';
+          const selfClass = isSelf
+            ? isFcl
+              ? 'bg-cl-lime/15 font-semibold'
+              : 'bg-primary/10 font-semibold'
+            : '';
+          const clubLogo = club ? resolveImage(club.logoPath) : null;
+          return (
+            <tr class={`border-b ${rowBorder} hover:bg-surface-raised/20 ${zoneClass} ${selfClass}`}>
+              <td class={`${compact ? 'px-1.5 py-1.5' : 'px-2 py-2'}`}>
+                {isSelf ? (
+                  <span class={`inline-flex w-6 h-6 items-center justify-center rounded-full text-xs font-black ${isFcl ? 'bg-cl-lime text-black' : 'bg-primary text-white'}`}>{row.position}</span>
+                ) : (
+                  <span class="font-bold">{row.position}</span>
+                )}
+              </td>
+              <td class={`${compact ? 'px-1.5 py-1.5' : 'px-2 py-2'} text-left font-medium text-white`}>
+                {club ? (
+                  <a
+                    href={ROUTES.clubs.detail(club.slug)}
+                    class="inline-flex items-center gap-2 hover:underline"
+                  >
+                    {clubLogo ? (
+                      <Image
+                        src={clubLogo}
+                        alt={club.name}
+                        width={32}
+                        loading="lazy"
+                        quality={60}
+                        format="webp"
+                        class={`${compact ? 'w-4 h-4' : 'w-5 h-5'} object-contain`}
+                      />
+                    ) : (
+                      <span class={`inline-block rounded-full ${compact ? 'w-2 h-2' : 'w-2.5 h-2.5'}`} style={{ backgroundColor: club.colors?.primary }}></span>
+                    )}
+                    {club.name}
+                  </a>
+                ) : (
+                  row.clubName ?? `#${row.clubId}`
+                )}
+              </td>
+              <td class={`${compact ? 'px-1.5 py-1.5' : 'px-2 py-2'}`}>{row.played}</td>
+              <td class={`${compact ? 'px-1.5 py-1.5' : 'px-2 py-2'} text-primary-muted`}>{row.won}</td>
+              <td class={`${compact ? 'px-1.5 py-1.5' : 'px-2 py-2'} text-yellow-400`}>{row.drawn}</td>
+              <td class={`${compact ? 'px-1.5 py-1.5' : 'px-2 py-2'} text-red-400`}>{row.lost}</td>
+              <td class={`${compact ? 'px-1.5 py-1.5' : 'px-2 py-2'}`}>{row.goalsFor}</td>
+              <td class={`${compact ? 'px-1.5 py-1.5' : 'px-2 py-2'}`}>{row.goalsAgainst}</td>
+              <td class={`${compact ? 'px-1.5 py-1.5' : 'px-2 py-2'}`}>{gd > 0 ? `+${gd}` : gd}</td>
+              <td class={`${compact ? 'px-1.5 py-1.5' : 'px-2 py-2'} font-bold`}>{row.points}</td>
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,24 @@
+{
+  "teamCode": "Bilsa",
+  "teamName": "Bilsa",
+  "tournament": "forest-cup-2024",
+  "tournamentEdition": 2,
+  "snapshotDate": "2026-05-13",
+  "playerCount": 2,
+  "players": [
+    {
+      "id": "Bilsa_001",
+      "name": "A. Arhanv",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "Bilsa_002",
+      "name": "C. Muniv",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    }
+  ]
+}

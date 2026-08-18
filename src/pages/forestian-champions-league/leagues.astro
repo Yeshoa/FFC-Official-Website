@@ -1,0 +1,163 @@
+---
+// Página de ligas (FCL): cartas por país. Cada carta muestra la primera división
+// (logo, nombre, país, ranking + puntaje) y abajo, compactas, las divisiones siguientes.
+// (La página por liga/división está pendiente; las cartas son estáticas por ahora.)
+import FCLayout from '@layouts/FCL.astro';
+import Title from '@components/Title.astro';
+import { Image } from 'astro:assets';
+import { getAllLeagues, getFirstDivision, getLeaguesByFederation } from '@data/leagues';
+import { getMemberById } from 'src/utils/memberUtils';
+import { getRankedLeagues } from '@lib/leagueRankingUtils';
+import { resolveImage } from '@utils/imageAssets';
+import DefaultLeagueLogo from '@images/leagues/default.png';
+import { ROUTES } from '@config/routes';
+import RelatedNews from '@components/articles/RelatedNews.astro';
+import { getArticles } from '@lib/collections';
+import { getArticlesByTags } from 'src/utils/articleUtils';
+
+const allLeagues = getAllLeagues();
+const federationIds = [...new Set(allLeagues.map((l) => l.federationId))].sort((a, b) => a - b);
+
+const firstDivisions = federationIds
+  .map((fid) => getFirstDivision(fid))
+  .filter((l): l is NonNullable<typeof l> => l !== null);
+
+const ranked = getRankedLeagues(firstDivisions);
+const hasScores = ranked.some((r) => r.score.total > 0);
+
+const fclArticles = getArticlesByTags(await getArticles(), ['FCL', 'champions-league']);
+---
+
+<FCLayout title="FFC - Champions League Leagues">
+  <main class="flex flex-col items-center pt-5">
+    <div class="flex flex-col items-center w-full max-w-7xl justify-center p-6">
+      <Title slideIn={true} color="text-cl-lime">
+        Leagues
+        <span slot="subtitle">Domestic leagues of the Forest Football Confederation</span>
+      </Title>
+
+      {firstDivisions.length > 0 ? (
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
+          {federationIds.map((fid) => {
+            const first = getFirstDivision(fid);
+            if (!first) return null;
+            const federation = getMemberById(fid);
+            const logo = resolveImage(first.logoPath);
+            const entry = ranked.find((r) => r.league.id === first.id);
+            const rank = entry ? ranked.indexOf(entry) + 1 : null;
+            const score = entry?.score.total ?? 0;
+            const subs = getLeaguesByFederation(fid).filter((l) => l.id !== first.id);
+            return (
+              <div key={fid} class="rounded-2xl border border-cl-lime/20 bg-cl-black/40 p-5">
+                <div class="flex items-center gap-4">
+                  {logo ? (
+                    <Image
+                      src={logo}
+                      alt={first.name}
+                      width={96}
+                      loading="lazy"
+                      quality={70}
+                      format="webp"
+                      class="w-16 h-16 object-contain"
+                    />
+                  ) : (
+                    <Image
+                      src={DefaultLeagueLogo}
+                      alt={first.name}
+                      width={96}
+                      loading="lazy"
+                      quality={70}
+                      format="webp"
+                      class="w-16 h-16 object-contain opacity-30"
+                    />
+                  )}
+                  <div class="min-w-0 flex-1">
+                    <h2 class="text-lg font-bold text-white truncate">{first.name}</h2>
+                    <p class="text-sm text-text-muted truncate">{federation?.data.name ?? `Federation #${fid}`}</p>
+                    
+                  </div>
+                  <a
+                    href={ROUTES.championsLeague.league(first.id)}
+                    class="mt-4 sm:inline-block rounded-lg border border-cl-lime/50 text-cl-lime px-3 py-1.5 text-xs font-bold hover:bg-cl-lime/10 transition-colors self-start hidden md:hidden lg:inline-block"
+                  >
+                    See League →
+                  </a>
+                  <div class="text-right shrink-0">
+                    {rank != null && (
+                      <span class="block text-2xl font-black text-cl-lime tabular-nums">#{rank}</span>
+                    )}
+                    <span class={`block text-xs tabular-nums ${score > 0 ? 'text-cl-lime' : 'text-text-muted'}`}>
+                      {score > 0 ? `${score} pts` : 'no points'}
+                    </span>
+                  </div>
+                </div>
+
+                {subs.length > 0 && (
+                  <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    {subs.map((l) => {
+                      const subLogo = resolveImage(l.logoPath);
+                      return (
+                        <a
+                          key={l.id}
+                          href={ROUTES.championsLeague.league(l.id)}
+                          class="flex items-center gap-2 rounded-lg border border-cl-lime/10 bg-black/30 px-2 py-1.5 hover:border-cl-lime/50 transition-colors"
+                          title={l.name}
+                        >
+                          {subLogo ? (
+                            <Image
+                              src={subLogo}
+                              alt={l.name}
+                              width={32}
+                              loading="lazy"
+                              quality={60}
+                              format="webp"
+                              class="w-6 h-6 object-contain"
+                            />
+                          ) : (
+                            <Image
+                              src={DefaultLeagueLogo}
+                              alt={l.name}
+                              width={32}
+                              loading="lazy"
+                              quality={60}
+                              format="webp"
+                              class="w-6 h-6 object-contain opacity-30"
+                            />
+                          )}
+                          <div class="min-w-0 flex-1">
+                            <p class="text-xs font-semibold text-white truncate">{l.name}</p>
+                            <p class="text-[10px] text-text-muted">Division {l.division}</p>
+                          </div>
+                          <span class="text-[10px] text-cl-lime">→</span>
+                        </a>
+                      );
+                    })}
+                  </div>
+                    <a
+                      href={ROUTES.championsLeague.league(first.id)}
+                      class="mt-4 inline-block rounded-lg border border-cl-lime/50 text-cl-lime px-3 py-1.5 text-xs font-bold hover:bg-cl-lime/10 transition-colors self-start sm:hidden md:inline-block lg:hidden"
+                    >
+                      See League →
+                    </a>  
+                )}
+                
+              </div>
+            );
+          })}
+        </div>
+      ) : (
+        <p class="text-text-muted italic mt-8">No leagues yet.</p>
+      )}
+
+      {!hasScores && firstDivisions.length > 0 && (
+        <p class="text-text-muted italic text-sm text-center py-4">
+          No league points loaded yet — the owner will add rp/events/bonus per league.
+        </p>
+      )}
+    </div>
+  </main>
+
+  {fclArticles.length > 0 && (
+    <RelatedNews articles={fclArticles} max={4} />
+  )}
+</FCLayout>

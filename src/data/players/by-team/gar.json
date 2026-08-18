@@ -1,0 +1,29 @@
+{
+  "teamCode": "GAR",
+  "teamName": "Garbelia",
+  "lastUpdated": "2026-05-13",
+  "playerCount": 3,
+  "players": [
+    {
+      "id": "GAR_001",
+      "name": "K. Ota",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "GAR_002",
+      "name": "L. Scritkyposs",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "GAR_003",
+      "name": "M. Verhoeven",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    }
+  ]
+}

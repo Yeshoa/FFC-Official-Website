@@ -1,0 +1,59 @@
+{
+  "teamCode": "ROL",
+  "teamName": "Roless",
+  "tournament": "forest-cup-2026",
+  "tournamentEdition": 3,
+  "snapshotDate": "2026-05-13",
+  "playerCount": 7,
+  "players": [
+    {
+      "id": "ROL_001",
+      "name": "C. Fulton",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "ROL_002",
+      "name": "C. McArthur",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "ROL_003",
+      "name": "H. Carrol",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "ROL_004",
+      "name": "J. Greenaway",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "ROL_005",
+      "name": "L. Howell",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "ROL_006",
+      "name": "O. Chandler",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "ROL_007",
+      "name": "R. Grimes",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    }
+  ]
+}

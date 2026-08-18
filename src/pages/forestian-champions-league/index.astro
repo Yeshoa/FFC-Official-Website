@@ -1,0 +1,294 @@
+---
+// Home de la sección Champions League (FCL). Rediseño según plan del dueño:
+// hero full-viewport con 2 CTAs (temporada actual + historia), artículos FCL a la
+// izquierda + ranking compacto (toggle clubes/ligas) a la derecha, tabla histórica de
+// clubes (top 30), goleadores/asistidores top 10 y lista compacta de ediciones+campeón.
+import FCLayout from '@layouts/FCL.astro';
+import { Image } from 'astro:assets';
+import FCLHero from '@images/tournaments/FCL/FCL banner.png';
+import FCLogo from '@images/tournaments/FCL/FCL Logo.svg';
+import { getAllClubs } from '@data/clubs';
+import { getAllLeagues } from '@data/leagues';
+import { getMemberById } from 'src/utils/memberUtils';
+import { loadCurrentSquadByTeamId } from '@data/players';
+import { computeTeamRating, teamRatingToStars } from '@config/rating';
+import { getTopLeagues } from '@lib/leagueRankingUtils';
+import { resolveImage } from '@utils/imageAssets';
+import DefaultClubLogo from '@images/clubs/default.png';
+import DefaultLeagueLogo from '@images/leagues/default.png';
+import { ROUTES } from '@config/routes';
+import { getTournaments, getMatches, getArticles } from '@lib/collections';
+import { getArticlesByTags } from 'src/utils/articleUtils';
+import RelatedNews from '@components/articles/RelatedNews.astro';
+import ScorersTable from '@components/tournaments/ScorersTable.astro';
+import ClubHistoricalTable from '@components/champions-league/home/ClubHistoricalTable.astro';
+
+const clTournaments = (await getTournaments())
+  .filter((t) => t.data.type === 'forestian-champions-league')
+  .sort((a, b) => b.data.season - a.data.season);
+const latestTournament = clTournaments[0] ?? null;
+const latestSeason = latestTournament?.data.season ?? null;
+
+const allMatches = await getMatches();
+const clMatches = latestTournament
+  ? allMatches.filter((m) => m.data.tournament_id === latestTournament.data.id)
+  : [];
+
+// Ranking de clubes por rating del plantel (compacto para la home).
+const clubs = getAllClubs()
+  .map((club) => {
+    const squad = loadCurrentSquadByTeamId(club.id);
+    const rating = computeTeamRating(squad);
+    return {
+      club,
+      federation: getMemberById(club.federationId),
+      rating,
+      stars: teamRatingToStars(rating),
+    };
+  })
+  .sort((a, b) => b.rating - a.rating || a.club.name.localeCompare(b.club.name));
+const topClubs = clubs.slice(0, 10);
+
+// Top ligas por ranking (compacto para la home).
+const topLeagues = getTopLeagues(getAllLeagues(), 10);
+
+// Artículos de la sección (tag FCL / champions-league).
+const articles = await getArticles();
+const clArticles = getArticlesByTags(articles, ['FCL', 'champions-league']);
+---
+
+<FCLayout title="FFC - Forestian Champions League">
+  <!-- HERO full viewport -->
+  <section class="relative overflow-hidden flex items-center justify-center min-h-[calc(100svh-72px)]">
+    <div class="absolute inset-0 overflow-hidden">
+      <div class="absolute inset-0 bg-linear-to-b from-cl-black/70 via-cl-black/40 to-cl-black"></div>
+    </div>
+    <div class="cl-pattern absolute inset-0 opacity-20 pointer-events-none"></div>
+    <div class="relative z-10 w-full max-w-screen-xl mx-auto px-4 py-12 flex flex-col items-center justify-center">
+      <div class="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16 text-center">
+        <FCLogo class="w-96 md:w-72 lg:w-96 h-auto text-cl-lime shrink-0" />
+
+        <div class="flex flex-col items-center gap-8">
+          <div class="flex flex-col leading-none">
+            <span class="font-ffc font-extrabold text-white text-5xl md:text-7xl">FFC</span>
+            <span class="font-cl font-bold text-cl-lime text-4xl md:text-7xl">CHAMPIONS</span>
+            <span class="font-cl font-bold text-cl-lime text-4xl md:text-7xl">LEAGUE</span>
+          </div>
+
+          <div class="flex flex-wrap items-center justify-center gap-3">
+            {latestSeason != null && (
+              <a
+                href={ROUTES.championsLeague.season(latestSeason)}
+                class="px-6 py-3 rounded-lg bg-cl-lime text-black font-bold hover:bg-white transition-colors"
+              >
+                Season {latestSeason}
+              </a>
+            )}
+            <!-- <a
+              href="#history"
+              class="px-6 py-3 rounded-lg border border-cl-lime/50 text-cl-lime hover:bg-cl-lime/10 transition-colors"
+            >
+              History
+            </a> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="w-full max-w-screen-xl mx-auto px-4 py-12 space-y-16">
+    <!-- Artículos + ranking compacto -->
+    <section class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+      <div>
+        <h2 class="text-2xl font-bold text-cl-lime uppercase mb-5">Champions League News</h2>
+        {clArticles.length > 0 ? (
+          <RelatedNews articles={clArticles} max={4} />
+        ) : (
+          <p class="text-text-muted italic">No Champions League articles yet.</p>
+        )}
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold text-cl-lime uppercase mb-5">Rankings</h2>
+        <div class="rounded-2xl border border-cl-lime/20 bg-surface/20 p-4">
+          <div class="flex gap-2 mb-4" role="tablist">
+            <button
+              type="button"
+              class="ranking-tab px-4 py-1.5 rounded-lg text-xs font-bold border border-cl-lime/40 text-cl-lime hover:border-cl-lime/60 transition-colors"
+              data-panel="ranking-leagues"
+              aria-selected="true"
+            >
+              Leagues
+            </button>
+            <button
+              type="button"
+              class="ranking-tab px-4 py-1.5 rounded-lg text-xs font-bold border border-cl-lime/40 text-cl-lime hover:bg-cl-lime/10 transition-colors"
+              data-panel="ranking-clubs"
+              aria-selected="false"
+            >
+              Clubs
+            </button>
+          </div>
+
+          <div id="ranking-leagues" class="ranking-panel space-y-1">
+            {topLeagues.map(({ league, score }, index) => {
+              const logo = resolveImage(league.logoPath);
+              return (
+                <a
+                  href={ROUTES.championsLeague.league(league.id)}
+                  key={league.id}
+                  class="flex items-center gap-2 rounded-lg px-2 py-1.5 text-sm border border-cl-lime/10 bg-black/30 hover:border-cl-lime/50 transition-colors"
+                  title={league.name}
+                >
+                  <span class="w-5 text-right text-cl-lime font-bold tabular-nums text-xs">{index + 1}</span>
+                  {logo ? (
+                    <Image
+                      src={logo}
+                      alt={league.name}
+                      width={40}
+                      loading="lazy"
+                      quality={60}
+                      format="webp"
+                      class="w-6 h-6 rounded object-contain"
+                    />
+                  ) : (
+                    <Image
+                      src={DefaultLeagueLogo}
+                      alt={league.name}
+                      width={40}
+                      loading="lazy"
+                      quality={60}
+                      format="webp"
+                      class="w-6 h-6 rounded object-contain opacity-30"
+                    />
+                  )}
+                  <span class="flex-1 truncate font-medium text-white">{league.name}</span>
+                  <span class="text-text-muted text-[10px]">D{league.division}</span>
+                  <span class={`font-bold text-xs tabular-nums ${score.total > 0 ? 'text-cl-lime' : 'text-text-muted'}`}>
+                    {score.total || '-'}
+                  </span>
+                </a>
+              );
+            })}
+            {topLeagues.length === 0 && (
+              <p class="text-text-muted italic text-sm py-4 text-center">No leagues registered yet.</p>
+            )}
+            <a
+              href={ROUTES.championsLeague.leagues}
+              class="block text-center text-xs text-cl-lime hover:text-cl-lime-secondary font-semibold pt-2"
+            >
+              See full league ranking →
+            </a>
+          </div>
+
+          <div id="ranking-clubs" class="ranking-panel space-y-1 hidden">
+            {topClubs.map(({ club, rating, stars }, index) => {
+              const logo = resolveImage(club.logoPath);
+              return (
+                <a
+                  href={ROUTES.clubs.detail(club.slug)}
+                  key={club.id}
+                  class="flex items-center gap-2 rounded-lg px-2 py-1.5 text-sm border border-cl-lime/10 bg-black/30 hover:border-cl-lime/50 transition-colors"
+                  title={club.name}
+                >
+                  <span class="w-5 text-right text-cl-lime font-bold tabular-nums text-xs">{index + 1}</span>
+                  {logo ? (
+                    <Image
+                      src={logo}
+                      alt={club.name}
+                      width={40}
+                      loading="lazy"
+                      quality={60}
+                      format="webp"
+                      class="w-6 h-6 rounded object-contain"
+                    />
+                  ) : (
+                    <Image
+                      src={DefaultClubLogo}
+                      alt={club.name}
+                      width={40}
+                      loading="lazy"
+                      quality={60}
+                      format="webp"
+                      class="w-6 h-6 rounded object-contain opacity-60"
+                    />
+                  )}
+                  <span class="flex-1 truncate font-medium text-white">{club.name}</span>
+                  <span class="text-yellow-300 text-[10px]">{'★'.repeat(Math.round(stars))}</span>
+                  <span class="font-bold text-cl-lime text-xs tabular-nums">{rating || '-'}</span>
+                </a>
+              );
+            })}
+            {topClubs.length === 0 && (
+              <p class="text-text-muted italic text-sm py-4 text-center">No clubs registered yet.</p>
+            )}
+            <a
+              href={ROUTES.championsLeague.ranking}
+              class="block text-center text-xs text-cl-lime hover:text-cl-lime-secondary font-semibold pt-2"
+            >
+              See full ranking →
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Histórico de clubes (top 30) -->
+    <section id="history">
+      <h2 class="text-2xl font-bold text-cl-lime uppercase mb-5">Historical Table</h2>
+      <div class="rounded-2xl border border-cl-lime/20 bg-surface/20 p-4">
+        <ClubHistoricalTable matches={clMatches} />
+      </div>
+    </section>
+
+    <!-- Goleadores y asistidores -->
+    {clMatches.length > 0 && (
+      <section>
+        <ScorersTable matches={clMatches} />
+      </section>
+    )}
+
+    <!-- Ediciones + campeón (compacto) -->
+    <section>
+      <h2 class="text-2xl font-bold text-cl-lime uppercase mb-5">Editions</h2>
+      <div class="rounded-2xl border border-cl-lime/20 bg-surface/20 p-4 divide-y divide-cl-lime/10">
+        {clTournaments.length === 0 && (
+          <p class="text-text-muted italic text-sm py-4 text-center">No editions yet.</p>
+        )}
+        {clTournaments.map((t) => (
+          <a
+            href={ROUTES.championsLeague.season(t.data.season)}
+            key={t.data.id}
+            class="flex items-center justify-between gap-3 px-2 py-2.5 hover:bg-cl-lime/5 transition-colors rounded-lg"
+          >
+            <div class="flex items-center gap-3">
+              <span class="text-cl-lime font-black text-lg tabular-nums">{t.data.season}</span>
+              <span class="text-text-muted text-sm">{t.data.name}</span>
+            </div>
+            <span class="text-sm font-semibold text-amber-300">{t.data.champion ?? 'TBD'}</span>
+          </a>
+        ))}
+      </div>
+    </section>
+  </div>
+</FCLayout>
+
+<script>
+  // Toggle del panel de rankings (clubes/ligas).
+  document.querySelectorAll('.ranking-tab').forEach((tab) => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.ranking-tab').forEach((t) => {
+        const active = t === tab;
+        t.classList.toggle('bg-cl-lime/10', active);
+        t.classList.toggle('text-cl-lime', active);
+        t.classList.toggle('border-cl-lime/40', active);
+        t.classList.toggle('text-cl-lime/70', !active);
+        t.classList.toggle('border-cl-lime/20', !active);
+        t.setAttribute('aria-selected', String(active));
+      });
+      document.querySelectorAll('.ranking-panel').forEach((p) => {
+        p.classList.toggle('hidden', p.id !== tab.dataset.panel);
+      });
+    });
+  });
+</script>

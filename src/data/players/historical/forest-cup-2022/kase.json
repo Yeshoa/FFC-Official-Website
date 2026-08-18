@@ -1,0 +1,17 @@
+{
+  "teamCode": "Kase",
+  "teamName": "Kase",
+  "tournament": "forest-cup-2022",
+  "tournamentEdition": 1,
+  "snapshotDate": "2026-05-13",
+  "playerCount": 1,
+  "players": [
+    {
+      "id": "Kase_001",
+      "name": "C. Schon",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    }
+  ]
+}

@@ -1,0 +1,85 @@
+---
+// MatchTimeline: línea de tiempo de eventos (goles, tarjetas, cambios) por minuto.
+import type { CollectionEntry } from 'astro:content';
+import type { TeamView } from '@ty/matchDetail';
+import { getGoalPlayerName } from 'src/utils/playerUtils';
+import GoalIcon from '@images/icons/futbol-regular-full.svg';
+import PenaltyIcon from '@images/icons/penalty.svg';
+
+interface Props {
+  match: CollectionEntry<'matches'>;
+  team1: TeamView;
+  team2: TeamView;
+}
+
+const { match, team1, team2 } = Astro.props;
+const m = match.data;
+
+type EventType = 'goal' | 'penalty-goal' | 'own-goal' | 'yellow' | 'red' | 'second-yellow' | 'sub';
+
+interface TimelineEvent {
+  minute: number;
+  extra?: number;
+  teamKey: 'team1' | 'team2';
+  teamName: string;
+  type: EventType;
+  text: string;
+}
+
+const events: TimelineEvent[] = [];
+
+for (const g of m.goals ?? []) {
+  if (!g.player && !g.playerId) continue;
+  const teamKey = g.team === m.team1 ? 'team1' : g.team === m.team2 ? 'team2' : null;
+  if (!teamKey) continue;
+  const type: EventType = g.ownGoal ? 'own-goal' : g.penalty ? 'penalty-goal' : 'goal';
+  const scorer = getGoalPlayerName(g);
+  const assist = g.assist ? getGoalPlayerName({ ...g, player: g.assist, playerId: g.assistId }) : null;
+  const text = scorer + (g.ownGoal ? ' (OG)' : '') + (assist ? ` · ${assist}` : '');
+  events.push({ minute: g.minute ?? 0, extra: g.aggregate, teamKey, teamName: teamKey === 'team1' ? team1.name : team2.name, type, text });
+}
+
+for (const c of m.cards ?? []) {
+  if (!c.player) continue;
+  const teamKey = c.team === m.team1 ? 'team1' : c.team === m.team2 ? 'team2' : null;
+  if (!teamKey) continue;
+  events.push({ minute: c.minute, extra: c.aggregate, teamKey, teamName: teamKey === 'team1' ? team1.name : team2.name, type: c.type, text: c.player });
+}
+
+for (const s of m.substitutions ?? []) {
+  const teamKey = s.team === m.team1 ? 'team1' : s.team === m.team2 ? 'team2' : null;
+  if (!teamKey) continue;
+  events.push({ minute: s.minute, extra: s.aggregate, teamKey, teamName: teamKey === 'team1' ? team1.name : team2.name, type: 'sub', text: `${s.playerOut} → ${s.playerIn}` });
+}
+
+events.sort((a, b) => (a.minute + (a.extra ?? 0) / 100) - (b.minute + (b.extra ?? 0) / 100));
+---
+
+<section class="w-full">
+  <h2 class="text-2xl font-bold text-primary-light mb-5">Timeline</h2>
+  {events.length > 0 ? (
+    <ol class="relative border-s border-primary/30 ms-3 space-y-4">
+      {events.map((e) => (
+        <li class="relative ms-6">
+          <span class={`absolute -start-[7px] top-1.5 h-3 w-3 rounded-full ring-2 ring-background ${e.teamKey === 'team1' ? 'bg-primary' : 'bg-sky-400'}`}></span>
+          <div class="flex items-baseline gap-2">
+            <span class="w-10 shrink-0 text-sm font-bold tabular-nums text-text-muted">{e.minute}{e.extra ? `+${e.extra}` : ''}'</span>
+            <span class="text-xs text-text-muted shrink-0">{e.teamName}</span>
+            <span class="flex items-center gap-1.5 min-w-0">
+              <span class="truncate text-sm text-white">{e.text}</span>
+              {e.type === 'goal' && <GoalIcon width={14} class="fill-primary-muted shrink-0" />}
+              {e.type === 'penalty-goal' && <PenaltyIcon width={14} class="fill-yellow-400 shrink-0" />}
+              {e.type === 'own-goal' && <GoalIcon width={14} class="fill-red-500 shrink-0" />}
+              {e.type === 'yellow' && <span class="inline-block w-2.5 h-3.5 rounded-[2px] bg-yellow-400 shrink-0" title="Yellow card"></span>}
+              {e.type === 'red' && <span class="inline-block w-2.5 h-3.5 rounded-[2px] bg-red-600 shrink-0" title="Red card"></span>}
+              {e.type === 'second-yellow' && <span class="inline-block w-2.5 h-3.5 rounded-[2px] bg-yellow-400 ring-1 ring-red-600 shrink-0" title="Second yellow"></span>}
+              {e.type === 'sub' && <span class="text-primary-light font-bold text-xs shrink-0">↔</span>}
+            </span>
+          </div>
+        </li>
+      ))}
+    </ol>
+  ) : (
+    <p class="text-text-muted italic">No events recorded for this match.</p>
+  )}
+</section>

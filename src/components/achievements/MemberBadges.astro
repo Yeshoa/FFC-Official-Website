@@ -1,0 +1,61 @@
+---
+import AchievementBadge from '@components/achievements/AchievementBadge.astro';
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import { CATEGORIES } from '@lib/achievements/utils';
+import type { Achievement } from '@lib/achievements';
+
+// Íconos simples por categoría
+import TrophyIcon from '@images/icons/trophy-solid.svg';
+import StarIcon from '@images/icons/star-solid.svg';
+import SkullIcon from '@images/icons/skull-crossbones-solid.svg';
+import PeopleIcon from '@images/icons/people-group-solid.svg';
+import HandshakeIcon from '@images/icons/handshake-solid-full.svg';
+import RankingIcon from '@images/icons/ranking-star-solid.svg';
+import FlagIcon from '@images/icons/futbol-regular-full.svg';
+
+interface Props {
+  achievements: Achievement[];
+}
+
+const { achievements = [] } = Astro.props as Props;
+
+const categoryIcons: Record<string, ImageMetadata> = {
+  Basic: FlagIcon,
+  Tournament: TrophyIcon,
+  Streaks: StarIcon,
+  Rivalry: SkullIcon,
+  Special: PeopleIcon,
+  Community: HandshakeIcon,
+  Ranking: RankingIcon,
+};
+
+const categories = CATEGORIES.filter(cat =>
+  achievements.some(ach => ach.category === cat),
+);
+---
+
+<div class="flex flex-col gap-3">
+  {categories.map(cat => {
+    const items = achievements.filter(ach => ach.category === cat);
+    return (
+      <div key={cat} class="flex flex-col gap-1.5">
+        <div class="flex items-center gap-2">
+          <Image
+            src={categoryIcons[cat]}
+            alt=""
+            class="h-3.5 w-3.5 text-primary-strong"
+          />
+          <span class="text-[10px] font-semibold uppercase tracking-wider text-primary-strong">
+            {cat}
+          </span>
+        </div>
+        <div class="flex flex-wrap gap-1.5">
+          {items.map(ach => (
+            <AchievementBadge achievement={ach} />
+          ))}
+        </div>
+      </div>
+    );
+  })}
+</div>

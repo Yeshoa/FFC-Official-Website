@@ -1,7 +1,7 @@
 export const FEATURES = {
-  achievements: false,
+  achievements: true,
 
   forestCup2026: true,
-  championsLeague: false,
+  championsLeague: true,
   donations: false,
 } as const;

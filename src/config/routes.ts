@@ -11,15 +11,24 @@ export const ROUTES = {
   },
   forestCup: {
     index: "/forest-cup/",
-    edition: (edition: number) => `/forest-cup/${edition}/`,
+    season: (season: number) => `/forest-cup/${season}/`,
   },
   championsLeague:{
-    index: "/champions-league/",
-    edition: (edition: number) => `/champions-league/${edition}/`,
+    index: "/forestian-champions-league/",
+    season: (season: number) => `/forestian-champions-league/${season}/`,
+    market: "/forestian-champions-league/market/",
+    ranking: "/forestian-champions-league/ranking/",
+    leagues: "/forestian-champions-league/leagues/",
+    league: (id: string) => `/forestian-champions-league/leagues/${id}/`,
   },
   members: {
     index: "/members/",
     detail: (slug: string) => `/members/${slug}/`,
+    achievements: (slug: string) => `/members/${slug}/achievements/`,
+  },
+  clubs: {
+    index: "/clubs/",
+    detail: (code: string) => `/clubs/${code}/`,
   },
   matches: {
     index: "/matches/",

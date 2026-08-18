@@ -1,25 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Montserrat:wght@400..900&display=swap');
 @import "tailwindcss";
-@tailwind utilities;
 @plugin '@tailwindcss/typography';
 
 @theme {
+  /* Breakpoint extra-small (antes definido en tailwind.config.mjs, hoy muerto) */
+  --breakpoint-xs: 400px;
+
+  /* ===== Paleta base (verde bosque) ===== */
   --color-mint-500: oklch(0.72 0.11 178);
   --color-forest: oklch(58.35% 0.1686 143.03);
   --color-forest-light: oklch(74.36% 0.1656 143.69);
   --color-forest-dark: oklch(43.47% 0.1419 142.64);
   --color-green-1000: oklch(0.2018 0.0474 152.77);
+
+  /* Fuente de la sección CL (diferencia de la Forest Cup) */
+  --font-cl: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+
+  /* Fuente de marca FFC (títulos) */
+  --font-ffc: "Montserrat", ui-sans-serif, system-ui, sans-serif;
+
+  /* ===== Tokens semánticos ===== */
+  /* Primary (verde bosque actual) */
+  --color-primary: oklch(62.7% 0.194 149.214); /* green-600 */
+  --color-primary-light: oklch(87.1% 0.15 154.449); /* green-300 */
+  --color-primary-dark: oklch(52.7% 0.154 150.069); /* green-700 */
+  --color-primary-deep: oklch(44.8% 0.119 151.328); /* green-800 */
+  --color-primary-muted: oklch(79.2% 0.209 151.711); /* green-400 */
+  --color-primary-strong: oklch(72.3% 0.219 149.579); /* green-500 */
+  --color-primary-soft: oklch(92.5% 0.084 155.995); /* green-200 */
+  --color-primary-faint: oklch(96.2% 0.044 156.743); /* green-100 */
+
+  /* Background / superficie / texto */
+  --color-background: oklch(0.2018 0.0474 152.77); /* green-1000 */
+  --color-surface: oklch(26.6% 0.065 152.934); /* green-950 */
+  --color-surface-raised: oklch(39.3% 0.095 152.535); /* green-900 */
+  --color-text: #ffffff;
+  --color-text-muted: oklch(70.7% 0.022 261.325); /* gray-400 */
+
+  /* Tiers (ranking) */
+  --color-tier-gold: oklch(87.9% 0.169 91.605); /* amber-300 */
+  --color-tier-silver: oklch(86.9% 0.022 252.894); /* slate-300 */
+  --color-tier-bronze: oklch(75% 0.183 55.934); /* orange-400 */
+
+  /* Raridad (logros) */
+  --color-rarity-common: oklch(55.4% 0.046 257.417); /* slate-500 */
+  --color-rarity-uncommon: oklch(69.6% 0.17 162.48); /* emerald-500 */
+  --color-rarity-rare: oklch(74.6% 0.16 232.661); /* sky-400 */
+  --color-rarity-epic: oklch(54.1% 0.281 293.009); /* violet-600 */
+  --color-rarity-legendary: oklch(79.5% 0.184 86.047); /* yellow-500 */
+  --color-rarity-ultimate: oklch(29.1% 0.149 302.717); /* purple-950 */
+
+  /* ===== Champions League (estética propia) ===== */
+  --color-cl-black: #000014;
+  /* --color-cl-black: oklch(0.12 0.008 152); */
+  --color-cl-lime: #b4ff00;
+  --color-cl-lime-secondary: #00ffb4;
+
   --breakpoint-xs: 400px;
   --breakpoint-2md: 900px;
   --spacing-8xl: 1450px;
   --animate-sladeIn: slide-in 1s ease-out forwards;
-} 
+}
 
 .grid-custom {
 	grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
 }
 .grid-custom-2 {
 	grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-} 
+}
+
+/* ===== Patrón CL: rombos con nodos circulares (estética FCL, B7) =====
+   Diamantes de grosor delgado con vértices circulares (nodos conectados),
+   en verde lima (--color-cl-lime) con acentos cian (--color-cl-lime-secondary),
+   y diamantes más chicos anidados dentro (efecto patrón). */
+.cl-pattern {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240' viewBox='0 0 240 240'><g fill='none' stroke='%2395ff00'><polygon points='120,10 230,120 120,230 10,120' stroke-opacity='0.55' stroke-width='1.2'/><polygon points='120,65 175,120 120,175 65,120' stroke-opacity='0.35' stroke-width='1'/><polygon points='120,92.5 147.5,120 120,147.5 92.5,120' stroke-opacity='0.22' stroke-width='1'/></g><g fill='%2395ff00'><circle cx='120' cy='10' r='4' opacity='0.9'/><circle cx='230' cy='120' r='4' opacity='0.9'/><circle cx='120' cy='230' r='4' opacity='0.9'/><circle cx='10' cy='120' r='4' opacity='0.9'/><circle cx='120' cy='65' r='2.5' opacity='0.7'/><circle cx='175' cy='120' r='2.5' opacity='0.7'/><circle cx='120' cy='175' r='2.5' opacity='0.7'/><circle cx='65' cy='120' r='2.5' opacity='0.7'/><circle cx='120' cy='92.5' r='1.6' opacity='0.5'/><circle cx='147.5' cy='120' r='1.6' opacity='0.5'/><circle cx='120' cy='147.5' r='1.6' opacity='0.5'/><circle cx='92.5' cy='120' r='1.6' opacity='0.5'/></g><g fill='none' stroke='%2300ff95'><polygon points='36,10 62,36 36,62 10,36' stroke-opacity='0.5' stroke-width='1.2'/><polygon points='204,178 230,204 204,230 178,204' stroke-opacity='0.5' stroke-width='1.2'/></g><g fill='%2300ff95'><circle cx='36' cy='10' r='3' opacity='0.85'/><circle cx='62' cy='36' r='3' opacity='0.85'/><circle cx='36' cy='62' r='3' opacity='0.85'/><circle cx='10' cy='36' r='3' opacity='0.85'/><circle cx='204' cy='178' r='3' opacity='0.85'/><circle cx='230' cy='204' r='3' opacity='0.85'/><circle cx='204' cy='230' r='3' opacity='0.85'/><circle cx='178' cy='204' r='3' opacity='0.85'/></g></svg>");
+  background-size: 240px 240px;
+}
 
  @keyframes slide-in {
 	from {

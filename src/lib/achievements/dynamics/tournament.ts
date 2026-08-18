@@ -1,39 +1,41 @@
 import Trophy from '@images/achievements/king.webp';
-import type { Achievement } from './index';
-import { type Category, CATEGORIES, type Subcategory, SUBCATEGORIES, type Alignment, ALIGNMENTS } from '../utils';
+import type { AchievementDefinition, AchievementResult, AchievementContext } from '../types';
+import { lockedResult } from '../types';
+import { type Category, CATEGORIES, type Subcategory, type Alignment, ALIGNMENTS } from '../utils';
 import type { CollectionEntry } from 'astro:content';
-import { getAllParticipants } from '@utils/tournamentUtils';
+import { getTournamentsByMemberParticipation } from '@utils/tournamentUtils';
+import { getMatchGoals } from '@utils/matchUtils';
 
 type Tournament = CollectionEntry<'tournaments'>;
 type Member = CollectionEntry<'members'>;
-type Match = CollectionEntry<'matches'>;
 
 const thisCategory = CATEGORIES[1];
 
 type PrizeType = 'topScorer' | 'bestPlayer' | 'bestGoalkeeper' | 'bestGoal';
 
-const prizeCheckers: Record<PrizeType, (t: any, memberName: string) => boolean> = {
-  topScorer:       (t, name) => (t.data.prizes?.topScorer ?? []).some(p => p.team === name),
-  bestPlayer:      (t, name) => t.data.prizes?.bestPlayer?.team === name,
-  bestGoalkeeper:  (t, name) => t.data.prizes?.bestGoalkeeper?.team === name,
-  bestGoal:        (t, name) => t.data.prizes?.bestGoal?.team === name,
+type PrizeRef = { team: string; teamId?: number };
+
+// Compara por id global cuando está presente; cae a nombre mientras algún premio no tenga teamId.
+function prizeMatches(p: PrizeRef, memberId: number, memberName: string): boolean {
+  return p.teamId !== undefined && p.teamId !== null ? p.teamId === memberId : p.team === memberName;
+}
+
+const prizeCheckers: Record<PrizeType, (t: Tournament, memberId: number, memberName: string) => boolean> = {
+  topScorer:      (t, id, name) => (t.data.prizes?.topScorer ?? []).some(p => prizeMatches(p, id, name)),
+  bestPlayer:     (t, id, name) => (t.data.prizes?.bestPlayer ? prizeMatches(t.data.prizes.bestPlayer, id, name) : false),
+  bestGoalkeeper: (t, id, name) => (t.data.prizes?.bestGoalkeeper ? prizeMatches(t.data.prizes.bestGoalkeeper, id, name) : false),
+  bestGoal:       (t, id, name) => (t.data.prizes?.bestGoal ? prizeMatches(t.data.prizes.bestGoal, id, name) : false),
 };
 
-const baseAchievements: {
-  id: string;
-  rarity: number;
-  name: string;
-  icon: ImageMetadata;
-  description: string;
-  category: Category;
-  subcategory: Subcategory;
-  alignment: Alignment;
-  stars?: number;
-  unique: boolean;
-  visible: boolean; // This one is for when it is locked, not for enabled or disabled
-  enabled: boolean;
-  evaluate: (...args: any[]) => Achievement | null;
-}[] = [
+function hostIdsEqual(t: Tournament, memberId: number, memberName: string): boolean {
+  return t.data.hostId !== undefined && t.data.hostId !== null ? t.data.hostId === memberId : t.data.host === memberName;
+}
+
+function championIdsEqual(t: Tournament, memberId: number, memberName: string): boolean {
+  return t.data.championId !== undefined && t.data.championId !== null ? t.data.championId === memberId : t.data.champion === memberName;
+}
+
+const baseAchievements: AchievementDefinition[] = [
   {
     id: 'host',
     rarity: 1,
@@ -47,13 +49,12 @@ const baseAchievements: {
     unique: false,
     enabled: true,
     stars: 1,
-    evaluate: function (matches, tournaments, member) {
-      const h = tournaments.filter(t => t.data.host === member.data.name);
-      const { evaluate, ...base } = this;
-      
-      const editions = h.map(t => t.data.edition);
-      
-      return createAchievementResult(base, editions, {
+    evaluate: function (context) {
+      const { tournaments, member } = context;
+      const editions = tournaments
+        .filter(t => hostIdsEqual(t, member.data.id, member.data.name))
+        .map(t => t.data.season);
+      return createAchievementResult(this, editions, {
         singularText: "Hosted the Forest Cup in",
         pluralText: "Hosted the Forest Cup",
         pluralSuffix: " times",
@@ -80,13 +81,15 @@ const baseAchievements: {
     unique: false,
     enabled: false,
     stars: 1,
-    evaluate: function (matches, tournaments, member) {
-      const won = tournaments.find(t => t.data.champion === member.data.name);
-      const { evaluate, ...base } = this;
-      return won ? {
-        ...base,
-        description: `Won the Forest Cup ${won.data.edition}.`
-      } : null;
+    evaluate: function (context) {
+      const { tournaments, member } = context;
+      const won = tournaments.find(t => championIdsEqual(t, member.data.id, member.data.name));
+      return won ? achieved(this, {
+        description: `Won the Forest Cup ${won.data.season}.`,
+        current: 1,
+        target: 1,
+        progress: 100,
+      }) : null;
     }
   },
   {
@@ -102,15 +105,20 @@ const baseAchievements: {
     visible: false,
     unique: false,
     enabled: true,
-    evaluate: function (matches, tournaments, member) {
-      const won = tournaments.filter(t => t.data.champion === member.data.name);
-      if (won.length !== 2) return null;
+    evaluate: function (context) {
+      const { tournaments, member } = context;
+      const won = tournaments.filter(t => championIdsEqual(t, member.data.id, member.data.name));
+      if (won.length !== 2) return lockedResult(this, won.length, 2);
       const editions = won
-        .map(t => t.data.edition)
+        .map(t => t.data.season)
         .sort((a, b) => a - b);
       const desc = `Won Forest Cup ${editions[0]} and ${editions[1]}.`;
-      const { evaluate, ...base } = this;
-      return { ...base, description: desc };
+      return achieved(this, {
+        description: desc,
+        current: 2,
+        target: 2,
+        progress: 100,
+      });
     }
   },
   {
@@ -126,17 +134,22 @@ const baseAchievements: {
     visible: false,
     unique: false,
     enabled: true,
-    evaluate: function (matches, tournaments, member) {
-      const won = tournaments.filter(t => t.data.champion === member.data.name);
-      if (won.length < 3) return null;
+    evaluate: function (context) {
+      const { tournaments, member } = context;
+      const won = tournaments.filter(t => championIdsEqual(t, member.data.id, member.data.name));
+      if (won.length < 3) return lockedResult(this, won.length, 3);
       const editions = won
-        .map(t => t.data.edition)
+        .map(t => t.data.season)
         .sort((a, b) => a - b);
       const list = editions.map((e, i, arr) => i === arr.length - 1 && arr.length > 1 ? ` and ${e}` : e).join(', ');
       const newDescription = `Won the Forest Cup ${editions.length} times (${list}).`;
-      // const desc = `Won Forest Cup ${editions[0]}, ${editions[1]}, and ${editions[2]}.`;
-      const { evaluate, ...base } = this;
-      return { ...base, description: newDescription, stars: editions.length };
+      return achieved(this, {
+        description: newDescription,
+        stars: editions.length,
+        current: editions.length,
+        target: 3,
+        progress: 100,
+      });
     }
   },
   {
@@ -152,40 +165,28 @@ const baseAchievements: {
     unique: false,
     enabled: true,
     stars: 1,
-    evaluate: function (matches, tournaments, member) {
-      const won = tournaments.filter(t => t.data.champion === member.data.name);
-      const { evaluate, ...base } = this;
+    evaluate: function (context) {
+      const { matches, tournaments, member } = context;
+      const memberId = member.data.id;
+      const won = tournaments.filter(t => championIdsEqual(t, memberId, member.data.name));
       const unbeatenEditions = [];
       for (const t of won) {
-        const played = matches.filter(m => m.data.tournament_id === t.data.id && [m.data.team1, m.data.team2].includes(member.data.name));
+        const played = matches.filter(m => m.data.tournament_id === t.data.id && (m.data.team1Id === memberId || m.data.team2Id === memberId));
         const lost = played.filter(m => {
-          const gf = m.data.goals?.filter(g => g.team === member.data.name).length ?? 0;
-          const ga = m.data.goals?.filter(g => g.team !== member.data.name).length ?? 0;
+          const { gf, ga } = getMatchGoals(m, memberId);
           return gf < ga;
         }).length;
         if (lost === 0 && played.length > 0) {
-          unbeatenEditions.push(t.data.edition);
+          unbeatenEditions.push(t.data.season);
         }
       }
-      return createAchievementResult(base, unbeatenEditions, {
+      return createAchievementResult(this, unbeatenEditions, {
         singularText: "Won Forest Cup",
         pluralText: "Won Forest Cup",
         singularSuffix: " without losing a match",
         pluralSuffix: " times without losing a match",
         enableRarityBonus: false // Deshabilitado explícitamente
       });
-      /* if (unbeatenEditions.length === 0) return null;
-      const list = unbeatenEditions.map((e, i, arr) => i === arr.length - 1 && unbeatenEditions.length > 1 ? ` and ${e}` : e).join(', ');
-      const newDescription = unbeatenEditions.length < 9 ? `Won Forest Cup ${list} without losing a match.` : `Won Forest Cup ${unbeatenEditions.length} times without losing a match.`;
-      const newStars = unbeatenEditions.length;
-      const displayStars = ((newStars - 1) % 8) + 1; // Cycle 1-8 every 8 stars
-      // const bonus = Math.floor((newStars - 1) / 8); // 1 extra rarity at 9, 17, 25, etc.
-      // const newRarity = rarity + bonus; 
-      return {
-        ...base,
-        stars: displayStars,
-        description: newDescription
-      }; */
     }
   },
   {
@@ -201,42 +202,29 @@ const baseAchievements: {
     unique: false,
     enabled: true,
     stars: 1,
-    evaluate: function (matches, tournaments, member)  {
-      const won = tournaments.filter(t => t.data.champion === member.data.name);
+    evaluate: function (context) {
+      const { matches, tournaments, member } = context;
+      const memberId = member.data.id;
+      const won = tournaments.filter(t => championIdsEqual(t, memberId, member.data.name));
       if (won.length !== 1) return null;
-      const { evaluate, ...base } = this;
       const perfectEditions = [];
       for (const t of won) {
-        const played = matches.filter(m => m.data.tournament_id === t.data.id && [m.data.team1, m.data.team2].includes(member.data.name));
+        const played = matches.filter(m => m.data.tournament_id === t.data.id && (m.data.team1Id === memberId || m.data.team2Id === memberId));
         const wins = played.filter(m => {
-          const gf = m.data.goals?.filter(g => g.team === member.data.name).length ?? 0;
-          const ga = m.data.goals?.filter(g => g.team !== member.data.name).length ?? 0;
+          const { gf, ga } = getMatchGoals(m, memberId);
           return gf > ga;
         }).length;
         if (wins === played.length && played.length > 0){
-          perfectEditions.push(t.data.edition);
+          perfectEditions.push(t.data.season);
         }
       }
-      return createAchievementResult(base, perfectEditions, {
+      return createAchievementResult(this, perfectEditions, {
         singularText: "Won Forest Cup",
         pluralText: "Won Forest Cup",
         singularSuffix: " with a perfect record",
         pluralSuffix: " with a perfect record",
         enableRarityBonus: false
       });
-      /* if (perfectEditions.length === 0) return null;
-      const list = perfectEditions.map((e, i, arr) => i === arr.length - 1 && perfectEditions.length > 1 ? ` and ${e}` : e).join(', ');
-      const newDescription = perfectEditions.length < 9 ? `Won Forest Cup ${list} with a perfect record and got all awards.` : `Won Forest Cup ${perfectEditions.length} with a perfect record and got all awards.`;
-
-      const newStars = perfectEditions.length;
-      const displayStars = ((newStars - 1) % 8) + 1;; // max 8 estrellas
-      // const bonus = Math.floor((newStars - 1) / 8); // 1 extra rarity por cada 8 estrellas
-      // const newRarity = rarity + bonus; 
-      return {
-        ...base,
-        stars: displayStars,
-        description: newDescription
-      }; */
     }
   },
   {
@@ -252,48 +240,36 @@ const baseAchievements: {
     unique: false,
     enabled: true,
     stars: 1,
-    evaluate: function (matches, tournaments, member) {
-      const won = tournaments.filter(t => t.data.champion === member.data.name);
-      const { evaluate, ...base } = this;
+    evaluate: function (context) {
+      const { matches, tournaments, member } = context;
+      const memberId = member.data.id;
+      const memberName = member.data.name;
+      const won = tournaments.filter(t => championIdsEqual(t, memberId, memberName));
       if (won.length === 0) return null;
       let ultimateEditions = [];
       for (const t of won) {
-        const played = matches.filter(m => m.data.tournament_id === t.data.id && [m.data.team1, m.data.team2].includes(member.data.name));
-        
+        const played = matches.filter(m => m.data.tournament_id === t.data.id && (m.data.team1Id === memberId || m.data.team2Id === memberId));
+
         const wins = played.filter(m => {
-          const gf = m.data.goals?.filter(g => g.team === member.data.name).length ?? 0;
-          const ga = m.data.goals?.filter(g => g.team !== member.data.name).length ?? 0;
+          const { gf, ga } = getMatchGoals(m, memberId);
           return gf > ga;
         }).length;
-        
+
         const awardsCount = Object.values(prizeCheckers).filter(checker =>
-          checker(t, member.data.name)
+          checker(t, memberId, memberName)
         ).length;
 
         if (wins === played.length && played.length > 0 && awardsCount === 4) {
-          ultimateEditions.push(t.data.edition);
+          ultimateEditions.push(t.data.season);
         }
       }
-      return createAchievementResult(base, ultimateEditions, {
+      return createAchievementResult(this, ultimateEditions, {
         singularText: "Won Forest Cup",
         pluralText: "Won Forest Cup",
         singularSuffix: " with a perfect record and got all awards",
         pluralSuffix: " with a perfect record and got all awards",
         enableRarityBonus: false
       });
-      /* if (ultimateEditions.length === 0) return null;
-      const list = ultimateEditions.map((e, i, arr) => i === arr.length - 1 && ultimateEditions.length > 1 ? ` and ${e}` : e).join(', ');
-      const newDescription = ultimateEditions.length < 9 ? `Won Forest Cup ${list} with a perfect record and got all awards.` : `Won Forest Cup ${ultimateEditions.length} with a perfect record and got all awards.`;
-
-      const newStars = ultimateEditions.length;
-      const displayStars = ((newStars - 1) % 8) + 1;; // max 8 estrellas
-      // const bonus = Math.floor((newStars - 1) / 8); // 1 extra rarity por cada 8 estrellas
-      // const newRarity = rarity + bonus; 
-      return {
-        ...base,
-        stars: displayStars,
-        description: newDescription
-      }; */
     }
   },
   {
@@ -310,24 +286,26 @@ const baseAchievements: {
     enabled: false,
     stars: 1,
 
-    evaluate: function (matches, tournaments, member) {
-      const { evaluate, ...base } = this;
-      const participatedTournaments = tournaments.filter(t => getAllParticipants(t).includes(member.data.name));
+    evaluate: function (context) {
+      const { tournaments, member, matches } = context;
+      const participatedTournaments = getTournamentsByMemberParticipation(member, tournaments, matches);
 
       const participationCount = participatedTournaments.length;
 
-      if (participationCount < 2) return null;
+      if (participationCount < 2) return lockedResult(this, participationCount, 2);
 
       const newStars = participationCount;
       const newRarity = participationCount > 8 ? 6 : participationCount - 2;
       const newDescription = `Participated in ${participationCount} Forest Cup${participationCount > 1 ? 's' : ''}.`;
 
-      return {
-        ...base,
+      return achieved(this, {
         stars: newStars,
         rarity: newRarity,
-        description: newDescription
-      };
+        description: newDescription,
+        current: participationCount,
+        target: 2,
+        progress: 100,
+      });
     }
   }
 ];
@@ -340,13 +318,13 @@ const makePrizeAchievement = (
   rarity: number,
   stars: number,
   minTypes: number,
-) => ({
+): AchievementDefinition => ({
   id,
   name,
-  icon: icon,
+  icon,
   rarity,
   stars,
-  description: description,
+  description,
   category: thisCategory,
   subcategory: "Prizes" as Subcategory,
   alignment: ALIGNMENTS[0],
@@ -354,11 +332,13 @@ const makePrizeAchievement = (
   visible: false,
   enabled: true,
 
-  evaluate: function (_matches: any[], tournaments: any[], member: any) {
+  evaluate: function (context: AchievementContext & { member: Member }) {
+    const { tournaments, member } = context;
+    const memberId = member.data.id;
     const memberName = member.data.name;
     const wonTypes = (Object.keys(prizeCheckers) as PrizeType[])
-      .filter(type => tournaments.some(t => prizeCheckers[type](t, memberName)));
-    if (wonTypes.length < minTypes) return null;
+      .filter(type => tournaments.some(t => prizeCheckers[type](t, memberId, memberName)));
+    if (wonTypes.length < minTypes) return lockedResult(this, wonTypes.length, minTypes);
     const pretty = {
       topScorer:      'Golden Boot',
       bestPlayer:     'Golden Ball',
@@ -366,15 +346,16 @@ const makePrizeAchievement = (
       bestGoal:       'Best Goal'
     };
     const list = wonTypes.map((t, i, arr) => i === arr.length - 1 && arr.length > 1 ? ` and ${pretty[t]}` : pretty[t]).join(', ');
-    const { evaluate, ...base } = this;
-    return {
-      ...base,
+    return achieved(this, {
       description: `Won ${wonTypes.length} prize${wonTypes.length > 1 ? 's' : ''}: ${list}.`,
-    } as Achievement;
+      current: wonTypes.length,
+      target: minTypes,
+      progress: 100,
+    });
   }
 });
 
-const prizeAchievements: Achievement[] = [
+const prizeAchievements: AchievementDefinition[] = [
   makePrizeAchievement('prize-winner-1', 'Awarded', 'Won one type of prize', Trophy, 2, 1, 1),
   makePrizeAchievement('prize-winner-2', 'Honored', 'Won two type of prizes', Trophy, 3, 2, 2),
   makePrizeAchievement('prize-winner-3', 'Exalted', 'Won three type of prizes', Trophy, 4, 3, 3),
@@ -382,58 +363,80 @@ const prizeAchievements: Achievement[] = [
 ];
 
 /* Export */
-export const tournamentAchievements = [
+export const tournamentAchievements: AchievementDefinition[] = [
   ...baseAchievements,
-  // ...championAchievements, 
-  ...prizeAchievements, 
+  // ...championAchievements,
+  ...prizeAchievements,
   // ...multiChampionAchievements
 ];
 
-function createAchievementResult(base, editions, options = {}) {
+/** Marca un resultado como logrado, preservando la visibilidad de la definición. */
+function achieved(def: AchievementDefinition, overrides: Partial<AchievementResult>): AchievementResult {
+  return {
+    id: def.id,
+    achieved: true,
+    visible: def.visible,
+    ...overrides,
+  };
+}
+
+type EditionResultOptions = {
+  singularText?: string;
+  pluralText?: string;
+  singularSuffix?: string;
+  pluralSuffix?: string;
+  maxStarsBeforeCompact?: number;
+  enableRarityBonus?: boolean;
+  customDescriptionBuilder?: ((editions: number[], list: string) => string) | null;
+};
+
+function createAchievementResult(
+  def: AchievementDefinition,
+  editions: number[],
+  options: EditionResultOptions = {},
+): AchievementResult | null {
   const {
     singularText = "Won Forest Cup",
     pluralText = "Won Forest Cup",
     singularSuffix = "",
     pluralSuffix = "",
-    maxStarsBeforeCompact = 8, // Después de cuántas ediciones usar descripción compacta
+    maxStarsBeforeCompact = 8,
     enableRarityBonus = false,
-    customDescriptionBuilder = null
+    customDescriptionBuilder = null,
   } = options;
 
   if (editions.length === 0) return null;
 
   const newStars = editions.length;
-  // const displayStars = ((newStars - 1) % 8) + 1;
-
-  // Calcular bonus de rareza si está habilitado
   const rarityBonus = enableRarityBonus ? Math.floor((newStars - 1) / 8) : 0;
-  const newRarity = base.rarity + rarityBonus;
+  const newRarity = def.rarity + rarityBonus;
 
-  // Crear lista de ediciones
-  const list = editions.map((e, i, arr) => 
+  const list = editions.map((e, i, arr) =>
     i === arr.length - 1 && arr.length > 1 ? ` and ${e}` : e
   ).join(', ');
 
-  // Construir descripción
   let newDescription;
   if (customDescriptionBuilder) {
     newDescription = customDescriptionBuilder(editions, list);
   } else if (editions.length < maxStarsBeforeCompact) {
-    // Descripción detallada
     if (editions.length === 1) {
       newDescription = `${singularText} ${list}${singularSuffix}.`;
     } else {
       newDescription = `${pluralText} ${list}${pluralSuffix}.`;
     }
   } else {
-    // Descripción compacta para muchas ediciones
     newDescription = `${pluralText} ${editions.length} times${pluralSuffix}.`;
   }
 
   return {
-    ...base,
+    id: def.id,
+    achieved: true,
+    visible: def.visible,
     stars: newStars,
     description: newDescription,
-    ...(enableRarityBonus && { rarity: newRarity })
+    current: editions.length,
+    target: editions.length,
+    progress: 100,
+    ...(enableRarityBonus && { rarity: newRarity }),
   };
 }

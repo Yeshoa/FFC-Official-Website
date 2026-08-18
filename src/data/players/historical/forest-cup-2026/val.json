@@ -1,0 +1,52 @@
+{
+  "teamCode": "VAL",
+  "teamName": "Valentian Kittens",
+  "tournament": "forest-cup-2026",
+  "tournamentEdition": 3,
+  "snapshotDate": "2026-05-13",
+  "playerCount": 6,
+  "players": [
+    {
+      "id": "VAL_001",
+      "name": "C. Guanyu",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "VAL_002",
+      "name": "E. D'elia",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "VAL_003",
+      "name": "K. Konstantinovich",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "VAL_004",
+      "name": "K. Polańska",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "VAL_005",
+      "name": "L. Okonkwo",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "VAL_006",
+      "name": "Š. Sedláčková",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    }
+  ]
+}

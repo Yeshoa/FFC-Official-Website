@@ -1,0 +1,32 @@
+---
+// Layout de la sección Champions League (FCL): navbar/footer propios de la sección.
+// Estética CL (negro + rombos lima con nodos, ver nota B7 del dueño) aplicada acá.
+import CLNavbar from "@components/champions-league/Navbar.astro";
+import CLFooter from "@components/champions-league/Footer.astro";
+import EggModal from "@components/easter-eggs/EggModal.astro";
+import "@styles/global.css";
+
+interface FCLProps {
+  title?: string;
+}
+
+const { title } = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/favicon.ico" />
+  <title>{title}</title>
+</head>
+<body class="bg-cl-black text-white font-cl">
+  <div class="cl-pattern fixed inset-0 -z-10 opacity-[0.08] pointer-events-none"></div>
+  <CLNavbar />
+  <main class="mt-[72px]">
+    <slot />
+  </main>
+  <CLFooter />
+  <EggModal />
+</body>
+</html>

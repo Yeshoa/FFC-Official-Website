@@ -1,0 +1,88 @@
+---
+// Página de club: espeja la de selección (miembro) pero con ClubHero propio,
+// sin logros y con participaciones SOLO de Champions League (los clubes no juegan la Forest Cup).
+import FCLayout from '@layouts/FCL.astro';
+import ClubHero from '@components/clubs/ClubHero.astro';
+import SquadCompact from '@components/members/SquadCompact.astro';
+import DomesticLeagueTable from '@components/members/DomesticLeagueTable.astro';
+import TournamentParticipationTable from '@components/members/TournamentParticipationTable.astro';
+import TeamLastMatches from '@components/members/TeamLastMatches.astro';
+import TeamHeadToHead from '@components/members/TeamHeadToHead.astro';
+import ScorersTable from '@components/tournaments/ScorersTable.astro';
+import RecordsAndStats from '@components/members/RecordsAndStats.astro';
+import { getClubBySlug, getAllClubs } from '@data/clubs';
+import { getMemberById } from 'src/utils/memberUtils';
+import { loadCurrentSquadByTeamId } from '@data/players';
+import { computeTeamRating, teamRatingToStars } from '@config/rating';
+import { getMatches } from '@lib/collections';
+import { getLeagueForClub } from '@data/leagues';
+
+export async function getStaticPaths() {
+  return getAllClubs().map((club) => ({
+    params: { slug: club.slug },
+    props: { club },
+  }));
+}
+
+const { club } = Astro.props;
+if (!club) return Astro.redirect('/404');
+
+const federation = getMemberById(club.federationId);
+const squad = loadCurrentSquadByTeamId(club.id);
+const rating = computeTeamRating(squad);
+const stars = teamRatingToStars(rating);
+
+const matches = await getMatches();
+const clubLeague = getLeagueForClub(club.id);
+const clubMatches = matches.filter(
+  (m) => m.data.status === 'played' && (m.data.team1Id === club.id || m.data.team2Id === club.id),
+);
+---
+
+<FCLayout title={`FFC - ${club.name}`}>
+  <div class="md:container m-auto p-4 py-8">
+    <ClubHero club={club} federation={federation} rating={rating} stars={stars} />
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
+      <SquadCompact
+        teamId={club.id}
+        teamCode={club.code}
+        teamName={club.name}
+        coach={club.squad?.coach}
+        formation={club.squad?.formation}
+        teamType="club"
+        theme="fcl"
+        compact
+      />
+
+      {clubLeague ? (
+        <DomesticLeagueTable league={clubLeague} theme="fcl" compact highlightClubId={club.id} />
+      ) : (
+        <div class="bg-cl-black/40 border border-cl-lime/20 rounded-lg p-6">
+          <h2 class="text-xl font-semibold mb-4 border-b pb-2 border-cl-lime/20">Domestic League</h2>
+          <p class="text-text-muted italic">No domestic league record available for this club yet.</p>
+        </div>
+      )}
+    </div>
+
+    <TournamentParticipationTable
+      teamId={club.id}
+      teamName={club.name}
+      matches={matches}
+      type="forestian-champions-league"
+      teamKind="club"
+      onlyParticipated
+      theme="fcl"
+    />
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+      <TeamLastMatches teamId={club.id} matches={matches} teamKind="club" theme="fcl" />
+      <div class="bg-cl-black/40 border border-cl-lime/20 rounded-lg p-6">
+        <TeamHeadToHead teamId={club.id} matches={matches} teamKind="club" theme="fcl" />
+        <ScorersTable teamId={club.id} teamName={club.name} matches={clubMatches} theme="fcl" />
+      </div>
+    </div>
+
+    <RecordsAndStats teamId={club.id} teamName={club.name} matches={clubMatches} teamKind="club" theme="fcl" />
+  </div>
+</FCLayout>

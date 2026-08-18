@@ -1,0 +1,36 @@
+{
+  "teamCode": "WAS",
+  "teamName": "Washeyye",
+  "lastUpdated": "2026-05-13",
+  "playerCount": 4,
+  "players": [
+    {
+      "id": "WAS_001",
+      "name": "I. Kiyomasu",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "WAS_002",
+      "name": "N. Dae-Won",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "WAS_003",
+      "name": "T. Kohei",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "WAS_004",
+      "name": "W. Honzo",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    }
+  ]
+}

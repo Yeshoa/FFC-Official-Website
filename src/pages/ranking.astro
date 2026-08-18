@@ -6,7 +6,7 @@ import Table from '@components/ranking/Table.astro';
 
 import { getMembers, getTournaments, getMatches, getArticles } from '@lib/collections';
 import{ getArticlesByTags } from 'src/utils/articleUtils';
-import { CURRENT_TOURNAMENT_ID } from 'src/utils/tournamentUtils';
+import { CURRENT_SEASON } from '@config/season';
 import Title from '@components/Title.astro';
 import { LOCALE } from '@config/constants';
 import Sidebar from '@components/ranking/Sidebar.astro';
@@ -20,9 +20,9 @@ const filterTags = [
   "ranking",
 ];
 
-const filteredArticles = getArticlesByTags(articles, filterTags);
+const filteredArticles = getArticlesByTags(articles, filterTags, ['FCL', 'champions-league']);
 
-const currentTournamentId = CURRENT_TOURNAMENT_ID;
+const currentSeason = CURRENT_SEASON;
 const date = new Date().toLocaleString(LOCALE, { month: 'long', day: 'numeric', year: 'numeric' });
 ---
 <Layout title="FFC - Ranking">
@@ -36,14 +36,14 @@ const date = new Date().toLocaleString(LOCALE, { month: 'long', day: 'numeric', 
     <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
       <!-- Sidebar + Legend column: md/lg appear on left -->
       <div class="col-span-1 order-2 md:order-1 flex flex-col gap-4">
-        <Sidebar currentTournamentId={currentTournamentId} />
+        <Sidebar currentSeason={currentSeason} />
         <div class="xl:hidden">
           <Legend />
         </div>
       </div>
 
       <!-- Table: First in mobile (order-1) -->
-      <Table members={members} currentTournamentId={currentTournamentId} />
+      <Table members={members} currentSeason={currentSeason} />
 
       <!-- Legend: Only on xl to the right -->
       <div class="hidden xl:block order-3">

@@ -23,6 +23,7 @@ let stadiumsCache: Stadium[] | null = null;
 
 let memberByCodeCache: Map<string, Member> | null = null;
 let memberByNameCache: Map<string, Member> | null = null;
+let memberByIdCache: Map<number, Member> | null = null;
 let tournamentByIdCache: Map<number, Tournament> | null = null;
 let matchesByTournamentCache: Map<number, Match[]> | null = null;
 
@@ -33,7 +34,7 @@ const [eventsCache, roleplaysCache, bonusesCache] = await Promise.all([
 ]);
 
 function buildMemberIndexes(members: Member[]) {
-  if (memberByCodeCache && memberByNameCache) return;
+  if (memberByCodeCache && memberByNameCache && memberByIdCache) return;
 
   memberByCodeCache = new Map(
     members
@@ -42,6 +43,9 @@ function buildMemberIndexes(members: Member[]) {
   );
   memberByNameCache = new Map(
     members.map(member => [member.data.name.toLowerCase(), member]),
+  );
+  memberByIdCache = new Map(
+    members.map(member => [member.data.id, member]),
   );
 }
 
@@ -109,6 +113,12 @@ export async function getSponsors() {
 export async function getStadiums() {
   if (!stadiumsCache) stadiumsCache = await getCollection('stadiums');
   return stadiumsCache;
+}
+
+export async function getMemberById(id: number) {
+  const members = await getMembers();
+  buildMemberIndexes(members);
+  return memberByIdCache?.get(id) ?? null;
 }
 
 export async function getMemberByCode(code: string) {

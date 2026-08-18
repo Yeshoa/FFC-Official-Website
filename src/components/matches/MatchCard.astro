@@ -43,20 +43,20 @@ const hour = match.data.date.toLocaleTimeString(LOCALE, {hour12: false, hour: 'n
 const stadium = match.data.stadium_id ? (await getStadiumById(match.data.stadium_id)) : null;
 const stadiumName = stadium?.data.name || null;
 const stadiumHref = "#";
-// const stadiumHref = stadium ? ROUTES.stadiums.detail(stadium.slug) : "#";
+// const stadiumHref = stadium ? ROUTES.stadiums.detail(stadium.id) : "#";
 ---
 
-<div class="flex flex-col justify-start items-center w-full max-w-5xl bg-gradient-to-br from-green-900/80 to-green-950/70 py-3 px-4 rounded-2xl shadow-md text-white hover:bg-green-700/90">
-  <div class="flex flex-col xs:flex-row items-center justify-between w-full mb-2 pb-2 border-b border-green-700/50">
-    {<div class="flex items-center gap-2 text-xs md:text-sm text-green-200">
+<div class="flex flex-col justify-start items-center w-full max-w-5xl bg-gradient-to-br from-surface-raised/80 to-surface/70 py-3 px-4 rounded-2xl shadow-md text-white hover:bg-primary-dark/90">
+  <div class="flex flex-col xs:flex-row items-center justify-between w-full mb-2 pb-2 border-b border-primary-dark/50">
+    {<div class="flex items-center gap-2 text-xs md:text-sm text-primary-soft">
         {/* <a href={stadiumHref} class="font-medium truncate max-w-[200px] hover:underline">{stadiumName}</a> */}
         <span class="font-medium truncate max-w-[200px] hover:underline">{stadiumName}</span>
     </div>}
-    <div class="text-xs text-green-300 font-light mt-1 xs:mt-0">
+    <div class="text-xs text-primary-light font-light mt-1 xs:mt-0">
       <div class="flex items-center gap-1 overflow-hidden">
         <span class="flex-shrink-0">{date}</span>
           <>
-            <span class="text-green-400 flex-shrink-0">•</span>
+            <span class="text-primary-muted flex-shrink-0">•</span>
             <span class="font-light flex-shrink-0">{hour} UTC</span>
           </>
       </div>
@@ -66,7 +66,7 @@ const stadiumHref = "#";
   <div class="grid grid-cols-7 items-center w-full gap-2 mb-2">
     {/* Equipo 1 */}
     <div class="flex items-center justify-end col-span-3 gap-2 text-right overflow-visible">
-      <a class={`${winner === match.data.team1 ? 'font-bold' : 'font-light'} md:text-lg truncate hover:underline`} href={team1?.data ? `/members/${team1?.slug}` : '#'}>
+      <a class={`${winner === match.data.team1 ? 'font-bold' : 'font-light'} md:text-lg truncate hover:underline`} href={team1?.data ? ROUTES.members.detail(team1!.id) : '#'}>
         <span class="hidden xs:inline">{team1?.data ? team1?.data.name : match.data.team1}</span>
         <span class="xs:hidden">{team1?.data ? team1?.data.code : match.data.team1}</span>
       </a>
@@ -100,7 +100,7 @@ const stadiumHref = "#";
             <span class="text-sm xs:text-lg md:text-xl whitespace-nowrap font-bold">{score1} - {score2}</span>
         ) : match.data.status === 'scheduled' ? (
             <span class="text-sm xs:text-lg  md:text-xl font-bold italic text-gray-300 block">vs</span>
-            // <span class="text-xs text-gray-400 block mt-0.5">
+            // <span class="text-xs text-text-muted block mt-0.5">
             //     {match.data.date.toLocaleTimeString(LOCALE, {hour12: false, hour: 'numeric', minute: 'numeric'})}
             // </span>
         ) : (
@@ -135,7 +135,7 @@ const stadiumHref = "#";
           quality={10}
         />
       )}
-      <a class={`${winner === match.data.team2 ? 'font-bold' : 'font-light'} md:text-lg truncate hover:underline`} href={team2?.data ? `/members/${team2?.slug}` : '#'}>
+      <a class={`${winner === match.data.team2 ? 'font-bold' : 'font-light'} md:text-lg truncate hover:underline`} href={team2?.data ? ROUTES.members.detail(team2!.id) : '#'}>
         <span class="hidden xs:inline">{team2?.data ? team2?.data.name : match.data.team2}</span>
         <span class="xs:hidden">{team2?.data ? team2?.data.code : match.data.team2}</span>
       </a>
@@ -160,7 +160,7 @@ const stadiumHref = "#";
               <div key={`team1-goal-${idx}-${goal.player}-${goal.minute}`} class="flex items-center justify-end">
                 <span class="truncate me-1" title={goal.player}>{goal.player}</span>
                 {/* <Image src={GoalIcon} alt="Goal" class="w-3 h-3 flex-shrink-0" loading="lazy" format="webp" quality={1} /> */}
-                <GoalIcon class="w-4 h-4 flex-shrink-0 fill-green-400" />
+                <GoalIcon class="w-4 h-4 flex-shrink-0 fill-primary-muted" />
                 {goal.penalty ? <PenaltyIcon class="w-4 h-4 flex-shrink-0 fill-yellow-400" /> : ""}
                 <span class="ms-1">
                   {goal.minute}{goal.aggregate !== undefined ? `+${goal.aggregate}` : ""}'
@@ -209,7 +209,7 @@ const stadiumHref = "#";
               <div key={`team2-goal-${idx}-${goal.player}-${goal.minute}`} class="flex items-center justify-start">
                 <span class="truncate me-1" title={goal.player}>{goal.player}</span>
                 {/* <Image src={GoalIcon} alt="Goal" class="w-3 h-3 flex-shrink-0" loading="lazy" format="webp" quality={1} /> */}
-                <GoalIcon class="w-4 h-4 flex-shrink-0 fill-green-400" />
+                <GoalIcon class="w-4 h-4 flex-shrink-0 fill-primary-muted" />
                 {goal.penalty ? <PenaltyIcon class="w-4 h-4 flex-shrink-0 fill-yellow-400" /> : ""}
                 <span class="ms-1">
                   {goal.minute}{goal.aggregate !== undefined ? `+${goal.aggregate}` : ""}'

@@ -1,0 +1,202 @@
+---
+// Página de logros por federación: /members/<slug>/achievements
+// Obtenidos · Secretos (como ?) · Por obtener (locked).
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import type { CollectionEntry } from 'astro:content';
+import App from '@layouts/App.astro';
+import Title from '@components/Title.astro';
+import AchievementCard from '@components/achievements/AchievementCard.astro';
+import { getMembers, getAchievements } from '@lib/collections';
+import { getMemberAchievementsDetailed, dynamicDefs } from '@lib/achievements/dynamics/index';
+import { hierarchy, type Alignment } from '@lib/achievements/utils';
+import { ROUTES } from '@config/routes';
+
+import TrophyIcon from '@images/icons/trophy-solid.svg';
+import StarIcon from '@images/icons/star-solid.svg';
+import SkullIcon from '@images/icons/skull-crossbones-solid.svg';
+import PeopleIcon from '@images/icons/people-group-solid.svg';
+import HandshakeIcon from '@images/icons/handshake-solid-full.svg';
+import RankingIcon from '@images/icons/ranking-star-solid.svg';
+import FlagIcon from '@images/icons/futbol-regular-full.svg';
+
+interface Props {
+  member: CollectionEntry<'members'>;
+}
+
+export async function getStaticPaths() {
+  const members = await getMembers();
+  return members.map((member) => ({
+    params: { slug: member.id },
+    props: { member },
+  }));
+}
+
+const { member } = Astro.props;
+if (!member) return Astro.redirect('/404');
+
+const { achieved, lockedProgress } = await getMemberAchievementsDetailed(member.data.name);
+const staticAchievements = await getAchievements();
+
+const achievedIds = new Set(achieved.map((a) => a.id));
+
+const manualIds: string[] = member.data.manualAchievements || [];
+
+interface PendingItem {
+  id: string;
+  name: string;
+  description: string;
+  icon: ImageMetadata;
+  rarity: number;
+  category: string;
+  alignment: Alignment;
+  visible: boolean;
+  current?: number;
+  target?: number;
+  progress?: number;
+}
+
+const pending: PendingItem[] = [];
+
+// Logros dinámicos no logrados. Los "secretos" (visible:false) se muestran como "?" hasta obtenerlos.
+for (const def of dynamicDefs) {
+  if (!def.enabled) continue;
+  if (achievedIds.has(def.id)) continue;
+  const higher = hierarchy[def.id];
+  if (higher && achievedIds.has(higher)) continue;
+  const progress = lockedProgress[def.id];
+  pending.push({
+    id: def.id,
+    name: def.name,
+    description: def.description,
+    icon: def.icon,
+    rarity: def.rarity,
+    category: def.category,
+    alignment: def.alignment,
+    visible: def.visible,
+    current: progress?.current,
+    target: progress?.target,
+    progress: progress?.progress,
+  });
+}
+
+for (const a of staticAchievements) {
+  if (!a.data.enabled) continue;
+  if (manualIds.includes(a.data.id) || achievedIds.has(a.data.id)) continue;
+  pending.push({
+    id: a.data.id,
+    name: a.data.name,
+    description: a.data.description,
+    icon: a.data.icon,
+    rarity: a.data.rarity,
+    category: a.data.category,
+    alignment: a.data.alignment,
+    visible: a.data.visible,
+  });
+}
+
+pending.sort((a, b) => a.category.localeCompare(b.category) || a.rarity - b.rarity || a.name.localeCompare(b.name));
+
+const total = achieved.length + pending.length;
+const pct = total > 0 ? Math.round((achieved.length / total) * 100) : 0;
+
+const categoryIcons: Record<string, ImageMetadata> = {
+  Basic: FlagIcon,
+  Tournament: TrophyIcon,
+  Streaks: StarIcon,
+  Rivalry: SkullIcon,
+  Special: PeopleIcon,
+  Community: HandshakeIcon,
+  Ranking: RankingIcon,
+};
+const defaultIcon = TrophyIcon;
+---
+
+<App title={`${member.data.name} - Achievements | FFC`}>
+  <main class="flex flex-col items-center pt-5">
+    <div class="w-full max-w-6xl px-4 py-6 space-y-10">
+      <nav class="text-xs text-text-muted flex flex-wrap items-center gap-1.5">
+        <a href={ROUTES.members.detail(member.id)} class="hover:text-primary-light underline transition-colors">{member.data.name}</a>
+        <span aria-hidden>›</span>
+        <span>Achievements</span>
+      </nav>
+
+      <Title slideIn={true} color="text-primary-strong">
+        {member.data.name} · Achievements
+        <span slot="subtitle">
+          {achieved.length} of {total} unlocked · {pct}%
+        </span>
+      </Title>
+
+      <div class="w-full h-2 rounded-full bg-surface-raised overflow-hidden">
+        <div class="h-full rounded-full bg-gradient-to-r from-primary to-primary-strong transition-all" style={`width:${pct}%`}></div>
+      </div>
+
+      {achieved.length > 0 && (
+        <section class="w-full">
+          <h2 class="text-2xl font-bold text-primary-light mb-5">Unlocked</h2>
+          <div class="grid grid-cols-2 xs:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7 gap-3 justify-items-center">
+            {achieved.map((ach) => (
+              <AchievementCard achievement={ach} />
+            ))}
+          </div>
+        </section>
+      )}
+
+      <section class="w-full">
+        <h2 class="text-2xl font-bold text-primary-light mb-5">To unlock</h2>
+        {pending.length > 0 ? (
+          <div class="flex flex-col gap-6">
+            {Array.from(new Set(pending.map((p) => p.category))).map((cat) => (
+              <div key={cat}>
+                <div class="flex items-center gap-2 mb-3">
+                  <Image src={categoryIcons[cat] ?? defaultIcon} alt="" class="h-4 w-4 opacity-60" />
+                  <span class="text-xs font-semibold uppercase tracking-wider text-text-muted">{cat}</span>
+                </div>
+                <div class="grid grid-cols-2 xs:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7 gap-3 justify-items-center">
+                  {pending.filter((p) => p.category === cat).map((p) => (
+                    p.visible ? (
+                      <div
+                        key={p.id}
+                        class="group relative flex flex-col items-center justify-center gap-1 w-28 h-36 rounded-lg border border-slate-700 bg-surface/40 cursor-help hover:border-slate-500 transition-colors"
+                      >
+                        <Image src={p.icon} alt="" class="w-10 h-10 object-contain opacity-30 grayscale" loading="lazy" />
+                        <span class="text-center text-[10px] leading-tight text-slate-400 px-1">{p.name}</span>
+                        {p.progress != null && p.progress < 100 && (
+                          <div class="absolute bottom-1.5 left-1/2 -translate-x-1/2 w-20">
+                            <div class="h-1 rounded-full bg-black/50 overflow-hidden">
+                              <div class="h-full bg-primary rounded-full" style={`width:${p.progress}%`}></div>
+                            </div>
+                          </div>
+                        )}
+                        <div class="pointer-events-none absolute bottom-full left-1/2 z-50 mb-2 w-52 -translate-x-1/2">
+                          <div class="rounded-lg border border-surface-muted bg-surface-strong/95 p-2 text-center opacity-0 shadow-xl transition-opacity duration-200 group-hover:opacity-100">
+                            <p class="text-xs font-bold text-primary">{p.name}</p>
+                            <p class="mt-1 text-[10px] leading-tight text-primary-strong">{p.description}</p>
+                            {p.current != null && p.target != null && p.target > 1 && (
+                              <p class="mt-1 text-[10px] font-semibold text-primary-light">{p.current} / {p.target}</p>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    ) : (
+                      <div
+                        key={p.id}
+                        class="relative flex items-center justify-center w-28 h-36 rounded-lg border border-slate-700 bg-surface/40"
+                        title="?"
+                      >
+                        <span class="text-5xl font-black text-slate-500 select-none">?</span>
+                      </div>
+                    )
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p class="text-text-muted italic">All achievements unlocked!</p>
+        )}
+      </section>
+    </div>
+  </main>
+</App>

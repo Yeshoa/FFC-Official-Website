@@ -1,15 +1,20 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-import { getMatchResult, getMatchWinner } from '../../utils/matchUtils.ts';
+import { getMatchResult, getMatchWinnerId } from '../../utils/matchUtils.ts';
 import MatchCardCompact from '@components/matches/MatchCardCompact.astro';
 
 interface Props {
-  member: CollectionEntry<'members'>;
+  teamId: number;
+  teamName: string;
   matches: CollectionEntry<'matches'>[];
+  teamKind?: 'national' | 'club';
+  theme?: 'ffc' | 'fcl';
 }
 
-const { member, matches } = Astro.props;
-const teamName = member.data.name;
+const { teamId, teamName, matches, teamKind = 'national', theme = 'ffc' } = Astro.props;
+const isFcl = theme === 'fcl';
+const boxClass = isFcl ? 'rounded-lg border border-cl-lime/20 bg-cl-black/40 col-span-2' : 'bg-surface/80 shadow-lg rounded-lg p-6 col-span-2';
+const headingBorder = isFcl ? 'border-cl-lime/20' : 'border-primary';
 
 const sortedMatches = matches.map(match => match.data).slice().reverse(); // cronológico
 
@@ -31,7 +36,7 @@ let biggestLosses: typeof matches = [];
 
 for (const match of sortedMatches) {
   const result = getMatchResult(match);
-  const isTeam1 = match.team1 === teamName;
+  const isTeam1 = match.team1Id === teamId;
   const gf = isTeam1 ? result.team1 : result.team2;
   const ga = isTeam1 ? result.team2 : result.team1;
   const diff = gf - ga;
@@ -60,14 +65,14 @@ for (const match of sortedMatches) {
 
   if (diff >= 3) bigWins++;
   if (diff <= -3) bigLosses++;
-  
-  const winner = getMatchWinner(match);
-  
-  if (winner === teamName) {
+
+  const winnerId = getMatchWinnerId(match);
+
+  if (winnerId === teamId) {
     currentWinStreak++;
     currentLossStreak = 0;
     longestWinStreak = Math.max(longestWinStreak, currentWinStreak);
-  } else if (winner === null) {
+  } else if (winnerId === null) {
     currentWinStreak = 0;
     currentLossStreak = 0;
   } else {
@@ -76,7 +81,7 @@ for (const match of sortedMatches) {
     longestLossStreak = Math.max(longestLossStreak, currentLossStreak);
   }
 
-  if (winner === teamName || winner === null) {
+  if (winnerId === teamId || winnerId === null) {
     currentStreak++;
     unbeatenStreak = Math.max(unbeatenStreak, currentStreak);
   } else {
@@ -85,8 +90,8 @@ for (const match of sortedMatches) {
 }
 ---
 
-<div class="bg-green-950/80 shadow-lg rounded-lg p-6 col-span-2">
-  <h2 class="text-2xl font-semibold mb-4 text-white border-b pb-2 border-green-600">Records</h2>
+<div class={`${boxClass} ${isFcl ? 'p-6' : ''}`}>
+  <h2 class={`text-2xl font-semibold mb-4 text-white border-b pb-2 ${headingBorder}`}>Records</h2>
   {matches.length > 0 ? (
     <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-4">
       
@@ -134,6 +139,6 @@ for (const match of sortedMatches) {
       </div>
     </div>
   ) : (
-    <p class="text-gray-400 italic">There are no records available yet for this National Team.</p>
+    <p class="text-text-muted italic">There are no records available yet for this {teamKind === 'club' ? 'club' : 'National Team'}.</p>
   )}
 </div>

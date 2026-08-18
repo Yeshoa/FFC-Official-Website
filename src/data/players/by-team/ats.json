@@ -1,0 +1,85 @@
+{
+  "teamCode": "ATS",
+  "teamName": "Atsvea",
+  "lastUpdated": "2026-05-13",
+  "playerCount": 11,
+  "players": [
+    {
+      "id": "ATS_001",
+      "name": "A. Hoshar",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "ATS_002",
+      "name": "B. Modron",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "ATS_003",
+      "name": "B. Notsu",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "ATS_004",
+      "name": "C. Votnuc",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "ATS_005",
+      "name": "E. Stell",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "ATS_006",
+      "name": "K. Zaajaagah",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "ATS_007",
+      "name": "N. Tethys",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "ATS_008",
+      "name": "Nysnub",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "ATS_009",
+      "name": "O. Khisiddah",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "ATS_010",
+      "name": "S. Vythxo",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "ATS_011",
+      "name": "Z. Nasus",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    }
+  ]
+}

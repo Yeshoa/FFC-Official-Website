@@ -19,10 +19,10 @@ const { title, sections } = Astro.props;
     <h2 class="text-4xl font-bold text-center mb-10">{title}</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
       {sections.map(card => (
-        <div class="card-container border border-green-800 bg-green-900/50 rounded-lg p-6 flex flex-col text-center items-center transition-all duration-300 hover:border-green-600 hover:shadow-2xl hover:shadow-green-900/30 hover:-translate-y-2">
+        <div class="card-container border border-primary-deep bg-surface-raised/50 rounded-lg p-6 flex flex-col text-center items-center transition-all duration-300 hover:border-primary hover:shadow-2xl hover:shadow-surface-raised/30 hover:-translate-y-2">
           <h3 class="text-2xl font-bold mb-3">{card.title}</h3>
-          <p class="text-green-200 flex-grow mb-6">{card.description}</p>
-          <a href={card.buttonUrl} target={card.buttonUrl.startsWith('http') ? '_blank' : '_self'} class="mt-auto inline-block bg-green-700 text-white font-semibold py-2 px-6 rounded-md transition-colors duration-300 hover:bg-green-600">
+          <p class="text-primary-soft flex-grow mb-6">{card.description}</p>
+          <a href={card.buttonUrl} target={card.buttonUrl.startsWith('http') ? '_blank' : '_self'} class="mt-auto inline-block bg-primary-dark text-white font-semibold py-2 px-6 rounded-md transition-colors duration-300 hover:bg-primary">
             {card.buttonText}
           </a>
         </div>

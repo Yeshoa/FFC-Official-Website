@@ -1,0 +1,129 @@
+---
+// MatchDetailHeader: contexto + marcador de la página individual de partido.
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import type { Tournament, Stadium } from '@ty/collections';
+import type { TeamView } from '@ty/matchDetail';
+import { getMatchResult, getPenaltiesResult } from 'src/utils/matchUtils';
+import { ROUTES } from '@config/routes';
+import { LOCALE } from '@config/constants';
+import { getTournamentUrl } from 'src/utils/tournamentUtils';
+import GoalIcon from '@images/icons/futbol-regular-full.svg';
+
+interface Props {
+  match: CollectionEntry<'matches'>;
+  tournament?: Tournament | null;
+  team1: TeamView;
+  team2: TeamView;
+  stadium?: Stadium | null;
+}
+
+const { match, tournament, team1, team2, stadium } = Astro.props;
+const m = match.data;
+
+const score = getMatchResult(m);
+const penalties = getPenaltiesResult(m);
+
+let winner: 'team1' | 'team2' | null = null;
+if (m.status === 'played') {
+  if (score.team1 > score.team2) winner = 'team1';
+  else if (score.team2 > score.team1) winner = 'team2';
+  else if (penalties) {
+    winner = penalties.team1 > penalties.team2 ? 'team1' : penalties.team2 > penalties.team1 ? 'team2' : null;
+  }
+}
+
+const hasShootout = m.status === 'played' && penalties !== null;
+const date = m.date.toLocaleDateString(LOCALE, { year: 'numeric', month: 'long', day: 'numeric' });
+const hour = m.date.toLocaleTimeString(LOCALE, { hour12: false, hour: 'numeric', minute: 'numeric' });
+const stageLabel = [m.group ? `Group ${m.group}` : '', m.fixture].filter(Boolean).join(' · ');
+const legLabel = m.leg === '1' ? 'First leg' : m.leg === '2' ? 'Second leg' : '';
+
+const team1Strong = winner === 'team1';
+const team2Strong = winner === 'team2';
+---
+
+<section class="w-full">
+  <nav class="text-xs text-text-muted mb-3 flex flex-wrap items-center gap-1.5">
+    <a href={ROUTES.matches.index} class="hover:text-primary-light underline transition-colors">Matches</a>
+    <span aria-hidden>›</span>
+    {tournament ? (
+      <a href={getTournamentUrl(tournament.data)} class="hover:text-primary-light underline transition-colors">{tournament.data.name}</a>
+    ) : (
+      <span>Match</span>
+    )}
+  </nav>
+
+  <div class="bg-gradient-to-br from-surface-raised/80 to-surface/60 rounded-2xl p-6 md:p-8 border border-primary/20">
+    <div class="flex flex-col items-center gap-1 text-center mb-6">
+      {tournament && <p class="text-sm font-semibold text-primary-light uppercase tracking-wide">{tournament.data.name}</p>}
+      {(stageLabel || legLabel) && <p class="text-sm text-text-muted">{stageLabel}{stageLabel && legLabel ? ' · ' : ''}{legLabel}</p>}
+      <p class="text-xs text-text-muted">{date} · {hour} UTC</p>
+      {stadium && (
+        <p class="text-xs text-text-muted">
+          {stadium.data.name}{stadium.data.city ? `, ${stadium.data.city}` : ''}
+          {stadium.data.capacity ? ` · ${stadium.data.capacity.toLocaleString(LOCALE)}` : ''}
+        </p>
+      )}
+    </div>
+
+    <div class="grid grid-cols-[1fr_auto_1fr] items-center gap-3 md:gap-6">
+      <a href={team1.href ?? '#'} class={`flex items-center justify-end gap-3 ${winner === 'team2' ? 'opacity-70' : ''}`}>
+        <div class="text-right">
+          <p class={`md:text-xl font-bold ${team1Strong ? 'text-primary-strong' : 'text-white'}`}>{team1.name}</p>
+          {team1.code && <p class="text-xs text-text-muted">{team1.code}</p>}
+        </div>
+        {team1.flag ? (
+          <Image src={team1.flag} alt={team1.name} class="h-8 w-12 object-cover rounded-sm ring-1 ring-gray-500" width={96} format="webp" />
+        ) : (
+          <span class="h-8 w-12 flex items-center justify-center rounded-sm bg-surface text-lg font-black ring-1 ring-gray-600 shrink-0">{team1.name[0]}</span>
+        )}
+      </a>
+
+      <div class="text-center flex flex-col items-center min-w-[80px]">
+        {m.status === 'played' ? (
+          <>
+            <p class="text-4xl md:text-5xl font-black tabular-nums">
+              <span class={team1Strong ? 'text-primary-strong' : 'text-white'}>{score.team1}</span>
+              <span class="text-text-muted mx-1">–</span>
+              <span class={team2Strong ? 'text-primary-strong' : 'text-white'}>{score.team2}</span>
+            </p>
+            {hasShootout && penalties && (
+              <p class="text-sm text-yellow-400 mt-1 tabular-nums">Penalties {penalties.team1}–{penalties.team2}</p>
+            )}
+          </>
+        ) : m.status === 'scheduled' ? (
+          <p class="text-3xl font-black italic text-gray-300">vs</p>
+        ) : (
+          <p class="text-2xl font-bold text-red-400">VS</p>
+        )}
+        {m.status === 'canceled' && <p class="text-xs text-red-400 mt-1">Canceled</p>}
+      </div>
+
+      <a href={team2.href ?? '#'} class={`flex items-center gap-3 ${winner === 'team1' ? 'opacity-70' : ''}`}>
+        {team2.flag ? (
+          <Image src={team2.flag} alt={team2.name} class="h-8 w-12 object-cover rounded-sm ring-1 ring-gray-500" width={96} format="webp" />
+        ) : (
+          <span class="h-8 w-12 flex items-center justify-center rounded-sm bg-surface text-lg font-black ring-1 ring-gray-600 shrink-0">{team2.name[0]}</span>
+        )}
+        <div class="text-left">
+          <p class={`md:text-xl font-bold ${team2Strong ? 'text-primary-strong' : 'text-white'}`}>{team2.name}</p>
+          {team2.code && <p class="text-xs text-text-muted">{team2.code}</p>}
+        </div>
+      </a>
+    </div>
+
+    {m.link && (
+      <div class="flex justify-center mt-6">
+        <a
+          href={m.link}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-blue-500/80 hover:bg-blue-400 text-white text-sm font-semibold transition-colors"
+        >
+          <GoalIcon width={16} class="fill-white" /> Watch match
+        </a>
+      </div>
+    )}
+  </div>
+</section>

@@ -1,0 +1,78 @@
+{
+  "teamCode": "LUM",
+  "teamName": "Lumiose",
+  "lastUpdated": "2026-05-13",
+  "playerCount": 10,
+  "players": [
+    {
+      "id": "LUM_001",
+      "name": "B. Dreamspell",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "LUM_002",
+      "name": "B. Marlee",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "LUM_003",
+      "name": "C. Farnirne",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "LUM_004",
+      "name": "M. Penosi",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "LUM_005",
+      "name": "S. Dehkandem",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "LUM_006",
+      "name": "S. Eastoft",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "LUM_007",
+      "name": "T. Pescaster",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "LUM_008",
+      "name": "T. Whisperbrook",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "LUM_009",
+      "name": "T. Whitblossom",
+      "position": null,
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "LUM_010",
+      "name": "W. Leswalyn",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    }
+  ]
+}

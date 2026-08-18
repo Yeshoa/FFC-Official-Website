@@ -1,0 +1,24 @@
+{
+  "teamCode": "TRE",
+  "teamName": "Trebenia",
+  "tournament": "forest-cup-2022",
+  "tournamentEdition": 1,
+  "snapshotDate": "2026-05-13",
+  "playerCount": 2,
+  "players": [
+    {
+      "id": "TRE_001",
+      "name": "F. Elliott",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "TRE_002",
+      "name": "T. Wolf",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "teamCode": "TYL",
+  "teamName": "Tylvana",
+  "lastUpdated": "2026-05-13",
+  "playerCount": 1,
+  "players": [
+    {
+      "id": "TYL_001",
+      "name": "O. Kuroda",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    }
+  ]
+}

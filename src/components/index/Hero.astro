@@ -4,14 +4,15 @@
 import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 import JoinImg from '@images/icons/right-to-bracket-solid.svg';
+import FCLLogo from '@images/tournaments/FCL/FCL Logo.svg';
 import Button from '@components/Button.astro';
-import { LINKS } from '@config/links';
 
 // Definimos las props para el componente
 interface Props {
   heroTitle: string;
   heroSubtitle: string;
-  cta: { text: string; href: string; noblank?: boolean; logo: ImageMetadata };
+  heroLogo: ImageMetadata; // logo grande de la FFC en el hero
+  ctas: Array<{ text: string; href: string; noblank?: boolean; fcl?: boolean }>;
   carouselImages: Array<{
     src: ImageMetadata;
     alt: string;
@@ -21,7 +22,7 @@ interface Props {
 }
 
 // Obtenemos las props
-const { heroTitle, heroSubtitle, cta, carouselImages } = Astro.props;
+const { heroTitle, heroSubtitle, heroLogo, ctas, carouselImages } = Astro.props;
 
 // Validamos que haya al menos una imagen en el carrusel
 if (carouselImages.length === 0) {
@@ -45,14 +46,20 @@ if (carouselImages.length === 0) {
       ))}
     </div>
     <div class="hero__flex">
-      <Image src={cta.logo} alt="Logo" height={300} class="hero__logo" format="webp" loading="eager" />
+      <Image src={heroLogo} alt="Logo" height={300} class="hero__logo" format="webp" loading="eager" />
       <div class="hero__text">
         <h1 class="hero__title">{heroTitle}</h1>
         <p class="hero__subtitle">{heroSubtitle}</p>
         <div class="hero__btn__cont">
-          <Button hideArrow={true} link={LINKS.forms.fc26} self={!cta.noblank} customClass="hero__btn">
-            <JoinImg width={18} class="hero__btn__icon mr-2" fill={"#fff"} />{cta.text}
-          </Button>
+          {ctas.map((c) => (
+            <Button hideArrow={true} link={c.href} self={!c.noblank} customClass={c.fcl ? 'hero__btn hero__btn--fcl' : 'hero__btn'}>
+              {c.fcl ? (
+                <FCLLogo width={18} class="hero__btn__icon mr-2 h-auto" />
+              ) : (
+                <JoinImg width={18} class="hero__btn__icon mr-2" fill="currentColor" />
+              )}{c.text}
+            </Button>
+          ))}
         </div>
       </div>
     </div>
@@ -203,11 +210,29 @@ if (carouselImages.length === 0) {
         transform: translateX(0) scale(1.2);
       }
     }
+    .hero__btn--fcl {
+      background: var(--color-cl-black);
+      color: var(--color-cl-lime);
+      .hero__btn__icon {
+        color: var(--color-cl-lime);
+        fill: currentColor;
+      }
+      &:hover {
+        background: var(--color-cl-lime);
+        color: var(--color-cl-black);
+        .hero__btn__icon {
+          color: var(--color-cl-black);
+          fill: currentColor;
+        }
+      }
+    }
     .hero__btn__cont {
       will-change: transform, opacity; 
       animation: fadeIn 1s ease-in-out .8s forwards;
       display: flex;
+      flex-wrap: wrap;
       justify-content: center;
+      gap: 1rem;
       opacity: 0;
     }
   }

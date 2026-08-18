@@ -1,0 +1,31 @@
+{
+  "teamCode": "SCH",
+  "teamName": "Schachland",
+  "tournament": "forest-cup-2024",
+  "tournamentEdition": 2,
+  "snapshotDate": "2026-05-13",
+  "playerCount": 3,
+  "players": [
+    {
+      "id": "SCH_001",
+      "name": "A. Bjornstaki",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "SCH_002",
+      "name": "D. Trod",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "SCH_003",
+      "name": "R. Inison",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    }
+  ]
+}

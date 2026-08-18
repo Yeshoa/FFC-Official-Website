@@ -3,6 +3,7 @@ import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 import type { ImageMetadata } from 'astro';
 import { getMemberByName } from 'src/utils/memberUtils';
+import { getGoalPlayerName } from 'src/utils/playerUtils';
 import { areThereScorers, getMatchWinner, getMatchResult } from 'src/utils/matchUtils';
 import PenaltyIcon from '@images/icons/penalty.svg';
 import GoalIcon from '@images/icons/futbol-regular-full.svg';
@@ -39,7 +40,7 @@ const winner = getMatchWinner(match);
 const stadium = match.stadium_id ? (await getStadiumById(match.stadium_id)) : null;
 const stadiumName = stadium?.data.name || null;
 const stadiumHref = "#";
-// const stadiumHref = stadium ? ROUTES.stadiums.detail(stadium.slug) : "#";
+// const stadiumHref = stadium ? ROUTES.stadiums.detail(stadium.id) : "#";
 ---
 
 <div id="final" class="relative overflow-hidden w-full max-w-5xl border-3 border-yellow-500 rounded-2xl">
@@ -64,7 +65,7 @@ const stadiumHref = "#";
   )}
   
   <!-- Main Card with Golden Border -->
-  <div class="flex flex-col justify-center items-center w-full bg-gradient-to-br from-green-900 to-green-950 py-8 px-5 rounded-2xl shadow-xl text-white hover:from-green-800 hover:to-green-900 transition-all duration-300">
+  <div class="flex flex-col justify-center items-center w-full bg-gradient-to-br from-surface-raised to-surface py-8 px-5 rounded-2xl shadow-xl text-white hover:from-primary-deep hover:to-surface-raised transition-all duration-300">
     
     <!-- Teams Section -->
     <div class="grid grid-cols-3 items-center w-full gap-2 mb-4 z-10 mt-4">
@@ -95,7 +96,7 @@ const stadiumHref = "#";
         )}
         <a 
           class={`mt-2 font-medium md:text-lg hover:underline ${winner === match.team1 ? 'text-yellow-300 font-bold' : 'text-white'}`} 
-          href={team1 !== "-" ? `/members/${team1?.slug}` : '#'}
+          href={team1 !== "-" ? ROUTES.members.detail(team1!.id) : '#'}
         >
           {match.team1}
         </a>
@@ -144,7 +145,7 @@ const stadiumHref = "#";
         )}
         <a 
           class={`mt-2 font-medium md:text-lg hover:underline ${winner === match.team2 ? 'text-yellow-300 font-bold' : 'text-white'}`} 
-          href={team2 !== "-" ? `/members/${team2?.slug}` : '#'}
+          href={team2 !== "-" ? ROUTES.members.detail(team2!.id) : '#'}
         >
           {match.team2}
         </a>
@@ -170,9 +171,10 @@ const stadiumHref = "#";
               })
               .map((goal, idx) => (
                 <div key={`team1-goal-${idx}-${goal.player}-${goal.minute}`} class="text-xs sm:text-base flex xs:flex-row flex-col items-center gap-1 justify-center mb-1">
-                  <span class="font-medium truncate me-1">{goal.player}</span>
+                  <span class="font-medium truncate me-1 lg:hidden">{goal.player}</span>
+                  <span class="font-medium truncate me-1 hidden lg:inline">{getGoalPlayerName(goal)}</span>
                   <div class="flex items-center">
-                    <GoalIcon class="w-4 h-4 flex-shrink-0 fill-green-400" />
+                    <GoalIcon class="w-4 h-4 flex-shrink-0 fill-primary-muted" />
                     {goal.penalty ? <PenaltyIcon class="w-4 h-4 flex-shrink-0 fill-yellow-400" /> : ""}
                     <span class="ms-1">
                       {goal.minute}{goal.aggregate !== undefined ? `+${goal.aggregate}` : ""}'
@@ -182,7 +184,7 @@ const stadiumHref = "#";
                 </div>
               ))
           ) : (
-            <span class="text-gray-400 italic"></span>
+            <span class="text-text-muted italic"></span>
           )}
         </div>
         
@@ -223,9 +225,10 @@ const stadiumHref = "#";
               })
               .map((goal, idx) => (
                 <div key={`team2-goal-${idx}-${goal.player}-${goal.minute}`} class="text-xs sm:text-base flex xs:flex-row flex-col items-center gap-1 justify-center mb-1">
-                  <span class="font-medium truncate me-1">{goal.player}</span>
+                  <span class="font-medium truncate me-1 lg:hidden">{goal.player}</span>
+                  <span class="font-medium truncate me-1 hidden lg:inline">{getGoalPlayerName(goal)}</span>
                   <div class="flex items-center">
-                    <GoalIcon class="w-4 h-4 flex-shrink-0 fill-green-400" />
+                    <GoalIcon class="w-4 h-4 flex-shrink-0 fill-primary-muted" />
                     {goal.penalty ? <PenaltyIcon class="w-4 h-4 flex-shrink-0 fill-yellow-400" /> : ""}
                     <span class="ms-1">
                       {goal.minute}{goal.aggregate !== undefined ? `+${goal.aggregate}` : ""}'
@@ -235,7 +238,7 @@ const stadiumHref = "#";
                 </div>
               ))
           ) : (
-            <span class="text-gray-400 italic"></span>
+            <span class="text-text-muted italic"></span>
           )}
         </div>
       </div>

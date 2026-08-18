@@ -1,0 +1,105 @@
+---
+// ClubHero: hero de la página de club. Escudo/colores, federación dueña,
+// rating del club (0-100) + estrellas. Sin badges de logros (decisión del dueño).
+import { Image } from 'astro:assets';
+import type { Club } from '@data/clubs';
+import type { Member } from '@ty/collections';
+import { ROUTES } from '@config/routes';
+import { resolveImage } from '@utils/imageAssets';
+import StarsDisplay from '@components/ui/StarsDisplay.astro';
+
+interface Props {
+  club: Club;
+  federation: Member | null;
+  rating: number;
+  stars: number;
+}
+
+const { club, federation, rating, stars } = Astro.props;
+const primary = club.colors?.primary ?? '#95ff00';
+const secondary = club.colors?.secondary ?? '#00ff95';
+const logo = resolveImage(club.logoPath);
+---
+
+<section class="club-hero relative overflow-hidden bg-gradient-to-br from-cl-black via-black to-cl-black text-white">
+  <!-- Fondo con rombos lima con nodos (estética CL, patrón global .cl-pattern) -->
+  <div class="cl-pattern absolute inset-0 opacity-20 pointer-events-none"></div>
+  <div class="relative z-10 w-full max-w-screen-xl px-4 py-10 mx-auto">
+    <div class="flex flex-col md:flex-row items-center gap-8">
+      <!-- Escudo -->
+      <div class="flex flex-col items-center gap-4 flex-shrink-0">
+        <div
+          class="w-36 h-36 rounded-2xl border-2 flex items-center justify-center shadow-2xl"
+          style={{ backgroundColor: `${primary}18`, borderColor: primary }}
+        >
+          {logo ? (
+            <Image
+              src={logo}
+              alt={`Logo de ${club.name}`}
+              width={160}
+              loading="eager"
+              quality={70}
+              format="webp"
+              class="w-24 h-24 object-contain"
+            />
+          ) : (
+            <span class="text-6xl font-black" style={{ color: primary }}>
+              {club.shortName?.[0] ?? club.name[0]}
+            </span>
+          )}
+        </div>
+        <!-- Rating del club -->
+        <div class="flex flex-col items-center bg-black/40 border border-white/15 rounded-xl px-4 py-2 backdrop-blur-sm">
+          <p class="text-xs tracking-widest text-text-muted uppercase">Club Rating</p>
+          <div class="flex items-center gap-2 mt-1">
+            <span class="text-3xl font-bold" style={{ color: primary }}>{rating}</span>
+            <StarsDisplay value={stars} size="w-4 h-4" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Datos -->
+      <div class="flex flex-col items-center md:items-start text-center md:text-left gap-3 flex-1">
+        <h1 class="text-4xl sm:text-5xl font-black tracking-tight uppercase break-words">
+          {club.name}
+        </h1>
+        {club.shortName && club.shortName !== club.name && (
+          <p class="text-lg text-text-muted">{club.shortName}</p>
+        )}
+
+        <div class="flex flex-wrap items-center justify-center md:justify-start gap-2">
+          <span class="px-2 py-1 bg-gray-800/50 rounded-full">Code: <span class="font-semibold">{club.code}</span></span>
+          {federation && (
+            <a
+              href={ROUTES.members.detail(federation.id)}
+              class="px-2 py-1 bg-gray-800/50 rounded-full hover:bg-gray-700/50 transition-colors"
+            >
+              Federation: <span class="font-semibold">{federation.data.name}</span>
+            </a>
+          )}
+          {club.founded && (
+            <span class="px-2 py-1 bg-gray-800/50 rounded-full">Founded in <span class="font-semibold">{club.founded}</span></span>
+          )}
+        </div>
+
+        <div class="flex flex-wrap items-center justify-center md:justify-start gap-2">
+          {club.squad?.coach && (
+            <span class="px-2 py-1 bg-gray-800/50 rounded-full">Coach: <span class="font-semibold">{club.squad.coach}</span></span>
+          )}
+          {club.squad?.formation && (
+            <span class="px-2 py-1 bg-gray-800/50 rounded-full">Formation: <span class="font-semibold">{club.squad.formation}</span></span>
+          )}
+          {club.budget != null && (
+            <span class="px-2 py-1 bg-gray-800/50 rounded-full">Budget: <span class="font-semibold" style={{ color: primary }}>{club.budget}M</span></span>
+          )}
+        </div>
+
+        <!-- Franjas de colores del club -->
+        <div class="flex items-center gap-2 mt-2">
+          <span class="w-10 h-3 rounded-full" style={{ backgroundColor: primary }}></span>
+          <span class="w-10 h-3 rounded-full" style={{ backgroundColor: secondary }}></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

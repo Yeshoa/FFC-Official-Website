@@ -1,15 +1,16 @@
 import type { CollectionEntry } from "astro:content"
-import { calculateTournamentDecayPoints, getLastFourTournamentIds } from "src/utils/tournamentUtils"
+import type { ImageMetadata } from "astro";
+import { calculateTournamentDecayPoints, getLastFourSeasons } from "src/utils/tournamentUtils"
 import { calculateAllEventPoints } from "@lib/eventUtils"
 import { normalizePoints, SCORING_CONFIG } from "./scoreUtils";
 import { calculateCurrentBonusPoints, calculatePastBonusPoints } from "./bonusUtils";
-import { CURRENT_TOURNAMENT_ID } from "src/utils/tournamentUtils";
 import { calculateCurrentRoleplayPoints, calculatePastRoleplayPoints } from "./roleplayUtils";
 import { getTournaments, getRoleplays, getEvents, getBonuses } from '@lib/collections';
 import { getMemberTier } from "../utils/memberUtils";
 import { getCurrentRoleplays } from "./roleplayUtils";
 import { getCurrentEvents } from "./eventUtils";
 import { getCurrentBonuses } from "./bonusUtils";
+import { CURRENT_SEASON } from "@config/season";
 
 // 🟢 Tipos
 type TournamentEntry = CollectionEntry<'tournaments'>;
@@ -81,13 +82,13 @@ function getCurrentBonusDataWithDefaults(
 
 export async function getMemberScoreDetails(
   member: MemberEntry,
-  currentTournamentId: number = CURRENT_TOURNAMENT_ID,
+  currentSeason: number = CURRENT_SEASON,
 ): Promise<{
   member: {
     slug: string;
     name: string;
     code: string;
-    flag: any;
+    flag: ImageMetadata | null;
   };
   scores: {
     currentRoleplay: number;
@@ -113,26 +114,27 @@ export async function getMemberScoreDetails(
   tier: string;
 }> {
   const memberName = member.data.name;
-  const lastFourIds = getLastFourTournamentIds(tournaments, currentTournamentId);
+  const memberId = member.data.id;
+  const lastFourSeasons = getLastFourSeasons(tournaments, currentSeason);
 
   // ==========  ROLEPLAY ==========
   const roleplayResult = calculateCurrentRoleplayPoints(memberName);
-  const pastRoleplayPointsRaw = calculatePastRoleplayPoints(memberName, lastFourIds);
+  const pastRoleplayPointsRaw = calculatePastRoleplayPoints(memberName, lastFourSeasons);
   const pastRoleplayPoints = normalizePoints(pastRoleplayPointsRaw, SCORING_CONFIG.PRP_RAW_MAX, SCORING_CONFIG.PRP_MAX);
   
   const currentRoleplayData = getCurrentRoleplayDataWithDefaults(memberName, roleplayResult.roleplay);
 
   // ==========  EVENTS ==========
-  const eventResult = calculateAllEventPoints(memberName, currentTournamentId, lastFourIds);
+  const eventResult = calculateAllEventPoints(memberName, currentSeason, lastFourSeasons);
   const currentEventData = getCurrentEventDataWithDefaults(memberName, eventResult.currentEvents);
 
   // ==========  BONUS ==========
-  const bonusResult = await calculateCurrentBonusPoints(member, currentTournamentId);
-  const pastBonus = await calculatePastBonusPoints(member, lastFourIds);
+  const bonusResult = await calculateCurrentBonusPoints(member, currentSeason);
+  const pastBonus = await calculatePastBonusPoints(member, lastFourSeasons);
   const currentBonusData = getCurrentBonusDataWithDefaults(memberName, bonusResult.bonuses);
 
   // ==========  TOURNAMENT DECAY ==========
-  const tournamentResult = await calculateTournamentDecayPoints(memberName, tournaments, currentTournamentId);
+  const tournamentResult = await calculateTournamentDecayPoints(memberId, tournaments, currentSeason);
   const tournamentDecayPoints = Math.ceil(tournamentResult.totalPoints);
 
   // ==========  TOTALES Y RETORNO ==========
@@ -144,7 +146,7 @@ export async function getMemberScoreDetails(
 
   return {
     member: {
-      slug: member.slug,
+      slug: member.id,
       name: member.data.name,
       code: member.data.code ?? '',
       flag: member.data.flagPath,
@@ -179,7 +181,7 @@ export async function getMemberScoreDetails(
  */
 export async function getMemberTotalScore(
   member: MemberEntry,
-  currentTournamentId: number = CURRENT_TOURNAMENT_ID,
+  currentSeason: number = CURRENT_SEASON,
 ): Promise<{
   totalScore: number
   breakdown: {
@@ -212,7 +214,7 @@ export async function getMemberTotalScore(
     }>
   }
 }> {
-  const result = await getMemberScoreDetails(member, currentTournamentId);
+        const result = await getMemberScoreDetails(member, currentSeason);
   // Reconstruct para mantener compatibilidad
   return {
     totalScore: result.totalScore,
@@ -242,12 +244,12 @@ export async function getMemberTotalScore(
 
 export async function getRankedMembers(
   members: MemberEntry[],
-  currentTournamentId?: number,
+  currentSeason?: number,
 ): Promise<Array<{
   slug: string
   name: string
   code: string
-  flag: any
+  flag: ImageMetadata | null
   scores: {
     currentRoleplay: number,
     pastRoleplay: number
@@ -268,7 +270,7 @@ export async function getRankedMembers(
     members
       .filter((member) => member.data.verified)
       .map(async (member) => {
-        const result = await getMemberScoreDetails(member, currentTournamentId);
+  const result = await getMemberScoreDetails(member, currentSeason);
         return {
           slug: result.member.slug,
           name: result.member.name,
@@ -302,10 +304,10 @@ export async function getRankedMembers(
 
 export function getRankClass(ranking: number): string {
   return ranking === 1
-    ? 'text-amber-300 drop-shadow-[0_0_10px_rgba(252,211,77,0.8)]'
+    ? 'text-tier-gold drop-shadow-[0_0_10px_rgba(252,211,77,0.8)]'
     : ranking === 2
-    ? 'text-slate-300 drop-shadow-[0_0_10px_rgba(203,213,225,0.7)]'
+    ? 'text-tier-silver drop-shadow-[0_0_10px_rgba(203,213,225,0.7)]'
     : ranking === 3
-    ? 'text-orange-400 drop-shadow-[0_0_10px_rgba(251,146,60,0.7)]'
-    : 'text-green-400';
+    ? 'text-tier-bronze drop-shadow-[0_0_10px_rgba(251,146,60,0.7)]'
+    : 'text-primary-muted';
 }

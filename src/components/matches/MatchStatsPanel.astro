@@ -1,0 +1,51 @@
+---
+// MatchStatsPanel: tabla comparativa de estadísticas del partido.
+import type { CollectionEntry } from 'astro:content';
+import type { TeamView } from '@ty/matchDetail';
+
+interface Props {
+  match: CollectionEntry<'matches'>;
+  team1: TeamView;
+  team2: TeamView;
+}
+
+const { match, team1, team2 } = Astro.props;
+const stats = match.data.stats;
+
+const rows: { label: string; t1?: number; t2?: number }[] = [
+  { label: 'Possession', t1: stats?.possession?.team1, t2: stats?.possession?.team2 },
+  { label: 'Shots', t1: stats?.shots?.team1, t2: stats?.shots?.team2 },
+  { label: 'Shots on target', t1: stats?.shotsOnTarget?.team1, t2: stats?.shotsOnTarget?.team2 },
+  { label: 'Corners', t1: stats?.corners?.team1, t2: stats?.corners?.team2 },
+  { label: 'Fouls', t1: stats?.fouls?.team1, t2: stats?.fouls?.team2 },
+  { label: 'Offsides', t1: stats?.offsides?.team1, t2: stats?.offsides?.team2 },
+];
+
+const hasStats = rows.some((r) => r.t1 !== undefined || r.t2 !== undefined);
+const fmt = (v?: number) => (v === undefined || v === null ? '–' : String(v));
+const fmtCell = (label: string, v?: number) => (label === 'Possession' && v !== undefined ? `${v}%` : fmt(v));
+---
+
+<section class="w-full">
+  <h2 class="text-2xl font-bold text-primary-light mb-5">Match Stats</h2>
+  {hasStats ? (
+    <div class="bg-surface/40 rounded-2xl border border-primary/20 p-5 md:p-6">
+      <div class="grid grid-cols-[1fr_auto_1fr] items-center gap-2 mb-5">
+        <p class="text-sm font-semibold text-right">{team1.name}</p>
+        <span class="text-xs text-text-muted">vs</span>
+        <p class="text-sm font-semibold">{team2.name}</p>
+      </div>
+      <div class="space-y-3">
+        {rows.map((row) => (
+          <div key={row.label} class="grid grid-cols-[1fr_auto_1fr] items-center gap-3">
+            <p class="text-right font-bold tabular-nums text-primary-soft">{fmtCell(row.label, row.t1)}</p>
+            <p class="text-xs text-text-muted uppercase tracking-wider w-28 text-center">{row.label}</p>
+            <p class="font-bold tabular-nums text-primary-soft">{fmtCell(row.label, row.t2)}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  ) : (
+    <p class="text-text-muted italic">Match statistics not available.</p>
+  )}
+</section>

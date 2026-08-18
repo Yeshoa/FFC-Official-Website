@@ -1,0 +1,95 @@
+---
+// Página individual de partido: /matches/<id> (id = match-<tournament>-<match>).
+import App from '@layouts/App.astro';
+import { getMatches, getTournamentById } from '@lib/collections';
+import { getStadiumById } from '@utils/stadiumUtils';
+import { getTeamById, type TeamRef } from 'src/utils/memberUtils';
+import { ROUTES } from '@config/routes';
+import type { TeamView } from '@ty/matchDetail';
+import MatchDetailHeader from '@components/matches/MatchDetailHeader.astro';
+import PenaltyShootout from '@components/matches/PenaltyShootout.astro';
+import MatchTimeline from '@components/matches/MatchTimeline.astro';
+import Lineups from '@components/matches/Lineups.astro';
+import MatchStatsPanel from '@components/matches/MatchStatsPanel.astro';
+
+export async function getStaticPaths() {
+  const matches = await getMatches();
+  return matches.map((match) => ({
+    params: { match: match.id },
+    props: { match },
+  }));
+}
+
+function toTeamView(ref: TeamRef | null, fallbackName: string): TeamView {
+  if (!ref) return { name: fallbackName, type: 'national' };
+  if (ref.type === 'club' && ref.club) {
+    return { name: ref.club.name, code: ref.club.slug, href: ROUTES.clubs.detail(ref.club.slug), type: 'club' };
+  }
+  if (ref.member) {
+    return {
+      name: ref.member.data.name,
+      code: ref.member.data.code,
+      flag: ref.member.data.flagPath ?? null,
+      href: ROUTES.members.detail(ref.member.id),
+      type: 'national',
+    };
+  }
+  return { name: fallbackName, type: 'national' };
+}
+
+const { match } = Astro.props;
+if (!match) return Astro.redirect('/404');
+
+const tournament = await getTournamentById(match.data.tournament_id);
+const stadium = match.data.stadium_id != null ? await getStadiumById(match.data.stadium_id) : null;
+const team1Ref = await getTeamById(match.data.team1Id);
+const team2Ref = await getTeamById(match.data.team2Id);
+const team1 = toTeamView(team1Ref, match.data.team1);
+const team2 = toTeamView(team2Ref, match.data.team2);
+
+const allMatches = await getMatches();
+const related = allMatches
+  .filter((rel) => rel.id !== match.id && rel.data.tournament_id === match.data.tournament_id)
+  .slice(0, 6);
+---
+
+<App title={`${team1.name} vs ${team2.name} - FFC`}>
+  <main class="flex flex-col items-center pt-5">
+    <div class="w-full max-w-6xl px-4 py-6 space-y-10">
+      <MatchDetailHeader match={match} tournament={tournament} team1={team1} team2={team2} stadium={stadium} />
+
+      {match.data.status === 'played' && match.data.penalties && match.data.penalties.length > 0 && (
+        <PenaltyShootout match={match} team1={team1} team2={team2} />
+      )}
+
+      {match.data.status === 'played' && (
+        <MatchTimeline match={match} team1={team1} team2={team2} />
+      )}
+
+      <Lineups match={match} team1={team1} team2={team2} />
+      <MatchStatsPanel match={match} team1={team1} team2={team2} />
+
+      {related.length > 0 && (
+        <section class="w-full">
+          <h2 class="text-2xl font-bold text-primary-light mb-5">
+            {tournament ? `More matches · ${tournament.data.name}` : 'More matches'}
+          </h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+            {related.map((rel) => (
+              <a
+                key={rel.id}
+                href={ROUTES.matches.detail(rel.id)}
+                class="bg-surface/40 border border-primary/20 rounded-xl px-4 py-3 text-sm hover:border-primary-light/50 hover:bg-surface/70 transition-colors"
+              >
+                <p class="text-xs text-text-muted">
+                  {rel.data.fixture || rel.data.group ? `Group ${rel.data.group ?? ''} ${rel.data.fixture ?? ''}` : 'Match'} · {rel.data.date.toLocaleDateString()}
+                </p>
+                <p class="mt-1 font-semibold truncate">{rel.data.team1} vs {rel.data.team2}</p>
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
+    </div>
+  </main>
+</App>

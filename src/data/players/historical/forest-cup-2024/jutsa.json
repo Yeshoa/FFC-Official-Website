@@ -1,0 +1,73 @@
+{
+  "teamCode": "Jutsa",
+  "teamName": "Jutsa",
+  "tournament": "forest-cup-2024",
+  "tournamentEdition": 2,
+  "snapshotDate": "2026-05-13",
+  "playerCount": 9,
+  "players": [
+    {
+      "id": "Jutsa_001",
+      "name": "D. Xeinfe",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "Jutsa_002",
+      "name": "E. Ñuizvei",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "Jutsa_003",
+      "name": "H. Kazñeisei",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "Jutsa_004",
+      "name": "I. Ruinlei",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "Jutsa_005",
+      "name": "K. Ocsdei",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "Jutsa_006",
+      "name": "M. Tepyet",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "Jutsa_007",
+      "name": "P. Yujnep",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "Jutsa_008",
+      "name": "T. Aīhuij",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "Jutsa_009",
+      "name": "U. Meilain",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    }
+  ]
+}

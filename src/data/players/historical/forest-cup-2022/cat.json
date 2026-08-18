@@ -1,0 +1,24 @@
+{
+  "teamCode": "CAT",
+  "teamName": "Cat-Herders United",
+  "tournament": "forest-cup-2022",
+  "tournamentEdition": 1,
+  "snapshotDate": "2026-05-13",
+  "playerCount": 2,
+  "players": [
+    {
+      "id": "CAT_001",
+      "name": "Garfield",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "CAT_002",
+      "name": "J. L. Meowri",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    }
+  ]
+}

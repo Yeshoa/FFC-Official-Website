@@ -1,0 +1,45 @@
+{
+  "teamCode": "EIN",
+  "teamName": "Einswenn",
+  "tournament": "forest-cup-2022",
+  "tournamentEdition": 1,
+  "snapshotDate": "2026-05-13",
+  "playerCount": 5,
+  "players": [
+    {
+      "id": "EIN_001",
+      "name": "M. Eriksen",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "EIN_002",
+      "name": "M. Solheim",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "EIN_003",
+      "name": "R. Jogi",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "EIN_004",
+      "name": "R. Kask",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "EIN_005",
+      "name": "T. Davis",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    }
+  ]
+}

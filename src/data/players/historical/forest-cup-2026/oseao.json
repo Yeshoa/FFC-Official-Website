@@ -1,0 +1,31 @@
+{
+  "teamCode": "Oseao",
+  "teamName": "Oseao",
+  "tournament": "forest-cup-2026",
+  "tournamentEdition": 3,
+  "snapshotDate": "2026-05-13",
+  "playerCount": 3,
+  "players": [
+    {
+      "id": "Oseao_001",
+      "name": "Calyth",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "Oseao_002",
+      "name": "Ithryn",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "Oseao_003",
+      "name": "Vaesryn",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    }
+  ]
+}

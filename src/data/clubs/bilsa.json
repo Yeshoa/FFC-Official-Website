@@ -1,0 +1,1243 @@
+[
+  {
+    "id": 97,
+    "code": "ADE",
+    "name": "Adeon",
+    "federation": "BIL",
+    "federationId": 1,
+    "logoPath": "/src/assets/images/clubs/bilsa/adeon.png",
+    "founded": 2012,
+    "colors": {
+      "primary": "#922BAB",
+      "secondary": "#DF90B8"
+    },
+    "budget": 73,
+    "squad": {
+      "formation": "4-2-3-1"
+    }
+  },
+  {
+    "id": 98,
+    "code": "ATW",
+    "name": "Atwjel",
+    "federation": "BIL",
+    "federationId": 1,
+    "logoPath": "/src/assets/images/clubs/bilsa/atwjel.png",
+    "founded": 1977,
+    "colors": {
+      "primary": "#45AB2B",
+      "secondary": "#90DFB8"
+    },
+    "budget": 138,
+    "squad": {
+      "formation": "4-4-2"
+    }
+  },
+  {
+    "id": 99,
+    "code": "AUR",
+    "name": "Aur",
+    "federation": "BIL",
+    "federationId": 1,
+    "logoPath": "/src/assets/images/clubs/bilsa/aur.png",
+    "founded": 1988,
+    "colors": {
+      "primary": "#2BAB89",
+      "secondary": "#90BDDF"
+    },
+    "budget": 75,
+    "squad": {
+      "formation": "4-5-1"
+    }
+  },
+  {
+    "id": 100,
+    "code": "BAR",
+    "name": "Barena",
+    "federation": "BIL",
+    "federationId": 1,
+    "logoPath": "/src/assets/images/clubs/bilsa/barena.png",
+    "founded": 1965,
+    "colors": {
+      "primary": "#3EAB2B",
+      "secondary": "#90DFBC"
+    },
+    "budget": 46,
+    "squad": {
+      "formation": "4-1-4-1"
+    }
+  },
+  {
+    "id": 101,
+    "code": "BAR",
+    "name": "Barsino",
+    "federation": "BIL",
+    "federationId": 1,
+    "logoPath": "/src/assets/images/clubs/bilsa/barsino.png",
+    "founded": 1969,
+    "colors": {
+      "primary": "#38AB2B",
+      "secondary": "#90DFBF"
+    },
+    "budget": 44,
+    "squad": {
+      "formation": "3-5-2"
+    }
+  },
+  {
+    "id": 102,
+    "code": "BAX",
+    "name": "Bax",
+    "federation": "BIL",
+    "federationId": 1,
+    "logoPath": "/src/assets/images/clubs/bilsa/bax.png",
+    "founded": 2002,
+    "colors": {
+      "primary": "#2B45AB",
+      "secondary": "#B890DF"
+    },
+    "budget": 55,
+    "squad": {
+      "formation": "3-4-3"
+    }
+  },
+  {
+    "id": 103,
+    "code": "BEL",
+    "name": "Belles",
+    "federation": "BIL",
+    "federationId": 1,
+    "logoPath": "/src/assets/images/clubs/bilsa/belles.png",
+    "founded": 1969,
+    "colors": {
+      "primary": "#762BAB",
+      "secondary": "#DF90C9"
+    },
+    "budget": 96,
+    "squad": {
+      "formation": "3-4-3"
+    }
+  },
+  {
+    "id": 104,
+    "code": "BER",
+    "name": "Berh",
+    "federation": "BIL",
+    "federationId": 1,
+    "logoPath": "/src/assets/images/clubs/bilsa/berh.png",
+    "founded": 1954,
+    "colors": {
+      "primary": "#2BA9AB",
+      "secondary": "#90A7DF"
+    },
+    "budget": 139,
+    "squad": {
+      "formation": "4-3-3"
+    }
+  },
+  {
+    "id": 105,
+    "code": "BIS",
+    "name": "Bisbork",
+    "federation": "BIL",
+    "federationId": 1,
+    "logoPath": "/src/assets/images/clubs/bilsa/bisbork.png",
+    "founded": 1955,
+    "colors": {
+      "primary": "#2FAB2B",
+      "secondary": "#90DFC5"
+    },
+    "budget": 73,
+    "squad": {
+      "formation": "4-4-2"
+    }
+  },
+  {
+    "id": 106,
+    "code": "BJA",
+    "name": "Bjalletwdes",
+    "federation": "BIL",
+    "federationId": 1,
+    "logoPath": "/src/assets/images/clubs/bilsa/bjalletwdes.png",
+    "founded": 1992,
+    "colors": {
+      "primary": "#AB2B65",
+      "secondary": "#DFA490"
+    },
+    "budget": 118,
+    "squad": {
+      "formation": "3-5-2"
+    }
+  },
+  {
+    "id": 107,
+    "code": "BJE",
+    "name": "Bjelaz",
+    "federation": "BIL",
+    "federationId": 1,
+    "logoPath": "/src/assets/images/clubs/bilsa/bjelaz.png",
+    "founded": 1985,
+    "colors": {
+      "primary": "#A1AB2B",
+      "secondary": "#A1DF90"
+    },
+    "budget": 116,
+    "squad": {
+      "formation": "4-3-3"
+    }
+  },
+  {
+    "id": 108,
+    "code": "BUT",
+    "name": "Butler",
+    "federation": "BIL",
+    "federationId": 1,
+    "logoPath": "/src/assets/images/clubs/bilsa/butler.png",
+    "founded": 1980,
+    "colors": {
+      "primary": "#89AB2B",
+      "secondary": "#93DF90"
+    },
+    "budget": 131,
+    "squad": {
+      "formation": "4-3-3"
+    }
+  },
+  {
+    "id": 109,
+    "code": "CEC",
+    "name": "Cecims",
+    "federation": "BIL",
+    "federationId": 1,
+    "logoPath": "/src/assets/images/clubs/bilsa/cecims.png",
+    "founded": 1974,
+    "colors": {
+      "primary": "#AB452B",
+      "secondary": "#DFD790"
+    },
+    "budget": 78,
+    "squad": {
+      "formation": "5-3-2"
+    }
+  },
+  {
+    "id": 110,
+    "code": "CJL",
+    "name": "Cjlleia",
+    "federation": "BIL",
+    "federationId": 1,
+    "logoPath": "/src/assets/images/clubs/bilsa/cjlleia.png",
+    "founded": 1966,
+    "colors": {
+      "primary": "#2B3AAB",
+      "secondary": "#BE90DF"
+    },
+    "budget": 102,
+    "squad": {
+      "formation": "5-3-2"
+    }
+  },
+  {
+    "id": 111,
+    "code": "CUB",
+    "name": "Cubronk",
+    "federation": "BIL",
+    "federationId": 1,
+    "logoPath": "/src/assets/images/clubs/bilsa/cubronk.png",
+    "founded": 2013,
+    "colors": {
+      "primary": "#872BAB",
+      "secondary": "#DF90BE"
+    },
+    "budget": 69,
+    "squad": {
+      "formation": "3-5-2"
+    }
+  },
+  {
+    "id": 112,
+    "code": "DAZ",
+    "name": "Dazilla",
+    "federation": "BIL",
+    "federationId": 1,
+    "logoPath": "/src/assets/images/clubs/bilsa/dazilla.png",
+    "founded": 1977,
+    "colors": {
+      "primary": "#922BAB",
+      "secondary": "#DF90B8"
+    },
+    "budget": 122,
+    "squad": {
+      "formation": "4-4-2"
+    }
+  },
+  {
+    "id": 113,
+    "code": "ELE",
+    "name": "Elen",
+    "federation": "BIL",
+    "federationId": 1,
+    "logoPath": "/src/assets/images/clubs/bilsa/elen.png",
+    "founded": 1970,
+    "colors": {
+      "primary": "#AB2B4D",
+      "secondary": "#DFB290"
+    },
+    "budget": 103,
+    "squad": {
+      "formation": "4-5-1"
+    }
+  },
+  {
+    "id": 114,
+    "code": "EOL",
+    "name": "Eola",
+    "federation": "BIL",
+    "federationId": 1,
+    "logoPath": "/src/assets/images/clubs/bilsa/eola.png",
+    "founded": 1960,
+    "colors": {
+      "primary": "#3E2BAB",
+      "secondary": "#D390DF"
+    },
+    "budget": 57,
+    "squad": {
+      "formation": "4-2-3-1"
+    }
+  },
+  {
+    "id": 115,
+    "code": "FOR",
+    "name": "Forem",
+    "federation": "BIL",
+    "federationId": 1,
+    "logoPath": "/src/assets/images/clubs/bilsa/forem.png",
+    "founded": 1953,
+    "colors": {
+      "primary": "#AB2B72",
+      "secondary": "#DF9C90"
+    },
+    "budget": 58,
+    "squad": {
+      "formation": "4-3-3"
+    }
+  },
+  {
+    "id": 116,
+    "code": "FUH",
+    "name": "Fuhmels",
+    "federation": "BIL",
+    "federationId": 1,
+    "logoPath": "/src/assets/images/clubs/bilsa/fuhmels.png",
+    "founded": 1958,
+    "colors": {
+      "primary": "#AB3C2B",
+      "secondary": "#DFD290"
+    },
+    "budget": 97,
+    "squad": {
+      "formation": "4-2-3-1"
+    }
+  },
+  {
+    "id": 117,
+    "code": "GAB",
+    "name": "Gabatj",
+    "federation": "BIL",
+    "federationId": 1,
+    "logoPath": "/src/assets/images/clubs/bilsa/gabatj.png",
+    "founded": 1976,
+    "colors": {
+      "primary": "#2BABAB",
+      "secondary": "#90A8DF"
+    },
+    "budget": 45,
+    "squad": {
+      "formation": "3-5-2"
+    }
+  },
+  {
+    "id": 118,
+    "code": "GHA",
+    "name": "Ghausen",
+    "federation": "BIL",
+    "federationId": 1,
+    "logoPath": "/src/assets/images/clubs/bilsa/ghausen.png",
+    "founded": 1952,
+    "colors": {
+      "primary": "#2BAB60",
+      "secondary": "#90D6DF"
+    },
+    "budget": 96,
+    "squad": {
+      "formation": "3-4-3"
+    }
+  },
+  {
+    "id": 119,
+    "code": "GHU",
+    "name": "Ghull",
+    "federation": "BIL",
+    "federationId": 1,
+    "logoPath": "/src/assets/images/clubs/bilsa/ghull.png",
+    "founded": 1975,
+    "colors": {
+      "primary": "#AB2B69",
+      "secondary": "#DFA190"
+    },
+    "budget": 96,
+    "squad": {
+      "formation": "4-4-2"
+    }
+  },
+  {
+    "id": 120,
+    "code": "GIG",
+    "name": "Giganighsti",
+    "federation": "BIL",
+    "federationId": 1,
+    "logoPath": "/src/assets/images/clubs/bilsa/giganighsti.png",
+    "founded": 1969,
+    "colors": {
+      "primary": "#962BAB",
+      "secondary": "#DF90B5"
+    },
+    "budget": 65,
+    "squad": {
+      "formation": "3-4-3"
+    }
+  },
+  {
+    "id": 121,
+    "code": "GOR",
+    "name": "Gorem",
+    "federation": "BIL",
+    "federationId": 1,
+    "logoPath": "/src/assets/images/clubs/bilsa/gorem.png",
+    "founded": 2005,
+    "colors": {
+      "primary": "#AB7A2B",
+      "secondary": "#C6DF90"
+    },
+    "budget": 101,
+    "squad": {
+      "formation": "3-5-2"
+    }
+  },
+  {
+    "id": 122,
+    "code": "HOD",
+    "name": "Hodow",
+    "federation": "BIL",
+    "federationId": 1,
+    "logoPath": "/src/assets/images/clubs/bilsa/hodow.png",
+    "founded": 1990,
+    "colors": {
+      "primary": "#602BAB",
+      "secondary": "#DF90D6"
+    },
+    "budget": 111,
+    "squad": {
+      "formation": "4-2-3-1"
+    }
+  },
+  {
+    "id": 123,
+    "code": "HUT",
+    "name": "Hutto",
+    "federation": "BIL",
+    "federationId": 1,
+    "logoPath": "/src/assets/images/clubs/bilsa/hutto.png",
+    "founded": 1969,
+    "colors": {
+      "primary": "#2B40AB",
+      "secondary": "#BA90DF"
+    },
+    "budget": 98,
+    "squad": {
+      "formation": "5-3-2"
+    }
+  },
+  {
+    "id": 124,
+    "code": "IBA",
+    "name": "Ibatz",
+    "federation": "BIL",
+    "federationId": 1,
+    "logoPath": "/src/assets/images/clubs/bilsa/ibatz.png",
+    "founded": 2010,
+    "colors": {
+      "primary": "#2BAB6D",
+      "secondary": "#90CEDF"
+    },
+    "budget": 121,
+    "squad": {
+      "formation": "4-4-2"
+    }
+  },
+  {
+    "id": 125,
+    "code": "JAD",
+    "name": "Jadvne",
+    "federation": "BIL",
+    "federationId": 1,
+    "logoPath": "/src/assets/images/clubs/bilsa/jadvne.png",
+    "founded": 1997,
+    "colors": {
+      "primary": "#AB402B",
+      "secondary": "#DFD490"
+    },
+    "budget": 91,
+    "squad": {
+      "formation": "3-4-3"
+    }
+  },
+  {
+    "id": 126,
+    "code": "JEM",
+    "name": "Jemi",
+    "federation": "BIL",
+    "federationId": 1,
+    "logoPath": "/src/assets/images/clubs/bilsa/jemi.png",
+    "founded": 2000,
+    "colors": {
+      "primary": "#AB2B42",
+      "secondary": "#DFB990"
+    },
+    "budget": 103,
+    "squad": {
+      "formation": "4-3-3"
+    }
+  },
+  {
+    "id": 127,
+    "code": "JUK",
+    "name": "Juka",
+    "federation": "BIL",
+    "federationId": 1,
+    "logoPath": "/src/assets/images/clubs/bilsa/juka.png",
+    "founded": 1950,
+    "colors": {
+      "primary": "#2BAB47",
+      "secondary": "#90DFD8"
+    },
+    "budget": 97,
+    "squad": {
+      "formation": "4-5-1"
+    }
+  },
+  {
+    "id": 128,
+    "code": "KJE",
+    "name": "Kjewm",
+    "federation": "BIL",
+    "federationId": 1,
+    "logoPath": "/src/assets/images/clubs/bilsa/kjewm.png",
+    "founded": 1960,
+    "colors": {
+      "primary": "#2BAB51",
+      "secondary": "#90DFDF"
+    },
+    "budget": 76,
+    "squad": {
+      "formation": "3-4-3"
+    }
+  },
+  {
+    "id": 129,
+    "code": "KJO",
+    "name": "Kjokot",
+    "federation": "BIL",
+    "federationId": 1,
+    "logoPath": "/src/assets/images/clubs/bilsa/kjokot.png",
+    "founded": 2001,
+    "colors": {
+      "primary": "#8BAB2B",
+      "secondary": "#94DF90"
+    },
+    "budget": 77,
+    "squad": {
+      "formation": "4-4-2"
+    }
+  },
+  {
+    "id": 130,
+    "code": "KOR",
+    "name": "Korge",
+    "federation": "BIL",
+    "federationId": 1,
+    "logoPath": "/src/assets/images/clubs/bilsa/korge.png",
+    "founded": 1982,
+    "colors": {
+      "primary": "#2B6FAB",
+      "secondary": "#9D90DF"
+    },
+    "budget": 77,
+    "squad": {
+      "formation": "4-1-4-1"
+    }
+  },
+  {
+    "id": 131,
+    "code": "KRI",
+    "name": "Krixna",
+    "federation": "BIL",
+    "federationId": 1,
+    "logoPath": "/src/assets/images/clubs/bilsa/krixna.png",
+    "founded": 1997,
+    "colors": {
+      "primary": "#AB942B",
+      "secondary": "#B6DF90"
+    },
+    "budget": 66,
+    "squad": {
+      "formation": "3-5-2"
+    }
+  },
+  {
+    "id": 132,
+    "code": "LAU",
+    "name": "Laun",
+    "federation": "BIL",
+    "federationId": 1,
+    "logoPath": "/src/assets/images/clubs/bilsa/laun.png",
+    "founded": 1976,
+    "colors": {
+      "primary": "#AB362B",
+      "secondary": "#DFCE90"
+    },
+    "budget": 128,
+    "squad": {
+      "formation": "4-2-3-1"
+    }
+  },
+  {
+    "id": 133,
+    "code": "LOS",
+    "name": "Lostan",
+    "federation": "BIL",
+    "federationId": 1,
+    "logoPath": "/src/assets/images/clubs/bilsa/lostan.png",
+    "founded": 1993,
+    "colors": {
+      "primary": "#ABA92B",
+      "secondary": "#A9DF90"
+    },
+    "budget": 138,
+    "squad": {
+      "formation": "4-4-2"
+    }
+  },
+  {
+    "id": 134,
+    "code": "LOU",
+    "name": "Louren",
+    "federation": "BIL",
+    "federationId": 1,
+    "logoPath": "/src/assets/images/clubs/bilsa/louren.png",
+    "founded": 1965,
+    "colors": {
+      "primary": "#AB2B3A",
+      "secondary": "#DFBE90"
+    },
+    "budget": 82,
+    "squad": {
+      "formation": "3-5-2"
+    }
+  },
+  {
+    "id": 135,
+    "code": "MAZ",
+    "name": "Mazheg",
+    "federation": "BIL",
+    "federationId": 1,
+    "logoPath": "/src/assets/images/clubs/bilsa/mazheg.png",
+    "founded": 1990,
+    "colors": {
+      "primary": "#33AB2B",
+      "secondary": "#90DFC2"
+    },
+    "budget": 124,
+    "squad": {
+      "formation": "4-3-3"
+    }
+  },
+  {
+    "id": 136,
+    "code": "MEG",
+    "name": "Meghwdes",
+    "federation": "BIL",
+    "federationId": 1,
+    "logoPath": "/src/assets/images/clubs/bilsa/meghwdes.png",
+    "founded": 1950,
+    "colors": {
+      "primary": "#2B85AB",
+      "secondary": "#9090DF"
+    },
+    "budget": 70,
+    "squad": {
+      "formation": "4-2-3-1"
+    }
+  },
+  {
+    "id": 137,
+    "code": "MIL",
+    "name": "Millier",
+    "federation": "BIL",
+    "federationId": 1,
+    "logoPath": "/src/assets/images/clubs/bilsa/millier.png",
+    "founded": 2013,
+    "colors": {
+      "primary": "#2B4DAB",
+      "secondary": "#B290DF"
+    },
+    "budget": 60,
+    "squad": {
+      "formation": "4-4-2"
+    }
+  },
+  {
+    "id": 138,
+    "code": "MIL",
+    "name": "Milos",
+    "federation": "BIL",
+    "federationId": 1,
+    "logoPath": "/src/assets/images/clubs/bilsa/milos.png",
+    "founded": 1979,
+    "colors": {
+      "primary": "#3E2BAB",
+      "secondary": "#D390DF"
+    },
+    "budget": 136,
+    "squad": {
+      "formation": "4-4-2"
+    }
+  },
+  {
+    "id": 139,
+    "code": "MIS",
+    "name": "Miskov",
+    "federation": "BIL",
+    "federationId": 1,
+    "logoPath": "/src/assets/images/clubs/bilsa/miskov.png",
+    "founded": 1973,
+    "colors": {
+      "primary": "#2BAB90",
+      "secondary": "#90B9DF"
+    },
+    "budget": 109,
+    "squad": {
+      "formation": "3-5-2"
+    }
+  },
+  {
+    "id": 140,
+    "code": "MJE",
+    "name": "Mjena",
+    "federation": "BIL",
+    "federationId": 1,
+    "logoPath": "/src/assets/images/clubs/bilsa/mjena.png",
+    "founded": 1986,
+    "colors": {
+      "primary": "#72AB2B",
+      "secondary": "#90DF9C"
+    },
+    "budget": 105,
+    "squad": {
+      "formation": "5-3-2"
+    }
+  },
+  {
+    "id": 141,
+    "code": "MOE",
+    "name": "Moellem",
+    "federation": "BIL",
+    "federationId": 1,
+    "logoPath": "/src/assets/images/clubs/bilsa/moellem.png",
+    "founded": 1984,
+    "colors": {
+      "primary": "#AB2B7A",
+      "secondary": "#DF9790"
+    },
+    "budget": 134,
+    "squad": {
+      "formation": "4-2-3-1"
+    }
+  },
+  {
+    "id": 142,
+    "code": "MOI",
+    "name": "Moia",
+    "federation": "BIL",
+    "federationId": 1,
+    "logoPath": "/src/assets/images/clubs/bilsa/moia.png",
+    "founded": 2012,
+    "colors": {
+      "primary": "#89AB2B",
+      "secondary": "#93DF90"
+    },
+    "budget": 104,
+    "squad": {
+      "formation": "4-1-4-1"
+    }
+  },
+  {
+    "id": 143,
+    "code": "MOL",
+    "name": "Mollomko",
+    "federation": "BIL",
+    "federationId": 1,
+    "logoPath": "/src/assets/images/clubs/bilsa/mollomko.png",
+    "founded": 2007,
+    "colors": {
+      "primary": "#2BAB47",
+      "secondary": "#90DFD8"
+    },
+    "budget": 63,
+    "squad": {
+      "formation": "4-2-3-1"
+    }
+  },
+  {
+    "id": 144,
+    "code": "NAG",
+    "name": "Nagzaj",
+    "federation": "BIL",
+    "federationId": 1,
+    "logoPath": "/src/assets/images/clubs/bilsa/nagzaj.png",
+    "founded": 1954,
+    "colors": {
+      "primary": "#2B45AB",
+      "secondary": "#B890DF"
+    },
+    "budget": 126,
+    "squad": {
+      "formation": "4-1-4-1"
+    }
+  },
+  {
+    "id": 145,
+    "code": "NEB",
+    "name": "Neberixe",
+    "federation": "BIL",
+    "federationId": 1,
+    "logoPath": "/src/assets/images/clubs/bilsa/neberixe.png",
+    "founded": 1986,
+    "colors": {
+      "primary": "#A3AB2B",
+      "secondary": "#A3DF90"
+    },
+    "budget": 98,
+    "squad": {
+      "formation": "4-2-3-1"
+    }
+  },
+  {
+    "id": 146,
+    "code": "NEB",
+    "name": "Nebis",
+    "federation": "BIL",
+    "federationId": 1,
+    "logoPath": "/src/assets/images/clubs/bilsa/nebis.png",
+    "founded": 1953,
+    "colors": {
+      "primary": "#2BABA3",
+      "secondary": "#90ADDF"
+    },
+    "budget": 133,
+    "squad": {
+      "formation": "4-1-4-1"
+    }
+  },
+  {
+    "id": 147,
+    "code": "NEG",
+    "name": "Negaj",
+    "federation": "BIL",
+    "federationId": 1,
+    "logoPath": "/src/assets/images/clubs/bilsa/negaj.png",
+    "founded": 2006,
+    "colors": {
+      "primary": "#AB2D2B",
+      "secondary": "#DFC990"
+    },
+    "budget": 108,
+    "squad": {
+      "formation": "3-4-3"
+    }
+  },
+  {
+    "id": 148,
+    "code": "NIE",
+    "name": "Niemzga",
+    "federation": "BIL",
+    "federationId": 1,
+    "logoPath": "/src/assets/images/clubs/bilsa/niemzga.png",
+    "founded": 1980,
+    "colors": {
+      "primary": "#2B45AB",
+      "secondary": "#B890DF"
+    },
+    "budget": 127,
+    "squad": {
+      "formation": "4-5-1"
+    }
+  },
+  {
+    "id": 149,
+    "code": "PER",
+    "name": "Perij",
+    "federation": "BIL",
+    "federationId": 1,
+    "logoPath": "/src/assets/images/clubs/bilsa/perruis.png",
+    "founded": 2009,
+    "colors": {
+      "primary": "#AB2B69",
+      "secondary": "#DFA190"
+    },
+    "budget": 119,
+    "squad": {
+      "formation": "4-4-2"
+    }
+  },
+  {
+    "id": 150,
+    "code": "REI",
+    "name": "Reia",
+    "federation": "BIL",
+    "federationId": 1,
+    "logoPath": "/src/assets/images/clubs/bilsa/reia.png",
+    "founded": 1992,
+    "colors": {
+      "primary": "#9FAB2B",
+      "secondary": "#A0DF90"
+    },
+    "budget": 60,
+    "squad": {
+      "formation": "4-4-2"
+    }
+  },
+  {
+    "id": 151,
+    "code": "SEM",
+    "name": "Semi",
+    "federation": "BIL",
+    "federationId": 1,
+    "logoPath": "/src/assets/images/clubs/bilsa/semi.png",
+    "founded": 1979,
+    "colors": {
+      "primary": "#2BAB81",
+      "secondary": "#90C2DF"
+    },
+    "budget": 86,
+    "squad": {
+      "formation": "4-5-1"
+    }
+  },
+  {
+    "id": 152,
+    "code": "SEW",
+    "name": "Sewd",
+    "federation": "BIL",
+    "federationId": 1,
+    "logoPath": "/src/assets/images/clubs/bilsa/sewd.png",
+    "founded": 1958,
+    "colors": {
+      "primary": "#2B60AB",
+      "secondary": "#A790DF"
+    },
+    "budget": 71,
+    "squad": {
+      "formation": "4-1-4-1"
+    }
+  },
+  {
+    "id": 153,
+    "code": "SIA",
+    "name": "Sia",
+    "federation": "BIL",
+    "federationId": 1,
+    "logoPath": "/src/assets/images/clubs/bilsa/sia.png",
+    "founded": 1962,
+    "colors": {
+      "primary": "#2B38AB",
+      "secondary": "#BF90DF"
+    },
+    "budget": 74,
+    "squad": {
+      "formation": "4-4-2"
+    }
+  },
+  {
+    "id": 154,
+    "code": "SKA",
+    "name": "Skarbaj",
+    "federation": "BIL",
+    "federationId": 1,
+    "logoPath": "/src/assets/images/clubs/bilsa/skarbaj.png",
+    "founded": 1965,
+    "colors": {
+      "primary": "#2BA1AB",
+      "secondary": "#90A1DF"
+    },
+    "budget": 128,
+    "squad": {
+      "formation": "4-1-4-1"
+    }
+  },
+  {
+    "id": 155,
+    "code": "SOR",
+    "name": "Sorem",
+    "federation": "BIL",
+    "federationId": 1,
+    "logoPath": "/src/assets/images/clubs/bilsa/sorem.png",
+    "founded": 1985,
+    "colors": {
+      "primary": "#2B3EAB",
+      "secondary": "#BC90DF"
+    },
+    "budget": 131,
+    "squad": {
+      "formation": "4-4-2"
+    }
+  },
+  {
+    "id": 156,
+    "code": "SUR",
+    "name": "Suraj",
+    "federation": "BIL",
+    "federationId": 1,
+    "logoPath": "/src/assets/images/clubs/bilsa/suraj.png",
+    "founded": 1958,
+    "colors": {
+      "primary": "#2BA1AB",
+      "secondary": "#90A1DF"
+    },
+    "budget": 53,
+    "squad": {
+      "formation": "5-3-2"
+    }
+  },
+  {
+    "id": 157,
+    "code": "TEL",
+    "name": "Telle",
+    "federation": "BIL",
+    "federationId": 1,
+    "logoPath": "/src/assets/images/clubs/bilsa/telle.png",
+    "founded": 2009,
+    "colors": {
+      "primary": "#422BAB",
+      "secondary": "#D690DF"
+    },
+    "budget": 72,
+    "squad": {
+      "formation": "4-5-1"
+    }
+  },
+  {
+    "id": 158,
+    "code": "TJA",
+    "name": "Tjaca",
+    "federation": "BIL",
+    "federationId": 1,
+    "logoPath": "/src/assets/images/clubs/bilsa/tjaca.png",
+    "founded": 1964,
+    "colors": {
+      "primary": "#2BAB2D",
+      "secondary": "#90DFC9"
+    },
+    "budget": 48,
+    "squad": {
+      "formation": "4-3-3"
+    }
+  },
+  {
+    "id": 159,
+    "code": "VIK",
+    "name": "Vikatj",
+    "federation": "BIL",
+    "federationId": 1,
+    "logoPath": "/src/assets/images/clubs/bilsa/vikatj.png",
+    "founded": 1988,
+    "colors": {
+      "primary": "#2BAB94",
+      "secondary": "#90B6DF"
+    },
+    "budget": 81,
+    "squad": {
+      "formation": "3-4-3"
+    }
+  },
+  {
+    "id": 160,
+    "code": "VOL",
+    "name": "Voll",
+    "federation": "BIL",
+    "federationId": 1,
+    "logoPath": "/src/assets/images/clubs/bilsa/voll.png",
+    "founded": 1977,
+    "colors": {
+      "primary": "#4B2BAB",
+      "secondary": "#DB90DF"
+    },
+    "budget": 124,
+    "squad": {
+      "formation": "4-4-2"
+    }
+  },
+  {
+    "id": 161,
+    "code": "VOX",
+    "name": "Voxell",
+    "federation": "BIL",
+    "federationId": 1,
+    "logoPath": "/src/assets/images/clubs/bilsa/voxell.png",
+    "founded": 1996,
+    "colors": {
+      "primary": "#782BAB",
+      "secondary": "#DF90C7"
+    },
+    "budget": 82,
+    "squad": {
+      "formation": "3-4-3"
+    }
+  },
+  {
+    "id": 162,
+    "code": "VRT",
+    "name": "Vrta",
+    "federation": "BIL",
+    "federationId": 1,
+    "logoPath": "/src/assets/images/clubs/bilsa/vrta.png",
+    "founded": 1993,
+    "colors": {
+      "primary": "#2BABA1",
+      "secondary": "#90AEDF"
+    },
+    "budget": 78,
+    "squad": {
+      "formation": "3-5-2"
+    }
+  },
+  {
+    "id": 163,
+    "code": "WAR",
+    "name": "Warhem",
+    "federation": "BIL",
+    "federationId": 1,
+    "logoPath": "/src/assets/images/clubs/bilsa/warhem.png",
+    "founded": 1979,
+    "colors": {
+      "primary": "#2BAB90",
+      "secondary": "#90B9DF"
+    },
+    "budget": 118,
+    "squad": {
+      "formation": "4-3-3"
+    }
+  },
+  {
+    "id": 164,
+    "code": "WIW",
+    "name": "Wiwer",
+    "federation": "BIL",
+    "federationId": 1,
+    "logoPath": "/src/assets/images/clubs/bilsa/wiwer.png",
+    "founded": 1968,
+    "colors": {
+      "primary": "#402BAB",
+      "secondary": "#D490DF"
+    },
+    "budget": 140,
+    "squad": {
+      "formation": "4-1-4-1"
+    }
+  },
+  {
+    "id": 165,
+    "code": "WJZ",
+    "name": "Wjzeniza",
+    "federation": "BIL",
+    "federationId": 1,
+    "logoPath": "/src/assets/images/clubs/bilsa/wjzeniza.png",
+    "founded": 1969,
+    "colors": {
+      "primary": "#4B2BAB",
+      "secondary": "#DB90DF"
+    },
+    "budget": 51,
+    "squad": {
+      "formation": "4-5-1"
+    }
+  },
+  {
+    "id": 166,
+    "code": "ZAB",
+    "name": "Zabanj",
+    "federation": "BIL",
+    "federationId": 1,
+    "logoPath": "/src/assets/images/clubs/bilsa/zabanj.png",
+    "founded": 2001,
+    "colors": {
+      "primary": "#2B3AAB",
+      "secondary": "#BE90DF"
+    },
+    "budget": 77,
+    "squad": {
+      "formation": "4-4-2"
+    }
+  },
+  {
+    "id": 167,
+    "code": "ZEN",
+    "name": "Zenat",
+    "federation": "BIL",
+    "federationId": 1,
+    "logoPath": "/src/assets/images/clubs/bilsa/zenat.png",
+    "founded": 1969,
+    "colors": {
+      "primary": "#4DAB2B",
+      "secondary": "#90DFB2"
+    },
+    "budget": 101,
+    "squad": {
+      "formation": "4-3-3"
+    }
+  },
+  {
+    "id": 168,
+    "code": "ZUM",
+    "name": "Zumuza",
+    "federation": "BIL",
+    "federationId": 1,
+    "logoPath": "/src/assets/images/clubs/bilsa/zumuza.png",
+    "founded": 2007,
+    "colors": {
+      "primary": "#AB2B2B",
+      "secondary": "#DFC790"
+    },
+    "budget": 102,
+    "squad": {
+      "formation": "4-2-3-1"
+    }
+  },
+  {
+    "id": 169,
+    "code": "ZVO",
+    "name": "Zvoll",
+    "federation": "BIL",
+    "federationId": 1,
+    "logoPath": "/src/assets/images/clubs/bilsa/zvoll.png",
+    "founded": 2000,
+    "colors": {
+      "primary": "#AB472B",
+      "secondary": "#DFD890"
+    },
+    "budget": 116,
+    "squad": {
+      "formation": "4-2-3-1"
+    }
+  }
+]

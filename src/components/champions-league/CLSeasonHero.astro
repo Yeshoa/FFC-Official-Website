@@ -1,0 +1,83 @@
+---
+// CLSeasonHero: hero de temporada de la Champions League (sin imágenes).
+// - Finalizada: campeón (escudo + nombre) + "CHAMPIONS" + estrellas = títulos CL acumulados.
+// - En curso / sin empezar: "Forestian Champions League" + año grande (Space Grotesk).
+import type { CollectionEntry } from 'astro:content';
+import { getTournaments } from '@lib/collections';
+import { getClubById } from '@data/clubs';
+import SeasonSwitcher from '@components/tournaments/SeasonSwitcher.astro';
+import StarIcon from '@images/icons/star-solid.svg';
+
+interface Props {
+  tournament: CollectionEntry<'tournaments'>;
+  status?: string;
+}
+
+const { tournament, status } = Astro.props;
+const data = tournament.data;
+const season = data.season ?? data.edition;
+
+const finished = data.championId !== undefined && data.championId !== null;
+const championClub = finished && data.championId != null ? getClubById(data.championId) : null;
+
+// Estrellas = títulos CL acumulados del club hasta esta temporada.
+let championStars = 0;
+if (finished && championClub) {
+  const clTournaments = await getTournaments();
+  championStars = clTournaments.filter(
+    (t) =>
+      t.data.type === 'forestian-champions-league' &&
+      (t.data.season ?? t.data.edition) <= season &&
+      t.data.championId === championClub.id,
+  ).length;
+}
+
+const clubColor = championClub?.colors?.primary ?? '#95ff00';
+---
+
+<div class="relative w-full">
+  <SeasonSwitcher
+    current={data}
+    activeClass="text-cl-lime border-b-2 border-cl-lime pb-1 pointer-events-none"
+    idleClass="text-white hover:text-cl-lime-secondary"
+  />
+
+  <section class="relative w-full overflow-hidden bg-gradient-to-b from-black via-cl-black to-black">
+    <div class="cl-pattern absolute inset-0 opacity-20 pointer-events-none"></div>
+
+    <div class="relative z-10 flex flex-col items-center justify-center min-h-[60vh] px-6 pt-24 pb-16 text-center">
+      {finished && championClub ? (
+        <>
+          <p class="text-cl-lime uppercase tracking-[0.3em] text-sm font-semibold mb-2">
+            Season {season} · Champions
+          </p>
+          <div class="my-5 flex items-center justify-center">
+            <span
+              class="w-28 h-28 rounded-2xl border-2 flex items-center justify-center text-6xl font-black shadow-2xl"
+              style={{ backgroundColor: `${clubColor}22`, borderColor: clubColor, color: clubColor }}
+            >
+              {championClub.shortName?.[0] ?? championClub.name[0]}
+            </span>
+          </div>
+          <h1 class="text-5xl md:text-7xl font-black tracking-tight uppercase">{championClub.name}</h1>
+          <div class="mt-5 flex items-center gap-1.5" title={`${championStars} título${championStars !== 1 ? 's' : ''}`}>
+            {Array.from({ length: Math.min(championStars, 10) }).map((_, i) => (
+              <StarIcon key={i} class="w-8 h-8 fill-cl-lime" />
+            ))}
+          </div>
+        </>
+      ) : (
+        <>
+          <p class="text-cl-lime uppercase tracking-widest text-sm font-semibold">{status ?? 'Season'}</p>
+          <h1 class="mt-2 text-4xl md:text-6xl font-black tracking-tight uppercase">Forestian Champions League</h1>
+          <p class="mt-4 text-6xl md:text-9xl font-black leading-none text-cl-lime tabular-nums">{season}</p>
+        </>
+      )}
+    </div>
+
+    <div class="relative z-10 flex items-center justify-center gap-3 pb-10">
+      <a href="#standings" class="px-5 py-2.5 rounded-lg bg-cl-lime text-black font-bold hover:bg-white transition-colors">Standings</a>
+      <a href="#matches" class="px-5 py-2.5 rounded-lg border border-cl-lime/50 text-cl-lime hover:bg-cl-lime/10 transition-colors">Fixtures</a>
+    </div>
+  </section>
+</div>

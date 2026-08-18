@@ -1,0 +1,222 @@
+{
+  "main": {
+    "id": "856820a4a485c0a0",
+    "type": "split",
+    "children": [
+      {
+        "id": "b6154931a4a8cae3",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "0532a070385ece57",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Simulador/01 - Idea realizada por un agente.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "01 - Idea realizada por un agente"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "325edcb97560e121",
+    "type": "split",
+    "children": [
+      {
+        "id": "1fedfaaed1028e04",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "f3772e6db936b3a8",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Explorador de archivos"
+            }
+          },
+          {
+            "id": "0b71aa0029cb9cd1",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Buscar"
+            }
+          },
+          {
+            "id": "882eca2e9af527a3",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-bookmark",
+              "title": "Marcadores"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 215.5
+  },
+  "right": {
+    "id": "2452c322294dd773",
+    "type": "split",
+    "children": [
+      {
+        "id": "0a5052252de91f2b",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "5967102aa75b1c8f",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Plan del usuario/02 - Segunda actualización.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Enlaces entrantes"
+            }
+          },
+          {
+            "id": "93557f616e25faeb",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "Plan del usuario/02 - Segunda actualización.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Enlaces salientes"
+            }
+          },
+          {
+            "id": "5af862a7f7b5bbca",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Etiquetas"
+            }
+          },
+          {
+            "id": "fae3ff11214588e0",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "Todas las propiedades"
+            }
+          },
+          {
+            "id": "1bef384a287ca6a0",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Plan del usuario/02 - Segunda actualización.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Esquema"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Abrir selector rápido": false,
+      "graph:Abrir vista gráfica": false,
+      "canvas:Crear nuevo lienzo": false,
+      "daily-notes:Abrir la nota de hoy": false,
+      "templates:Insertar plantilla": false,
+      "command-palette:Abrir paleta de comandos": false,
+      "bases:Crear nueva base": false
+    }
+  },
+  "active": "0532a070385ece57",
+  "lastOpenFiles": [
+    "Simulador/Simulador - Idea.md",
+    "Simulador/01 - Idea realizada por un agente.md",
+    "Simulador/00-simulador.md",
+    "Plan del usuario/09 - Sección champions league.md",
+    "08-plan-implementacion.md",
+    "Plan del usuario/02 - Segunda actualización.md",
+    "README.md",
+    "05-champions-league.md",
+    "Plan del usuario/08 - Migración de jugadores y otros cambios.md",
+    "11-migracion-jugadores-pes.md",
+    "Plan del usuario/06 - Market.md",
+    "Forestian Champions League — Formato y reglas base.md",
+    "07-consistencia.md",
+    "02-modelo-datos.md",
+    "Plan del usuario/07 - Filtros Market.md",
+    "Plan del usuario/05 - Jugadores históricos.md",
+    "09-dudas.md",
+    "10-carga-de-goles.md",
+    "Plan del usuario/04 - Sobre como generar eventos.md",
+    "Plan del usuario/03 - Nuevas Notas.md",
+    "Plan del usuario/01 - Actualización.md",
+    "Plan del usuario/00 - Plan inicial.md",
+    "06-partidos.md",
+    "04-logros.md",
+    "03-ranking.md",
+    "01-estado-actual.md",
+    "Simulador",
+    "Plan del usuario"
+  ]
+}

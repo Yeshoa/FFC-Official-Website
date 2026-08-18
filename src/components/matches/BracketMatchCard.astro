@@ -5,6 +5,7 @@ import type { CollectionEntry } from 'astro:content';
 import { getMemberByName, getMemberImage } from 'src/utils/memberUtils';
 import { getMatchResult, getMatchWinnerIncludingPenalties } from 'src/utils/matchUtils';
 import { LOCALE } from '@config/constants';
+import { ROUTES } from '@config/routes';
 
 interface Goal {
   team: string;
@@ -71,7 +72,7 @@ const formattedDate = match.data.status === 'scheduled'
   ? match.data.date.toLocaleDateString(LOCALE, { day: '2-digit', month: 'short' })
   : null;
 ---
-<div class="bg-green-950/70 rounded-lg p-4 w-full hover:bg-black/30">
+<div class="bg-surface/70 rounded-lg p-4 w-full hover:bg-black/30">
   <div class="flex flex-col space-y-3">
     
     <!-- Equipo 1 -->
@@ -83,7 +84,7 @@ const formattedDate = match.data.status === 'scheduled'
         ) : (
           <div class="w-6 h-6 bg-gray-600 rounded-md"></div>
         )}
-        <a class={`${winner === match.data.team1 ? 'font-bold' : 'font-light'} hover:underline`} href={`/members/${team1?.slug}`}>
+        <a class={`${winner === match.data.team1 ? 'font-bold' : 'font-light'} hover:underline`} href={ROUTES.members.detail(team1!.id)}>
           {team1?.data.code}
         </a>
       </div>
@@ -91,11 +92,11 @@ const formattedDate = match.data.status === 'scheduled'
         <div class="flex text-center items-center">
           <span class={`${winner === match.data.team1 ? 'font-bold text-lg' : 'font-light'}`}>{team1Goals}</span>
           {hasPenalties && (
-            <span class={`text-xs ml-1 ${winner === match.data.team1 ? 'font-bold text-lg text-yellow-400' : 'font-light text-gray-400'}`}>({team1Penalties})</span>
+            <span class={`text-xs ml-1 ${winner === match.data.team1 ? 'font-bold text-lg text-yellow-400' : 'font-light text-text-muted'}`}>({team1Penalties})</span>
           )}
         </div>
       ) : (
-        <div class="text-xs text-gray-400">TBD</div>
+        <div class="text-xs text-text-muted">TBD</div>
       )}
     </div>
 
@@ -108,7 +109,7 @@ const formattedDate = match.data.status === 'scheduled'
         ) : (
           <div class="w-6 h-6 bg-gray-600 rounded-md"></div>
         )}
-        <a class={`${winner === match.data.team2 ? 'font-bold' : 'font-light'} hover:underline` } href={`/members/${team2?.slug}`}>
+        <a class={`${winner === match.data.team2 ? 'font-bold' : 'font-light'} hover:underline` } href={ROUTES.members.detail(team2!.id)}>
           {team2?.data.code}
         </a>
       </div>
@@ -116,17 +117,17 @@ const formattedDate = match.data.status === 'scheduled'
         <div class="flex items-center text-center">
           <span class={`${winner === match.data.team2 ? 'font-bold text-lg' : 'font-light'}`}>{team2Goals}</span>
           {hasPenalties && (
-            <span class={`text-xs ml-1 ${winner === match.data.team2 ? 'font-bold text-lg text-yellow-400' : 'font-light text-gray-400'}`}>({team2Penalties})</span>
+            <span class={`text-xs ml-1 ${winner === match.data.team2 ? 'font-bold text-lg text-yellow-400' : 'font-light text-text-muted'}`}>({team2Penalties})</span>
           )}
         </div>
       ) : (
-        <div class="text-xs text-gray-400">TBD</div>
+        <div class="text-xs text-text-muted">TBD</div>
       )}
     </div>
 
     {/* Mostrar fecha si el partido está programado */}
     {match.data.status === 'scheduled' && formattedDate && (
-      <div class="text-center text-xs text-gray-400 mt-1">
+      <div class="text-center text-xs text-text-muted mt-1">
         {formattedDate}
       </div>
     )}

@@ -1,0 +1,36 @@
+{
+  "teamCode": "WOO",
+  "teamName": "Woodland Green",
+  "lastUpdated": "2026-05-13",
+  "playerCount": 4,
+  "players": [
+    {
+      "id": "WOO_001",
+      "name": "May",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "WOO_002",
+      "name": "Polanski",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "WOO_003",
+      "name": "Stone",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "WOO_004",
+      "name": "Taro",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    }
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "teamCode": "CAC",
+  "teamName": "Cacusia",
+  "lastUpdated": "2026-05-13",
+  "playerCount": 9,
+  "players": [
+    {
+      "id": "CAC_001",
+      "name": "A. Tziyoniy",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "CAC_002",
+      "name": "C. Islay",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "CAC_003",
+      "name": "H. Blackmoor",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "CAC_004",
+      "name": "H. Grey",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "CAC_005",
+      "name": "I. Darrow",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "CAC_006",
+      "name": "M. Dartmouth",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "CAC_007",
+      "name": "O. Chumble",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "CAC_008",
+      "name": "O. Stout",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "CAC_009",
+      "name": "S. Blair",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    }
+  ]
+}

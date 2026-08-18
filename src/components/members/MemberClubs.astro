@@ -1,0 +1,33 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { loadClubsByFederation, loadClubsByFederationId } from '@data/clubs';
+import { ROUTES } from '@config/routes';
+
+interface Props {
+  member: CollectionEntry<'members'>;
+}
+
+const { member } = Astro.props;
+const clubs = member.data.id !== undefined
+  ? loadClubsByFederationId(member.data.id)
+  : loadClubsByFederation(member.data.code);
+---
+{
+  clubs.length > 0 ? (
+    <div class="bg-surface/80 shadow-lg rounded-lg p-6 mb-8">
+      <h2 class="text-2xl font-semibold mb-4 border-b pb-2 border-primary">Clubs</h2>
+      <ul class="flex flex-col gap-2">
+        {clubs.map(club => (
+          <li key={club.id}>
+            <a
+              href={ROUTES.clubs.detail(club.slug)}
+              class="flex items-center gap-3 rounded-lg border border-primary-dark bg-surface-raised/30 px-4 py-3 hover:bg-surface-raised/50 transition"
+            >
+              <span class="font-medium text-white">{club.name}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  ) : null
+}

@@ -2,6 +2,7 @@
 import App from '@layouts/App.astro';
 import { Image } from 'astro:assets';
 import FCLogo from '@images/Footer.png';
+import { ROUTES } from '@config/routes';
 ---
 
 <App title="FFC - Donation Complete">
@@ -20,15 +21,15 @@ import FCLogo from '@images/Footer.png';
 
     <!-- Message -->
     <section class="text-center max-w-lg px-4">
-      <h1 class="text-4xl font-bold text-green-600 mb-4">
+      <h1 class="text-4xl font-bold text-primary mb-4">
         Thank You for Your Support!
       </h1>
       <p class="text-gray-200 mb-6">
         Your donation helps us organize better tournaments and grow the Forestian football community. We truly appreciate your contribution!
       </p>
       <a
-        href="/"
-        class="inline-block px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg shadow-lg transition-all duration-300"
+        href={ROUTES.home}
+        class="inline-block px-6 py-3 bg-primary hover:bg-primary-dark text-white font-semibold rounded-lg shadow-lg transition-all duration-300"
       >
         Back to Home
       </a>

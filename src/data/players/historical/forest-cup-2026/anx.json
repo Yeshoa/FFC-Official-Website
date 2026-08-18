@@ -1,0 +1,24 @@
+{
+  "teamCode": "ANX",
+  "teamName": "Anxious and Kevin",
+  "tournament": "forest-cup-2026",
+  "tournamentEdition": 3,
+  "snapshotDate": "2026-05-13",
+  "playerCount": 2,
+  "players": [
+    {
+      "id": "ANX_001",
+      "name": "Åkerström",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "ANX_002",
+      "name": "Manninen",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    }
+  ]
+}

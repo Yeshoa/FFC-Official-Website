@@ -19,29 +19,29 @@ import TwitchLogo from '@images/twitch.png';
 import KickLogo from '@images/kick.png';
 import EggLumiose from '@images/eggs/egg-lum.webp';
 
+interface Props {
+  variant?: 'ffc' | 'fcl';
+}
+
+const { variant = 'ffc' } = Astro.props;
+const isFcl = variant === 'fcl';
+
 //If donations, change to 4, GRID COLS
 const cols = FEATURES.donations ? 4 : 3;
+const sponsorsStrip = isFcl
+  ? sponsors.filter((sponsor) => /sportswear|sportwear/i.test(sponsor.data.type ?? ''))
+  : sponsors.filter((sponsor) => sponsor.data.tier !== 'national');
 ---
-<footer class="bg-green-950 border-t border-green-600">
+<footer class={`${isFcl ? 'bg-cl-black/70 border-cl-lime/20' : 'bg-surface border-primary'} border-t`}>
   <div class="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
       <div class="md:flex md:justify-around">
         <!-- CHANGE TO GRID COLS 4 IF DONATIONS -->
         <div class={`grid grid-cols-2 gap-4 md:grid-cols-${cols} mb-6 text-center md:text-left md:order-2`}>
-          
-          <!-- Roleplay -->
-          <div class="">
-            <h2 class="mb-4 text-sm font-semibold uppercase text-white">Roleplay</h2>
-            <ul class="text-gray-400 font-medium space-y-4">
-              <li><a href={ROUTES.sponsors.index} class="hover:underline">Sponsors</a></li>
-              <li><a href={ROUTES.articles.index} class="hover:underline">Articles</a></li>
-              <li><a href={ROUTES.stadiums.index} class="hover:underline">Stadiums</a></li>
-            </ul>
-          </div>
 
           <!-- Community -->
           <div class="">
             <h2 class="mb-4 text-sm font-semibold uppercase text-white">Community</h2>
-            <ul class="text-gray-400 font-medium space-y-4">
+            <ul class="text-text-muted font-medium space-y-4">
               <li><a href={LINKS.nationStates.forest} target="_blank" class="hover:underline">Forest</a></li>
               <li><a href={LINKS.social.discordForest} target="_blank" class="hover:underline">Forest Discord Server</a></li>
               <li><a href={LINKS.social.discordFFC} target="_blank" class="hover:underline">FFC Discord Server</a></li>
@@ -51,7 +51,7 @@ const cols = FEATURES.donations ? 4 : 3;
           <!-- Follow us -->
           <div class="">
             <h2 class="mb-4 text-sm font-semibold uppercase text-white">Follow us</h2>
-            <ul class="text-gray-400 font-medium space-y-4">
+            <ul class="text-text-muted font-medium space-y-4">
               <li>
                 <a href={LINKS.social.youtube} target="_blank" class="hover:underline">
                   <Image src={YTLogo} alt="YouTube" class="inline-block h-auto mr-2" width={16} quality={60} format="webp"/>
@@ -73,11 +73,24 @@ const cols = FEATURES.donations ? 4 : 3;
             </ul>
           </div>
 
+          <!-- Support us -->
+          <div class="">
+            <h2 class="mb-4 text-sm font-semibold uppercase text-white">Support us</h2>
+            <ul class="text-text-muted font-medium space-y-4">
+              <li>
+                <a href={LINKS.forms.sponsor} target="_blank" class="hover:underline">Sponsor us</a>
+              </li>
+              <li>
+                <a href={LINKS.donations.paypal} target="_blank" rel="noopener noreferrer" aria-label="Donate via PayPal" class="hover:underline">Donate</a>
+              </li>
+            </ul>
+          </div>
+
           <!-- 4. Donate -->
           {FEATURES.donations && 
           <div class="">
             <h2 class="mb-4 text-sm font-semibold uppercase text-white">Donate</h2>
-            <ul class="text-gray-400 font-medium space-y-4">
+            <ul class="text-text-muted font-medium space-y-4">
               <li>  
                 <a
                   href={LINKS.donations.paypal}
@@ -100,7 +113,7 @@ const cols = FEATURES.donations ? 4 : 3;
         </div>
         <!-- Logo -->
         <div class="md:mx-12 flex justify-center md:order-1">
-            <a href="https://www.nationstates.net/page=dispatch/id=2525675" target="_blank" class="flex items-center">
+            <a href={LINKS.nationStates.dispatch} target="_blank" class="flex items-center">
               <Image src={FooterImage} width={400} alt="Forestian Football Confederation"
               quality={1} format="webp"
               class="max-w-[200px] xs:max-w-[300px] sm:max-w-[400px] md:max-w-[200px] lg:max-w-[300px] xl:max-w-max h-auto self-center"
@@ -109,30 +122,46 @@ const cols = FEATURES.donations ? 4 : 3;
         </div>
     </div>
   </div>
-  <div class="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8 border-t border-green-600">
+  <div class={`mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8 ${isFcl ? 'border-cl-lime/20' : 'border-primary'} border-t`}>
     <div class="flex justify-center mb-4">
       <h3 class="text-lg font-semibold text-white">Sponsors</h3>
     </div>
-    <div class="flex flex-wrap justify-center gap-8 mt-4">
-      {sponsors.filter((sponsor) => sponsor.data.tier !== 'national').map((sponsor, index) => (
-        <div class="relative">
-          {index === 13 && (
-            <div class="absolute -right-1 -top-3 z-0">
-              <EggTrigger
-                eggId="egg-1"
-                image={EggLumiose}
-                alt="Hidden Easter egg"
-                ariaLabel="Open hidden Easter egg"
-                buttonClass="opacity-85 transition duration-300 hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-300"
-                imageClass="w-8 rotate-[-18deg]"
-              />
+    {isFcl ? (
+      <div class="flex flex-wrap justify-center items-center gap-8 mt-4">
+        {sponsorsStrip.map((sponsor) => (
+          <Image
+            src={sponsor.data.image}
+            alt={sponsor.data.name}
+            width={96}
+            loading="lazy"
+            format="webp"
+            quality={60}
+            class="w-24 h-14 object-contain brightness-0 invert"
+          />
+        ))}
+      </div>
+    ) : (
+      <div class="flex flex-wrap justify-center gap-8 mt-4">
+        {sponsorsStrip.map((sponsor, index) => (
+          <div class="relative">
+            {index === 13 && (
+              <div class="absolute -right-1 -top-3 z-0">
+                <EggTrigger
+                  eggId="egg-1"
+                  image={EggLumiose}
+                  alt="Hidden Easter egg"
+                  ariaLabel="Open hidden Easter egg"
+                  buttonClass="opacity-85 transition duration-300 hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-light"
+                  imageClass="w-8 rotate-[-18deg]"
+                />
+              </div>
+            )}
+            <div class="relative z-10">
+              <SponsorCard sponsor={sponsor} />
             </div>
-          )}
-          <div class="relative z-10">
-            <SponsorCard sponsor={sponsor} />
           </div>
-        </div>
-      ))}
-    </div>
+        ))}
+      </div>
+    )}
   </div>
 </footer>

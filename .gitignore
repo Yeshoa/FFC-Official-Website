@@ -28,4 +28,5 @@ pnpm-debug.log*
 
 # custom
 refactor-plan.md
-/scripts
+# /scripts/*
+!/scripts/players-link.mjs

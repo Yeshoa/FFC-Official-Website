@@ -1,0 +1,59 @@
+{
+  "teamCode": "LUM",
+  "teamName": "Lumiose",
+  "tournament": "forest-cup-2026",
+  "tournamentEdition": 3,
+  "snapshotDate": "2026-05-13",
+  "playerCount": 7,
+  "players": [
+    {
+      "id": "LUM_001",
+      "name": "B. Dreamspell",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "LUM_002",
+      "name": "B. Marlee",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "LUM_003",
+      "name": "C. Farnirne",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "LUM_004",
+      "name": "M. Penosi",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "LUM_005",
+      "name": "S. Eastoft",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "LUM_006",
+      "name": "T. Pescaster",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "LUM_007",
+      "name": "W. Leswalyn",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    }
+  ]
+}

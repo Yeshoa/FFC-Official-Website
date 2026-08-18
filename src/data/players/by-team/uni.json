@@ -1,0 +1,50 @@
+{
+  "teamCode": "UNI",
+  "teamName": "United Malay Federation",
+  "lastUpdated": "2026-05-13",
+  "playerCount": 6,
+  "players": [
+    {
+      "id": "UNI_001",
+      "name": "A. Hafizuddin",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "UNI_002",
+      "name": "C. Cross",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "UNI_003",
+      "name": "E. Hayes",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "UNI_004",
+      "name": "E. Šapêr",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "UNI_005",
+      "name": "S. Poole",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "UNI_006",
+      "name": "Š. Zamzuri",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    }
+  ]
+}

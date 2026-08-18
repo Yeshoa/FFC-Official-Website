@@ -13,13 +13,13 @@ const { tournament } = Astro.props;
 const { data } = tournament;
 const { type, edition, name, host, image, loadingType } = data;
 
-const tournamentLink = type === 'forestian-champions-league' ? ROUTES.championsLeague.edition(edition) : ROUTES.forestCup.edition(edition);
+const tournamentLink = type === 'forestian-champions-league' ? ROUTES.championsLeague.season(data.season) : ROUTES.forestCup.season(data.season);
 const hostFlag = await getMemberImage(host) || defaultFlag;
 
 ---
 <a
   href={tournamentLink}
-  class="group block w-full rounded-xl overflow-hidden bg-gradient-to-br from-green-800 to-green-950 border border-emerald-500/20 shadow-lg hover:shadow-emerald-400/20 transition-all duration-300 hover:scale-[1.01]"
+  class="group block w-full rounded-xl overflow-hidden bg-gradient-to-br from-primary-deep to-surface border border-emerald-500/20 shadow-lg hover:shadow-emerald-400/20 transition-all duration-300 hover:scale-[1.01]"
 >
   <div class="relative w-full h-32 sm:h-40 flex flex-col items-center justify-center p-2">
 

@@ -1,14 +1,19 @@
 ---
 import { Image } from 'astro:assets';
-import BracketMatchCard from '@components/tournamentsmatches/BracketmatchCard.astro';
+import BracketMatchCard from '@components/matches/BracketMatchCard.astro';
 import MatchCardCompact from '@components/matches/MatchCardCompact.astro';
 import trophy from '@images/tournaments/trophy.png';
 import { getMemberByName } from 'src/utils/memberUtils';
 import { getMatchWinner } from 'src/utils/matchUtils';
+import { ROUTES } from '@config/routes';
+import type { CollectionEntry } from 'astro:content';
+
+type Match = CollectionEntry<'matches'>;
+type Member = CollectionEntry<'members'>;
 
 interface Props {
-  matches: any[]; // Lista de partidos del torneo
-  members: any[];
+  matches: Match[]; // Lista de partidos del torneo
+  members: Member[];
 }
 
 const { matches, members } = Astro.props;
@@ -17,7 +22,7 @@ const { matches, members } = Astro.props;
 const getMatchesByRound = (fixtureName: string) => {
   if (!matches || matches.length === 0) return [];
   // Filtrar partidos por fase (fixture)
-  return matches.filter((match: any) => 
+  return matches.filter(match => 
     match.data.stage === "knockout" && match.data.fixture === fixtureName
   );
 };
@@ -34,7 +39,7 @@ const finalMatch = finalMatches.length > 0 ? finalMatches[0] : null;
 const winnerTeam = getMemberByName(getMatchWinner(finalMatch.data), members) || 'Unknown';
 ---
 <div class="w-full py-8 px-4 rounded-lg">
-<!-- <div class="w-full py-8 px-4 rounded-lg bg-gradient-to-r from-green-950/80 via-green-900 to-green-950/80"> -->
+<!-- <div class="w-full py-8 px-4 rounded-lg bg-gradient-to-r from-surface/80 via-surface-raised to-surface/80"> -->
   <h2 class="text-2xl font-bold text-center mb-8">Final Bracket</h2>
 
   <div class="flex flex-col justify-center items-center w-full">
@@ -69,7 +74,7 @@ const winnerTeam = getMemberByName(getMatchWinner(finalMatch.data), members) || 
             ) : (
               <div class="w-20 h-20 bg-gray-600 rounded-lg" />
             )}
-            <a href={`/members/${winnerTeam?.slug}`} class="hover:underline">{winnerTeam?.data.name}</a>
+            <a href={ROUTES.members.detail(winnerTeam!.id)} class="hover:underline">{winnerTeam?.data.name}</a>
             <Image src={trophy} alt="Trophy" class="w-auto h-20" quality={1} format="webp" />
           </div>
           <BracketMatchCard match={finalMatch} members={members} />

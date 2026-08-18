@@ -1,0 +1,38 @@
+{
+  "teamCode": "BUN",
+  "teamName": "Bunkaiia",
+  "tournament": "forest-cup-2022",
+  "tournamentEdition": 1,
+  "snapshotDate": "2026-05-13",
+  "playerCount": 4,
+  "players": [
+    {
+      "id": "BUN_001",
+      "name": "B. Jaian",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "BUN_002",
+      "name": "D. Tsafimakoua",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "BUN_003",
+      "name": "G. Lotefin",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "BUN_004",
+      "name": "L. Keian",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    }
+  ]
+}

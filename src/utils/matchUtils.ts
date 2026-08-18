@@ -12,6 +12,15 @@ export function getMatchWinner(match: Match): string | null {
     : null;
 }
 
+// Gana del partido por id global (fuente de verdad de la Fase D).
+export function getMatchWinnerId(match: Match): number | null {
+  if (match.status !== 'played') return null;
+  const goals = getGoalsByTeam(match);
+  if (goals.team1 > goals.team2) return match.team1Id ?? null;
+  if (goals.team2 > goals.team1) return match.team2Id ?? null;
+  return null;
+}
+
 export function getMatchWinnerIncludingPenalties(match: Match): string | null {
   if (match.status !== 'played') return null;
 
@@ -31,6 +40,29 @@ export function getMatchWinnerIncludingPenalties(match: Match): string | null {
     return match.team1;
   } else if (penalties.team2 > penalties.team1) {
     return match.team2;
+  }
+
+  return null;
+}
+
+export function getMatchWinnerIncludingPenaltiesId(match: Match): number | null {
+  if (match.status !== 'played') return null;
+
+  const goals = getGoalsByTeam(match);
+
+  if (goals.team1 > goals.team2) {
+    return match.team1Id ?? null;
+  } else if (goals.team2 > goals.team1) {
+    return match.team2Id ?? null;
+  }
+
+  const penalties = getPenaltiesResult(match);
+  if (!penalties) return null;
+
+  if (penalties.team1 > penalties.team2) {
+    return match.team1Id ?? null;
+  } else if (penalties.team2 > penalties.team1) {
+    return match.team2Id ?? null;
   }
 
   return null;
@@ -135,8 +167,8 @@ export function areThereScorers(match: Match): boolean {
   return (match.goals ?? []).every(goal => !!goal.player);
 }
 
-export function getAllMatchesByTeam(team: string, matches: Match[]): Match[] {
-  return matches.filter(match => match.data.team1 === team || match.data.team2 === team)
+export function getAllMatchesByTeam(teamId: number, matches: Match[]): Match[] {
+  return matches.filter(match => match.data.team1Id === teamId || match.data.team2Id === teamId)
   .sort((a, b) => new Date(a.data.date).getTime() - new Date(b.data.date).getTime());
 }
 
@@ -152,38 +184,93 @@ export function getMatchRedCards(match: Match): { team1: { player: string; minut
   return { team1, team2 };
 }
 
-export function getAllRedCards(memberName: string, matches: Match[]) {
+export function getAllRedCards(teamId: number, matches: Match[]) {
   let total = 0;
   for (const match of matches) {
-    if (match.data.team1 === memberName) {
+    if (match.data.team1Id === teamId) {
       total += getMatchRedCards(match.data).team1.length;
     }
-    if (match.data.team2 === memberName) {
+    if (match.data.team2Id === teamId) {
       total += getMatchRedCards(match.data).team2.length;
     }
   }
   return total;
 }
 
-export function getMatchGoals(match: Match, team: string): { gf: number, ga: number } {
+export function getMatchGoals(match: Match, teamId: number): { gf: number, ga: number } {
   const goals = match.data.goals ?? [];
-  const gf = goals.filter(g => g.team === team).length;
-  const ga = goals.length - gf; // Total de goles menos los goles a favor
+  const isTeam1 = match.data.team1Id === teamId;
+  const isTeam2 = match.data.team2Id === teamId;
+  const teamName = isTeam1 ? match.data.team1 : isTeam2 ? match.data.team2 : '';
+  const gf = goals.filter(g => g.team === teamName).length;
+  const ga = goals.length - gf;
   return { gf, ga };
 }
 
+// ── Head-to-head por id global (miembro o club) ─────────────────────────────
+export interface TeamH2HStats {
+  opponentId: number;
+  played: number;
+  wins: number;
+  draws: number;
+  losses: number;
+  goalsFor: number;
+  goalsAgainst: number;
+  difference: number;
+}
+
+// Historial entre un equipo y sus rivales (solo partidos jugados).
+export function getTeamHeadToHeadStats(
+  teamId: number,
+  matches: CollectionEntry<'matches'>[],
+): TeamH2HStats[] {
+  const map = new Map<number, TeamH2HStats>();
+  for (const m of matches) {
+    if (m.data.status !== 'played') continue;
+    const isTeam1 = m.data.team1Id === teamId;
+    const isTeam2 = m.data.team2Id === teamId;
+    if (!isTeam1 && !isTeam2) continue;
+    const opponentId = isTeam1 ? m.data.team2Id : m.data.team1Id;
+    if (opponentId === undefined || opponentId === null) continue;
+
+    const goals = m.data.goals ?? [];
+    const teamName = isTeam1 ? m.data.team1 : m.data.team2;
+    const gf = goals.filter((g) => g.team === teamName).length;
+    const ga = goals.length - gf;
+
+    const entry = map.get(opponentId) ?? {
+      opponentId, played: 0, wins: 0, draws: 0, losses: 0,
+      goalsFor: 0, goalsAgainst: 0, difference: 0,
+    };
+    entry.played++;
+    entry.goalsFor += gf;
+    entry.goalsAgainst += ga;
+    if (gf > ga) { entry.wins++; entry.difference++; }
+    else if (gf === ga) entry.draws++;
+    else { entry.losses++; entry.difference--; }
+    map.set(opponentId, entry);
+  }
+
+  return [...map.values()].sort((a, b) =>
+    b.played - a.played ||
+    b.wins - a.wins ||
+    (b.goalsFor - b.goalsAgainst) - (a.goalsFor - a.goalsAgainst) ||
+    b.goalsFor - a.goalsFor,
+  );
+}
+
 function getStreak(
-  memberName: string,
+  teamId: number,
   allMatches: Match[],
   condition: (gf: number, ga: number) => boolean
 ): number {
   let streak = 0;
   let maxStreak = 0;
   const playedMatches = allMatches
-    .filter(m => [m.data.team1, m.data.team2].includes(memberName) && m.data.status === 'played')
+    .filter(m => (m.data.team1Id === teamId || m.data.team2Id === teamId) && m.data.status === 'played')
     .sort((a, b) => new Date(a.data.date).getTime() - new Date(b.data.date).getTime());
   for (const match of playedMatches) {
-    const { gf, ga } = getMatchGoals(match, memberName);
+    const { gf, ga } = getMatchGoals(match, teamId);
     if (condition(gf, ga)) {
       streak++;
       if (streak > maxStreak) maxStreak = streak;
@@ -194,39 +281,30 @@ function getStreak(
   return maxStreak;
 }
 
-export function getLossStreak(memberName: string, allMatches: Match[]) {
-  return getStreak(memberName, allMatches, (gf, ga) => gf < ga);
+export function getLossStreak(teamId: number, allMatches: Match[]) {
+  return getStreak(teamId, allMatches, (gf, ga) => gf < ga);
 }
 
-export function getUnbeatenStreak(memberName: string, allMatches: Match[]) {
-  return getStreak(memberName, allMatches, (gf, ga) => gf >= ga);
+export function getUnbeatenStreak(teamId: number, allMatches: Match[]) {
+  return getStreak(teamId, allMatches, (gf, ga) => gf >= ga);
 }
 
-export function getWinStreak(memberName: string, allMatches: Match[]) {
-  return getStreak(memberName, allMatches, (gf, ga) => gf > ga);
+export function getWinStreak(teamId: number, allMatches: Match[]) {
+  return getStreak(teamId, allMatches, (gf, ga) => gf > ga);
 }
 
-export function getNoWinStreak(memberName: string, allMatches: Match[]) {
-  return getStreak(memberName, allMatches, (gf, ga) => gf <= ga);
+export function getNoWinStreak(teamId: number, allMatches: Match[]) {
+  return getStreak(teamId, allMatches, (gf, ga) => gf <= ga);
 }
 
-export function getNoGoalStreak(memberName: string, allMatches: Match[]): number {
-  return getStreak(memberName, allMatches, (gf, ga) => gf === 0);
+export function getNoGoalStreak(teamId: number, allMatches: Match[]): number {
+  return getStreak(teamId, allMatches, (gf, ga) => gf === 0);
 }
 
-export function getWins(memberName: string) {
-  let wins = 0;
-  for (const match of allMatches) {
-    const { gf, ga } = getMatchGoals(match, memberName);
-    if (gf > ga) wins++;
-  }
-  return wins;
-}
-
-export function getAllGoals(memberName: string, allMatches: Match[]) {
+export function getAllGoals(teamId: number, allMatches: Match[]) {
   let goals = 0;
   for (const match of allMatches) {
-    const { gf, ga } = getMatchGoals(match, memberName);
+    const { gf, ga } = getMatchGoals(match, teamId);
     goals += gf;
   }
   return goals;

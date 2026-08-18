@@ -1,0 +1,17 @@
+{
+  "teamCode": "TUR",
+  "teamName": "Turbeaux",
+  "tournament": "forest-cup-2022",
+  "tournamentEdition": 1,
+  "snapshotDate": "2026-05-13",
+  "playerCount": 1,
+  "players": [
+    {
+      "id": "TUR_001",
+      "name": "G. Hua-Bai",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    }
+  ]
+}

@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets';
+import { ROUTES } from '@config/routes';
 import { getRankClass, getRankedMembers } from '@lib/rankingUtils';
 import { getTotalColorClass } from '@lib/scoreUtils';
 import { getCurrentBonuses, getCurrentBonusPoints } from '@lib/bonusUtils';
@@ -10,14 +11,14 @@ import { getCurrentRoleplays } from '@lib/roleplayUtils';
 // const events = getEvents();
 // const roleplays = getRoleplays();
 
-const { members, currentTournamentId } = Astro.props;
+const { members, currentSeason } = Astro.props;
 
-const rankedMembers = await getRankedMembers(members, currentTournamentId);
+const rankedMembers = await getRankedMembers(members, currentSeason);
 const currentEvents = getCurrentEvents();
 const currentRoleplays = getCurrentRoleplays();
 const currentBonuses = getCurrentBonuses();
 
-const headerCellClass = "px-2 py-2 text-center font-medium border-b border-l border-green-600";
+const headerCellClass = "px-2 py-2 text-center font-medium border-b border-l border-primary";
 ---
 
 <div class="w-full mb-6 md:col-span-2 lg:col-span-3 order-1 md:order-2">
@@ -25,38 +26,38 @@ const headerCellClass = "px-2 py-2 text-center font-medium border-b border-l bor
     Swipe to see full scores
   </h6> */}
   
-  <p class="text-center mb-2 text-xs xs:text-md text-green-500 opacity-0 animate-[slide-in_1s_ease-in-out_forwards_.8s] sm:hidden">
+  <p class="text-center mb-2 text-xs xs:text-md text-primary-strong opacity-0 animate-[slide-in_1s_ease-in-out_forwards_.8s] sm:hidden">
     RP = Roleplay, E = Events, B = Bonus, P = Past, T = Total
   </p>
   <div class="overflow-x-auto rounded-lg opacity-0 animate-[slide-in_1s_ease-in-out_forwards_.5s]">
     <table class="w-full border-collapse text-sm">
-      <thead class="bg-green-800 uppercase">
+      <thead class="bg-primary-deep uppercase">
         <tr>
-          <th class="w-8 px-2 py-3 text-center border-b border-green-600 rounded-tl-xl" title="Position">°</th>
-          <th class="w-10 px-2 py-3 text-center border-b border-green-600"></th>
+          <th class="w-8 px-2 py-3 text-center border-b border-primary rounded-tl-xl" title="Position">°</th>
+          <th class="w-10 px-2 py-3 text-center border-b border-primary"></th>
           <!-- Team: ocupa todo el espacio sobrante -->
-          <th class="py-3 text-left border-b border-green-600 min-w-[80px]">Team</th>
-          <th class="w-10 sm:w-16 px-2 py-2 text-center font-medium border-b border-x border-green-600" title="Roleplay">RP</th>
-          <th class="w-10 sm:w-16 px-2 py-2 text-center font-medium border-b border-x border-green-600" title="Events">
+          <th class="py-3 text-left border-b border-primary min-w-[80px]">Team</th>
+          <th class="w-10 sm:w-16 px-2 py-2 text-center font-medium border-b border-x border-primary" title="Roleplay">RP</th>
+          <th class="w-10 sm:w-16 px-2 py-2 text-center font-medium border-b border-x border-primary" title="Events">
             <span class="hidden sm:inline">Events</span>
             <span class="sm:hidden">E</span>
           </th>
-          <th class="w-10 sm:w-16 px-2 py-2 text-center font-medium border-b border-x border-green-600" title="Bonus">
+          <th class="w-10 sm:w-16 px-2 py-2 text-center font-medium border-b border-x border-primary" title="Bonus">
             <span class="hidden sm:inline">Bonus</span>
             <span class="sm:hidden">B</span>
           </th>
-          <th class="w-10 sm:w-16 px-2 py-2 border-b border-x border-green-600 bg-gradient-to-r from-blue-800/30 to-blue-800/60" title="Past Editions">
+          <th class="w-10 sm:w-16 px-2 py-2 border-b border-x border-primary bg-gradient-to-r from-blue-800/30 to-blue-800/60" title="Past Editions">
             <span class="hidden sm:inline">Past</span>
             <span class="sm:hidden">P</span>
           </th>
-          <th class="w-10 sm:w-14 px-2 py-3 text-center font-bold border-b border-l border-green-600 rounded-tr-xl" title="Total Points">
+          <th class="w-10 sm:w-14 px-2 py-3 text-center font-bold border-b border-l border-primary rounded-tr-xl" title="Total Points">
             <span class="hidden sm:inline">Pts</span>
             <span class="sm:hidden">T</span>
           </th>
         </tr>
       </thead>
 
-      <tbody class="text-center text-green-300">
+      <tbody class="text-center text-primary-light">
         {rankedMembers.map((team, index) => {
           const hostPoints = getCurrentBonusPoints(team.currentBonus, 'Host nation');
           const eggsPoints = getCurrentBonusPoints(team.currentBonus, 'Easter Eggs');
@@ -67,8 +68,8 @@ const headerCellClass = "px-2 py-2 text-center font-medium border-b border-l bor
           const pastTotal = team.scores.pastRoleplay + team.scores.pastEventPoints + team.scores.pastBonus + team.scores.tournamentDecayPoints;
 
           return (
-            <tr class="border-b border-green-700 hover:bg-green-800/30 transition duration-150 odd:bg-green-900/30">
-              <td class={`py-2 font-semibold border-r border-green-700 ${getRankClass(index+1)}`}>{index + 1}</td>
+            <tr class="border-b border-primary-dark hover:bg-primary-deep/30 transition duration-150 odd:bg-surface-raised/30">
+              <td class={`py-2 font-semibold border-r border-primary-dark ${getRankClass(index+1)}`}>{index + 1}</td>
               <td class="px-1 py-1">
                 <Image
                   src={team.flag || "/placeholder.svg"}
@@ -81,14 +82,14 @@ const headerCellClass = "px-2 py-2 text-center font-medium border-b border-l bor
               </td>
               <td class="ps-2 py-2 text-left">
                 <a
-                  href={`/members/${team.slug}`}
+                  href={ROUTES.members.detail(team.slug)}
                   class="hidden sm:inline font-semibold hover:underline text-white overflow-ellipsis"
                   title={team.name}
                 >
                   {team.name}
                 </a>
                 <a
-                  href={`/members/${team.slug}`}
+                  href={ROUTES.members.detail(team.slug)}
                   class="sm:hidden font-semibold hover:underline text-white"
                   title={team.name}
                 >
@@ -96,23 +97,23 @@ const headerCellClass = "px-2 py-2 text-center font-medium border-b border-l bor
                 </a>
               </td>
 
-              <td class="px-2 py-2 border-x border-green-700" title={`Total Roleplay Points: ${roleplayTotal}`}>
+              <td class="px-2 py-2 border-x border-primary-dark" title={`Total Roleplay Points: ${roleplayTotal}`}>
                 {roleplayTotal}
               </td>
 
-              <td class="px-2 py-2 border-x border-green-700" title={`Total Events Points: ${eventsTotal}`}>
+              <td class="px-2 py-2 border-x border-primary-dark" title={`Total Events Points: ${eventsTotal}`}>
                 {eventsTotal.toFixed(0)}
               </td>
 
-              <td class="px-2 py-2 border-x border-green-700" title={`Total Bonus Points: ${bonusTotal}`}>
+              <td class="px-2 py-2 border-x border-primary-dark" title={`Total Bonus Points: ${bonusTotal}`}>
                 {bonusTotal}
               </td>
 
-              <td class="px-2 py-2 bg-gradient-to-r from-blue-800/30 to-blue-800/60 border-x border-green-700" title={`Total Past Points: ${pastTotal}`}>
+              <td class="px-2 py-2 bg-gradient-to-r from-blue-800/30 to-blue-800/60 border-x border-primary-dark" title={`Total Past Points: ${pastTotal}`}>
                 {pastTotal.toFixed(0)}
               </td>
 
-              <td class={`px-2 py-2 ${getTotalColorClass(team.totalScore)} border-l border-green-700`}>
+              <td class={`px-2 py-2 ${getTotalColorClass(team.totalScore)} border-l border-primary-dark`}>
                 {team.totalScore}
               </td>
             </tr>

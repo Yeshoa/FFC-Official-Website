@@ -11,7 +11,7 @@ const { size = 'text-6xl', slideIn = false, color = '' } = Astro.props;
   <h1 class={`${size} font-bold mb-4 text-center ${slideIn && 'opacity-0 animate-sladeIn'} ${color}`}>
     <slot/>
   </h1>
-  <h2 class={`text-lg text-green-300 ${slideIn && 'opacity-0 animate-[slide-in_1s_ease-in-out_forwards_.1s]'}`}>
+  <h2 class={`text-lg text-primary-light ${slideIn && 'opacity-0 animate-[slide-in_1s_ease-in-out_forwards_.1s]'}`}>
     <slot name="subtitle"/>
   </h2>
 </div>

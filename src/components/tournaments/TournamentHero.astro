@@ -1,9 +1,10 @@
 ---
 import { Image } from "astro:assets";
-import { getTournaments } from "@lib/collections";
 import type { CollectionEntry } from "astro:content";
 import Star from "@images/icons/star-solid.svg";
 import defaulFlag from "@images/tournaments/default-flag.png";
+import SeasonSwitcher from '@components/tournaments/SeasonSwitcher.astro';
+import { ROUTES } from '@config/routes';
 
 interface Props {
   currentTournament: CollectionEntry<'tournaments'>['data'];
@@ -15,36 +16,11 @@ const { currentTournament, champion, className } = Astro.props;
 
 const flagPath = champion ? champion.data.flagPath : defaulFlag;
 const name = champion ? champion.data.name : 'TBD';
-const href = champion ? `/members/${champion.slug}` : '#';
-
-const allTournaments = await getTournaments();
-const sortedTournaments = allTournaments.sort((a, b) => a.data.id - b.data.id);
+const href = champion ? ROUTES.members.detail(champion.id) : '#';
 ---
 
 <div class="relative w-full">
-  <nav class="absolute top-0 left-0 right-0 z-20 bg-green-950/80 backdrop-blur-sm">
-    <div class="flex justify-center items-center py-3 px-4">
-      <div class="flex gap-6 overflow-x-auto scrollbar-hide">
-        {sortedTournaments.slice().reverse().map((tournament) => {
-          const isActive = tournament.data.id === currentTournament.id;
-          return (
-            <a
-              href={isActive ? "#" : `/${tournament.data.type}/${tournament.data.edition}`}
-              class:list={[
-                "text-sm font-medium whitespace-nowrap transition-all duration-300",
-                isActive
-                  ? "text-amber-300 border-b-2 border-amber-300 pb-1 pointer-events-none"
-                  : "text-green-200 hover:text-amber-200"
-              ]}
-            >
-              <span class="hidden sm:inline">{tournament.data.name}</span>
-              <span class="sm:hidden">{tournament.data.edition}</span>
-            </a>
-          );
-        })}
-      </div>
-    </div>
-  </nav>
+  <SeasonSwitcher current={currentTournament} />
 
   <section class="relative w-full overflow-hidden text-white">
     <!-- Hero Image (carga primero) -->
@@ -56,7 +32,7 @@ const sortedTournaments = allTournaments.sort((a, b) => a.data.id - b.data.id);
         loading="eager"
         format="webp"
       />
-      <div class="absolute inset-0 bg-gradient-to-t from-green-1000 via-green-950/80 to-green-950/60 lg:bg-gradient-to-r lg:from-green-950 lg:via-green-950/70 lg:to-green-950/30"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-background via-surface/80 to-surface/60 lg:bg-gradient-to-r lg:from-surface lg:via-surface/70 lg:to-surface/30"></div>
     </div>
 
     <!-- Contenido principal (aparece después con fade-in) -->
@@ -75,7 +51,7 @@ const sortedTournaments = allTournaments.sort((a, b) => a.data.id - b.data.id);
       </div>
 
       <div>
-        <h2 class="text-lg uppercase tracking-widest text-gray-400">
+        <h2 class="text-lg uppercase tracking-widest text-text-muted">
           Champions
         </h2>
         
@@ -166,6 +142,4 @@ const sortedTournaments = allTournaments.sort((a, b) => a.data.id - b.data.id);
     will-change: opacity, transform;
     transform: translateY(20px);
   }
-  .scrollbar-hide::-webkit-scrollbar { display: none; }
-  .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
 </style>

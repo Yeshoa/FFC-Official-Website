@@ -1,0 +1,31 @@
+{
+  "teamCode": "REA",
+  "teamName": "Reannia",
+  "tournament": "forest-cup-2022",
+  "tournamentEdition": 1,
+  "snapshotDate": "2026-05-13",
+  "playerCount": 3,
+  "players": [
+    {
+      "id": "REA_001",
+      "name": "D. Vela",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "REA_002",
+      "name": "J. Carmona",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "REA_003",
+      "name": "S. Sterling",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    }
+  ]
+}

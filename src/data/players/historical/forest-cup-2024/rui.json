@@ -1,0 +1,52 @@
+{
+  "teamCode": "RUI",
+  "teamName": "Ruinenlust",
+  "tournament": "forest-cup-2024",
+  "tournamentEdition": 2,
+  "snapshotDate": "2026-05-13",
+  "playerCount": 6,
+  "players": [
+    {
+      "id": "RUI_001",
+      "name": "J. Hauz",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "RUI_002",
+      "name": "L. Nesar",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "RUI_003",
+      "name": "O. Bonfis",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "RUI_004",
+      "name": "O. Swen",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "RUI_005",
+      "name": "S. Ben",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "RUI_006",
+      "name": "W. Rachs",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    }
+  ]
+}

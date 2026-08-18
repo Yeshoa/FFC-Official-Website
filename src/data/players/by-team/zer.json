@@ -1,0 +1,36 @@
+{
+  "teamCode": "ZER",
+  "teamName": "Zerphen",
+  "lastUpdated": "2026-05-13",
+  "playerCount": 4,
+  "players": [
+    {
+      "id": "ZER_001",
+      "name": "D. Wrevian",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "ZER_002",
+      "name": "N. Lyriath",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "ZER_003",
+      "name": "P. Nyphon",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "ZER_004",
+      "name": "S. Fenthys",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "teamCode": "ATS",
+  "teamName": "Atsvea",
+  "tournament": "forest-cup-2024",
+  "tournamentEdition": 2,
+  "snapshotDate": "2026-05-13",
+  "playerCount": 8,
+  "players": [
+    {
+      "id": "ATS_001",
+      "name": "A. Hoshar",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "ATS_002",
+      "name": "B. Modron",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "ATS_003",
+      "name": "B. Notsu",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "ATS_004",
+      "name": "C. Votnuc",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "ATS_005",
+      "name": "K. Zaajaagah",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "ATS_006",
+      "name": "N. Tethys",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "ATS_007",
+      "name": "Nysnub",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "ATS_008",
+      "name": "Z. Nasus",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    }
+  ]
+}

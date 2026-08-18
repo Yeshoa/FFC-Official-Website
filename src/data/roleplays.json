@@ -4,7 +4,7 @@
     "name": "Football History",
     "description": "A NS dispatch covering football lore.",
     "code": "FH",
-    "edition": 3,
+    "edition": 2026,
     "type": "football_history",
     "maxScore": 1,
     "participants": {
@@ -32,7 +32,7 @@
     "name": "Roleplay",
     "description": "- Any roleplay about the FC '26: 5 pts.\n- Sponsor us: 5 pts.\n- Complete the registration form with at least one 'Customize My Team' field filled: 10 pts.",
     "code": "RP",
-    "edition": 3,
+    "edition": 2026,
     "type": "football_roleplay",
     "maxScore": 3,
     "participants": {
@@ -62,7 +62,7 @@
     "name": "Upload an Article",
     "description": "Write a football-themed article.",
     "code": "AR",
-    "edition": 3,
+    "edition": 2026,
     "type": "articles",
     "maxScore": 1,
     "participants": {
@@ -75,7 +75,7 @@
     "name": "Football History",
     "description": "A NationStates dispatch covering team history, league creation, or football lore.",
     "code": "FH",
-    "edition": 2,
+    "edition": 2024,
     "type": "football_history",
     "maxScore": 20,
     "participants": {
@@ -106,7 +106,7 @@
     "name": "Football History",
     "description": "A NationStates dispatch covering team history, league creation, or football lore.",
     "code": "FH",
-    "edition": 1,
+    "edition": 2022,
     "type": "football_history",
     "maxScore": 20,
     "participants": {
@@ -124,7 +124,7 @@
     "description": "RP or mention the Forest Cup in a dispatch (text or results section).",
     "code": "RP",
     "enabled": false,
-    "edition": 1,
+    "edition": 2022,
     "type": "football_roleplay",
     "maxScore": 10,
     "participants": {
@@ -137,7 +137,7 @@
     "description": "RP or mention the Forest Cup in a dispatch (text or results section).",
     "code": "RP",
     "enabled": false,
-    "edition": 0,
+    "edition": 2020,
     "type": "football_roleplay",
     "maxScore": 10,
     "participants": {

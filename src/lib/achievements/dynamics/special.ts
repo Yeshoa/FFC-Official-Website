@@ -1,140 +1,98 @@
 import Trophy from '@images/achievements/king.webp';
-import type { Achievement } from './index';
-import { getMemberByName } from 'src/utils/memberUtils';
-import { getGoalsByTeam, getMatchWinner, getMatchWinnerIncludingPenalties } from 'src/utils/matchUtils';
+import type { AchievementDefinition, AchievementResult } from '../types';
+import { getMemberById } from 'src/utils/memberUtils';
+import { getMatchGoals, getMatchWinnerIncludingPenaltiesId } from 'src/utils/matchUtils';
 import type { Category } from '../utils';
+import { ALIGNMENTS, type Subcategory } from '../utils';
 
 const thisCategory = 'Special';
 
-export const specialAchievements: {
-  id: string;
-  rarity: number;
-  name: string;
-  icon: ImageMetadata;
-  description: string;
-  category: Category;
-  stars?: number;
-  skulls?: number;
-  unique: boolean;
-  visible: boolean; // This one is for when it is locked, not for enabled or disabled
-  enabled: boolean;
-  evaluate: (...args: any[]) => Achievement | null;
-}[] = [
+export const specialAchievements: AchievementDefinition[] = [
   {
     id: 'goal-famine',
     rarity: -4,
     name: 'Dry Spell',
     icon: Trophy,
     description: 'Never scored a single goal in Forest Cup history.',
-    category: thisCategory,
+    category: thisCategory as Category,
+    subcategory: "Goals" as Subcategory,
+    alignment: ALIGNMENTS[1],
     visible: true,
     unique: false,
     enabled: false,
-    evaluate: function (matches, tournaments, member) {
+    stars: 1,
+    evaluate: function (context) {
+      const { matches, member } = context;
+      const memberId = member.data.id;
       const played = matches.filter(m =>
-        [m.data.team1, m.data.team2].includes(member.data.name)
+        m.data.team1Id === memberId || m.data.team2Id === memberId
       );
 
       const goals = played.reduce((acc, m) => {
-        return acc + (m.data.goals?.filter(g => g.team === member.data.name).length ?? 0);
+        return acc + getMatchGoals(m, memberId).gf;
       }, 0);
 
       if (!played.length || goals !== 0) return null;
 
-      const { evaluate, ...base } = this;
-      return {
-        ...base,
+      return achieved(this, {
         description: `Never scored a single goal in Forest Cup history.`,
-      }
+      })
     }
   },
-  /* {
-    id: 'biggest-win',
-    rarity: 2,
-    name: 'Biggest Win',
-    icon: Trophy,
-    description: 'Awarded for achieving the largest goal difference victory in a verified match.',
-    category: thisCategory,
-    visible: true,
-    unique: false,
-    enabled: true,
-    evaluate: function (matches, tournaments, member, memberCollection) {
-      if (!member.data.verified) return null;
-
-      // 1) Verified matches
-      const verifiedMatches = matches.filter(m => {
-        const t1 = getMemberByName(m.data.team1, memberCollection)?.data.verified;
-        const t2 = getMemberByName(m.data.team2, memberCollection)?.data.verified;
-        return t1 || t2;
-      });
-      if (!verifiedMatches.length) return null;
-
-      // 2) Max goal difference
-      let maxDiff = 0;
-      for (const m of verifiedMatches) {
-        const { team1, team2 } = getGoalsByTeam(m.data);
-        maxDiff = Math.max(maxDiff, team1 - team2, team2 - team1);
-      }
-      if (maxDiff <= 0) return null;
-
-      // 3) Filter the ones where winner is verified
-      const biggestWins = verifiedMatches.flatMap(m => {
-        const { team1, team2 } = getGoalsByTeam(m.data);
-        const diffs: Array<{ winner: string; loser: string; goals: [number,number] }> = [];
-        if (team1 - team2 === maxDiff) diffs.push({ winner: m.data.team1, loser: m.data.team2, goals: [team1, team2] });
-        if (team2 - team1 === maxDiff) diffs.push({ winner: m.data.team2, loser: m.data.team1, goals: [team2, team1] });
-        return diffs.filter(d => getMemberByName(d.winner, memberCollection)?.data.verified);
-      });
-
-      // 4) If the member won one of them
-      if (biggestWins.some(w => w.winner === member.data.name)) {
-        const win = biggestWins.find(w => w.winner === member.data.name)!;
-        const opponent = win.loser;
-        const [scW, scL] = win.goals;
-
-        const { evaluate, ...base } = this;
-        return {
-          ...base,
-          description: `Biggest victory: ${scW}–${scL} vs ${opponent}.`
-        };
-      }
-
-      return null;
-    }
-  }, */
   {
     id: 'enemy',
     rarity: -1,
     name: 'Enemy',
     icon: Trophy,
     description: 'Eliminated 2+ times by the same rival.',
-    category: thisCategory,
+    category: thisCategory as Category,
+    subcategory: "Head-to-Head Eliminations" as Subcategory,
+    alignment: ALIGNMENTS[1],
     visible: false,
     unique: false,
     enabled: false,
-    evaluate: function (matches, tournaments, member) {
-      const eliminations: Record<string, number> = {};
+    stars: 1,
+    evaluate: function (context) {
+      const { matches, member } = context;
+      const memberId = member.data.id;
+      const eliminations: Record<number, number> = {};
 
       for (const m of matches) {
         if (m.data.stage !== 'knockout') continue;
         if (m.data.status !== 'played') continue;
 
-        let winner = getMatchWinnerIncludingPenalties(m.data);
-        const loser = winner === m.data.team1 ? m.data.team2 : m.data.team1;
+        const winnerId = getMatchWinnerIncludingPenaltiesId(m.data);
+        if (winnerId === null) continue;
+        const loserId = winnerId === m.data.team1Id ? m.data.team2Id : m.data.team1Id;
 
-        if (loser === member.data.name) {
-          eliminations[winner] = (eliminations[winner] ?? 0) + 1;
+        if (loserId === memberId) {
+          eliminations[winnerId] = (eliminations[winnerId] ?? 0) + 1;
         }
       }
 
       const rivals = Object.entries(eliminations).filter(([, count]) => count >= 2);
       if (!rivals.length) return null;
 
-      const { evaluate, ...base } = this;
-      return {
-        ...base,
-        description: `Eliminated 2+ times by: ${rivals.map(([r]) => r).join(', ')}.`
-      }
+      const rivalNames = rivals.map(([id]) => {
+        const rival = getMemberById(Number(id));
+        return rival?.data.name ?? `#${id}`;
+      });
+      return achieved(this, {
+        description: `Eliminated 2+ times by: ${rivalNames.join(', ')}.`,
+        current: rivals.length,
+        target: 1,
+        progress: 100,
+      })
     }
   }
 ];
+
+/** Marca un resultado como logrado, preservando la visibilidad de la definición. */
+function achieved(def: AchievementDefinition, overrides: Partial<AchievementResult>): AchievementResult {
+  return {
+    id: def.id,
+    achieved: true,
+    visible: def.visible,
+    ...overrides,
+  };
+}

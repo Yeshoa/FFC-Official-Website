@@ -1,0 +1,134 @@
+---
+// Mercado de pases FCL: isla React para armar la plantilla dentro del presupuesto
+// y exportar el JSON de compras. El mercado se DERIVA de players.json (no hay market.json).
+import FCLayout from '@layouts/FCL.astro';
+import MarketSimulator from '@components/champions-league/market/MarketSimulator.tsx';
+import { getImage } from 'astro:assets';
+import { getAllClubs } from '@data/clubs';
+import { getMembers, getTournaments } from '@lib/collections';
+import { getFirstDivision } from '@data/leagues';
+import { getMarketablePlayers } from '@data/market';
+import { resolveImage } from '@utils/imageAssets';
+import type { MarketClub, MarketPlayer, FederationGroup, MarketNationality } from '@ty/market';
+import type { ImageMetadata } from 'astro';
+import RelatedNews from '@components/articles/RelatedNews.astro';
+import { getArticles } from '@lib/collections';
+import { getArticlesByTags } from 'src/utils/articleUtils';
+
+const fclArticles = getArticlesByTags(await getArticles(), ['FCL', 'champions-league']);
+
+// Season = última Champions League (fallback 2027).
+const clTournaments = (await getTournaments())
+  .filter((t) => t.data.type === 'forestian-champions-league')
+  .sort((a, b) => b.data.season - a.data.season);
+const season = clTournaments[0]?.data.season ?? 2027;
+
+// Banderas de federaciones resueltas a URLs servidas.
+async function flagUrl(flagPath: string | ImageMetadata | undefined, width = 40): Promise<string | undefined> {
+  if (!flagPath) return undefined;
+  try {
+    const img = await getImage({ src: flagPath, width, format: 'webp' });
+    return img.src;
+  } catch {
+    return undefined;
+  }
+}
+
+const members = await getMembers();
+const memberByCode = new Map(members.filter((m) => m.data.code).map((m) => [m.data.code!.toUpperCase(), m]));
+const memberById = new Map(members.map((m) => [m.data.id, m]));
+
+// Federaciones con clubes, ordenados por su última liga (fallback alfabético).
+const byFed = new Map<number, (MarketClub & { logoPath?: string })[]>();
+for (const c of getAllClubs()) {
+  if (c.federationId == null) continue;
+  const list = byFed.get(c.federationId) ?? [];
+  list.push({
+    id: c.id,
+    code: c.code,
+    name: c.name,
+    shortName: c.shortName,
+    colors: c.colors,
+    budget: c.budget ?? 0,
+    logoPath: c.logoPath,
+  });
+  byFed.set(c.federationId, list);
+}
+
+const federations: FederationGroup[] = [];
+for (const [fedId, clubs] of byFed) {
+  const member = memberById.get(fedId);
+  if (!member) continue;
+  const league = getFirstDivision(fedId);
+  const posMap = new Map((league?.standings ?? []).map((r, i) => [r.clubId, i + 1]));
+  const clPositions = new Set(league?.championsLeaguePositions ?? []);
+  clubs.sort((a, b) => {
+    const pa = posMap.get(a.id) ?? Number.MAX_SAFE_INTEGER;
+    const pb = posMap.get(b.id) ?? Number.MAX_SAFE_INTEGER;
+    if (pa !== pb) return pa - pb;
+    return a.name.localeCompare(b.name);
+  });
+  // Solo se pueden elegir los clubes en zona de clasificación a la CL de la primera división.
+  const qualified = clubs.filter((c) => clPositions.has(posMap.get(c.id) ?? -1));
+  if (qualified.length === 0) continue;
+  federations.push({
+    id: fedId,
+    code: member.data.code ?? '',
+    name: member.data.name,
+    flagUrl: await flagUrl(member.data.flagPath, 64),
+    clubs: await Promise.all(
+      qualified.map(async (c) => ({
+        id: c.id,
+        code: c.code,
+        name: c.name,
+        shortName: c.shortName,
+        colors: c.colors,
+        budget: c.budget ?? 0,
+        logoUrl: await flagUrl(resolveImage(c.logoPath) ?? undefined, 64),
+      })),
+    ),
+  });
+}
+federations.sort((a, b) => a.name.localeCompare(b.name));
+
+// Mercado derivado de players.json + banderas.
+const players: MarketPlayer[] = await Promise.all(
+  getMarketablePlayers().map(async (p) => {
+    const natMember = p.nationality ? memberByCode.get(p.nationality.toUpperCase()) : null;
+    return { ...p, flagUrl: await flagUrl(natMember?.data.flagPath, 40) };
+  }),
+);
+
+// Nacionalidades presentes en el mercado.
+const marketNationalities = [...new Set(players.map((p) => p.nationality).filter((n): n is string => !!n))];
+const nationalities: MarketNationality[] = await Promise.all(
+  marketNationalities.map(async (code) => {
+    const m = memberByCode.get(code.toUpperCase());
+    return {
+      code: m?.data.code ?? code,
+      name: m?.data.name ?? code,
+      flagUrl: await flagUrl(m?.data.flagPath, 24),
+      allowsForeignMarket: m?.data.allowsForeignMarket ?? false,
+    };
+  }),
+);
+nationalities.sort((a, b) => a.name.localeCompare(b.name));
+---
+
+<FCLayout title="FFC - FCL Transfer Market">
+  <main class="flex flex-col items-center pt-5">
+    <div class="w-full max-w-7xl px-4 py-6">
+      <MarketSimulator
+        client:load
+        federations={federations}
+        players={players}
+        season={season}
+        nationalities={nationalities}
+      />
+    </div>
+  </main>
+
+  {fclArticles.length > 0 && (
+    <RelatedNews articles={fclArticles} max={4} />
+  )}
+</FCLayout>

@@ -1,0 +1,37 @@
+{
+  "champions-league-2027": {
+    "id": 4,
+    "type": "forestian-champions-league",
+    "name": "Forestian Champions League 2027",
+    "shortName": "FCL 2027",
+    "image": "/src/assets/images/tournaments/trophy_panoramic.png",
+    "banner": "/src/assets/images/tournaments/trophy_panoramic.png",
+    "heroImg": "/src/assets/images/tournaments/trophy_panoramic.png",
+    "cardImg": "/src/assets/images/tournaments/trophy_panoramic.png",
+    "edition": 1,
+    "season": 2027,
+    "pots": [
+      {
+        "pot": 1,
+        "teams": [
+          "Bax",
+          "Bjelaz",
+          "Butler",
+          "Dazilla"
+        ],
+        "teamCodes": [
+          "BAX",
+          "BJE",
+          "BUT",
+          "DAZ"
+        ],
+        "teamIds": [
+          102,
+          107,
+          108,
+          112
+        ]
+      }
+    ]
+  }
+}

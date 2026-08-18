@@ -1,0 +1,152 @@
+---
+// ClubHistoricalTable: tabla histórica de TODAS las Champions League, por club
+// (agregación de partidos CL por id global). Cappeada al top 30. Estética CL.
+import type { CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+import { getClubById } from '@data/clubs';
+import { getMatchResult } from 'src/utils/matchUtils';
+import { resolveImage } from '@utils/imageAssets';
+import { ROUTES } from '@config/routes';
+
+interface Props {
+  matches: CollectionEntry<'matches'>[];
+  max?: number;
+}
+
+const { matches, max = 30 } = Astro.props;
+
+type ClubStat = {
+  id: number;
+  name: string;
+  slug: string;
+  logoPath?: string;
+  colors?: { primary: string };
+  tournaments: Set<number>;
+  played: number;
+  won: number;
+  draw: number;
+  lost: number;
+  goalsFor: number;
+  goalsAgainst: number;
+  points: number;
+};
+
+const stats = new Map<number, ClubStat>();
+
+for (const match of matches) {
+  if (match.data.status !== 'played') continue;
+  const t1 = match.data.team1Id;
+  const t2 = match.data.team2Id;
+  const c1 = t1 != null ? getClubById(t1) : null;
+  const c2 = t2 != null ? getClubById(t2) : null;
+  if (!c1 || !c2) continue;
+
+  const g1 = stats.get(c1.id) ?? {
+    id: c1.id, name: c1.name, slug: c1.slug, logoPath: c1.logoPath,
+    colors: c1.colors, tournaments: new Set<number>(),
+    played: 0, won: 0, draw: 0, lost: 0, goalsFor: 0, goalsAgainst: 0, points: 0,
+  };
+  const g2 = stats.get(c2.id) ?? {
+    id: c2.id, name: c2.name, slug: c2.slug, logoPath: c2.logoPath,
+    colors: c2.colors, tournaments: new Set<number>(),
+    played: 0, won: 0, draw: 0, lost: 0, goalsFor: 0, goalsAgainst: 0, points: 0,
+  };
+
+  const { team1, team2 } = getMatchResult(match.data);
+  g1.played++; g2.played++;
+  g1.goalsFor += team1; g1.goalsAgainst += team2;
+  g2.goalsFor += team2; g2.goalsAgainst += team1;
+  g1.tournaments.add(match.data.tournament_id);
+  g2.tournaments.add(match.data.tournament_id);
+
+  if (team1 > team2) { g1.won++; g1.points += 3; g2.lost++; }
+  else if (team2 > team1) { g2.won++; g2.points += 3; g1.lost++; }
+  else { g1.draw++; g2.draw++; g1.points += 1; g2.points += 1; }
+
+  stats.set(c1.id, g1);
+  stats.set(c2.id, g2);
+}
+
+const sorted = Array.from(stats.values())
+  .sort((a, b) => {
+    if (b.points !== a.points) return b.points - a.points;
+    const gdA = a.goalsFor - a.goalsAgainst;
+    const gdB = b.goalsFor - b.goalsAgainst;
+    if (gdB !== gdA) return gdB - gdA;
+    if (b.tournaments.size !== a.tournaments.size) return b.tournaments.size - a.tournaments.size;
+    return b.goalsFor - a.goalsFor;
+  })
+  .slice(0, max);
+---
+
+<div class="overflow-x-auto w-full">
+  <table class="w-full border-collapse text-sm">
+    <thead>
+      <tr class="text-cl-lime uppercase text-xs tracking-wider">
+        <th class="px-2 py-2 text-center rounded-tl-lg" title="Position">°</th>
+        <th class="px-2 py-2 text-left" title="Club">Club</th>
+        <th class="px-2 py-2 text-center" title="Tournaments Played">TP</th>
+        <th class="px-2 py-2 text-center" title="Points">Pts</th>
+        <th class="px-2 py-2 text-center" title="Matches Played">Pld</th>
+        <th class="px-2 py-2 text-center" title="Wins">W</th>
+        <th class="px-2 py-2 text-center" title="Draws">D</th>
+        <th class="px-2 py-2 text-center" title="Losses">L</th>
+        <th class="px-2 py-2 text-center" title="Goals For">GF</th>
+        <th class="px-2 py-2 text-center" title="Goals Against">GA</th>
+        <th class="px-2 py-2 text-center rounded-tr-lg" title="Goal Difference">GD</th>
+      </tr>
+    </thead>
+    <tbody class="text-center text-white/80">
+      {sorted.length === 0 && (
+        <tr>
+          <td colspan={11} class="py-6 text-text-muted italic">No Champions League matches played yet.</td>
+        </tr>
+      )}
+      {sorted.map((club, index) => {
+        const primary = club.colors?.primary ?? '#b4ff00';
+        const logo = resolveImage(club.logoPath);
+        return (
+          <tr class="border-b border-cl-lime/10 hover:bg-cl-lime/5 transition duration-150" key={club.id}>
+            <td class="px-2 py-2 text-cl-lime font-semibold">{index + 1}°</td>
+            <td class="px-2 py-2 text-left">
+              <a
+                href={ROUTES.clubs.detail(club.slug)}
+                class="inline-flex items-center gap-2 font-semibold hover:underline text-white"
+                title={club.name}
+              >
+                {logo ? (
+                  <Image
+                    src={logo}
+                    alt={club.name}
+                    width={40}
+                    loading="lazy"
+                    quality={60}
+                    format="webp"
+                    class="w-6 h-6 rounded object-contain"
+                  />
+                ) : (
+                  <span
+                    class="w-6 h-6 rounded flex items-center justify-center border"
+                    style={{ backgroundColor: `${primary}22`, borderColor: primary }}
+                  >
+                    <span class="text-[9px] font-black" style={{ color: primary }}>{club.name[0]?.toUpperCase()}</span>
+                  </span>
+                )}
+                <span class="truncate">{club.name}</span>
+              </a>
+            </td>
+            <td class="px-2 py-2 text-text-muted">{club.tournaments.size}</td>
+            <td class="px-2 py-2 font-bold text-cl-lime">{club.points}</td>
+            <td class="px-2 py-2 text-text-muted">{club.played}</td>
+            <td class="px-2 py-2 text-text-muted">{club.won}</td>
+            <td class="px-2 py-2 text-text-muted">{club.draw}</td>
+            <td class="px-2 py-2 text-text-muted">{club.lost}</td>
+            <td class="px-2 py-2 text-text-muted">{club.goalsFor}</td>
+            <td class="px-2 py-2 text-text-muted">{club.goalsAgainst}</td>
+            <td class="px-2 py-2 text-text-muted">{club.goalsFor - club.goalsAgainst}</td>
+          </tr>
+        );
+      })}
+    </tbody>
+  </table>
+</div>

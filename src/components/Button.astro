@@ -1,20 +1,19 @@
 ---
 interface Props {
   link?: string;
-  color?: string;
   self?: boolean;
   customClass?: string;
   hideArrow?: boolean;
 }
 
-const { link = '#', color = 'green', self = true, customClass, hideArrow = false } = Astro.props;
+const { link = '#', self = true, customClass, hideArrow = false } = Astro.props;
 ---
 <a 
   href={link} 
   target={self ? '_self' : '_blank'}
   class={`inline-flex items-center px-6 py-3 
-  bg-gradient-to-r from-${color}-600 to-${color}-700 
-  hover:from-${color}-500 hover:to-${color}-600 
+  bg-gradient-to-r from-primary to-primary-dark 
+  hover:from-primary-strong hover:to-primary 
   text-white font-semibold rounded-lg 
   transition-all duration-300 transform hover:scale-105
   ${customClass}`}

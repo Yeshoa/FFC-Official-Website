@@ -1,0 +1,45 @@
+{
+  "teamCode": "ATS",
+  "teamName": "Atsvea",
+  "tournament": "forest-cup-2022",
+  "tournamentEdition": 1,
+  "snapshotDate": "2026-05-13",
+  "playerCount": 5,
+  "players": [
+    {
+      "id": "ATS_001",
+      "name": "E. Stell",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "ATS_002",
+      "name": "K. Zaajaagah",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "ATS_003",
+      "name": "Nysnub",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "ATS_004",
+      "name": "O. Khisiddah",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "ATS_005",
+      "name": "S. Vythxo",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    }
+  ]
+}

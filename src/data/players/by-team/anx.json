@@ -1,0 +1,36 @@
+{
+  "teamCode": "ANX",
+  "teamName": "Anxious and Kevin",
+  "lastUpdated": "2026-05-13",
+  "playerCount": 4,
+  "players": [
+    {
+      "id": "ANX_001",
+      "name": "Åkerström",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "ANX_002",
+      "name": "B. Boen",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "ANX_003",
+      "name": "Manninen",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "ANX_004",
+      "name": "S. Granberg",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    }
+  ]
+}

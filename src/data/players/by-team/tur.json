@@ -1,0 +1,15 @@
+{
+  "teamCode": "TUR",
+  "teamName": "Turbeaux",
+  "lastUpdated": "2026-05-13",
+  "playerCount": 1,
+  "players": [
+    {
+      "id": "TUR_001",
+      "name": "G. Hua-Bai",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    }
+  ]
+}

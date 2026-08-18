@@ -1,0 +1,429 @@
+{
+  "forest-cup-2020": {
+    "id": 0,
+    "type": "forest-cup",
+    "name": "Bilsa 2020",
+    "host": "Bilsa",
+    "hostCode": "BIL",
+    "champion": "Ruinenlust",
+    "championCode": "RUI",
+    "image": "/src/assets/images/tournaments/2020/logo2.png",
+    "banner": "/src/assets/images/tournaments/2020/logo2.png",
+    "heroImg": "/src/assets/images/tournaments/2020/heroimg.png",
+    "cardImg": "/src/assets/images/tournaments/2020/heroimg.png",
+    "edition": 1,
+    "season": 2020,
+    "pots": [
+      {
+        "pot": 1,
+        "teams": [
+          "Ruinenlust",
+          "Tauride",
+          "Eryndlynd",
+          "Frieden Und Freudenland",
+          "Cannibaland",
+          "Valentian Kittens",
+          "Canaltia",
+          "Velkia and the Islands",
+          "Feladria",
+          "Blon Gre",
+          "Window Land",
+          "Ziotah and Riverside",
+          "Dwardossa",
+          "Love and Nature",
+          "Ownzone",
+          "Verdant Haven"
+        ],
+        "teamIds": [
+          13,
+          87,
+          67,
+          72,
+          58,
+          91,
+          56,
+          93,
+          69,
+          54,
+          95,
+          96,
+          63,
+          78,
+          45,
+          16
+        ]
+      },
+      {
+        "pot": 2,
+        "teams": [
+          "Bluestocking Homeland",
+          "Elundris",
+          "Aeterno Tranquillitas",
+          "Palos Heights",
+          "Reannia",
+          "The Cypher Nine",
+          "Mountain Ash Forests",
+          "Turbeaux",
+          "Wantevolo",
+          "Novian Republics",
+          "Chilledsville",
+          "The Black Forrest",
+          "Vanenia",
+          "Cat-Herders United",
+          "Taco Respublic",
+          "Candlewhisper Archive"
+        ],
+        "teamIds": [
+          55,
+          65,
+          53,
+          81,
+          3,
+          89,
+          79,
+          49,
+          94,
+          48,
+          61,
+          88,
+          92,
+          35,
+          86,
+          57
+        ]
+      },
+      {
+        "pot": 3,
+        "teams": [
+          "Ironic Remarks",
+          "Caterasia",
+          "Forgotten Beauty",
+          "The Void Territories",
+          "Entitize",
+          "Kawastyselir",
+          "Bilsa",
+          "Esterild",
+          "Edible Plywood",
+          "Chan Island",
+          "Drasnia",
+          "Sapnu Puas",
+          "Sacara",
+          "Kinganaryasia",
+          "Ransium",
+          "Seagull"
+        ],
+        "teamIds": [
+          74,
+          59,
+          71,
+          90,
+          66,
+          75,
+          1,
+          68,
+          64,
+          60,
+          62,
+          84,
+          83,
+          76,
+          82,
+          85
+        ]
+      }
+    ],
+    "hostId": 1,
+    "championId": 13
+  },
+  "forest-cup-2022": {
+    "id": 1,
+    "type": "forest-cup",
+    "name": "Bilsa 2022",
+    "host": "Bilsa",
+    "hostCode": "BIL",
+    "champion": "Atsvea",
+    "championCode": "ATS",
+    "image": "/src/assets/images/tournaments/2022/logo.png",
+    "banner": "/src/assets/images/tournaments/2022/logo.png",
+    "heroImg": "/src/assets/images/tournaments/2022/atsvea-champions.png",
+    "cardImg": "/src/assets/images/tournaments/2022/cardImg.png",
+    "edition": 2,
+    "season": 2022,
+    "pots": [
+      {
+        "pot": 1,
+        "teams": [
+          "Atsvea",
+          "Einswenn",
+          "Roless",
+          "Reannia"
+        ],
+        "teamIds": [
+          6,
+          7,
+          4,
+          3
+        ]
+      },
+      {
+        "pot": 2,
+        "teams": [
+          "Cacusia",
+          "Bilsa",
+          "Kase",
+          "Cat-Herders United"
+        ],
+        "teamIds": [
+          5,
+          1,
+          41,
+          35
+        ]
+      },
+      {
+        "pot": 3,
+        "teams": [
+          "Jutsa",
+          "Daarwyrth",
+          "Bunkaiia",
+          "Trebenia"
+        ],
+        "teamIds": [
+          2,
+          42,
+          43,
+          39
+        ]
+      },
+      {
+        "pot": 4,
+        "teams": [
+          "Stralla",
+          "Terrawynn",
+          "Novian Republics",
+          "Turbeaux"
+        ],
+        "teamIds": [
+          9,
+          46,
+          48,
+          49
+        ]
+      }
+    ],
+    "prizes": {
+      "topScorer": [
+        {
+          "player": "M. Dartmouth",
+          "team": "Cacusia",
+          "goals": 7,
+          "teamId": 5,
+          "playerId": 39
+        }
+      ],
+      "bestPlayer": {
+        "player": "D. Vela",
+        "team": "Reannia",
+        "teamId": 3,
+        "playerId": 951
+      },
+      "bestGoalkeeper": {
+        "player": "Ksatsthas",
+        "team": "Atsvea",
+        "teamId": 6,
+        "playerId": 960
+      },
+      "bestGoal": {
+        "player": "T. Wolf",
+        "team": "Trebenia",
+        "teamId": 39,
+        "playerId": 204
+      }
+    },
+    "hostId": 1,
+    "championId": 6
+  },
+  "forest-cup-2024": {
+    "id": 2,
+    "type": "forest-cup",
+    "name": "Anxious & Kevin 2024",
+    "shortName": "A&K 2024",
+    "host": "Anxious and Kevin",
+    "hostCode": "AKE",
+    "champion": "Nardin",
+    "championCode": "NAR",
+    "image": "/src/assets/images/tournaments/2024/logo.png",
+    "banner": "/src/assets/images/tournaments/2024/banner.png",
+    "heroImg": "/src/assets/images/tournaments/2024/celebration.png",
+    "cardImg": "/src/assets/images/tournaments/2024/cardImg.png",
+    "edition": 3,
+    "season": 2024,
+    "loadingType": "eager",
+    "pots": [
+      {
+        "pot": 1,
+        "teams": [
+          "Anxious and Kevin",
+          "Roless",
+          "Verdant Haven",
+          "Atsvea",
+          "Cacusia",
+          "Einswenn",
+          "Jutsa",
+          "Bilsa"
+        ],
+        "teamIds": [
+          11,
+          4,
+          16,
+          6,
+          5,
+          7,
+          2,
+          1
+        ]
+      },
+      {
+        "pot": 2,
+        "teams": [
+          "Furilisca",
+          "United Malay Federation",
+          "Nardin",
+          "Lumiose",
+          "Republic of Yucatan",
+          "Washeyye",
+          "Nordustra",
+          "Realize"
+        ],
+        "teamIds": [
+          22,
+          15,
+          12,
+          14,
+          25,
+          26,
+          18,
+          8
+        ]
+      },
+      {
+        "pot": 3,
+        "teams": [
+          "Freistaat Ostpreussen",
+          "Cat Army",
+          "Ruinenlust",
+          "Zerphen",
+          "Tylvana",
+          "New Libertalia Kingdom",
+          "Ottterland",
+          "Orcuo"
+        ],
+        "teamIds": [
+          17,
+          27,
+          13,
+          10,
+          20,
+          19,
+          30,
+          24
+        ]
+      },
+      {
+        "pot": 4,
+        "teams": [
+          "RKD",
+          "Schachland",
+          "Columbiqash",
+          "Sehir",
+          "Stralla",
+          "Mozolephies",
+          "Clown Town City",
+          "Aresetia"
+        ],
+        "teamIds": [
+          28,
+          29,
+          23,
+          32,
+          9,
+          33,
+          34,
+          31
+        ]
+      }
+    ],
+    "prizes": {
+      "topScorer": [
+        {
+          "player": "Nysnub",
+          "team": "Atsvea",
+          "goals": 9,
+          "teamId": 6,
+          "playerId": 15
+        }
+      ],
+      "bestPlayer": {
+        "player": "R. Tarasov",
+        "team": "Nardin",
+        "teamId": 12,
+        "playerId": 133
+      },
+      "bestGoalkeeper": {
+        "player": "I. Hans",
+        "team": "Einswenn",
+        "teamId": 7,
+        "playerId": 552
+      },
+      "bestGoal": {
+        "player": "I. Darrow",
+        "team": "Cacusia",
+        "teamId": 5,
+        "playerId": 38
+      }
+    },
+    "hostId": 11,
+    "championId": 12
+  },
+  "forest-cup-2026": {
+    "id": 3,
+    "type": "forest-cup",
+    "name": "Cacusia 2026",
+    "host": "Cacusia",
+    "hostCode": "CAC",
+    "champion": "Roless",
+    "championCode": "RLS",
+    "image": "/src/assets/images/tournaments/2026/logo.png",
+    "banner": "/src/assets/images/tournaments/2026/banner.png",
+    "cardImg": "/src/assets/images/tournaments/2026/heroImg.png",
+    "heroImg": "/src/assets/images/tournaments/2026/roless-c.png",
+    "edition": 4,
+    "season": 2026,
+    "loadingType": "eager",
+    "prizes": {
+      "topScorer": [
+        {
+          "player": "O. Gro",
+          "team": "Einswenn",
+          "goals": 13,
+          "teamId": 7,
+          "playerId": 67
+        }
+      ],
+      "bestPlayer": {
+        "player": "O. Gro",
+        "team": "Einswenn",
+        "teamId": 7,
+        "playerId": 67
+      },
+      "bestGoalkeeper": {
+        "player": "E. Jadar",
+        "team": "Bilsa",
+        "teamId": 1,
+        "playerId": 504
+      }
+    },
+    "hostId": 5,
+    "championId": 4
+  }
+}

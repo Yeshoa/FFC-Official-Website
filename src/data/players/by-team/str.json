@@ -1,0 +1,22 @@
+{
+  "teamCode": "STR",
+  "teamName": "Stralla",
+  "lastUpdated": "2026-05-13",
+  "playerCount": 2,
+  "players": [
+    {
+      "id": "STR_001",
+      "name": "L. Azpesiatuc",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "STR_002",
+      "name": "O. Irecen",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    }
+  ]
+}

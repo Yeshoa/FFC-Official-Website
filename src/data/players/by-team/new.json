@@ -1,0 +1,29 @@
+{
+  "teamCode": "NEW",
+  "teamName": "New Libertalia Kingdom",
+  "lastUpdated": "2026-05-13",
+  "playerCount": 3,
+  "players": [
+    {
+      "id": "NEW_001",
+      "name": "A. Cunha",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "NEW_002",
+      "name": "O. Silveira",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    },
+    {
+      "id": "NEW_003",
+      "name": "U. Barbosa",
+      "position": "FWD",
+      "number": null,
+      "status": "active"
+    }
+  ]
+}

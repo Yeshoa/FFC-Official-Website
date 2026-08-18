@@ -18,7 +18,7 @@ const members = await getMembers();
 const filterTags = [
   "stadium",
 ]
-const filteredArticles = getArticlesByTags(articles, filterTags);
+const filteredArticles = getArticlesByTags(articles, filterTags, ['FCL', 'champions-league']);
 
 const stadiumsByNation = stadiums.reduce((acc, stadium) => {
   const nation = stadium.data.nation || 'Unknown';
@@ -54,15 +54,15 @@ Object.values(stadiumsByNation).forEach(nationStadiums => {
           
           {sortedNations.map((nation, nationIndex) => {
             const member = members.find(member => member.data.name === nation);
-            const hasValidMember = member?.slug && nation !== 'Unknown';
+            const hasValidMember = member?.id && nation !== 'Unknown';
             
             return (
               <section class="mb-12 last:mb-0" key={nation}>
                 <div class="flex items-center gap-3 mb-6">
                   {hasValidMember ? (
                     <a 
-                      href={ROUTES.members.detail(member.slug)}
-                      class="bg-green-900 hover:bg-green-700 px-4 py-2 rounded-lg font-bold group flex items-center transition-colors duration-200"
+                      href={ROUTES.members.detail(member.id)}
+                      class="bg-surface-raised hover:bg-primary-dark px-4 py-2 rounded-lg font-bold group flex items-center transition-colors duration-200"
                     >
                       <Image
                         src={member.data.flagPath || defaultFlag}
@@ -95,7 +95,7 @@ Object.values(stadiumsByNation).forEach(nationStadiums => {
                   <div class="text-sm text-white/60">
                     {stadiumsByNation[nation].length} stadium{stadiumsByNation[nation].length !== 1 ? 's' : ''}
                   </div>
-                  <div class="flex-1 h-px bg-gradient-to-r from-green-500/50 to-transparent"></div>
+                  <div class="flex-1 h-px bg-gradient-to-r from-primary-strong/50 to-transparent"></div>
                 </div>
                 
                 <div class="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-4">

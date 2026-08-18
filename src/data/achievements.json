@@ -1,0 +1,57 @@
+{
+  "collaborator": {
+    "id": "collaborator",
+    "name": "Collaborator",
+    "icon": "/src/assets/images/achievements/king.webp",
+    "description": "Official collaborator of the Confederation.",
+    "rarity": 1,
+    "category": "Community",
+    "unique": false,
+    "visible": false,
+    "enabled": true
+  },
+  "discord": {
+    "id": "discord",
+    "name": "Discordian",
+    "icon": "/src/assets/images/achievements/king.webp",
+    "description": "Joined the FFC Discord server before this website.",
+    "rarity": 0,
+    "category": "Community",
+    "unique": false,
+    "visible": false,
+    "enabled": true
+  },
+  "founder": {
+    "id": "founder",
+    "name": "Founder",
+    "icon": "/src/assets/images/achievements/king.webp",
+    "description": "Founder of the Confederation: actively participated in old Forest Cups.",
+    "rarity": 1,
+    "category": "Community",
+    "unique": false,
+    "visible": false,
+    "enabled": false
+  },
+  "roleplay": {
+    "id": "roleplay",
+    "name": "RP Master",
+    "icon": "/src/assets/images/achievements/king.webp",
+    "description": "Roleplayed for the Forest Cup",
+    "rarity": 1,
+    "category": "Community",
+    "unique": false,
+    "visible": false,
+    "enabled": true
+  },
+  "voter": {
+    "id": "voter",
+    "name": "Voter",
+    "icon": "/src/assets/images/achievements/king.webp",
+    "description": "Voted for the logo of the Confederation.",
+    "rarity": 0,
+    "category": "Community",
+    "unique": false,
+    "visible": false,
+    "enabled": true
+  }
+}

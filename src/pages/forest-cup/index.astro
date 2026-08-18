@@ -17,23 +17,25 @@ import TournamentTopFour from '@components/tournaments/TournamentTopFour.astro';
 const members = await getMembers();
 const matches = await getMatches();
 let tournaments = await getTournaments();
-tournaments = tournaments.sort((a, b) => a.data.id - b.data.id);
+tournaments = tournaments
+  .filter((t) => t.data.type === 'forest-cup')
+  .sort((a, b) => a.data.id - b.data.id);
 const matchDatas = matches.map((entry) => entry.data);
 const tournamentType = "forest-cup";
 const articles = await getArticles();
 const filterTags = [
   tournamentType,
 ];
-const filteredArticles = getArticlesByTags(articles, filterTags);
+const filteredArticles = getArticlesByTags(articles, filterTags, ['FCL', 'champions-league']);
 
 ---
 
 <App title="FFC - Forest Cup">
   <main class="flex flex-col items-center">
     <!-- Banner -->
-    <header class="bg-gradient-to-r from-green-950 to-green-1000 w-full flex flex-col items-center">
+    <header class="bg-gradient-to-r from-surface to-background w-full flex flex-col items-center">
       <!-- <div class="container flex flex-col justify-center items-center pt-10">
-          <div class="flex justify-center items-center after:w-30 after:h-1 mb-4 animate-sladeIn after:bg-green-700 after:rounded-full after:absolute after:bottom-0 after:mx-auto relative">
+          <div class="flex justify-center items-center after:w-30 after:h-1 mb-4 animate-sladeIn after:bg-primary-dark after:rounded-full after:absolute after:bottom-0 after:mx-auto relative">
             <Image src={FCLogo} alt="Forest Cup" width={500} class="w-2xl" loading={"eager"} format={"webp"} quality={50}/>
           </div>
       </div> -->
@@ -56,7 +58,7 @@ const filteredArticles = getArticlesByTags(articles, filterTags);
       </div>
     </header>
     <!-- List tournaments -->
-    <div class="max-w-8xl border-t border-green-600 items-start w-full px-2 md:px-6">
+    <div class="max-w-8xl border-t border-primary items-start w-full px-2 md:px-6">
       <TournamentHistoryTable tournaments={tournaments} matches={matches} members={members} type={tournamentType} />
     </div>
     <!-- Stats and Top Scorers -->

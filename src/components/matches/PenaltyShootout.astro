@@ -1,0 +1,64 @@
+---
+// PenaltyShootout: detalle de la tanda de penales (quién pateó, convirtió o falló).
+import type { CollectionEntry } from 'astro:content';
+import type { TeamView } from '@ty/matchDetail';
+import { getPenaltiesResult } from 'src/utils/matchUtils';
+
+interface Props {
+  match: CollectionEntry<'matches'>;
+  team1: TeamView;
+  team2: TeamView;
+}
+
+const { match, team1, team2 } = Astro.props;
+const penalties = match.data.penalties ?? [];
+const result = getPenaltiesResult(match.data);
+
+const team1Shots = penalties.filter((p) => p.team === match.data.team1);
+const team2Shots = penalties.filter((p) => p.team === match.data.team2);
+---
+
+<section class="w-full">
+  <div class="flex flex-wrap items-baseline gap-3 mb-5">
+    <h2 class="text-2xl font-bold text-primary-light">Penalty Shootout</h2>
+    {result && (
+      <p class="text-sm text-yellow-400 font-semibold tabular-nums">Final score: {result.team1}–{result.team2}</p>
+    )}
+  </div>
+  <div class="bg-surface/40 rounded-2xl border border-primary/20 p-5">
+    <div class="grid grid-cols-2 gap-6">
+      <div>
+        <p class="font-bold mb-3 text-center truncate">{team1.name}</p>
+        <ul class="space-y-1">
+          {team1Shots.map((p, i) => (
+            <li key={i} class="flex items-center justify-between gap-2 text-sm">
+              <span class="truncate">{p.player || '—'}</span>
+              <span
+                class={`text-sm font-black ${p.scored ? 'text-emerald-400' : 'text-red-400'}`}
+                title={p.scored ? 'Converted' : 'Missed'}
+              >
+                {p.scored ? '✓' : '✗'}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        <p class="font-bold mb-3 text-center truncate">{team2.name}</p>
+        <ul class="space-y-1">
+          {team2Shots.map((p, i) => (
+            <li key={i} class="flex items-center justify-between gap-2 text-sm">
+              <span class="truncate">{p.player || '—'}</span>
+              <span
+                class={`text-sm font-black ${p.scored ? 'text-emerald-400' : 'text-red-400'}`}
+                title={p.scored ? 'Converted' : 'Missed'}
+              >
+                {p.scored ? '✓' : '✗'}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
