@@ -5,6 +5,7 @@ import type { CollectionEntry } from 'astro:content';
 import { getMemberByName, getMemberImage } from 'src/utils/memberUtils';
 import { getMatchResult, getMatchWinnerIncludingPenalties } from 'src/utils/matchUtils';
 import { LOCALE } from '@config/constants';
+import { ROUTES } from '@config/routes';
 
 interface Goal {
   team: string;
@@ -83,7 +84,7 @@ const formattedDate = match.data.status === 'scheduled'
         ) : (
           <div class="w-6 h-6 bg-gray-600 rounded-md"></div>
         )}
-        <a class={`${winner === match.data.team1 ? 'font-bold' : 'font-light'} hover:underline`} href={`/members/${team1?.id}`}>
+        <a class={`${winner === match.data.team1 ? 'font-bold' : 'font-light'} hover:underline`} href={ROUTES.members.detail(team1!.id)}>
           {team1?.data.code}
         </a>
       </div>
@@ -108,7 +109,7 @@ const formattedDate = match.data.status === 'scheduled'
         ) : (
           <div class="w-6 h-6 bg-gray-600 rounded-md"></div>
         )}
-        <a class={`${winner === match.data.team2 ? 'font-bold' : 'font-light'} hover:underline` } href={`/members/${team2?.id}`}>
+        <a class={`${winner === match.data.team2 ? 'font-bold' : 'font-light'} hover:underline` } href={ROUTES.members.detail(team2!.id)}>
           {team2?.data.code}
         </a>
       </div>

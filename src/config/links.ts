@@ -11,6 +11,7 @@ export const LINKS = {
   nationStates: {
     forest: "https://www.nationstates.net/region=forest",
     bilsa: "https://www.nationstates.net/nation=bilsa",
+    dispatch: "https://www.nationstates.net/page=dispatch/id=2525675",
   },
   social: {
     discordFFC: "https://discord.com/invite/EX4sGhjbgU",

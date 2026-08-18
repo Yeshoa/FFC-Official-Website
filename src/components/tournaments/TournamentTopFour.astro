@@ -96,7 +96,7 @@ const palmares = Array.from(palmaresMap.values()).sort((a, b) =>
                   format="webp"
                 />
               )}
-            <a href={`/members/${entry.member.id}`} class="hover:underline">
+            <a href={ROUTES.members.detail(entry.member.id)} class="hover:underline">
               <span class="hidden sm:inline">{entry.member.data.name}</span>
               <span class="sm:hidden">{entry.member.data.code}</span>
             </a>

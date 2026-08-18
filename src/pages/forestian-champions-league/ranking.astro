@@ -1,13 +1,13 @@
 ---
 // Ranking FCL: propio y separado del ranking de selecciones. Dos columnas:
 // - Clubes: por rating del plantel (0-100 → estrellas).
-// - Ligas: primeras divisiones por puntaje de temporada (rp/events/bonus).
+// - Ligas: todas las divisiones por puntaje de temporada (rp/events/bonus).
 // Cuando existan partidos de CL se podrá sumar rendimiento FCL (ver [[03-ranking]] §5 y [[09-dudas]] §6).
 import FCLayout from '@layouts/FCL.astro';
 import Title from '@components/Title.astro';
 import { Image } from 'astro:assets';
 import { getAllClubs } from '@data/clubs';
-import { getAllLeagues, getFirstDivision } from '@data/leagues';
+import { getAllLeagues } from '@data/leagues';
 import { getMemberById } from 'src/utils/memberUtils';
 import { loadCurrentSquadByTeamId } from '@data/players';
 import { computeTeamRating, teamRatingToStars } from '@config/rating';
@@ -17,6 +17,9 @@ import DefaultClubLogo from '@images/clubs/default.png';
 import DefaultLeagueLogo from '@images/leagues/default.png';
 import StarsDisplay from '@components/ui/StarsDisplay.astro';
 import { ROUTES } from '@config/routes';
+import RelatedNews from '@components/articles/RelatedNews.astro';
+import { getArticles } from '@lib/collections';
+import { getArticlesByTags } from 'src/utils/articleUtils';
 
 const clubs = getAllClubs()
   .map((club) => {
@@ -31,12 +34,10 @@ const clubs = getAllClubs()
   })
   .sort((a, b) => b.rating - a.rating || a.club.name.localeCompare(b.club.name));
 
-// Ligas: solo primeras divisiones (una por país), ordenadas por puntaje.
-const federationIds = [...new Set(getAllLeagues().map((l) => l.federationId))].sort((a, b) => a - b);
-const firstDivisions = federationIds
-  .map((fid) => getFirstDivision(fid))
-  .filter((l): l is NonNullable<typeof l> => l !== null);
-const rankedLeagues = getRankedLeagues(firstDivisions);
+// Ligas: todas las divisiones, ordenadas por puntaje.
+const rankedLeagues = getRankedLeagues(getAllLeagues());
+
+const fclArticles = getArticlesByTags(await getArticles(), ['FCL', 'champions-league']);
 ---
 
 <FCLayout title="FFC - Champions League Ranking">
@@ -101,7 +102,7 @@ const rankedLeagues = getRankedLeagues(firstDivisions);
           )}
         </section>
 
-        {/* Ligas (primeras divisiones) */}
+        {/* Ligas (todas las divisiones) */}
         <section class="w-full overflow-x-auto rounded-lg">
           <h2 class="text-xl font-bold text-cl-lime uppercase mb-3">Leagues</h2>
           {rankedLeagues.length > 0 ? (
@@ -111,8 +112,7 @@ const rankedLeagues = getRankedLeagues(firstDivisions);
                   <th class="w-8 px-2 py-3 text-center border-b border-cl-lime/30 rounded-tl-xl" title="Position">°</th>
                   <th class="py-3 text-left border-b border-cl-lime/30 min-w-[140px]">League</th>
                   <th class="py-3 text-left border-b border-cl-lime/30 hidden sm:table-cell">Federation</th>
-                  <th class="w-16 px-2 py-3 text-center border-b border-cl-lime/30" title="Points">Pts</th>
-                  <th class="w-20 px-2 py-3 text-center border-b border-cl-lime/30 rounded-tr-xl" title="See League">League</th>
+                  <th class="w-16 px-2 py-3 text-center border-b border-cl-lime/30 rounded-tr-xl" title="Points">Pts</th>
                 </tr>
               </thead>
               <tbody class="text-center text-white/80">
@@ -131,7 +131,7 @@ const rankedLeagues = getRankedLeagues(firstDivisions);
                           {logo ? (
                             <Image src={logo} alt={league.name} width={40} loading="lazy" quality={60} format="webp" class="w-7 h-7 rounded object-contain" />
                           ) : (
-                            <Image src={DefaultLeagueLogo} alt={league.name} width={40} loading="lazy" quality={60} format="webp" class="w-7 h-7 rounded object-contain opacity-70" />
+                            <Image src={DefaultLeagueLogo} alt={league.name} width={40} loading="lazy" quality={60} format="webp" class="w-7 h-7 rounded object-contain opacity-30" />
                           )}
                           <span class="truncate">{league.name}</span>
                         </a>
@@ -141,14 +141,6 @@ const rankedLeagues = getRankedLeagues(firstDivisions);
                       </td>
                       <td class={`px-2 py-2 font-bold tabular-nums ${score.total > 0 ? 'text-cl-lime' : 'text-text-muted'}`}>
                         {score.total || '-'}
-                      </td>
-                      <td class="px-2 py-2">
-                        <a
-                          href={ROUTES.championsLeague.league(league.id)}
-                          class="inline-block rounded border border-cl-lime/50 text-cl-lime px-2 py-1 text-[10px] font-bold hover:bg-cl-lime/10 transition-colors whitespace-nowrap"
-                        >
-                          See League
-                        </a>
                       </td>
                     </tr>
                   );
@@ -162,4 +154,8 @@ const rankedLeagues = getRankedLeagues(firstDivisions);
       </div>
     </div>
   </main>
+
+  {fclArticles.length > 0 && (
+    <RelatedNews articles={fclArticles} max={4} />
+  )}
 </FCLayout>

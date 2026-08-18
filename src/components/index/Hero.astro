@@ -4,6 +4,7 @@
 import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 import JoinImg from '@images/icons/right-to-bracket-solid.svg';
+import FCLLogo from '@images/tournaments/FCL/FCL Logo.svg';
 import Button from '@components/Button.astro';
 
 // Definimos las props para el componente
@@ -52,7 +53,11 @@ if (carouselImages.length === 0) {
         <div class="hero__btn__cont">
           {ctas.map((c) => (
             <Button hideArrow={true} link={c.href} self={!c.noblank} customClass={c.fcl ? 'hero__btn hero__btn--fcl' : 'hero__btn'}>
-              <JoinImg width={18} class="hero__btn__icon mr-2" fill="currentColor" />{c.text}
+              {c.fcl ? (
+                <FCLLogo width={18} class="hero__btn__icon mr-2 h-auto" />
+              ) : (
+                <JoinImg width={18} class="hero__btn__icon mr-2" fill="currentColor" />
+              )}{c.text}
             </Button>
           ))}
         </div>

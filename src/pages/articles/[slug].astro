@@ -1,6 +1,7 @@
 ---
 import { type CollectionEntry } from 'astro:content';
 import { LOCALE } from '@config/constants';
+import { ROUTES } from '@config/routes';
 import { getArticles } from '@lib/collections';
 import { isExternalUrl } from '@utils/articleUtils';
 import { Image } from 'astro:assets';
@@ -140,7 +141,7 @@ const recentArticles = allArticles
                 {relatedArticles.map((relatedArticle) => (
                   <div>
                     <a 
-                      href={`/articles/${relatedArticle.slug}`}
+                      href={ROUTES.articles.detail(relatedArticle.slug)}
                       class="block group rounded-lg p-3 hover:bg-surface-raised/30 active:bg-surface-raised/50 transition-colors duration-200"
                     >
                       <div class="flex gap-4">
@@ -193,7 +194,7 @@ const recentArticles = allArticles
               {recentArticles.map((recentArticle) => (
                 <div>
                   <a 
-                    href={`/articles/${recentArticle.slug}`}
+                    href={ROUTES.articles.detail(recentArticle.slug)}
                     class="block group rounded-lg p-3 hover:bg-surface-raised/30 transition-colors duration-200"
                   >
                     <div class="flex gap-4">
@@ -247,7 +248,7 @@ const recentArticles = allArticles
 
           <div class="pt-4 border-t border-primary-deep">
             <a 
-              href="/articles" 
+              href={ROUTES.articles.index} 
               class="block w-full py-3 px-4 bg-primary-dark hover:bg-primary text-white text-center font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200"
             >
               View All Articles

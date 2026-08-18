@@ -66,7 +66,7 @@ const clArticles = getArticlesByTags(articles, ['FCL', 'champions-league']);
     <div class="cl-pattern absolute inset-0 opacity-20 pointer-events-none"></div>
     <div class="relative z-10 w-full max-w-screen-xl mx-auto px-4 py-12 flex flex-col items-center justify-center">
       <div class="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16 text-center">
-        <FCLogo class="w-44 md:w-72 h-auto text-cl-lime shrink-0" />
+        <FCLogo class="w-96 md:w-72 lg:w-96 h-auto text-cl-lime shrink-0" />
 
         <div class="flex flex-col items-center gap-8">
           <div class="flex flex-col leading-none">
@@ -84,12 +84,12 @@ const clArticles = getArticlesByTags(articles, ['FCL', 'champions-league']);
                 Season {latestSeason}
               </a>
             )}
-            <a
+            <!-- <a
               href="#history"
               class="px-6 py-3 rounded-lg border border-cl-lime/50 text-cl-lime hover:bg-cl-lime/10 transition-colors"
             >
               History
-            </a>
+            </a> -->
           </div>
         </div>
       </div>
@@ -159,7 +159,7 @@ const clArticles = getArticlesByTags(articles, ['FCL', 'champions-league']);
                       loading="lazy"
                       quality={60}
                       format="webp"
-                      class="w-6 h-6 rounded object-contain opacity-70"
+                      class="w-6 h-6 rounded object-contain opacity-30"
                     />
                   )}
                   <span class="flex-1 truncate font-medium text-white">{league.name}</span>

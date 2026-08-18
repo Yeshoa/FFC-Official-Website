@@ -8,6 +8,7 @@ import { getTournamentUrl, getTeamStatsInTournament, getTeamFinalResult, getTopS
   getTeamPositionInTournament, getTeamByPosition, getFinalResult, getThirdPlaceResult, 
   getAllParticipantIds, lostLastPlayoff } from '../../utils/tournamentUtils';
 import { CURRENT_SEASON } from '@config/season';
+import { ROUTES } from '@config/routes';
 import { getTournaments } from '@lib/collections';
 
 const tournaments = await getTournaments();
@@ -138,7 +139,7 @@ const displayed = onlyParticipated ? tournamentsData.filter((t) => t.didParticip
             return (
               <tr class={`border-b ${rowBorder} italic bg-red-900/10 text-red-300`}>
                 <td class={`px-2 py-2 flex flex-col items-center gap-1 justify-center`}>
-                  {t.host && <a href={`/members/${t.host.id}`} class="flex-shrink-0"><Image src={t.host.data.flagPath} alt={t.host.data.name} height={20} class="rounded-sm max-h-14" loading={'lazy'} quality={10} format={'webp'} /></a>}
+                  {t.host && <a href={ROUTES.members.detail(t.host.id)} class="flex-shrink-0"><Image src={t.host.data.flagPath} alt={t.host.data.name} height={20} class="rounded-sm max-h-14" loading={'lazy'} quality={10} format={'webp'} /></a>}
                   <a href={getTournamentUrl(t.t.data)} class={`hover:underline ${t.hostClass}`}>{t.t.data.season ?? t.t.data.edition}</a>
                 </td>
                 <td colspan="12" class="py-2">Didn't participate</td>
@@ -150,7 +151,7 @@ const displayed = onlyParticipated ? tournamentsData.filter((t) => t.didParticip
             return (
               <tr class={`border-b ${rowBorder} italic bg-blue-800/10 text-primary-light`}>
                 <td class="px-2 py-2 flex flex-col items-center gap-1 justify-center">
-                  {t.host && <a href={`/members/${t.host.id}`} class="flex-shrink-0"><Image src={t.host.data.flagPath} alt={t.host.data.name} height={20} class="rounded-sm max-h-14" loading={'lazy'} quality={10} format={'webp'} /></a>}
+                  {t.host && <a href={ROUTES.members.detail(t.host.id)} class="flex-shrink-0"><Image src={t.host.data.flagPath} alt={t.host.data.name} height={20} class="rounded-sm max-h-14" loading={'lazy'} quality={10} format={'webp'} /></a>}
                   <a href={getTournamentUrl(t.t.data)} class={`hover:underline ${t.hostClass}`}>{t.t.data.season ?? t.t.data.edition}</a>
                 </td>
                 <td colspan="12" class="py-2">To be determined</td>
@@ -162,7 +163,7 @@ const displayed = onlyParticipated ? tournamentsData.filter((t) => t.didParticip
             return (
               <tr class={`border-b ${rowBorder} italic bg-blue-800/10 text-primary-light`}>
                 <td class="px-2 py-2 flex flex-col items-center gap-1 justify-center">
-                  {t.host && <a href={`/members/${t.host.id}`} class="flex-shrink-0"><Image src={t.host.data.flagPath} alt={t.host.data.name} height={20} class="rounded-sm max-h-14" loading={'lazy'} quality={10} format={'webp'} /></a>}
+                  {t.host && <a href={ROUTES.members.detail(t.host.id)} class="flex-shrink-0"><Image src={t.host.data.flagPath} alt={t.host.data.name} height={20} class="rounded-sm max-h-14" loading={'lazy'} quality={10} format={'webp'} /></a>}
                   <a href={getTournamentUrl(t.t.data)} class={`hover:underline ${t.hostClass}`}>{t.t.data.season ?? t.t.data.edition}</a>
                 </td>
                 <td colspan="12" class="py-2">
@@ -177,7 +178,7 @@ const displayed = onlyParticipated ? tournamentsData.filter((t) => t.didParticip
             return (
               <tr class={`border-b ${rowBorder} italic bg-red-900/10 text-red-300`}>
                 <td class={`px-2 py-2 flex flex-col items-center gap-1 justify-center`}>
-                  {t.host && <a href={`/members/${t.host.id}`} class="flex-shrink-0"><Image src={t.host.data.flagPath} alt={t.host.data.name} height={20} class="rounded-sm max-h-14" loading={'lazy'} quality={10} format={'webp'} /></a>}
+                  {t.host && <a href={ROUTES.members.detail(t.host.id)} class="flex-shrink-0"><Image src={t.host.data.flagPath} alt={t.host.data.name} height={20} class="rounded-sm max-h-14" loading={'lazy'} quality={10} format={'webp'} /></a>}
                   <a href={getTournamentUrl(t.t.data)} class={`hover:underline ${t.hostClass}`}>{t.t.data.season ?? t.t.data.edition}</a>
                 </td>
                 <td colspan="12" class="py-2">Didn't qualify</td>
@@ -190,7 +191,7 @@ const displayed = onlyParticipated ? tournamentsData.filter((t) => t.didParticip
             return (
               <tr class={`border-b ${rowBorder} italic bg-surface-raised/20 text-primary-light`}>
                 <td class="px-2 py-2 flex flex-col items-center gap-1 justify-center">
-                  {t.host && <a href={`/members/${t.host.id}`} class="flex-shrink-0"><Image src={t.host.data.flagPath} alt={t.host.data.name} height={20} class="rounded-sm max-h-14" loading={'lazy'} quality={10} format={'webp'} /></a>}
+                  {t.host && <a href={ROUTES.members.detail(t.host.id)} class="flex-shrink-0"><Image src={t.host.data.flagPath} alt={t.host.data.name} height={20} class="rounded-sm max-h-14" loading={'lazy'} quality={10} format={'webp'} /></a>}
                   <a href={getTournamentUrl(t.t.data)} class={`hover:underline ${t.hostClass}`}>{t.t.data.season ?? t.t.data.edition}</a>
                 </td>
                 <td colspan="12" class="py-2">
@@ -203,7 +204,7 @@ const displayed = onlyParticipated ? tournamentsData.filter((t) => t.didParticip
           return (
             <tr class={`border-b ${rowBorder} hover:bg-surface-raised/20`}>
               <td class={`px-2 py-2 flex flex-col items-center gap-1 justify-center ${t.hostClass}`}>
-                {t.host && <a href={`/members/${t.host.id}`} class="flex-shrink-0"><Image src={t.host.data.flagPath} alt={t.host.data.name} height={20} class="rounded-sm max-h-14" quality={10} format={'webp'} /></a>}
+                {t.host && <a href={ROUTES.members.detail(t.host.id)} class="flex-shrink-0"><Image src={t.host.data.flagPath} alt={t.host.data.name} height={20} class="rounded-sm max-h-14" quality={10} format={'webp'} /></a>}
                 <a href={getTournamentUrl(t.t.data)} class={`hover:underline`}>{t.t.data.season ?? t.t.data.edition}</a>
               </td>
               <td class={`px-2 py-2 ${t.resultClass}`}>{t.resultLabel}</td>
@@ -232,8 +233,8 @@ const displayed = onlyParticipated ? tournamentsData.filter((t) => t.didParticip
             return (
               <tr class={`border-b ${rowBorder} italic bg-red-900/10 text-red-300`}>
                 <td class={`px-2 py-2 flex flex-col items-center gap-1 justify-center`}>
-                  {host && <a href={`/members/${host.id}`} class="flex-shrink-0"><Image src={host.data.flagPath} alt={host.data.name} height={20} class="rounded-sm max-h-14" loading={'lazy'} quality={10} format={'webp'} /></a>}
-                  <a href={`/${type}/${t.data.edition}`} class={`hover:underline ${hostClass}`}>{t.data.edition}</a>
+                  {host && <a href={ROUTES.members.detail(host.id)} class="flex-shrink-0"><Image src={host.data.flagPath} alt={host.data.name} height={20} class="rounded-sm max-h-14" loading={'lazy'} quality={10} format={'webp'} /></a>}
+                  <a href={getTournamentUrl(t.data)} class={`hover:underline ${hostClass}`}>{t.data.edition}</a>
                 </td>
                 <td colspan="12" class="py-2">
                   Didn't participate
@@ -244,8 +245,8 @@ const displayed = onlyParticipated ? tournamentsData.filter((t) => t.didParticip
             return (
               <tr class={`border-b ${rowBorder} italic bg-blue-800/10 text-primary-light`}>
                 <td class="px-2 py-2 flex flex-col items-center gap-1 justify-center">
-                  {host && <a href={`/members/${host.id}`} class="flex-shrink-0"><Image src={host.data.flagPath} alt={host.data.name} height={20} class="rounded-sm max-h-14" loading={'lazy'} quality={10} format={'webp'} /></a>}
-                  <a href={`/${type}/${t.data.edition}`} class={`hover:underline ${hostClass}`}>{t.data.edition}</a>
+                  {host && <a href={ROUTES.members.detail(host.id)} class="flex-shrink-0"><Image src={host.data.flagPath} alt={host.data.name} height={20} class="rounded-sm max-h-14" loading={'lazy'} quality={10} format={'webp'} /></a>}
+                  <a href={getTournamentUrl(t.data)} class={`hover:underline ${hostClass}`}>{t.data.edition}</a>
                 </td>
                 <td colspan="12" class="py-2">
                   {didParticipate ? "Qualified" : "To be determined"}
@@ -263,8 +264,8 @@ const displayed = onlyParticipated ? tournamentsData.filter((t) => t.didParticip
           return (
             <tr class={`border-b ${rowBorder} hover:bg-surface-raised/20`}>
               <td class={`px-2 py-2 flex flex-col items-center gap-1 justify-center ${hostClass}`}>
-                {host && <a href={`/members/${host.id}`} class="flex-shrink-0"><Image src={host.data.flagPath} alt={host.data.name} height={20} class="rounded-sm max-h-14" quality={10} format={'webp'} /></a>}
-                <a href={`/${type}/${t.data.edition}`} class={`hover:underline`}>{t.data.edition}</a>
+                {host && <a href={ROUTES.members.detail(host.id)} class="flex-shrink-0"><Image src={host.data.flagPath} alt={host.data.name} height={20} class="rounded-sm max-h-14" quality={10} format={'webp'} /></a>}
+                <a href={getTournamentUrl(t.data)} class={`hover:underline`}>{t.data.edition}</a>
               </td>
               <td class={`px-2 py-2 ${resultClass}`}>{getTeamFinalResultInTournament(t.data.id)}</td> {/* Placeholder para resultado final */}
               <td class="px-2 py-2 font-black">{position}°</td> {/* Placeholder para posición */}

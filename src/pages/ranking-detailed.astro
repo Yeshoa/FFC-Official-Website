@@ -5,6 +5,7 @@ import { CURRENT_SEASON } from '@config/season';
 import { getRankedMembers, getRankClass } from '@lib/rankingUtils';
 import { getTotalColorClass } from '@lib/scoreUtils';
 import { Image } from 'astro:assets';
+import { ROUTES } from '@config/routes';
 
 const members = await getMembers();
 const tournaments = await getTournaments();
@@ -115,7 +116,7 @@ const colWidth = "min-w-[40px] xl:min-w-[56px]";
                 <!-- Team -->
                 <td class="min-w-[80px] xl:min-w-[140px] py-2 xl:py-3 text-left sticky left-16 xl:left-20 z-10 bg-surface px-2 whitespace-nowrap">
                   <a
-                    href={`/members/${team.slug}`}
+                    href={ROUTES.members.detail(team.slug)}
                     class="font-semibold hover:underline text-white text-xs xl:text-sm"
                     title={team.name}
                   >

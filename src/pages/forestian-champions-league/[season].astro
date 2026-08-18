@@ -7,6 +7,11 @@ import CLSeasonHero from '@components/champions-league/CLSeasonHero.astro';
 import CLStandings from '@components/champions-league/CLStandings.astro';
 import ScorersTable from '@components/tournaments/ScorersTable.astro';
 import MatchCardDetailed from '@components/matches/MatchCardDetailed.astro';
+import RelatedNews from '@components/articles/RelatedNews.astro';
+import { getArticles } from '@lib/collections';
+import { getArticlesByTags } from 'src/utils/articleUtils';
+
+const fclArticles = getArticlesByTags(await getArticles(), ['FCL', 'champions-league']);
 
 export async function getStaticPaths() {
   const tournaments = await getTournaments();
@@ -66,4 +71,8 @@ const status = data.championId === undefined || data.championId === null
       </section>
     </div>
   </main>
+
+  {fclArticles.length > 0 && (
+    <RelatedNews articles={fclArticles} max={4} />
+  )}
 </FCLayout>

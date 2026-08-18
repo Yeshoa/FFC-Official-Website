@@ -7,6 +7,7 @@ import Ranking from '@images/icons/ranking-star-solid.svg';
 import Members from '@images/icons/flag-solid.svg';
 import Cup from '@images/icons/trophy-solid.svg';
 import Join from '@images/icons/user-solid.svg';
+import FCLLogo from '@images/tournaments/FCL/FCL Logo.svg';
 import XMark from '@images/icons/circle-xmark-solid.svg';
 import Search from '@images/icons/magnifying-glass-solid.svg';
 import Newspaper from '@images/icons/newspaper-solid-full.svg';
@@ -34,10 +35,10 @@ const NAV_LINKS = {
   },
   championsLeague: {
     href: ROUTES.championsLeague.index,
-    label: 'Go to FCL',
-    shortLabel: 'FCL',
-    icon: Cup,
-    iconWidth: 20,
+    label: 'FCL',
+    icon: FCLLogo,
+    iconWidth: 22,
+    logo: true,
     enabled: FEATURES.championsLeague
   },
   members: {
@@ -94,6 +95,7 @@ interface NavLink {
   enabled?: boolean;
   external?: boolean;
   special?: boolean;
+  logo?: boolean;
 }
 
 const getLinkClasses = (link: NavLink, isActive: boolean) => {
@@ -106,6 +108,9 @@ const getLinkClasses = (link: NavLink, isActive: boolean) => {
 const getIconClasses = (link: NavLink, isActive: boolean) => {
   if (link.special) {
     return "fill-background group-hover:fill-white";
+  }
+  if (link.logo) {
+    return `${isActive ? "text-primary" : "text-white group-hover:text-primary-light"} h-auto`;
   }
   return `${isActive ? "fill-primary" : "fill-white group-hover:fill-primary-light"}`;
 };
@@ -231,7 +236,7 @@ const getIconClasses = (link: NavLink, isActive: boolean) => {
 
       <!-- Logo -->
       <div class="flex justify-center md:justify-end">
-        <a href="https://www.nationstates.net/page=dispatch/id=2525675" target="_blank" class="flex items-center">
+        <a href={LINKS.nationStates.dispatch} target="_blank" class="flex items-center">
           <Image 
             src={FooterImage} 
             width={300} 

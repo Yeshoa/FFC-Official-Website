@@ -2,6 +2,7 @@
 import App from '@layouts/App.astro';
 import { Image } from 'astro:assets';
 import FCLogo from '@images/Footer.png';
+import { ROUTES } from '@config/routes';
 ---
 
 <App title="FFC - Donation Cancelled">
@@ -27,7 +28,7 @@ import FCLogo from '@images/Footer.png';
         It looks like you cancelled your donation. No worries! If you change your mind, you can try again anytime.
       </p>
       <a
-        href="/"
+        href={ROUTES.home}
         class="inline-block px-6 py-3 bg-primary hover:bg-primary-dark text-white font-semibold rounded-lg shadow-lg transition-all duration-300"
       >
         Back to Home

@@ -96,7 +96,7 @@ const stadiumHref = "#";
         )}
         <a 
           class={`mt-2 font-medium md:text-lg hover:underline ${winner === match.team1 ? 'text-yellow-300 font-bold' : 'text-white'}`} 
-          href={team1 !== "-" ? `/members/${team1?.id}` : '#'}
+          href={team1 !== "-" ? ROUTES.members.detail(team1!.id) : '#'}
         >
           {match.team1}
         </a>
@@ -145,7 +145,7 @@ const stadiumHref = "#";
         )}
         <a 
           class={`mt-2 font-medium md:text-lg hover:underline ${winner === match.team2 ? 'text-yellow-300 font-bold' : 'text-white'}`} 
-          href={team2 !== "-" ? `/members/${team2?.id}` : '#'}
+          href={team2 !== "-" ? ROUTES.members.detail(team2!.id) : '#'}
         >
           {match.team2}
         </a>

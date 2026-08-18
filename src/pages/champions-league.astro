@@ -1,4 +1,5 @@
 ---
 // Ruta legacy del placeholder "Coming soon": redirige a la home real de la sección CL.
-return Astro.redirect('/forestian-champions-league/');
+import { ROUTES } from '@config/routes';
+return Astro.redirect(ROUTES.championsLeague.index);
 ---

@@ -2,6 +2,7 @@
 import type { ImageMetadata } from 'astro';
 import { Image } from 'astro:assets';
 import StarsDisplay from '@components/ui/StarsDisplay.astro';
+import { ROUTES } from '@config/routes';
 
 import DefaultLogo from '@images/members/default_logo.png';
 
@@ -17,7 +18,7 @@ if (!flagPath) flagPath = DefaultLogo;
 
 const loading = index < 24 ? "eager" : "lazy";
 ---
-<a href={`/members/${slug}`} class="flex flex-col p-4 border gap-4 ring-0 hover:ring-2 hover:ring-primary-light transition-all duration-300 border-primary-deep items-center rounded-4xl">
+<a href={ROUTES.members.detail(slug)} class="flex flex-col p-4 border gap-4 ring-0 hover:ring-2 hover:ring-primary-light transition-all duration-300 border-primary-deep items-center rounded-4xl">
   <div class="flex h-full items-center">
     {logoPath && <Image src={logoPath} class={logoClass} alt={name} 
       width={220} quality={60} format='webp' loading={loading}/>} 

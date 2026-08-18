@@ -4,21 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "192e29b6cc8c704b",
+        "id": "b6154931a4a8cae3",
         "type": "tabs",
         "children": [
           {
-            "id": "2f55b78624f47928",
+            "id": "0532a070385ece57",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Plan del usuario/08 - Migración de jugadores y otros cambios.md",
+                "file": "Simulador/01 - Idea realizada por un agente.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "08 - Migración de jugadores y otros cambios"
+              "title": "01 - Idea realizada por un agente"
             }
           }
         ]
@@ -188,13 +188,19 @@
       "bases:Crear nueva base": false
     }
   },
-  "active": "2f55b78624f47928",
+  "active": "0532a070385ece57",
   "lastOpenFiles": [
-    "11-migracion-jugadores-pes.md",
+    "Simulador/Simulador - Idea.md",
+    "Simulador/01 - Idea realizada por un agente.md",
     "Simulador/00-simulador.md",
-    "Plan del usuario/08 - Migración de jugadores y otros cambios.md",
-    "Plan del usuario/06 - Market.md",
+    "Plan del usuario/09 - Sección champions league.md",
     "08-plan-implementacion.md",
+    "Plan del usuario/02 - Segunda actualización.md",
+    "README.md",
+    "05-champions-league.md",
+    "Plan del usuario/08 - Migración de jugadores y otros cambios.md",
+    "11-migracion-jugadores-pes.md",
+    "Plan del usuario/06 - Market.md",
     "Forestian Champions League — Formato y reglas base.md",
     "07-consistencia.md",
     "02-modelo-datos.md",
@@ -204,19 +210,13 @@
     "10-carga-de-goles.md",
     "Plan del usuario/04 - Sobre como generar eventos.md",
     "Plan del usuario/03 - Nuevas Notas.md",
-    "Plan del usuario/02 - Segunda actualización.md",
-    "README.md",
     "Plan del usuario/01 - Actualización.md",
     "Plan del usuario/00 - Plan inicial.md",
     "06-partidos.md",
-    "05-champions-league.md",
     "04-logros.md",
     "03-ranking.md",
     "01-estado-actual.md",
-    "Simulador/Simulador - Idea.md",
     "Simulador",
-    "Plan del usuario/02 - Sobre los logros.md",
-    "Plan del usuario",
-    "Bienvenido.md"
+    "Plan del usuario"
   ]
 }

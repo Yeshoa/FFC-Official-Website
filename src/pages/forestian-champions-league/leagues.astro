@@ -11,6 +11,9 @@ import { getRankedLeagues } from '@lib/leagueRankingUtils';
 import { resolveImage } from '@utils/imageAssets';
 import DefaultLeagueLogo from '@images/leagues/default.png';
 import { ROUTES } from '@config/routes';
+import RelatedNews from '@components/articles/RelatedNews.astro';
+import { getArticles } from '@lib/collections';
+import { getArticlesByTags } from 'src/utils/articleUtils';
 
 const allLeagues = getAllLeagues();
 const federationIds = [...new Set(allLeagues.map((l) => l.federationId))].sort((a, b) => a - b);
@@ -21,6 +24,8 @@ const firstDivisions = federationIds
 
 const ranked = getRankedLeagues(firstDivisions);
 const hasScores = ranked.some((r) => r.score.total > 0);
+
+const fclArticles = getArticlesByTags(await getArticles(), ['FCL', 'champions-league']);
 ---
 
 <FCLayout title="FFC - Champions League Leagues">
@@ -63,7 +68,7 @@ const hasScores = ranked.some((r) => r.score.total > 0);
                       loading="lazy"
                       quality={70}
                       format="webp"
-                      class="w-16 h-16 object-contain opacity-70"
+                      class="w-16 h-16 object-contain opacity-30"
                     />
                   )}
                   <div class="min-w-0 flex-1">
@@ -116,7 +121,7 @@ const hasScores = ranked.some((r) => r.score.total > 0);
                               loading="lazy"
                               quality={60}
                               format="webp"
-                              class="w-6 h-6 object-contain opacity-70"
+                              class="w-6 h-6 object-contain opacity-30"
                             />
                           )}
                           <div class="min-w-0 flex-1">
@@ -151,4 +156,8 @@ const hasScores = ranked.some((r) => r.score.total > 0);
       )}
     </div>
   </main>
+
+  {fclArticles.length > 0 && (
+    <RelatedNews articles={fclArticles} max={4} />
+  )}
 </FCLayout>

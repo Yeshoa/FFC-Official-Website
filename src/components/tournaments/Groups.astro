@@ -4,6 +4,7 @@ import { type CollectionEntry } from 'astro:content';
 import MatchCard from '@components/matches/MatchCard.astro';
 import MatchCardDetailed from '@components/matches/MatchCardDetailed.astro';
 import { getMemberByName } from 'src/utils/memberUtils';
+import { ROUTES } from '@config/routes';
 import defaultFlag from '@images/tournaments/default-flag.png';
 
 // Props:
@@ -177,7 +178,7 @@ const groupTables = await Promise.all(
                       format="webp"
                     />
                     <a
-                      href={team.teamObject.slug ? `/members/${team.teamObject.slug}` : '#'}
+                      href={team.teamObject.slug ? ROUTES.members.detail(team.teamObject.slug) : '#'}
                       class="hover:underline"
                     >
                       {team.team}

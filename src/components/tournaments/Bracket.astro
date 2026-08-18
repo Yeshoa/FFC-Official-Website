@@ -5,6 +5,7 @@ import MatchCardCompact from '@components/matches/MatchCardCompact.astro';
 import trophy from '@images/tournaments/trophy.png';
 import { getMemberByName } from 'src/utils/memberUtils';
 import { getMatchWinner } from 'src/utils/matchUtils';
+import { ROUTES } from '@config/routes';
 import type { CollectionEntry } from 'astro:content';
 
 type Match = CollectionEntry<'matches'>;
@@ -73,7 +74,7 @@ const winnerTeam = getMemberByName(getMatchWinner(finalMatch.data), members) || 
             ) : (
               <div class="w-20 h-20 bg-gray-600 rounded-lg" />
             )}
-            <a href={`/members/${winnerTeam?.id}`} class="hover:underline">{winnerTeam?.data.name}</a>
+            <a href={ROUTES.members.detail(winnerTeam!.id)} class="hover:underline">{winnerTeam?.data.name}</a>
             <Image src={trophy} alt="Trophy" class="w-auto h-20" quality={1} format="webp" />
           </div>
           <BracketMatchCard match={finalMatch} members={members} />

@@ -11,6 +11,11 @@ import { getMarketablePlayers } from '@data/market';
 import { resolveImage } from '@utils/imageAssets';
 import type { MarketClub, MarketPlayer, FederationGroup, MarketNationality } from '@ty/market';
 import type { ImageMetadata } from 'astro';
+import RelatedNews from '@components/articles/RelatedNews.astro';
+import { getArticles } from '@lib/collections';
+import { getArticlesByTags } from 'src/utils/articleUtils';
+
+const fclArticles = getArticlesByTags(await getArticles(), ['FCL', 'champions-league']);
 
 // Season = última Champions League (fallback 2027).
 const clTournaments = (await getTournaments())
@@ -122,4 +127,8 @@ nationalities.sort((a, b) => a.name.localeCompare(b.name));
       />
     </div>
   </main>
+
+  {fclArticles.length > 0 && (
+    <RelatedNews articles={fclArticles} max={4} />
+  )}
 </FCLayout>

@@ -12,6 +12,9 @@ import DomesticLeagueTable from '@components/members/DomesticLeagueTable.astro';
 import StarIcon from '@images/icons/star-solid.svg';
 import { ROUTES } from '@config/routes';
 import { LINKS } from '@config/links';
+import RelatedNews from '@components/articles/RelatedNews.astro';
+import { getArticles } from '@lib/collections';
+import { getArticlesByTags } from 'src/utils/articleUtils';
 import Image from 'astro/components/Image.astro';
 
 export async function getStaticPaths() {
@@ -41,6 +44,7 @@ const rows = history.map((h) => {
 rows.reverse();
 
 const clubName = (id?: number) => (id != null ? (getClubById(id)?.name ?? `#${id}`) : '—');
+const fclArticles = getArticlesByTags(await getArticles(), ['FCL', 'champions-league']);
 ---
 
 <FCLayout title={`FFC - ${league.name}`}>
@@ -173,4 +177,8 @@ const clubName = (id?: number) => (id != null ? (getClubById(id)?.name ?? `#${id
       </div>
     </div>
   </main>
+
+  {fclArticles.length > 0 && (
+    <RelatedNews articles={fclArticles} max={4} />
+  )}
 </FCLayout>
