@@ -5,7 +5,10 @@
   "federationId": 1,
   "season": 2026,
   "logoPath": "/src/assets/images/leagues/bilsa/division-1.png",
+  "promotionPositions": [],
   "relegationPositions": [
+    18,
+    19,
     20
   ],
   "championsLeaguePositions": [

@@ -253,7 +253,7 @@ Cargar un gol pide el `playerId` y hay que buscarlo a mano. No se puede resolver
 - Las **tablas de liga se hardcodean en JSON** (sin calcularse): `src/data/leagues/leagues.json` → **array de ligas**.
 - Cada liga pertenece a una federación (`federationId`), tiene **`division`** (una federación puede tener varias divisiones) y su **`season`**.
 - Los clubes se referencian por **`clubId`** (id global, NO por code: el code es visual y puede repetirse).
-- Campos de zonas: **`relegationPositions: number[]`** (posiciones que descienden) y **`championsLeaguePositions: number[]`** (posiciones que clasifican a la Champions League). En la tabla, las filas de descenso se muestran en **tono rojo**, las de clasificación a CL en **tono verde/brilloso**, con **leyenda**.
+- Campos de zonas: **`promotionPositions: number[]`** (posiciones que ascienden), **`relegationPositions: number[]`** (posiciones que descienden) y **`championsLeaguePositions: number[]`** (posiciones que clasifican a la Champions League). Los tres campos son obligatorios y deben ser `[]` cuando la zona no aplique. En la tabla, las filas de ascenso se muestran en verde, las de descenso en rojo y las de clasificación a CL en verde/brilloso, con **leyenda**.
 - Getters en `@data/leagues`: `getFirstDivision(federationId)`, `getLeaguesByFederation(federationId)`, `getLeagueForClub(clubId)`.
 
 ```json
@@ -263,6 +263,7 @@ Cargar un gol pide el `playerId` y hay que buscarlo a mano. No se puede resolver
   "division": 1,
   "federationId": 1,
   "season": 2026,
+  "promotionPositions": [],
   "relegationPositions": [17, 18],
   "championsLeaguePositions": [1, 2, 3, 4],
   "standings": [

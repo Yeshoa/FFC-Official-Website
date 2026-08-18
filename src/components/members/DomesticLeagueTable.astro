@@ -22,8 +22,9 @@ const { league, theme = 'ffc', compact = false, highlightClubId, showSeeLeague =
 const leagueLogo = resolveImage(league.logoPath);
 
 const isClZone = (pos: number) => league.championsLeaguePositions.includes(pos);
+const isPromotion = (pos: number) => league.promotionPositions.includes(pos);
 const isRelegation = (pos: number) => league.relegationPositions.includes(pos);
-const hasZones = league.relegationPositions.length > 0 || league.championsLeaguePositions.length > 0;
+const hasZones = league.promotionPositions.length > 0 || league.relegationPositions.length > 0 || league.championsLeaguePositions.length > 0;
 
 const isFcl = theme === 'fcl';
 const headClass = isFcl ? 'bg-cl-lime/15 text-cl-lime' : 'bg-primary-deep text-white';
@@ -78,6 +79,12 @@ const headPad = compact ? 'px-2 py-1.5' : 'px-2 py-2';
           Champions League qualification
         </span>
       )}
+      {league.promotionPositions.length > 0 && (
+        <span class="inline-flex items-center gap-1.5">
+          <span class="w-3 h-3 rounded-sm bg-green-500/70"></span>
+          Promotion
+        </span>
+      )}
       {league.relegationPositions.length > 0 && (
         <span class="inline-flex items-center gap-1.5">
           <span class="w-3 h-3 rounded-sm bg-red-500/70"></span>
@@ -112,7 +119,9 @@ const headPad = compact ? 'px-2 py-1.5' : 'px-2 py-2';
             ? 'bg-emerald-500/10'
             : !isSelf && isRelegation(row.position)
               ? 'bg-red-500/10'
-              : '';
+              : !isSelf && isPromotion(row.position)
+                ? 'bg-green-500/10'
+                : '';
           const selfClass = isSelf
             ? isFcl
               ? 'bg-cl-lime/15 font-semibold'

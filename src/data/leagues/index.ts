@@ -43,6 +43,7 @@ export interface League {
   federationId: number; // id global de la federación (fuente de verdad)
   season: number;
   logoPath?: string; // logo de la división (escudo de la liga)
+  promotionPositions: number[]; // posiciones que suben (tono verde)
   relegationPositions: number[]; // posiciones que descienden (tono rojo)
   championsLeaguePositions: number[]; // posiciones que clasifican a la CL (tono verde)
   standings: LeagueStandingRow[];
